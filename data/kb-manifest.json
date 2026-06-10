@@ -1,0 +1,754 @@
+{
+ "generated_at": "2026-06-10T11:42:00.784Z",
+ "excludeClusters": [
+  "0404 AI PM 求职与职业发展",
+  "0409 待解问题"
+ ],
+ "notes": [
+  {
+   "path": "0400 AI PM 知识图谱/AI 知识图谱.md",
+   "publish": true,
+   "links": 78
+  },
+  {
+   "path": "0400 AI PM 知识图谱/AI PM 知识图谱·总索引.md",
+   "publish": true,
+   "links": 80
+  },
+  {
+   "path": "0400 AI PM 知识图谱/purpose.md",
+   "publish": true,
+   "links": 0
+  },
+  {
+   "path": "0401AI 基础知识库/0框架.md",
+   "publish": true,
+   "links": 4
+  },
+  {
+   "path": "0401AI 基础知识库/多模型分层.md",
+   "publish": true,
+   "links": 15
+  },
+  {
+   "path": "0401AI 基础知识库/概率论·DL视角学习路径.md",
+   "publish": true,
+   "links": 5
+  },
+  {
+   "path": "0401AI 基础知识库/合成数据.md",
+   "publish": true,
+   "links": 10
+  },
+  {
+   "path": "0401AI 基础知识库/幻觉.md",
+   "publish": true,
+   "links": 3
+  },
+  {
+   "path": "0401AI 基础知识库/量化.md",
+   "publish": true,
+   "links": 3
+  },
+  {
+   "path": "0401AI 基础知识库/模块 0 拓展材料｜  AI 技术底层逻辑 · 扩展阅读与学习资料索引.md",
+   "publish": true,
+   "links": 3
+  },
+  {
+   "path": "0401AI 基础知识库/模块 0：AI 技术底层逻辑与模型范式解析.md",
+   "publish": true,
+   "links": 8
+  },
+  {
+   "path": "0401AI 基础知识库/强化学习.md",
+   "publish": true,
+   "links": 10
+  },
+  {
+   "path": "0401AI 基础知识库/群体智力作为语言幻觉与 LLM 涌现.md",
+   "publish": true,
+   "links": 0
+  },
+  {
+   "path": "0401AI 基础知识库/拓展：多模态统一 Tokenizer 空间.md",
+   "publish": true,
+   "links": 0
+  },
+  {
+   "path": "0401AI 基础知识库/拓展：无 Tokenizer 路线.md",
+   "publish": true,
+   "links": 1
+  },
+  {
+   "path": "0401AI 基础知识库/问题：为什么词表数量必须是离散有限的？.md",
+   "publish": true,
+   "links": 0
+  },
+  {
+   "path": "0401AI 基础知识库/亚特兰大 70 数据辨析与 AI 幻觉应对.md",
+   "publish": true,
+   "links": 4
+  },
+  {
+   "path": "0401AI 基础知识库/隐空间与 RAG 的概念偷换辨析.md",
+   "publish": true,
+   "links": 4
+  },
+  {
+   "path": "0401AI 基础知识库/预训练.md",
+   "publish": true,
+   "links": 10
+  },
+  {
+   "path": "0401AI 基础知识库/灾难性遗忘.md",
+   "publish": true,
+   "links": 8
+  },
+  {
+   "path": "0401AI 基础知识库/自回归生成.md",
+   "publish": true,
+   "links": 8
+  },
+  {
+   "path": "0401AI 基础知识库/Agent.md",
+   "publish": true,
+   "links": 15
+  },
+  {
+   "path": "0401AI 基础知识库/AGI.md",
+   "publish": true,
+   "links": 5
+  },
+  {
+   "path": "0401AI 基础知识库/AI 记忆过拟合与泛化能力.md",
+   "publish": true,
+   "links": 3
+  },
+  {
+   "path": "0401AI 基础知识库/AI概念滥用反思.md",
+   "publish": true,
+   "links": 0
+  },
+  {
+   "path": "0401AI 基础知识库/AI技术底层逻辑 v2 - 扩展阅读索引.md",
+   "publish": true,
+   "links": 4
+  },
+  {
+   "path": "0401AI 基础知识库/AI技术底层逻辑 v2 - 索引.md",
+   "publish": true,
+   "links": 38
+  },
+  {
+   "path": "0401AI 基础知识库/Attention.md",
+   "publish": true,
+   "links": 4
+  },
+  {
+   "path": "0401AI 基础知识库/BPE 分词 - 离散与连续的边界辨析.md",
+   "publish": true,
+   "links": 5
+  },
+  {
+   "path": "0401AI 基础知识库/c01 - 认知重构：从确定性系统到概率系统.md",
+   "publish": true,
+   "links": 5
+  },
+  {
+   "path": "0401AI 基础知识库/c02 - Tokenization 与词表工程.md",
+   "publish": true,
+   "links": 4
+  },
+  {
+   "path": "0401AI 基础知识库/c03 - Transformer 核心机制与注意力变体.md",
+   "publish": true,
+   "links": 6
+  },
+  {
+   "path": "0401AI 基础知识库/c04 - 模型训练全阶段 Pipeline.md",
+   "publish": true,
+   "links": 12
+  },
+  {
+   "path": "0401AI 基础知识库/c05 - 算力物理定律与 KV Cache.md",
+   "publish": true,
+   "links": 8
+  },
+  {
+   "path": "0401AI 基础知识库/c06 - 架构演进：Dense MoE SSM Hybrid.md",
+   "publish": true,
+   "links": 8
+  },
+  {
+   "path": "0401AI 基础知识库/c07 - 量化 Quantization 与端侧部署.md",
+   "publish": true,
+   "links": 7
+  },
+  {
+   "path": "0401AI 基础知识库/c08 - 解码策略与生成控制.md",
+   "publish": true,
+   "links": 9
+  },
+  {
+   "path": "0401AI 基础知识库/c09 - RAG 架构.md",
+   "publish": true,
+   "links": 8
+  },
+  {
+   "path": "0401AI 基础知识库/c10 - Agent 技术栈与工具调用.md",
+   "publish": true,
+   "links": 13
+  },
+  {
+   "path": "0401AI 基础知识库/c11 - System 2 思维与 Test-Time Compute.md",
+   "publish": true,
+   "links": 11
+  },
+  {
+   "path": "0401AI 基础知识库/c12 - 多模态融合与具身智能.md",
+   "publish": true,
+   "links": 7
+  },
+  {
+   "path": "0401AI 基础知识库/c13 - 幻觉的不可消除性.md",
+   "publish": true,
+   "links": 8
+  },
+  {
+   "path": "0401AI 基础知识库/c14 - 模型评估体系与 Goodhart 陷阱.md",
+   "publish": true,
+   "links": 8
+  },
+  {
+   "path": "0401AI 基础知识库/c15 - 数据墙与后训练霸权.md",
+   "publish": true,
+   "links": 7
+  },
+  {
+   "path": "0401AI 基础知识库/Cohen Kappa 系数.md",
+   "publish": true,
+   "links": 1
+  },
+  {
+   "path": "0401AI 基础知识库/Constitutional AI.md",
+   "publish": true,
+   "links": 11
+  },
+  {
+   "path": "0401AI 基础知识库/Embedding 维度的确定逻辑.md",
+   "publish": true,
+   "links": 5
+  },
+  {
+   "path": "0401AI 基础知识库/Embedding.md",
+   "publish": true,
+   "links": 7
+  },
+  {
+   "path": "0401AI 基础知识库/Function Calling.md",
+   "publish": true,
+   "links": 7
+  },
+  {
+   "path": "0401AI 基础知识库/Harness词义辨析.md",
+   "publish": true,
+   "links": 4
+  },
+  {
+   "path": "0401AI 基础知识库/KV Cache.md",
+   "publish": true,
+   "links": 3
+  },
+  {
+   "path": "0401AI 基础知识库/LLM 随机性与种子机制.md",
+   "publish": true,
+   "links": 4
+  },
+  {
+   "path": "0401AI 基础知识库/LLM 训练全流程框架.md",
+   "publish": true,
+   "links": 9
+  },
+  {
+   "path": "0401AI 基础知识库/LLM repetition loop.md",
+   "publish": true,
+   "links": 2
+  },
+  {
+   "path": "0401AI 基础知识库/LoRA.md",
+   "publish": true,
+   "links": 8
+  },
+  {
+   "path": "0401AI 基础知识库/MoE.md",
+   "publish": true,
+   "links": 5
+  },
+  {
+   "path": "0401AI 基础知识库/Polanyi 默会知识与提示工程的认识论张力.md",
+   "publish": true,
+   "links": 1
+  },
+  {
+   "path": "0401AI 基础知识库/Prompt Caching.md",
+   "publish": true,
+   "links": 11
+  },
+  {
+   "path": "0401AI 基础知识库/RAG.md",
+   "publish": true,
+   "links": 10
+  },
+  {
+   "path": "0401AI 基础知识库/RLHF.md",
+   "publish": true,
+   "links": 10
+  },
+  {
+   "path": "0401AI 基础知识库/Scaling Laws.md",
+   "publish": true,
+   "links": 7
+  },
+  {
+   "path": "0401AI 基础知识库/SFT.md",
+   "publish": true,
+   "links": 10
+  },
+  {
+   "path": "0401AI 基础知识库/Softmax.md",
+   "publish": true,
+   "links": 10
+  },
+  {
+   "path": "0401AI 基础知识库/Test-Time Compute.md",
+   "publish": true,
+   "links": 2
+  },
+  {
+   "path": "0401AI 基础知识库/Tokenization.md",
+   "publish": true,
+   "links": 11
+  },
+  {
+   "path": "0401AI 基础知识库/Transformer 简洁性的后见偏差.md",
+   "publish": true,
+   "links": 3
+  },
+  {
+   "path": "0401AI 基础知识库/Transformer 注意力机制四问.md",
+   "publish": true,
+   "links": 3
+  },
+  {
+   "path": "0402AI 工程化与落地架构/0框架-模块二.md",
+   "publish": true,
+   "links": 10
+  },
+  {
+   "path": "0402AI 工程化与落地架构/m201 - Prompt Engineering 实战体系.md",
+   "publish": true,
+   "links": 17
+  },
+  {
+   "path": "0402AI 工程化与落地架构/m202 - 工程选型决策矩阵.md",
+   "publish": true,
+   "links": 18
+  },
+  {
+   "path": "0402AI 工程化与落地架构/m203 - RAG 生产环境：Embedding 与文档解析.md",
+   "publish": true,
+   "links": 10
+  },
+  {
+   "path": "0402AI 工程化与落地架构/m204 - RAG 生产环境：Chunking 与范式演进.md",
+   "publish": true,
+   "links": 10
+  },
+  {
+   "path": "0402AI 工程化与落地架构/m205 - RAG 生产环境：索引运维与评估体系.md",
+   "publish": true,
+   "links": 7
+  },
+  {
+   "path": "0402AI 工程化与落地架构/m206 - Agent 产品化：记忆机制与技术进展.md",
+   "publish": true,
+   "links": 20
+  },
+  {
+   "path": "0402AI 工程化与落地架构/m207 - Agent 产品化：场景推演与失败模式.md",
+   "publish": true,
+   "links": 14
+  },
+  {
+   "path": "0402AI 工程化与落地架构/m208 - AI 基础设施与中间件选型.md",
+   "publish": true,
+   "links": 15
+  },
+  {
+   "path": "0402AI 工程化与落地架构/m209 - 推理成本控制手册.md",
+   "publish": true,
+   "links": 20
+  },
+  {
+   "path": "0402AI 工程化与落地架构/m210 - 数据工程流实操.md",
+   "publish": true,
+   "links": 31
+  },
+  {
+   "path": "0403AI 产品设计与交互范式/0框架-模块三.md",
+   "publish": true,
+   "links": 10
+  },
+  {
+   "path": "0403AI 产品设计与交互范式/p301 - 交互范式跃迁与对话框局限.md",
+   "publish": true,
+   "links": 10
+  },
+  {
+   "path": "0403AI 产品设计与交互范式/p302 - 七种 AI 交互设计模式.md",
+   "publish": true,
+   "links": 15
+  },
+  {
+   "path": "0403AI 产品设计与交互范式/p303 - 克服空白画布综合症.md",
+   "publish": true,
+   "links": 9
+  },
+  {
+   "path": "0403AI 产品设计与交互范式/p304 - 防御性 UX：对抗延迟与幻觉.md",
+   "publish": true,
+   "links": 16
+  },
+  {
+   "path": "0403AI 产品设计与交互范式/p305 - 信任架构与可解释性设计.md",
+   "publish": true,
+   "links": 10
+  },
+  {
+   "path": "0403AI 产品设计与交互范式/p306 - 数据飞轮与反馈回路设计.md",
+   "publish": true,
+   "links": 9
+  },
+  {
+   "path": "0403AI 产品设计与交互范式/p307 - Copilot 到 Autopilot 光谱.md",
+   "publish": true,
+   "links": 11
+  },
+  {
+   "path": "0403AI 产品设计与交互范式/p308 - 多模态与脱离屏幕的交互.md",
+   "publish": true,
+   "links": 8
+  },
+  {
+   "path": "0403AI 产品设计与交互范式/p309 - 特殊品类交互设计要点.md",
+   "publish": true,
+   "links": 29
+  },
+  {
+   "path": "0404 AI PM 求职与职业发展/AI 产品代差观察与微博打磨.md",
+   "publish": false,
+   "links": 2
+  },
+  {
+   "path": "0404 AI PM 求职与职业发展/AI 产品经理面试问题分析.md",
+   "publish": false,
+   "links": 2
+  },
+  {
+   "path": "0404 AI PM 求职与职业发展/AI 产品组织问题论证质量拆解.md",
+   "publish": false,
+   "links": 2
+  },
+  {
+   "path": "0404 AI PM 求职与职业发展/AI 技术底层逻辑学习框架的评审与扩展.md",
+   "publish": false,
+   "links": 9
+  },
+  {
+   "path": "0404 AI PM 求职与职业发展/AI PM 岗位 JD 分析与面试问题反推.md",
+   "publish": false,
+   "links": 2
+  },
+  {
+   "path": "0404 AI PM 求职与职业发展/AI PM 学习路线的决策链组织法.md",
+   "publish": false,
+   "links": 4
+  },
+  {
+   "path": "0405AI 产品/博物馆 AI 导览 APP.md",
+   "publish": true,
+   "links": 1
+  },
+  {
+   "path": "0405AI 产品/旅行规划 Skill 套件系统设计.md",
+   "publish": true,
+   "links": 1
+  },
+  {
+   "path": "0405AI 产品/AI PM 知识图谱框架设计.md",
+   "publish": true,
+   "links": 5
+  },
+  {
+   "path": "0405AI 产品/Claude routines 调研与 memory allowlist 设计.md",
+   "publish": true,
+   "links": 1
+  },
+  {
+   "path": "0406 AI 协作方法论/AI 协作中的中文造词反馈.md",
+   "publish": true,
+   "links": 1
+  },
+  {
+   "path": "0406 AI 协作方法论/Claude 阅读非虚构 instruction 设计.md",
+   "publish": true,
+   "links": 2
+  },
+  {
+   "path": "0406 AI 协作方法论/Claude Project Instructions.md",
+   "publish": true,
+   "links": 2
+  },
+  {
+   "path": "0406 AI 协作方法论/intellectual-lens skill 设计.md",
+   "publish": true,
+   "links": 1
+  },
+  {
+   "path": "0406 AI 协作方法论/intellectual-lens skill 通过圣周案例的迭代.md",
+   "publish": true,
+   "links": 0
+  },
+  {
+   "path": "0406 AI 协作方法论/Skill 系统的本质.md",
+   "publish": true,
+   "links": 7
+  },
+  {
+   "path": "0408AI 工具/trip-structure skill.md",
+   "publish": true,
+   "links": 1
+  },
+  {
+   "path": "0409 待解问题/问题集.md",
+   "publish": false,
+   "links": 0
+  },
+  {
+   "path": "0409 待解问题/Agent 产品评估的五个具体问题.md",
+   "publish": false,
+   "links": 15
+  },
+  {
+   "path": "0410 AI 公司与产品/字节 TRAE 团队人物图谱.md",
+   "publish": true,
+   "links": 2
+  },
+  {
+   "path": "0410 AI 公司与产品/AI 公司政治敏感内容立场对比.md",
+   "publish": true,
+   "links": 2
+  },
+  {
+   "path": "0410 AI 公司与产品/AI 拟人化遮掩.md",
+   "publish": true,
+   "links": 2
+  },
+  {
+   "path": "0410 AI 公司与产品/Anthropic.md",
+   "publish": true,
+   "links": 18
+  },
+  {
+   "path": "0410 AI 公司与产品/ChatGPT.md",
+   "publish": true,
+   "links": 11
+  },
+  {
+   "path": "0410 AI 公司与产品/Claude Code.md",
+   "publish": true,
+   "links": 10
+  },
+  {
+   "path": "0410 AI 公司与产品/Claude Opus.md",
+   "publish": true,
+   "links": 13
+  },
+  {
+   "path": "0410 AI 公司与产品/Claude Sonnet.md",
+   "publish": true,
+   "links": 12
+  },
+  {
+   "path": "0410 AI 公司与产品/Claude.md",
+   "publish": true,
+   "links": 15
+  },
+  {
+   "path": "0410 AI 公司与产品/Codex.md",
+   "publish": true,
+   "links": 11
+  },
+  {
+   "path": "0410 AI 公司与产品/Computer Use.md",
+   "publish": true,
+   "links": 13
+  },
+  {
+   "path": "0410 AI 公司与产品/DALL-E.md",
+   "publish": true,
+   "links": 7
+  },
+  {
+   "path": "0410 AI 公司与产品/DeepSeek.md",
+   "publish": true,
+   "links": 12
+  },
+  {
+   "path": "0410 AI 公司与产品/Gemini.md",
+   "publish": true,
+   "links": 9
+  },
+  {
+   "path": "0410 AI 公司与产品/GPTs.md",
+   "publish": true,
+   "links": 9
+  },
+  {
+   "path": "0410 AI 公司与产品/Manus.md",
+   "publish": true,
+   "links": 16
+  },
+  {
+   "path": "0410 AI 公司与产品/Microsoft.md",
+   "publish": true,
+   "links": 6
+  },
+  {
+   "path": "0410 AI 公司与产品/OpenAI.md",
+   "publish": true,
+   "links": 15
+  },
+  {
+   "path": "0410 AI 公司与产品/Perplexity.md",
+   "publish": true,
+   "links": 15
+  },
+  {
+   "path": "0410 AI 公司与产品/Sora.md",
+   "publish": true,
+   "links": 10
+  },
+  {
+   "path": "0411 Agent 系统化专题/_Agent 系统化专题·总览.md",
+   "publish": true,
+   "links": 42
+  },
+  {
+   "path": "0411 Agent 系统化专题/01 概念辨析/A01 Agent 概念史与语义流变.md",
+   "publish": true,
+   "links": 14
+  },
+  {
+   "path": "0411 Agent 系统化专题/01 概念辨析/A02 抽象层级辨析·Harness Framework Agent Skill Orchestrator.md",
+   "publish": true,
+   "links": 13
+  },
+  {
+   "path": "0411 Agent 系统化专题/01 概念辨析/A03 ReAct.md",
+   "publish": true,
+   "links": 10
+  },
+  {
+   "path": "0411 Agent 系统化专题/01 概念辨析/A04 Reflexion.md",
+   "publish": true,
+   "links": 10
+  },
+  {
+   "path": "0411 Agent 系统化专题/01 概念辨析/A05 Plan-and-Execute.md",
+   "publish": true,
+   "links": 10
+  },
+  {
+   "path": "0411 Agent 系统化专题/01 概念辨析/A06 Orchestrator 编排器.md",
+   "publish": true,
+   "links": 13
+  },
+  {
+   "path": "0411 Agent 系统化专题/01 概念辨析/A07 Multi-Agent Teams.md",
+   "publish": true,
+   "links": 12
+  },
+  {
+   "path": "0411 Agent 系统化专题/01 概念辨析/A08 MCP 与 A2A 协议族.md",
+   "publish": true,
+   "links": 13
+  },
+  {
+   "path": "0411 Agent 系统化专题/01 概念辨析/Harness 词义辨析.md",
+   "publish": true,
+   "links": 0
+  },
+  {
+   "path": "0411 Agent 系统化专题/02 代际演化/G01 Agent 代际谱系总图.md",
+   "publish": true,
+   "links": 39
+  },
+  {
+   "path": "0411 Agent 系统化专题/02 代际演化/G02 五代演化详解·G1-G5.md",
+   "publish": true,
+   "links": 53
+  },
+  {
+   "path": "0411 Agent 系统化专题/03 架构剖面/S01 Agent 六层架构剖面.md",
+   "publish": true,
+   "links": 40
+  },
+  {
+   "path": "0411 Agent 系统化专题/03 架构剖面/S02 流派架构对照表.md",
+   "publish": true,
+   "links": 31
+  },
+  {
+   "path": "0411 Agent 系统化专题/03 架构剖面/S03 Harness Engineering 全景.md",
+   "publish": true,
+   "links": 39
+  },
+  {
+   "path": "0411 Agent 系统化专题/04 实例剖解/E01 Coding Agent·Claude Code & Cursor.md",
+   "publish": true,
+   "links": 21
+  },
+  {
+   "path": "0411 Agent 系统化专题/04 实例剖解/E02 通用 Agent·Manus & Devin.md",
+   "publish": true,
+   "links": 23
+  },
+  {
+   "path": "0411 Agent 系统化专题/04 实例剖解/E03 Multi-Agent 框架·AutoGen & CrewAI & DeerFlow.md",
+   "publish": true,
+   "links": 23
+  },
+  {
+   "path": "0411 Agent 系统化专题/05 复现指南/R01 最小可运行·100 行 ReAct.md",
+   "publish": true,
+   "links": 22
+  },
+  {
+   "path": "0411 Agent 系统化专题/05 复现指南/R02 中型生产·LangGraph + MCP.md",
+   "publish": true,
+   "links": 16
+  },
+  {
+   "path": "0411 Agent 系统化专题/05 复现指南/R03 Multi-Agent 模板·AutoGen CrewAI.md",
+   "publish": true,
+   "links": 14
+  },
+  {
+   "path": "0411 Agent 系统化专题/06 阅读指南/README·多视图阅读指南.md",
+   "publish": true,
+   "links": 33
+  }
+ ]
+}

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  每日自动同步数据到仓库（本地数据源只在这台 Mac 上，所以用 launchd 而非云端 cron）
+  安装：
+    cp scripts/com.ricksi.workbench-sync.plist ~/Library/LaunchAgents/
+    launchctl load ~/Library/LaunchAgents/com.ricksi.workbench-sync.plist
+  卸载：
+    launchctl unload ~/Library/LaunchAgents/com.ricksi.workbench-sync.plist
+  注意：WorkingDirectory 如果移动了仓库位置需要同步修改。
+-->
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.ricksi.workbench-sync</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/usr/local/bin/npm</string>
+    <string>run</string>
+    <string>sync</string>
+  </array>
+  <key>WorkingDirectory</key>
+  <string>/Users/rick/Claude_Code/Rick's Personal/rick-homepage</string>
+  <key>StartCalendarInterval</key>
+  <dict>
+    <key>Hour</key>
+    <integer>21</integer>
+    <key>Minute</key>
+    <integer>30</integer>
+  </dict>
+  <key>StandardOutPath</key>
+  <string>/tmp/workbench-sync.log</string>
+  <key>StandardErrorPath</key>
+  <string>/tmp/workbench-sync.err</string>
+</dict>
+</plist>

@@ -1,0 +1,35 @@
+name: Refresh GitHub contribution data
+
+on:
+  schedule:
+    - cron: '17 22 * * *' # 每日北京时间 06:17
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Fetch GitHub contributions
+        env:
+          # 公开贡献日历优先用 PAT（secrets.CONTRIB_TOKEN）；没有则尝试内置 token
+          GITHUB_TOKEN: ${{ secrets.CONTRIB_TOKEN || secrets.GITHUB_TOKEN }}
+        run: node scripts/fetch-github.mjs
+      - name: Commit & push if changed
+        run: |
+          git config user.name "data-bot"
+          git config user.email "actions@github.com"
+          git pull --rebase
+          if [[ -n "$(git status --porcelain data)" ]]; then
+            git add data
+            git commit -m "chore(data): github contributions $(date +%F)"
+            git push
+          else
+            echo "no changes"
+          fi

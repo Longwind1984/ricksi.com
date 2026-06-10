@@ -1,0 +1,1313 @@
+{
+ "generated_at": "2026-06-10T11:41:25.376Z",
+ "today": 90795998,
+ "week": "1.1B",
+ "cumulative": "1.9B",
+ "models": [
+  [
+   "Opus",
+   87
+  ],
+  [
+   "Fable",
+   6
+  ],
+  [
+   "Sonnet",
+   5
+  ],
+  [
+   "Haiku",
+   2
+  ]
+ ],
+ "days7": [
+  {
+   "d": "周四",
+   "v": 21.04
+  },
+  {
+   "d": "周五",
+   "v": 3.29
+  },
+  {
+   "d": "周六",
+   "v": 169.64
+  },
+  {
+   "d": "周日",
+   "v": 809.68
+  },
+  {
+   "d": "周一",
+   "v": 3.07
+  },
+  {
+   "d": "周二",
+   "v": 9.87
+  },
+  {
+   "d": "今天",
+   "v": 90.8
+  }
+ ],
+ "series": {
+  "2026-06-03": {
+   "total": 11290666,
+   "models": {
+    "haiku-4-5-20251001": {
+     "in": 1121,
+     "out": 3501,
+     "cw": 207342,
+     "cr": 6158243,
+     "total": 6370207
+    },
+    "opus-4-8": {
+     "in": 19069,
+     "out": 112919,
+     "cw": 321453,
+     "cr": 4467018,
+     "total": 4920459
+    }
+   }
+  },
+  "2026-06-04": {
+   "total": 21043632,
+   "models": {
+    "opus-4-8": {
+     "in": 65080,
+     "out": 381378,
+     "cw": 1268682,
+     "cr": 19328492,
+     "total": 21043632
+    },
+    "<synthetic>": {
+     "in": 0,
+     "out": 0,
+     "cw": 0,
+     "cr": 0,
+     "total": 0
+    }
+   }
+  },
+  "2026-06-05": {
+   "total": 3293686,
+   "models": {
+    "opus-4-8": {
+     "in": 17871,
+     "out": 35264,
+     "cw": 228758,
+     "cr": 1932578,
+     "total": 2214471
+    },
+    "<synthetic>": {
+     "in": 0,
+     "out": 0,
+     "cw": 0,
+     "cr": 0,
+     "total": 0
+    },
+    "opus-4-6": {
+     "in": 1011,
+     "out": 12470,
+     "cw": 119474,
+     "cr": 946260,
+     "total": 1079215
+    }
+   }
+  },
+  "2026-06-06": {
+   "total": 169637865,
+   "models": {
+    "haiku-4-5-20251001": {
+     "in": 18802,
+     "out": 34412,
+     "cw": 302046,
+     "cr": 1158528,
+     "total": 1513788
+    },
+    "opus-4-8": {
+     "in": 1046698,
+     "out": 1191493,
+     "cw": 9981997,
+     "cr": 141474342,
+     "total": 153694530
+    },
+    "<synthetic>": {
+     "in": 0,
+     "out": 0,
+     "cw": 0,
+     "cr": 0,
+     "total": 0
+    },
+    "sonnet-4-6": {
+     "in": 22635,
+     "out": 128854,
+     "cw": 1004476,
+     "cr": 10343516,
+     "total": 11499481
+    },
+    "opus-4-6": {
+     "in": 901,
+     "out": 14875,
+     "cw": 181858,
+     "cr": 2732432,
+     "total": 2930066
+    }
+   }
+  },
+  "2026-05-27": {
+   "total": 73226735,
+   "models": {
+    "opus-4-7": {
+     "in": 58635,
+     "out": 613521,
+     "cw": 3501489,
+     "cr": 68878531,
+     "total": 73052176
+    },
+    "<synthetic>": {
+     "in": 0,
+     "out": 0,
+     "cw": 0,
+     "cr": 0,
+     "total": 0
+    },
+    "haiku-4-5-20251001": {
+     "in": 4425,
+     "out": 4700,
+     "cw": 50377,
+     "cr": 115057,
+     "total": 174559
+    }
+   }
+  },
+  "2026-05-29": {
+   "total": 6072753,
+   "models": {
+    "opus-4-8": {
+     "in": 7635,
+     "out": 86311,
+     "cw": 2649128,
+     "cr": 3329679,
+     "total": 6072753
+    },
+    "<synthetic>": {
+     "in": 0,
+     "out": 0,
+     "cw": 0,
+     "cr": 0,
+     "total": 0
+    }
+   }
+  },
+  "2026-05-28": {
+   "total": 14483300,
+   "models": {
+    "opus-4-7": {
+     "in": 187,
+     "out": 76558,
+     "cw": 517580,
+     "cr": 13888975,
+     "total": 14483300
+    },
+    "<synthetic>": {
+     "in": 0,
+     "out": 0,
+     "cw": 0,
+     "cr": 0,
+     "total": 0
+    }
+   }
+  },
+  "2026-06-10": {
+   "total": 90795998,
+   "models": {
+    "haiku-4-5-20251001": {
+     "in": 931,
+     "out": 59226,
+     "cw": 241697,
+     "cr": 3557718,
+     "total": 3859572
+    },
+    "sonnet-4-6": {
+     "in": 10,
+     "out": 2066,
+     "cw": 62804,
+     "cr": 152786,
+     "total": 217666
+    },
+    "fable-5": {
+     "in": 165687,
+     "out": 511038,
+     "cw": 2124403,
+     "cr": 72764829,
+     "total": 75565957
+    },
+    "opus-4-8": {
+     "in": 26368,
+     "out": 46371,
+     "cw": 799980,
+     "cr": 10280084,
+     "total": 11152803
+    },
+    "<synthetic>": {
+     "in": 0,
+     "out": 0,
+     "cw": 0,
+     "cr": 0,
+     "total": 0
+    }
+   }
+  },
+  "2026-05-30": {
+   "total": 54047994,
+   "models": {
+    "haiku-4-5-20251001": {
+     "in": 6312,
+     "out": 11887,
+     "cw": 159629,
+     "cr": 1840498,
+     "total": 2018326
+    },
+    "<synthetic>": {
+     "in": 0,
+     "out": 0,
+     "cw": 0,
+     "cr": 0,
+     "total": 0
+    },
+    "opus-4-8": {
+     "in": 41402,
+     "out": 369157,
+     "cw": 1180819,
+     "cr": 50438290,
+     "total": 52029668
+    }
+   }
+  },
+  "2026-06-02": {
+   "total": 11816209,
+   "models": {
+    "haiku-4-5-20251001": {
+     "in": 784,
+     "out": 33849,
+     "cw": 522929,
+     "cr": 9301554,
+     "total": 9859116
+    },
+    "opus-4-8": {
+     "in": 2396,
+     "out": 67068,
+     "cw": 207905,
+     "cr": 1679724,
+     "total": 1957093
+    },
+    "<synthetic>": {
+     "in": 0,
+     "out": 0,
+     "cw": 0,
+     "cr": 0,
+     "total": 0
+    }
+   }
+  },
+  "2026-05-31": {
+   "total": 34569959,
+   "models": {
+    "opus-4-8": {
+     "in": 89217,
+     "out": 205754,
+     "cw": 488698,
+     "cr": 33786290,
+     "total": 34569959
+    },
+    "<synthetic>": {
+     "in": 0,
+     "out": 0,
+     "cw": 0,
+     "cr": 0,
+     "total": 0
+    }
+   }
+  },
+  "2026-06-07": {
+   "total": 809680899,
+   "models": {
+    "opus-4-8": {
+     "in": 6922558,
+     "out": 1965795,
+     "cw": 67362637,
+     "cr": 675527974,
+     "total": 751778964
+    },
+    "<synthetic>": {
+     "in": 0,
+     "out": 0,
+     "cw": 0,
+     "cr": 0,
+     "total": 0
+    },
+    "sonnet-4-6": {
+     "in": 361633,
+     "out": 512767,
+     "cw": 6039207,
+     "cr": 50988328,
+     "total": 57901935
+    }
+   }
+  },
+  "2026-06-09": {
+   "total": 9871689,
+   "models": {
+    "<synthetic>": {
+     "in": 0,
+     "out": 0,
+     "cw": 0,
+     "cr": 0,
+     "total": 0
+    },
+    "opus-4-8": {
+     "in": 766,
+     "out": 56881,
+     "cw": 1960965,
+     "cr": 7853077,
+     "total": 9871689
+    }
+   }
+  },
+  "2026-06-01": {
+   "total": 190893,
+   "models": {
+    "opus-4-8": {
+     "in": 8338,
+     "out": 5399,
+     "cw": 17659,
+     "cr": 159497,
+     "total": 190893
+    }
+   }
+  },
+  "2026-06-08": {
+   "total": 3073528,
+   "models": {
+    "<synthetic>": {
+     "in": 0,
+     "out": 0,
+     "cw": 0,
+     "cr": 0,
+     "total": 0
+    },
+    "opus-4-8": {
+     "in": 9541,
+     "out": 16036,
+     "cw": 331100,
+     "cr": 2716851,
+     "total": 3073528
+    }
+   }
+  },
+  "2026-05-23": {
+   "total": 2180739,
+   "estimated": true
+  },
+  "2026-05-22": {
+   "total": 23624675,
+   "estimated": true
+  },
+  "2026-05-26": {
+   "total": 1090370,
+   "estimated": true
+  },
+  "2026-05-21": {
+   "total": 38526394,
+   "estimated": true
+  },
+  "2026-05-20": {
+   "total": 28713067,
+   "estimated": true
+  },
+  "2023-03-22": {
+   "total": 3634565,
+   "estimated": true
+  },
+  "2023-03-30": {
+   "total": 18536284,
+   "estimated": true
+  },
+  "2026-05-16": {
+   "total": 125755965,
+   "estimated": true
+  },
+  "2026-05-14": {
+   "total": 202445296,
+   "estimated": true
+  },
+  "2026-05-18": {
+   "total": 20717023,
+   "estimated": true
+  },
+  "2026-05-17": {
+   "total": 5088392,
+   "estimated": true
+  },
+  "2026-05-19": {
+   "total": 3634565,
+   "estimated": true
+  },
+  "2026-05-15": {
+   "total": 6178761,
+   "estimated": true
+  },
+  "2024-10-09": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2025-09-25": {
+   "total": 1090370,
+   "estimated": true
+  },
+  "2024-02-26": {
+   "total": 726913,
+   "estimated": true
+  },
+  "2025-07-02": {
+   "total": 726913,
+   "estimated": true
+  },
+  "2024-01-22": {
+   "total": 726913,
+   "estimated": true
+  },
+  "2023-11-20": {
+   "total": 2180739,
+   "estimated": true
+  },
+  "2023-04-11": {
+   "total": 1453826,
+   "estimated": true
+  },
+  "2023-04-24": {
+   "total": 1453826,
+   "estimated": true
+  },
+  "2023-05-08": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2023-05-22": {
+   "total": 726913,
+   "estimated": true
+  },
+  "2023-05-30": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2023-06-05": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2023-06-16": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2023-06-20": {
+   "total": 726913,
+   "estimated": true
+  },
+  "2023-07-05": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2023-07-10": {
+   "total": 726913,
+   "estimated": true
+  },
+  "2023-07-25": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2023-08-01": {
+   "total": 726913,
+   "estimated": true
+  },
+  "2023-08-07": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2023-08-10": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2023-08-13": {
+   "total": 1090370,
+   "estimated": true
+  },
+  "2023-08-22": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2023-08-28": {
+   "total": 1090370,
+   "estimated": true
+  },
+  "2023-09-07": {
+   "total": 726913,
+   "estimated": true
+  },
+  "2023-09-12": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2023-09-18": {
+   "total": 726913,
+   "estimated": true
+  },
+  "2023-10-08": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2023-10-13": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2023-10-20": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2023-10-24": {
+   "total": 1453826,
+   "estimated": true
+  },
+  "2023-10-30": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2023-11-08": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2023-11-13": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2023-11-27": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2023-12-04": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2023-12-11": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2023-12-18": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2023-12-26": {
+   "total": 726913,
+   "estimated": true
+  },
+  "2024-03-04": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2024-03-11": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2024-03-19": {
+   "total": 726913,
+   "estimated": true
+  },
+  "2024-03-25": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2024-04-01": {
+   "total": 726913,
+   "estimated": true
+  },
+  "2024-04-08": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2024-04-15": {
+   "total": 1453826,
+   "estimated": true
+  },
+  "2024-04-17": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2024-04-23": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2024-05-06": {
+   "total": 726913,
+   "estimated": true
+  },
+  "2024-01-09": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2024-05-13": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2024-05-20": {
+   "total": 726913,
+   "estimated": true
+  },
+  "2024-06-04": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2024-06-11": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2024-06-14": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2024-06-25": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2024-07-01": {
+   "total": 1090370,
+   "estimated": true
+  },
+  "2024-07-08": {
+   "total": 726913,
+   "estimated": true
+  },
+  "2024-07-15": {
+   "total": 1453826,
+   "estimated": true
+  },
+  "2024-01-15": {
+   "total": 1817283,
+   "estimated": true
+  },
+  "2024-07-29": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2024-08-05": {
+   "total": 726913,
+   "estimated": true
+  },
+  "2024-08-13": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2024-08-19": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2024-08-27": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2024-09-02": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2024-09-04": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2024-09-17": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2024-09-26": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2024-10-08": {
+   "total": 1453826,
+   "estimated": true
+  },
+  "2024-10-17": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2024-10-21": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2024-10-28": {
+   "total": 726913,
+   "estimated": true
+  },
+  "2024-11-08": {
+   "total": 726913,
+   "estimated": true
+  },
+  "2024-11-18": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2024-11-25": {
+   "total": 726913,
+   "estimated": true
+  },
+  "2024-11-27": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2024-01-29": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2024-12-09": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2024-12-16": {
+   "total": 726913,
+   "estimated": true
+  },
+  "2024-12-20": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2024-03-07": {
+   "total": 1090370,
+   "estimated": true
+  },
+  "2024-02-18": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2025-03-04": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2025-03-10": {
+   "total": 726913,
+   "estimated": true
+  },
+  "2025-03-18": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2025-03-24": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2025-04-07": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2025-04-22": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2024-12-30": {
+   "total": 726913,
+   "estimated": true
+  },
+  "2025-05-15": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2025-05-22": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2025-05-27": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2025-06-09": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2025-06-16": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2025-06-26": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2025-07-28": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2025-07-31": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2025-08-13": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2025-08-29": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2025-09-08": {
+   "total": 726913,
+   "estimated": true
+  },
+  "2025-09-18": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2025-09-24": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2025-01-22": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2025-02-08": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2025-02-14": {
+   "total": 726913,
+   "estimated": true
+  },
+  "2025-02-17": {
+   "total": 726913,
+   "estimated": true
+  },
+  "2023-11-21": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2024-01-23": {
+   "total": 726913,
+   "estimated": true
+  },
+  "2024-03-08": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2024-08-06": {
+   "total": 726913,
+   "estimated": true
+  },
+  "2025-07-03": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2024-01-12": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2024-02-19": {
+   "total": 726913,
+   "estimated": true
+  },
+  "2025-02-24": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2024-08-01": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2024-04-16": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2023-12-20": {
+   "total": 1090370,
+   "estimated": true
+  },
+  "2024-08-08": {
+   "total": 3271109,
+   "estimated": true
+  },
+  "2024-07-31": {
+   "total": 726913,
+   "estimated": true
+  },
+  "2024-03-01": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2024-08-14": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2025-09-10": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2024-03-26": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2024-03-13": {
+   "total": 726913,
+   "estimated": true
+  },
+  "2023-03-27": {
+   "total": 1090370,
+   "estimated": true
+  },
+  "2023-04-04": {
+   "total": 1090370,
+   "estimated": true
+  },
+  "2023-04-13": {
+   "total": 726913,
+   "estimated": true
+  },
+  "2023-04-23": {
+   "total": 1453826,
+   "estimated": true
+  },
+  "2023-04-25": {
+   "total": 726913,
+   "estimated": true
+  },
+  "2023-04-26": {
+   "total": 2180739,
+   "estimated": true
+  },
+  "2023-04-27": {
+   "total": 726913,
+   "estimated": true
+  },
+  "2023-11-10": {
+   "total": 1090370,
+   "estimated": true
+  },
+  "2023-11-22": {
+   "total": 1090370,
+   "estimated": true
+  },
+  "2024-01-19": {
+   "total": 1090370,
+   "estimated": true
+  },
+  "2024-10-13": {
+   "total": 1453826,
+   "estimated": true
+  },
+  "2025-02-27": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2025-10-03": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2023-04-17": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2023-04-02": {
+   "total": 4361479,
+   "estimated": true
+  },
+  "2023-12-21": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2023-03-23": {
+   "total": 2544196,
+   "estimated": true
+  },
+  "2023-04-21": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2023-03-20": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2023-04-14": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2023-04-18": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2023-03-31": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2023-05-24": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2023-07-27": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2023-03-24": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2023-12-01": {
+   "total": 1453826,
+   "estimated": true
+  },
+  "2024-12-06": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2024-01-31": {
+   "total": 1090370,
+   "estimated": true
+  },
+  "2025-03-21": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2025-02-21": {
+   "total": 726913,
+   "estimated": true
+  },
+  "2023-03-21": {
+   "total": 5088392,
+   "estimated": true
+  },
+  "2024-01-16": {
+   "total": 1090370,
+   "estimated": true
+  },
+  "2024-11-24": {
+   "total": 1453826,
+   "estimated": true
+  },
+  "2026-03-24": {
+   "total": 2544196,
+   "estimated": true
+  },
+  "2026-05-13": {
+   "total": 14174805,
+   "estimated": true
+  },
+  "2023-03-26": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2023-12-10": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2023-12-09": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2025-01-19": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2025-04-17": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2025-05-26": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2025-06-07": {
+   "total": 726913,
+   "estimated": true
+  },
+  "2024-01-18": {
+   "total": 726913,
+   "estimated": true
+  },
+  "2024-02-20": {
+   "total": 1090370,
+   "estimated": true
+  },
+  "2025-01-30": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2025-05-04": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2025-06-21": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2025-06-24": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2025-01-18": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2023-12-24": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2024-07-03": {
+   "total": 726913,
+   "estimated": true
+  },
+  "2024-12-15": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2025-04-13": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2025-08-28": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2025-02-06": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2025-06-27": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2024-03-02": {
+   "total": 726913,
+   "estimated": true
+  },
+  "2025-01-29": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2025-06-17": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2025-11-14": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2026-01-31": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2025-11-11": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2025-11-12": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2024-11-03": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2025-05-28": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2025-06-10": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2025-08-05": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2023-06-09": {
+   "total": 726913,
+   "estimated": true
+  },
+  "2023-04-28": {
+   "total": 726913,
+   "estimated": true
+  },
+  "2025-08-04": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2023-11-14": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2023-11-24": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2023-11-07": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2024-11-14": {
+   "total": 726913,
+   "estimated": true
+  },
+  "2023-06-12": {
+   "total": 1090370,
+   "estimated": true
+  },
+  "2025-01-02": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2023-09-20": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2025-09-06": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2022-12-20": {
+   "total": 726913,
+   "estimated": true
+  },
+  "2024-01-04": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2025-03-25": {
+   "total": 726913,
+   "estimated": true
+  },
+  "2023-09-22": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2024-06-12": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2025-06-30": {
+   "total": 726913,
+   "estimated": true
+  },
+  "2023-05-05": {
+   "total": 363457,
+   "estimated": true
+  },
+  "2024-07-10": {
+   "total": 726913,
+   "estimated": true
+  },
+  "2025-09-27": {
+   "total": 363457,
+   "estimated": true
+  }
+ },
+ "method": {
+  "real_window": "2026-05-27 起（Claude Code 本地日志，按消息去重）",
+  "estimated_days": 224,
+  "estimated_share": "32%",
+  "note": "更早期按当日活跃度（git/笔记/AI 会话）校准估算，标记 estimated；真实数据逐日固化入库"
+ }
+}
