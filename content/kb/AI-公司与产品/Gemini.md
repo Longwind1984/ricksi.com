@@ -7,13 +7,13 @@ updated: '2026-05-17'
 
 # Gemini
 
-> Google DeepMind 的多模态大模型产品族，2023 年 12 月发布以替代 Bard。原生多模态（文本/图像/音频/视频/代码"端到端训练"）+ 长上下文（百万 token 级）+ 深度绑定 Google 生态（Search、Docs、Gmail、Android、Workspace）。是大厂派 AI 产品的代表，与 [OpenAI](/kb/AI-公司与产品/OpenAI/) / [Anthropic](/kb/AI-公司与产品/Anthropic/) 的"独立实验室"路径形成对照。
+> Google DeepMind 的多模态大模型产品族，2023 年 12 月发布以替代 Bard。原生多模态（文本/图像/音频/视频/代码"端到端训练"）+ 长上下文（百万 token 级）+ 深度绑定 Google 生态（Search、Docs、Gmail、Android、Workspace）。是大厂派 AI 产品的代表，与 [OpenAI](/kb/ai-公司与产品/openai/) / [Anthropic](/kb/ai-公司与产品/anthropic/) 的"独立实验室"路径形成对照。
 
 ## 产品定义
 - **底层模型**：Gemini 模型家族（Nano / Flash / Pro / Ultra），由 Google DeepMind 自研。原生多模态架构（与 GPT-4o 类似，区别于 GPT-4 时代的"图文拼接"路径）。
 - **接口形态**：gemini.google.com 网页 + 移动 App + AI Studio + API + 嵌入 Google 全家桶（Search 的 AI Overviews、Workspace 的侧边栏、Pixel 的 Gemini Live）。
 - **付费层级**：Free / Gemini Advanced（Google One AI Premium 20 美元/月）/ Workspace Business / Enterprise。
-- **使用量级**：2026 月活用户估算 2–3 亿（多数来自 Google 生态被动分发），独立产品入口的活跃度弱于 [ChatGPT](/kb/AI-公司与产品/ChatGPT/)。
+- **使用量级**：2026 月活用户估算 2–3 亿（多数来自 Google 生态被动分发），独立产品入口的活跃度弱于 [ChatGPT](/kb/ai-公司与产品/chatgpt/)。
 
 ## 演化时间线
 - **2023.12** Gemini 1.0（Pro / Ultra）发布，宣告 Google 全面入场，但首发演示视频被指过度剪辑，舆情反弹。
@@ -28,11 +28,11 @@ updated: '2026-05-17'
 - **原生多模态**：从训练阶段就以多模态语料对齐，不是后接编码器。Pixel 上的实时摄像头识图 + Gemini Live 语音对话 → "AI 助手 = OS 一部分"的形态尝试。
 - **大厂分发反向赋能**：Search AI Overviews 直接面向 Google 数十亿用户；Workspace 把 Gemini 塞进 Docs/Gmail/Sheets。这是 Anthropic / OpenAI 无法复制的渠道。
 - **组织拖累的产品意志缺位**：Rick 多次评论 Google AI 产品"技术领先但产品决断力弱"——发布节奏被组织内部协调与品牌风险拖慢，导致很多模型能力没转化为体验领先。这是 20260304-AI产品体验的代差与组织问题 的标志性案例。
-- **Deep Research 是少数突破**：在"长任务 + 网络搜索 + 报告生成"垂直里 Deep Research 比 [ChatGPT](/kb/AI-公司与产品/ChatGPT/) 与 [Perplexity](/kb/AI-公司与产品/Perplexity/) 体验都更稳，是 Gemini 的产品代表作。
+- **Deep Research 是少数突破**：在"长任务 + 网络搜索 + 报告生成"垂直里 Deep Research 比 [ChatGPT](/kb/ai-公司与产品/chatgpt/) 与 [Perplexity](/kb/ai-公司与产品/perplexity/) 体验都更稳，是 Gemini 的产品代表作。
 
 ## 与同行对比
-- **vs. [ChatGPT](/kb/AI-公司与产品/ChatGPT/)**：Gemini 强在长上下文、Workspace 集成、Deep Research；ChatGPT 强在独立品牌入口、应用商店生态、迭代速度。Gemini 在专业用户群的"严肃任务"占比上升中。
-- **vs. [Claude](/kb/AI-公司与产品/Claude/)**：Claude 在写作/编程/对齐质量上更精；Gemini 在多模态/长上下文/价格上占优。开发者层面 Claude > Gemini，企业采购层面 Gemini 在 Workspace 客户里占天然位。
+- **vs. [ChatGPT](/kb/ai-公司与产品/chatgpt/)**：Gemini 强在长上下文、Workspace 集成、Deep Research；ChatGPT 强在独立品牌入口、应用商店生态、迭代速度。Gemini 在专业用户群的"严肃任务"占比上升中。
+- **vs. [Claude](/kb/ai-公司与产品/claude/)**：Claude 在写作/编程/对齐质量上更精；Gemini 在多模态/长上下文/价格上占优。开发者层面 Claude > Gemini，企业采购层面 Gemini 在 Workspace 客户里占天然位。
 - **vs. 其他大厂派**：Microsoft Copilot 在 Office 端、Apple Intelligence 在端侧、Meta AI 在 Instagram/WhatsApp——Gemini 是其中产品形态最完整、模型自研最强的一家。
 
 ## 对 Rick 的价值
@@ -43,8 +43,8 @@ updated: '2026-05-17'
 
 ## 关联节点
 - 公司：Google DeepMind Alphabet
-- 产品对照：[ChatGPT](/kb/AI-公司与产品/ChatGPT/) [Claude](/kb/AI-公司与产品/Claude/) [Perplexity](/kb/AI-公司与产品/Perplexity/) [DeepSeek](/kb/AI-公司与产品/DeepSeek/)
-- 技术：多模态 [KV Cache](/kb/AI-基础知识库/KV-Cache/) c08 - 长上下文 [Agent](/kb/AI-基础知识库/Agent/) [Function Calling](/kb/AI-基础知识库/Function-Calling/)
+- 产品对照：[ChatGPT](/kb/ai-公司与产品/chatgpt/) [Claude](/kb/ai-公司与产品/claude/) [Perplexity](/kb/ai-公司与产品/perplexity/) [DeepSeek](/kb/ai-公司与产品/deepseek/)
+- 技术：多模态 [KV Cache](/kb/ai-基础知识库/kv-cache/) c08 - 长上下文 [Agent](/kb/ai-基础知识库/agent/) [Function Calling](/kb/ai-基础知识库/function-calling/)
 - 产品议题：m205 - AI 产品形态：从工具到 Agent 20260304-AI产品体验的代差与组织问题 20260304-微博 AI 20260304-微软Copilot和谷歌Gemini的产品体验问题
 - Rick 工作流：Try Gemini Deep Research-2026-01-12 Mexico Travelogue- Existential - Google AI Studio-2026-01-31
 

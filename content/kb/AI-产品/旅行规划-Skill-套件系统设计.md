@@ -110,7 +110,7 @@ Rick 的计划经常变动，需要高效维护最新行程。设计目标：
 
 ## 关联节点
 
-- [AI PM 知识图谱框架设计](/kb/AI-产品/AI-PM-知识图谱框架设计/) — 同源 Skill / Agent 系统设计思路
+- [AI PM 知识图谱框架设计](/kb/ai-产品/ai-pm-知识图谱框架设计/) — 同源 Skill / Agent 系统设计思路
 - 20260331-Skill的本质与核心价值 — 同源 Skill 概念探讨
 - 20260401-旅行规划 skill，记得 builde — 同源对话备忘
 - *Skill 系统架构*、*SABCD± 评级体系*、*trip-father* — 候选新建

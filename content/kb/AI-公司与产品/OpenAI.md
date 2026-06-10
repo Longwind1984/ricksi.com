@@ -7,24 +7,24 @@ updated: '2026-05-17'
 
 # OpenAI
 
-> 大模型时代的破局者与定义者。由 Sam Altman、Greg Brockman、Ilya Sutskever 等于 2015 年以"非营利 AI 安全实验室"创立，2019 年转为"有限利润上限"结构并接受 [Microsoft](/kb/AI-公司与产品/Microsoft/) 数十亿美元投资。旗舰产品 [ChatGPT](/kb/AI-公司与产品/ChatGPT/) 在 2022-11 引爆全球大模型应用浪潮，是 AI 产业"消费爆款 + 多模态全栈 + 商业化激进"路线的代表。
+> 大模型时代的破局者与定义者。由 Sam Altman、Greg Brockman、Ilya Sutskever 等于 2015 年以"非营利 AI 安全实验室"创立，2019 年转为"有限利润上限"结构并接受 [Microsoft](/kb/ai-公司与产品/microsoft/) 数十亿美元投资。旗舰产品 [ChatGPT](/kb/ai-公司与产品/chatgpt/) 在 2022-11 引爆全球大模型应用浪潮，是 AI 产业"消费爆款 + 多模态全栈 + 商业化激进"路线的代表。
 
 ## 公司画像
-- **创始基因**：以"通用人工智能 (AGI) 必须惠及全人类"为口号成立，最初定位与 DeepMind 的"安全可控 AGI"近似。2019 年从非营利转为 capped-profit 后内部多次分裂——2020 年 Dario/Daniela Amodei 等核心研究者出走创立 [Anthropic](/kb/AI-公司与产品/Anthropic/)，2023 年 11 月 Sam Altman 短暂被董事会罢免又复职（"OpenAI 五日政变"）。
-- **资本结构**：[Microsoft](/kb/AI-公司与产品/Microsoft/) 主要投资方（累计约 130 亿美元以上），与 Azure 计算深度绑定；2024–2025 启动新一轮融资，估值跨越 5000 亿美元量级。组织上正在剥离非营利母体（仍是行业最受关注的治理实验）。
+- **创始基因**：以"通用人工智能 (AGI) 必须惠及全人类"为口号成立，最初定位与 DeepMind 的"安全可控 AGI"近似。2019 年从非营利转为 capped-profit 后内部多次分裂——2020 年 Dario/Daniela Amodei 等核心研究者出走创立 [Anthropic](/kb/ai-公司与产品/anthropic/)，2023 年 11 月 Sam Altman 短暂被董事会罢免又复职（"OpenAI 五日政变"）。
+- **资本结构**：[Microsoft](/kb/ai-公司与产品/microsoft/) 主要投资方（累计约 130 亿美元以上），与 Azure 计算深度绑定；2024–2025 启动新一轮融资，估值跨越 5000 亿美元量级。组织上正在剥离非营利母体（仍是行业最受关注的治理实验）。
 - **组织哲学**：研究 + 产品 + 应用三轨并行——Research 团队主导 GPT 模型族迭代，Product 团队负责 ChatGPT、API、企业产品，Application 团队推动行业落地。节奏激进，常以"边发布边修复"对外铺产品。
-- **政策角色**：Altman 多次在美国国会、白宫、欧盟 AI Act 听证会作证，立场偏"积极拥抱监管框架以确立头部企业的合规护城河"。与 [Anthropic](/kb/AI-公司与产品/Anthropic/) 的"风险声调更高"形成对照。
+- **政策角色**：Altman 多次在美国国会、白宫、欧盟 AI Act 听证会作证，立场偏"积极拥抱监管框架以确立头部企业的合规护城河"。与 [Anthropic](/kb/ai-公司与产品/anthropic/) 的"风险声调更高"形成对照。
 
 ## 关键产品与时间线
 - 2018.6 GPT-1 论文发布，确立"Transformer 预训练"范式。
 - 2019.2 GPT-2 发布，因"风险过高"延迟开源——这是大模型时代"安全 vs 开放"争论的第一个公开节点。
 - 2020.5 GPT-3 论文，把"few-shot prompting"推为主流接口；同年 OpenAI API 上线。
-- 2022.3 InstructGPT / [RLHF](/kb/AI-基础知识库/RLHF/) 论文，奠定"指令对齐"工程基础。
-- 2022.11 [ChatGPT](/kb/AI-公司与产品/ChatGPT/) 公测，5 天破百万用户、2 个月破亿，是消费互联网史上增长最快的应用。
+- 2022.3 InstructGPT / [RLHF](/kb/ai-基础知识库/rlhf/) 论文，奠定"指令对齐"工程基础。
+- 2022.11 [ChatGPT](/kb/ai-公司与产品/chatgpt/) 公测，5 天破百万用户、2 个月破亿，是消费互联网史上增长最快的应用。
 - 2023.3 GPT-4 发布；2023.11 GPT-4 Turbo + Assistants API + GPTs 商店尝试。
 - 2024.5 GPT-4o "Omni" 多模态一体化模型 + 实时语音模式。
 - 2024.9 o1 系列发布，"推理模型"开启 Long CoT 新赛道。
-- 2025 GPT-5、o3、Operator（[Computer Use](/kb/AI-公司与产品/Computer-Use/) 同类产品）、Sora 视频生成、Realtime API、Codex / Canvas 等密集铺面。
+- 2025 GPT-5、o3、Operator（[Computer Use](/kb/ai-公司与产品/computer-use/) 同类产品）、Sora 视频生成、Realtime API、Codex / Canvas 等密集铺面。
 - 2026 当下旗舰为 GPT-5 系列与 o3-pro，DevDay 转向"应用平台"叙事——Apps in ChatGPT、Custom GPT 商店、企业版深度集成。
 
 ## 核心技术装置
@@ -34,9 +34,9 @@ updated: '2026-05-17'
 - **多模态全栈**：Sora（视频）、Voice（语音）、DALL·E（图像）、Realtime（语音对话）一并由内部团队推进，与 Anthropic 的"先把语言模型做好"路径形成鲜明对照。
 
 ## 与同行对比
-- **vs. [Anthropic](/kb/AI-公司与产品/Anthropic/)**：OpenAI 走"消费爆款 + 全模态 + 商业激进"路线，[Anthropic](/kb/AI-公司与产品/Anthropic/) 走"开发者企业 + 安全 narrative + 慢节奏"路线。短期收入 OpenAI 领先一个数量级，长期客户结构 Anthropic 更稳。
-- **vs. [Google DeepMind](/kb/AI-公司与产品/Gemini/)**：Google 自有计算、搜索分发与端云一体，OpenAI 没有这三个底座但靠 ChatGPT 入口与 GPT 商店反向建立分发；Gemini 在编程、长上下文上的工程优势在 2026 已能与 GPT-5 持平甚至局部领先。
-- **vs. [DeepSeek](/kb/AI-公司与产品/DeepSeek/) / 国内 lab**：DeepSeek 开源 + 高性价比，OpenAI 闭源 + 高定价；两条路线在 2025–2026 拉开全球 AI 产业的两个极端形态。
+- **vs. [Anthropic](/kb/ai-公司与产品/anthropic/)**：OpenAI 走"消费爆款 + 全模态 + 商业激进"路线，[Anthropic](/kb/ai-公司与产品/anthropic/) 走"开发者企业 + 安全 narrative + 慢节奏"路线。短期收入 OpenAI 领先一个数量级，长期客户结构 Anthropic 更稳。
+- **vs. [Google DeepMind](/kb/ai-公司与产品/gemini/)**：Google 自有计算、搜索分发与端云一体，OpenAI 没有这三个底座但靠 ChatGPT 入口与 GPT 商店反向建立分发；Gemini 在编程、长上下文上的工程优势在 2026 已能与 GPT-5 持平甚至局部领先。
+- **vs. [DeepSeek](/kb/ai-公司与产品/deepseek/) / 国内 lab**：DeepSeek 开源 + 高性价比，OpenAI 闭源 + 高定价；两条路线在 2025–2026 拉开全球 AI 产业的两个极端形态。
 - **vs. Microsoft Copilot**：技术合作伙伴同时是渠道竞争对手。Copilot 渠道铺得广但产品形态偏"在 Office 嵌入对话框"，落地效果远不如 ChatGPT 直接面向用户的形态——这是 Rick 20260304-AI产品体验的代差与组织问题 的核心案例之一。
 
 ## 对 Rick 的价值
@@ -53,10 +53,10 @@ updated: '2026-05-17'
 - **Bob McGrew**（前 Chief Research Officer）：2024 离开。
 
 ## 关联节点
-- 产品：[ChatGPT](/kb/AI-公司与产品/ChatGPT/) [Sora](/kb/AI-公司与产品/Sora/) [DALL-E](/kb/AI-公司与产品/DALL-E/) [Codex](/kb/AI-公司与产品/Codex/) [GPTs](/kb/AI-公司与产品/GPTs/) [Computer Use](/kb/AI-公司与产品/Computer-Use/)
-- 对照公司：[Anthropic](/kb/AI-公司与产品/Anthropic/) [Gemini](/kb/AI-公司与产品/Gemini/) [DeepSeek](/kb/AI-公司与产品/DeepSeek/) [Microsoft](/kb/AI-公司与产品/Microsoft/)
-- 研究范式：[RLHF](/kb/AI-基础知识库/RLHF/) [Scaling Laws](/kb/AI-基础知识库/Scaling-Laws/) c11 - 推理模型与 Long CoT [Function Calling](/kb/AI-基础知识库/Function-Calling/) [Agent](/kb/AI-基础知识库/Agent/)
-- 产品议题：m205 - AI 产品形态：从工具到 Agent [p302 - 七种 AI 交互设计模式](/kb/AI-产品设计与交互范式/p302-七种-AI-交互设计模式/) 20260304-AI产品体验的代差与组织问题
+- 产品：[ChatGPT](/kb/ai-公司与产品/chatgpt/) [Sora](/kb/ai-公司与产品/sora/) [DALL-E](/kb/ai-公司与产品/dall-e/) [Codex](/kb/ai-公司与产品/codex/) [GPTs](/kb/ai-公司与产品/gpts/) [Computer Use](/kb/ai-公司与产品/computer-use/)
+- 对照公司：[Anthropic](/kb/ai-公司与产品/anthropic/) [Gemini](/kb/ai-公司与产品/gemini/) [DeepSeek](/kb/ai-公司与产品/deepseek/) [Microsoft](/kb/ai-公司与产品/microsoft/)
+- 研究范式：[RLHF](/kb/ai-基础知识库/rlhf/) [Scaling Laws](/kb/ai-基础知识库/scaling-laws/) c11 - 推理模型与 Long CoT [Function Calling](/kb/ai-基础知识库/function-calling/) [Agent](/kb/ai-基础知识库/agent/)
+- 产品议题：m205 - AI 产品形态：从工具到 Agent [p302 - 七种 AI 交互设计模式](/kb/ai-产品设计与交互范式/p302-七种-ai-交互设计模式/) 20260304-AI产品体验的代差与组织问题
 - 职业议题：通往 AI PM 之路
 
 ## 来源 / 证据池

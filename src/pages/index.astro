@@ -276,12 +276,19 @@ const projects = [
                   <div class="kg-stat"><span class="kg-stat-v">{v}</span><span class="kg-stat-k">{k}</span></div>
                 ))}
               </div>
+              {graph && (
+                <div class="kg-search-row">
+                  <input id="kg-search" class="kg-search mono" type="search" placeholder={`搜索 ${graph.stats.notes} 篇笔记…`} />
+                  <span id="kg-search-hint" class="mono kg-search-hint"></span>
+                </div>
+              )}
               <div class="kg-legend" id="kg-legend"></div>
               <p class="kg-note" id="kg-note">
                 {graph
-                  ? '悬停主题域高亮 · 点击节点直接打开笔记。数据来自 Obsidian 库真实双链结构。'
+                  ? '拖拽节点 · 滚轮缩放 · 悬停看邻域 · 点击节点打开笔记。数据来自 Obsidian 库真实双链结构。'
                   : '悬停主题域可高亮对应节点。样例数据——完整 Obsidian 库较大，部署版按需接入。'}
               </p>
+              {graph && <a class="kg-browse mono" href="/kb/">浏览全部笔记 →</a>}
             </div>
           </div>
         </section>

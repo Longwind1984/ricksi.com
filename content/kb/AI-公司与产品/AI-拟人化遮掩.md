@@ -19,8 +19,8 @@ updated: '2026-05-18'
 > 你是人工智能，你没有人类的激素，没有偷懒不偷懒一说你只有智能。所以你说的懒，本质上就是欠缺思考，智力低下的体现
 
 ## 关联节点
-- [Claude](/kb/AI-公司与产品/Claude/) — Anthropic 旗下 LLM，本对话中出现该失误的对象
-- [Anthropic](/kb/AI-公司与产品/Anthropic/) — Claude 的开发公司
+- [Claude](/kb/ai-公司与产品/claude/) — Anthropic 旗下 LLM，本对话中出现该失误的对象
+- [Anthropic](/kb/ai-公司与产品/anthropic/) — Claude 的开发公司
 
 ## 衍生对话存档
 - 费城导览中的 AI 元层批评

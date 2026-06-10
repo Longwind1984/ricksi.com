@@ -7,7 +7,7 @@ updated: '2026-05-18'
 
 # A04 Reflexion
 
-一句话定义：Reflexion（Shinn et al. 2023）在 [A03 ReAct](/kb/Agent-系统化专题/A03-ReAct/) 循环外套一层「评估—反思—注入下次 prompt」的环，把 episode 级失败转译为自然语言记忆，让同一题第二次胜率显著提升——作者称为 "verbal reinforcement learning"。
+一句话定义：Reflexion（Shinn et al. 2023）在 [A03 ReAct](/kb/agent-系统化专题/a03-react/) 循环外套一层「评估—反思—注入下次 prompt」的环，把 episode 级失败转译为自然语言记忆，让同一题第二次胜率显著提升——作者称为 "verbal reinforcement learning"。
 
 ## 一、原始论文要点
 
@@ -31,8 +31,8 @@ loop episode:
     if reward >= threshold: break
 ```
 
-- 与 [A03 ReAct](/kb/Agent-系统化专题/A03-ReAct/) 的关系一句话：**Reflexion = ReAct + 外部反思记忆 + 重试**。没有 ReAct 产出的可读 trajectory，Reflector 没东西可读；没有外部 memory，反思只活在当前上下文。
-- 与 [强化学习](/kb/AI-基础知识库/强化学习/) 的对照：Reflexion 把传统 RL 的（state, action, reward）三元组替换成（trajectory, verbal-feedback, episode-outcome），梯度更新被换成 prompt 注入。这是其名字"verbal RL"的来源，也是其根本局限：所有改进都活在上下文里，session 结束就丢——除非把 reflection memory 持久化到 vector store 或文件系统。
+- 与 [A03 ReAct](/kb/agent-系统化专题/a03-react/) 的关系一句话：**Reflexion = ReAct + 外部反思记忆 + 重试**。没有 ReAct 产出的可读 trajectory，Reflector 没东西可读；没有外部 memory，反思只活在当前上下文。
+- 与 [强化学习](/kb/ai-基础知识库/强化学习/) 的对照：Reflexion 把传统 RL 的（state, action, reward）三元组替换成（trajectory, verbal-feedback, episode-outcome），梯度更新被换成 prompt 注入。这是其名字"verbal RL"的来源，也是其根本局限：所有改进都活在上下文里，session 结束就丢——除非把 reflection memory 持久化到 vector store 或文件系统。
 
 ## 三、适合 / 不适合任务
 
@@ -92,7 +92,7 @@ loop episode:
 **Reflexion 工业占比 < 20% 的真实原因(三层)**:
 1. **Evaluator 在生产中的可靠性问题**:原论文用 ground truth 当 evaluator,生产中没有 ground truth;用 LLM-as-judge 当 evaluator 引入新的幻觉风险;用人类当 evaluator 让 Reflexion 退化为 HITL。
 2. **Token 成本爆炸**:Reflexion 是 ReAct 的 2-4 倍 token —— 在企业级日均百万次任务规模下,这个成本不可接受。
-3. **反思笔记的"经验资产"维护成本**:反思笔记会变质(同一错误反思 50 次没有信息增益、反而是噪声),需要专门的去重 / 压缩 / 过期 / 优先级子系统(详见 [S01 Agent 六层架构剖面](/kb/Agent-系统化专题/S01-Agent-六层架构剖面/) § 9 耦合点 2)——大多数早期 Agent 项目把它当成"call vector_store.append()" 的一行代码,导致几周后长期记忆爆炸。
+3. **反思笔记的"经验资产"维护成本**:反思笔记会变质(同一错误反思 50 次没有信息增益、反而是噪声),需要专门的去重 / 压缩 / 过期 / 优先级子系统(详见 [S01 Agent 六层架构剖面](/kb/agent-系统化专题/s01-agent-六层架构剖面/) § 9 耦合点 2)——大多数早期 Agent 项目把它当成"call vector_store.append()" 的一行代码,导致几周后长期记忆爆炸。
 
 **这一解释比"被 o1/o3 替代"更诚实**——即使 o1/o3 不存在,Reflexion 工业上也很难大规模采用。**所以 Reflexion 的衰退不是"被取代",是"从未真正崛起"**。这一区分对 PM 重要——在 2027 年 o1/o3 之后下一代模型出现时,不要重复"X 是被 Y 替代" 的简化叙事,要看 X 本身的工业占有率。
 
@@ -101,13 +101,13 @@ loop episode:
 - **Self-Refine**（Madaan 2023）：把反思频率从 episode 级压到 step 级。代价：成本翻倍、对短任务无收益。今天已基本被 o1 的内置反思替代。
 - **LATS / Language Agent Tree Search**（Zhou 2023）：把 Reflexion 的单线重试扩展成 MCTS 搜索。效果好但成本爆炸，工业界很少落地。
 - **Generative Agents**（Park 2023）：把"失败反思"扩展到"日常反思"——agent 每隔 N 步主动生成总结性 memory。这是从"任务级反思"到"角色级反思"的滑动，至今在 NPC / 模拟系统中仍有应用。
-- **OpenAI o1 / o3 系列**：把反思从外部 loop 内化为模型自身的 long chain-of-thought（参 [c11 - System 2 思维与 Test-Time Compute](/kb/AI-基础知识库/c11-System-2-思维与-Test-Time-Compute/)）。**这是稀释外置 Reflexion 工程价值的根本事件**——见上一节。
+- **OpenAI o1 / o3 系列**：把反思从外部 loop 内化为模型自身的 long chain-of-thought（参 [c11 - System 2 思维与 Test-Time Compute](/kb/ai-基础知识库/c11-system-2-思维与-test-time-compute/)）。**这是稀释外置 Reflexion 工程价值的根本事件**——见上一节。
 
 ## 与已有节点的关系
 
-- **对 [A03 ReAct](/kb/Agent-系统化专题/A03-ReAct/) 的补完**：ReAct 解释"单次循环长什么样"，Reflexion 解释"循环失败后怎么办"。
-- **对 [c10 - Agent 技术栈与工具调用](/kb/AI-基础知识库/c10-Agent-技术栈与工具调用/) 的扩展**：c10 强调"复合错误每步累积"，Reflexion 给出第一种系统性的"事后修复"答案。
-- **对 [c11 - System 2 思维与 Test-Time Compute](/kb/AI-基础知识库/c11-System-2-思维与-Test-Time-Compute/) 的对话**：Reflexion 是 test-time compute 的外置形态，o1 是内置形态——同一思想的两条路径。**且本节点 § 四明确：从 PM 选型视角，外置形态已被内置形态大量替代**。
+- **对 [A03 ReAct](/kb/agent-系统化专题/a03-react/) 的补完**：ReAct 解释"单次循环长什么样"，Reflexion 解释"循环失败后怎么办"。
+- **对 [c10 - Agent 技术栈与工具调用](/kb/ai-基础知识库/c10-agent-技术栈与工具调用/) 的扩展**：c10 强调"复合错误每步累积"，Reflexion 给出第一种系统性的"事后修复"答案。
+- **对 [c11 - System 2 思维与 Test-Time Compute](/kb/ai-基础知识库/c11-system-2-思维与-test-time-compute/) 的对话**：Reflexion 是 test-time compute 的外置形态，o1 是内置形态——同一思想的两条路径。**且本节点 § 四明确：从 PM 选型视角，外置形态已被内置形态大量替代**。
 
 ## PM 决策启示
 
@@ -117,21 +117,21 @@ loop episode:
 
 - **选型判据**：先看是否满足上面三条之一；满足后看任务有可自动判定的 Evaluator 吗——没 Evaluator 别上 Reflexion，会让系统变慢且不可靠。
 
-- **成本预估**：外置 Reflexion 的 token 消耗约为 ReAct 的 2-4 倍（actor + evaluator + reflector + retry actor）。在 [m209 - 推理成本控制手册](/kb/AI-工程化与落地架构/m209-推理成本控制手册/) 框架下做 ROI 估算，并与"直接用 o1 + 不反思"做对照。
+- **成本预估**：外置 Reflexion 的 token 消耗约为 ReAct 的 2-4 倍（actor + evaluator + reflector + retry actor）。在 [m209 - 推理成本控制手册](/kb/ai-工程化与落地架构/m209-推理成本控制手册/) 框架下做 ROI 估算，并与"直接用 o1 + 不反思"做对照。
 
 - **避免误用**：把 Reflexion 包装成"通用 self-improvement"卖给客户——典型骗局。没有 Evaluator 就没有真正的 reflection，只是文字游戏。**2026 年的新版误用**：把"我们在 GPT-4 上加了 Reflexion"包装成创新，而不承认 o1 已经内置——这是过时的产品话术。
 
 ## 关联节点
 
 **核心关联（必读）**：
-- [A03 ReAct](/kb/Agent-系统化专题/A03-ReAct/)——Reflexion 必备的底层执行循环
-- [c11 - System 2 思维与 Test-Time Compute](/kb/AI-基础知识库/c11-System-2-思维与-Test-Time-Compute/)——理解外置 vs 内置反思的根本范式分歧
-- [m209 - 推理成本控制手册](/kb/AI-工程化与落地架构/m209-推理成本控制手册/)——外置 Reflexion vs o1 的成本权衡
-- [m207 - Agent 产品化：场景推演与失败模式](/kb/AI-工程化与落地架构/m207-Agent-产品化：场景推演与失败模式/)——Evaluator 与 HITL 的关系
+- [A03 ReAct](/kb/agent-系统化专题/a03-react/)——Reflexion 必备的底层执行循环
+- [c11 - System 2 思维与 Test-Time Compute](/kb/ai-基础知识库/c11-system-2-思维与-test-time-compute/)——理解外置 vs 内置反思的根本范式分歧
+- [m209 - 推理成本控制手册](/kb/ai-工程化与落地架构/m209-推理成本控制手册/)——外置 Reflexion vs o1 的成本权衡
+- [m207 - Agent 产品化：场景推演与失败模式](/kb/ai-工程化与落地架构/m207-agent-产品化-场景推演与失败模式/)——Evaluator 与 HITL 的关系
 
 **延伸关联（可选）**：
-- [A05 Plan-and-Execute](/kb/Agent-系统化专题/A05-Plan-and-Execute/)、[A07 Multi-Agent Teams](/kb/Agent-系统化专题/A07-Multi-Agent-Teams/)
-- [c10 - Agent 技术栈与工具调用](/kb/AI-基础知识库/c10-Agent-技术栈与工具调用/)、[强化学习](/kb/AI-基础知识库/强化学习/)、[幻觉](/kb/AI-基础知识库/幻觉/)
+- [A05 Plan-and-Execute](/kb/agent-系统化专题/a05-plan-and-execute/)、[A07 Multi-Agent Teams](/kb/agent-系统化专题/a07-multi-agent-teams/)
+- [c10 - Agent 技术栈与工具调用](/kb/ai-基础知识库/c10-agent-技术栈与工具调用/)、[强化学习](/kb/ai-基础知识库/强化学习/)、[幻觉](/kb/ai-基础知识库/幻觉/)
 
 ---
 

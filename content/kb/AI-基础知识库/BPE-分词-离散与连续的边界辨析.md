@@ -89,11 +89,11 @@ embedding 层物理上是 `[vocab_size, d_model]` 的查找表。token ID 是整
 
 ## 关联节点
 
-- [c02 - Tokenization 与词表工程](/kb/AI-基础知识库/c02-Tokenization-与词表工程/) — 分词技术母节点。
-- [Tokenization](/kb/AI-基础知识库/Tokenization/) — 概念节点。
-- [Embedding](/kb/AI-基础知识库/Embedding/) — 离散到连续的跳板。
-- [Softmax](/kb/AI-基础知识库/Softmax/) — 输出端硬约束的具体函数。
-- [c01 - 认知重构：从确定性系统到概率系统](/kb/AI-基础知识库/c01-认知重构：从确定性系统到概率系统/) — 全 softmax 与概率系统的连接。
+- [c02 - Tokenization 与词表工程](/kb/ai-基础知识库/c02-tokenization-与词表工程/) — 分词技术母节点。
+- [Tokenization](/kb/ai-基础知识库/tokenization/) — 概念节点。
+- [Embedding](/kb/ai-基础知识库/embedding/) — 离散到连续的跳板。
+- [Softmax](/kb/ai-基础知识库/softmax/) — 输出端硬约束的具体函数。
+- [c01 - 认知重构：从确定性系统到概率系统](/kb/ai-基础知识库/c01-认知重构-从确定性系统到概率系统/) — 全 softmax 与概率系统的连接。
 
 ## 衍生对话存档
 

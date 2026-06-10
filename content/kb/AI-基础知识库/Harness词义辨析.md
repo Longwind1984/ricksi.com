@@ -17,15 +17,15 @@ updated: '2026-05-18'
 - Claude Code 是 harness；plugins/skills 是 harness 内的可加载组件；二者不在同一抽象层。
 
 ## 关联节点
-- [Claude Code](/kb/AI-公司与产品/Claude-Code/)
+- [Claude Code](/kb/ai-公司与产品/claude-code/)
 - *Superpowers skill*（提议新建）
 
 ## 专题升级（0411）
 
 本卡片做的是词源/语义滑动梳理。完整的抽象层级辨析（harness vs framework vs agent vs skill vs orchestrator 五词分层）与 Harness Engineering 全景请见：
-- [A02 抽象层级辨析·Harness Framework Agent Skill Orchestrator](/kb/Agent-系统化专题/A02-抽象层级辨析·Harness-Framework-Agent-Skill-Orchestrator/)
-- [S03 Harness Engineering 全景](/kb/Agent-系统化专题/S03-Harness-Engineering-全景/)（含 Hashimoto 命名史 + Dreyfus 技能分级 + 五家 coding harness 对照）
-- [_Agent 系统化专题·总览](/kb/Agent-系统化专题/_Agent-系统化专题·总览/)
+- [A02 抽象层级辨析·Harness Framework Agent Skill Orchestrator](/kb/agent-系统化专题/a02-抽象层级辨析-harness-framework-agent-skill-orchestrator/)
+- [S03 Harness Engineering 全景](/kb/agent-系统化专题/s03-harness-engineering-全景/)（含 Hashimoto 命名史 + Dreyfus 技能分级 + 五家 coding harness 对照）
+- [_Agent 系统化专题·总览](/kb/agent-系统化专题/_agent-系统化专题-总览/)
 
 ## 衍生对话存档
 - 来源对话

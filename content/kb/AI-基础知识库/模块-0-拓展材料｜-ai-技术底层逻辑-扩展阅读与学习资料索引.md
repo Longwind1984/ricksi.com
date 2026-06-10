@@ -60,7 +60,7 @@ LIMA 论文 — "LIMA: Less Is More for Alignment" Zhou et al., 2023. https://ar
 
 DPO 论文 — "Direct Preference Optimization: Your Language Model is Secretly a Reward Model" Rafailov et al., 2023. https://arxiv.org/abs/2305.18290 ★★☆ 推荐 为什么推荐：DPO 已经取代 PPO 成为后训练对齐的主流方案。论文的核心贡献是证明了可以绕过显式的 Reward Model 直接优化偏好——这个简化极大降低了对齐训练的工程复杂度和成本。PM 不需要理解证明过程，但需要理解 DPO 为什么比 RLHF 更受欢迎（更稳定、更便宜、更易实现），以及它在什么场景下可能不如 RLHF。读 Section 1-3 即可。
 
-[Anthropic](/kb/AI-公司与产品/Anthropic/) — "Constitutional AI: Harmlessness from AI Feedback" Bai et al., 2022. https://arxiv.org/abs/2212.08073 ★☆☆ 选读加分 为什么推荐：Constitutional AI 是你文档第 15 章中合成数据质量过滤的理论基础。了解"AI 自我评判和修正"的机制对理解数据飞轮和自动化对齐 pipeline 有帮助。但这更偏研究前沿，面试中不太会被深追。
+[Anthropic](/kb/ai-公司与产品/anthropic/) — "Constitutional AI: Harmlessness from AI Feedback" Bai et al., 2022. https://arxiv.org/abs/2212.08073 ★☆☆ 选读加分 为什么推荐：Constitutional AI 是你文档第 15 章中合成数据质量过滤的理论基础。了解"AI 自我评判和修正"的机制对理解数据飞轮和自动化对齐 pipeline 有帮助。但这更偏研究前沿，面试中不太会被深追。
 
 ---
 
@@ -74,7 +74,7 @@ vLLM / PagedAttention 论文 Kwon et al., 2023. https://arxiv.org/abs/2309.06180
 
 ## 第 6 章 · 架构演进：Dense / MoE / SSM / Hybrid
 
-[DeepSeek](/kb/AI-公司与产品/DeepSeek/)-V3 技术报告 https://arxiv.org/abs/2412.19437 ★★☆ 推荐 为什么推荐：DeepSeek-V3 是当前 MoE 架构在工程和性能上的最强实践案例（671B 参数、37B 激活、极低训练成本）。报告详细描述了辅助损失设计、专家路由策略和混合并行训练方案。考虑到 DeepSeek 在国内 AI 圈的影响力，面试时对这份报告的熟悉度本身就是信号。不需要逐页读，重点看 Section 2（架构设计）和 Section 4（训练效率）。
+[DeepSeek](/kb/ai-公司与产品/deepseek/)-V3 技术报告 https://arxiv.org/abs/2412.19437 ★★☆ 推荐 为什么推荐：DeepSeek-V3 是当前 MoE 架构在工程和性能上的最强实践案例（671B 参数、37B 激活、极低训练成本）。报告详细描述了辅助损失设计、专家路由策略和混合并行训练方案。考虑到 DeepSeek 在国内 AI 圈的影响力，面试时对这份报告的熟悉度本身就是信号。不需要逐页读，重点看 Section 2（架构设计）和 Section 4（训练效率）。
 
 Mamba 论文 — "Mamba: Linear-Time Sequence Modeling with Selective State Spaces" Gu & Dao, 2023. https://arxiv.org/abs/2312.00752 ★☆☆ 选读加分 为什么推荐：SSM/Mamba 在你的架构对比表中占一列，但如果面试官深追"SSM 的选择性机制到底是什么"，你需要比"线性时间复杂度"更具体的答案。这篇论文的 Section 3（选择性状态空间层）是核心，解释了 Mamba 如何通过输入相关的选择机制解决传统 SSM 对内容无感知的问题。整篇论文偏数学，Section 1 + 3 即可。
 
@@ -120,7 +120,7 @@ Andrew Ng — "Agentic AI Design Patterns" (DeepLearning.AI 系列短课/讲座)
 
 ## 第 11 章 · System 2 思维与 Test-Time Compute
 
-[OpenAI](/kb/AI-公司与产品/OpenAI/) o1 系统卡 https://openai.com/index/openai-o1-system-card/ ★★☆ 推荐 为什么推荐：这是 o1 模型的官方技术说明，解释了"思考 token"的产品化呈现方式、安全对齐的特殊挑战（模型可能在 hidden chain-of-thought 中"欺骗"）、以及 test-time compute 的商业化思路。对理解第 11 章中"动态算力预算控制"和"思维过程白盒化"的产品落地有直接帮助。
+[OpenAI](/kb/ai-公司与产品/openai/) o1 系统卡 https://openai.com/index/openai-o1-system-card/ ★★☆ 推荐 为什么推荐：这是 o1 模型的官方技术说明，解释了"思考 token"的产品化呈现方式、安全对齐的特殊挑战（模型可能在 hidden chain-of-thought 中"欺骗"）、以及 test-time compute 的商业化思路。对理解第 11 章中"动态算力预算控制"和"思维过程白盒化"的产品落地有直接帮助。
 
 DeepSeek-R1 技术报告 https://arxiv.org/abs/2501.12948 ★★☆ 推荐 为什么推荐：DeepSeek-R1 展示了如何通过纯 RL（不依赖大量 SFT 数据）训练出强推理能力，并且将推理过程（chain-of-thought）显式化。在国内 AI 面试中，对 DeepSeek 系列的熟悉度几乎是必修。重点看 Section 2-3 关于训练方法和消融实验的部分。
 

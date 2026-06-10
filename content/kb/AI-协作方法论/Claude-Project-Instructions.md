@@ -20,8 +20,8 @@ Anthropic Claude Web 的 Project 功能本质是给一组对话注入持久 syst
 - **拉美现当代史项目示例规约**（Rick 用例）：定位为持续学习伙伴而非一次性百科；优先时间线 + 因果链 + 行动者动机；遇到争议立场明确给出对照而非单边表述；引用具体史料与年代以便交叉验证。
 
 ## 关联节点
-- [Claude](/kb/AI-公司与产品/Claude/)
-- [Anthropic](/kb/AI-公司与产品/Anthropic/)
+- [Claude](/kb/ai-公司与产品/claude/)
+- [Anthropic](/kb/ai-公司与产品/anthropic/)
 - *Prompt Engineering*
 - *RAG*
 

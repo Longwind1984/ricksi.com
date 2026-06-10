@@ -15,7 +15,12 @@ const posts = defineCollection({
 
 // 知识库笔记：content/kb/**（由 scripts/sync-vault.mjs 从 Obsidian 同步生成）
 const kb = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './content/kb' }),
+  // generateId：精确使用文件路径（sync-vault 已产出最终 slug），避免默认 slugger 的二次转换
+  loader: glob({
+    pattern: '**/*.md',
+    base: './content/kb',
+    generateId: ({ entry }) => entry.replace(/\.md$/, ''),
+  }),
   schema: z
     .object({
       title: z.string(),

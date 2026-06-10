@@ -30,7 +30,7 @@ L(N, D) ≈ (N_c / N)^α_N + (D_c / D)^α_D + L_∞
 | 1.0 算力主导 | Kaplan 2020 (OpenAI) | 给定算力，应优先加大模型参数；数据需求随参数缓慢增长 | GPT-3 175B 训了 ~300B tokens（事后看严重欠拟合） |
 | 2.0 数据-参数平衡 | Hoffmann 2022 (Chinchilla, DeepMind) | 算力固定时，参数和数据应近似 **1:20** 同步扩 | Chinchilla 70B 训 1.4T tokens，比 Gopher 280B 强 |
 | 2.5 推理优化超训 | 行业实践 2023+ | 对要长期推理服务的模型，**故意 overtrain**（超 20× tokens/param）摊销推理成本 | Llama-3-70B 训了 15T tokens（≈ 200× ratio），换取更小模型更强能力 |
-| 3.0 推理时扩展 | OpenAI o1/o3、DeepSeek-R1 2024+ | 推理时投入更多算力（[Test-Time Compute](/kb/AI-基础知识库/Test-Time-Compute/)）也遵循 scaling law | 算力可在「训练时」和「推理时」两条曲线间动态分配 |
+| 3.0 推理时扩展 | OpenAI o1/o3、DeepSeek-R1 2024+ | 推理时投入更多算力（[Test-Time Compute](/kb/ai-基础知识库/test-time-compute/)）也遵循 scaling law | 算力可在「训练时」和「推理时」两条曲线间动态分配 |
 
 ## Chinchilla 比例的工程直觉
 
@@ -46,9 +46,9 @@ L(N, D) ≈ (N_c / N)^α_N + (D_c / D)^α_D + L_∞
 
 ## 何时不再适用：边界条件
 
-- **数据墙**：当高质量人类文本接近耗尽，单纯加 D 不再产生预期的 loss 下降（见 [c15 数据墙](/kb/AI-基础知识库/c15-数据墙与后训练霸权/)）
+- **数据墙**：当高质量人类文本接近耗尽，单纯加 D 不再产生预期的 loss 下降（见 [c15 数据墙](/kb/ai-基础知识库/c15-数据墙与后训练霸权/)）
 - **能力涌现非平滑**：某些能力（如算术、CoT 推理）呈阶跃式出现，不是连续幂律——这给 PM 的能力预测带来不确定性
-- **Goodhart 陷阱**：loss 下降不等于真实能力提升；某些 benchmark 饱和后 loss 仍降但用户感受无变化（见 [c14](/kb/AI-基础知识库/c14-模型评估体系与-Goodhart-陷阱/)）
+- **Goodhart 陷阱**：loss 下降不等于真实能力提升；某些 benchmark 饱和后 loss 仍降但用户感受无变化（见 [c14](/kb/ai-基础知识库/c14-模型评估体系与-goodhart-陷阱/)）
 - **Broken Neural Scaling Laws**（Caballero 2023）：观察到部分任务 loss 曲线在某临界算力处发生折断，幂律不再单一
 
 ## 三条算力曲线的分配
@@ -82,11 +82,11 @@ L(N, D) ≈ (N_c / N)^α_N + (D_c / D)^α_D + L_∞
 
 ## 相关章节
 
-- [c04 预训练与 Scaling Laws](/kb/AI-基础知识库/c04-模型训练全阶段-Pipeline/)
-- [c14 Benchmark 通胀](/kb/AI-基础知识库/c14-模型评估体系与-Goodhart-陷阱/)
-- [c15 数据墙](/kb/AI-基础知识库/c15-数据墙与后训练霸权/)
-- [c11 算力转移](/kb/AI-基础知识库/c11-System-2-思维与-Test-Time-Compute/)
+- [c04 预训练与 Scaling Laws](/kb/ai-基础知识库/c04-模型训练全阶段-pipeline/)
+- [c14 Benchmark 通胀](/kb/ai-基础知识库/c14-模型评估体系与-goodhart-陷阱/)
+- [c15 数据墙](/kb/ai-基础知识库/c15-数据墙与后训练霸权/)
+- [c11 算力转移](/kb/ai-基础知识库/c11-system-2-思维与-test-time-compute/)
 
 ## 关联概念
 
-[预训练](/kb/AI-基础知识库/预训练/)·[合成数据](/kb/AI-基础知识库/合成数据/)·[Test-Time Compute](/kb/AI-基础知识库/Test-Time-Compute/)·Chinchilla·数据墙·范式
+[预训练](/kb/ai-基础知识库/预训练/)·[合成数据](/kb/ai-基础知识库/合成数据/)·[Test-Time Compute](/kb/ai-基础知识库/test-time-compute/)·Chinchilla·数据墙·范式

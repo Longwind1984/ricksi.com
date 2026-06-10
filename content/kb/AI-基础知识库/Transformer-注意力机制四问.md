@@ -96,9 +96,9 @@ Rick 用"bank"的多义词案例做反直觉测试——如果点积是唯一确
 Rick 锁死具体模型（GPT-3：d_model=12288, h=96, d_k=128）并追问设计选择的反事实——把"业界惯例"压成"为什么必须如此"的逻辑链。这是 Rick 的标志学习手法：拒绝接受惯例，要求每个工程选择都通过反事实测试。
 
 ## 关联节点
-- [Attention](/kb/AI-基础知识库/Attention/) — 上位概念
-- [c03 - Transformer 核心机制与注意力变体](/kb/AI-基础知识库/c03-Transformer-核心机制与注意力变体/) — 注意力变体演进
-- [KV Cache](/kb/AI-基础知识库/KV-Cache/) — Attention 推理阶段的关键
+- [Attention](/kb/ai-基础知识库/attention/) — 上位概念
+- [c03 - Transformer 核心机制与注意力变体](/kb/ai-基础知识库/c03-transformer-核心机制与注意力变体/) — 注意力变体演进
+- [KV Cache](/kb/ai-基础知识库/kv-cache/) — Attention 推理阶段的关键
 - *MQA / GQA / MLA* — 注意力变体演进的具体节点（节点待建）
 
 ## 衍生对话存档

@@ -43,7 +43,7 @@ intellectual-lens 后来被实际 build 出来（见 `20260405-intellectual-lens
 
 - 拉美知识图 — skill 的主要使用场景之一
 - Rick 写作 SABCD 评级体系 — 同期的另一类 "把写作判断外化为工具" 的尝试
-- [Claude](/kb/AI-公司与产品/Claude/) — 承载 skill 的 runtime
+- [Claude](/kb/ai-公司与产品/claude/) — 承载 skill 的 runtime
 
 ## 衍生对话存档
 

@@ -35,7 +35,7 @@ RoPE 通过旋转矩阵将位置信息编码进 Q 和 K 向量，使注意力分
 
 ## 相关章节
 
-- [c03 Transformer 核心机制](/kb/AI-基础知识库/c03-Transformer-核心机制与注意力变体/)
-- [c05 KV Cache — GQA 联动](/kb/AI-基础知识库/c05-算力物理定律与-KV-Cache/)
-- [c06 SSM vs Attention](/kb/AI-基础知识库/c06-架构演进：Dense-MoE-SSM-Hybrid/)
-- [c12 ViT 与多模态](/kb/AI-基础知识库/c12-多模态融合与具身智能/)
+- [c03 Transformer 核心机制](/kb/ai-基础知识库/c03-transformer-核心机制与注意力变体/)
+- [c05 KV Cache — GQA 联动](/kb/ai-基础知识库/c05-算力物理定律与-kv-cache/)
+- [c06 SSM vs Attention](/kb/ai-基础知识库/c06-架构演进-dense-moe-ssm-hybrid/)
+- [c12 ViT 与多模态](/kb/ai-基础知识库/c12-多模态融合与具身智能/)

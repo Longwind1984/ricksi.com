@@ -18,11 +18,11 @@ updated: '2026-05-18'
 
 ## 与已有概念的关联
 
-- [Scaling Laws](/kb/AI-基础知识库/Scaling-Laws/) — Scaling 是否能直接推到 AGI 是核心争论点
-- [Test-Time Compute](/kb/AI-基础知识库/Test-Time-Compute/) — 推理时计算被视为 LLM 通向 AGI 的一条候选路径
-- [c11 - System 2 思维与 Test-Time Compute](/kb/AI-基础知识库/c11-System-2-思维与-Test-Time-Compute/) — 慢思考与 AGI 通用性的接口
-- [c13 - 幻觉的不可消除性](/kb/AI-基础知识库/c13-幻觉的不可消除性/) — 当前 LLM 与 AGI 的关键差距之一
-- [幻觉](/kb/AI-基础知识库/幻觉/) — 与 AGI 可靠性的关系
+- [Scaling Laws](/kb/ai-基础知识库/scaling-laws/) — Scaling 是否能直接推到 AGI 是核心争论点
+- [Test-Time Compute](/kb/ai-基础知识库/test-time-compute/) — 推理时计算被视为 LLM 通向 AGI 的一条候选路径
+- [c11 - System 2 思维与 Test-Time Compute](/kb/ai-基础知识库/c11-system-2-思维与-test-time-compute/) — 慢思考与 AGI 通用性的接口
+- [c13 - 幻觉的不可消除性](/kb/ai-基础知识库/c13-幻觉的不可消除性/) — 当前 LLM 与 AGI 的关键差距之一
+- [幻觉](/kb/ai-基础知识库/幻觉/) — 与 AGI 可靠性的关系
 
 ## 衍生对话存档
 

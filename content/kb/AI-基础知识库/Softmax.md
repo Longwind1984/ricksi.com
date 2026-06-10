@@ -9,7 +9,7 @@ updated: '2026-06-07'
 
 ## 一句话定义
 
-**Softmax 是把一组实数（logits）变成和为 1 的概率分布的函数**——它是 LLM 输出层、[Attention](/kb/AI-基础知识库/Attention/) 权重、[MoE](/kb/AI-基础知识库/MoE/) Router 三处共用的核心数学组件，几乎所有"哪个候选项更可能"的选择都通过它。
+**Softmax 是把一组实数（logits）变成和为 1 的概率分布的函数**——它是 LLM 输出层、[Attention](/kb/ai-基础知识库/attention/) 权重、[MoE](/kb/ai-基础知识库/moe/) Router 三处共用的核心数学组件，几乎所有"哪个候选项更可能"的选择都通过它。
 
 ## 数学定义
 
@@ -48,7 +48,7 @@ P(i) = exp(x_i - m) / Σⱼ exp(x_j - m)
 
 模型最后一层产出 vocab 大小的 logits → softmax 转概率 → 按策略采样下一个 token。
 
-### 3. [MoE](/kb/AI-基础知识库/MoE/) Router
+### 3. [MoE](/kb/ai-基础知识库/moe/) Router
 
 每个 token 经 router 网络得到 N_expert 个 logits → softmax → 选 Top-K experts。
 
@@ -83,7 +83,7 @@ P(i) = exp(x_i / T) / Σⱼ exp(x_j / T)
 
 机制：训练数据没覆盖的领域 → logits 在多个候选间分布平摊 → softmax 仍会输出一个"看起来确定"的最大值 → 模型说出未验证内容。
 
-这就是 [幻觉](/kb/AI-基础知识库/幻觉/) 的数学根源之一：**softmax 没有"我不知道"这一项**。它强制把概率全部分配给 vocab 内 token，没有 abstain 选项。
+这就是 [幻觉](/kb/ai-基础知识库/幻觉/) 的数学根源之一：**softmax 没有"我不知道"这一项**。它强制把概率全部分配给 vocab 内 token，没有 abstain 选项。
 
 **研究方向**：
 - 设置 logit 阈值，低于阈值时拒答（Selective Prediction）
@@ -112,7 +112,7 @@ P(i) = exp(x_i / T) / Σⱼ exp(x_j / T)
 | **Gumbel-Softmax** | 加 Gumbel 噪声后取 argmax 的可微近似 | 离散变量 RL / VAE |
 | **Top-K Softmax** | 只在 Top-K 上归一化 | MoE 路由 |
 
-[MoE](/kb/AI-基础知识库/MoE/) 路由是 Top-K Softmax 最大规模的工程实践——每个 token 只激活 1-8 个 expert，背后是稀疏路由 + 负载均衡的精妙工程。
+[MoE](/kb/ai-基础知识库/moe/) 路由是 Top-K Softmax 最大规模的工程实践——每个 token 只激活 1-8 个 expert，背后是稀疏路由 + 负载均衡的精妙工程。
 
 ## 一个反直觉发现：Softmax 不是"概率"
 
@@ -132,13 +132,13 @@ P(i) = exp(x_i / T) / Σⱼ exp(x_j / T)
 
 ## 相关章节
 
-- [c03 Attention 中的 softmax](/kb/AI-基础知识库/c03-Transformer-核心机制与注意力变体/)
-- [c08 Temperature / Top-K / Top-P](/kb/AI-基础知识库/c08-解码策略与生成控制/)
-- [c13 幻觉的数学根源](/kb/AI-基础知识库/c13-幻觉的不可消除性/)
-- [c14 校准与置信度](/kb/AI-基础知识库/c14-模型评估体系与-Goodhart-陷阱/)
+- [c03 Attention 中的 softmax](/kb/ai-基础知识库/c03-transformer-核心机制与注意力变体/)
+- [c08 Temperature / Top-K / Top-P](/kb/ai-基础知识库/c08-解码策略与生成控制/)
+- [c13 幻觉的数学根源](/kb/ai-基础知识库/c13-幻觉的不可消除性/)
+- [c14 校准与置信度](/kb/ai-基础知识库/c14-模型评估体系与-goodhart-陷阱/)
 
 ## 关联节点
 
-- 数学组件：[Attention](/kb/AI-基础知识库/Attention/) [Embedding](/kb/AI-基础知识库/Embedding/)
-- 解码相关：[幻觉](/kb/AI-基础知识库/幻觉/) [Test-Time Compute](/kb/AI-基础知识库/Test-Time-Compute/)
-- 工程实现：[MoE](/kb/AI-基础知识库/MoE/) [自回归生成](/kb/AI-基础知识库/自回归生成/)
+- 数学组件：[Attention](/kb/ai-基础知识库/attention/) [Embedding](/kb/ai-基础知识库/embedding/)
+- 解码相关：[幻觉](/kb/ai-基础知识库/幻觉/) [Test-Time Compute](/kb/ai-基础知识库/test-time-compute/)
+- 工程实现：[MoE](/kb/ai-基础知识库/moe/) [自回归生成](/kb/ai-基础知识库/自回归生成/)

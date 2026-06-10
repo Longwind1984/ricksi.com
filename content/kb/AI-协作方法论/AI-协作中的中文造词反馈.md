@@ -24,7 +24,7 @@ updated: '2026-05-18'
 
 ## 关联节点
 - CLAUDE
-- [Claude Code](/kb/AI-公司与产品/Claude-Code/)
+- [Claude Code](/kb/ai-公司与产品/claude-code/)
 
 ## 衍生对话存档
 - 来源对话

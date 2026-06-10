@@ -19,7 +19,7 @@ Kuhn 在《科学革命的结构》中用"范式"(paradigm)与"不可通约性"(
 
 代际视角的真正用处:**让 PM 在选型对话的前 5 分钟内,就能判断对方在谈的是哪一代的方法论,从而避免用 G4 的预算去做 G2 的事,或用 G2 的预期去验收 G4 的项目**。
 
-参见 `范式` 对 Kuhn 范式概念的展开,以及 `[AI概念滥用反思](/kb/AI-基础知识库/AI概念滥用反思/)` 对"Agent"这个词在不同语境下被偷换的整理。
+参见 `范式` 对 Kuhn 范式概念的展开,以及 `[AI概念滥用反思](/kb/ai-基础知识库/ai概念滥用反思/)` 对"Agent"这个词在不同语境下被偷换的整理。
 
 ## 2. 五代谱系总览表
 
@@ -36,8 +36,8 @@ Kuhn 在《科学革命的结构》中用"范式"(paradigm)与"不可通约性"(
 每代到下一代的核心驱动**不是**"模型变强了"——那是表层叙事。深层驱动是上一代被卡死的具体瓶颈:
 
 - **G1 → G2**:不是 GPT-4 让 AutoGPT 成为可能(GPT-3.5 就能跑 AutoGPT),而是**开源社区对"自主性"的浪漫想象**与 Hype Cycle 共振。学界已经知道单步 ReAct 不够,但产业界还没有"agent 能干完一件大事"的心理预期——AutoGPT 制造了这种预期,而预期本身是产品。
-- **G2 → G3**:AutoGPT 失败率不可用迫使学界搬出"反思"。Reflexion (Shinn 2023) 的核心洞察:**LLM 在"判断自己做错"上比"做对"上更可靠**,所以把"评估"作为独立模块。这是认识论上的反转——`[Polanyi 默会知识与提示工程的认识论张力](/kb/AI-基础知识库/Polanyi-默会知识与提示工程的认识论张力/)` 指出每代 agent 都在试图把"默会的判断"显式化,G3 是第一次系统性地把"反思判断"模块化。
-- **G3 → G4**:API 经济的天花板——很多有价值的工作流(报销系统、企业内部 ERP、遗留 Web 应用)**根本没有 API**。多模态成熟(GPT-4V 2023-09、Claude 3.5 Sonnet vision 2024-06)让"看屏幕"成为可能,Anthropic 2024-10 的 Computer Use 把这条技术路线产品化。Multi-Agent 同时崛起的驱动是不同的:**单 Agent 上下文窗口和注意力都顶不住复杂任务**,需要 韦伯科层制 式的角色分工(详见 `[A07 Multi-Agent Teams](/kb/Agent-系统化专题/A07-Multi-Agent-Teams/)`)。
+- **G2 → G3**:AutoGPT 失败率不可用迫使学界搬出"反思"。Reflexion (Shinn 2023) 的核心洞察:**LLM 在"判断自己做错"上比"做对"上更可靠**,所以把"评估"作为独立模块。这是认识论上的反转——`[Polanyi 默会知识与提示工程的认识论张力](/kb/ai-基础知识库/polanyi-默会知识与提示工程的认识论张力/)` 指出每代 agent 都在试图把"默会的判断"显式化,G3 是第一次系统性地把"反思判断"模块化。
+- **G3 → G4**:API 经济的天花板——很多有价值的工作流(报销系统、企业内部 ERP、遗留 Web 应用)**根本没有 API**。多模态成熟(GPT-4V 2023-09、Claude 3.5 Sonnet vision 2024-06)让"看屏幕"成为可能,Anthropic 2024-10 的 Computer Use 把这条技术路线产品化。Multi-Agent 同时崛起的驱动是不同的:**单 Agent 上下文窗口和注意力都顶不住复杂任务**,需要 韦伯科层制 式的角色分工(详见 `[A07 Multi-Agent Teams](/kb/agent-系统化专题/a07-multi-agent-teams/)`)。
 - **G4 → G5**:framework 重复造轮子的疲劳。LangChain / LangGraph / AutoGen / CrewAI / Dify / Letta / Mastra... 每个都有自己的 tool schema、memory format、agent protocol,导致同一个工具要写 5 次适配。Anthropic 2024-11 推出 MCP,本质是回应**生态级协调失败**;Google 2025-04 的 A2A 是大厂生态争夺的第二战场。这一代的驱动力是**社区时间成本**,不是技术能力。
 
 每一次跃迁的代价是:**老代际的人会本能拒绝新代际的范式**。LangChain 资深用户最初抵触 LangGraph;LangGraph 老用户抵触 MCP;Multi-Agent 派抵触 Computer Use("浪费 token");协议派抵触原生 Agent 模型("不通用")。Kuhn 说过,科学革命不是靠老科学家被说服,而是靠他们退休。
@@ -50,14 +50,14 @@ PM 选型最常翻车的三个混淆:
 2. **把 G4 Computer Use 当成 G5 协议**:Computer Use 是**绕过 API 的妥协方案**,不是"通用接口"。当 API 存在且稳定时,Computer Use 在每个维度都更差(慢、贵、错误率高)。把 Computer Use 当协议方案卖给已有 API 的客户,是高级的反向工程。
 3. **把 G5 MCP 当成 G2 自主性**:MCP 是工具调用协议,**不会让 agent 自动变得更"自主"**。给一个 G2 的 AutoGPT 接 100 个 MCP server,它只会更快地陷入 100 倍多的循环。
 
-详见 `[A02 抽象层级辨析·Harness Framework Agent Skill Orchestrator](/kb/Agent-系统化专题/A02-抽象层级辨析·Harness-Framework-Agent-Skill-Orchestrator/)` 对这些层级的正交分解。
+详见 `[A02 抽象层级辨析·Harness Framework Agent Skill Orchestrator](/kb/agent-系统化专题/a02-抽象层级辨析-harness-framework-agent-skill-orchestrator/)` 对这些层级的正交分解。
 
 ## 5. 当下(2026-05)所处的位置:G4 落地、G5 协议化、G6 萌芽
 
 **2026-05 的横截面**(分层判断,避免"全面落地"的乐观叙事):
-- **G4 分层落地**:**协议层 + Computer Use 技术层已规模化**(Computer Use 在客服自动化、Web 自动化场景规模化部署;Manus 在中国市场已有数十万付费用户;Devin 在代码生产环境跑通,详见 `[E02 通用 Agent·Manus & Devin](/kb/Agent-系统化专题/E02-通用-Agent·Manus-Devin/)`);但**用户产品层(通用 Agent / 对等式 Multi-Agent)仍 demo > 生产**——肖弘自己给 AI 原生组织度打了 60 分,Sam Altman 在 2026 年初的 "Reflections" 复盘中承认"Agent 的进展比我们 2025 年初预期慢、Operator 用户增长远低于 ChatGPT、Apps SDK 未形成 GPT Store 那样的爆发"。两份独立的内部复盘(中美各一)同向指向"用户产品层未兑现"。
+- **G4 分层落地**:**协议层 + Computer Use 技术层已规模化**(Computer Use 在客服自动化、Web 自动化场景规模化部署;Manus 在中国市场已有数十万付费用户;Devin 在代码生产环境跑通,详见 `[E02 通用 Agent·Manus & Devin](/kb/agent-系统化专题/e02-通用-agent-manus-devin/)`);但**用户产品层(通用 Agent / 对等式 Multi-Agent)仍 demo > 生产**——肖弘自己给 AI 原生组织度打了 60 分,Sam Altman 在 2026 年初的 "Reflections" 复盘中承认"Agent 的进展比我们 2025 年初预期慢、Operator 用户增长远低于 ChatGPT、Apps SDK 未形成 GPT Store 那样的爆发"。两份独立的内部复盘(中美各一)同向指向"用户产品层未兑现"。
 - **G5 协议正在生态化**(但需区分"宣称支持"vs"实际依赖"):MCP server 在 mcp.so / smithery.ai 等聚合站收录数千个(2026-05 量级,具体数随统计口径浮动);**但真正活跃维护、被生产环境依赖的可能只有 50-100 个**——"宣称支持 MCP"和"实际把 MCP 当唯一接口"是两件事。Anthropic Skills(2025-10 推出);Cursor、Claude Code、Zed、Continue 全部把 MCP 作为一等公民;OpenAI 在 2025-Q4 被动接受 MCP(很大成分是 Apps SDK / GPT Store 没竞争过协议化路线,不是"主动选择");中国大厂(阿里、字节、百度)表面支持 MCP,内部仍推私有协议(字节 Volcano Engine、阿里通义内部协议)。**G5 协议化是开放的,但不是中立的——协议化叙事更接近 Anthropic+Google 联合塑造的反 OpenAI 立场**。
-- **G6 萌芽**:**原生 Agent 模型**——OpenAI o3 (2024-12)、Claude Opus 4.7 (2026) 的 reasoning loop 已经在内部"吸收"了 G3 的 reflection 和 G4 的 tool use。详见 `[c11 - System 2 思维与 Test-Time Compute](/kb/AI-基础知识库/c11-System-2-思维与-Test-Time-Compute/)`。
+- **G6 萌芽**:**原生 Agent 模型**——OpenAI o3 (2024-12)、Claude Opus 4.7 (2026) 的 reasoning loop 已经在内部"吸收"了 G3 的 reflection 和 G4 的 tool use。详见 `[c11 - System 2 思维与 Test-Time Compute](/kb/ai-基础知识库/c11-system-2-思维与-test-time-compute/)`。
 
 ### 5.1 对 Yann LeCun "LLM Agent 是死胡同"立场的回应
 
@@ -121,20 +121,20 @@ PM 选型最常翻车的三个混淆:
 
 **Kuhn 范式革命**:每代之间不是改良,是格式塔切换。这意味着 PM 评估某个新 agent 产品时,**问"它解决了上一代什么瓶颈"比问"它新增了什么功能"更有诊断力**。如果回答不出明确的"上一代瓶颈",这个产品大概率是在打补丁。
 
-**福柯 生命政治**:每一代 agent 让渡的"自主性"边界,对应一种新的治理形态。G1 ReAct:人完全控制每一步;G2 AutoGPT:人让渡执行权但保留目标定义权;G4 Computer Use:人让渡屏幕操控权(包括误操作风险);G5 协议化:人让渡的是"信任谁来提供工具"。每一次让渡都伴随**新的可治理性问题**(详见 `生命政治` 与 `[m207 - Agent 产品化：场景推演与失败模式](/kb/AI-工程化与落地架构/m207-Agent-产品化：场景推演与失败模式/)` 的 HITL 三维度判断)。这不是抽象的哲学,是企业合规审查必须面对的具体问题:"这个 agent 能动我的客户数据库吗?"
+**福柯 生命政治**:每一代 agent 让渡的"自主性"边界,对应一种新的治理形态。G1 ReAct:人完全控制每一步;G2 AutoGPT:人让渡执行权但保留目标定义权;G4 Computer Use:人让渡屏幕操控权(包括误操作风险);G5 协议化:人让渡的是"信任谁来提供工具"。每一次让渡都伴随**新的可治理性问题**(详见 `生命政治` 与 `[m207 - Agent 产品化：场景推演与失败模式](/kb/ai-工程化与落地架构/m207-agent-产品化-场景推演与失败模式/)` 的 HITL 三维度判断)。这不是抽象的哲学,是企业合规审查必须面对的具体问题:"这个 agent 能动我的客户数据库吗?"
 
-**韦伯科层制 vs 市场理性**:G4 Multi-Agent Teams 是**理性科层制的工程化**——manager agent、worker agent、reviewer agent,角色明确、流程固化(详见 `[A07 Multi-Agent Teams](/kb/Agent-系统化专题/A07-Multi-Agent-Teams/)`)。G5 协议化则是**市场理性**——工具与 agent 之间通过协议(类比合约)自由组合,不再依赖中央编排。这两种治理形态在企业内部的张力,与 Coase《企业的性质》提出的"组织 vs 市场"边界问题完全同构。PM 选型时,这个张力直接表现为:用 LangGraph 把流程固化(科层),还是用 MCP 让 agent 自由调度工具(市场)?
+**韦伯科层制 vs 市场理性**:G4 Multi-Agent Teams 是**理性科层制的工程化**——manager agent、worker agent、reviewer agent,角色明确、流程固化(详见 `[A07 Multi-Agent Teams](/kb/agent-系统化专题/a07-multi-agent-teams/)`)。G5 协议化则是**市场理性**——工具与 agent 之间通过协议(类比合约)自由组合,不再依赖中央编排。这两种治理形态在企业内部的张力,与 Coase《企业的性质》提出的"组织 vs 市场"边界问题完全同构。PM 选型时,这个张力直接表现为:用 LangGraph 把流程固化(科层),还是用 MCP 让 agent 自由调度工具(市场)?
 
 **阿伦特行动 vs 制作**(待建跨域节点)还可以补一层:G1-G3 本质是"制作"(把任务转化为产物),G4 Computer Use 与 G5 协议化开始进入"行动"领域(在与他者/系统的关系中产生不可预期的后果)。这层张力在 m207 失败模式分析里已经隐含。
 
 ## 7. 与已有节点的关系
 
-- **`[c10 - Agent 技术栈与工具调用](/kb/AI-基础知识库/c10-Agent-技术栈与工具调用/)`**:c10 给出的是 **G3 的截面快照**(2024 年视角)——ReAct + 工具调用 + 记忆四类型 + 复合错误数学。c10 本身没有错,但它把"Agent"等同于"G3 时代的 Agentic Workflow",对 G4 Computer Use 与 G5 协议化只有零星提及。本节点提供**时间纵轴**,让 c10 的内容定位为"G3 章节",避免读者把 G3 当成全部。
-- **`[m206 - Agent 产品化：记忆机制与技术进展](/kb/AI-工程化与落地架构/m206-Agent-产品化：记忆机制与技术进展/)`**:m206 的三大启示(Browser Agent / A2A / Coding Agent)其实**横跨 G4 与 G5**——Browser Agent 是 G4 Computer Use 的产品化,A2A 是 G5 协议化的核心,Coding Agent(Claude Code、Cursor、Devin)是 G4 末期到 G5 早期的混合形态。本节点把这些散点放回代际坐标系。
-- **`[m207 - Agent 产品化：场景推演与失败模式](/kb/AI-工程化与落地架构/m207-Agent-产品化：场景推演与失败模式/)`**:m207 的六类失败模式,其实**每一类对应特定代际的局限**——"trajectory 漂移"是 G1 局限,"循环陷阱"是 G2 局限,"评估器失灵"是 G3 局限,"屏幕理解错误"是 G4 局限。本节点为这些失败模式提供"病因学"分类。
-- **`[m208 - AI 基础设施与中间件选型](/kb/AI-工程化与落地架构/m208-AI-基础设施与中间件选型/)`**:m208 的 framework 对比(LangChain / LangGraph / CrewAI / Dify)其实是 **G3-G4 时代的产物**;G5 时代框架重要性下降,协议重要性上升。本节点对 m208 提供"代际预警"。
-- **`[Agent](/kb/AI-基础知识库/Agent/)`**:Agent 概念卡的"工具调用 + ReAct + Planning"三要素定义,**精确对应 G1-G3**,对 G4 Multi-Agent / Computer Use 和 G5 协议化覆盖不够。本节点对 Agent 概念卡是**纵深扩展**。
-- **`[Harness 词义辨析](/kb/Agent-系统化专题/Harness-词义辨析/)` / `[Skill 系统的本质](/kb/AI-协作方法论/Skill-系统的本质/)`**:这两个节点是 G5 协议化代的关键认知装备,本节点把它们定位为"G5 范式的核心词汇"。
+- **`[c10 - Agent 技术栈与工具调用](/kb/ai-基础知识库/c10-agent-技术栈与工具调用/)`**:c10 给出的是 **G3 的截面快照**(2024 年视角)——ReAct + 工具调用 + 记忆四类型 + 复合错误数学。c10 本身没有错,但它把"Agent"等同于"G3 时代的 Agentic Workflow",对 G4 Computer Use 与 G5 协议化只有零星提及。本节点提供**时间纵轴**,让 c10 的内容定位为"G3 章节",避免读者把 G3 当成全部。
+- **`[m206 - Agent 产品化：记忆机制与技术进展](/kb/ai-工程化与落地架构/m206-agent-产品化-记忆机制与技术进展/)`**:m206 的三大启示(Browser Agent / A2A / Coding Agent)其实**横跨 G4 与 G5**——Browser Agent 是 G4 Computer Use 的产品化,A2A 是 G5 协议化的核心,Coding Agent(Claude Code、Cursor、Devin)是 G4 末期到 G5 早期的混合形态。本节点把这些散点放回代际坐标系。
+- **`[m207 - Agent 产品化：场景推演与失败模式](/kb/ai-工程化与落地架构/m207-agent-产品化-场景推演与失败模式/)`**:m207 的六类失败模式,其实**每一类对应特定代际的局限**——"trajectory 漂移"是 G1 局限,"循环陷阱"是 G2 局限,"评估器失灵"是 G3 局限,"屏幕理解错误"是 G4 局限。本节点为这些失败模式提供"病因学"分类。
+- **`[m208 - AI 基础设施与中间件选型](/kb/ai-工程化与落地架构/m208-ai-基础设施与中间件选型/)`**:m208 的 framework 对比(LangChain / LangGraph / CrewAI / Dify)其实是 **G3-G4 时代的产物**;G5 时代框架重要性下降,协议重要性上升。本节点对 m208 提供"代际预警"。
+- **`[Agent](/kb/ai-基础知识库/agent/)`**:Agent 概念卡的"工具调用 + ReAct + Planning"三要素定义,**精确对应 G1-G3**,对 G4 Multi-Agent / Computer Use 和 G5 协议化覆盖不够。本节点对 Agent 概念卡是**纵深扩展**。
+- **`[Harness 词义辨析](/kb/agent-系统化专题/harness-词义辨析/)` / `[Skill 系统的本质](/kb/ai-协作方法论/skill-系统的本质/)`**:这两个节点是 G5 协议化代的关键认知装备,本节点把它们定位为"G5 范式的核心词汇"。
 
 总体定位:本节点对 c10/m206/m207/m208 的关系是**"补缺时间纵轴"**——已有节点是横切面分析,本节点是纵向谱系。两者互补,不互斥。
 
@@ -153,7 +153,7 @@ PM 选型最常翻车的三个混淆:
    - 还在做 G2 风格的"通用 AutoGPT" → 12 个月内被 G4 Computer Use 替代或挤出
    - 在做 G3 风格的 "Agentic Workflow framework" → 24 个月内被 G5 协议生态消解
    - 在做 G5 协议层的工具/agent → 寿命较长,但要看 G6 原生 Agent 模型何时商品化
-4. **复现路径**(详见 `[R01 最小可运行·100 行 ReAct](/kb/Agent-系统化专题/R01-最小可运行·100-行-ReAct/)`、`[R02 中型生产·LangGraph + MCP](/kb/Agent-系统化专题/R02-中型生产·LangGraph-+-MCP/)`、`[R03 Multi-Agent 模板·AutoGen CrewAI](/kb/Agent-系统化专题/R03-Multi-Agent-模板·AutoGen-CrewAI/)`):
+4. **复现路径**(详见 `[R01 最小可运行·100 行 ReAct](/kb/agent-系统化专题/r01-最小可运行-100-行-react/)`、`[R02 中型生产·LangGraph + MCP](/kb/agent-系统化专题/r02-中型生产-langgraph-+-mcp/)`、`[R03 Multi-Agent 模板·AutoGen CrewAI](/kb/agent-系统化专题/r03-multi-agent-模板-autogen-crewai/)`):
    - 学习路径必须按代际:**G1 → G3 → G5**(跳过 G2 是因为 G2 主要价值在 hype,跳过 G4 单独学是因为 G4 是 G3 + 多模态,先掌握 G3)
    - **不要从 LangChain Agent 入门**,它把 G1/G2/G3 混在一个抽象里教,会让你形成"agent = 一坨东西"的错误直觉
    - 建议入门顺序:100 行手写 ReAct → 加 reflection → 接 MCP server → 多 agent
@@ -161,7 +161,7 @@ PM 选型最常翻车的三个混淆:
 
 ## 9. 衍生对话存档
 
-本节点产出于 2026-05-18 "Agent 系统化专题"集体写作,与 `[G02 五代演化详解·G1-G5](/kb/Agent-系统化专题/G02-五代演化详解·G1-G5/)` 互为骨肉关系——本节点是"骨"(谱系结构),G02 是"肉"(逐代细节)。两者必须配对阅读。
+本节点产出于 2026-05-18 "Agent 系统化专题"集体写作,与 `[G02 五代演化详解·G1-G5](/kb/agent-系统化专题/g02-五代演化详解-g1-g5/)` 互为骨肉关系——本节点是"骨"(谱系结构),G02 是"肉"(逐代细节)。两者必须配对阅读。
 
 证据池主要来自:
 - ReAct (Yao et al. 2022, arXiv:2210.03629)
@@ -175,20 +175,20 @@ PM 选型最常翻车的三个混淆:
 ## 10. 关联节点
 
 **核心关联（必读）**：
-- `[G02 五代演化详解·G1-G5](/kb/Agent-系统化专题/G02-五代演化详解·G1-G5/)`——G01 是骨,G02 是肉,必须配对阅读
-- `[A01 Agent 概念史与语义流变](/kb/Agent-系统化专题/A01-Agent-概念史与语义流变/)`——四次语义滑动 ↔ 五代代际,概念史 vs 工程史
-- `[A02 抽象层级辨析·Harness Framework Agent Skill Orchestrator](/kb/Agent-系统化专题/A02-抽象层级辨析·Harness-Framework-Agent-Skill-Orchestrator/)`——本节点 § 4 三个错位用 A02 层级表正交分解
-- `[c10 - Agent 技术栈与工具调用](/kb/AI-基础知识库/c10-Agent-技术栈与工具调用/)`——c10 是 G3 横切面,本节点提供时间纵轴
+- `[G02 五代演化详解·G1-G5](/kb/agent-系统化专题/g02-五代演化详解-g1-g5/)`——G01 是骨,G02 是肉,必须配对阅读
+- `[A01 Agent 概念史与语义流变](/kb/agent-系统化专题/a01-agent-概念史与语义流变/)`——四次语义滑动 ↔ 五代代际,概念史 vs 工程史
+- `[A02 抽象层级辨析·Harness Framework Agent Skill Orchestrator](/kb/agent-系统化专题/a02-抽象层级辨析-harness-framework-agent-skill-orchestrator/)`——本节点 § 4 三个错位用 A02 层级表正交分解
+- `[c10 - Agent 技术栈与工具调用](/kb/ai-基础知识库/c10-agent-技术栈与工具调用/)`——c10 是 G3 横切面,本节点提供时间纵轴
 - `登楼撤梯-后弥赛亚的公民道德`——§ 5 G6 萌芽的"撤梯"判断方法论的理论锚点
-- `[AI概念滥用反思](/kb/AI-基础知识库/AI概念滥用反思/)`——五代之间最大的混淆都源于"Agent"标签的 saliency drift
+- `[AI概念滥用反思](/kb/ai-基础知识库/ai概念滥用反思/)`——五代之间最大的混淆都源于"Agent"标签的 saliency drift
 
 **延伸关联（可选）**：
-- 同专题:`[A03 ReAct](/kb/Agent-系统化专题/A03-ReAct/)`、`[A04 Reflexion](/kb/Agent-系统化专题/A04-Reflexion/)`、`[A07 Multi-Agent Teams](/kb/Agent-系统化专题/A07-Multi-Agent-Teams/)`、`[A08 MCP 与 A2A 协议族](/kb/Agent-系统化专题/A08-MCP-与-A2A-协议族/)`、`[S01 Agent 六层架构剖面](/kb/Agent-系统化专题/S01-Agent-六层架构剖面/)`、`[E01 Coding Agent·Claude Code & Cursor](/kb/Agent-系统化专题/E01-Coding-Agent·Claude-Code-Cursor/)`、`[E02 通用 Agent·Manus & Devin](/kb/Agent-系统化专题/E02-通用-Agent·Manus-Devin/)`、`[E03 Multi-Agent 框架·AutoGen & CrewAI & DeerFlow](/kb/Agent-系统化专题/E03-Multi-Agent-框架·AutoGen-CrewAI-DeerFlow/)`、`[R01 最小可运行·100 行 ReAct](/kb/Agent-系统化专题/R01-最小可运行·100-行-ReAct/)`、`[R02 中型生产·LangGraph + MCP](/kb/Agent-系统化专题/R02-中型生产·LangGraph-+-MCP/)`、`[R03 Multi-Agent 模板·AutoGen CrewAI](/kb/Agent-系统化专题/R03-Multi-Agent-模板·AutoGen-CrewAI/)`、`[_Agent 系统化专题·总览](/kb/Agent-系统化专题/_Agent-系统化专题·总览/)`
-- 章节:`[c11 - System 2 思维与 Test-Time Compute](/kb/AI-基础知识库/c11-System-2-思维与-Test-Time-Compute/)`、`[c13 - 幻觉的不可消除性](/kb/AI-基础知识库/c13-幻觉的不可消除性/)`、`[m206 - Agent 产品化：记忆机制与技术进展](/kb/AI-工程化与落地架构/m206-Agent-产品化：记忆机制与技术进展/)`、`[m207 - Agent 产品化：场景推演与失败模式](/kb/AI-工程化与落地架构/m207-Agent-产品化：场景推演与失败模式/)`、`[m208 - AI 基础设施与中间件选型](/kb/AI-工程化与落地架构/m208-AI-基础设施与中间件选型/)`、`[m209 - 推理成本控制手册](/kb/AI-工程化与落地架构/m209-推理成本控制手册/)`
-- 概念卡:`[Agent](/kb/AI-基础知识库/Agent/)`、`[Function Calling](/kb/AI-基础知识库/Function-Calling/)`、`[RAG](/kb/AI-基础知识库/RAG/)`、`[Test-Time Compute](/kb/AI-基础知识库/Test-Time-Compute/)`、`[强化学习](/kb/AI-基础知识库/强化学习/)`、`[Harness 词义辨析](/kb/Agent-系统化专题/Harness-词义辨析/)`、`[Skill 系统的本质](/kb/AI-协作方法论/Skill-系统的本质/)`、`[Polanyi 默会知识与提示工程的认识论张力](/kb/AI-基础知识库/Polanyi-默会知识与提示工程的认识论张力/)`
-- 公司/产品:`[Anthropic](/kb/AI-公司与产品/Anthropic/)`、`[OpenAI](/kb/AI-公司与产品/OpenAI/)`、`[Claude](/kb/AI-公司与产品/Claude/)`、`[Claude Code](/kb/AI-公司与产品/Claude-Code/)`、`[Manus](/kb/AI-公司与产品/Manus/)`、`[Gemini](/kb/AI-公司与产品/Gemini/)`、`[DeepSeek](/kb/AI-公司与产品/DeepSeek/)`
+- 同专题:`[A03 ReAct](/kb/agent-系统化专题/a03-react/)`、`[A04 Reflexion](/kb/agent-系统化专题/a04-reflexion/)`、`[A07 Multi-Agent Teams](/kb/agent-系统化专题/a07-multi-agent-teams/)`、`[A08 MCP 与 A2A 协议族](/kb/agent-系统化专题/a08-mcp-与-a2a-协议族/)`、`[S01 Agent 六层架构剖面](/kb/agent-系统化专题/s01-agent-六层架构剖面/)`、`[E01 Coding Agent·Claude Code & Cursor](/kb/agent-系统化专题/e01-coding-agent-claude-code-cursor/)`、`[E02 通用 Agent·Manus & Devin](/kb/agent-系统化专题/e02-通用-agent-manus-devin/)`、`[E03 Multi-Agent 框架·AutoGen & CrewAI & DeerFlow](/kb/agent-系统化专题/e03-multi-agent-框架-autogen-crewai-deerflow/)`、`[R01 最小可运行·100 行 ReAct](/kb/agent-系统化专题/r01-最小可运行-100-行-react/)`、`[R02 中型生产·LangGraph + MCP](/kb/agent-系统化专题/r02-中型生产-langgraph-+-mcp/)`、`[R03 Multi-Agent 模板·AutoGen CrewAI](/kb/agent-系统化专题/r03-multi-agent-模板-autogen-crewai/)`、`[_Agent 系统化专题·总览](/kb/agent-系统化专题/_agent-系统化专题-总览/)`
+- 章节:`[c11 - System 2 思维与 Test-Time Compute](/kb/ai-基础知识库/c11-system-2-思维与-test-time-compute/)`、`[c13 - 幻觉的不可消除性](/kb/ai-基础知识库/c13-幻觉的不可消除性/)`、`[m206 - Agent 产品化：记忆机制与技术进展](/kb/ai-工程化与落地架构/m206-agent-产品化-记忆机制与技术进展/)`、`[m207 - Agent 产品化：场景推演与失败模式](/kb/ai-工程化与落地架构/m207-agent-产品化-场景推演与失败模式/)`、`[m208 - AI 基础设施与中间件选型](/kb/ai-工程化与落地架构/m208-ai-基础设施与中间件选型/)`、`[m209 - 推理成本控制手册](/kb/ai-工程化与落地架构/m209-推理成本控制手册/)`
+- 概念卡:`[Agent](/kb/ai-基础知识库/agent/)`、`[Function Calling](/kb/ai-基础知识库/function-calling/)`、`[RAG](/kb/ai-基础知识库/rag/)`、`[Test-Time Compute](/kb/ai-基础知识库/test-time-compute/)`、`[强化学习](/kb/ai-基础知识库/强化学习/)`、`[Harness 词义辨析](/kb/agent-系统化专题/harness-词义辨析/)`、`[Skill 系统的本质](/kb/ai-协作方法论/skill-系统的本质/)`、`[Polanyi 默会知识与提示工程的认识论张力](/kb/ai-基础知识库/polanyi-默会知识与提示工程的认识论张力/)`
+- 公司/产品:`[Anthropic](/kb/ai-公司与产品/anthropic/)`、`[OpenAI](/kb/ai-公司与产品/openai/)`、`[Claude](/kb/ai-公司与产品/claude/)`、`[Claude Code](/kb/ai-公司与产品/claude-code/)`、`[Manus](/kb/ai-公司与产品/manus/)`、`[Gemini](/kb/ai-公司与产品/gemini/)`、`[DeepSeek](/kb/ai-公司与产品/deepseek/)`
 - 跨域:`范式`、`生命政治`、`霸权`、`0114认识论`、`0117社会学`
-- 总索引:`[AI PM 知识图谱·总索引](/kb/AI-PM-知识图谱/AI-PM-知识图谱·总索引/)`
+- 总索引:`[AI PM 知识图谱·总索引](/kb/ai-pm-知识图谱/ai-pm-知识图谱-总索引/)`
 
 ---
 
@@ -208,5 +208,5 @@ PM 选型最常翻车的三个混淆:
 - **R2 → R3（2026-05-18）**：聚焦判断密度提升。本轮微调（G01 已是 8/10 最强样板）：
   1. § 1 引子加 200 字论证"G2 → G3 不可通约性"展开（AutoGPT 假设 vs Reflexion 假设互斥）——回应 Round 2 [无证据-4]
   2. § 5 G6 萌芽加 登楼撤梯-后弥赛亚的公民道德 双链 + 100 字"撤梯"判断方法论——回应 Round 2 [独家机会-5]
-  3. 关联节点分两档，新增 [AI概念滥用反思](/kb/AI-基础知识库/AI概念滥用反思/) 与 登楼撤梯 进入核心关联
+  3. 关联节点分两档，新增 [AI概念滥用反思](/kb/ai-基础知识库/ai概念滥用反思/) 与 登楼撤梯 进入核心关联
 - **R1 → R2（2026-05-18）**：Manus 时间 "2025-04" → "2025-03"；AutoGen "2024" → "2023"；Anthropic Skills "商店" → 开源仓库 + Console；MCP server 数量与 A08 统一；死链处理。

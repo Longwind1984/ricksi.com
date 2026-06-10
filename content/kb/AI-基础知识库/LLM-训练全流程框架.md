@@ -18,8 +18,8 @@ updated: '2026-05-18'
 - 失败模式：预训练 = 数据/算力错配；SFT = 灾难性遗忘；RLHF = reward hacking / 谄媚；推理 = 幻觉与上下文遗失。
 
 ## 关联节点
-- [预训练](/kb/AI-基础知识库/预训练/) [SFT](/kb/AI-基础知识库/SFT/) [RLHF](/kb/AI-基础知识库/RLHF/) [Tokenization](/kb/AI-基础知识库/Tokenization/) [Scaling Laws](/kb/AI-基础知识库/Scaling-Laws/) [KV Cache](/kb/AI-基础知识库/KV-Cache/)
-- [c04 - 模型训练全阶段 Pipeline](/kb/AI-基础知识库/c04-模型训练全阶段-Pipeline/) [幻觉](/kb/AI-基础知识库/幻觉/) [灾难性遗忘](/kb/AI-基础知识库/灾难性遗忘/)
+- [预训练](/kb/ai-基础知识库/预训练/) [SFT](/kb/ai-基础知识库/sft/) [RLHF](/kb/ai-基础知识库/rlhf/) [Tokenization](/kb/ai-基础知识库/tokenization/) [Scaling Laws](/kb/ai-基础知识库/scaling-laws/) [KV Cache](/kb/ai-基础知识库/kv-cache/)
+- [c04 - 模型训练全阶段 Pipeline](/kb/ai-基础知识库/c04-模型训练全阶段-pipeline/) [幻觉](/kb/ai-基础知识库/幻觉/) [灾难性遗忘](/kb/ai-基础知识库/灾难性遗忘/)
 
 ## 衍生对话存档
 - 来源对话

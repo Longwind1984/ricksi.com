@@ -9,7 +9,7 @@ updated: '2026-05-19'
 
 ## 一句话定义
 
-[OpenAI](/kb/AI-公司与产品/OpenAI/) 在 DevDay 2023-11 发布的"自定义 GPT + GPT Store"产品形态——任何 ChatGPT Plus 用户可通过自然语言对话或表单创建带专属 system prompt、知识库、工具（Code Interpreter / Browsing / DALL-E / Custom Actions）的"GPT 应用"，并提交到 **GPT Store** 供他人调用。是 OpenAI 把 ChatGPT 从"对话产品"扩张为"Agent 平台"的关键尝试，也是 2024–2025 AI 应用商店之争的代表样本。
+[OpenAI](/kb/ai-公司与产品/openai/) 在 DevDay 2023-11 发布的"自定义 GPT + GPT Store"产品形态——任何 ChatGPT Plus 用户可通过自然语言对话或表单创建带专属 system prompt、知识库、工具（Code Interpreter / Browsing / DALL-E / Custom Actions）的"GPT 应用"，并提交到 **GPT Store** 供他人调用。是 OpenAI 把 ChatGPT 从"对话产品"扩张为"Agent 平台"的关键尝试，也是 2024–2025 AI 应用商店之争的代表样本。
 
 ## 演化时间线
 
@@ -19,7 +19,7 @@ updated: '2026-05-19'
 | 2024-01 | GPT Store 正式上线，分类 7 大领域；首批数百万 GPTs 涌入 |
 | 2024-Q2 | OpenAI 推出 **GPT Builder Revenue Program**：与少数创作者按使用量分成 |
 | 2024-Q3 至 2024-Q4 | Custom GPT 加入"@提及"功能，可在主对话中临时召唤其他 GPT |
-| 2025 间 | GPT Store 增长趋缓，注意力转向 OpenAI 自研 Agent 产品（[Computer Use](/kb/AI-公司与产品/Computer-Use/)、Operator 等）；GPTs 转为"用户自助场景"的长尾配置 |
+| 2025 间 | GPT Store 增长趋缓，注意力转向 OpenAI 自研 Agent 产品（[Computer Use](/kb/ai-公司与产品/computer-use/)、Operator 等）；GPTs 转为"用户自助场景"的长尾配置 |
 
 ## 产品组成
 
@@ -45,14 +45,14 @@ updated: '2026-05-19'
 - **创作者分成不透明**：Revenue Program 至 2025 仍只对极少数顶部 GPT 开放，OpenAI 未公开分成公式
 - **质量审核**：GPT Store 上线初期出现"伪 OpenAI 官方 GPT"骗用户付费、prompt injection 提取 system prompt 等问题
 - **平台依赖风险**：第三方 GPT 完全锚定 ChatGPT，OpenAI 政策变化（如降低 RPM、关停某类 Custom Actions）可瞬间清空创作者积累
-- **与 Agent 产品的内部竞争**：2025 OpenAI 把战略重心转向自研 [Computer Use](/kb/AI-公司与产品/Computer-Use/) / Operator 等 Agent 产品后，GPTs 在内部被相对边缘化
+- **与 Agent 产品的内部竞争**：2025 OpenAI 把战略重心转向自研 [Computer Use](/kb/ai-公司与产品/computer-use/) / Operator 等 Agent 产品后，GPTs 在内部被相对边缘化
 
 ## 与同类形态对比
 
 | 平台 | 产品 | 创建方式 | 主要差异 |
 |------|------|---------|---------|
 | **OpenAI GPTs** | Custom GPT + GPT Store | 对话或表单 | 强 ChatGPT 生态绑定；分成机制不透明 |
-| [Anthropic](/kb/AI-公司与产品/Anthropic/) Projects + Skills | Projects / Skills | 命令行 / SDK | 偏开发者；不主动做应用商店 |
+| [Anthropic](/kb/ai-公司与产品/anthropic/) Projects + Skills | Projects / Skills | 命令行 / SDK | 偏开发者；不主动做应用商店 |
 | Google Gemini Gems | Gem | 表单 | Workspace 内置；目标 enterprise 而非创作者 |
 | 字节跳动 豆包 Bots / 扣子 (Coze) | Bot | 拖拽式工作流 | 重国内市场；多渠道分发（飞书、抖音、微信） |
 | Poe (Quora) | Bots | 表单 + 多模型可选 | 用户可在同界面调用 Claude / GPT / Llama 多模型 |
@@ -62,7 +62,7 @@ updated: '2026-05-19'
 
 - GPTs 在 ChatGPT 内仍是稳定功能，但增长重心已让位给 Agent 产品族
 - "App-like GPTs"被定位为**用户自助场景**：个人写作助手、个性化 RAG、内部团队工具，而非"AI App Store 第二代"
-- OpenAI 2025–2026 公开通讯中较少强调 GPT Store 数字，转而聚焦 [Computer Use](/kb/AI-公司与产品/Computer-Use/)、Operator 与 Agent SDK
+- OpenAI 2025–2026 公开通讯中较少强调 GPT Store 数字，转而聚焦 [Computer Use](/kb/ai-公司与产品/computer-use/)、Operator 与 Agent SDK
 
 ## 对 Rick 的价值
 
@@ -73,10 +73,10 @@ updated: '2026-05-19'
 
 ## 关联节点
 
-- 母公司：[OpenAI](/kb/AI-公司与产品/OpenAI/)
-- 同公司产品：[ChatGPT](/kb/AI-公司与产品/ChatGPT/) [DALL-E](/kb/AI-公司与产品/DALL-E/) [Codex](/kb/AI-公司与产品/Codex/) [Sora](/kb/AI-公司与产品/Sora/) [Computer Use](/kb/AI-公司与产品/Computer-Use/)
+- 母公司：[OpenAI](/kb/ai-公司与产品/openai/)
+- 同公司产品：[ChatGPT](/kb/ai-公司与产品/chatgpt/) [DALL-E](/kb/ai-公司与产品/dall-e/) [Codex](/kb/ai-公司与产品/codex/) [Sora](/kb/ai-公司与产品/sora/) [Computer Use](/kb/ai-公司与产品/computer-use/)
 - 同类对照：豆包 / 扣子（Coze） / Poe / Anthropic Projects / Gemini Gems
-- 概念：[Agent](/kb/AI-基础知识库/Agent/) / Custom Action / OpenAPI / [RAG](/kb/AI-基础知识库/RAG/)
+- 概念：[Agent](/kb/ai-基础知识库/agent/) / Custom Action / OpenAPI / [RAG](/kb/ai-基础知识库/rag/)
 - 商业模式：平台经济 / 创作者经济 / App Store 模型
 
 ## 来源
@@ -84,9 +84,9 @@ updated: '2026-05-19'
 - OpenAI DevDay 2023-11 主题演讲与产品页
 - OpenAI GPT Store 官方文档与帮助中心
 - *The Information* / Stratechery 关于 GPT Store 增长与定位转向的分析
-- vault 内：[OpenAI](/kb/AI-公司与产品/OpenAI/) [ChatGPT](/kb/AI-公司与产品/ChatGPT/) 节点中已多次互引
+- vault 内：[OpenAI](/kb/ai-公司与产品/openai/) [ChatGPT](/kb/ai-公司与产品/chatgpt/) 节点中已多次互引
 
 ## 证据池
 
 - 待 Cubox 反链汇总脚本恢复后批量回填外部摘录
-- 当前 vault 内 5 处反链：见 [OpenAI](/kb/AI-公司与产品/OpenAI/) / [ChatGPT](/kb/AI-公司与产品/ChatGPT/) 系列节点
+- 当前 vault 内 5 处反链：见 [OpenAI](/kb/ai-公司与产品/openai/) / [ChatGPT](/kb/ai-公司与产品/chatgpt/) 系列节点

@@ -7,13 +7,13 @@ updated: '2026-05-17'
 
 # ChatGPT
 
-> [OpenAI](/kb/AI-公司与产品/OpenAI/) 的对话式 AI 产品，2022-11-30 公测后 5 天破百万用户、2 个月破亿，是消费互联网历史上增长最快的应用。把"大语言模型"从研究术语变成大众日常工具，并由此重新定义了 AI 产品的形态、估值与人才市场。
+> [OpenAI](/kb/ai-公司与产品/openai/) 的对话式 AI 产品，2022-11-30 公测后 5 天破百万用户、2 个月破亿，是消费互联网历史上增长最快的应用。把"大语言模型"从研究术语变成大众日常工具，并由此重新定义了 AI 产品的形态、估值与人才市场。
 
 ## 产品定义
 - **底层模型**：GPT 系列（GPT-3.5 → GPT-4 → GPT-4o → GPT-5 → o1/o3 推理模型），由 OpenAI 自研。
-- **接口形态**：对话框 + 文件上传 + 图像理解 + 实时语音 + Canvas 协作 + 多步 [Agent](/kb/AI-基础知识库/Agent/)（Operator、Apps in ChatGPT）。
+- **接口形态**：对话框 + 文件上传 + 图像理解 + 实时语音 + Canvas 协作 + 多步 [Agent](/kb/ai-基础知识库/agent/)（Operator、Apps in ChatGPT）。
 - **付费层级**：Free / Plus（20 美元/月）/ Pro（200 美元/月）/ Team / Enterprise / Edu。
-- **使用量级**：2026 月活用户量级在 4–5 亿，远超任何其他 AI 应用；同时是 [OpenAI](/kb/AI-公司与产品/OpenAI/) 主要收入来源（订阅 + 企业版）。
+- **使用量级**：2026 月活用户量级在 4–5 亿，远超任何其他 AI 应用；同时是 [OpenAI](/kb/ai-公司与产品/openai/) 主要收入来源（订阅 + 企业版）。
 
 ## 演化时间线
 - **2022.11** ChatGPT 公测（基于 GPT-3.5 + RLHF 对齐）。原始命名只是 OpenAI 把 InstructGPT 包了对话 UI 的"研究 demo"，未预期会爆。
@@ -22,7 +22,7 @@ updated: '2026-05-17'
 - **2024.5** GPT-4o "Omni"——单一模型原生支持文本/图像/音频；Realtime API 把语音对话延迟压到 ~300ms 级。
 - **2024.9** o1 推理模型上线 ChatGPT Pro，开启 Long CoT 在产品端的应用。
 - **2025** GPT-5、Canvas、Operator（Computer Use 同类）、Apps in ChatGPT（App Store 形态）。
-- **2026** 走向"AI 操作系统"——把第三方应用嵌入对话流，Custom GPT + Apps + Tasks 形成多模态平台层；同时面临 [Claude](/kb/AI-公司与产品/Claude/) / [Gemini](/kb/AI-公司与产品/Gemini/) 的紧逼。
+- **2026** 走向"AI 操作系统"——把第三方应用嵌入对话流，Custom GPT + Apps + Tasks 形成多模态平台层；同时面临 [Claude](/kb/ai-公司与产品/claude/) / [Gemini](/kb/ai-公司与产品/gemini/) 的紧逼。
 
 ## 产品设计特征
 - **对话流为单一交互骨架**：所有能力（文档、图像、语音、Agent、插件、应用）都收敛到一个对话框入口。这一选择带来"用户心智简单"的红利，也带来"功能堆叠后入口拥挤"的代价。
@@ -31,22 +31,22 @@ updated: '2026-05-17'
 - **平台化定位**：从"AI 工具"显著转向"AI 应用商店与 OS"——Apps in ChatGPT 让第三方 SaaS 直接嵌入对话流，是 m205 - AI 产品形态：从工具到 Agent 框架里的"消费者侧 Agent 平台"代表。
 
 ## 与同行对比
-- **vs. [Claude](/kb/AI-公司与产品/Claude/)**：ChatGPT 强在多模态全栈与消费者品牌，Claude 强在长文档/编码/对齐质量。开发者社区里 2025–2026 普遍倾向 Claude 做严肃工作，ChatGPT 做日常对话。
-- **vs. [Gemini](/kb/AI-公司与产品/Gemini/)**：Gemini 占 Google 生态分发与搜索绑定，ChatGPT 占独立品牌入口。Gemini Advanced 在长上下文（2M token）与 Workspace 集成上有优势。
-- **vs. [Perplexity](/kb/AI-公司与产品/Perplexity/)**：ChatGPT 是"对话 + 信息检索"的瑞士军刀，Perplexity 是垂直搜索；ChatGPT 在 Search 模式后已部分蚕食 Perplexity 用户。
+- **vs. [Claude](/kb/ai-公司与产品/claude/)**：ChatGPT 强在多模态全栈与消费者品牌，Claude 强在长文档/编码/对齐质量。开发者社区里 2025–2026 普遍倾向 Claude 做严肃工作，ChatGPT 做日常对话。
+- **vs. [Gemini](/kb/ai-公司与产品/gemini/)**：Gemini 占 Google 生态分发与搜索绑定，ChatGPT 占独立品牌入口。Gemini Advanced 在长上下文（2M token）与 Workspace 集成上有优势。
+- **vs. [Perplexity](/kb/ai-公司与产品/perplexity/)**：ChatGPT 是"对话 + 信息检索"的瑞士军刀，Perplexity 是垂直搜索；ChatGPT 在 Search 模式后已部分蚕食 Perplexity 用户。
 - **vs. DeepSeek / 国内 chatbot**：DeepSeek 开源 + 低价；ChatGPT 收 20 美元/月并占据全球品牌位。两者价格 × 渠道 × 监管的差异已结构化。
 
 ## 对 Rick 的价值
-- **AI 产品形态演化的活样本**：从"对话框"→"插件 / GPTs"→"Realtime / Canvas"→"Apps + Agent 平台"的演化路径是 m205 - AI 产品形态：从工具到 Agent 与 [p302 - 七种 AI 交互设计模式](/kb/AI-产品设计与交互范式/p302-七种-AI-交互设计模式/) 的现成案例库。
+- **AI 产品形态演化的活样本**：从"对话框"→"插件 / GPTs"→"Realtime / Canvas"→"Apps + Agent 平台"的演化路径是 m205 - AI 产品形态：从工具到 Agent 与 [p302 - 七种 AI 交互设计模式](/kb/ai-产品设计与交互范式/p302-七种-ai-交互设计模式/) 的现成案例库。
 - **反面教材意义**：Rick 多次记录"ChatGPT 沦为客服"的体验——这是研究"模型能力领先 ≠ 产品体验领先"的最好对照组（20260304-AI产品体验的代差与组织问题）。
 - **职业判断锚点**：评估"加入 OpenAI 还是 Anthropic / Google"时，ChatGPT 的产品节奏与 Claude / Gemini 的对比是直接的工作流体验参考。
 - **付费决策依据**：作为 Plus / Pro 用户，理解迭代节奏（"等下个模型"还是"立即用"）影响日常工作效率。Rick 目前主力 Claude，ChatGPT 是次要参考。
 
 ## 关联节点
-- 公司：[OpenAI](/kb/AI-公司与产品/OpenAI/) [Microsoft](/kb/AI-公司与产品/Microsoft/)
-- 产品对照：[Claude](/kb/AI-公司与产品/Claude/) [Gemini](/kb/AI-公司与产品/Gemini/) [Perplexity](/kb/AI-公司与产品/Perplexity/) [DeepSeek](/kb/AI-公司与产品/DeepSeek/)
-- 技术：[RLHF](/kb/AI-基础知识库/RLHF/) c11 - 推理模型与 Long CoT [Agent](/kb/AI-基础知识库/Agent/) [Function Calling](/kb/AI-基础知识库/Function-Calling/) [Computer Use](/kb/AI-公司与产品/Computer-Use/)
-- 产品议题：m205 - AI 产品形态：从工具到 Agent [p302 - 七种 AI 交互设计模式](/kb/AI-产品设计与交互范式/p302-七种-AI-交互设计模式/) 20260304-AI产品体验的代差与组织问题 20260304-微博 AI
+- 公司：[OpenAI](/kb/ai-公司与产品/openai/) [Microsoft](/kb/ai-公司与产品/microsoft/)
+- 产品对照：[Claude](/kb/ai-公司与产品/claude/) [Gemini](/kb/ai-公司与产品/gemini/) [Perplexity](/kb/ai-公司与产品/perplexity/) [DeepSeek](/kb/ai-公司与产品/deepseek/)
+- 技术：[RLHF](/kb/ai-基础知识库/rlhf/) c11 - 推理模型与 Long CoT [Agent](/kb/ai-基础知识库/agent/) [Function Calling](/kb/ai-基础知识库/function-calling/) [Computer Use](/kb/ai-公司与产品/computer-use/)
+- 产品议题：m205 - AI 产品形态：从工具到 Agent [p302 - 七种 AI 交互设计模式](/kb/ai-产品设计与交互范式/p302-七种-ai-交互设计模式/) 20260304-AI产品体验的代差与组织问题 20260304-微博 AI
 
 ## 来源 / 证据池
 

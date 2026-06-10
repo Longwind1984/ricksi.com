@@ -15,13 +15,13 @@ updated: '2026-05-22'
 
 ## 与受约束解码的关系
 
-Function Calling 依赖 [c08 受约束解码 (Constrained Decoding)](/kb/AI-基础知识库/c08-解码策略与生成控制/)——在解码时动态计算语法合法的 token 集合，保证输出 100% 符合目标函数 schema。
+Function Calling 依赖 [c08 受约束解码 (Constrained Decoding)](/kb/ai-基础知识库/c08-解码策略与生成控制/)——在解码时动态计算语法合法的 token 集合，保证输出 100% 符合目标函数 schema。
 
 未走受约束解码的"原生 JSON 模仿"会随机崩坏（字段错位、引号不闭合、bool 写成字符串），生产系统必须使用厂商提供的官方 tool_use API 而非自行解析。
 
 ## 与 Agent 的关系
 
-Function Calling 是 [Agent](/kb/AI-基础知识库/Agent/) 的底层能力。Agent = LLM + Function Calling + ReAct 循环 + Planning + Memory。
+Function Calling 是 [Agent](/kb/ai-基础知识库/agent/) 的底层能力。Agent = LLM + Function Calling + ReAct 循环 + Planning + Memory。
 
 单次 Function Call 不构成 Agent，多轮调用的 loop 才是——调用结果反馈到下一轮 prompt，模型基于工具返回继续推理或再调用，直到满足终止条件。
 
@@ -41,11 +41,11 @@ Function Calling 是 [Agent](/kb/AI-基础知识库/Agent/) 的底层能力。Ag
 2. **工具选择错误**：在该调用 search 时调用 calculator——通常是工具描述 (description) 写得不够正交，或工具数量过多（>20 个时显著下降）
 3. **死循环**：同一工具被反复以相似参数调用——需在 Agent loop 加最大步数 / 重复检测
 4. **越权调用**：模型在不应行动时主动调工具（如用户只是闲聊）——通过 system prompt 或 `tool_choice=none` 控制
-5. **跨调用上下文丢失**：长 loop 中早期工具返回的关键事实被压出窗口——需要 [Prompt Caching](/kb/AI-基础知识库/Prompt-Caching/) + 摘要压缩
+5. **跨调用上下文丢失**：长 loop 中早期工具返回的关键事实被压出窗口——需要 [Prompt Caching](/kb/ai-基础知识库/prompt-caching/) + 摘要压缩
 
 ## 与 MCP 的演化关系
 
-[Function Calling](/kb/AI-基础知识库/Function-Calling/) 是单个应用与单个 LLM 之间的私有协议；[MCP](/kb/Agent-系统化专题/A08-MCP-与-A2A-协议族/) 把它标准化为"客户端-服务端"模式，让任何符合 MCP 的工具可以被任何符合 MCP 的 LLM 客户端使用。
+[Function Calling](/kb/ai-基础知识库/function-calling/) 是单个应用与单个 LLM 之间的私有协议；[MCP](/kb/agent-系统化专题/a08-mcp-与-a2a-协议族/) 把它标准化为"客户端-服务端"模式，让任何符合 MCP 的工具可以被任何符合 MCP 的 LLM 客户端使用。
 
 MCP ≈ Function Calling 的 OS 化：工具市场、权限模型、传输协议、订阅模型都被定义出来。
 
@@ -61,12 +61,12 @@ MCP ≈ Function Calling 的 OS 化：工具市场、权限模型、传输协议
 
 ## 相关链接
 
-- [c08 受约束解码](/kb/AI-基础知识库/c08-解码策略与生成控制/)
-- [c10 Agent 核心能力](/kb/AI-基础知识库/c10-Agent-技术栈与工具调用/)
-- [Agent](/kb/AI-基础知识库/Agent/) ReAct [Prompt Caching](/kb/AI-基础知识库/Prompt-Caching/)
-- [MCP](/kb/Agent-系统化专题/A08-MCP-与-A2A-协议族/)（Function Calling 标准化的下一步）
-- [S01 Agent 六层架构剖面](/kb/Agent-系统化专题/S01-Agent-六层架构剖面/) §"工具层"
-- [Agent 系统化专题](/kb/Agent-系统化专题/_Agent-系统化专题·总览/)
+- [c08 受约束解码](/kb/ai-基础知识库/c08-解码策略与生成控制/)
+- [c10 Agent 核心能力](/kb/ai-基础知识库/c10-agent-技术栈与工具调用/)
+- [Agent](/kb/ai-基础知识库/agent/) ReAct [Prompt Caching](/kb/ai-基础知识库/prompt-caching/)
+- [MCP](/kb/agent-系统化专题/a08-mcp-与-a2a-协议族/)（Function Calling 标准化的下一步）
+- [S01 Agent 六层架构剖面](/kb/agent-系统化专题/s01-agent-六层架构剖面/) §"工具层"
+- [Agent 系统化专题](/kb/agent-系统化专题/_agent-系统化专题-总览/)
 
 ## 来源 / 证据池
 

@@ -1,0 +1,95 @@
+---
+import Glass from '../../layouts/Glass.astro';
+import { getCollection, render } from 'astro:content';
+import { loadSiteData } from '../../lib/site-data.mjs';
+
+export async function getStaticPaths() {
+  const notes = await getCollection('kb');
+  return notes.map((note) => ({ params: { slug: note.id }, props: { note } }));
+}
+
+const { note } = Astro.props;
+const { Content } = await render(note);
+const { graph } = loadSiteData();
+
+/* 本节点 / 相连笔记 / 局部子图（焦点 + 1 跳，不足 8 个扩 2 跳） */
+const me = graph?.nodes.find((n) => n.slug === note.id) ?? null;
+let related = [];
+let subgraph = null;
+if (graph && me) {
+  const keep = new Set([me.id]);
+  const grow = () => {
+    for (const [a, b] of graph.edges) {
+      if (keep.has(a)) keep.add(b);
+      else if (keep.has(b)) keep.add(a);
+    }
+  };
+  grow();
+  if (keep.size < 8) grow();
+  related = graph.edges
+    .filter(([a, b]) => a === me.id || b === me.id)
+    .map(([a, b]) => graph.nodes[a === me.id ? b : a])
+    .sort((a, b) => b.deg - a.deg);
+  subgraph = {
+    nodes: graph.nodes.filter((n) => keep.has(n.id)),
+    edges: graph.edges.filter(([a, b]) => keep.has(a) && keep.has(b)),
+    clusters: graph.clusters,
+  };
+}
+const clusterName = note.data.cluster;
+const clientData = subgraph
+  ? JSON.stringify({ graph: subgraph, focus: note.id, mode: 'mini' }).replace(/</g, '\\u003c')
+  : null;
+---
+
+<Glass title={`${note.data.title} · 知识库 · Rick Si`} description={`知识库笔记：${note.data.title}（${clusterName}）`} active="knowledge">
+  <main class="sub-main">
+    <div class="container article-container">
+      <article class="sec article">
+        <nav class="mono art-crumb">
+          <a href="/kb/">知识库</a>
+          <span> / </span>
+          <span>{clusterName}</span>
+        </nav>
+        <h1 class="art-title">{note.data.title}</h1>
+        <div class="mono art-meta">
+          {note.data.created && <span>创建 {note.data.created.toISOString().slice(0, 10)}</span>}
+          {note.data.updated && <span>更新 {note.data.updated.toISOString().slice(0, 10)}</span>}
+          {me && <span>{me.deg} 条双链</span>}
+        </div>
+        <div class="prose">
+          <Content />
+        </div>
+      </article>
+
+      {(related.length > 0 || subgraph) && (
+        <aside class="sec art-side">
+          {subgraph && (
+            <>
+              <div class="mono wb-label">局部图谱</div>
+              <div class="kg-paper mini" id="kb-graph"></div>
+            </>
+          )}
+          {related.length > 0 && (
+            <>
+              <div class="mono wb-label art-side-gap">相连笔记 · {related.length}</div>
+              <div class="kb-note-grid">
+                {related.map((n) => (
+                  <a class="kb-note-chip" href={`/kb/${n.slug}/`}>
+                    <span class="kb-note-title">{n.title}</span>
+                    <span class="mono kb-note-deg">{n.deg}</span>
+                  </a>
+                ))}
+              </div>
+            </>
+          )}
+        </aside>
+      )}
+    </div>
+  </main>
+
+  {clientData && <script type="application/json" id="kb-graph-data" set:html={clientData} />}
+  <script>
+    import '../../scripts/kb-page.js';
+  </script>
+</Glass>

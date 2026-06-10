@@ -43,14 +43,14 @@ Attention 的核心 idea（QKV、scaled dot-product、softmax 加权和、multi-
 这条对话短，但 Rick 的直觉指向一个普遍现象——**事后看 idea 都简洁**。在科学史里这叫 Whig 史观（用现在的胜者倒推历史），在认知心理学里叫 hindsight bias。它会让初学者低估技术演化的真实困难度，进而低估当前未被解决问题的难度。
 
 > [!note] 待校验观察
-> 这种 "为什么没人早做" 的直觉，对 Rick 这种类型的学习者有特定价值——它是一个信号，说明已经听懂了；但需要立刻加一层校正——理解 ≠ 在当时可发现。把这个 meta-cognition 内化到 [Claude 阅读非虚构 instruction 设计](/kb/AI-协作方法论/Claude-阅读非虚构-instruction-设计/) 那类阅读 instruction 里，可以避免学完每门技术都觉得 "好像也没什么"。
+> 这种 "为什么没人早做" 的直觉，对 Rick 这种类型的学习者有特定价值——它是一个信号，说明已经听懂了；但需要立刻加一层校正——理解 ≠ 在当时可发现。把这个 meta-cognition 内化到 [Claude 阅读非虚构 instruction 设计](/kb/ai-协作方法论/claude-阅读非虚构-instruction-设计/) 那类阅读 instruction 里，可以避免学完每门技术都觉得 "好像也没什么"。
 
 ## 关联节点
 
-- [c03 - Transformer 核心机制与注意力变体](/kb/AI-基础知识库/c03-Transformer-核心机制与注意力变体/) — Transformer 技术细节归位
-- [Attention](/kb/AI-基础知识库/Attention/) — 机制条目
+- [c03 - Transformer 核心机制与注意力变体](/kb/ai-基础知识库/c03-transformer-核心机制与注意力变体/) — Transformer 技术细节归位
+- [Attention](/kb/ai-基础知识库/attention/) — 机制条目
 - NMAAHC 深度导览与 AI 表达元批评 — 同期 Rick 追问 LLM 生成机制的另一面
-- [Claude 阅读非虚构 instruction 设计](/kb/AI-协作方法论/Claude-阅读非虚构-instruction-设计/) — 同样的元层学习方法论
+- [Claude 阅读非虚构 instruction 设计](/kb/ai-协作方法论/claude-阅读非虚构-instruction-设计/) — 同样的元层学习方法论
 
 ## 衍生对话存档
 

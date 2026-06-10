@@ -7,7 +7,7 @@ updated: '2026-05-18'
 
 # _Agent 系统化专题·总览
 
-> **一句话定义**：本专题是 Rick 在已有 [c10](/kb/AI-基础知识库/c10-Agent-技术栈与工具调用/) / [m206](/kb/AI-工程化与落地架构/m206-Agent-产品化：记忆机制与技术进展/) / [m207](/kb/AI-工程化与落地架构/m207-Agent-产品化：场景推演与失败模式/) / [m208](/kb/AI-工程化与落地架构/m208-AI-基础设施与中间件选型/) 之上**横向铺开、纵向打穿**的 Agent 知识立方——把"什么是 Agent、它从哪来、由什么组成、谁在做、怎么复现、怎么读"六条切面同时呈现，作为 [AI PM 知识图谱·总索引](/kb/AI-PM-知识图谱/AI-PM-知识图谱·总索引/) 下属的一个独立可索引子模块。
+> **一句话定义**：本专题是 Rick 在已有 [c10](/kb/ai-基础知识库/c10-agent-技术栈与工具调用/) / [m206](/kb/ai-工程化与落地架构/m206-agent-产品化-记忆机制与技术进展/) / [m207](/kb/ai-工程化与落地架构/m207-agent-产品化-场景推演与失败模式/) / [m208](/kb/ai-工程化与落地架构/m208-ai-基础设施与中间件选型/) 之上**横向铺开、纵向打穿**的 Agent 知识立方——把"什么是 Agent、它从哪来、由什么组成、谁在做、怎么复现、怎么读"六条切面同时呈现，作为 [AI PM 知识图谱·总索引](/kb/ai-pm-知识图谱/ai-pm-知识图谱-总索引/) 下属的一个独立可索引子模块。
 
 ---
 
@@ -23,7 +23,7 @@ updated: '2026-05-18'
 
 ## 1. 专题定位：为什么单独建一个 0411
 
-在 Rick 的 AI PM 知识图谱里，c10 / m206 / m207 / m208 已经从"技术栈、记忆、失败模式、中间件"四个角度切入了 [Agent](/kb/AI-基础知识库/Agent/)。但它们都是**单维深入**：一条切面把一件事讲透。而 Rick 在 2026-04 至 2026-05 之间反复遇到一个共同症状——**面试官、招聘 JD、产品文档、Cubox 收藏文章里的"agent"一词，所指的对象不在同一个抽象层级上**。有人说的是大模型本体，有人说的是 LangChain Workflow，有人说的是 Claude Code 这种 harness，有人说的是 AutoGen 这种 Multi-Agent 框架，有人说的是 Manus 这种端到端产品。
+在 Rick 的 AI PM 知识图谱里，c10 / m206 / m207 / m208 已经从"技术栈、记忆、失败模式、中间件"四个角度切入了 [Agent](/kb/ai-基础知识库/agent/)。但它们都是**单维深入**：一条切面把一件事讲透。而 Rick 在 2026-04 至 2026-05 之间反复遇到一个共同症状——**面试官、招聘 JD、产品文档、Cubox 收藏文章里的"agent"一词，所指的对象不在同一个抽象层级上**。有人说的是大模型本体，有人说的是 LangChain Workflow，有人说的是 Claude Code 这种 harness，有人说的是 AutoGen 这种 Multi-Agent 框架，有人说的是 Manus 这种端到端产品。
 
 这种**滑变**（semantic drift）不是个别用词不规范，而是新概念在尚未稳定时的常态——<mark style="background: #FFF3A3A6;">维特根斯坦讲的"语言游戏"还在重组，规则未定</mark>。但对一个从非 AI 背景转型的 PM 来说，这种滑变会直接转化为**面试事故**：你以为对方在问 A，你答了 B，双方都觉得对方不懂。
 
@@ -125,10 +125,10 @@ graph TB
 ### 3.1 概念辨析模块（A01-A08，8 篇）
 
 **收录**：
-- [A01 Agent 概念史与语义流变](/kb/Agent-系统化专题/A01-Agent-概念史与语义流变/)：1950s 控制论 → 1990s 软件 agent → 2020s LLM agent 的语义漂移
-- [A02 抽象层级辨析·Harness Framework Agent Skill Orchestrator](/kb/Agent-系统化专题/A02-抽象层级辨析·Harness-Framework-Agent-Skill-Orchestrator/)：五个术语的层级关系
-- [A03 ReAct](/kb/Agent-系统化专题/A03-ReAct/)、[A04 Reflexion](/kb/Agent-系统化专题/A04-Reflexion/)、[A05 Plan-and-Execute](/kb/Agent-系统化专题/A05-Plan-and-Execute/)：三大基础范式
-- [A06 Orchestrator 编排器](/kb/Agent-系统化专题/A06-Orchestrator-编排器/)、[A07 Multi-Agent Teams](/kb/Agent-系统化专题/A07-Multi-Agent-Teams/)、[A08 MCP 与 A2A 协议族](/kb/Agent-系统化专题/A08-MCP-与-A2A-协议族/)：组织层与协议层
+- [A01 Agent 概念史与语义流变](/kb/agent-系统化专题/a01-agent-概念史与语义流变/)：1950s 控制论 → 1990s 软件 agent → 2020s LLM agent 的语义漂移
+- [A02 抽象层级辨析·Harness Framework Agent Skill Orchestrator](/kb/agent-系统化专题/a02-抽象层级辨析-harness-framework-agent-skill-orchestrator/)：五个术语的层级关系
+- [A03 ReAct](/kb/agent-系统化专题/a03-react/)、[A04 Reflexion](/kb/agent-系统化专题/a04-reflexion/)、[A05 Plan-and-Execute](/kb/agent-系统化专题/a05-plan-and-execute/)：三大基础范式
+- [A06 Orchestrator 编排器](/kb/agent-系统化专题/a06-orchestrator-编排器/)、[A07 Multi-Agent Teams](/kb/agent-系统化专题/a07-multi-agent-teams/)、[A08 MCP 与 A2A 协议族](/kb/agent-系统化专题/a08-mcp-与-a2a-协议族/)：组织层与协议层
 
 **解决的问题**：术语**滑变**导致的沟通事故。Rick 在面试场景的核心痛点是"对方在哪个抽象层问问题"——本模块给出一套可携带的"词表"。
 
@@ -139,8 +139,8 @@ graph TB
 ### 3.2 代际演化模块（G01-G02，2 篇）
 
 **收录**：
-- [G01 Agent 代际谱系总图](/kb/Agent-系统化专题/G01-Agent-代际谱系总图/)：G1（脚本 bot）→ G2（LangChain Workflow）→ G3（工具调用 agent）→ G4（Multi-Agent + 长上下文）→ G5（Computer Use + MCP 标准化）
-- [G02 五代演化详解·G1-G5](/kb/Agent-系统化专题/G02-五代演化详解·G1-G5/)：每一代的代表产品、推动力、瓶颈、被下一代如何超越
+- [G01 Agent 代际谱系总图](/kb/agent-系统化专题/g01-agent-代际谱系总图/)：G1（脚本 bot）→ G2（LangChain Workflow）→ G3（工具调用 agent）→ G4（Multi-Agent + 长上下文）→ G5（Computer Use + MCP 标准化）
+- [G02 五代演化详解·G1-G5](/kb/agent-系统化专题/g02-五代演化详解-g1-g5/)：每一代的代表产品、推动力、瓶颈、被下一代如何超越
 
 **解决的问题**：面试官问"你做过几代 agent"时不再"夹生"——清楚自己处在哪一代，对前后代差异有方向感。这是 Rick "AI 产品代差观察"思想（参见 AI 产品代差观察与微博打磨）在 Agent 维度上的落地。
 
@@ -151,9 +151,9 @@ graph TB
 ### 3.3 架构剖面模块（S01-S03，3 篇）
 
 **收录**：
-- [S01 Agent 六层架构剖面](/kb/Agent-系统化专题/S01-Agent-六层架构剖面/)：模型 / 提示 / 工具 / 记忆 / 编排 / 评测六层及其接口
-- [S02 流派架构对照表](/kb/Agent-系统化专题/S02-流派架构对照表/)：LangChain / LangGraph / AutoGen / CrewAI / OpenAI Assistants / Anthropic SDK 的六层填表对照
-- [S03 Harness Engineering 全景](/kb/Agent-系统化专题/S03-Harness-Engineering-全景/)：Claude Code / Cursor / Devin / Manus 作为 harness 的统一分析框架
+- [S01 Agent 六层架构剖面](/kb/agent-系统化专题/s01-agent-六层架构剖面/)：模型 / 提示 / 工具 / 记忆 / 编排 / 评测六层及其接口
+- [S02 流派架构对照表](/kb/agent-系统化专题/s02-流派架构对照表/)：LangChain / LangGraph / AutoGen / CrewAI / OpenAI Assistants / Anthropic SDK 的六层填表对照
+- [S03 Harness Engineering 全景](/kb/agent-系统化专题/s03-harness-engineering-全景/)：Claude Code / Cursor / Devin / Manus 作为 harness 的统一分析框架
 
 **解决的问题**：把"Agent"从一个黑箱拆成可对话、可选型、可调试的**剖面**。PM 在做选型决策时不再"凭印象"，而是按层逐项对比。
 
@@ -164,9 +164,9 @@ graph TB
 ### 3.4 实例剖解模块（E01-E03，3 篇）
 
 **收录**：
-- [E01 Coding Agent·Claude Code & Cursor](/kb/Agent-系统化专题/E01-Coding-Agent·Claude-Code-Cursor/)：两家 Coding Agent 的剖面对比与决策启示
-- [E02 通用 Agent·Manus & Devin](/kb/Agent-系统化专题/E02-通用-Agent·Manus-Devin/)：通用 agent 的承诺、瓶颈、商业模式
-- [E03 Multi-Agent 框架·AutoGen & CrewAI & DeerFlow](/kb/Agent-系统化专题/E03-Multi-Agent-框架·AutoGen-CrewAI-DeerFlow/)：三种 Multi-Agent 范式的得失
+- [E01 Coding Agent·Claude Code & Cursor](/kb/agent-系统化专题/e01-coding-agent-claude-code-cursor/)：两家 Coding Agent 的剖面对比与决策启示
+- [E02 通用 Agent·Manus & Devin](/kb/agent-系统化专题/e02-通用-agent-manus-devin/)：通用 agent 的承诺、瓶颈、商业模式
+- [E03 Multi-Agent 框架·AutoGen & CrewAI & DeerFlow](/kb/agent-系统化专题/e03-multi-agent-框架-autogen-crewai-deerflow/)：三种 Multi-Agent 范式的得失
 
 **解决的问题**：把概念和架构**还原到具体产品**。Rick 面试时被问"剖一下 Claude Code"，本模块给出剖法模板，可以推广到任何新出现的 agent 产品。
 
@@ -177,11 +177,11 @@ graph TB
 ### 3.5 复现指南模块（R01-R03，3 篇）
 
 **收录**：
-- [R01 最小可运行·100 行 ReAct](/kb/Agent-系统化专题/R01-最小可运行·100-行-ReAct/)：纯 Python，2 小时上手
-- [R02 中型生产·LangGraph + MCP](/kb/Agent-系统化专题/R02-中型生产·LangGraph-+-MCP/)：含状态管理、工具注册、可观测性，4 小时上手
-- [R03 Multi-Agent 模板·AutoGen CrewAI](/kb/Agent-系统化专题/R03-Multi-Agent-模板·AutoGen-CrewAI/)：双框架对照模板，2 小时复现
+- [R01 最小可运行·100 行 ReAct](/kb/agent-系统化专题/r01-最小可运行-100-行-react/)：纯 Python，2 小时上手
+- [R02 中型生产·LangGraph + MCP](/kb/agent-系统化专题/r02-中型生产-langgraph-+-mcp/)：含状态管理、工具注册、可观测性，4 小时上手
+- [R03 Multi-Agent 模板·AutoGen CrewAI](/kb/agent-系统化专题/r03-multi-agent-模板-autogen-crewai/)：双框架对照模板，2 小时复现
 
-**解决的问题**：PM 跟工程师对话不再"夹生"。Rick 不必成为工程师，但必须**亲手跑通一遍**——这是 Polanyi 意义上的"默会知识"（参见 [Polanyi 默会知识与提示工程的认识论张力](/kb/AI-基础知识库/Polanyi-默会知识与提示工程的认识论张力/)），不亲手做过永远隔一层。
+**解决的问题**：PM 跟工程师对话不再"夹生"。Rick 不必成为工程师，但必须**亲手跑通一遍**——这是 Polanyi 意义上的"默会知识"（参见 [Polanyi 默会知识与提示工程的认识论张力](/kb/ai-基础知识库/polanyi-默会知识与提示工程的认识论张力/)），不亲手做过永远隔一层。
 
 **何时读**：在 Week 4 / 已经能"说清楚"之后；面试前一周打"实操底气牌"时。
 
@@ -189,7 +189,7 @@ graph TB
 
 ### 3.6 阅读指南模块（_总览 + README，本文 + 1 篇）
 
-**收录**：本文（总览）+ [README·多视图阅读指南](/kb/Agent-系统化专题/README·多视图阅读指南/)（三路径详解）
+**收录**：本文（总览）+ [README·多视图阅读指南](/kb/agent-系统化专题/readme-多视图阅读指南/)（三路径详解）
 
 **解决的问题**：22 个节点不可能线性读完。本模块把它们编成 3 条**对应不同身份模式**的路径：求职速通 / 决策链跳转 / 紧迫度优先。
 
@@ -203,12 +203,12 @@ graph TB
 
 | 现有节点 | 现有节点解决的问题 | 0411 专题的升级方向 |
 |---|---|---|
-| [c10 Agent 技术栈](/kb/AI-基础知识库/c10-Agent-技术栈与工具调用/) | 工具调用、记忆四种、复合错误数学 | 被 [S01 六层架构](/kb/Agent-系统化专题/S01-Agent-六层架构剖面/)**结构化**（c10 内的零散组件按六层归位），被 [G02 五代演化](/kb/Agent-系统化专题/G02-五代演化详解·G1-G5/)**时间化**（c10 是 G3-G4 视角，加入 G1-G2 历史与 G5 前沿） |
-| [m206 记忆机制](/kb/AI-工程化与落地架构/m206-Agent-产品化：记忆机制与技术进展/) | 记忆四决策、Browser Agent 三家 | 被 [A07](/kb/Agent-系统化专题/A07-Multi-Agent-Teams/) + [E02](/kb/Agent-系统化专题/E02-通用-Agent·Manus-Devin/)**补充**（m206 单 agent 记忆 → 0411 多 agent 共享记忆与冲突仲裁） |
-| [m207 失败模式](/kb/AI-工程化与落地架构/m207-Agent-产品化：场景推演与失败模式/) | 六类失败、B2B 销售推演、HITL | 被 [E03](/kb/Agent-系统化专题/E03-Multi-Agent-框架·AutoGen-CrewAI-DeerFlow/) + [R03](/kb/Agent-系统化专题/R03-Multi-Agent-模板·AutoGen-CrewAI/)**实例化**（m207 抽象失败模式 → 0411 在具体框架里复现失败再回看） |
-| [m208 编排框架](/kb/AI-工程化与落地架构/m208-AI-基础设施与中间件选型/) | LangChain/LlamaIndex/LangGraph 对比 | 被 [A06](/kb/Agent-系统化专题/A06-Orchestrator-编排器/) + [S03](/kb/Agent-系统化专题/S03-Harness-Engineering-全景/)**概念深化**（m208 是工具栈对比，0411 解释为什么 orchestrator 不等于 harness，为什么 harness engineering 不只是选框架） |
-| [Harness 词义辨析](/kb/Agent-系统化专题/Harness-词义辨析/) | 一个词的滑变 | 被 [S03](/kb/Agent-系统化专题/S03-Harness-Engineering-全景/)**升级为系统观**（从词义辨析升级为可分析框架） |
-| [Skill 系统的本质](/kb/AI-协作方法论/Skill-系统的本质/) | Skill 是什么 | 被 [A02](/kb/Agent-系统化专题/A02-抽象层级辨析·Harness-Framework-Agent-Skill-Orchestrator/)**归位**（Skill 在抽象层级里的精确位置） |
+| [c10 Agent 技术栈](/kb/ai-基础知识库/c10-agent-技术栈与工具调用/) | 工具调用、记忆四种、复合错误数学 | 被 [S01 六层架构](/kb/agent-系统化专题/s01-agent-六层架构剖面/)**结构化**（c10 内的零散组件按六层归位），被 [G02 五代演化](/kb/agent-系统化专题/g02-五代演化详解-g1-g5/)**时间化**（c10 是 G3-G4 视角，加入 G1-G2 历史与 G5 前沿） |
+| [m206 记忆机制](/kb/ai-工程化与落地架构/m206-agent-产品化-记忆机制与技术进展/) | 记忆四决策、Browser Agent 三家 | 被 [A07](/kb/agent-系统化专题/a07-multi-agent-teams/) + [E02](/kb/agent-系统化专题/e02-通用-agent-manus-devin/)**补充**（m206 单 agent 记忆 → 0411 多 agent 共享记忆与冲突仲裁） |
+| [m207 失败模式](/kb/ai-工程化与落地架构/m207-agent-产品化-场景推演与失败模式/) | 六类失败、B2B 销售推演、HITL | 被 [E03](/kb/agent-系统化专题/e03-multi-agent-框架-autogen-crewai-deerflow/) + [R03](/kb/agent-系统化专题/r03-multi-agent-模板-autogen-crewai/)**实例化**（m207 抽象失败模式 → 0411 在具体框架里复现失败再回看） |
+| [m208 编排框架](/kb/ai-工程化与落地架构/m208-ai-基础设施与中间件选型/) | LangChain/LlamaIndex/LangGraph 对比 | 被 [A06](/kb/agent-系统化专题/a06-orchestrator-编排器/) + [S03](/kb/agent-系统化专题/s03-harness-engineering-全景/)**概念深化**（m208 是工具栈对比，0411 解释为什么 orchestrator 不等于 harness，为什么 harness engineering 不只是选框架） |
+| [Harness 词义辨析](/kb/agent-系统化专题/harness-词义辨析/) | 一个词的滑变 | 被 [S03](/kb/agent-系统化专题/s03-harness-engineering-全景/)**升级为系统观**（从词义辨析升级为可分析框架） |
+| [Skill 系统的本质](/kb/ai-协作方法论/skill-系统的本质/) | Skill 是什么 | 被 [A02](/kb/agent-系统化专题/a02-抽象层级辨析-harness-framework-agent-skill-orchestrator/)**归位**（Skill 在抽象层级里的精确位置） |
 
 **判读规则**：c10/m206-208 是**事实基础**（不要在 0411 里复述），0411 是**结构性升级**（每一篇都明示"对照哪个旧节点、做了哪种升级"）。读 0411 之前如果对 c10 完全陌生，可以先快速过 c10 的目录而不必深读。
 
@@ -216,10 +216,10 @@ graph TB
 
 ## 5. 三条阅读起点提示
 
-详见 [README·多视图阅读指南](/kb/Agent-系统化专题/README·多视图阅读指南/)，此处只给定位：
+详见 [README·多视图阅读指南](/kb/agent-系统化专题/readme-多视图阅读指南/)，此处只给定位：
 
 - **路径 A：转型 PM 30 天速通（求职导向）**——按"基础认知 → 深入范式 → 产品实例 → 实操复现"四周节奏，每周明确"应能回答的面试问题"。适合**3 个月内有面试压力**的状态。
-- **路径 B：按 M1→M5 决策链跳转**——对应 [AI PM 知识图谱·总索引](/kb/AI-PM-知识图谱/AI-PM-知识图谱·总索引/) 五大模块的决策位次。适合**日常工作中按当前问题跳读**的状态。
+- **路径 B：按 M1→M5 决策链跳转**——对应 [AI PM 知识图谱·总索引](/kb/ai-pm-知识图谱/ai-pm-知识图谱-总索引/) 五大模块的决策位次。适合**日常工作中按当前问题跳读**的状态。
 - **路径 C：紧迫度优先（标签视图）**——红 / 橙 / 黄 / 蓝四档紧迫度。适合**时间碎片、按需取用**的状态。
 
 三条路径不互斥，多数 PM 会在不同周以不同模式切换。
@@ -233,7 +233,7 @@ graph TB
 | 跨域资源 | 调度位置 | 作用 |
 |---|---|---|
 | 维特根斯坦**语言游戏** | A01 / A02 | 解释"agent"一词在不同语言游戏里规则不同，不是用词不规范，是游戏边界未定 |
-| Polanyi **默会知识** | A03 / R01 系列 | 解释为什么 prompt 与 agent 行为难以完全文档化，复现实操是不可替代的——参见 [Polanyi 默会知识与提示工程的认识论张力](/kb/AI-基础知识库/Polanyi-默会知识与提示工程的认识论张力/) |
+| Polanyi **默会知识** | A03 / R01 系列 | 解释为什么 prompt 与 agent 行为难以完全文档化，复现实操是不可替代的——参见 [Polanyi 默会知识与提示工程的认识论张力](/kb/ai-基础知识库/polanyi-默会知识与提示工程的认识论张力/) |
 | Kuhn **范式**革命 | G01 / G02 | 把 G1→G5 解读为五次范式转换，每次都不是渐进而是"不可通约"——参见 范式 |
 | 阿伦特**行动 vs 制作** | A06 / A07 / E02 | 区分 agent 的"执行任务"（制作）与"自主决策"（行动），后者带不可逆性与责任归属 |
 | 韦伯**科层制** | A07 / E03 | 解读 Multi-Agent Teams 的角色分工：是新的协作形态还是科层制的算法化复制 |
@@ -265,7 +265,7 @@ agent-knowledge-validation/
 
 Rick 可以自行 review 任何一节的改稿历程，作为**元学习材料**——观察"一个概念从首稿到 v1 经历了哪些纠错"，本身就是学习 AI 知识管理的好素材。
 
-这一做法本身呼应了 [AI概念滥用反思](/kb/AI-基础知识库/AI概念滥用反思/) 的核心主张：**AI 生成的内容必须经过批判性同行评议才能成为知识**。
+这一做法本身呼应了 [AI概念滥用反思](/kb/ai-基础知识库/ai概念滥用反思/) 的核心主张：**AI 生成的内容必须经过批判性同行评议才能成为知识**。
 
 ### 7.1 本专题用 Rick 写作 SABCD 评级体系 自评（R4 自我审视）
 
@@ -349,42 +349,42 @@ Rick 可以自行 review 任何一节的改稿历程，作为**元学习材料**
 ## 8. 关联节点（双链密度 ≥ 20）
 
 ### 8.1 现有节点（升级对照）
-- [Agent](/kb/AI-基础知识库/Agent/)
-- [c10 - Agent 技术栈与工具调用](/kb/AI-基础知识库/c10-Agent-技术栈与工具调用/)
-- [m206 - Agent 产品化：记忆机制与技术进展](/kb/AI-工程化与落地架构/m206-Agent-产品化：记忆机制与技术进展/)
-- [m207 - Agent 产品化：场景推演与失败模式](/kb/AI-工程化与落地架构/m207-Agent-产品化：场景推演与失败模式/)
-- [m208 - AI 基础设施与中间件选型](/kb/AI-工程化与落地架构/m208-AI-基础设施与中间件选型/)
-- [m209 - 推理成本控制手册](/kb/AI-工程化与落地架构/m209-推理成本控制手册/)
-- [c09 - RAG 架构](/kb/AI-基础知识库/c09-RAG-架构/)
-- [c11 - System 2 思维与 Test-Time Compute](/kb/AI-基础知识库/c11-System-2-思维与-Test-Time-Compute/)
-- [c14 - 模型评估体系与 Goodhart 陷阱](/kb/AI-基础知识库/c14-模型评估体系与-Goodhart-陷阱/)
-- [Harness 词义辨析](/kb/Agent-系统化专题/Harness-词义辨析/)
-- [Skill 系统的本质](/kb/AI-协作方法论/Skill-系统的本质/)
-- [AI概念滥用反思](/kb/AI-基础知识库/AI概念滥用反思/)
-- [Polanyi 默会知识与提示工程的认识论张力](/kb/AI-基础知识库/Polanyi-默会知识与提示工程的认识论张力/)
+- [Agent](/kb/ai-基础知识库/agent/)
+- [c10 - Agent 技术栈与工具调用](/kb/ai-基础知识库/c10-agent-技术栈与工具调用/)
+- [m206 - Agent 产品化：记忆机制与技术进展](/kb/ai-工程化与落地架构/m206-agent-产品化-记忆机制与技术进展/)
+- [m207 - Agent 产品化：场景推演与失败模式](/kb/ai-工程化与落地架构/m207-agent-产品化-场景推演与失败模式/)
+- [m208 - AI 基础设施与中间件选型](/kb/ai-工程化与落地架构/m208-ai-基础设施与中间件选型/)
+- [m209 - 推理成本控制手册](/kb/ai-工程化与落地架构/m209-推理成本控制手册/)
+- [c09 - RAG 架构](/kb/ai-基础知识库/c09-rag-架构/)
+- [c11 - System 2 思维与 Test-Time Compute](/kb/ai-基础知识库/c11-system-2-思维与-test-time-compute/)
+- [c14 - 模型评估体系与 Goodhart 陷阱](/kb/ai-基础知识库/c14-模型评估体系与-goodhart-陷阱/)
+- [Harness 词义辨析](/kb/agent-系统化专题/harness-词义辨析/)
+- [Skill 系统的本质](/kb/ai-协作方法论/skill-系统的本质/)
+- [AI概念滥用反思](/kb/ai-基础知识库/ai概念滥用反思/)
+- [Polanyi 默会知识与提示工程的认识论张力](/kb/ai-基础知识库/polanyi-默会知识与提示工程的认识论张力/)
 - AI 产品代差观察与微博打磨
 - Rick 写作 SABCD 评级体系
 - 登楼撤梯-后弥赛亚的公民道德
 
 ### 8.2 本专题节点（六模块）
-- [A01 Agent 概念史与语义流变](/kb/Agent-系统化专题/A01-Agent-概念史与语义流变/)、[A02 抽象层级辨析·Harness Framework Agent Skill Orchestrator](/kb/Agent-系统化专题/A02-抽象层级辨析·Harness-Framework-Agent-Skill-Orchestrator/)
-- [A03 ReAct](/kb/Agent-系统化专题/A03-ReAct/)、[A04 Reflexion](/kb/Agent-系统化专题/A04-Reflexion/)、[A05 Plan-and-Execute](/kb/Agent-系统化专题/A05-Plan-and-Execute/)
-- [A06 Orchestrator 编排器](/kb/Agent-系统化专题/A06-Orchestrator-编排器/)、[A07 Multi-Agent Teams](/kb/Agent-系统化专题/A07-Multi-Agent-Teams/)、[A08 MCP 与 A2A 协议族](/kb/Agent-系统化专题/A08-MCP-与-A2A-协议族/)
-- [G01 Agent 代际谱系总图](/kb/Agent-系统化专题/G01-Agent-代际谱系总图/)、[G02 五代演化详解·G1-G5](/kb/Agent-系统化专题/G02-五代演化详解·G1-G5/)
-- [S01 Agent 六层架构剖面](/kb/Agent-系统化专题/S01-Agent-六层架构剖面/)、[S02 流派架构对照表](/kb/Agent-系统化专题/S02-流派架构对照表/)、[S03 Harness Engineering 全景](/kb/Agent-系统化专题/S03-Harness-Engineering-全景/)
-- [E01 Coding Agent·Claude Code & Cursor](/kb/Agent-系统化专题/E01-Coding-Agent·Claude-Code-Cursor/)、[E02 通用 Agent·Manus & Devin](/kb/Agent-系统化专题/E02-通用-Agent·Manus-Devin/)、[E03 Multi-Agent 框架·AutoGen & CrewAI & DeerFlow](/kb/Agent-系统化专题/E03-Multi-Agent-框架·AutoGen-CrewAI-DeerFlow/)
-- [R01 最小可运行·100 行 ReAct](/kb/Agent-系统化专题/R01-最小可运行·100-行-ReAct/)、[R02 中型生产·LangGraph + MCP](/kb/Agent-系统化专题/R02-中型生产·LangGraph-+-MCP/)、[R03 Multi-Agent 模板·AutoGen CrewAI](/kb/Agent-系统化专题/R03-Multi-Agent-模板·AutoGen-CrewAI/)
-- [README·多视图阅读指南](/kb/Agent-系统化专题/README·多视图阅读指南/)
+- [A01 Agent 概念史与语义流变](/kb/agent-系统化专题/a01-agent-概念史与语义流变/)、[A02 抽象层级辨析·Harness Framework Agent Skill Orchestrator](/kb/agent-系统化专题/a02-抽象层级辨析-harness-framework-agent-skill-orchestrator/)
+- [A03 ReAct](/kb/agent-系统化专题/a03-react/)、[A04 Reflexion](/kb/agent-系统化专题/a04-reflexion/)、[A05 Plan-and-Execute](/kb/agent-系统化专题/a05-plan-and-execute/)
+- [A06 Orchestrator 编排器](/kb/agent-系统化专题/a06-orchestrator-编排器/)、[A07 Multi-Agent Teams](/kb/agent-系统化专题/a07-multi-agent-teams/)、[A08 MCP 与 A2A 协议族](/kb/agent-系统化专题/a08-mcp-与-a2a-协议族/)
+- [G01 Agent 代际谱系总图](/kb/agent-系统化专题/g01-agent-代际谱系总图/)、[G02 五代演化详解·G1-G5](/kb/agent-系统化专题/g02-五代演化详解-g1-g5/)
+- [S01 Agent 六层架构剖面](/kb/agent-系统化专题/s01-agent-六层架构剖面/)、[S02 流派架构对照表](/kb/agent-系统化专题/s02-流派架构对照表/)、[S03 Harness Engineering 全景](/kb/agent-系统化专题/s03-harness-engineering-全景/)
+- [E01 Coding Agent·Claude Code & Cursor](/kb/agent-系统化专题/e01-coding-agent-claude-code-cursor/)、[E02 通用 Agent·Manus & Devin](/kb/agent-系统化专题/e02-通用-agent-manus-devin/)、[E03 Multi-Agent 框架·AutoGen & CrewAI & DeerFlow](/kb/agent-系统化专题/e03-multi-agent-框架-autogen-crewai-deerflow/)
+- [R01 最小可运行·100 行 ReAct](/kb/agent-系统化专题/r01-最小可运行-100-行-react/)、[R02 中型生产·LangGraph + MCP](/kb/agent-系统化专题/r02-中型生产-langgraph-+-mcp/)、[R03 Multi-Agent 模板·AutoGen CrewAI](/kb/agent-系统化专题/r03-multi-agent-模板-autogen-crewai/)
+- [README·多视图阅读指南](/kb/agent-系统化专题/readme-多视图阅读指南/)
 
 ### 8.3 跨域锚点
 - 0114认识论、0115道德哲学-伦理学、0117社会学
 - 范式、生命政治、霸权
 
 ### 8.4 总索引
-- [AI PM 知识图谱·总索引](/kb/AI-PM-知识图谱/AI-PM-知识图谱·总索引/)
+- [AI PM 知识图谱·总索引](/kb/ai-pm-知识图谱/ai-pm-知识图谱-总索引/)
 
 ### 8.5 公司/产品
-- [Anthropic](/kb/AI-公司与产品/Anthropic/)、[OpenAI](/kb/AI-公司与产品/OpenAI/)、[Claude](/kb/AI-公司与产品/Claude/)、[Claude Code](/kb/AI-公司与产品/Claude-Code/)、[Manus](/kb/AI-公司与产品/Manus/)、[DeepSeek](/kb/AI-公司与产品/DeepSeek/)、[Gemini](/kb/AI-公司与产品/Gemini/)
+- [Anthropic](/kb/ai-公司与产品/anthropic/)、[OpenAI](/kb/ai-公司与产品/openai/)、[Claude](/kb/ai-公司与产品/claude/)、[Claude Code](/kb/ai-公司与产品/claude-code/)、[Manus](/kb/ai-公司与产品/manus/)、[DeepSeek](/kb/ai-公司与产品/deepseek/)、[Gemini](/kb/ai-公司与产品/gemini/)
 
 ---
 
@@ -410,4 +410,4 @@ Rick 可以自行 review 任何一节的改稿历程，作为**元学习材料**
   1. 新增 § 7.1 "本专题用 Rick 写作 SABCD 评级体系 自评"——5 维度评分（S 8 / A 7.5 / B 7 / C 7.5 / D 8.5，综合 7.7），明确"够 PM 顶刊样本，不够 Rick 最终内化"——回应 Round 2 [独家机会-8]
   2. § 7.1 末尾强调 SABCD 自评的元价值——本专题用自己的写作方法论评估自己即是方法论的自洽实践
   3. § 8.1 现有节点（升级对照）新增 Rick 写作 SABCD 评级体系、登楼撤梯-后弥赛亚的公民道德 两个 R3 新接入的双链
-- **R1 → R2（2026-05-18）**：`AI 概念滥用反思`（有空格，死链）统一改为 `[AI概念滥用反思](/kb/AI-基础知识库/AI概念滥用反思/)`（无空格，匹配真实文件名）。
+- **R1 → R2（2026-05-18）**：`AI 概念滥用反思`（有空格，死链）统一改为 `[AI概念滥用反思](/kb/ai-基础知识库/ai概念滥用反思/)`（无空格，匹配真实文件名）。

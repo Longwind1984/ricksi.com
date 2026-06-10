@@ -6,7 +6,7 @@ updated: '2026-05-16'
 ---
 # AI 技术底层逻辑 v2 · 扩展阅读与学习资料索引
 
-> 配合 [AI技术底层逻辑 v2 - 索引](/kb/AI-基础知识库/AI技术底层逻辑-v2-索引/) 使用。每条资料标注必要性等级。
+> 配合 [AI技术底层逻辑 v2 - 索引](/kb/ai-基础知识库/ai技术底层逻辑-v2-索引/) 使用。每条资料标注必要性等级。
 
 ---
 
@@ -84,7 +84,7 @@ https://arxiv.org/abs/2309.06180
 
 ## 第 6 章 · 架构演进
 
-**[DeepSeek](/kb/AI-公司与产品/DeepSeek/)-V3 技术报告**
+**[DeepSeek](/kb/ai-公司与产品/deepseek/)-V3 技术报告**
 https://arxiv.org/abs/2412.19437
 ★★☆ Section 2（架构设计）和 Section 4（训练效率）。
 
@@ -136,7 +136,7 @@ https://arxiv.org/abs/2404.16130
 https://arxiv.org/abs/2210.03629
 ★★☆ 当前绝大多数 Agent 框架的理论基础。
 
-**[Anthropic](/kb/AI-公司与产品/Anthropic/) MCP 文档**
+**[Anthropic](/kb/ai-公司与产品/anthropic/) MCP 文档**
 https://modelcontextprotocol.io
 ★★☆ 正在快速成为 Agent-工具互操作的行业标准。
 
@@ -146,7 +146,7 @@ https://www.deeplearning.ai/courses/
 
 ## 第 11 章 · System 2 与 Test-Time Compute
 
-**[OpenAI](/kb/AI-公司与产品/OpenAI/) o1 系统卡**
+**[OpenAI](/kb/ai-公司与产品/openai/) o1 系统卡**
 https://openai.com/index/openai-o1-system-card/
 ★★☆ "思考 token"的产品化呈现方式、算力预算控制。
 
@@ -224,4 +224,4 @@ https://github.com/rasbt/LLMs-from-scratch
 
 ---
 
-> 索引版本：2026 年 3 月 17 日 · [返回主索引](/kb/AI-基础知识库/AI技术底层逻辑-v2-索引/)
+> 索引版本：2026 年 3 月 17 日 · [返回主索引](/kb/ai-基础知识库/ai技术底层逻辑-v2-索引/)

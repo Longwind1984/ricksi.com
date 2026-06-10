@@ -56,11 +56,11 @@ Rick 的第三轮极其简短：
 
 ## 关联节点
 
-- [c09 - RAG 架构](/kb/AI-基础知识库/c09-RAG-架构/) — RAG 技术细节母节点。
-- [RAG](/kb/AI-基础知识库/RAG/) — RAG 概念节点。
-- [Embedding](/kb/AI-基础知识库/Embedding/) — 向量化与隐空间的具体技术。
+- [c09 - RAG 架构](/kb/ai-基础知识库/c09-rag-架构/) — RAG 技术细节母节点。
+- [RAG](/kb/ai-基础知识库/rag/) — RAG 概念节点。
+- [Embedding](/kb/ai-基础知识库/embedding/) — 向量化与隐空间的具体技术。
 - 0114逻辑学-基础思维工具 — 概念偷换识别的逻辑学母节点。
-- [Claude](/kb/AI-公司与产品/Claude/) — AI 助手关系与默认输出能力的具体对象。
+- [Claude](/kb/ai-公司与产品/claude/) — AI 助手关系与默认输出能力的具体对象。
 
 ## 衍生对话存档
 

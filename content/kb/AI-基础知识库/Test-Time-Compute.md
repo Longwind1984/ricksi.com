@@ -34,5 +34,5 @@ Agent 遇到复杂决策节点时，不是一步 ReAct 就输出 Action，而是
 
 ## 相关章节
 
-- [c11 System 2 详解](/kb/AI-基础知识库/c11-System-2-思维与-Test-Time-Compute/)
-- [c10 Reasoning Agent 融合](/kb/AI-基础知识库/c10-Agent-技术栈与工具调用/)
+- [c11 System 2 详解](/kb/ai-基础知识库/c11-system-2-思维与-test-time-compute/)
+- [c10 Reasoning Agent 融合](/kb/ai-基础知识库/c10-agent-技术栈与工具调用/)

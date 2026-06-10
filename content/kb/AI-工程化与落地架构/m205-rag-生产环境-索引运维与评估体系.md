@@ -7,7 +7,7 @@ updated: '2026-05-16'
 
 # m205. RAG 生产环境：索引运维与评估体系
 
-[RAG](/kb/AI-基础知识库/RAG/) 不是"搭好就完了"，它是一个需要持续维护和迭代的系统。本章覆盖索引的生命周期管理，以及如何系统性地衡量 [RAG](/kb/AI-基础知识库/RAG/) 质量。
+[RAG](/kb/ai-基础知识库/rag/) 不是"搭好就完了"，它是一个需要持续维护和迭代的系统。本章覆盖索引的生命周期管理，以及如何系统性地衡量 [RAG](/kb/ai-基础知识库/rag/) 质量。
 
 ## 2.3.5 索引构建、更新与运维
 
@@ -27,7 +27,7 @@ updated: '2026-05-16'
 | **检索命中率** | query 至少命中一个相关 chunk 的比例 | 下降 → 知识库覆盖出现空白 |
 | **空结果率** | 完全没有命中的 query 比例 | 上升 → 需要补充知识库内容 |
 | **Chunk 引用频率分布** | 每个 chunk 被检索引用的次数 | 零引用 chunk → 可能是冗余或错误入库 |
-| **[Embedding](/kb/AI-基础知识库/Embedding/) Drift** | 新旧 chunk 的 [Embedding](/kb/AI-基础知识库/Embedding/) 分布差异 | 大量更新后需重新评估 [Embedding](/kb/AI-基础知识库/Embedding/) 模型效果 |
+| **[Embedding](/kb/ai-基础知识库/embedding/) Drift** | 新旧 chunk 的 [Embedding](/kb/ai-基础知识库/embedding/) 分布差异 | 大量更新后需重新评估 [Embedding](/kb/ai-基础知识库/embedding/) 模型效果 |
 
 **PM 的意义**：索引监控数据是产品迭代的基础信号。"哪些问题始终答不好" = 空结果率高的 query 类型 = 知识库扩充的优先级队列。
 
@@ -40,7 +40,7 @@ updated: '2026-05-16'
 
 ## 2.3.6 RAG 评估体系（生产级）
 
-模块一提出了"检索-生成评估解耦"的原则（[c09 §9.6](/kb/AI-基础知识库/c09-RAG-架构/)）。本节给出具体的评估框架。评估体系的设计与 [c14 Goodhart 陷阱](/kb/AI-基础知识库/c14-模型评估体系与-Goodhart-陷阱/)的防御逻辑相通——指标必须真正反映业务目标。
+模块一提出了"检索-生成评估解耦"的原则（[c09 §9.6](/kb/ai-基础知识库/c09-rag-架构/)）。本节给出具体的评估框架。评估体系的设计与 [c14 Goodhart 陷阱](/kb/ai-基础知识库/c14-模型评估体系与-goodhart-陷阱/)的防御逻辑相通——指标必须真正反映业务目标。
 
 ### RAGAS 框架（当前最主流的 RAG 评估框架）
 
@@ -48,7 +48,7 @@ RAGAS 定义了四个核心指标：
 
 | 指标 | 测量什么 | 直觉解释 |
 |------|---------|---------|
-| **Faithfulness（忠实度）** | 生成的回答是否完全基于检索到的内容（防[幻觉](/kb/AI-基础知识库/幻觉/)）| 回答中每个声明是否都能在检索结果中找到支持 |
+| **Faithfulness（忠实度）** | 生成的回答是否完全基于检索到的内容（防[幻觉](/kb/ai-基础知识库/幻觉/)）| 回答中每个声明是否都能在检索结果中找到支持 |
 | **Answer Relevancy（回答相关性）** | 回答是否真正回答了用户的问题 | 从回答反向生成问题，看与原始问题的相似度 |
 | **Context Precision（上下文精度）** | 检索到的内容中，相关内容是否排在前面 | 相关 chunk 在 Top-K 中的排名 |
 | **Context Recall（上下文召回率）** | 回答所需的所有信息是否都被检索到 | 标准答案中的每个要点是否至少有一个检索结果覆盖 |
@@ -57,13 +57,13 @@ RAGAS 定义了四个核心指标：
 
 **① 构建黄金评估集**（最高优先级投资）
 
-从真实用户 query 中采样 200–500 条，人工标注标准答案。这是 [RAG](/kb/AI-基础知识库/RAG/) 评估的基础设施投资——没有评估集，一切优化都是盲调。
+从真实用户 query 中采样 200–500 条，人工标注标准答案。这是 [RAG](/kb/ai-基础知识库/rag/) 评估的基础设施投资——没有评估集，一切优化都是盲调。
 
 **② 自动化评估管线**
 
-用 LLM-as-Judge（详见 [c14 §14.2 LLM-as-Judge 偏见](/kb/AI-基础知识库/c14-模型评估体系与-Goodhart-陷阱/)）自动化 RAGAS 评估，集成到 CI/CD 中。每次修改以下内容后自动跑评估：
+用 LLM-as-Judge（详见 [c14 §14.2 LLM-as-Judge 偏见](/kb/ai-基础知识库/c14-模型评估体系与-goodhart-陷阱/)）自动化 RAGAS 评估，集成到 CI/CD 中。每次修改以下内容后自动跑评估：
 - Chunking 策略调整
-- [Embedding](/kb/AI-基础知识库/Embedding/) 模型切换
+- [Embedding](/kb/ai-基础知识库/embedding/) 模型切换
 - Reranker 升级
 - 检索参数（Top-K、相似度阈值）修改
 
@@ -71,26 +71,26 @@ RAGAS 定义了四个核心指标：
 
 ```
 检索指标差（低 Recall / Precision）
-    → 先优化检索：[Embedding](/kb/AI-基础知识库/Embedding/)模型、chunking 策略、混合检索、Reranker
+    → 先优化检索：[Embedding](/kb/ai-基础知识库/embedding/)模型、chunking 策略、混合检索、Reranker
 
-检索指标好，但生成指标差（低 Faithfulness）→ [幻觉](/kb/AI-基础知识库/幻觉/)风险高
+检索指标好，但生成指标差（低 Faithfulness）→ [幻觉](/kb/ai-基础知识库/幻觉/)风险高
     → 优化 Prompt 或切换生成模型
 
 检索指标好，生成指标好，但业务指标差
-    → 问题出在评估指标定义上，重新审视"什么是好回答"（见 [c14 Goodhart 定律](/kb/AI-基础知识库/c14-模型评估体系与-Goodhart-陷阱/)）
+    → 问题出在评估指标定义上，重新审视"什么是好回答"（见 [c14 Goodhart 定律](/kb/ai-基础知识库/c14-模型评估体系与-goodhart-陷阱/)）
 ```
 
 ### 评估工具生态
 
 | 工具 | 核心能力 | 适用场景 |
 |------|---------|---------|
-| **RAGAS（库）** | 自动化四核心指标计算 | 任何 [RAG](/kb/AI-基础知识库/RAG/) 系统 |
-| **LangWatch** | [RAG](/kb/AI-基础知识库/RAG/) 评估 + tracing + 质量监控 | [RAG](/kb/AI-基础知识库/RAG/) 重度用户 |
-| **Arize Phoenix** | 开源 LLM observability、[Embedding](/kb/AI-基础知识库/Embedding/) 可视化 | 自建、开源偏好 |
+| **RAGAS（库）** | 自动化四核心指标计算 | 任何 [RAG](/kb/ai-基础知识库/rag/) 系统 |
+| **LangWatch** | [RAG](/kb/ai-基础知识库/rag/) 评估 + tracing + 质量监控 | [RAG](/kb/ai-基础知识库/rag/) 重度用户 |
+| **Arize Phoenix** | 开源 LLM observability、[Embedding](/kb/ai-基础知识库/embedding/) 可视化 | 自建、开源偏好 |
 | **LangSmith** | LLM 调用 tracing、prompt 调试 | LangChain 生态内 |
 
 **PM 的操作建议**：每次产品迭代（调整知识库内容、修改 Prompt、升级模型）前后都跑一次评估。把评估分数的变化作为迭代效果的核心衡量依据，而非主观感受。
 
-相关概念卡：[RAG](/kb/AI-基础知识库/RAG/)、[Embedding](/kb/AI-基础知识库/Embedding/)、[幻觉与校准](/kb/AI-基础知识库/幻觉/)
-上一章：[m204 Chunking 与范式演进](/kb/AI-工程化与落地架构/m204-RAG-生产环境：Chunking-与范式演进/)
-下一章：[m206 Agent 记忆与技术进展](/kb/AI-工程化与落地架构/m206-Agent-产品化：记忆机制与技术进展/)
+相关概念卡：[RAG](/kb/ai-基础知识库/rag/)、[Embedding](/kb/ai-基础知识库/embedding/)、[幻觉与校准](/kb/ai-基础知识库/幻觉/)
+上一章：[m204 Chunking 与范式演进](/kb/ai-工程化与落地架构/m204-rag-生产环境-chunking-与范式演进/)
+下一章：[m206 Agent 记忆与技术进展](/kb/ai-工程化与落地架构/m206-agent-产品化-记忆机制与技术进展/)

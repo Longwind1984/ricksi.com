@@ -23,8 +23,8 @@ updated: '2026-05-18'
   - 但 2020 年中央直接颁布《国家安全法》绕过香港本地立法程序，自由空间收窄方向上属实
 
 ## 关联节点
-- [Claude](/kb/AI-公司与产品/Claude/) — Anthropic 旗下 LLM
-- [Anthropic](/kb/AI-公司与产品/Anthropic/) — Claude 开发公司
+- [Claude](/kb/ai-公司与产品/claude/) — Anthropic 旗下 LLM
+- [Anthropic](/kb/ai-公司与产品/anthropic/) — Claude 开发公司
 
 ## 衍生对话存档
 - 香港自由变化翻译+AI公司敏感内容立场对比

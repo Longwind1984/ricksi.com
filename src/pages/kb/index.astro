@@ -1,0 +1,71 @@
+---
+import Glass from '../../layouts/Glass.astro';
+import { loadSiteData, stamp } from '../../lib/site-data.mjs';
+
+const { graph } = loadSiteData();
+const clusters = graph?.clusters ?? [];
+const byCluster = clusters.map((c) => ({
+  ...c,
+  notes: (graph?.nodes ?? [])
+    .filter((n) => n.cluster === c.id)
+    .sort((a, b) => b.deg - a.deg),
+}));
+const clientData = graph
+  ? JSON.stringify({ graph, mode: 'full' }).replace(/</g, '\\u003c')
+  : null;
+const updated = graph ? stamp(graph.generated_at) : null;
+---
+
+<Glass
+  title="知识库 · 司豪杰 Rick Si"
+  description={`AI 产品 × 底层原理知识库：${graph?.stats.notes ?? 0} 篇笔记、${graph?.stats.links ?? 0} 条双链、${graph?.stats.domains ?? 0} 个主题域，Obsidian 真实结构每日同步。`}
+  active="knowledge"
+>
+  <main class="sub-main">
+    <div class="container">
+      <section class="sec">
+        <div class="sec-head">
+          <span class="mono sec-no">KB</span>
+          <div class="sec-title-row">
+            <h2 class="sec-title">知识库</h2>
+            <span class="mono sec-en">KNOWLEDGE BASE</span>
+          </div>
+          <span class="sec-desc">
+            {graph ? `${graph.stats.notes} 篇 · ${graph.stats.links} 条双链 · 更新于 ${updated}` : '数据待同步'}
+          </span>
+        </div>
+        {graph ? (
+          <div class="kg-paper kb-full" id="kb-graph"></div>
+        ) : (
+          <p class="kg-note">本地运行 `npm run sync` 后这里会出现完整图谱。</p>
+        )}
+        <p class="kg-note">拖拽节点 · 滚轮/双指缩放 · 点击节点打开笔记</p>
+      </section>
+
+      {byCluster.map((c) => (
+        <section class="sec kb-cluster">
+          <div class="sec-head">
+            <span class="mono sec-no">{String(c.count).padStart(2, '0')}</span>
+            <div class="sec-title-row">
+              <h2 class="sec-title kb-cluster-title">{c.name}</h2>
+              <span class="mono sec-en">{c.count} NOTES</span>
+            </div>
+          </div>
+          <div class="kb-note-grid">
+            {c.notes.map((n) => (
+              <a class="kb-note-chip" href={`/kb/${n.slug}/`}>
+                <span class="kb-note-title">{n.title}</span>
+                {n.deg > 0 && <span class="mono kb-note-deg">{n.deg}</span>}
+              </a>
+            ))}
+          </div>
+        </section>
+      ))}
+    </div>
+  </main>
+
+  {clientData && <script type="application/json" id="kb-graph-data" set:html={clientData} />}
+  <script>
+    import '../../scripts/kb-page.js';
+  </script>
+</Glass>

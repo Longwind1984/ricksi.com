@@ -19,11 +19,12 @@ function clusterDisplay(folder) {
   return m ? { order: m[1], name: m[2].trim() } : { order: '9999', name: folder };
 }
 
-/* 文件名 → URL 路径段（保留中文，去掉对 URL/文件系统有害的字符） */
+/* 文件名 → URL 路径段（保留中文，去掉标点与 URL 危险字符，拉丁统一小写） */
 function slugify(s) {
   return s
     .trim()
-    .replace(/[\/\\#?%&<>:"|*\s]+/g, '-')
+    .toLowerCase()
+    .replace(/[\/\\#?%&<>:"'|*·，。、！？；：（）《》【】\[\]()‘’“”\s]+/g, '-')
     .replace(/-+/g, '-')
     .replace(/^-|-$/g, '');
 }
@@ -107,6 +108,17 @@ const clusterIdx = new Map(clusterFolders.map((f, i) => [f, i]));
 
 /* ---------- 4. 图谱（仅可发布笔记；边两端都可发布才保留） ---------- */
 const pub = [...notes.values()].filter((n) => n.publish);
+
+/* slug 预分配（含冲突消解：标点差异挤压后可能撞车，追加 -2/-3） */
+const takenSlugs = new Set();
+for (const n of pub) {
+  let s = `${slugify(clusterDisplay(n.clusterFolder).name)}/${slugify(n.name)}`;
+  let i = 2;
+  while (takenSlugs.has(s)) s = s.replace(/(-\d+)?$/, `-${i++}`);
+  takenSlugs.add(s);
+  n.slugPath = s;
+}
+
 const nodeIdx = new Map(pub.map((n, i) => [n.name, i]));
 const edges = [];
 const degree = new Array(pub.length).fill(0);
@@ -123,13 +135,12 @@ for (const [a, b] of edges) {
   degree[b]++;
 }
 
-const clusterSlugOf = (n) => slugify(clusterDisplay(n.clusterFolder).name);
 const graph = {
   generated_at: new Date().toISOString(),
   nodes: pub.map((n, i) => ({
     id: i,
     title: n.name,
-    slug: `${clusterSlugOf(n)}/${slugify(n.name)}`,
+    slug: n.slugPath,
     cluster: clusterIdx.get(n.clusterFolder),
     deg: degree[i],
     created: dayKey(new Date(n.created)),
@@ -152,7 +163,7 @@ fs.mkdirSync(CONFIG.kbContentDir, { recursive: true });
 fs.writeFileSync(path.join(CONFIG.kbContentDir, '.gitkeep'), '');
 
 for (const n of pub) {
-  const nodeSlug = `${clusterSlugOf(n)}/${slugify(n.name)}`;
+  const nodeSlug = n.slugPath;
   // 正文里的 wikilink：目标已发布 → 站内链接；未发布/库外 → 保留纯文本
   const body = n.body
     .replace(/!\[\[([^\]]+)\]\]/g, (_, p) => `> 📎 附件：${p}（站内未发布）`)
@@ -160,8 +171,8 @@ for (const n of pub) {
       const t = target.trim().replace(/\.md$/, '').split('/').pop();
       const display = alias ? alias.slice(1).trim() : target.trim();
       const tn = notes.get(t);
-      if (tn?.publish) {
-        return `[${display}](/kb/${clusterSlugOf(tn)}/${slugify(tn.name)}/)`;
+      if (tn?.publish && tn.slugPath) {
+        return `[${display}](/kb/${tn.slugPath}/)`;
       }
       return display;
     });

@@ -7,23 +7,23 @@ updated: '2026-05-17'
 
 # Claude
 
-> [Anthropic](/kb/AI-公司与产品/Anthropic/) 的大语言模型产品族，命名取自香农信息论之父 Claude Shannon。按规格分 **Haiku（轻量 / 低延迟）/ Sonnet（主力 / 平衡）/ Opus（旗舰 / 推理深度）** 三档。与之配套有 [Claude Code](/kb/AI-公司与产品/Claude-Code/)（CLI Agent）、Computer Use（屏幕 Agent）、Projects（项目级上下文）、Artifacts（工件化交付）等产品形态。在 2025–2026 大模型市场里，Claude 是开发者社区与企业级深度任务的首选模型。
+> [Anthropic](/kb/ai-公司与产品/anthropic/) 的大语言模型产品族，命名取自香农信息论之父 Claude Shannon。按规格分 **Haiku（轻量 / 低延迟）/ Sonnet（主力 / 平衡）/ Opus（旗舰 / 推理深度）** 三档。与之配套有 [Claude Code](/kb/ai-公司与产品/claude-code/)（CLI Agent）、Computer Use（屏幕 Agent）、Projects（项目级上下文）、Artifacts（工件化交付）等产品形态。在 2025–2026 大模型市场里，Claude 是开发者社区与企业级深度任务的首选模型。
 
 ## 产品族构成
 - **Claude Haiku**：轻量档；高频/批量任务（embedding 替代、分类、清洗、子代理）首选。2026 旗舰 Claude Haiku 4.5。
 - **Claude Sonnet**：主力档；编码、写作、代理执行的日常工作马。2026 旗舰 Claude Sonnet 4.6，是 Claude Code 默认模型。
 - **Claude Opus**：旗舰档；推理深度与对齐质量最强，价格也最高。2026 旗舰 Claude Opus 4.7。
-- **Claude Code**：[Claude Code](/kb/AI-公司与产品/Claude-Code/) CLI Agent，开发者的第一接口形态。
+- **Claude Code**：[Claude Code](/kb/ai-公司与产品/claude-code/) CLI Agent，开发者的第一接口形态。
 - **Computer Use**：屏幕级 Agent（操作鼠标键盘），覆盖无 API 的长尾应用。
 - **Projects / Artifacts / Skills / Plugins**：上下文管理与可复用工件机制——Claude 把"对话流"扩展为"持续协作的工作空间"。
 
 ## 演化时间线
 - **2023.3** Claude 1 公测，主打 100K 长上下文（彼时业内最长）。
 - **2024.3** Claude 3（Haiku / Sonnet / Opus 三档命名首次确立）；Opus 在多个基准超过 GPT-4。
-- **2024.6** Claude 3.5 Sonnet + **Artifacts**——把"对话产物"独立成可持有的工件，是 [工件化模式](/kb/AI-产品设计与交互范式/p302-七种-AI-交互设计模式/) 的样板。
+- **2024.6** Claude 3.5 Sonnet + **Artifacts**——把"对话产物"独立成可持有的工件，是 [工件化模式](/kb/ai-产品设计与交互范式/p302-七种-ai-交互设计模式/) 的样板。
 - **2024.10** Computer Use 公测。
-- **2025** Claude 4 / Claude Sonnet 4.5 / Opus 4.5 / [Claude Code](/kb/AI-公司与产品/Claude-Code/) GA；编程能力在 SWE-bench 等基准上确立领先位。
-- **2026.5** 当下旗舰为 [Claude Opus](/kb/AI-公司与产品/Claude-Opus/) 4.7（推理深度）+ [Claude Sonnet](/kb/AI-公司与产品/Claude-Sonnet/) 4.6（编码 / Agent 默认）+ Claude Haiku 4.5（低延迟）。Prompt Caching、Function Calling、KV Cache 已成标配。
+- **2025** Claude 4 / Claude Sonnet 4.5 / Opus 4.5 / [Claude Code](/kb/ai-公司与产品/claude-code/) GA；编程能力在 SWE-bench 等基准上确立领先位。
+- **2026.5** 当下旗舰为 [Claude Opus](/kb/ai-公司与产品/claude-opus/) 4.7（推理深度）+ [Claude Sonnet](/kb/ai-公司与产品/claude-sonnet/) 4.6（编码 / Agent 默认）+ Claude Haiku 4.5（低延迟）。Prompt Caching、Function Calling、KV Cache 已成标配。
 
 ## 产品设计特征
 - **"被开发者偏爱"的语料偏向**：Claude 在指令跟随、代码理解、长文档处理、严肃写作上的口碑显著领先；这部分来自 Anthropic 数据策略（高质量合成 + 严格清洗）与 RLAIF 对齐（Constitutional AI），但也带来"个性偏保守""拒答率偏高"的代价。
@@ -33,23 +33,23 @@ updated: '2026-05-17'
 - **对齐质量与对话风格**：Constitutional AI 让 Claude 在长对话中保持稳定人格与拒答边界，但也被用户批评"过度道德化"——这是 Claude 在消费场景输给 ChatGPT 的原因之一。
 
 ## 与同行对比
-- **vs. [ChatGPT](/kb/AI-公司与产品/ChatGPT/) / GPT 系列**：Claude 强在编码 / 长文档 / 严肃写作 / 对齐质量；ChatGPT 强在多模态 / 消费品牌 / 平台生态。开发者社区在 2025–2026 的偏好显著向 Claude 倾斜。
-- **vs. [Gemini](/kb/AI-公司与产品/Gemini/)**：Gemini 强在长上下文 (1M-2M) + Workspace 集成；Claude 强在编码 + 对齐 + Agent 产品化。Gemini 的 KV cache 压缩使其编程模型在价格上有优势，Claude 在交互/工具链/Skills 生态上占优。
-- **vs. [DeepSeek](/kb/AI-公司与产品/DeepSeek/) / Qwen 等开源模型**：Claude 闭源 + 高定价；开源模型在私有部署、自托管、监管敏感场景有不可替代位。Claude 选择"通过 API + 企业生态变现"。
+- **vs. [ChatGPT](/kb/ai-公司与产品/chatgpt/) / GPT 系列**：Claude 强在编码 / 长文档 / 严肃写作 / 对齐质量；ChatGPT 强在多模态 / 消费品牌 / 平台生态。开发者社区在 2025–2026 的偏好显著向 Claude 倾斜。
+- **vs. [Gemini](/kb/ai-公司与产品/gemini/)**：Gemini 强在长上下文 (1M-2M) + Workspace 集成；Claude 强在编码 + 对齐 + Agent 产品化。Gemini 的 KV cache 压缩使其编程模型在价格上有优势，Claude 在交互/工具链/Skills 生态上占优。
+- **vs. [DeepSeek](/kb/ai-公司与产品/deepseek/) / Qwen 等开源模型**：Claude 闭源 + 高定价；开源模型在私有部署、自托管、监管敏感场景有不可替代位。Claude 选择"通过 API + 企业生态变现"。
 - **vs. 国内闭源模型（豆包 / 月之暗面 / 智谱）**：在国内被网络封锁，但通过 Cursor / Claude Code / API 在开发者层渗透很高。
 
 ## 对 Rick 的价值
 - **主力工作模型**：Rick 当前主要 AI 写作 / 编程 / 思考辅助来自 Claude，本库大量内容由 Claude 协助生成或审校。
-- **AI PM 视角的范式标本**：Claude 的产品定义（Artifacts / Computer Use / Skills / Claude Code）是 [p302 - 七种 AI 交互设计模式](/kb/AI-产品设计与交互范式/p302-七种-AI-交互设计模式/) / [m206 - Agent 产品化：记忆机制与技术进展](/kb/AI-工程化与落地架构/m206-Agent-产品化：记忆机制与技术进展/) 等模块的现成案例。
+- **AI PM 视角的范式标本**：Claude 的产品定义（Artifacts / Computer Use / Skills / Claude Code）是 [p302 - 七种 AI 交互设计模式](/kb/ai-产品设计与交互范式/p302-七种-ai-交互设计模式/) / [m206 - Agent 产品化：记忆机制与技术进展](/kb/ai-工程化与落地架构/m206-agent-产品化-记忆机制与技术进展/) 等模块的现成案例。
 - **职业判断锚点**：Anthropic 的"研究透明 + 慢节奏 + 高门槛"路径在 Rick 通往 AI PM 之路 的目标公司光谱里占重要位置。
 - **个人 AI 工作流核心节点**：Claude + Claude Code 的搭配是 Rick 2026 的核心生产力栈，本库的运行（包括本份运行报告本身）由 Claude Code Agent 驱动。
 
 ## 关联节点
-- 公司：[Anthropic](/kb/AI-公司与产品/Anthropic/)
-- 子产品：[Claude Opus](/kb/AI-公司与产品/Claude-Opus/) [Claude Sonnet](/kb/AI-公司与产品/Claude-Sonnet/) Claude Haiku 4.5 [Claude Code](/kb/AI-公司与产品/Claude-Code/) [Computer Use](/kb/AI-公司与产品/Computer-Use/)
-- 对照模型：[ChatGPT](/kb/AI-公司与产品/ChatGPT/) [Gemini](/kb/AI-公司与产品/Gemini/) [DeepSeek](/kb/AI-公司与产品/DeepSeek/) GPT-4 GPT-5
-- 技术：[RLHF](/kb/AI-基础知识库/RLHF/) [Constitutional AI](/kb/AI-基础知识库/Constitutional-AI/) [Function Calling](/kb/AI-基础知识库/Function-Calling/) [Prompt Caching](/kb/AI-基础知识库/Prompt-Caching/) [Agent](/kb/AI-基础知识库/Agent/) MCP
-- 产品议题：[p302 - 七种 AI 交互设计模式](/kb/AI-产品设计与交互范式/p302-七种-AI-交互设计模式/) m205 - AI 产品形态：从工具到 Agent [m206 - Agent 产品化：记忆机制与技术进展](/kb/AI-工程化与落地架构/m206-Agent-产品化：记忆机制与技术进展/)
+- 公司：[Anthropic](/kb/ai-公司与产品/anthropic/)
+- 子产品：[Claude Opus](/kb/ai-公司与产品/claude-opus/) [Claude Sonnet](/kb/ai-公司与产品/claude-sonnet/) Claude Haiku 4.5 [Claude Code](/kb/ai-公司与产品/claude-code/) [Computer Use](/kb/ai-公司与产品/computer-use/)
+- 对照模型：[ChatGPT](/kb/ai-公司与产品/chatgpt/) [Gemini](/kb/ai-公司与产品/gemini/) [DeepSeek](/kb/ai-公司与产品/deepseek/) GPT-4 GPT-5
+- 技术：[RLHF](/kb/ai-基础知识库/rlhf/) [Constitutional AI](/kb/ai-基础知识库/constitutional-ai/) [Function Calling](/kb/ai-基础知识库/function-calling/) [Prompt Caching](/kb/ai-基础知识库/prompt-caching/) [Agent](/kb/ai-基础知识库/agent/) MCP
+- 产品议题：[p302 - 七种 AI 交互设计模式](/kb/ai-产品设计与交互范式/p302-七种-ai-交互设计模式/) m205 - AI 产品形态：从工具到 Agent [m206 - Agent 产品化：记忆机制与技术进展](/kb/ai-工程化与落地架构/m206-agent-产品化-记忆机制与技术进展/)
 - 职业议题：通往 AI PM 之路
 
 ## 来源 / 证据池

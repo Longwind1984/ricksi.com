@@ -47,9 +47,9 @@ KV Cache 不是磁盘文件，是 GPU 显存里的向量；任何会话停顿后
 
 ## 相关章节
 
-- [c03 GQA 与 Attention 变体](/kb/AI-基础知识库/c03-Transformer-核心机制与注意力变体/)
-- [c05 算力物理与 KV Cache](/kb/AI-基础知识库/c05-算力物理定律与-KV-Cache/)
-- [c07 KV Cache 量化](/kb/AI-基础知识库/c07-量化-Quantization-与端侧部署/)
+- [c03 GQA 与 Attention 变体](/kb/ai-基础知识库/c03-transformer-核心机制与注意力变体/)
+- [c05 算力物理与 KV Cache](/kb/ai-基础知识库/c05-算力物理定律与-kv-cache/)
+- [c07 KV Cache 量化](/kb/ai-基础知识库/c07-量化-quantization-与端侧部署/)
 
 ## 衍生对话存档
 - KV Cache 概念解释｜PM 视角与长会话保持

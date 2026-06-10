@@ -61,13 +61,13 @@ SFT 模型 + 偏好对 (prompt, chosen, rejected)
 | 适用场景 | 学新任务 / 学指令格式 | 风险高的对齐 / 多目标平衡 | 中等规模团队的首选 |
 | 2026 主流？ | 仍是基础 | 减少（前沿仍用，如 OpenAI o-series 训练） | 中等规模团队主流 |
 
-## RLAIF（[Anthropic](/kb/AI-公司与产品/Anthropic/)）与 Constitutional AI
+## RLAIF（[Anthropic](/kb/ai-公司与产品/anthropic/)）与 Constitutional AI
 
 **痛点**：人类标注偏好昂贵且不一致。
 
 **RLAIF（Reinforcement Learning from AI Feedback）**：让大模型作为标注员产生偏好数据。已被验证在多数任务上接近 RLHF 效果。
 
-**[Constitutional AI](/kb/AI-基础知识库/Constitutional-AI/)（CAI）**：Anthropic 的方法 — 让模型根据预定义的"宪法原则"自我评判和修正：
+**[Constitutional AI](/kb/ai-基础知识库/constitutional-ai/)（CAI）**：Anthropic 的方法 — 让模型根据预定义的"宪法原则"自我评判和修正：
 1. SFT 阶段：让模型批评并修正自己的有害输出（Self-Critique）
 2. RL 阶段：用模型自己判断的偏好做 RLAIF
 
@@ -75,7 +75,7 @@ Claude 系列的"安全感"很大程度来自 CAI。
 
 ## 2024-2026 演化
 
-- **RLVR（Reinforcement Learning with Verifiable Rewards）**：对数学、代码、逻辑任务，用"答案是否正确"作为可验证奖励，替代偏好模型。是 [DeepSeek](/kb/AI-公司与产品/DeepSeek/) R1 / OpenAI o-series 推理能力的关键。
+- **RLVR（Reinforcement Learning with Verifiable Rewards）**：对数学、代码、逻辑任务，用"答案是否正确"作为可验证奖励，替代偏好模型。是 [DeepSeek](/kb/ai-公司与产品/deepseek/) R1 / OpenAI o-series 推理能力的关键。
 - **Process Reward Model (PRM)**：奖励不只看最终答案，看中间推理步骤。
 - **Online DPO / IPO / KTO**：DPO 家族的迭代变体，分别解决"模型崩溃"、"reward over-optimization"等问题
 - **Iterative SFT + DPO**：SFT → DPO → 用对齐后的模型采样新数据 → 再 SFT/DPO，多轮迭代
@@ -107,11 +107,11 @@ Claude 系列的"安全感"很大程度来自 CAI。
 
 ## 相关章节与节点
 
-- [c04 偏好对齐（详解）](/kb/AI-基础知识库/c04-模型训练全阶段-Pipeline/)
-- [c13 对齐税与 Sycophancy](/kb/AI-基础知识库/c13-幻觉的不可消除性/)
-- [c15 后训练数据策略](/kb/AI-基础知识库/c15-数据墙与后训练霸权/)
-- [Constitutional AI](/kb/AI-基础知识库/Constitutional-AI/)（Anthropic 的对齐方法）
-- [SFT](/kb/AI-基础知识库/SFT/)（对齐的前置步骤）
-- [LoRA](/kb/AI-基础知识库/LoRA/)（参数高效对齐）
-- [强化学习](/kb/AI-基础知识库/强化学习/)（理论基础）
-- [幻觉](/kb/AI-基础知识库/幻觉/)（对齐能缓解但不能消除）
+- [c04 偏好对齐（详解）](/kb/ai-基础知识库/c04-模型训练全阶段-pipeline/)
+- [c13 对齐税与 Sycophancy](/kb/ai-基础知识库/c13-幻觉的不可消除性/)
+- [c15 后训练数据策略](/kb/ai-基础知识库/c15-数据墙与后训练霸权/)
+- [Constitutional AI](/kb/ai-基础知识库/constitutional-ai/)（Anthropic 的对齐方法）
+- [SFT](/kb/ai-基础知识库/sft/)（对齐的前置步骤）
+- [LoRA](/kb/ai-基础知识库/lora/)（参数高效对齐）
+- [强化学习](/kb/ai-基础知识库/强化学习/)（理论基础）
+- [幻觉](/kb/ai-基础知识库/幻觉/)（对齐能缓解但不能消除）

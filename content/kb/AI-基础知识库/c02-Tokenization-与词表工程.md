@@ -7,11 +7,11 @@ updated: '2026-05-16'
 
 # 2. Tokenization 与词表工程
 
-[Tokenization](/kb/AI-基础知识库/Tokenization/) 是 LLM 最底层的机制之一，决定了模型"看到"什么、"说出"什么、以及每一次交互的真实成本。
+[Tokenization](/kb/ai-基础知识库/tokenization/) 是 LLM 最底层的机制之一，决定了模型"看到"什么、"说出"什么、以及每一次交互的真实成本。
 
 ## 2.1 BPE 分词的核心机制
 
-当前主流 LLM 几乎都使用 Byte Pair Encoding (BPE) 或其变体。核心过程：从字符级起步，统计训练语料中最高频的相邻 [token](/kb/AI-基础知识库/Tokenization/) 对，反复合并，直至词表达到目标大小（通常 32K–128K）。
+当前主流 LLM 几乎都使用 Byte Pair Encoding (BPE) 或其变体。核心过程：从字符级起步，统计训练语料中最高频的相邻 [token](/kb/ai-基础知识库/tokenization/) 对，反复合并，直至词表达到目标大小（通常 32K–128K）。
 
 关键性质：BPE 不是"理解"语言，而是学习语料中的统计共现频率。
 
@@ -37,7 +37,7 @@ GPT-4o 采用了统一 token 流，将文本、图像 patch、音频帧全部编
 
 Tokenizer 一旦确定几乎不可更改——所有权重与特定 token ID 绑定，更换词表等于重新训练。产品选型时，tokenizer 设计是一个锁定风险。
 
-相关概念卡：[Tokenization](/kb/AI-基础知识库/Tokenization/)
-模块二延伸：[m203 Embedding 选型](/kb/AI-工程化与落地架构/m203-RAG-生产环境：Embedding-与文档解析/) — 多语言 Tokenization 效率差异如何影响 Embedding 模型选型
-上一章：[c01 认知重构](/kb/AI-基础知识库/c01-认知重构：从确定性系统到概率系统/)
-下一章：[c03 Transformer 核心机制](/kb/AI-基础知识库/c03-Transformer-核心机制与注意力变体/)
+相关概念卡：[Tokenization](/kb/ai-基础知识库/tokenization/)
+模块二延伸：[m203 Embedding 选型](/kb/ai-工程化与落地架构/m203-rag-生产环境-embedding-与文档解析/) — 多语言 Tokenization 效率差异如何影响 Embedding 模型选型
+上一章：[c01 认知重构](/kb/ai-基础知识库/c01-认知重构-从确定性系统到概率系统/)
+下一章：[c03 Transformer 核心机制](/kb/ai-基础知识库/c03-transformer-核心机制与注意力变体/)

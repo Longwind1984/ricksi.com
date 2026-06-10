@@ -23,7 +23,7 @@ updated: '2026-05-18'
 | Tool | 可被 LLM 调用的函数 |
 | Prompt | 模板化的提示片段，由 Server 提供 |
 
-传输层基于 JSON-RPC 2.0，初版仅支持 stdio 和 SSE；2025 年中加入 streamable HTTP，已是事实标准（[c10 - Agent 技术栈与工具调用](/kb/AI-基础知识库/c10-Agent-技术栈与工具调用/) 中已写明）。
+传输层基于 JSON-RPC 2.0，初版仅支持 stdio 和 SSE；2025 年中加入 streamable HTTP，已是事实标准（[c10 - Agent 技术栈与工具调用](/kb/ai-基础知识库/c10-agent-技术栈与工具调用/) 中已写明）。
 
 ### 为什么 MCP 的成功本质是 LSP 路径的复刻
 
@@ -58,7 +58,7 @@ GraphQL（Facebook 2015）失败的两个原因：
 
 ### 2026-05 的真实状态
 
-- 已支持 MCP 的 harness/平台：[Claude Code](/kb/AI-公司与产品/Claude-Code/)、Claude Desktop、Cursor、Continue、Zed、Windsurf、Cline、Aider、字节 DeerFlow、Manus、阿里通义、字节 Trae、Sourcegraph Cody。
+- 已支持 MCP 的 harness/平台：[Claude Code](/kb/ai-公司与产品/claude-code/)、Claude Desktop、Cursor、Continue、Zed、Windsurf、Cline、Aider、字节 DeerFlow、Manus、阿里通义、字节 Trae、Sourcegraph Cody。
 - 第三方 MCP server 数量：截至 2026-05 在 mcp.so / smithery.ai 等聚合站收录数千个；典型如 Slack、Notion、Linear、Figma、Postgres、Stripe、Google Drive、Gmail、Sentry。
 - 政治结构：MCP 不绑定 Anthropic 模型——任何 LLM 只要能输出 function call 即可作为 Client。
 - OpenAI 在 2025 年底跟进，让 ChatGPT Desktop 与 GPT-5 系列原生支持 MCP（"OpenAI 投降"事件）；Gemini 3 通过适配层接入。
@@ -105,7 +105,7 @@ A2A 由 Google 在 2025 Cloud Next（2025-04-09）期间发布，首发即拉拢
 
 ## 三、协议化 = G5 时代的特征
 
-回看 Agent 五代演化（详见 [G02 五代演化详解·G1-G5](/kb/Agent-系统化专题/G02-五代演化详解·G1-G5/)）：
+回看 Agent 五代演化（详见 [G02 五代演化详解·G1-G5](/kb/agent-系统化专题/g02-五代演化详解-g1-g5/)）：
 
 - G1（2022-2023）：ReAct，单 agent 单工具，所有胶水手写。
 - G2（2023-2024）：framework 化（LangChain/LlamaIndex），工具调用 SDK 化。
@@ -164,16 +164,16 @@ A2A 由 Google 在 2025 Cloud Next（2025-04-09）期间发布，首发即拉拢
 - **协议层**：MCP 已统一，A2A 在统一进程中。
 - 这意味着 PM 不必"押注模型厂商"——做协议层的产品比做模型层贴牌的产品命运更可控。
 
-### 3. 与 [m208 - AI 基础设施与中间件选型](/kb/AI-工程化与落地架构/m208-AI-基础设施与中间件选型/) 的合流
+### 3. 与 [m208 - AI 基础设施与中间件选型](/kb/ai-工程化与落地架构/m208-ai-基础设施与中间件选型/) 的合流
 
 m208 谈选型时主要在比 framework；G5 之后，更关键的是问"该 framework 是否一等公民支持 MCP/A2A"。LangGraph、CrewAI、AutoGen v0.4、字节 DeerFlow 已全部支持；不支持的框架视为遗留。
 
 ## 与已有节点的关系
 
-- **对 [c10 - Agent 技术栈与工具调用](/kb/AI-基础知识库/c10-Agent-技术栈与工具调用/) 的扩展**：c10 写"MCP 已是事实标准"；本节点解释为什么会成事实标准（LSP 路径复刻）。
-- **对 [m206 - Agent 产品化：记忆机制与技术进展](/kb/AI-工程化与落地架构/m206-Agent-产品化：记忆机制与技术进展/) 的展开**：m206 提到 A2A 是 Google 2025 协议；本节点深入协议要素。
-- **对 [A06 Orchestrator 编排器](/kb/Agent-系统化专题/A06-Orchestrator-编排器/) 的协议补**：orchestrator 提供运行时，协议提供互操作；二者共同支撑 G5 时代生态。
-- **对 [Function Calling](/kb/AI-基础知识库/Function-Calling/) 的边界澄清**：新读者最常混淆的两件事。
+- **对 [c10 - Agent 技术栈与工具调用](/kb/ai-基础知识库/c10-agent-技术栈与工具调用/) 的扩展**：c10 写"MCP 已是事实标准"；本节点解释为什么会成事实标准（LSP 路径复刻）。
+- **对 [m206 - Agent 产品化：记忆机制与技术进展](/kb/ai-工程化与落地架构/m206-agent-产品化-记忆机制与技术进展/) 的展开**：m206 提到 A2A 是 Google 2025 协议；本节点深入协议要素。
+- **对 [A06 Orchestrator 编排器](/kb/agent-系统化专题/a06-orchestrator-编排器/) 的协议补**：orchestrator 提供运行时，协议提供互操作；二者共同支撑 G5 时代生态。
+- **对 [Function Calling](/kb/ai-基础知识库/function-calling/) 的边界澄清**：新读者最常混淆的两件事。
 
 ## PM 决策启示
 
@@ -187,22 +187,22 @@ m208 谈选型时主要在比 framework；G5 之后，更关键的是问"该 fra
 
 - **产品定位三问**：(1) 你的产品在 MCP/A2A 协议图中处于哪一格（工具？agent？编排？观察）？(2) 你提供的价值在协议标准之外还是之内？(3) 协议进一步成熟会扩展你的市场还是吃掉你的市场？
 
-- **复现选型**：今天写任何 agent demo 都应优先用 MCP 接工具，而非手写 function 注册——投入产出在两周内就能看到（参 [R02 中型生产·LangGraph + MCP](/kb/Agent-系统化专题/R02-中型生产·LangGraph-+-MCP/)）。
+- **复现选型**：今天写任何 agent demo 都应优先用 MCP 接工具，而非手写 function 注册——投入产出在两周内就能看到（参 [R02 中型生产·LangGraph + MCP](/kb/agent-系统化专题/r02-中型生产-langgraph-+-mcp/)）。
 
 - **避免误用**：不要把"我们支持 MCP"包装成核心卖点——这是基础设施级特性，到 2026-Q4 应已默认。差异化要在 MCP server / 数据接入 / 行业模板上做。
 
 ## 关联节点
 
 **核心关联（必读）**：
-- [A02 抽象层级辨析·Harness Framework Agent Skill Orchestrator](/kb/Agent-系统化专题/A02-抽象层级辨析·Harness-Framework-Agent-Skill-Orchestrator/)——协议在抽象层中的位置
-- [A06 Orchestrator 编排器](/kb/Agent-系统化专题/A06-Orchestrator-编排器/)——协议是 orchestrator 必备的互操作底座
-- [Function Calling](/kb/AI-基础知识库/Function-Calling/)——协议层 vs 模型 API 层的核心辨析
-- [c10 - Agent 技术栈与工具调用](/kb/AI-基础知识库/c10-Agent-技术栈与工具调用/)——MCP 事实标准的初次说明
-- [R02 中型生产·LangGraph + MCP](/kb/Agent-系统化专题/R02-中型生产·LangGraph-+-MCP/)——MCP 真实复现
+- [A02 抽象层级辨析·Harness Framework Agent Skill Orchestrator](/kb/agent-系统化专题/a02-抽象层级辨析-harness-framework-agent-skill-orchestrator/)——协议在抽象层中的位置
+- [A06 Orchestrator 编排器](/kb/agent-系统化专题/a06-orchestrator-编排器/)——协议是 orchestrator 必备的互操作底座
+- [Function Calling](/kb/ai-基础知识库/function-calling/)——协议层 vs 模型 API 层的核心辨析
+- [c10 - Agent 技术栈与工具调用](/kb/ai-基础知识库/c10-agent-技术栈与工具调用/)——MCP 事实标准的初次说明
+- [R02 中型生产·LangGraph + MCP](/kb/agent-系统化专题/r02-中型生产-langgraph-+-mcp/)——MCP 真实复现
 
 **延伸关联（可选）**：
-- [A07 Multi-Agent Teams](/kb/Agent-系统化专题/A07-Multi-Agent-Teams/)、[m206 - Agent 产品化：记忆机制与技术进展](/kb/AI-工程化与落地架构/m206-Agent-产品化：记忆机制与技术进展/)、[m208 - AI 基础设施与中间件选型](/kb/AI-工程化与落地架构/m208-AI-基础设施与中间件选型/)
-- [Claude Code](/kb/AI-公司与产品/Claude-Code/)、[Anthropic](/kb/AI-公司与产品/Anthropic/)、[OpenAI](/kb/AI-公司与产品/OpenAI/)、[Gemini](/kb/AI-公司与产品/Gemini/)
+- [A07 Multi-Agent Teams](/kb/agent-系统化专题/a07-multi-agent-teams/)、[m206 - Agent 产品化：记忆机制与技术进展](/kb/ai-工程化与落地架构/m206-agent-产品化-记忆机制与技术进展/)、[m208 - AI 基础设施与中间件选型](/kb/ai-工程化与落地架构/m208-ai-基础设施与中间件选型/)
+- [Claude Code](/kb/ai-公司与产品/claude-code/)、[Anthropic](/kb/ai-公司与产品/anthropic/)、[OpenAI](/kb/ai-公司与产品/openai/)、[Gemini](/kb/ai-公司与产品/gemini/)
 
 ---
 

@@ -46,11 +46,11 @@ AI 之前的例子把 Llama 当作"d_model 接近 V"的反例。实际 Llama-7B 
 > 在 AI 表征学习的入门解释里，把"思想实验上限"和"工程经验取值"混在同一句里是常见错误来源。区分"原则上能/不能"和"工程上有没有意义"，是讲清楚此类问题的最小要求。
 
 ## 关联节点
-- [Embedding](/kb/AI-基础知识库/Embedding/) — Embedding 概念主条目
-- [c02 - Tokenization 与词表工程](/kb/AI-基础知识库/c02-Tokenization-与词表工程/) — 词表大小 V 的工程决策
-- [Tokenization](/kb/AI-基础知识库/Tokenization/) — 分词与 BLT 路线的对比基础
-- [c03 - Transformer 核心机制与注意力变体](/kb/AI-基础知识库/c03-Transformer-核心机制与注意力变体/) — d_model 在注意力层的传播路径
-- [c07 - 量化 Quantization 与端侧部署](/kb/AI-基础知识库/c07-量化-Quantization-与端侧部署/) — d 与显存预算的下游约束
+- [Embedding](/kb/ai-基础知识库/embedding/) — Embedding 概念主条目
+- [c02 - Tokenization 与词表工程](/kb/ai-基础知识库/c02-tokenization-与词表工程/) — 词表大小 V 的工程决策
+- [Tokenization](/kb/ai-基础知识库/tokenization/) — 分词与 BLT 路线的对比基础
+- [c03 - Transformer 核心机制与注意力变体](/kb/ai-基础知识库/c03-transformer-核心机制与注意力变体/) — d_model 在注意力层的传播路径
+- [c07 - 量化 Quantization 与端侧部署](/kb/ai-基础知识库/c07-量化-quantization-与端侧部署/) — d 与显存预算的下游约束
 
 ## 衍生对话存档
 - 来源对话

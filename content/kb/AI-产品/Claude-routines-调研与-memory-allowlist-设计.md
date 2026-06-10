@@ -47,7 +47,7 @@ Rick 在过程中提出一条原则：
 这是对 LLM 默认行为模式（生成-再调整）的一条结构性矫正：先 dump 工具/能力矩阵，再约束在矩阵内构思方案。
 
 ## 关联节点
-- [Claude](/kb/AI-公司与产品/Claude/) — Routines 产品形态考察
+- [Claude](/kb/ai-公司与产品/claude/) — Routines 产品形态考察
 - CLAUDE — 与 Claude Code 的工作流耦合
 - 02Obsidian 元数据 — 对话归档 → Obsidian 的目标侧
 - 0310个人工作流重构 — 工作流元设计的一环

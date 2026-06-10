@@ -27,7 +27,7 @@ AI 第一版把场景设为 "用户已经在精读一本书，需要辅助"。Ri
 >
 > 第三，延续上面的原则，如果你在对这本书做分析的同时，发现它跟他关联、非常重要，或者你认为我可能感兴趣且有价值的著作，你可以主动提出，但增量推荐不能影响前面的回答质量，同时也不能作为每次回答都一定触发的这么一个固定模式。如果是这样的话，就会变得非常死板教条，并且看起来非常蠢
 
-三条原则的统一逻辑是 **信任智能体的判断 + 收缩 instruction 的强度**。这与 [intellectual-lens skill 设计](/kb/AI-协作方法论/intellectual-lens-skill-设计/) 的 "不需要固定输出模板" 是同一种 prompt 哲学。
+三条原则的统一逻辑是 **信任智能体的判断 + 收缩 instruction 的强度**。这与 [intellectual-lens skill 设计](/kb/ai-协作方法论/intellectual-lens-skill-设计/) 的 "不需要固定输出模板" 是同一种 prompt 哲学。
 
 ## 3. 角色定位的修辞实验
 
@@ -41,8 +41,8 @@ AI 第一版把场景设为 "用户已经在精读一本书，需要辅助"。Ri
 
 ## 关联节点
 
-- [intellectual-lens skill 设计](/kb/AI-协作方法论/intellectual-lens-skill-设计/) — 同一时期 Rick 设计 AI 工作流的姐妹项目
-- [Claude](/kb/AI-公司与产品/Claude/) — instruction 的承载平台
+- [intellectual-lens skill 设计](/kb/ai-协作方法论/intellectual-lens-skill-设计/) — 同一时期 Rick 设计 AI 工作流的姐妹项目
+- [Claude](/kb/ai-公司与产品/claude/) — instruction 的承载平台
 - Rick 写作 SABCD 评级体系 — 另一处 "信任判断 + 不要 SOP" 的实现
 
 ## 衍生对话存档

@@ -7,7 +7,7 @@ updated: '2026-05-16'
 
 # 11. System 2 思维、强化学习与产品范式重构
 
-[Test-Time Compute](/kb/AI-基础知识库/Test-Time-Compute/) 代表 AI 发展的**第二条 Scaling 轴线**：与其训练更大的模型（参数 Scaling），不如在推理时让模型"多想一会儿"（算力 Scaling）。这一转变彻底改变了 AI 产品的质量上限和成本结构。
+[Test-Time Compute](/kb/ai-基础知识库/test-time-compute/) 代表 AI 发展的**第二条 Scaling 轴线**：与其训练更大的模型（参数 Scaling），不如在推理时让模型"多想一会儿"（算力 Scaling）。这一转变彻底改变了 AI 产品的质量上限和成本结构。
 
 ## 11.1 System 1 vs System 2 的产品含义
 
@@ -34,11 +34,11 @@ updated: '2026-05-16'
 
 **PRM（过程奖励模型）**：对每一个推理步骤打分，将"思考质量"本身纳入优化目标。这让模型学会了"推理规范"，而非只是"答案记忆"。
 
-**[DeepSeek](/kb/AI-公司与产品/DeepSeek/)-R1 的突破**：用 **GRPO（Group Relative Policy Optimization）**绕开了人工标注 PRM 的高成本。核心方法：在数学、代码等**可自动验证答案**的领域，让模型生成多个解题路径，以最终答案的正确性为信号反向推断哪些推理步骤是好的。不需要人工标注中间步骤，实现了低成本的 PRM 训练。
+**[DeepSeek](/kb/ai-公司与产品/deepseek/)-R1 的突破**：用 **GRPO（Group Relative Policy Optimization）**绕开了人工标注 PRM 的高成本。核心方法：在数学、代码等**可自动验证答案**的领域，让模型生成多个解题路径，以最终答案的正确性为信号反向推断哪些推理步骤是好的。不需要人工标注中间步骤，实现了低成本的 PRM 训练。
 
 ## 11.4 o1 / o3 / R1：产品机制拆解
 
-[OpenAI](/kb/AI-公司与产品/OpenAI/) o1 系列和 DeepSeek-R1 的用户体验背后的机制：
+[OpenAI](/kb/ai-公司与产品/openai/) o1 系列和 DeepSeek-R1 的用户体验背后的机制：
 
 1. 用户输入 prompt
 2. 模型在**隐藏的 thinking token 空间**中进行大量推理（用户不可见的草稿）
@@ -48,7 +48,7 @@ updated: '2026-05-16'
 
 **Budget Forcing（算力预算控制）**：让用户或系统控制"模型可以想多久"。低预算 → 快速回答（可能较浅）；高预算 → 深度推理（更准确但更慢更贵）。
 
-[Anthropic](/kb/AI-公司与产品/Anthropic/) [Claude](/kb/AI-公司与产品/Claude/) 的 Extended Thinking 已落地此特性，允许在 API 层指定最大 thinking token 数。这是将**推理算力转化为产品差异化定价**的直接机制。
+[Anthropic](/kb/ai-公司与产品/anthropic/) [Claude](/kb/ai-公司与产品/claude/) 的 Extended Thinking 已落地此特性，允许在 API 层指定最大 thinking token 数。这是将**推理算力转化为产品差异化定价**的直接机制。
 
 ## 11.5 什么问题适合 System 2，什么不适合
 
@@ -71,7 +71,7 @@ Test-Time Compute 带来的三个产品设计变化：
 
 **差异化定价**：快速回答 vs 深度推理对应不同成本，可以也应该对应不同定价层级（如 Claude 基础版 vs Opus + Extended Thinking）。
 
-相关概念卡：[System 2 / Test-Time Compute](/kb/AI-基础知识库/Test-Time-Compute/)、[强化学习](/kb/AI-基础知识库/强化学习/)、[Agent](/kb/AI-基础知识库/Agent/)
-模块二延伸：[m201 §2.1.1 CoT/ToT 实战](/kb/AI-工程化与落地架构/m201-Prompt-Engineering-实战体系/) — 思维链在 Prompt Engineering 中的配置策略 | [m209 §2.6.3](/kb/AI-工程化与落地架构/m209-推理成本控制手册/) — Extended Thinking 开启后的成本量化估算
-上一章：[c10 Agent](/kb/AI-基础知识库/c10-Agent-技术栈与工具调用/)
-下一章：[c12 多模态](/kb/AI-基础知识库/c12-多模态融合与具身智能/)
+相关概念卡：[System 2 / Test-Time Compute](/kb/ai-基础知识库/test-time-compute/)、[强化学习](/kb/ai-基础知识库/强化学习/)、[Agent](/kb/ai-基础知识库/agent/)
+模块二延伸：[m201 §2.1.1 CoT/ToT 实战](/kb/ai-工程化与落地架构/m201-prompt-engineering-实战体系/) — 思维链在 Prompt Engineering 中的配置策略 | [m209 §2.6.3](/kb/ai-工程化与落地架构/m209-推理成本控制手册/) — Extended Thinking 开启后的成本量化估算
+上一章：[c10 Agent](/kb/ai-基础知识库/c10-agent-技术栈与工具调用/)
+下一章：[c12 多模态](/kb/ai-基础知识库/c12-多模态融合与具身智能/)

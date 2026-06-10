@@ -1,6 +1,7 @@
 // 首页行为：占位链接 / 滚动浮现 / 实时 token 跳动 / 知识图谱渲染
 // 数据从 #site-data JSON 读取（构建时注入；real 字段缺失即回退样例）
 import { sampleGraph, GRAPH_PALETTE, SAMPLE_CLUSTERS } from '../lib/sample.js';
+import { renderGraph } from './graph-view.js';
 
 const siteData = (() => {
   try {
@@ -118,10 +119,44 @@ if (siteData.weeks) {
 }
 
 /* ---------- 知识图谱 ----------
-   真实 graph.json 存在 → 由 graph-view.js 接管（力导向交互版，任务 5）
+   真实 graph.json → 力导向交互图（graph-view.js）+ 真实主题域图例 + 搜索
    缺失 → 设计稿同款程序生成样例图 */
 const kgPaper = document.getElementById('kg-paper');
-if (kgPaper && !siteData.graph) {
+if (kgPaper && siteData.graph) {
+  const graph = siteData.graph;
+  const legend = document.getElementById('kg-legend');
+  const legEls = [];
+
+  const ctl = renderGraph(kgPaper, graph, {
+    mode: 'full',
+    onStateChange(state) {
+      legEls.forEach((el, j) =>
+        el.classList.toggle('active', state.type === 'cluster' && state.value === graph.clusters[j].id)
+      );
+    },
+  });
+
+  graph.clusters.forEach((c) => {
+    const item = document.createElement('div');
+    item.className = 'kg-leg-item';
+    const dot = document.createElement('span');
+    dot.className = 'kg-dot';
+    dot.style.background = GRAPH_PALETTE[c.id % GRAPH_PALETTE.length];
+    item.appendChild(dot);
+    item.appendChild(document.createTextNode(`${c.name} · ${c.count}`));
+    item.addEventListener('mouseenter', () => ctl.highlightCluster(c.id));
+    item.addEventListener('mouseleave', () => ctl.highlightCluster(null));
+    legend.appendChild(item);
+    legEls.push(item);
+  });
+
+  const input = document.getElementById('kg-search');
+  const hint = document.getElementById('kg-search-hint');
+  input?.addEventListener('input', () => {
+    const n = ctl.search(input.value);
+    if (hint) hint.textContent = input.value.trim() ? `${n} 篇匹配` : '';
+  });
+} else if (kgPaper) {
   renderSampleGraph(kgPaper);
 }
 

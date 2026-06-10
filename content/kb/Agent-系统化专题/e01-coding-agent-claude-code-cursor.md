@@ -7,21 +7,21 @@ updated: '2026-05-18'
 
 # E01 Coding Agent·Claude Code & Cursor
 
-一句话定义：[Claude Code](/kb/AI-公司与产品/Claude-Code/) 与 Cursor 是 2024–2026 年间 [Agent](/kb/AI-基础知识库/Agent/) 落地最成熟的两个产品形态——一个把 agent 放进 CLI、按"会话式协作者"组织；一个把 agent 放进 IDE、按"延伸的手"组织。两者共享同一底座（LLM + 工具调用循环），却在 harness 的形态选择上彻底分叉，是研究 [Harness 设计哲学](/kb/Agent-系统化专题/A02-抽象层级辨析·Harness-Framework-Agent-Skill-Orchestrator/) 的最佳活体样本。
+一句话定义：[Claude Code](/kb/ai-公司与产品/claude-code/) 与 Cursor 是 2024–2026 年间 [Agent](/kb/ai-基础知识库/agent/) 落地最成熟的两个产品形态——一个把 agent 放进 CLI、按"会话式协作者"组织；一个把 agent 放进 IDE、按"延伸的手"组织。两者共享同一底座（LLM + 工具调用循环），却在 harness 的形态选择上彻底分叉，是研究 [Harness 设计哲学](/kb/agent-系统化专题/a02-抽象层级辨析-harness-framework-agent-skill-orchestrator/) 的最佳活体样本。
 
 ## 1.1 为什么先看 Coding Agent
 
-[m206 - Agent 产品化：记忆机制与技术进展](/kb/AI-工程化与落地架构/m206-Agent-产品化：记忆机制与技术进展/) 在 §2.4.2 给出过三启示，其中决定性的一条是："选错误成本低 + 验证容易的场景先落地"。Coding 是 [Agent](/kb/AI-基础知识库/Agent/) 落地最早最成熟的场景，原因可以分解为三条工程约束：
+[m206 - Agent 产品化：记忆机制与技术进展](/kb/ai-工程化与落地架构/m206-agent-产品化-记忆机制与技术进展/) 在 §2.4.2 给出过三启示，其中决定性的一条是："选错误成本低 + 验证容易的场景先落地"。Coding 是 [Agent](/kb/ai-基础知识库/agent/) 落地最早最成熟的场景，原因可以分解为三条工程约束：
 
-- **错误可逆**：写错一行代码可以撤销，commit 之前的 working tree 永远可丢弃；与之对照的"发送了一封带错收件人的邮件"则不可撤销。这条约束让 Coding Agent 在 [m207 HITL 三维度判断](/kb/AI-工程化与落地架构/m207-Agent-产品化：场景推演与失败模式/) 上天然落在"低风险"一侧。
-- **验证机器可读**：编译器、类型检查器、linter、test runner——所有验证手段都返回结构化输出（pass/fail + 行号 + 报错文本），不需要人类介入打分。这把"评估闭环"从 Goodhart 陷阱（[c14 - 模型评估体系与 Goodhart 陷阱](/kb/AI-基础知识库/c14-模型评估体系与-Goodhart-陷阱/)）里救了出来：成功率指标无法被 hack，因为指标本身就是真实世界的副产品。
-- **使用者就是开发者**：使用 Coding Agent 的人，本身就具备验证能力、能写 prompt、能 debug。这把 [Harness](/kb/Agent-系统化专题/A02-抽象层级辨析·Harness-Framework-Agent-Skill-Orchestrator/) 的复杂度阈值压低了——用户能容忍 CLI、能读懂 trace、能写配置文件。
+- **错误可逆**：写错一行代码可以撤销，commit 之前的 working tree 永远可丢弃；与之对照的"发送了一封带错收件人的邮件"则不可撤销。这条约束让 Coding Agent 在 [m207 HITL 三维度判断](/kb/ai-工程化与落地架构/m207-agent-产品化-场景推演与失败模式/) 上天然落在"低风险"一侧。
+- **验证机器可读**：编译器、类型检查器、linter、test runner——所有验证手段都返回结构化输出（pass/fail + 行号 + 报错文本），不需要人类介入打分。这把"评估闭环"从 Goodhart 陷阱（[c14 - 模型评估体系与 Goodhart 陷阱](/kb/ai-基础知识库/c14-模型评估体系与-goodhart-陷阱/)）里救了出来：成功率指标无法被 hack，因为指标本身就是真实世界的副产品。
+- **使用者就是开发者**：使用 Coding Agent 的人，本身就具备验证能力、能写 prompt、能 debug。这把 [Harness](/kb/agent-系统化专题/a02-抽象层级辨析-harness-framework-agent-skill-orchestrator/) 的复杂度阈值压低了——用户能容忍 CLI、能读懂 trace、能写配置文件。
 
-这三条让 Coding Agent 成为整个 G3/G4（参见 [G02 五代演化详解·G1-G5](/kb/Agent-系统化专题/G02-五代演化详解·G1-G5/)）的方法论原型：[Orchestrator](/kb/Agent-系统化专题/A06-Orchestrator-编排器/)、[Skill](/kb/AI-协作方法论/Skill-系统的本质/)、subagent dispatch、长任务管理等设计模式，全部在 Coding Agent 上首先跑通，然后才被"通用 Agent"借去用——但搬过去之后失效率显著上升（[E02 通用 Agent·Manus & Devin](/kb/Agent-系统化专题/E02-通用-Agent·Manus-Devin/) 会展开）。
+这三条让 Coding Agent 成为整个 G3/G4（参见 [G02 五代演化详解·G1-G5](/kb/agent-系统化专题/g02-五代演化详解-g1-g5/)）的方法论原型：[Orchestrator](/kb/agent-系统化专题/a06-orchestrator-编排器/)、[Skill](/kb/ai-协作方法论/skill-系统的本质/)、subagent dispatch、长任务管理等设计模式，全部在 Coding Agent 上首先跑通，然后才被"通用 Agent"借去用——但搬过去之后失效率显著上升（[E02 通用 Agent·Manus & Devin](/kb/agent-系统化专题/e02-通用-agent-manus-devin/) 会展开）。
 
 ## 1.2 Claude Code 剖解（截至 2026-05，按 S03 六维度统一命名）
 
-**版本基线**：2025 Q1 早期 preview → 2025 年中 GA → 2025-10 Anthropic Skills 公开并接入 → 2025 末 Subagents/Hooks/Plugins 标准化 → 2026.1–2026.5 模型升级到 Sonnet 4.6 / Opus 4.7 / Haiku 4.5。下文按 [S03 Harness Engineering 全景](/kb/Agent-系统化专题/S03-Harness-Engineering-全景/) § 3 六维度对照（取代旧版"harness 哲学/Skill/Tool/Memory/Orchestrator/HITL/可复现度"七项）。
+**版本基线**：2025 Q1 早期 preview → 2025 年中 GA → 2025-10 Anthropic Skills 公开并接入 → 2025 末 Subagents/Hooks/Plugins 标准化 → 2026.1–2026.5 模型升级到 Sonnet 4.6 / Opus 4.7 / Haiku 4.5。下文按 [S03 Harness Engineering 全景](/kb/agent-系统化专题/s03-harness-engineering-全景/) § 3 六维度对照（取代旧版"harness 哲学/Skill/Tool/Memory/Orchestrator/HITL/可复现度"七项）。
 
 | S03 六维度 | Claude Code 实现 |
 |---|---|
@@ -61,7 +61,7 @@ updated: '2026-05-18'
 | **MCP** | 原生（Anthropic 提出方）| 2025 接入 |
 | **后台异步任务** | Headless mode + scheduled tasks | Background Agents（2026）|
 | **HITL 形态** | permission mode 多档位 | Apply 前 inline diff 预览 |
-| **模型** | Claude Opus 4.7 / Sonnet 4.6 / Haiku 4.5 多模型分层 | 接 [Claude](/kb/AI-公司与产品/Claude/) / GPT-5 / Gemini 3 / DeepSeek V4 多家 |
+| **模型** | Claude Opus 4.7 / Sonnet 4.6 / Haiku 4.5 多模型分层 | 接 [Claude](/kb/ai-公司与产品/claude/) / GPT-5 / Gemini 3 / DeepSeek V4 多家 |
 | **商业模式** | API 按 token 计费（也有订阅包）| 订阅 + token 用量上限 |
 | **目标用户** | 重型任务、长任务、CLI 老用户 | 日常编码、补全密集、IDE 重度用户 |
 
@@ -104,7 +104,7 @@ updated: '2026-05-18'
 - **Claude Code 的 prompt 高度针对 Anthropic 模型族调优**——同一份 prompt 喂给 GPT-5 或 Gemini 效果显著下降。这不是 bug，是选择。
 - **Cursor 必须模型中立**——它要接 Claude/GPT-5/Gemini/DeepSeek 四家，prompt 必须通用，单模型上的极致体验被牺牲。
 
-这是 [S03 Harness Engineering 全景](/kb/Agent-系统化专题/S03-Harness-Engineering-全景/) § 5.1 "harness 第一悖论"的活体演绎——**精细化越深，模型锁定越严；模型中立越强，单模型体验越平**。
+这是 [S03 Harness Engineering 全景](/kb/agent-系统化专题/s03-harness-engineering-全景/) § 5.1 "harness 第一悖论"的活体演绎——**精细化越深，模型锁定越严；模型中立越强，单模型体验越平**。
 
 **PM 选型判断**：你的产品是否要"押注一家模型"？如果是（Claude Code 路线）→ 单模型体验封顶但绑死命运；如果不是（Cursor 路线）→ 模型迁移自由但永远做不到 Claude Code 在 Anthropic 模型上的体验深度。
 
@@ -147,10 +147,10 @@ updated: '2026-05-18'
 
 ## 1.6 与已有节点的关系
 
-- 对 [m206 - Agent 产品化：记忆机制与技术进展](/kb/AI-工程化与落地架构/m206-Agent-产品化：记忆机制与技术进展/) §2.4.2 三启示的**实例化补全**：旧版只点到"Cursor 的 Tab 补全 + 人类审阅"模式，没拆 harness 各层；本节点把六层架构拆开对照。
-- 对 [Claude Code](/kb/AI-公司与产品/Claude-Code/) 节点的**横向对比补缺**：旧节点只单独描述 Claude Code，没和 Cursor 做"哲学层"对照；本节点补上分歧分析。
-- 对 [Skill 系统的本质](/kb/AI-协作方法论/Skill-系统的本质/) 的**应用层延伸**：旧节点定义了 skill 是什么，本节点说明 skill 在 Claude Code 与 Cursor（User Rules）里的同源现象。
-- 对 [Harness 词义辨析](/kb/Agent-系统化专题/Harness-词义辨析/) 的**实例化兑现**：旧节点定义了 harness = "agent 运行时框架的通称"，本节点把 Claude Code 和 Cursor 作为两种 harness 形态摊开对照。
+- 对 [m206 - Agent 产品化：记忆机制与技术进展](/kb/ai-工程化与落地架构/m206-agent-产品化-记忆机制与技术进展/) §2.4.2 三启示的**实例化补全**：旧版只点到"Cursor 的 Tab 补全 + 人类审阅"模式，没拆 harness 各层；本节点把六层架构拆开对照。
+- 对 [Claude Code](/kb/ai-公司与产品/claude-code/) 节点的**横向对比补缺**：旧节点只单独描述 Claude Code，没和 Cursor 做"哲学层"对照；本节点补上分歧分析。
+- 对 [Skill 系统的本质](/kb/ai-协作方法论/skill-系统的本质/) 的**应用层延伸**：旧节点定义了 skill 是什么，本节点说明 skill 在 Claude Code 与 Cursor（User Rules）里的同源现象。
+- 对 [Harness 词义辨析](/kb/agent-系统化专题/harness-词义辨析/) 的**实例化兑现**：旧节点定义了 harness = "agent 运行时框架的通称"，本节点把 Claude Code 和 Cursor 作为两种 harness 形态摊开对照。
 
 ## 1.7 PM 决策启示
 
@@ -160,30 +160,30 @@ updated: '2026-05-18'
 
 - 如果你的用户是"专业开发者 + 长任务为主"（如 SRE、平台工程、大型重构）→ 学 Claude Code：CLI 入口 + plan 显式化 + subagent 隔离 + permission mode；
 - 如果你的用户是"半专业 + 日常编码"（如全栈、前端、数据分析）→ 学 Cursor：IDE 集成 + Tab 补全 + diff 预览；
-- 如果你的用户是"非开发者 + vibe coding"→ 都不像，参考 Trae Solo / v0 / Bolt 的形态（自然语言 + 即时预览，[Claude Code](/kb/AI-公司与产品/Claude-Code/) 节点的对照段落已展开）。
+- 如果你的用户是"非开发者 + vibe coding"→ 都不像，参考 Trae Solo / v0 / Bolt 的形态（自然语言 + 即时预览，[Claude Code](/kb/ai-公司与产品/claude-code/) 节点的对照段落已展开）。
 
 **Skill / Rules 系统是必装的**：不论学哪家，把"procedural knowledge 文档化"这一层做出来都是基础设施级的工作。社区已有的 awesome-cursorrules、awesome-claude-code-subagents 是最便宜的入门。
 
 ## 1.8 跨域呼应
 
-- **[Polanyi 默会知识](/kb/AI-基础知识库/Polanyi-默会知识与提示工程的认识论张力/) ↔ Cursor 的 Tab**：Tab 补全适合"默会节奏"——用户不显式表达意图，靠身体感觉判断"这一段补全要不要接受"。这正是 Polanyi 描述的"我们知道的比我们能说出来的多"。Claude Code 的 plan mode 反之——它强迫把默会变成显式，适合"显式思考"的任务。这两种产品对应了两种不同的认识论姿态。
+- **[Polanyi 默会知识](/kb/ai-基础知识库/polanyi-默会知识与提示工程的认识论张力/) ↔ Cursor 的 Tab**：Tab 补全适合"默会节奏"——用户不显式表达意图，靠身体感觉判断"这一段补全要不要接受"。这正是 Polanyi 描述的"我们知道的比我们能说出来的多"。Claude Code 的 plan mode 反之——它强迫把默会变成显式，适合"显式思考"的任务。这两种产品对应了两种不同的认识论姿态。
 - **阿伦特 work vs action（范式 相关）**：Coding Agent 替代的是"work"（制作产品的可重复劳动），不是"action"（有创造性的判断与决策）。Claude Code 的 plan mode 是"把 action 留给人、把 work 派给 agent"的形态化；Cursor 的 Tab 则更激进——它把"work"的颗粒度压到一行代码，让 action 几乎不被察觉地嵌在心流里。
-- **韦伯科层制 ↔ Subagent dispatch**：Claude Code 的 Task 工具派发子 Agent，本质是把任务做"科层化分解"——主 Agent 像总管，subagent 像专员，permission mode 是审批链。这种"工程化的科层"正是 [Multi-Agent](/kb/Agent-系统化专题/A07-Multi-Agent-Teams/) 范式的雏形。
+- **韦伯科层制 ↔ Subagent dispatch**：Claude Code 的 Task 工具派发子 Agent，本质是把任务做"科层化分解"——主 Agent 像总管，subagent 像专员，permission mode 是审批链。这种"工程化的科层"正是 [Multi-Agent](/kb/agent-系统化专题/a07-multi-agent-teams/) 范式的雏形。
 
 ## 1.9 关联节点
 
 **核心关联（必读）**：
-- [S03 Harness Engineering 全景](/kb/Agent-系统化专题/S03-Harness-Engineering-全景/)——本节点 § 1.2、§ 1.3 用 S03 六维度统一命名
-- [Claude Code](/kb/AI-公司与产品/Claude-Code/)、[Skill 系统的本质](/kb/AI-协作方法论/Skill-系统的本质/)——本节点是这两个节点的横向对比版
-- [Harness 词义辨析](/kb/Agent-系统化专题/Harness-词义辨析/)——harness 词源是本节点设计哲学分歧的理论框架
-- [Polanyi 默会知识与提示工程的认识论张力](/kb/AI-基础知识库/Polanyi-默会知识与提示工程的认识论张力/)——Cursor Tab 补全的默会节奏在 Polanyi 框架下的解释
-- [E02 通用 Agent·Manus & Devin](/kb/Agent-系统化专题/E02-通用-Agent·Manus-Devin/)、[E03 Multi-Agent 框架·AutoGen & CrewAI & DeerFlow](/kb/Agent-系统化专题/E03-Multi-Agent-框架·AutoGen-CrewAI-DeerFlow/)——同专题实例剖解三件套
+- [S03 Harness Engineering 全景](/kb/agent-系统化专题/s03-harness-engineering-全景/)——本节点 § 1.2、§ 1.3 用 S03 六维度统一命名
+- [Claude Code](/kb/ai-公司与产品/claude-code/)、[Skill 系统的本质](/kb/ai-协作方法论/skill-系统的本质/)——本节点是这两个节点的横向对比版
+- [Harness 词义辨析](/kb/agent-系统化专题/harness-词义辨析/)——harness 词源是本节点设计哲学分歧的理论框架
+- [Polanyi 默会知识与提示工程的认识论张力](/kb/ai-基础知识库/polanyi-默会知识与提示工程的认识论张力/)——Cursor Tab 补全的默会节奏在 Polanyi 框架下的解释
+- [E02 通用 Agent·Manus & Devin](/kb/agent-系统化专题/e02-通用-agent-manus-devin/)、[E03 Multi-Agent 框架·AutoGen & CrewAI & DeerFlow](/kb/agent-系统化专题/e03-multi-agent-框架-autogen-crewai-deerflow/)——同专题实例剖解三件套
 
 **延伸关联（可选）**：
-- 概念辨析：[A02 抽象层级辨析·Harness Framework Agent Skill Orchestrator](/kb/Agent-系统化专题/A02-抽象层级辨析·Harness-Framework-Agent-Skill-Orchestrator/)、[A06 Orchestrator 编排器](/kb/Agent-系统化专题/A06-Orchestrator-编排器/)、[A07 Multi-Agent Teams](/kb/Agent-系统化专题/A07-Multi-Agent-Teams/)、[A08 MCP 与 A2A 协议族](/kb/Agent-系统化专题/A08-MCP-与-A2A-协议族/)
-- 章节：[c10 - Agent 技术栈与工具调用](/kb/AI-基础知识库/c10-Agent-技术栈与工具调用/)、[m206 - Agent 产品化：记忆机制与技术进展](/kb/AI-工程化与落地架构/m206-Agent-产品化：记忆机制与技术进展/)、[m207 - Agent 产品化：场景推演与失败模式](/kb/AI-工程化与落地架构/m207-Agent-产品化：场景推演与失败模式/)、[m208 - AI 基础设施与中间件选型](/kb/AI-工程化与落地架构/m208-AI-基础设施与中间件选型/)
-- 公司 / 产品：[Claude](/kb/AI-公司与产品/Claude/)、[Anthropic](/kb/AI-公司与产品/Anthropic/)
-- 同专题：[S01 Agent 六层架构剖面](/kb/Agent-系统化专题/S01-Agent-六层架构剖面/)、[G02 五代演化详解·G1-G5](/kb/Agent-系统化专题/G02-五代演化详解·G1-G5/)
+- 概念辨析：[A02 抽象层级辨析·Harness Framework Agent Skill Orchestrator](/kb/agent-系统化专题/a02-抽象层级辨析-harness-framework-agent-skill-orchestrator/)、[A06 Orchestrator 编排器](/kb/agent-系统化专题/a06-orchestrator-编排器/)、[A07 Multi-Agent Teams](/kb/agent-系统化专题/a07-multi-agent-teams/)、[A08 MCP 与 A2A 协议族](/kb/agent-系统化专题/a08-mcp-与-a2a-协议族/)
+- 章节：[c10 - Agent 技术栈与工具调用](/kb/ai-基础知识库/c10-agent-技术栈与工具调用/)、[m206 - Agent 产品化：记忆机制与技术进展](/kb/ai-工程化与落地架构/m206-agent-产品化-记忆机制与技术进展/)、[m207 - Agent 产品化：场景推演与失败模式](/kb/ai-工程化与落地架构/m207-agent-产品化-场景推演与失败模式/)、[m208 - AI 基础设施与中间件选型](/kb/ai-工程化与落地架构/m208-ai-基础设施与中间件选型/)
+- 公司 / 产品：[Claude](/kb/ai-公司与产品/claude/)、[Anthropic](/kb/ai-公司与产品/anthropic/)
+- 同专题：[S01 Agent 六层架构剖面](/kb/agent-系统化专题/s01-agent-六层架构剖面/)、[G02 五代演化详解·G1-G5](/kb/agent-系统化专题/g02-五代演化详解-g1-g5/)
 - 跨域：范式
 
 ## 1.10 衍生对话存档
@@ -204,5 +204,5 @@ updated: '2026-05-18'
   1. § 1.2 / § 1.3 各压缩到 ≈ 400 字（按 S03 六维度统一命名取代旧版自定义维度）——回应 Round 2 [失血-8]、[对话缺失-3]
   2. § 1.5 新增 § 1.5.1 / 1.5.2 / 1.5.3 三个"不可调和的设计选择"作为主轴：plan 显式 vs 隐式 / HITL 决策权用户 vs AI / 模型耦合 vs 中立——每段 300 字带 PM 选型判断
   3. § 1.5 末尾加"元规则：不会出现一家通吃"作为结构性判断
-  4. 关联节点分两档，核心关联加 [S03 Harness Engineering 全景](/kb/Agent-系统化专题/S03-Harness-Engineering-全景/)
+  4. 关联节点分两档，核心关联加 [S03 Harness Engineering 全景](/kb/agent-系统化专题/s03-harness-engineering-全景/)
 - **R1 → R2（2026-05-18）**：Claude Code 版本基线时间线拆开"GA + Skills 公开"以避免读者误认为同月发生。

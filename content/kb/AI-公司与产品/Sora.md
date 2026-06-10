@@ -9,7 +9,7 @@ updated: '2026-05-19'
 
 ## 一句话定义
 
-[OpenAI](/kb/AI-公司与产品/OpenAI/) 推出的文生视频 / 图生视频 / 视频续写多模态模型，定位为视频版的 ChatGPT —— 公测 Sora 1 于 2024-02 演示、2024-12 开放给 ChatGPT Plus / Pro 用户；Sora 2 于 2025 间发布，强化时长、物理一致性、声音同步与可控角色。在 2025–2026 的视频生成竞争中与 Google Veo、Runway Gen-4、可灵 / Kling、Hailuo 02 等同台。
+[OpenAI](/kb/ai-公司与产品/openai/) 推出的文生视频 / 图生视频 / 视频续写多模态模型，定位为视频版的 ChatGPT —— 公测 Sora 1 于 2024-02 演示、2024-12 开放给 ChatGPT Plus / Pro 用户；Sora 2 于 2025 间发布，强化时长、物理一致性、声音同步与可控角色。在 2025–2026 的视频生成竞争中与 Google Veo、Runway Gen-4、可灵 / Kling、Hailuo 02 等同台。
 
 ## 产品定义
 
@@ -62,18 +62,18 @@ Sora 不是单一模型而是 OpenAI 的**视频原生 stack** ：
 ## 对 Rick 的价值
 
 1. **AI 多模态产品形态观察样本**——视频生成是当下少数仍能产生强 wow-moment 的产品，能直接喂给短视频和 newsletter
-2. **AI PM 战略思考**——Sora 暴露了 OpenAI 从语言中心向"通用 world simulator" 的雄心扩张，与 [Anthropic](/kb/AI-公司与产品/Anthropic/) 专守安全/编码的产品哲学形成对照
+2. **AI PM 战略思考**——Sora 暴露了 OpenAI 从语言中心向"通用 world simulator" 的雄心扩张，与 [Anthropic](/kb/ai-公司与产品/anthropic/) 专守安全/编码的产品哲学形成对照
 3. **登山 / 旅行内容生产**——Sora 2 + 真实素材剪辑混搭已可降低旅行短片制作门槛
 4. **政治-技术批判**——视频深伪 + 选举 + 平台责任的议题是公共写作的稳定富矿
 
 ## 关联节点
 
-- 母公司：[OpenAI](/kb/AI-公司与产品/OpenAI/)
-- 同公司产品：[ChatGPT](/kb/AI-公司与产品/ChatGPT/) [DALL-E](/kb/AI-公司与产品/DALL-E/) [GPTs](/kb/AI-公司与产品/GPTs/) [Codex](/kb/AI-公司与产品/Codex/) Whisper
+- 母公司：[OpenAI](/kb/ai-公司与产品/openai/)
+- 同公司产品：[ChatGPT](/kb/ai-公司与产品/chatgpt/) [DALL-E](/kb/ai-公司与产品/dall-e/) [GPTs](/kb/ai-公司与产品/gpts/) [Codex](/kb/ai-公司与产品/codex/) Whisper
 - 竞品：Veo / Runway Gen-4 / 可灵 / Hailuo
 - 技术：Diffusion / Diffusion Transformer / Latent Diffusion / 多模态
-- 议题：深伪 / 数据版权 / [Constitutional AI](/kb/AI-基础知识库/Constitutional-AI/) / [多模型分层](/kb/AI-基础知识库/多模型分层/)
-- 政策合作：[Microsoft](/kb/AI-公司与产品/Microsoft/)（Azure 训练算力支撑早期 Sora 1）
+- 议题：深伪 / 数据版权 / [Constitutional AI](/kb/ai-基础知识库/constitutional-ai/) / [多模型分层](/kb/ai-基础知识库/多模型分层/)
+- 政策合作：[Microsoft](/kb/ai-公司与产品/microsoft/)（Azure 训练算力支撑早期 Sora 1）
 
 ## 来源
 
@@ -81,9 +81,9 @@ Sora 不是单一模型而是 OpenAI 的**视频原生 stack** ：
 - Peebles, William, & Xie, Saining. "Scalable Diffusion Models with Transformers." *ICCV 2023*. arXiv:2212.09748 — DiT 论文
 - OpenAI Sora 产品页与 system card（2024-12 + 2025 更新）
 - Latent Space / Stratechery / The Information 关于 Sora 的系列分析
-- vault 内：[OpenAI](/kb/AI-公司与产品/OpenAI/) [ChatGPT](/kb/AI-公司与产品/ChatGPT/) 节点中已多次互引
+- vault 内：[OpenAI](/kb/ai-公司与产品/openai/) [ChatGPT](/kb/ai-公司与产品/chatgpt/) 节点中已多次互引
 
 ## 证据池
 
 - 待 Cubox 反链汇总脚本恢复后批量回填外部摘录
-- 当前 vault 内 6 处反链：见 [OpenAI](/kb/AI-公司与产品/OpenAI/) / [ChatGPT](/kb/AI-公司与产品/ChatGPT/) / [Gemini](/kb/AI-公司与产品/Gemini/) / AI PM 知识图谱相关节点
+- 当前 vault 内 6 处反链：见 [OpenAI](/kb/ai-公司与产品/openai/) / [ChatGPT](/kb/ai-公司与产品/chatgpt/) / [Gemini](/kb/ai-公司与产品/gemini/) / AI PM 知识图谱相关节点

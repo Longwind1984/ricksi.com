@@ -34,25 +34,25 @@ updated: '2026-05-18'
 
 ## 与 System 2 的融合
 
-参见 [System 2 / Test-Time Compute](/kb/AI-基础知识库/Test-Time-Compute/)，两者融合形成 **Reasoning Agent** 范式。
+参见 [System 2 / Test-Time Compute](/kb/ai-基础知识库/test-time-compute/)，两者融合形成 **Reasoning Agent** 范式。
 
 ## 相关章节
 
-- [c08 Function Calling 的受约束解码](/kb/AI-基础知识库/c08-解码策略与生成控制/)
-- [c10 Agent 技术栈详解](/kb/AI-基础知识库/c10-Agent-技术栈与工具调用/)
-- [c11 Reasoning Agent](/kb/AI-基础知识库/c11-System-2-思维与-Test-Time-Compute/)
+- [c08 Function Calling 的受约束解码](/kb/ai-基础知识库/c08-解码策略与生成控制/)
+- [c10 Agent 技术栈详解](/kb/ai-基础知识库/c10-agent-技术栈与工具调用/)
+- [c11 Reasoning Agent](/kb/ai-基础知识库/c11-system-2-思维与-test-time-compute/)
 
 ## 专题升级（0411）
 
-本卡片是基础概念入口。系统性深入请进入 [Agent 系统化专题](/kb/Agent-系统化专题/_Agent-系统化专题·总览/)（22 节点 · 5 轮批判性同行评议 · 已出版就绪）：
+本卡片是基础概念入口。系统性深入请进入 [Agent 系统化专题](/kb/agent-系统化专题/_agent-系统化专题-总览/)（22 节点 · 5 轮批判性同行评议 · 已出版就绪）：
 
-- 语词流变：[A01 Agent 概念史与语义流变](/kb/Agent-系统化专题/A01-Agent-概念史与语义流变/)
-- 抽象层级：[A02 抽象层级辨析·Harness Framework Agent Skill Orchestrator](/kb/Agent-系统化专题/A02-抽象层级辨析·Harness-Framework-Agent-Skill-Orchestrator/)
-- 代际谱系：[G01 Agent 代际谱系总图](/kb/Agent-系统化专题/G01-Agent-代际谱系总图/) · [G02 五代演化详解·G1-G5](/kb/Agent-系统化专题/G02-五代演化详解·G1-G5/)
-- 架构剖面：[S01 Agent 六层架构剖面](/kb/Agent-系统化专题/S01-Agent-六层架构剖面/)
-- 实例剖解：[E01 Coding Agent·Claude Code & Cursor](/kb/Agent-系统化专题/E01-Coding-Agent·Claude-Code-Cursor/) · [E02 通用 Agent·Manus & Devin](/kb/Agent-系统化专题/E02-通用-Agent·Manus-Devin/) · [E03 Multi-Agent 框架·AutoGen & CrewAI & DeerFlow](/kb/Agent-系统化专题/E03-Multi-Agent-框架·AutoGen-CrewAI-DeerFlow/)
-- 复现实操：[R01 最小可运行·100 行 ReAct](/kb/Agent-系统化专题/R01-最小可运行·100-行-ReAct/)
-- 阅读指南：[README·多视图阅读指南](/kb/Agent-系统化专题/README·多视图阅读指南/)
+- 语词流变：[A01 Agent 概念史与语义流变](/kb/agent-系统化专题/a01-agent-概念史与语义流变/)
+- 抽象层级：[A02 抽象层级辨析·Harness Framework Agent Skill Orchestrator](/kb/agent-系统化专题/a02-抽象层级辨析-harness-framework-agent-skill-orchestrator/)
+- 代际谱系：[G01 Agent 代际谱系总图](/kb/agent-系统化专题/g01-agent-代际谱系总图/) · [G02 五代演化详解·G1-G5](/kb/agent-系统化专题/g02-五代演化详解-g1-g5/)
+- 架构剖面：[S01 Agent 六层架构剖面](/kb/agent-系统化专题/s01-agent-六层架构剖面/)
+- 实例剖解：[E01 Coding Agent·Claude Code & Cursor](/kb/agent-系统化专题/e01-coding-agent-claude-code-cursor/) · [E02 通用 Agent·Manus & Devin](/kb/agent-系统化专题/e02-通用-agent-manus-devin/) · [E03 Multi-Agent 框架·AutoGen & CrewAI & DeerFlow](/kb/agent-系统化专题/e03-multi-agent-框架-autogen-crewai-deerflow/)
+- 复现实操：[R01 最小可运行·100 行 ReAct](/kb/agent-系统化专题/r01-最小可运行-100-行-react/)
+- 阅读指南：[README·多视图阅读指南](/kb/agent-系统化专题/readme-多视图阅读指南/)
 
 <!-- evidence-pool-start -->
 > [!quote]+ 📎 证据池 · 17 条 · 自动生成于 2026-05-16

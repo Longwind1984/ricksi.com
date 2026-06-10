@@ -11,7 +11,7 @@ updated: '2026-05-18'
 
 ## 0. 为什么是"六层"而不是 PPAF 四阶段
 
-[c10 - Agent 技术栈与工具调用](/kb/AI-基础知识库/c10-Agent-技术栈与工具调用/) 把 Agent 概括成 ReAct 循环（thought-action-observation），m206 单独抽出"记忆"，m207 单独抽出"失败模式"，[Harness 词义辨析](/kb/Agent-系统化专题/Harness-词义辨析/) 又把 harness 作为外围运行时拎出来。这些视角各自正确，但都不是同一切面。
+[c10 - Agent 技术栈与工具调用](/kb/ai-基础知识库/c10-agent-技术栈与工具调用/) 把 Agent 概括成 ReAct 循环（thought-action-observation），m206 单独抽出"记忆"，m207 单独抽出"失败模式"，[Harness 词义辨析](/kb/agent-系统化专题/harness-词义辨析/) 又把 harness 作为外围运行时拎出来。这些视角各自正确，但都不是同一切面。
 
 一类常见的描述方式是 **PPAF 式四阶段**(Perception / Planning / Action / Feedback)框架(精确同名的"PPAF"在英文学界并非主流术语,与之相邻的写法包括 Sense-Plan-Act 与 Perception-Cognition-Action;此处用 PPAF 作为这一类四阶段范式的统称)。四阶段视角对**讲清楚"一次迭代里发生什么"**很好用,但有三个 PM 视角的盲区:
 
@@ -74,12 +74,12 @@ flowchart TB
 
 **核心组件 / 技术实现**：
 - 文本输入解析（用户消息、文件、API 返回）
-- RAG 检索结果注入（[c09 - RAG 架构](/kb/AI-基础知识库/c09-RAG-架构/)）
-- 多模态编码：[Claude](/kb/AI-公司与产品/Claude/) Sonnet 4.6 / GPT-5 / [Gemini](/kb/AI-公司与产品/Gemini/) 3 的 vision encoder 把屏幕截图转为 visual token（CLIP / SigLIP 家族），一张 1080p 截图约 1100-1500 tokens
-- Computer Use 的截图捕获 + 坐标系归一化（[Anthropic](/kb/AI-公司与产品/Anthropic/) computer-use beta / Manus / OpenAI Operator 三家方案不同）
+- RAG 检索结果注入（[c09 - RAG 架构](/kb/ai-基础知识库/c09-rag-架构/)）
+- 多模态编码：[Claude](/kb/ai-公司与产品/claude/) Sonnet 4.6 / GPT-5 / [Gemini](/kb/ai-公司与产品/gemini/) 3 的 vision encoder 把屏幕截图转为 visual token（CLIP / SigLIP 家族），一张 1080p 截图约 1100-1500 tokens
+- Computer Use 的截图捕获 + 坐标系归一化（[Anthropic](/kb/ai-公司与产品/anthropic/) computer-use beta / Manus / OpenAI Operator 三家方案不同）
 - 传感器流（具身 Agent，李飞飞《多模态交互前沿调查》论文方向）
 
-**典型失败模式**（链入 [m207 - Agent 产品化：场景推演与失败模式](/kb/AI-工程化与落地架构/m207-Agent-产品化：场景推演与失败模式/) 六类失败）：
+**典型失败模式**（链入 [m207 - Agent 产品化：场景推演与失败模式](/kb/ai-工程化与落地架构/m207-agent-产品化-场景推演与失败模式/) 六类失败）：
 - **OCR / 截图理解错误**：复杂表格、动态 DOM、低对比度元素被忽略，与 m207 "推理错误"同源但更上游
 - **跨模态对齐失败**：截图里写"提交"，模型读成"取消"——属于"安全越界"前置失败
 - **输入预算爆炸**：截图 × 步骤数 → token 成本超单任务预算（m209 计算公式）
@@ -98,15 +98,15 @@ flowchart TB
 **定义**：把用户目标分解为可执行的子目标和动作序列，决定"下一步做什么"。
 
 **核心组件 / 技术实现**：
-- **隐式规划**：[A03 ReAct](/kb/Agent-系统化专题/A03-ReAct/) 风格，thought → action → observation 滚动续写，没有显式 plan 对象
-- **显式规划**：[A05 Plan-and-Execute](/kb/Agent-系统化专题/A05-Plan-and-Execute/)，先生成完整 plan tree，再逐步执行；DeerFlow / BabyAGI / LangGraph 用这种
+- **隐式规划**：[A03 ReAct](/kb/agent-系统化专题/a03-react/) 风格，thought → action → observation 滚动续写，没有显式 plan 对象
+- **显式规划**：[A05 Plan-and-Execute](/kb/agent-系统化专题/a05-plan-and-execute/)，先生成完整 plan tree，再逐步执行；DeerFlow / BabyAGI / LangGraph 用这种
 - **搜索式规划**：LATS（Language Agent Tree Search），把 plan 视为可回溯的树，每个节点用反思打分；成本最高、效果最好
 - **DAG 编排**：把固定流程写死成有向无环图（CrewAI 的 sequential / hierarchical process、AutoGen 的 GroupChat、Dify 的工作流）
 - **多 Agent 规划**：Orchestrator 把规划权委托给"Planner Agent"，与"Executor Agent"职责分离
 
 **典型失败模式**：
 - **规划失败**（m207 表 1）：步骤遗漏、顺序错乱、目标不收敛
-- **过度规划**：把简单任务拆成 20 步，触发 [c10 - Agent 技术栈与工具调用](/kb/AI-基础知识库/c10-Agent-技术栈与工具调用/) § 10.3 的复合错误数学
+- **过度规划**：把简单任务拆成 20 步，触发 [c10 - Agent 技术栈与工具调用](/kb/ai-基础知识库/c10-agent-技术栈与工具调用/) § 10.3 的复合错误数学
 - **重规划不及时**：环境变化后 plan 已 stale，仍按旧 plan 走（典型场景：网页 DOM 改了，Computer Use Agent 还在按旧坐标点击）
 
 **PM 关注点**：
@@ -124,7 +124,7 @@ flowchart TB
 
 **定义**：跨步骤、跨会话保存 Agent 的状态与知识，让"无状态 CPU"（LLM）能在长任务中表现得像有状态。
 
-完整设计决策详见 [m206 - Agent 产品化：记忆机制与技术进展](/kb/AI-工程化与落地架构/m206-Agent-产品化：记忆机制与技术进展/)。这里只做层级定位。
+完整设计决策详见 [m206 - Agent 产品化：记忆机制与技术进展](/kb/ai-工程化与落地架构/m206-agent-产品化-记忆机制与技术进展/)。这里只做层级定位。
 
 **四种记忆类型**（与 c10 § 10.1 一致，但补"工作记忆"的运行时位置）：
 
@@ -155,11 +155,11 @@ flowchart TB
 **定义**：定义并暴露 Agent 可执行的所有外部动作，把 LLM 输出的"调用意图"翻译为对真实系统的副作用。
 
 **核心组件 / 技术实现**：
-- **[Function Calling](/kb/AI-基础知识库/Function-Calling/)**：OpenAI / Anthropic / Gemini 都已支持 native FC，受约束解码保证输出符合 JSON Schema
-- **MCP（Model Context Protocol）**：[Anthropic](/kb/AI-公司与产品/Anthropic/) 2024 年提出、2025-2026 年成为事实标准，定义了"工具/资源/采样"三类原语；详见 c10 § 10.4
+- **[Function Calling](/kb/ai-基础知识库/function-calling/)**：OpenAI / Anthropic / Gemini 都已支持 native FC，受约束解码保证输出符合 JSON Schema
+- **MCP（Model Context Protocol）**：[Anthropic](/kb/ai-公司与产品/anthropic/) 2024 年提出、2025-2026 年成为事实标准，定义了"工具/资源/采样"三类原语；详见 c10 § 10.4
 - **A2A（Agent-to-Agent）**：Google 2025 年发布，定义 Agent 之间的协作协议（不是工具协议，但同处"行动接口"层）；详见 m206
 - **Computer Use API**：Anthropic computer-use beta、OpenAI Operator、Manus 的 GUI 操作接口；本质是"屏幕动作"作为一种特殊工具
-- **代码沙盒**：把"写代码 + 执行"作为通用工具（Open Interpreter / Code Interpreter / E2B），详见 [c11 - System 2 思维与 Test-Time Compute](/kb/AI-基础知识库/c11-System-2-思维与-Test-Time-Compute/) 中 inference-time 计算扩展
+- **代码沙盒**：把"写代码 + 执行"作为通用工具（Open Interpreter / Code Interpreter / E2B），详见 [c11 - System 2 思维与 Test-Time Compute](/kb/ai-基础知识库/c11-system-2-思维与-test-time-compute/) 中 inference-time 计算扩展
 
 **工具设计三原则**（c10 § 10.2 已述，这里强调与执行层的耦合）：原子化 / 错误信息可机读 / 副作用分级。
 
@@ -172,7 +172,7 @@ flowchart TB
 **PM 关注点**：
 1. 工具列表的 token 成本——每多挂一个工具，每次调用 prompt 都多花几十 token。10 个工具还是 50 个工具？
 2. MCP 自建还是用社区 server？自建可控但费人力；社区现成但有供应链安全风险。
-3. Computer Use 是不是必须？API 能解决的就别走截图——成本差 10-100 倍（[m209 - 推理成本控制手册](/kb/AI-工程化与落地架构/m209-推理成本控制手册/)）。
+3. Computer Use 是不是必须？API 能解决的就别走截图——成本差 10-100 倍（[m209 - 推理成本控制手册](/kb/ai-工程化与落地架构/m209-推理成本控制手册/)）。
 
 **与上一层接口**：工具层向规划层暴露**JSON Schema 列表**——这是 LLM 理解能力边界的唯一文档。
 
@@ -184,16 +184,16 @@ flowchart TB
 
 **定义**：harness 本体——主控制循环、错误恢复、HITL 断点、调度策略、可观测性。这一层最容易被忽略，恰恰是 PM 选型时最大的差异化来源。
 
-> 词源与边界详见 [Harness 词义辨析](/kb/Agent-系统化专题/Harness-词义辨析/)。简言之：执行层 = harness，工具层 = harness 内的可插拔组件之一。
+> 词源与边界详见 [Harness 词义辨析](/kb/agent-系统化专题/harness-词义辨析/)。简言之：执行层 = harness，工具层 = harness 内的可插拔组件之一。
 
 **核心组件 / 技术实现**：
-- **主控制循环**：while-loop 包着 LLM 调用 + 工具执行 + 上下文更新；典型产品形态——[Claude Code](/kb/AI-公司与产品/Claude-Code/) 的 main loop、Cursor 的 Composer engine、aider 的 chat loop
+- **主控制循环**：while-loop 包着 LLM 调用 + 工具执行 + 上下文更新；典型产品形态——[Claude Code](/kb/ai-公司与产品/claude-code/) 的 main loop、Cursor 的 Composer engine、aider 的 chat loop
 - **错误恢复策略**：超时、重试退避、熔断、降级（"无 API 模式" → "草稿模式"）
 - **HITL 断点**：m207 表 2 的三维度判断；典型实现——Claude Code 的工具确认对话框、Cursor 的 diff 视图
 - **调度与并发**：Multi-Agent 场景下的消息总线（AutoGen 的 GroupChatManager、CrewAI 的 process executor）
 - **沙盒**：进程级 / 容器级 / micro-VM（Firecracker）/ 完整 VM；Cubox 那篇 Harness 万字干货分了四级
 - **状态机 / 工作流引擎**：LangGraph 的 StateGraph、Temporal 等通用工作流引擎被越来越多 Agent 系统借用以处理长任务
-- **可观测性**：trace / cost / step audit（详见 [m208 - AI 基础设施与中间件选型](/kb/AI-工程化与落地架构/m208-AI-基础设施与中间件选型/) Observability 段）
+- **可观测性**：trace / cost / step audit（详见 [m208 - AI 基础设施与中间件选型](/kb/ai-工程化与落地架构/m208-ai-基础设施与中间件选型/) Observability 段）
 
 **典型失败模式**：
 - **无限循环**：m207 表 1，没有最大步数 / token 上限
@@ -218,16 +218,16 @@ flowchart TB
 
 **核心组件 / 技术实现**：
 - **自评（Self-Critique）**：让 LLM 评分自己的输出（"上一步是否完成了子目标？"）
-- **轨迹分析**：[A04 Reflexion](/kb/Agent-系统化专题/A04-Reflexion/) 风格——把失败原因抽成"反思笔记"，存入长期记忆下次复用
+- **轨迹分析**：[A04 Reflexion](/kb/agent-系统化专题/a04-reflexion/) 风格——把失败原因抽成"反思笔记"，存入长期记忆下次复用
 - **Tree Search 中的 backprop**：LATS 把反思打分作为搜索树节点的 value 估计，回传影响下一步选择
-- **外部 verifier**：用规则、单元测试、另一个 LLM 做 judge（[c14 - 模型评估体系与 Goodhart 陷阱](/kb/AI-基础知识库/c14-模型评估体系与-Goodhart-陷阱/) 的 LLM-as-judge 警告也适用）
+- **外部 verifier**：用规则、单元测试、另一个 LLM 做 judge（[c14 - 模型评估体系与 Goodhart 陷阱](/kb/ai-基础知识库/c14-模型评估体系与-goodhart-陷阱/) 的 LLM-as-judge 警告也适用）
 - **离线 trace 复盘**：把生产 trace 做事后聚类，发现失败模式（这一段通常进入"评测体系"而非运行时）
 
 **典型失败模式**：
-- **盲目自信**：LLM 给自己的输出打高分，但实际错了——LLM-as-judge 的[幻觉](/kb/AI-基础知识库/幻觉/)
+- **盲目自信**：LLM 给自己的输出打高分，但实际错了——LLM-as-judge 的[幻觉](/kb/ai-基础知识库/幻觉/)
 - **反思发散**：反思笔记越攒越多，反而稀释当前任务上下文
 - **反思与规划职责模糊**：反思层提出新计划但执行层没接住，循环 stuck
-- **无反思**：[A03 ReAct](/kb/Agent-系统化专题/A03-ReAct/) 的最简形态就没有显式反思层——这本身不是 bug，而是一种"轻反思层"的设计选择
+- **无反思**：[A03 ReAct](/kb/agent-系统化专题/a03-react/) 的最简形态就没有显式反思层——这本身不是 bug，而是一种"轻反思层"的设计选择
 
 **PM 关注点**：
 1. 反思频率——每步反思（贵）还是任务结束反思（便宜但晚）？或者按"失败信号触发"？
@@ -280,7 +280,7 @@ flowchart TB
 **正确做法**：
 - 反思层写记忆必须经过 (1) 与历史反思的语义去重 (2) 频率阈值（同类反思 N 次后才升级为长期记忆）(3) 时效衰减（M 个月未被检索到自动归档）。
 - 反思笔记应该有结构化字段（失败类型 / 触发条件 / 修复策略），而不是裸文本——结构化才能被后续 agent 精确检索。
-- 企业级场景下，反思笔记需要 review 流程（避免错误反思被持久化为"伪经验"）——这是 [m207 - Agent 产品化：场景推演与失败模式](/kb/AI-工程化与落地架构/m207-Agent-产品化：场景推演与失败模式/) HITL 三维度的延伸。
+- 企业级场景下，反思笔记需要 review 流程（避免错误反思被持久化为"伪经验"）——这是 [m207 - Agent 产品化：场景推演与失败模式](/kb/ai-工程化与落地架构/m207-agent-产品化-场景推演与失败模式/) HITL 三维度的延伸。
 
 **反例**：早期 Generative Agents（Park 2023）的 Smallville NPC 因反思笔记爆炸式增长，3 天内长期记忆膨胀到不可用——这就是反思-记忆接口没设计好。
 
@@ -308,7 +308,7 @@ flowchart TB
 **耦合点 4:用户对 Agent 的心理模型 vs 实际能力的错位**(最高发的产品 PM 看走眼):
 - **症状**:用户认为 Agent 像人一样"能学新东西",实际 LLM 只能在训练分布内 generalize。当用户给 Agent 一个训练分布外的任务,Agent 给出听起来合理但实际错误的回答(幻觉);用户不知道是"分布外问题",误以为"模型变笨了"——DAU 衰减、留存崩。
 - **为什么 PM 容易看走眼**:工程视角看,这是模型能力问题(可以加 RAG、加微调);产品视角看,**这是用户教育问题(用户对 Agent 能力的心理模型不对)**——两个视角的解决方案完全不同。
-- **正确做法**:在产品 UI 中显式提示"Agent 能力边界"(如"Agent 对 2024 年之前的事件了解较深,对最新信息可能不准");在 onboarding 中做"能力 demo + 失败 demo" 让用户建立准确预期;不要把 Agent 包装成"无所不能的助手"——Weizenbaum 1976 年警告的"拟人化危险"(详见 [A01 Agent 概念史与语义流变](/kb/Agent-系统化专题/A01-Agent-概念史与语义流变/) § 8.2 R4 新增)在此具体落地。
+- **正确做法**:在产品 UI 中显式提示"Agent 能力边界"(如"Agent 对 2024 年之前的事件了解较深,对最新信息可能不准");在 onboarding 中做"能力 demo + 失败 demo" 让用户建立准确预期;不要把 Agent 包装成"无所不能的助手"——Weizenbaum 1976 年警告的"拟人化危险"(详见 [A01 Agent 概念史与语义流变](/kb/agent-系统化专题/a01-agent-概念史与语义流变/) § 8.2 R4 新增)在此具体落地。
 
 **耦合点 5:Agent 的商业模式 vs 用户付费意愿的错位**(第二高发):
 - **症状**:Agent 按 token 计费,但用户期望按"任务结果"计费;Agent 提供 80% 自动化,但用户期望"全自动";Agent 偶尔失败,但用户的"信任曲线"对失败的容忍度极低(一次重大失败 = 永久流失)。
@@ -332,11 +332,11 @@ flowchart TB
 
 本节点对已有节点的关系是**整合视图 + 显式补缺**：
 
-- **对 [c10 - Agent 技术栈与工具调用](/kb/AI-基础知识库/c10-Agent-技术栈与工具调用/)**：c10 主要讲记忆 + 工具 + 复合错误数学，没有把"执行层"和"反思层"作为独立组件拎出来。本节点把六层全部拉平、给每层独立的接口约定和 PM 问题清单。
-- **对 [m206 - Agent 产品化：记忆机制与技术进展](/kb/AI-工程化与落地架构/m206-Agent-产品化：记忆机制与技术进展/)**：m206 是记忆层的深度展开。本节点定位记忆层在堆栈中的横切位置，并把 m206 的四决策映射到层间接口。
-- **对 [m207 - Agent 产品化：场景推演与失败模式](/kb/AI-工程化与落地架构/m207-Agent-产品化：场景推演与失败模式/)**：m207 的六类失败模式可以全部映射到六层堆栈的某一层（或层间接口）——本节点提供了这个映射框架。
-- **对 [m208 - AI 基础设施与中间件选型](/kb/AI-工程化与落地架构/m208-AI-基础设施与中间件选型/)**：m208 主要讨论编排框架、向量库、可观测性，多数属于"执行层"和"记忆层"的具体选型。本节点是 m208 选型的"骨架图"——选型前先确定每层职责，再去匹配具体产品。
-- **对 [Harness 词义辨析](/kb/Agent-系统化专题/Harness-词义辨析/)**：辨析说"harness 是 agent 运行时通称"，本节点更精确地定位：**harness ≈ 执行层 + 工具层调度 + 部分记忆调度**，不等于全部六层。
+- **对 [c10 - Agent 技术栈与工具调用](/kb/ai-基础知识库/c10-agent-技术栈与工具调用/)**：c10 主要讲记忆 + 工具 + 复合错误数学，没有把"执行层"和"反思层"作为独立组件拎出来。本节点把六层全部拉平、给每层独立的接口约定和 PM 问题清单。
+- **对 [m206 - Agent 产品化：记忆机制与技术进展](/kb/ai-工程化与落地架构/m206-agent-产品化-记忆机制与技术进展/)**：m206 是记忆层的深度展开。本节点定位记忆层在堆栈中的横切位置，并把 m206 的四决策映射到层间接口。
+- **对 [m207 - Agent 产品化：场景推演与失败模式](/kb/ai-工程化与落地架构/m207-agent-产品化-场景推演与失败模式/)**：m207 的六类失败模式可以全部映射到六层堆栈的某一层（或层间接口）——本节点提供了这个映射框架。
+- **对 [m208 - AI 基础设施与中间件选型](/kb/ai-工程化与落地架构/m208-ai-基础设施与中间件选型/)**：m208 主要讨论编排框架、向量库、可观测性，多数属于"执行层"和"记忆层"的具体选型。本节点是 m208 选型的"骨架图"——选型前先确定每层职责，再去匹配具体产品。
+- **对 [Harness 词义辨析](/kb/agent-系统化专题/harness-词义辨析/)**：辨析说"harness 是 agent 运行时通称"，本节点更精确地定位：**harness ≈ 执行层 + 工具层调度 + 部分记忆调度**，不等于全部六层。
 
 ---
 
@@ -354,28 +354,28 @@ flowchart TB
 
 **做 PRD 时**：六层是天然的工作分解。前端组负责感知层（输入解析）+ 执行层 UI（HITL 断点设计），算法组负责规划/反思，后端组负责工具/执行/记忆。每个组的接口契约就是上面那张接口表。
 
-**做 cost 控制时**：六层堆栈对应六个成本来源——感知层（截图 token）、规划层（plan 生成 token）、工具层（工具描述 token + 工具调用次数）、执行层（重试次数 × 单次成本）、记忆层（embedding 检索调用）、反思层（自评 LLM 调用）。按层做 cost 拆分比按"功能模块"拆分更容易找到瓶颈。详见 [m209 - 推理成本控制手册](/kb/AI-工程化与落地架构/m209-推理成本控制手册/)。
+**做 cost 控制时**：六层堆栈对应六个成本来源——感知层（截图 token）、规划层（plan 生成 token）、工具层（工具描述 token + 工具调用次数）、执行层（重试次数 × 单次成本）、记忆层（embedding 检索调用）、反思层（自评 LLM 调用）。按层做 cost 拆分比按"功能模块"拆分更容易找到瓶颈。详见 [m209 - 推理成本控制手册](/kb/ai-工程化与落地架构/m209-推理成本控制手册/)。
 
 ---
 
 ## 关联节点
 
 **核心关联（必读）**：
-- [c10 - Agent 技术栈与工具调用](/kb/AI-基础知识库/c10-Agent-技术栈与工具调用/)——本节点是 c10 的组件维度展开
-- [m206 - Agent 产品化：记忆机制与技术进展](/kb/AI-工程化与落地架构/m206-Agent-产品化：记忆机制与技术进展/)——记忆层深度，对应本节点 § 4 + § 9 耦合点 2
-- [m207 - Agent 产品化：场景推演与失败模式](/kb/AI-工程化与落地架构/m207-Agent-产品化：场景推演与失败模式/)——六类失败模式映射到本节点六层
-- [m208 - AI 基础设施与中间件选型](/kb/AI-工程化与落地架构/m208-AI-基础设施与中间件选型/)——按本节点六层做选型骨架
-- [S02 流派架构对照表](/kb/Agent-系统化专题/S02-流派架构对照表/)——六层 × 六范式的矩阵
-- [S03 Harness Engineering 全景](/kb/Agent-系统化专题/S03-Harness-Engineering-全景/)——执行层（harness）的深度展开
-- [Harness 词义辨析](/kb/Agent-系统化专题/Harness-词义辨析/)——harness 在六层中的位置定义
+- [c10 - Agent 技术栈与工具调用](/kb/ai-基础知识库/c10-agent-技术栈与工具调用/)——本节点是 c10 的组件维度展开
+- [m206 - Agent 产品化：记忆机制与技术进展](/kb/ai-工程化与落地架构/m206-agent-产品化-记忆机制与技术进展/)——记忆层深度，对应本节点 § 4 + § 9 耦合点 2
+- [m207 - Agent 产品化：场景推演与失败模式](/kb/ai-工程化与落地架构/m207-agent-产品化-场景推演与失败模式/)——六类失败模式映射到本节点六层
+- [m208 - AI 基础设施与中间件选型](/kb/ai-工程化与落地架构/m208-ai-基础设施与中间件选型/)——按本节点六层做选型骨架
+- [S02 流派架构对照表](/kb/agent-系统化专题/s02-流派架构对照表/)——六层 × 六范式的矩阵
+- [S03 Harness Engineering 全景](/kb/agent-系统化专题/s03-harness-engineering-全景/)——执行层（harness）的深度展开
+- [Harness 词义辨析](/kb/agent-系统化专题/harness-词义辨析/)——harness 在六层中的位置定义
 
 **延伸关联（可选）**：
-- 概念卡：[Agent](/kb/AI-基础知识库/Agent/)、[Function Calling](/kb/AI-基础知识库/Function-Calling/)、[RAG](/kb/AI-基础知识库/RAG/)、[Tokenization](/kb/AI-基础知识库/Tokenization/)、[幻觉](/kb/AI-基础知识库/幻觉/)、[Attention](/kb/AI-基础知识库/Attention/)、[Test-Time Compute](/kb/AI-基础知识库/Test-Time-Compute/)、[KV Cache](/kb/AI-基础知识库/KV-Cache/)
-- 章节：[c11 - System 2 思维与 Test-Time Compute](/kb/AI-基础知识库/c11-System-2-思维与-Test-Time-Compute/)、[c13 - 幻觉的不可消除性](/kb/AI-基础知识库/c13-幻觉的不可消除性/)、[c14 - 模型评估体系与 Goodhart 陷阱](/kb/AI-基础知识库/c14-模型评估体系与-Goodhart-陷阱/)、[m209 - 推理成本控制手册](/kb/AI-工程化与落地架构/m209-推理成本控制手册/)、[m201 - Prompt Engineering 实战体系](/kb/AI-工程化与落地架构/m201-Prompt-Engineering-实战体系/)、[m202 - 工程选型决策矩阵](/kb/AI-工程化与落地架构/m202-工程选型决策矩阵/)
-- 公司/产品：[Anthropic](/kb/AI-公司与产品/Anthropic/)、[OpenAI](/kb/AI-公司与产品/OpenAI/)、[Claude](/kb/AI-公司与产品/Claude/)、[Claude Code](/kb/AI-公司与产品/Claude-Code/)、[Manus](/kb/AI-公司与产品/Manus/)、[Gemini](/kb/AI-公司与产品/Gemini/)
-- 同专题：[A03 ReAct](/kb/Agent-系统化专题/A03-ReAct/)、[A04 Reflexion](/kb/Agent-系统化专题/A04-Reflexion/)、[A05 Plan-and-Execute](/kb/Agent-系统化专题/A05-Plan-and-Execute/)、[A06 Orchestrator 编排器](/kb/Agent-系统化专题/A06-Orchestrator-编排器/)、[A07 Multi-Agent Teams](/kb/Agent-系统化专题/A07-Multi-Agent-Teams/)、[A08 MCP 与 A2A 协议族](/kb/Agent-系统化专题/A08-MCP-与-A2A-协议族/)、[G01 Agent 代际谱系总图](/kb/Agent-系统化专题/G01-Agent-代际谱系总图/)
-- 跨域：[Skill 系统的本质](/kb/AI-协作方法论/Skill-系统的本质/)、[AI概念滥用反思](/kb/AI-基础知识库/AI概念滥用反思/)、[Polanyi 默会知识与提示工程的认识论张力](/kb/AI-基础知识库/Polanyi-默会知识与提示工程的认识论张力/)
-- 总索引：[AI PM 知识图谱·总索引](/kb/AI-PM-知识图谱/AI-PM-知识图谱·总索引/)
+- 概念卡：[Agent](/kb/ai-基础知识库/agent/)、[Function Calling](/kb/ai-基础知识库/function-calling/)、[RAG](/kb/ai-基础知识库/rag/)、[Tokenization](/kb/ai-基础知识库/tokenization/)、[幻觉](/kb/ai-基础知识库/幻觉/)、[Attention](/kb/ai-基础知识库/attention/)、[Test-Time Compute](/kb/ai-基础知识库/test-time-compute/)、[KV Cache](/kb/ai-基础知识库/kv-cache/)
+- 章节：[c11 - System 2 思维与 Test-Time Compute](/kb/ai-基础知识库/c11-system-2-思维与-test-time-compute/)、[c13 - 幻觉的不可消除性](/kb/ai-基础知识库/c13-幻觉的不可消除性/)、[c14 - 模型评估体系与 Goodhart 陷阱](/kb/ai-基础知识库/c14-模型评估体系与-goodhart-陷阱/)、[m209 - 推理成本控制手册](/kb/ai-工程化与落地架构/m209-推理成本控制手册/)、[m201 - Prompt Engineering 实战体系](/kb/ai-工程化与落地架构/m201-prompt-engineering-实战体系/)、[m202 - 工程选型决策矩阵](/kb/ai-工程化与落地架构/m202-工程选型决策矩阵/)
+- 公司/产品：[Anthropic](/kb/ai-公司与产品/anthropic/)、[OpenAI](/kb/ai-公司与产品/openai/)、[Claude](/kb/ai-公司与产品/claude/)、[Claude Code](/kb/ai-公司与产品/claude-code/)、[Manus](/kb/ai-公司与产品/manus/)、[Gemini](/kb/ai-公司与产品/gemini/)
+- 同专题：[A03 ReAct](/kb/agent-系统化专题/a03-react/)、[A04 Reflexion](/kb/agent-系统化专题/a04-reflexion/)、[A05 Plan-and-Execute](/kb/agent-系统化专题/a05-plan-and-execute/)、[A06 Orchestrator 编排器](/kb/agent-系统化专题/a06-orchestrator-编排器/)、[A07 Multi-Agent Teams](/kb/agent-系统化专题/a07-multi-agent-teams/)、[A08 MCP 与 A2A 协议族](/kb/agent-系统化专题/a08-mcp-与-a2a-协议族/)、[G01 Agent 代际谱系总图](/kb/agent-系统化专题/g01-agent-代际谱系总图/)
+- 跨域：[Skill 系统的本质](/kb/ai-协作方法论/skill-系统的本质/)、[AI概念滥用反思](/kb/ai-基础知识库/ai概念滥用反思/)、[Polanyi 默会知识与提示工程的认识论张力](/kb/ai-基础知识库/polanyi-默会知识与提示工程的认识论张力/)
+- 总索引：[AI PM 知识图谱·总索引](/kb/ai-pm-知识图谱/ai-pm-知识图谱-总索引/)
 
 ## 衍生对话存档
 

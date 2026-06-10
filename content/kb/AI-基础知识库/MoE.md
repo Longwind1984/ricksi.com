@@ -129,8 +129,8 @@ DeepSeek-V3 的 **loss-free balance** 是 2024 最重要的工程突破：传统
 
 ## 相关章节与节点
 
-- [c06 架构对比](/kb/AI-基础知识库/c06-架构演进：Dense-MoE-SSM-Hybrid/)
-- [Scaling Laws](/kb/AI-基础知识库/Scaling-Laws/) — MoE 的 scaling 行为与 Dense 略不同
-- [KV Cache](/kb/AI-基础知识库/KV-Cache/) — MoE 也吃 KV，与稀疏激活无关
-- [多模型分层](/kb/AI-基础知识库/多模型分层/) — 把 MoE 当一种"硬件层的专家选路"
-- [DeepSeek](/kb/AI-公司与产品/DeepSeek/) — V2/V3 是 MoE 范式重要推动者
+- [c06 架构对比](/kb/ai-基础知识库/c06-架构演进-dense-moe-ssm-hybrid/)
+- [Scaling Laws](/kb/ai-基础知识库/scaling-laws/) — MoE 的 scaling 行为与 Dense 略不同
+- [KV Cache](/kb/ai-基础知识库/kv-cache/) — MoE 也吃 KV，与稀疏激活无关
+- [多模型分层](/kb/ai-基础知识库/多模型分层/) — 把 MoE 当一种"硬件层的专家选路"
+- [DeepSeek](/kb/ai-公司与产品/deepseek/) — V2/V3 是 MoE 范式重要推动者
