@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+# Sitemap: 备案域名确定后补充

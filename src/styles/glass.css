@@ -32,7 +32,7 @@ body {
 /* 整页固定背景：雪山照片 + 渐暗 */
 body::before {
   content: ""; position: fixed; inset: 0; z-index: -2;
-  background: url('/assets/hero-summit.jpg') center 32% / cover no-repeat;
+  background: url('/assets/hero-2200.jpg') center 32% / cover no-repeat;
 }
 body::after {
   content: ""; position: fixed; inset: 0; z-index: -1;
