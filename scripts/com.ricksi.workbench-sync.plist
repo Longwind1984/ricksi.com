@@ -15,7 +15,7 @@
   <string>com.ricksi.workbench-sync</string>
   <key>ProgramArguments</key>
   <array>
-    <string>/usr/local/bin/npm</string>
+    <string>/opt/homebrew/bin/npm</string>
     <string>run</string>
     <string>sync</string>
   </array>

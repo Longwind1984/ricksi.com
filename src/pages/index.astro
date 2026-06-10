@@ -50,8 +50,21 @@ const posts = allPosts.length
     }))
   : SAMPLE_POSTS;
 
-/* ---- 注入客户端的数据（ticker 锚点 / 图谱数据） ---- */
-const clientData = JSON.stringify({ tokenBase: u.today, graph: graph ?? null }).replace(/</g, '\\u003c');
+/* ---- 注入客户端的数据（ticker 锚点 / 热力图明细 / 图谱数据） ---- */
+const clientData = JSON.stringify({
+  tokenBase: u.today,
+  weeks: activity?.weeks ?? null,
+  graph: graph ?? null,
+}).replace(/</g, '\\u003c');
+
+/* 热力图维度（真实数据才有切换） */
+const hmDims = [
+  ['all', '全部'],
+  ['git', '代码提交'],
+  ['notes', '笔记'],
+  ['ai', 'AI 会话'],
+  ['gh', 'GitHub'],
+];
 
 const projects = [
   {
@@ -182,7 +195,14 @@ const projects = [
                   <span class="mono wb-model">{m} <b>{p}%</b></span>
                 ))}
               </div>
-              {usageStamp && <div class="mono wb-stamp">数据更新于 {usageStamp}</div>}
+              {usageStamp && (
+                <div class="mono wb-stamp">
+                  数据更新于 {usageStamp} · 含缓存读写
+                  {usage?.method?.estimated_share && usage.method.estimated_share !== '0%'
+                    ? ` · 早期估算占 ${usage.method.estimated_share}`
+                    : ''}
+                </div>
+              )}
             </div>
             <div class="wb-col">
               <div class="mono wb-label">近 7 日（M TOKENS）</div>
@@ -198,18 +218,25 @@ const projects = [
             <div class="wb-col no-border">
               <div class="mono wb-label">{activity ? '多源活跃 · 近 22 周' : 'CODING 活跃 · 近 22 周'}</div>
               <div class="hm" id="heatmap">
-                {heatmapCols.map((col) => (
+                {heatmapCols.map((col, w) => (
                   <div class="hm-col">
-                    {col.map((cell) => (
+                    {col.map((cell, d) => (
                       <span
-                        class:list={['hm-cell', `l${cell.l}`]}
-                        data-date={cell.d}
-                        data-n={cell.n}
+                        class:list={['hm-cell', `l${cell.l}`, { future: cell.future }]}
+                        data-w={activity ? w : undefined}
+                        data-d={activity ? d : undefined}
                       ></span>
                     ))}
                   </div>
                 ))}
               </div>
+              {activity && (
+                <div class="hm-dims mono" id="hm-dims">
+                  {hmDims.map(([key, label]) => (
+                    <button class:list={['hm-dim', { active: key === 'all' }]} data-dim={key}>{label}</button>
+                  ))}
+                </div>
+              )}
               <div class="wb-stat-row">
                 <div>
                   <div class="mono stat-k">提交</div>

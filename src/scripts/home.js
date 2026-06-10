@@ -49,6 +49,74 @@ if (liveEl) {
   }, 1600);
 }
 
+/* ---------- 热力图 v2：悬停明细 + 维度切换（仅真实数据） ---------- */
+if (siteData.weeks) {
+  const weeks = siteData.weeks;
+  const heatmap = document.getElementById('heatmap');
+  const cells = heatmap.querySelectorAll('.hm-cell[data-w]');
+
+  // 共享悬浮提示
+  const tip = document.createElement('div');
+  tip.className = 'hm-tip';
+  document.body.appendChild(tip);
+
+  const DIM_LABEL = { git: '代码提交', notes: '新笔记', ai: 'AI 消息', gh: 'GitHub 贡献' };
+  function tipText(cell) {
+    const [y, m, d] = cell.d.split('-');
+    const parts = [];
+    const b = cell.b || {};
+    for (const k of ['git', 'notes', 'ai', 'gh']) {
+      if (b[k]) parts.push(`${b[k]} ${DIM_LABEL[k]}`);
+    }
+    return `${+m}月${+d}日 · ${parts.length ? parts.join(' + ') : '无活动'}`;
+  }
+
+  cells.forEach((el) => {
+    const cell = weeks[+el.dataset.w][+el.dataset.d];
+    if (cell.future) return;
+    el.addEventListener('mouseenter', () => {
+      tip.textContent = tipText(cell);
+      const r = el.getBoundingClientRect();
+      tip.style.left = Math.min(window.innerWidth - 230, Math.max(8, r.left + r.width / 2 - 90)) + 'px';
+      tip.style.top = r.top - 38 + window.scrollY + 'px';
+      tip.classList.add('show');
+    });
+    el.addEventListener('mouseleave', () => tip.classList.remove('show'));
+  });
+
+  // 维度切换：按所选维度重算等级（非零值分位数阈值）
+  const dimButtons = document.querySelectorAll('.hm-dim');
+  function valueOf(cell, dim) {
+    if (!cell.b) return 0;
+    if (dim === 'all') return (cell.b.git || 0) + (cell.b.notes || 0) + (cell.b.ai || 0) + (cell.b.gh || 0);
+    return cell.b[dim] || 0;
+  }
+  function applyDim(dim) {
+    const values = [];
+    weeks.flat().forEach((c) => {
+      if (!c.future) {
+        const v = valueOf(c, dim);
+        if (v > 0) values.push(v);
+      }
+    });
+    values.sort((a, b) => a - b);
+    const q = (p) => (values.length ? values[Math.min(values.length - 1, Math.floor(p * values.length))] : 1);
+    const t1 = q(0.35), t2 = q(0.7), t3 = q(0.92);
+    cells.forEach((el) => {
+      const cell = weeks[+el.dataset.w][+el.dataset.d];
+      const v = cell.future ? 0 : valueOf(cell, dim);
+      const l = v === 0 ? 0 : v <= t1 ? 1 : v <= t2 ? 2 : 3;
+      el.className = 'hm-cell l' + l + (cell.future ? ' future' : '');
+    });
+  }
+  dimButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      dimButtons.forEach((b) => b.classList.toggle('active', b === btn));
+      applyDim(btn.dataset.dim);
+    });
+  });
+}
+
 /* ---------- 知识图谱 ----------
    真实 graph.json 存在 → 由 graph-view.js 接管（力导向交互版，任务 5）
    缺失 → 设计稿同款程序生成样例图 */
