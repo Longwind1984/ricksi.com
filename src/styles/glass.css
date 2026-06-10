@@ -382,14 +382,66 @@ main { position: relative; z-index: 1; }
   .foot-inner { flex-direction: column; align-items: flex-start; gap: 32px; padding: 44px 28px 52px; }
   .foot-right { justify-items: start; text-align: left; }
 }
-/* 手机：压缩导航使其单行放下（移动端正式设计在 Gate C 后落地，此为兜底） */
+/* ============ 手机正式设计（≤700px）============
+   顶部：品牌独立玻璃小胶囊；导航：底部悬浮玻璃 Dock（iOS 调性，液态胶囊照常工作） */
 @media (max-width: 700px) {
-  .site-head-inner { padding: 6px 8px 6px 16px; }
-  .brand { font-size: 13.5px; white-space: nowrap; }
-  .nav { font-size: 12.5px; gap: 0; }
-  .nav-link { padding: 8px 10px; white-space: nowrap; }
-  .nav .btn-accent { display: none; }
+  /* 头部容器退化为透明壳，品牌与导航各自成为玻璃元素 */
+  .site-head, .site-head.over-hero {
+    background: transparent; border: none; box-shadow: none;
+    backdrop-filter: none; -webkit-backdrop-filter: none;
+    top: 12px; left: 14px; right: 14px;
+  }
+  .site-head-inner { padding: 0; }
+  .brand {
+    font-size: 14px; padding: 9px 16px; border-radius: 999px;
+    background: rgba(14,24,44,0.5);
+    backdrop-filter: blur(22px) saturate(180%);
+    -webkit-backdrop-filter: blur(22px) saturate(180%);
+    border: 1px solid rgba(255,255,255,0.18);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.2), 0 8px 28px rgba(2,8,20,0.4);
+    white-space: nowrap;
+  }
+  .nav {
+    position: fixed; left: 50%; transform: translateX(-50%);
+    bottom: calc(14px + env(safe-area-inset-bottom));
+    padding: 4px; gap: 0; font-size: 14px;
+    background: rgba(14,24,44,0.58);
+    backdrop-filter: blur(26px) saturate(180%);
+    -webkit-backdrop-filter: blur(26px) saturate(180%);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 999px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.22), 0 14px 40px rgba(2,8,20,0.55);
+  }
+  .nav-link { padding: 11px 15px; white-space: nowrap; }
+  .nav-pill { top: 4px; bottom: 4px; }
+  .nav .btn-accent { display: none; } /* 简历入口保留在页脚 */
+
+  /* 版式 */
   .container { padding: 0 20px; }
-  .sec { padding: 28px 20px; }
+  .hero-grid { padding-top: 96px; padding-bottom: 56px; gap: 32px; }
+  .hero-title { font-size: 38px; line-height: 1.32; }
+  .hero-sub { font-size: 15.5px; line-height: 1.85; }
+  .hero-index.glass { padding: 22px 22px; border-radius: 22px; }
+  .hero-credit { bottom: 12px; right: 16px; font-size: 10px; }
+  .sec { padding: 26px 18px; border-radius: 20px; margin: 18px 0; }
+  .sec-title { font-size: 23px; white-space: nowrap; }
+  .sec-head { margin-bottom: 24px; gap: 14px; grid-template-columns: 32px 1fr; }
+  .sec-title-row { flex-wrap: wrap; row-gap: 2px; }
+  .sec-en { letter-spacing: 0.06em; }
   .proj-row, .blog-row { padding-left: 14px; padding-right: 14px; margin: 0 -14px; }
+  .proj-title { font-size: 19px; }
+  .ph { height: 120px; }
+  .blog-row { grid-template-columns: 52px 1fr auto; gap: 12px; }
+  .blog-row .tag { display: none; }
+  .blog-title { font-size: 16px; }
+  .art-title { font-size: 24px; }
+  .wb-static-num { font-size: 34px; }
+  .stat-v { font-size: 24px; }
+  /* 图谱：触屏可玩的高度 */
+  .kg-paper { min-height: 320px; display: flex; }
+  .kg-paper svg { flex: 1; }
+  /* 页脚给 Dock 让位 */
+  .foot-inner { padding-bottom: calc(130px + env(safe-area-inset-bottom)); }
+  .foot-right { width: 100%; }
+  .btn-accent.big { width: 100%; }
 }
