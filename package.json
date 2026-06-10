@@ -1,0 +1,21 @@
+{
+  "name": "rick-workbench",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "司豪杰 Rick Si · AI 产品经理 — 活数据个人工作台",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "sync": "node scripts/sync.mjs",
+    "collect:activity": "node scripts/collect-activity.mjs",
+    "collect:usage": "node scripts/collect-usage.mjs",
+    "sync:vault": "node scripts/sync-vault.mjs"
+  },
+  "dependencies": {
+    "astro": "^5.0.0",
+    "d3-force": "^3.0.0",
+    "gray-matter": "^4.0.3"
+  }
+}

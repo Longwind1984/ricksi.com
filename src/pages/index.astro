@@ -1,0 +1,293 @@
+---
+import Glass from '../layouts/Glass.astro';
+import { getCollection } from 'astro:content';
+import { loadSiteData, stamp } from '../lib/site-data.mjs';
+import { sampleHeatmap, SAMPLE_USAGE, SAMPLE_CODING, SAMPLE_KB_STATS, SAMPLE_POSTS } from '../lib/sample.js';
+
+const { activity, usage, graph } = loadSiteData();
+
+/* ---- 工作台 · token 用量（真实 usage.json 或样例） ---- */
+const u = usage ?? SAMPLE_USAGE;
+const days7 = u.days7;
+const maxV = Math.max(...days7.map((x) => x.v), 0.0001);
+const bars = days7.map((x, i) => ({
+  label: x.d,
+  h: Math.round((x.v / maxV) * 90),
+  today: i === days7.length - 1,
+}));
+const usageStamp = usage ? stamp(usage.generated_at) : null;
+
+/* ---- 工作台 · 活动热力图（真实 activity.json 或 seed 5 样例） ---- */
+type Cell = { l: number; d?: string; n?: number; b?: Record<string, number> };
+let heatmapCols: Cell[][];
+if (activity?.weeks) {
+  heatmapCols = activity.weeks;
+} else {
+  heatmapCols = sampleHeatmap(22).map((col) => col.map((l) => ({ l })));
+}
+const coding = activity?.coding ?? SAMPLE_CODING;
+const activityStamp = activity ? stamp(activity.generated_at) : null;
+
+/* ---- 知识图谱统计 ---- */
+const kbStats = graph?.stats
+  ? [
+      [graph.stats.notes.toLocaleString(), '篇笔记'],
+      [graph.stats.links.toLocaleString(), '条双链'],
+      [String(graph.stats.domains), '个主题域'],
+    ]
+  : SAMPLE_KB_STATS;
+
+/* ---- Blog（内容集合，空则回退样例标题） ---- */
+const allPosts = (await getCollection('posts', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+const posts = allPosts.length
+  ? allPosts.slice(0, 4).map((p) => ({
+      date: `${p.data.date.getFullYear()}.${String(p.data.date.getMonth() + 1).padStart(2, '0')}`,
+      title: p.data.title,
+      tag: p.data.tag,
+      href: `/blog/${p.id}/`,
+    }))
+  : SAMPLE_POSTS;
+
+/* ---- 注入客户端的数据（ticker 锚点 / 图谱数据） ---- */
+const clientData = JSON.stringify({ tokenBase: u.today, graph: graph ?? null }).replace(/</g, '\\u003c');
+
+const projects = [
+  {
+    no: '01',
+    title: 'SlashGO 复刻',
+    desc: '在 Claude Code 原生 Slash 命令发布之前，研读 Codex 开源代码并完整复刻其斜杠命令交互。能读懂工程实现，是与研发对话的底气。',
+    tags: ['源码研读', 'CLI'],
+    ph: '[ SlashGO 录屏 ]',
+    href: '#',
+  },
+  {
+    no: '02',
+    title: '行程规划套件',
+    desc: '把「调研 → 编排 → 优化」的模糊需求拆成一套日常在用的规划工具，独立走完想法到可用的全程。',
+    tags: ['需求拆解', '工具套件'],
+    ph: '[ 套件截图 ]',
+    href: '#',
+  },
+  {
+    no: '03',
+    title: '博物馆互动导览',
+    desc: '可互动演示的导览小产品，讲解与引路结合，可以直接上手玩。',
+    tags: ['互动叙事', 'Demo'],
+    ph: '[ Demo 演示 ]',
+    href: 'https://github.com/Longwind1984/prac_Museum',
+  },
+];
+---
+
+<Glass
+  title="司豪杰 Rick Si · AI 产品经理"
+  description="司豪杰 Rick Si — 互联网产品经理转型 AI 产品经理的活数据工作台：项目、实时用量、知识库图谱与写作。"
+  isHome
+>
+  <main id="top">
+    <!-- Hero · 全屏主视觉 -->
+    <section class="hero-photo">
+      <div class="container hero-grid">
+        <div class="hero-text">
+          <div class="mono kicker">AI 时代的思考与足迹</div>
+          <h1 class="hero-title">把产品判断，<br />变成能跑起来的东西。</h1>
+          <p class="hero-sub">互联网产品经理，正在转向 AI 产品方向。读源码、建工具、写思考、养知识库——欢迎来到我的工作台。</p>
+        </div>
+        <aside class="hero-index glass">
+          <div class="mono index-label">INDEX · 目录</div>
+          <div class="index-list">
+            <a href="#projects" class="index-item">
+              <span class="index-no">01</span><span class="index-t">项目</span><span class="index-s">What I've built</span>
+            </a>
+            <a href="#workbench" class="index-item">
+              <span class="index-no">02</span><span class="index-t">工作台数据</span><span class="index-s">Real-time usage</span>
+            </a>
+            <a href="#knowledge" class="index-item">
+              <span class="index-no">03</span><span class="index-t">知识库图谱</span><span class="index-s">What I've learned</span>
+            </a>
+            <a href="#blog" class="index-item">
+              <span class="index-no">04</span><span class="index-t">Blog</span><span class="index-s">What I've been thinking</span>
+            </a>
+          </div>
+        </aside>
+      </div>
+      <div class="mono hero-credit">云海之上 · 无人机自摄</div>
+    </section>
+
+    <div class="container">
+      <!-- 01 项目 -->
+      <div class="reveal">
+        <section class="sec" id="projects">
+          <div class="sec-head">
+            <span class="mono sec-no">01</span>
+            <div class="sec-title-row">
+              <h2 class="sec-title">三个项目</h2>
+              <span class="mono sec-en">PROJECTS</span>
+            </div>
+            <span class="sec-desc">每个判断背后，都有一个能跑起来的项目</span>
+          </div>
+          {projects.map((p) => (
+            <a
+              href={p.href}
+              class:list={['proj-row', { noop: p.href === '#' }]}
+              target={p.href.startsWith('http') ? '_blank' : undefined}
+              rel={p.href.startsWith('http') ? 'noreferrer' : undefined}
+            >
+              <span class="proj-no">{p.no}</span>
+              <div class="proj-body">
+                <div class="proj-title-row">
+                  <h3 class="proj-title">{p.title}</h3>
+                  <span class="arrow">→</span>
+                </div>
+                <p class="proj-desc">{p.desc}</p>
+                <div class="tag-row">
+                  {p.tags.map((t) => <span class="tag mono">{t}</span>)}
+                </div>
+              </div>
+              <div class="ph"><span class="ph-label mono">{p.ph}</span></div>
+            </a>
+          ))}
+        </section>
+      </div>
+
+      <!-- 02 工作台数据 -->
+      <div class="reveal">
+        <section class="sec" id="workbench">
+          <div class="sec-head">
+            <span class="mono sec-no">02</span>
+            <div class="sec-title-row">
+              <h2 class="sec-title">工作台数据</h2>
+              <span class="mono sec-en">WORKBENCH · LIVE</span>
+            </div>
+            <span class="sec-desc">不是装饰——这是我每天的真实用量</span>
+          </div>
+          <div class="wb-grid">
+            <div class="wb-col">
+              <div class="mono wb-label">今日 TOKEN 用量 · 实时</div>
+              <span class="wb-static-num" id="live-tokens">{u.today.toLocaleString()}</span>
+              <div class="wb-stat-row">
+                <div>
+                  <div class="mono stat-k">本周</div>
+                  <div class="stat-v">{u.week}<span class="stat-unit">tokens</span></div>
+                </div>
+                <div>
+                  <div class="mono stat-k">累计</div>
+                  <div class="stat-v">{u.cumulative}<span class="stat-unit">tokens</span></div>
+                </div>
+              </div>
+              <div class="wb-models">
+                {u.models.map(([m, p]) => (
+                  <span class="mono wb-model">{m} <b>{p}%</b></span>
+                ))}
+              </div>
+              {usageStamp && <div class="mono wb-stamp">数据更新于 {usageStamp}</div>}
+            </div>
+            <div class="wb-col">
+              <div class="mono wb-label">近 7 日（M TOKENS）</div>
+              <div class="tk-bars">
+                {bars.map((b) => (
+                  <div class="tk-day">
+                    <div class:list={['tk-bar', { today: b.today }]} style={`height:${b.h}px`}></div>
+                    <span class="tk-label">{b.label}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div class="wb-col no-border">
+              <div class="mono wb-label">{activity ? '多源活跃 · 近 22 周' : 'CODING 活跃 · 近 22 周'}</div>
+              <div class="hm" id="heatmap">
+                {heatmapCols.map((col) => (
+                  <div class="hm-col">
+                    {col.map((cell) => (
+                      <span
+                        class:list={['hm-cell', `l${cell.l}`]}
+                        data-date={cell.d}
+                        data-n={cell.n}
+                      ></span>
+                    ))}
+                  </div>
+                ))}
+              </div>
+              <div class="wb-stat-row">
+                <div>
+                  <div class="mono stat-k">提交</div>
+                  <div class="stat-v">{coding.commits.toLocaleString()}<span class="stat-unit">commits</span></div>
+                </div>
+                <div>
+                  <div class="mono stat-k">连续</div>
+                  <div class="stat-v">{coding.streak}<span class="stat-unit">天</span></div>
+                </div>
+                <div>
+                  <div class="mono stat-k">仓库</div>
+                  <div class="stat-v">{coding.repos}<span class="stat-unit">个</span></div>
+                </div>
+              </div>
+              {activityStamp && <div class="mono wb-stamp">数据更新于 {activityStamp}</div>}
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- 03 知识库图谱 -->
+      <div class="reveal">
+        <section class="sec" id="knowledge">
+          <div class="sec-head">
+            <span class="mono sec-no">03</span>
+            <div class="sec-title-row">
+              <h2 class="sec-title">知识库图谱</h2>
+              <span class="mono sec-en">KNOWLEDGE GRAPH</span>
+            </div>
+            <span class="sec-desc">AI 产品 × 底层原理，双链生长中</span>
+          </div>
+          <div class="kg-grid">
+            <div class="kg-paper" id="kg-paper"></div>
+            <div class="kg-side">
+              <div class="kg-stats">
+                {kbStats.map(([v, k]) => (
+                  <div class="kg-stat"><span class="kg-stat-v">{v}</span><span class="kg-stat-k">{k}</span></div>
+                ))}
+              </div>
+              <div class="kg-legend" id="kg-legend"></div>
+              <p class="kg-note" id="kg-note">
+                {graph
+                  ? '悬停主题域高亮 · 点击节点直接打开笔记。数据来自 Obsidian 库真实双链结构。'
+                  : '悬停主题域可高亮对应节点。样例数据——完整 Obsidian 库较大，部署版按需接入。'}
+              </p>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- 04 思考与写作 -->
+      <div class="reveal">
+        <section class="sec" id="blog">
+          <div class="sec-head">
+            <span class="mono sec-no">04</span>
+            <div class="sec-title-row">
+              <h2 class="sec-title">思考与写作</h2>
+              <span class="mono sec-en">WRITING</span>
+            </div>
+            <span class="sec-desc">做的时候想清楚，写下来才算数</span>
+          </div>
+          <div>
+            {posts.map((p) => (
+              <a href={p.href} class:list={['blog-row', { noop: p.href === '#' }]}>
+                <span class="mono blog-date">{p.date}</span>
+                <span class="blog-title">{p.title}</span>
+                <span class="tag mono">{p.tag}</span>
+                <span class="arrow">→</span>
+              </a>
+            ))}
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <script type="application/json" id="site-data" set:html={clientData} />
+  <script>
+    import '../scripts/home.js';
+  </script>
+</Glass>
