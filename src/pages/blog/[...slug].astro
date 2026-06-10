@@ -1,0 +1,49 @@
+---
+import Glass from '../../layouts/Glass.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts', ({ data }: any) => !data.draft);
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const all = (await getCollection('posts', ({ data }: any) => !data.draft)).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+const i = all.findIndex((p) => p.id === post.id);
+const prev = all[i + 1] ?? null;
+const next = all[i - 1] ?? null;
+const fmt = (d: Date) => d.toISOString().slice(0, 10);
+---
+
+<Glass title={`${post.data.title} · Rick Si`} description={post.data.description ?? post.data.title} active="blog">
+  <main class="sub-main">
+    <div class="container article-narrow">
+      <article class="sec article">
+        <nav class="mono art-crumb">
+          <a href="/blog/">思考与写作</a>
+          <span> / </span>
+          <span>{post.data.tag}</span>
+        </nav>
+        <h1 class="art-title">{post.data.title}</h1>
+        <div class="mono art-meta">
+          <span>{fmt(post.data.date)}</span>
+          <span class="tag mono">{post.data.tag}</span>
+        </div>
+        <div class="prose">
+          <Content />
+        </div>
+        <div class="art-pager">
+          {prev ? (
+            <a href={`/blog/${prev.id}/`} class="art-pager-link">← {prev.data.title}</a>
+          ) : (
+            <span></span>
+          )}
+          {next && <a href={`/blog/${next.id}/`} class="art-pager-link next">{next.data.title} →</a>}
+        </div>
+      </article>
+    </div>
+  </main>
+</Glass>

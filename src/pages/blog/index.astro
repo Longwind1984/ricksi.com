@@ -1,0 +1,37 @@
+---
+import Glass from '../../layouts/Glass.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('posts', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+const fmt = (d: Date) => `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, '0')}`;
+---
+
+<Glass title="思考与写作 · 司豪杰 Rick Si" description="AI 产品方向的思考与写作：源码拆解、产品方法、工作流实践。" active="blog">
+  <main class="sub-main">
+    <div class="container">
+      <section class="sec">
+        <div class="sec-head">
+          <span class="mono sec-no">04</span>
+          <div class="sec-title-row">
+            <h2 class="sec-title">思考与写作</h2>
+            <span class="mono sec-en">WRITING</span>
+          </div>
+          <span class="sec-desc">做的时候想清楚，写下来才算数</span>
+        </div>
+        {posts.length === 0 && <p class="kg-note">文章筹备中。</p>}
+        <div>
+          {posts.map((p) => (
+            <a href={`/blog/${p.id}/`} class="blog-row">
+              <span class="mono blog-date">{fmt(p.data.date)}</span>
+              <span class="blog-title">{p.data.title}</span>
+              <span class="tag mono">{p.data.tag}</span>
+              <span class="arrow">→</span>
+            </a>
+          ))}
+        </div>
+      </section>
+    </div>
+  </main>
+</Glass>
