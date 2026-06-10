@@ -72,7 +72,8 @@ const projects = [
     title: 'SlashGO 复刻',
     desc: '在 Claude Code 原生 Slash 命令发布之前，研读 Codex 开源代码并完整复刻其斜杠命令交互。能读懂工程实现，是与研发对话的底气。',
     tags: ['源码研读', 'CLI'],
-    ph: '[ SlashGO 录屏 ]',
+    img: '/assets/proj-slashgo.svg',
+    alt: 'SlashGO 斜杠命令面板界面示意',
     href: '#',
   },
   {
@@ -80,7 +81,8 @@ const projects = [
     title: '行程规划套件',
     desc: '把「调研 → 编排 → 优化」的模糊需求拆成一套日常在用的规划工具，独立走完想法到可用的全程。',
     tags: ['需求拆解', '工具套件'],
-    ph: '[ 套件截图 ]',
+    img: '/assets/proj-trips.svg',
+    alt: '行程规划套件：路线地图与逐日行程卡示意',
     href: '#',
   },
   {
@@ -88,7 +90,8 @@ const projects = [
     title: '博物馆互动导览',
     desc: '可互动演示的导览小产品，讲解与引路结合，可以直接上手玩。',
     tags: ['互动叙事', 'Demo'],
-    ph: '[ Demo 演示 ]',
+    img: '/assets/proj-museum.svg',
+    alt: '山西博物院策展批判型导览 Demo 首屏',
     href: 'https://github.com/Longwind1984/prac_Museum',
   },
 ];
@@ -159,7 +162,7 @@ const projects = [
                   {p.tags.map((t) => <span class="tag mono">{t}</span>)}
                 </div>
               </div>
-              <div class="ph"><span class="ph-label mono">{p.ph}</span></div>
+              <div class="ph"><img src={p.img} alt={p.alt} loading="lazy" /></div>
             </a>
           ))}
         </section>

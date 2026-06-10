@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 300" font-family="ui-monospace,SF Mono,Menlo,monospace">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#10203E"/><stop offset="1" stop-color="#091223"/>
+    </linearGradient>
+    <linearGradient id="win" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="rgba(255,255,255,0.13)"/><stop offset="1" stop-color="rgba(255,255,255,0.05)"/>
+    </linearGradient>
+    <linearGradient id="row" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="rgba(77,159,236,0.5)"/><stop offset="1" stop-color="rgba(77,159,236,0.28)"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="10" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="640" height="300" fill="url(#bg)"/>
+  <path d="M0 268 L90 218 L170 252 L260 200 L350 248 L470 196 L560 240 L640 212 L640 300 L0 300 Z" fill="#0B1730" opacity="0.85"/>
+  <path d="M0 276 L80 238 L180 266 L300 224 L420 262 L540 228 L640 252 L640 300 L0 300 Z" fill="#081020" opacity="0.9"/>
+  <!-- 终端玻璃窗 -->
+  <g filter="url(#glow)" opacity="0.35"><rect x="150" y="38" width="340" height="210" rx="18" fill="#4D9FEC" opacity="0.18"/></g>
+  <rect x="150" y="38" width="340" height="210" rx="18" fill="url(#win)" stroke="rgba(255,255,255,0.28)" stroke-width="1.2"/>
+  <rect x="150.6" y="38.6" width="338.8" height="208.8" rx="17.4" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="0.6" opacity="0.6"/>
+  <circle cx="172" cy="58" r="4.5" fill="#FF6159"/><circle cx="188" cy="58" r="4.5" fill="#FFBD2E"/><circle cx="204" cy="58" r="4.5" fill="#2ACB42"/>
+  <text x="320" y="62" text-anchor="middle" font-size="11" fill="rgba(255,255,255,0.5)">slashgo · codex replica</text>
+  <!-- 输入行 -->
+  <rect x="170" y="78" width="300" height="34" rx="10" fill="rgba(8,16,32,0.65)" stroke="rgba(77,159,236,0.55)" stroke-width="1.2"/>
+  <text x="184" y="100" font-size="16" fill="#4D9FEC" font-weight="700">/go</text>
+  <rect x="218" y="86" width="2.5" height="18" fill="#9CC8F5">
+    <animate attributeName="opacity" values="1;0;1" dur="1.2s" repeatCount="indefinite"/>
+  </rect>
+  <!-- 命令下拉 -->
+  <rect x="170" y="120" width="300" height="112" rx="12" fill="rgba(10,20,40,0.78)" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
+  <rect x="178" y="129" width="284" height="26" rx="8" fill="url(#row)"/>
+  <text x="190" y="146" font-size="12.5" fill="#FFFFFF">/go review</text>
+  <text x="450" y="146" font-size="10" fill="rgba(255,255,255,0.75)" text-anchor="end">⌘R</text>
+  <text x="190" y="174" font-size="12.5" fill="rgba(235,242,250,0.78)">/go test</text>
+  <text x="450" y="174" font-size="10" fill="rgba(255,255,255,0.45)" text-anchor="end">⌘T</text>
+  <text x="190" y="200" font-size="12.5" fill="rgba(235,242,250,0.78)">/go deploy</text>
+  <text x="450" y="200" font-size="10" fill="rgba(255,255,255,0.45)" text-anchor="end">⌘D</text>
+  <text x="190" y="224" font-size="12.5" fill="rgba(235,242,250,0.62)">/go docs</text>
+</svg>
