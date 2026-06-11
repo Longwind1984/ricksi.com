@@ -5,7 +5,17 @@ import { getCollection } from 'astro:content';
 const posts = (await getCollection('posts', ({ data }) => !data.draft)).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
 );
-const fmt = (d: Date) => `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, '0')}`;
+const fmt = (d: Date) => `${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')}`;
+
+/* 按年分组 */
+const byYear = new Map<number, typeof posts>();
+for (const p of posts) {
+  const y = p.data.date.getFullYear();
+  if (!byYear.has(y)) byYear.set(y, []);
+  byYear.get(y)!.push(p);
+}
+const years = [...byYear.keys()].sort((a, b) => b - a);
+const tags = [...new Set(posts.map((p) => p.data.tag))];
 ---
 
 <Glass title="思考与写作 · 司豪杰 Rick Si" description="AI 产品方向的思考与写作：源码拆解、产品方法、工作流实践。" active="blog">
@@ -16,22 +26,59 @@ const fmt = (d: Date) => `${d.getFullYear()}.${String(d.getMonth() + 1).padStart
           <span class="mono sec-no">04</span>
           <div class="sec-title-row">
             <h2 class="sec-title">思考与写作</h2>
-            <span class="mono sec-en">WRITING</span>
+            <span class="mono sec-en">WRITING · {posts.length}</span>
           </div>
           <span class="sec-desc">做的时候想清楚，写下来才算数</span>
         </div>
+
+        {tags.length > 1 && (
+          <div class="hm-dims mono blog-tags" id="blog-tags">
+            <button class="hm-dim active" data-tag="">全部</button>
+            {tags.map((t) => (
+              <button class="hm-dim" data-tag={t}>{t}</button>
+            ))}
+          </div>
+        )}
+
         {posts.length === 0 && <p class="kg-note">文章筹备中。</p>}
-        <div>
-          {posts.map((p) => (
-            <a href={`/blog/${p.id}/`} class="blog-row">
-              <span class="mono blog-date">{fmt(p.data.date)}</span>
-              <span class="blog-title">{p.data.title}</span>
-              <span class="tag mono">{p.data.tag}</span>
-              <span class="arrow">→</span>
-            </a>
-          ))}
-        </div>
+
+        {years.map((y) => (
+          <div class="blog-year-group">
+            <div class="mono blog-year">{y}</div>
+            {byYear.get(y)!.map((p) => (
+              <a href={`/blog/${p.id}/`} class="blog-row blog-rich" data-tag={p.data.tag}>
+                <span class="mono blog-date">{fmt(p.data.date)}</span>
+                <span class="blog-main">
+                  <span class="blog-title">{p.data.title}</span>
+                  {p.data.description && <span class="blog-desc">{p.data.description}</span>}
+                </span>
+                <span class="tag mono">{p.data.tag}</span>
+                <span class="arrow">→</span>
+              </a>
+            ))}
+          </div>
+        ))}
       </section>
     </div>
   </main>
+
+  <script>
+    // 标签过滤（纯 DOM，无依赖）
+    const wrap = document.getElementById('blog-tags');
+    if (wrap) {
+      wrap.addEventListener('click', (e) => {
+        const btn = (e.target as HTMLElement).closest('.hm-dim') as HTMLElement | null;
+        if (!btn) return;
+        wrap.querySelectorAll('.hm-dim').forEach((b) => b.classList.toggle('active', b === btn));
+        const tag = btn.dataset.tag || '';
+        document.querySelectorAll<HTMLElement>('.blog-rich').forEach((row) => {
+          row.style.display = !tag || row.dataset.tag === tag ? '' : 'none';
+        });
+        document.querySelectorAll<HTMLElement>('.blog-year-group').forEach((g) => {
+          const visible = [...g.querySelectorAll<HTMLElement>('.blog-rich')].some((r) => r.style.display !== 'none');
+          g.style.display = visible ? '' : 'none';
+        });
+      });
+    }
+  </script>
 </Glass>

@@ -19,6 +19,7 @@ const fmt = (d: Date) => d.toISOString().slice(0, 10);
 ---
 
 <Glass title={`${post.data.title} · Rick Si`} description={post.data.description ?? post.data.title} active="blog">
+  <div class="read-progress" id="read-progress"></div>
   <main class="sub-main">
     <div class="container article-narrow">
       <article class="sec article">
@@ -46,4 +47,19 @@ const fmt = (d: Date) => d.toISOString().slice(0, 10);
       </article>
     </div>
   </main>
+
+  <script>
+    // 阅读进度条（rAF 节流）
+    const bar = document.getElementById('read-progress');
+    if (bar) {
+      let raf = 0;
+      const update = () => {
+        raf = 0;
+        const max = document.documentElement.scrollHeight - innerHeight;
+        bar.style.transform = `scaleX(${max > 0 ? Math.min(1, scrollY / max) : 0})`;
+      };
+      update();
+      addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(update); }, { passive: true });
+    }
+  </script>
 </Glass>

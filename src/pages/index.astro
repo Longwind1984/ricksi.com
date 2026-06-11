@@ -56,13 +56,14 @@ const allPosts = (await getCollection('posts', ({ data }) => !data.draft)).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
 );
 const posts = allPosts.length
-  ? allPosts.slice(0, 4).map((p) => ({
+  ? allPosts.slice(0, 3).map((p) => ({
       date: `${p.data.date.getFullYear()}.${String(p.data.date.getMonth() + 1).padStart(2, '0')}`,
       title: p.data.title,
       tag: p.data.tag,
       href: `/blog/${p.id}/`,
     }))
   : SAMPLE_POSTS;
+const postsTotal = allPosts.length;
 
 /* ---- 注入客户端的数据（ticker 锚点 / 热力图明细 / 图谱数据） ---- */
 const clientData = JSON.stringify({
@@ -284,7 +285,7 @@ const numbered = (list: typeof PROJECTS, offset = 0) =>
           <div class="sec-head">
             <span class="mono sec-no">04</span>
             <div class="sec-title-row">
-              <h2 class="sec-title">思考与写作</h2>
+              <h2 class="sec-title"><a href="/blog/" class="sec-title-link">思考与写作</a></h2>
               <span class="mono sec-en">WRITING</span>
             </div>
             <span class="sec-desc">做的时候想清楚，写下来才算数</span>
@@ -299,6 +300,11 @@ const numbered = (list: typeof PROJECTS, offset = 0) =>
               </a>
             ))}
           </div>
+          {postsTotal > 0 && (
+            <div class="proj-expand-row">
+              <a class="proj-expand mono blog-all" href="/blog/">查看全部 {postsTotal} 篇 →</a>
+            </div>
+          )}
         </section>
       </div>
     </div>

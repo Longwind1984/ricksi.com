@@ -373,6 +373,23 @@ main { position: relative; z-index: 1; }
 .blog-row:active { transform: scale(0.99); }
 .blog-date { font-size: 12.5px; color: var(--sub); }
 .blog-title { font-family: var(--head); font-size: 19px; font-weight: 600; letter-spacing: -0.01em; color: #FFFFFF; }
+/* /blog/ 二级页：年分组 + 摘要行 + 标签过滤 */
+.blog-year-group { margin-top: 8px; }
+.blog-year { font-size: 12px; color: color-mix(in srgb, var(--accent) 80%, white); letter-spacing: 0.15em; padding: 18px 0 6px; border-bottom: 1px solid var(--line); }
+.blog-tags { margin-bottom: 10px; }
+.blog-main { display: grid; gap: 4px; min-width: 0; }
+.blog-desc { font-size: 12.5px; line-height: 1.7; color: var(--sub); }
+.sec-title-link { transition: color .2s; }
+.sec-title-link:hover { color: var(--accent); }
+.blog-all { display: inline-flex; align-items: center; height: 38px; }
+/* 文章页阅读进度条 */
+.read-progress {
+  position: fixed; top: 0; left: 0; height: 2.5px; width: 100%; z-index: 60;
+  transform-origin: 0 50%; transform: scaleX(0);
+  background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 70%, white), var(--accent));
+  box-shadow: 0 0 8px color-mix(in srgb, var(--accent) 60%, transparent);
+  pointer-events: none;
+}
 
 /* Footer */
 .site-foot { position: relative; z-index: 1; margin-top: 40px; background: rgba(7,13,26,0.6); backdrop-filter: blur(24px) saturate(150%); -webkit-backdrop-filter: blur(24px) saturate(150%); border-top: 1px solid rgba(255,255,255,0.12); box-shadow: inset 0 1px 0 rgba(255,255,255,0.14); }
