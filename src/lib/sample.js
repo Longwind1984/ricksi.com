@@ -83,6 +83,15 @@ export const SAMPLE_USAGE = {
 
 export const SAMPLE_CODING = { sample: true, commits: 486, streak: 37, repos: 9 };
 
+/* 近 14 日趋势样例（M tokens） */
+export const SAMPLE_DAYS14 = [
+  0.6, 1.1, 0.9, 1.6, 0.7, 1.3, 2.0, 0.9, 1.4, 2.2, 0.7, 1.1, 1.8, 1.25,
+].map((v, i) => {
+  const d = new Date();
+  d.setDate(d.getDate() - (13 - i));
+  return { label: i === 13 ? '今天' : `${d.getMonth() + 1}/${d.getDate()}`, v };
+});
+
 export const SAMPLE_KB_STATS = [['1,247', '篇笔记'], ['3,892', '条双链'], ['5', '个主题域']];
 
 export const SAMPLE_POSTS = [

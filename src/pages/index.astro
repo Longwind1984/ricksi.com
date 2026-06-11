@@ -4,20 +4,32 @@ import { getCollection } from 'astro:content';
 import { PROJECTS } from '../data/projects';
 import ProjRow from '../components/ProjRow.astro';
 import { loadSiteData, stamp } from '../lib/site-data.mjs';
-import { sampleHeatmap, SAMPLE_USAGE, SAMPLE_CODING, SAMPLE_KB_STATS, SAMPLE_POSTS } from '../lib/sample.js';
+import { sampleHeatmap, SAMPLE_USAGE, SAMPLE_CODING, SAMPLE_KB_STATS, SAMPLE_POSTS, SAMPLE_DAYS14 } from '../lib/sample.js';
+import TrendChart from '../components/TrendChart.astro';
 
 const { activity, usage, graph } = loadSiteData();
 
 /* ---- 工作台 · token 用量（真实 usage.json 或样例） ---- */
 const u = usage ?? SAMPLE_USAGE;
-const days7 = u.days7;
-const maxV = Math.max(...days7.map((x) => x.v), 0.0001);
-const bars = days7.map((x, i) => ({
-  label: x.d,
-  h: Math.round((x.v / maxV) * 90),
-  today: i === days7.length - 1,
-}));
 const usageStamp = usage ? stamp(usage.generated_at) : null;
+
+/* 近 14 日趋势：从 usage.series 派生（实测/估算逐日标记） */
+function days14From(series: Record<string, { total?: number; estimated?: boolean }>) {
+  const out = [];
+  for (let i = 13; i >= 0; i--) {
+    const dt = new Date();
+    dt.setDate(dt.getDate() - i);
+    const k = `${dt.getFullYear()}-${String(dt.getMonth() + 1).padStart(2, '0')}-${String(dt.getDate()).padStart(2, '0')}`;
+    const rec = series[k];
+    out.push({
+      label: i === 0 ? '今天' : `${dt.getMonth() + 1}/${dt.getDate()}`,
+      v: Math.round(((rec?.total || 0) / 1e6) * 100) / 100,
+      estimated: !!rec?.estimated,
+    });
+  }
+  return out;
+}
+const days14 = usage?.series ? days14From(usage.series) : SAMPLE_DAYS14;
 
 /* ---- 工作台 · 活动热力图（真实 activity.json 或 seed 5 样例） ---- */
 type Cell = { l: number; d?: string; n?: number; b?: Record<string, number> };
@@ -54,7 +66,6 @@ const posts = allPosts.length
 
 /* ---- 注入客户端的数据（ticker 锚点 / 热力图明细 / 图谱数据） ---- */
 const clientData = JSON.stringify({
-  tokenBase: u.today,
   weeks: activity?.weeks ?? null,
   graph: graph ?? null,
 }).replace(/</g, '\\u003c');
@@ -96,7 +107,7 @@ const numbered = (list: typeof PROJECTS, offset = 0) =>
               <span class="index-no">01</span><span class="index-t">项目</span><span class="index-s">What I've built · {PROJECTS.length}</span>
             </a>
             <a href="#workbench" class="index-item">
-              <span class="index-no">02</span><span class="index-t">工作台数据</span><span class="index-s">Real-time usage</span>
+              <span class="index-no">02</span><span class="index-t">工作台数据</span><span class="index-s">Tokens &amp; activity</span>
             </a>
             <a href="#knowledge" class="index-item">
               <span class="index-no">03</span><span class="index-t">知识库图谱</span><span class="index-s">What I've learned</span>
@@ -147,14 +158,14 @@ const numbered = (list: typeof PROJECTS, offset = 0) =>
             <span class="mono sec-no">02</span>
             <div class="sec-title-row">
               <h2 class="sec-title">工作台数据</h2>
-              <span class="mono sec-en">WORKBENCH · LIVE</span>
+              <span class="mono sec-en">WORKBENCH · DAILY</span>
             </div>
             <span class="sec-desc">不是装饰——这是我每天的真实用量</span>
           </div>
           <div class="wb-grid">
             <div class="wb-col">
-              <div class="mono wb-label">今日 TOKEN 用量 · 实时</div>
-              <span class="wb-static-num" id="live-tokens">{u.today.toLocaleString()}</span>
+              <div class="mono wb-label">今日 TOKEN 用量</div>
+              <span class="wb-static-num">{u.today.toLocaleString()}</span>
               <div class="wb-stat-row">
                 <div>
                   <div class="mono stat-k">本周</div>
@@ -180,15 +191,8 @@ const numbered = (list: typeof PROJECTS, offset = 0) =>
               )}
             </div>
             <div class="wb-col">
-              <div class="mono wb-label">近 7 日（M TOKENS）</div>
-              <div class="tk-bars">
-                {bars.map((b) => (
-                  <div class="tk-day">
-                    <div class:list={['tk-bar', { today: b.today }]} style={`height:${b.h}px`}></div>
-                    <span class="tk-label">{b.label}</span>
-                  </div>
-                ))}
-              </div>
+              <div class="mono wb-label">近 14 日用量趋势（M TOKENS）</div>
+              <TrendChart days={days14} />
             </div>
             <div class="wb-col no-border">
               <div class="mono wb-label">{activity ? '多源活跃 · 近 22 周' : 'CODING 活跃 · 近 22 周'}</div>

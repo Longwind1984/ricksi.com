@@ -51,14 +51,25 @@ if (projExpand) {
   });
 }
 
-/* ---------- 实时 Token 数字（锚定最近快照继续跳动） ---------- */
-const liveEl = document.getElementById('live-tokens');
-if (liveEl) {
-  let n = siteData.tokenBase || 1247832;
-  setInterval(() => {
-    n += Math.floor(Math.random() * 240) + 40;
-    liveEl.textContent = n.toLocaleString();
-  }, 1600);
+/* ---------- 趋势图悬浮明细（点位 data-tip） ---------- */
+const tcPts = document.querySelectorAll('.tc-pt[data-tip]');
+if (tcPts.length) {
+  const tcTip = document.createElement('div');
+  tcTip.className = 'hm-tip';
+  document.body.appendChild(tcTip);
+  tcPts.forEach((pt) => {
+    const show = () => {
+      tcTip.textContent = pt.dataset.tip;
+      const r = pt.getBoundingClientRect();
+      const tw = tcTip.offsetWidth || 150;
+      tcTip.style.left = Math.min(window.innerWidth - tw - 8, Math.max(8, r.left + r.width / 2 - tw / 2)) + 'px';
+      tcTip.style.top = r.top - (tcTip.offsetHeight || 30) - 8 + window.scrollY + 'px';
+      tcTip.classList.add('show');
+    };
+    pt.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') show(); });
+    pt.addEventListener('pointerdown', (e) => { if (e.pointerType !== 'mouse') show(); });
+    pt.addEventListener('pointerleave', () => tcTip.classList.remove('show'));
+  });
 }
 
 /* ---------- 热力图 v2：悬停明细 + 维度切换（仅真实数据） ---------- */
