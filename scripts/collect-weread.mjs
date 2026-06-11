@@ -92,8 +92,13 @@ try {
     })
     .sort((a, b) => b.lastRead - a.lastRead);
 
-  /* 5. 「最近在读」候选用 /book/getprogress 拿精确进度（progress 1 = 1%） */
-  const current = enriched.find((b) => !b.finished) ?? enriched[0] ?? null;
+  /* 5. 「最近在读」= 最近碰过且真的读出进度的书（刚加书架未开读的 0% 不算）；
+        再用 /book/getprogress 拿精确进度（progress 1 = 1%） */
+  const current =
+    enriched.find((b) => !b.finished && b.progress > 0) ??
+    enriched.find((b) => !b.finished) ??
+    enriched[0] ??
+    null;
   if (current) {
     try {
       const p = await gw('/book/getprogress', { bookId: current.id });

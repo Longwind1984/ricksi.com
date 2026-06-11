@@ -1,0 +1,207 @@
+{
+ "generated_at": "2026-06-11T05:43:01.176Z",
+ "source": "weread-official-gateway",
+ "stats": {
+  "total": 400,
+  "ebooks": 341,
+  "audiobooks": 0,
+  "finished": 24,
+  "reading": 72,
+  "notes": 3321,
+  "readDays": 552,
+  "hours": 213
+ },
+ "current": {
+  "id": "26297952",
+  "title": "论美国的民主",
+  "author": "[法]托克维尔",
+  "coverUrl": "https://wfqqreader-1252317822.image.myqcloud.com/cover/952/26297952/t6_26297952.jpg",
+  "progress": 57,
+  "finished": false,
+  "notes": 14,
+  "lastRead": 1779689428,
+  "cover": "/assets/books/26297952.jpg"
+ },
+ "shelf": [
+  {
+   "id": "567464",
+   "title": "人的行动",
+   "author": "路德维希·冯·米塞斯编著",
+   "progress": 0,
+   "finished": false,
+   "notes": 0,
+   "lastRead": 1780577795,
+   "cover": "/assets/books/567464.jpg"
+  },
+  {
+   "id": "26297952",
+   "title": "论美国的民主",
+   "author": "[法]托克维尔",
+   "progress": 57,
+   "finished": false,
+   "notes": 14,
+   "lastRead": 1779689428,
+   "cover": "/assets/books/26297952.jpg"
+  },
+  {
+   "id": "40420317",
+   "title": "美国生活中的反智主义",
+   "author": "理查德·霍夫施塔特",
+   "progress": 5,
+   "finished": false,
+   "notes": 38,
+   "lastRead": 1779556554,
+   "cover": "/assets/books/40420317.jpg"
+  },
+  {
+   "id": "909755",
+   "title": "读懂中国青铜器：文化、形式、功能与图案",
+   "author": "戴克成",
+   "progress": 0,
+   "finished": false,
+   "notes": 0,
+   "lastRead": 1779358968,
+   "cover": "/assets/books/909755.jpg"
+  },
+  {
+   "id": "23875144",
+   "title": "中国青铜器（中文版）",
+   "author": "李松",
+   "progress": 0,
+   "finished": false,
+   "notes": 0,
+   "lastRead": 1779357707,
+   "cover": "/assets/books/23875144.jpg"
+  },
+  {
+   "id": "3300072976",
+   "title": "中国青铜图典",
+   "author": "谢海元 顾望",
+   "progress": 0,
+   "finished": false,
+   "notes": 0,
+   "lastRead": 1779357598,
+   "cover": "/assets/books/3300072976.jpg"
+  },
+  {
+   "id": "25913035",
+   "title": "施米特文集：政治的神学",
+   "author": "卡尔·施米特",
+   "progress": 3,
+   "finished": false,
+   "notes": 1,
+   "lastRead": 1778806526,
+   "cover": "/assets/books/25913035.jpg"
+  },
+  {
+   "id": "23723903",
+   "title": "我们需要什么样的文明",
+   "author": "张汝伦",
+   "progress": 2,
+   "finished": false,
+   "notes": 5,
+   "lastRead": 1778279415,
+   "cover": "/assets/books/23723903.jpg"
+  },
+  {
+   "id": "22486197",
+   "title": "风险社会：新的现代性之路",
+   "author": "乌尔里希·贝克",
+   "progress": 0,
+   "finished": false,
+   "notes": 0,
+   "lastRead": 1778131541,
+   "cover": "/assets/books/22486197.jpg"
+  },
+  {
+   "id": "3300150290",
+   "title": "我的信仰（轻经典）",
+   "author": "胡适",
+   "progress": 0,
+   "finished": false,
+   "notes": 0,
+   "lastRead": 1777839596,
+   "cover": "/assets/books/3300150290.jpg"
+  },
+  {
+   "id": "936593",
+   "title": "无政府、国家和乌托邦",
+   "author": "罗伯特·诺奇克",
+   "progress": 0,
+   "finished": false,
+   "notes": 0,
+   "lastRead": 1777725426,
+   "cover": "/assets/books/936593.jpg"
+  },
+  {
+   "id": "3300063041",
+   "title": "博尔赫斯，写作课（博尔赫斯全集）",
+   "author": "[阿根廷]豪尔赫·路易斯·博尔赫斯",
+   "progress": 4,
+   "finished": false,
+   "notes": 1,
+   "lastRead": 1777705097,
+   "cover": "/assets/books/3300063041.jpg"
+  },
+  {
+   "id": "752696",
+   "title": "论美国的民主",
+   "author": "[法]托克维尔",
+   "progress": 7,
+   "finished": false,
+   "notes": 13,
+   "lastRead": 1777697375,
+   "cover": "/assets/books/752696.jpg"
+  },
+  {
+   "id": "3300176693",
+   "title": "大转型：我们时代的政治与经济起源",
+   "author": "[匈]卡尔·波兰尼",
+   "progress": 0,
+   "finished": false,
+   "notes": 0,
+   "lastRead": 1777696290,
+   "cover": "/assets/books/3300176693.jpg"
+  },
+  {
+   "id": "36235914",
+   "title": "大众的反叛",
+   "author": "[西]奥尔特加·加塞特",
+   "progress": 0,
+   "finished": false,
+   "notes": 0,
+   "lastRead": 1777695586,
+   "cover": "/assets/books/36235914.jpg"
+  },
+  {
+   "id": "3300044710",
+   "title": "瓦尔登湖",
+   "author": "[美]亨利·戴维·梭罗",
+   "progress": 19,
+   "finished": false,
+   "notes": 45,
+   "lastRead": 1777695487,
+   "cover": "/assets/books/3300044710.jpg"
+  },
+  {
+   "id": "3300125285",
+   "title": "On the Duty of Civil Disobedience",
+   "author": "Henry David Thoreau",
+   "progress": 76,
+   "finished": false,
+   "notes": 16,
+   "lastRead": 1777695367,
+   "cover": "/assets/books/3300125285.jpg"
+  },
+  {
+   "id": "3300189835",
+   "title": "我的天才朋友",
+   "author": "[瑞典]弗雷德里克·巴克曼",
+   "progress": 0,
+   "finished": false,
+   "notes": 0,
+   "lastRead": 1777668595,
+   "cover": "/assets/books/3300189835.jpg"
+  }
+ ]
+}
