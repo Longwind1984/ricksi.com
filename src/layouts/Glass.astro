@@ -64,6 +64,10 @@ const navItems = [
             {navItems.map(([id, label]) => (
               <a href={isHome ? `#${id}` : `/#${id}`} class="nav-link" data-tab={id}>{label}</a>
             ))}
+            <button class="nav-search mono" type="button" aria-label="搜索（⌘K 或 /）" title="搜索（⌘K 或 /）">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.5" y2="16.5"></line></svg>
+              <span class="nav-search-k">⌘K</span>
+            </button>
             <a href={isHome ? '#contact' : '/#contact'} class="btn-accent">下载简历</a>
           </nav>
         </div>
@@ -93,8 +97,18 @@ const navItems = [
       )}
     </div>
 
+    <!-- ⌘K 命令面板 -->
+    <div class="cmdk" id="cmdk" hidden>
+      <div class="cmdk-panel" role="dialog" aria-label="站内搜索">
+        <input id="cmdk-input" class="cmdk-input" type="text" placeholder="搜索笔记、文章、项目… 试试 /kb 或 /blog" autocomplete="off" spellcheck="false" />
+        <div class="cmdk-list" id="cmdk-list"></div>
+        <div class="cmdk-foot mono">↑↓ 选择 · Enter 打开 · Esc 关闭</div>
+      </div>
+    </div>
+
     <script>
       import '../scripts/nav.js';
+      import '../scripts/cmdk.js';
     </script>
   </body>
 </html>
