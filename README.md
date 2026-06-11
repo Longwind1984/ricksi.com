@@ -35,10 +35,11 @@ npm run sync            # 一键：采集全部 → commit → push（--no-push 
 | `collect-usage` | Claude Code 本地 JSONL（真实）+ 早期按活跃度估算（标记） | `data/usage.json` |
 | `sync-vault` | Obsidian `04AI/` 真实结构与双链 | `data/graph.json` + `content/kb/` + 隐私清单 |
 | `fetch-github` | GitHub GraphQL（Actions 每日 cron，需 token） | 合并进 activity 的 gh 维度 |
-| `collect-weread` | 微信读书书架/进度/划线数（需 cookie，见下） | `data/reading.json` + 封面 |
+| `collect-weread` | 微信读书官方 Agent API（书架/笔记/阅读统计，需 API Key） | `data/reading.json` + 封面 |
 
-**微信读书接入**：登录 [weread.qq.com](https://weread.qq.com) 后复制完整 Cookie，写入 `scripts/.weread-cookie`
-（已 gitignore，绝不入库），下次 `npm run sync` 自动采集；cookie 过期时采集器会报错提示更新。
+**微信读书接入（官方 Skill 体系）**：打开 [weread.qq.com/r/weread-skills](https://weread.qq.com/r/weread-skills)
+登录并复制 API Key（`wrk-` 开头），写入 `scripts/.weread-key`（已 gitignore，绝不入库），
+下次 `npm run sync` 自动采集。私密阅读（secret）书目自动排除，不会出现在公开站点。
 
 **每日自动同步**（可选）：
 
@@ -92,5 +93,5 @@ npm run build     # 产出 dist/（145 静态页）
 
 - Slash Goal / 行程套件的真实截图（现为设计 SVG 封面，`src/data/projects.ts` 可换）
 - 「下载简历」按钮的 PDF（`public/assets/` 放入后改 `Glass.astro` 两处链接）
-- 微信读书 cookie（见上）让阅读区从样例变真实
+- 微信读书 API Key（见上）让阅读区从样例变真实
 - `content/posts/` 继续添加文章（front-matter 照首篇）

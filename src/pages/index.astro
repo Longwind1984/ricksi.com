@@ -345,10 +345,15 @@ const numbered = (list: typeof PROJECTS, offset = 0) =>
           </div>
 
           <div class="rd-stats">
-            <div><div class="mono stat-k">藏书</div><div class="stat-v">{reading.stats.total}<span class="stat-unit">本</span></div></div>
-            <div><div class="mono stat-k">读完</div><div class="stat-v">{reading.stats.finished}<span class="stat-unit">本</span></div></div>
-            <div><div class="mono stat-k">在读</div><div class="stat-v">{reading.stats.reading}<span class="stat-unit">本</span></div></div>
-            <div><div class="mono stat-k">划线与想法</div><div class="stat-v">{reading.stats.notes.toLocaleString()}<span class="stat-unit">条</span></div></div>
+            {[
+              ['藏书', reading.stats.total, '本'],
+              ['读完', reading.stats.finished, '本'],
+              ...(reading.stats.readDays ? [['阅读天数', reading.stats.readDays, '天']] : [['在读', reading.stats.reading, '本']]),
+              ...(reading.stats.hours ? [['累计时长', reading.stats.hours, '小时']] : []),
+              ['划线与想法', reading.stats.notes.toLocaleString(), '条'],
+            ].map(([k, v, unit]) => (
+              <div><div class="mono stat-k">{k}</div><div class="stat-v">{v}<span class="stat-unit">{unit}</span></div></div>
+            ))}
           </div>
 
           <div class="rd-grid">
