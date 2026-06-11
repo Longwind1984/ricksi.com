@@ -45,6 +45,13 @@ h1, h2, h3 { font-family: var(--head, -apple-system, 'PingFang SC', sans-serif);
   --head: -apple-system, 'SF Pro Display', 'PingFang SC', 'MiSans', 'HarmonyOS Sans SC', 'Microsoft YaHei', sans-serif;
   --ink2: #FFFFFF; --sub: rgba(235,241,250,0.62); --line: rgba(255,255,255,0.14);
 }
+/* 圆角 token（HIG 同心圆角：嵌套内层 = 父圆角 − 内边距；胶囊类恒为 999px 不参与推导） */
+:root {
+  --r-sec: 28px;     /* 内容玻璃区块 */
+  --r-hero: 26px;    /* hero 目录卡 */
+  --r-card: 16px;    /* 媒体卡/图面 */
+  --ease-liquid: cubic-bezier(.3, 1.4, .4, 1);
+}
 .mono { font-family: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace; }
 .container { max-width: 1240px; margin: 0 auto; padding: 0 48px; }
 
@@ -66,15 +73,23 @@ h1, h2, h3 { font-family: var(--head, -apple-system, 'PingFang SC', sans-serif);
   backdrop-filter: blur(24px) saturate(180%);
   -webkit-backdrop-filter: blur(24px) saturate(180%);
   border: 1px solid rgba(255,255,255,0.16);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.2), 0 10px 36px rgba(2,8,20,0.4);
+  /* 方向性边缘高光：左上主光源（rim light），全站统一 */
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.22),
+    inset 1px 0 0 rgba(255,255,255,0.07),
+    inset -1px -1px 0 rgba(255,255,255,0.04),
+    0 10px 36px rgba(2,8,20,0.4);
   transition: background-color .35s ease;
 }
 .site-head.over-hero { background: rgba(14,24,44,0.26); }
-.site-head-inner { display: flex; justify-content: space-between; align-items: center; padding: 8px 10px 8px 24px; }
+.site-head-inner { display: flex; justify-content: space-between; align-items: center; padding: 8px 10px 8px 24px; transition: padding .45s var(--ease-liquid); }
+/* 滚动形变（iOS 26 minimize）：下滚收缩、上滚展开；用 padding 收缩避免 transform 干扰胶囊测量 */
+.site-head.compact .site-head-inner { padding: 2px 6px 2px 20px; }
+.site-head.compact .nav-link { padding-top: 7px; padding-bottom: 7px; }
 .brand { font-family: var(--head); font-weight: 700; font-size: 17px; letter-spacing: -0.01em; color: #FFFFFF; }
 /* 液态玻璃 tab 栏 */
 .nav { position: relative; display: flex; gap: 2px; align-items: center; font-size: 14px; }
-.nav-link { position: relative; z-index: 1; color: rgba(255,255,255,0.72); font-weight: 500; padding: 9px 17px; border-radius: 999px; transition: color .3s ease, transform .35s cubic-bezier(.3,1.4,.4,1); -webkit-tap-highlight-color: transparent; }
+.nav-link { position: relative; z-index: 1; color: rgba(255,255,255,0.72); font-weight: 500; padding: 9px 17px; border-radius: 999px; transition: color .3s ease, padding .45s var(--ease-liquid), transform .35s var(--ease-liquid); -webkit-tap-highlight-color: transparent; }
 .nav-link:hover { color: #FFFFFF; }
 .nav-link:active { transform: scale(0.93); }
 .nav-link.active { color: #FFFFFF; font-weight: 600; }
@@ -89,28 +104,40 @@ h1, h2, h3 { font-family: var(--head, -apple-system, 'PingFang SC', sans-serif);
   box-shadow: inset 0 1px 0 rgba(255,255,255,0.5), inset 0 -6px 12px rgba(255,255,255,0.08), 0 4px 16px rgba(2,8,20,0.32);
   backdrop-filter: blur(6px) saturate(190%) brightness(1.18);
   -webkit-backdrop-filter: blur(6px) saturate(190%) brightness(1.18);
-  transition: opacity .35s ease;
+  transition: opacity .35s ease, filter .15s ease;
   pointer-events: none;
 }
-/* Chromium：真·折射（SVG 位移贴图透镜）；其他浏览器保持上面的模糊玻璃降级 */
-@supports (backdrop-filter: url("#lg-lens")) {
-  .nav-pill { backdrop-filter: url("#lg-lens") saturate(185%) brightness(1.14); }
-}
+.nav-pill.pressed { filter: brightness(1.14); }
+/* Chromium：真·折射（SVG 位移贴图透镜）。
+   注意：不能用 @supports (backdrop-filter: url(...)) 检测——Safari/Firefox 会误报 true
+   （WebKit bug 245510），导致 iOS 上连 blur 回退都被覆盖。改为 JS 运行时判定 Chromium
+   后给 <html> 加 .lg-refract（见 nav.js），CSS 侧纯渐进增强。 */
+html.lg-refract .nav-pill { backdrop-filter: url("#lg-lens") saturate(185%) brightness(1.14); }
 
-/* iOS 调性胶囊按钮 */
+/* iOS 调性胶囊按钮 —— 着色玻璃（tinted glass）：半透明 accent 让下方内容透出调制色相。
+   按钮总是位于玻璃父层（导航/页脚）之上，故不再叠 backdrop-filter（避免玻璃叠玻璃 + 合成预算）。
+   全站唯一着色控件（HIG：tint 只给主要操作）。 */
 .btn-accent {
   display: inline-flex; align-items: center; justify-content: center; gap: 6px;
   height: 40px; padding: 0 22px; margin-left: 10px;
   border-radius: 999px; line-height: 1; font-weight: 600; font-size: 15px; letter-spacing: -0.01em;
   color: #FFFFFF !important;
-  background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 82%, white 18%), var(--accent) 55%, color-mix(in srgb, var(--accent) 88%, black 12%));
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.26), rgba(255,255,255,0) 42%),
+    color-mix(in srgb, var(--accent) 58%, transparent);
   border: 1px solid rgba(255,255,255,0.42);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.55), inset 0 -8px 14px rgba(0,0,0,0.10), 0 8px 24px color-mix(in srgb, var(--accent) 42%, transparent);
-  transition: filter .2s ease, transform .35s cubic-bezier(.3,1.4,.4,1), box-shadow .2s ease;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.5),
+    inset 1px 0 0 rgba(255,255,255,0.12),
+    inset 0 -8px 14px rgba(0,0,0,0.10),
+    0 8px 24px color-mix(in srgb, var(--accent) 42%, transparent);
+  transition: filter .2s ease, transform .35s var(--ease-liquid), box-shadow .2s ease;
   -webkit-tap-highlight-color: transparent;
 }
-.btn-accent:hover { filter: brightness(1.08); box-shadow: inset 0 1px 0 rgba(255,255,255,0.55), inset 0 -8px 14px rgba(0,0,0,0.10), 0 10px 30px color-mix(in srgb, var(--accent) 55%, transparent); }
-.btn-accent:active { transform: scale(0.94); filter: brightness(0.96); }
+.btn-accent:hover { filter: brightness(1.1); box-shadow: inset 0 1px 0 rgba(255,255,255,0.5), inset 1px 0 0 rgba(255,255,255,0.12), inset 0 -8px 14px rgba(0,0,0,0.10), 0 10px 30px color-mix(in srgb, var(--accent) 55%, transparent); }
+/* 按压「充能」：玻璃受压发光而非变暗（HIG: flex and energize with light） */
+.btn-accent:active { transform: scale(0.95); filter: brightness(1.16); }
+.btn-accent:focus-visible { outline: 2px solid rgba(255,255,255,0.7); outline-offset: 2px; }
 .btn-accent.big { height: 50px; padding: 0 32px; font-size: 16px; margin-left: 0; }
 
 /* Hero */
@@ -127,12 +154,16 @@ h1, h2, h3 { font-family: var(--head, -apple-system, 'PingFang SC', sans-serif);
   backdrop-filter: blur(26px) saturate(170%);
   -webkit-backdrop-filter: blur(26px) saturate(170%);
   border: 1px solid rgba(255,255,255,0.22);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), 0 16px 48px rgba(2,8,20,0.35);
-  border-radius: 26px; padding: 28px 30px;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.3),
+    inset 1px 0 0 rgba(255,255,255,0.09),
+    inset -1px -1px 0 rgba(255,255,255,0.04),
+    0 16px 48px rgba(2,8,20,0.35);
+  border-radius: var(--r-hero); padding: 28px 30px;
 }
 .index-label { font-size: 12px; color: rgba(255,255,255,0.6); letter-spacing: 0.15em; margin-bottom: 18px; }
 .index-list { display: grid; gap: 4px; }
-.index-item { display: flex; align-items: baseline; gap: 14px; padding: 9px 14px; margin-left: -14px; border-radius: 14px; transition: background-color .18s, transform .35s cubic-bezier(.3,1.4,.4,1); -webkit-tap-highlight-color: transparent; }
+.index-item { display: flex; align-items: baseline; gap: 14px; padding: 9px 14px; margin-left: -14px; border-radius: calc(var(--r-hero) - 16px); transition: background-color .18s, transform .35s var(--ease-liquid); -webkit-tap-highlight-color: transparent; }
 .index-item:hover { background-color: rgba(255,255,255,0.12); }
 .index-item:active { transform: scale(0.97); }
 .index-no { font-family: var(--head); color: rgba(255,255,255,0.55); font-size: 13.5px; }
@@ -143,14 +174,30 @@ h1, h2, h3 { font-family: var(--head, -apple-system, 'PingFang SC', sans-serif);
 main { position: relative; z-index: 1; }
 .sec {
   background: linear-gradient(180deg, rgba(20,32,56,0.52), rgba(14,24,44,0.46));
-  backdrop-filter: blur(28px) saturate(150%);
-  -webkit-backdrop-filter: blur(28px) saturate(150%);
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  transform: translateZ(0); /* 大面积玻璃提独立合成层，降低逐帧重绘成本 */
   border: 1px solid rgba(255,255,255,0.14);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.16), 0 20px 60px rgba(2,8,20,0.35);
-  border-radius: 28px;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.16),
+    inset 1px 0 0 rgba(255,255,255,0.06),
+    inset -1px -1px 0 rgba(255,255,255,0.03),
+    0 20px 60px rgba(2,8,20,0.35);
+  border-radius: var(--r-sec);
   padding: 44px 48px;
   margin: 28px 0;
   scroll-margin-top: 92px;
+}
+/* 桌面端性能：背景是 fixed 静态照片 → 用预模糊图 + fixed attachment 等价替代 backdrop-filter，
+   合成成本归零（iOS Safari 不支持 fixed attachment，hover:none 环境保持上面的 backdrop 路径） */
+@media (hover: hover) and (min-width: 701px) {
+  html.sec-prerendered .sec {
+    background:
+      linear-gradient(180deg, rgba(20,32,56,0.62), rgba(14,24,44,0.58)),
+      url('/assets/hero-blur.jpg') center 32% / cover fixed no-repeat;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
 }
 .sec-head { display: grid; grid-template-columns: 72px 1fr auto; gap: 40px; align-items: baseline; margin-bottom: 34px; }
 .sec-no { font-size: 12px; color: var(--accent); letter-spacing: 0.15em; }
@@ -218,7 +265,7 @@ main { position: relative; z-index: 1; }
   box-shadow: 0 8px 24px rgba(2,8,20,0.5);
   font-family: 'JetBrains Mono', ui-monospace, monospace;
   font-size: 11px; color: rgba(240,245,252,0.92); white-space: nowrap;
-  opacity: 0; transform: translateY(4px); transition: opacity .15s, transform .15s;
+  opacity: 0; transform: translateY(4px) scale(0.96); transition: opacity .15s, transform .2s var(--ease-liquid);
 }
 .hm-tip.show { opacity: 1; transform: none; }
 /* 维度切换 */
@@ -233,7 +280,7 @@ main { position: relative; z-index: 1; }
 }
 .hm-dim:hover { background: rgba(255,255,255,0.12); color: #FFFFFF; }
 .hm-dim:active { transform: scale(0.94); }
-.hm-dim.active { background: color-mix(in srgb, var(--accent) 30%, transparent); border-color: color-mix(in srgb, var(--accent) 55%, transparent); color: #FFFFFF; }
+.hm-dim.active { background: color-mix(in srgb, var(--accent) 30%, transparent); border-color: color-mix(in srgb, var(--accent) 55%, transparent); color: #FFFFFF; box-shadow: inset 0 1px 0 rgba(255,255,255,0.25); }
 
 /* 知识图谱 */
 .kg-grid { display: grid; grid-template-columns: 1fr 320px; gap: 48px; }
@@ -244,8 +291,11 @@ main { position: relative; z-index: 1; }
 .kg-stat-v { font-family: var(--head); font-size: 32px; font-weight: 700; letter-spacing: -0.01em; color: #FFFFFF; }
 .kg-stat-k { font-size: 13.5px; color: var(--sub); }
 .kg-legend { display: grid; gap: 4px; }
-.kg-leg-item { display: flex; align-items: center; gap: 12px; font-size: 14px; color: rgba(240,245,252,0.85); padding: 7px 12px; margin-left: -12px; border-radius: 12px; cursor: default; transition: background-color .18s; }
+/* 图例为可达控件（button）：触屏点选锁定、键盘 focus 高亮 */
+.kg-leg-item { display: flex; align-items: center; gap: 12px; width: calc(100% + 12px); font: inherit; font-size: 14px; color: rgba(240,245,252,0.85); padding: 7px 12px; margin-left: -12px; border: none; background: none; text-align: left; border-radius: 12px; cursor: pointer; transition: background-color .18s; -webkit-tap-highlight-color: transparent; }
 .kg-leg-item:hover, .kg-leg-item.active { background-color: rgba(255,255,255,0.10); }
+.kg-leg-item.locked { background-color: color-mix(in srgb, var(--accent) 22%, transparent); }
+.kg-leg-item:focus-visible { outline: 2px solid rgba(255,255,255,0.7); outline-offset: 2px; }
 .kg-dot { width: 9px; height: 9px; border-radius: 99px; }
 .kg-note { margin-top: 24px; font-size: 12.5px; line-height: 1.8; color: rgba(255,255,255,0.42); }
 /* 图谱搜索 */
@@ -289,7 +339,7 @@ main { position: relative; z-index: 1; }
 .blog-title { font-family: var(--head); font-size: 19px; font-weight: 600; letter-spacing: -0.01em; color: #FFFFFF; }
 
 /* Footer */
-.site-foot { position: relative; z-index: 1; margin-top: 40px; background: rgba(7,13,26,0.6); backdrop-filter: blur(24px) saturate(150%); -webkit-backdrop-filter: blur(24px) saturate(150%); border-top: 1px solid rgba(255,255,255,0.12); }
+.site-foot { position: relative; z-index: 1; margin-top: 40px; background: rgba(7,13,26,0.6); backdrop-filter: blur(24px) saturate(150%); -webkit-backdrop-filter: blur(24px) saturate(150%); border-top: 1px solid rgba(255,255,255,0.12); box-shadow: inset 0 1px 0 rgba(255,255,255,0.14); }
 .foot-inner { padding: 56px 48px 64px; display: flex; justify-content: space-between; align-items: flex-end; }
 .foot-title { font-family: var(--head); font-size: 30px; font-weight: 700; letter-spacing: -0.02em; color: #FFFFFF; margin-bottom: 16px; }
 .foot-links { font-size: 13.5px; color: var(--sub); }
@@ -362,6 +412,38 @@ main { position: relative; z-index: 1; }
   .reveal-in { opacity: 1; transform: none; transition: opacity .6s ease, transform .6s ease; }
 }
 
+/* ============ 降级三档（HIG 无障碍降级体系；自定义玻璃必须自带） ============ */
+/* 档1：用户主动降低透明度（Chrome/Edge 118+；Safari 未实现 → 档2 兜底） */
+@media (prefers-reduced-transparency: reduce) {
+  .site-head, .site-head.over-hero, .sec, .hero-index.glass, .glassy,
+  .site-foot, .hm-tip, .kg-node-card, .brand, .nav, .nav-pill {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: rgba(13, 22, 40, 0.96);
+  }
+  .btn-accent {
+    background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 82%, white 18%), var(--accent) 55%, color-mix(in srgb, var(--accent) 88%, black 12%));
+  }
+  body::before { filter: brightness(0.6); }
+}
+/* 档2：环境完全不支持 backdrop-filter —— 同组实色，保证文字对比度 */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .site-head, .site-head.over-hero, .sec, .hero-index.glass, .glassy,
+  .site-foot, .hm-tip, .kg-node-card, .brand, .nav {
+    background: rgba(13, 22, 40, 0.96);
+  }
+  .nav-pill { background: rgba(255, 255, 255, 0.22); }
+  .btn-accent {
+    background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 82%, white 18%), var(--accent) 55%, color-mix(in srgb, var(--accent) 88%, black 12%));
+  }
+}
+/* 档3：高对比 —— 强化玻璃边界与文字 */
+@media (prefers-contrast: more) {
+  .site-head, .sec, .hero-index.glass, .nav, .brand, .site-foot, .kg-node-card { border-color: rgba(255,255,255,0.5); }
+  .page { --sub: rgba(240,245,252,0.82); --line: rgba(255,255,255,0.3); }
+  .nav-link { color: rgba(255,255,255,0.92); }
+}
+
 /* 窄屏适配 */
 @media (max-width: 1180px) {
   .wb-grid { grid-template-columns: 1fr; gap: 40px; }
@@ -411,10 +493,18 @@ main { position: relative; z-index: 1; }
     -webkit-backdrop-filter: blur(26px) saturate(180%);
     border: 1px solid rgba(255,255,255,0.2);
     border-radius: 999px;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.22), 0 14px 40px rgba(2,8,20,0.55);
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.22),
+      inset 1px 0 0 rgba(255,255,255,0.08),
+      0 14px 40px rgba(2,8,20,0.55);
+    transition: bottom .45s var(--ease-liquid), opacity .3s ease;
   }
-  .nav-link { padding: 11px 15px; white-space: nowrap; }
+  /* 44pt 触达标准（HIG） */
+  .nav-link { min-height: 44px; display: inline-flex; align-items: center; padding: 11px 15px; white-space: nowrap; }
   .nav-pill { top: 4px; bottom: 4px; }
+  /* 下滚收缩：Dock 下沉收窄让位内容，上滚立即回弹（nav.js .compact） */
+  .nav.compact { bottom: calc(4px + env(safe-area-inset-bottom)); opacity: 0.88; }
+  .nav.compact .nav-link { min-height: 34px; padding-top: 6px; padding-bottom: 6px; font-size: 13px; }
   .nav .btn-accent { display: none; } /* 简历入口保留在页脚 */
 
   /* 版式 */

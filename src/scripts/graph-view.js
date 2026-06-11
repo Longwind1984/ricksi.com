@@ -178,11 +178,19 @@ export function renderGraph(host, graph, opts = {}) {
     view.y = H / 2 - ((y0 + y1) / 2) * k;
     applyView();
   }
-  sim.on('tick', () => {
+  // Reduce Motion：跳过弹簧收敛动画，同步演算出稳态布局直接呈现（HIG 降级）
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    sim.stop();
+    sim.tick(220);
     tick();
     fitToView();
-  });
-  sim.on('end', fitToView);
+  } else {
+    sim.on('tick', () => {
+      tick();
+      fitToView();
+    });
+    sim.on('end', fitToView);
+  }
 
   /* ---------- 高亮状态机：hover 邻域 / 主题域 / 搜索 三类互斥 ---------- */
   let state = { type: null, value: null };
@@ -196,6 +204,16 @@ export function renderGraph(host, graph, opts = {}) {
     nodes.forEach((n, i) => {
       const lit = litNode(i);
       circleEls[i].setAttribute('opacity', lit ? (state.type ? 1 : 0.85) : 0.1);
+      // 选中/悬停焦点节点描边（焦点笔记的固定描边在创建时设置，不覆盖）
+      if (!(opts.focusSlug && n.slug === opts.focusSlug)) {
+        if (state.type === 'node' && i === state.value) {
+          circleEls[i].setAttribute('stroke', 'rgba(255,255,255,0.85)');
+          circleEls[i].setAttribute('stroke-width', '1.4');
+        } else {
+          circleEls[i].removeAttribute('stroke');
+          circleEls[i].removeAttribute('stroke-width');
+        }
+      }
       const showLabel =
         (state.type === 'node' && lit) ||
         (state.type === 'search' && lit && state.value.size <= 25) ||

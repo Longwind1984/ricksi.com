@@ -14,8 +14,15 @@
     "sync:vault": "node scripts/sync-vault.mjs"
   },
   "dependencies": {
+    "@astrojs/rss": "^4.0.18",
+    "@astrojs/sitemap": "^3.7.3",
     "astro": "^5.0.0",
     "d3-force": "^3.0.0",
     "gray-matter": "^4.0.3"
+  },
+  "devDependencies": {
+    "@resvg/resvg-js": "^2.6.2",
+    "satori": "^0.26.0",
+    "sharp": "^0.34.5"
   }
 }

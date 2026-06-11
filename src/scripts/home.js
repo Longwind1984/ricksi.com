@@ -72,17 +72,29 @@ if (siteData.weeks) {
     return `${+m}月${+d}日 · ${parts.length ? parts.join(' + ') : '无活动'}`;
   }
 
+  // pointer 事件：鼠标悬停与触屏点按同路径；定位实测 tip 尺寸（无魔法数）
+  function showTip(el, cell) {
+    tip.textContent = tipText(cell);
+    const r = el.getBoundingClientRect();
+    const tw = tip.offsetWidth || 160;
+    const th = tip.offsetHeight || 30;
+    tip.style.left = Math.min(window.innerWidth - tw - 8, Math.max(8, r.left + r.width / 2 - tw / 2)) + 'px';
+    tip.style.top = r.top - th - 8 + window.scrollY + 'px';
+    tip.classList.add('show');
+  }
   cells.forEach((el) => {
     const cell = weeks[+el.dataset.w][+el.dataset.d];
     if (cell.future) return;
-    el.addEventListener('mouseenter', () => {
-      tip.textContent = tipText(cell);
-      const r = el.getBoundingClientRect();
-      tip.style.left = Math.min(window.innerWidth - 230, Math.max(8, r.left + r.width / 2 - 90)) + 'px';
-      tip.style.top = r.top - 38 + window.scrollY + 'px';
-      tip.classList.add('show');
+    el.addEventListener('pointerenter', (e) => {
+      if (e.pointerType === 'mouse') showTip(el, cell);
     });
-    el.addEventListener('mouseleave', () => tip.classList.remove('show'));
+    el.addEventListener('pointerdown', (e) => {
+      if (e.pointerType !== 'mouse') showTip(el, cell);
+    });
+    el.addEventListener('pointerleave', () => tip.classList.remove('show'));
+  });
+  document.addEventListener('pointerdown', (e) => {
+    if (!e.target.closest('.hm-cell')) tip.classList.remove('show');
   });
 
   // 维度切换：按所选维度重算等级（非零值分位数阈值）
@@ -136,16 +148,30 @@ if (kgPaper && siteData.graph) {
     },
   });
 
+  // 图例 = 真按钮：hover 预览高亮；click/Enter 锁定（触屏与键盘的等价路径）
+  let lockedCluster = null;
   graph.clusters.forEach((c) => {
-    const item = document.createElement('div');
+    const item = document.createElement('button');
+    item.type = 'button';
     item.className = 'kg-leg-item';
+    item.setAttribute('aria-pressed', 'false');
     const dot = document.createElement('span');
     dot.className = 'kg-dot';
     dot.style.background = GRAPH_PALETTE[c.id % GRAPH_PALETTE.length];
     item.appendChild(dot);
     item.appendChild(document.createTextNode(`${c.name} · ${c.count}`));
-    item.addEventListener('mouseenter', () => ctl.highlightCluster(c.id));
-    item.addEventListener('mouseleave', () => ctl.highlightCluster(null));
+    item.addEventListener('mouseenter', () => { if (lockedCluster === null) ctl.highlightCluster(c.id); });
+    item.addEventListener('mouseleave', () => { if (lockedCluster === null) ctl.highlightCluster(null); });
+    item.addEventListener('focus', () => { if (lockedCluster === null) ctl.highlightCluster(c.id); });
+    item.addEventListener('blur', () => { if (lockedCluster === null) ctl.highlightCluster(null); });
+    item.addEventListener('click', () => {
+      lockedCluster = lockedCluster === c.id ? null : c.id;
+      ctl.highlightCluster(lockedCluster);
+      legEls.forEach((el, j) => {
+        el.classList.toggle('locked', graph.clusters[j].id === lockedCluster);
+        el.setAttribute('aria-pressed', String(graph.clusters[j].id === lockedCluster));
+      });
+    });
     legend.appendChild(item);
     legEls.push(item);
   });

@@ -3,6 +3,14 @@
 // 子页：<nav data-active="kb"> 固定高亮当前栏目，胶囊仍有悬停跟随
 
 (function () {
+  // 折射透镜只在 Chromium 系启用（backdrop-filter: url() 仅 Chromium 实际渲染；
+  // @supports 在 Safari/Firefox 误报，故用 UA 判定 + CSS 渐进增强，杜绝静默裸态）
+  if (/Chrome\//.test(navigator.userAgent)) {
+    document.documentElement.classList.add('lg-refract');
+  }
+  // 桌面端 .sec 用预模糊图替代大面积 backdrop-filter（资产随构建产出，见 glass.css）
+  document.documentElement.classList.add('sec-prerendered');
+
   const head = document.getElementById('site-head');
   const nav = document.getElementById('nav');
   const pill = document.getElementById('nav-pill');
@@ -88,6 +96,10 @@
       hoverTab = id;
       updatePill();
     });
+    // 按压「充能」：胶囊受压瞬间提亮（HIG: energize with light）
+    tabEls[id].addEventListener('pointerdown', () => pill.classList.add('pressed'));
+    tabEls[id].addEventListener('pointerup', () => pill.classList.remove('pressed'));
+    tabEls[id].addEventListener('pointercancel', () => pill.classList.remove('pressed'));
     if (spyIds.length) tabEls[id].addEventListener('click', () => setActiveTab(id));
   });
   nav.addEventListener('mouseleave', () => {
@@ -136,5 +148,27 @@
     requestAnimationFrame(calc);
     window.addEventListener('scroll', calc, { passive: true });
     window.addEventListener('resize', calc);
+  }
+
+  // 滚动形变（iOS 26 tab bar minimize）：下滚累计 >80px 收缩让位内容，上滚立即展开
+  if (head) {
+    let lastY = window.scrollY;
+    let downAcc = 0;
+    const morph = () => {
+      const y = window.scrollY;
+      const dy = y - lastY;
+      lastY = y;
+      if (dy > 0) downAcc += dy;
+      else if (dy < 0) downAcc = 0;
+      const compact = downAcc > 80 && y > 320;
+      head.classList.toggle('compact', compact);
+      nav.classList.toggle('compact', compact);
+      if (compact !== morph.was) {
+        morph.was = compact;
+        clearTimeout(morph.t);
+        morph.t = setTimeout(updatePill, 480); // 等过渡结束后按新几何重测胶囊
+      }
+    };
+    window.addEventListener('scroll', morph, { passive: true });
   }
 })();
