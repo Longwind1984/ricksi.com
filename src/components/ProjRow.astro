@@ -1,0 +1,32 @@
+---
+interface Props {
+  no: string;
+  title: string;
+  desc: string;
+  tags: string[];
+  img: string;
+  alt: string;
+  href: string;
+}
+const { no, title, desc, tags, img, alt, href } = Astro.props;
+---
+
+<a
+  href={href}
+  class:list={['proj-row', { noop: href === '#' }]}
+  target={href.startsWith('http') ? '_blank' : undefined}
+  rel={href.startsWith('http') ? 'noreferrer' : undefined}
+>
+  <span class="proj-no">{no}</span>
+  <div class="proj-body">
+    <div class="proj-title-row">
+      <h3 class="proj-title">{title}</h3>
+      <span class="arrow">→</span>
+    </div>
+    <p class="proj-desc">{desc}</p>
+    <div class="tag-row">
+      {tags.map((t) => <span class="tag mono">{t}</span>)}
+    </div>
+  </div>
+  <div class="ph"><img src={img} alt={alt} loading="lazy" /></div>
+</a>

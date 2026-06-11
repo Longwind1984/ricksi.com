@@ -1,6 +1,8 @@
 ---
 import Glass from '../layouts/Glass.astro';
 import { getCollection } from 'astro:content';
+import { PROJECTS } from '../data/projects';
+import ProjRow from '../components/ProjRow.astro';
 import { loadSiteData, stamp } from '../lib/site-data.mjs';
 import { sampleHeatmap, SAMPLE_USAGE, SAMPLE_CODING, SAMPLE_KB_STATS, SAMPLE_POSTS } from '../lib/sample.js';
 
@@ -66,35 +68,11 @@ const hmDims = [
   ['gh', 'GitHub'],
 ];
 
-const projects = [
-  {
-    no: '01',
-    title: 'SlashGO 复刻',
-    desc: '在 Claude Code 原生 Slash 命令发布之前，研读 Codex 开源代码并完整复刻其斜杠命令交互。能读懂工程实现，是与研发对话的底气。',
-    tags: ['源码研读', 'CLI'],
-    img: '/assets/proj-slashgo.svg',
-    alt: 'SlashGO 斜杠命令面板界面示意',
-    href: '#',
-  },
-  {
-    no: '02',
-    title: '行程规划套件',
-    desc: '把「调研 → 编排 → 优化」的模糊需求拆成一套日常在用的规划工具，独立走完想法到可用的全程。',
-    tags: ['需求拆解', '工具套件'],
-    img: '/assets/proj-trips.svg',
-    alt: '行程规划套件：路线地图与逐日行程卡示意',
-    href: '#',
-  },
-  {
-    no: '03',
-    title: '博物馆互动导览',
-    desc: '可互动演示的导览小产品，讲解与引路结合，可以直接上手玩。',
-    tags: ['互动叙事', 'Demo'],
-    img: '/assets/proj-museum.svg',
-    alt: '山西博物院策展批判型导览 Demo 首屏',
-    href: 'https://github.com/Longwind1984/prac_Museum',
-  },
-];
+/* 项目：featured 默认展示，其余收进「展开全部」（src/data/projects.ts 配置） */
+const featured = PROJECTS.filter((p) => p.featured);
+const moreProjects = PROJECTS.filter((p) => !p.featured);
+const numbered = (list: typeof PROJECTS, offset = 0) =>
+  list.map((p, i) => ({ ...p, no: String(i + 1 + offset).padStart(2, '0') }));
 ---
 
 <Glass
@@ -115,7 +93,7 @@ const projects = [
           <div class="mono index-label">INDEX · 目录</div>
           <div class="index-list">
             <a href="#projects" class="index-item">
-              <span class="index-no">01</span><span class="index-t">项目</span><span class="index-s">What I've built</span>
+              <span class="index-no">01</span><span class="index-t">项目</span><span class="index-s">What I've built · {PROJECTS.length}</span>
             </a>
             <a href="#workbench" class="index-item">
               <span class="index-no">02</span><span class="index-t">工作台数据</span><span class="index-s">Real-time usage</span>
@@ -139,32 +117,26 @@ const projects = [
           <div class="sec-head">
             <span class="mono sec-no">01</span>
             <div class="sec-title-row">
-              <h2 class="sec-title">三个项目</h2>
-              <span class="mono sec-en">PROJECTS</span>
+              <h2 class="sec-title">项目</h2>
+              <span class="mono sec-en">PROJECTS · {PROJECTS.length}</span>
             </div>
             <span class="sec-desc">每个判断背后，都有一个能跑起来的项目</span>
           </div>
-          {projects.map((p) => (
-            <a
-              href={p.href}
-              class:list={['proj-row', { noop: p.href === '#' }]}
-              target={p.href.startsWith('http') ? '_blank' : undefined}
-              rel={p.href.startsWith('http') ? 'noreferrer' : undefined}
-            >
-              <span class="proj-no">{p.no}</span>
-              <div class="proj-body">
-                <div class="proj-title-row">
-                  <h3 class="proj-title">{p.title}</h3>
-                  <span class="arrow">→</span>
-                </div>
-                <p class="proj-desc">{p.desc}</p>
-                <div class="tag-row">
-                  {p.tags.map((t) => <span class="tag mono">{t}</span>)}
+          {numbered(featured).map((p) => <ProjRow {...p} />)}
+          {moreProjects.length > 0 && (
+            <>
+              <div class="proj-extra" id="proj-extra">
+                <div class="proj-extra-inner">
+                  {numbered(moreProjects, featured.length).map((p) => <ProjRow {...p} />)}
                 </div>
               </div>
-              <div class="ph"><img src={p.img} alt={p.alt} loading="lazy" /></div>
-            </a>
-          ))}
+              <div class="proj-expand-row">
+                <button class="proj-expand mono" id="proj-expand" aria-expanded="false" aria-controls="proj-extra" data-total={PROJECTS.length}>
+                  展开全部 {PROJECTS.length} 个项目 ↓
+                </button>
+              </div>
+            </>
+          )}
         </section>
       </div>
 

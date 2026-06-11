@@ -40,6 +40,17 @@ if (window.matchMedia('(prefers-reduced-motion: no-preference)').matches) {
   });
 }
 
+/* ---------- 项目展开 ---------- */
+const projExpand = document.getElementById('proj-expand');
+if (projExpand) {
+  projExpand.addEventListener('click', () => {
+    const extra = document.getElementById('proj-extra');
+    const open = extra.classList.toggle('open');
+    projExpand.setAttribute('aria-expanded', String(open));
+    projExpand.textContent = open ? '收起 ↑' : `展开全部 ${projExpand.dataset.total} 个项目 ↓`;
+  });
+}
+
 /* ---------- 实时 Token 数字（锚定最近快照继续跳动） ---------- */
 const liveEl = document.getElementById('live-tokens');
 if (liveEl) {
