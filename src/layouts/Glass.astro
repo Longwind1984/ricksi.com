@@ -33,6 +33,7 @@ const navItems = [
   ['workbench', '工作台'],
   ['knowledge', '知识库'],
   ['blog', '写作'],
+  ['reading', '阅读'],
 ];
 ---
 
@@ -76,7 +77,7 @@ const navItems = [
           <nav
             class="nav"
             id="nav"
-            data-scrollspy={isHome ? 'projects,workbench,knowledge,blog' : undefined}
+            data-scrollspy={isHome ? 'projects,workbench,knowledge,blog,reading' : undefined}
             data-active={!isHome && active ? active : undefined}
           >
             <span class="nav-pill" id="nav-pill"></span>

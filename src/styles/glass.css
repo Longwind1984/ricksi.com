@@ -391,6 +391,40 @@ main { position: relative; z-index: 1; }
   pointer-events: none;
 }
 
+/* ============ 阅读（微信读书） ============ */
+.rd-stats { display: flex; gap: 40px; flex-wrap: wrap; padding-bottom: 28px; margin-bottom: 30px; border-bottom: 1px solid var(--line); }
+.rd-grid { display: grid; grid-template-columns: 360px 1fr; gap: 48px; align-items: start; }
+.rd-current-card {
+  display: flex; gap: 20px; align-items: stretch;
+  padding: 20px; border-radius: var(--r-card);
+  background: rgba(6,12,26,0.5); border: 1px solid rgba(255,255,255,0.12);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
+}
+.rd-cover { width: 96px; aspect-ratio: 3 / 4.3; object-fit: cover; border-radius: 8px; border: 1px solid rgba(255,255,255,0.18); box-shadow: 0 8px 22px rgba(2,8,20,0.5); display: block; }
+.rd-cover-lg { width: 118px; }
+.rd-cover-ph { display: flex; align-items: center; justify-content: center; }
+.rd-cover-ph span { font-family: var(--head); font-size: 34px; font-weight: 700; color: rgba(255,255,255,0.85); }
+.rd-current-info { display: flex; flex-direction: column; justify-content: center; min-width: 0; }
+.rd-book-title { font-family: var(--head); font-size: 19px; font-weight: 700; color: #FFFFFF; line-height: 1.4; margin-bottom: 6px; text-wrap: pretty; }
+.rd-book-author { font-size: 11px; color: rgba(255,255,255,0.5); margin-bottom: 16px; }
+.rd-progress { display: flex; align-items: center; gap: 10px; }
+.rd-progress-bar { flex: 1; height: 5px; border-radius: 99px; background: rgba(255,255,255,0.12); overflow: hidden; }
+.rd-progress-bar span { display: block; height: 100%; border-radius: 99px; background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 70%, white), var(--accent)); }
+.rd-progress-num { font-size: 11px; color: var(--accent); }
+.rd-book-notes { margin-top: 12px; font-size: 10.5px; color: rgba(255,255,255,0.45); }
+.rd-shelf { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 18px; }
+.rd-book { min-width: 0; }
+.rd-book .rd-cover { width: 100%; transition: transform .35s var(--ease-liquid), box-shadow .25s; }
+.rd-book:hover .rd-cover { transform: translateY(-4px) scale(1.02); box-shadow: 0 14px 30px rgba(2,8,20,0.6); }
+.rd-mini-bar { height: 3px; margin-top: 6px; border-radius: 99px; background: rgba(255,255,255,0.1); overflow: hidden; }
+.rd-mini-bar span { display: block; height: 100%; background: var(--accent); border-radius: 99px; }
+.rd-book-name { margin-top: 7px; font-size: 11px; line-height: 1.5; color: rgba(240,245,252,0.75); overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+@media (max-width: 1000px) {
+  .rd-grid { grid-template-columns: 1fr; gap: 36px; }
+  .rd-stats { gap: 26px; }
+  .rd-shelf { grid-template-columns: repeat(auto-fill, minmax(82px, 1fr)); gap: 14px; }
+}
+
 /* Footer */
 .site-foot { position: relative; z-index: 1; margin-top: 40px; background: rgba(7,13,26,0.6); backdrop-filter: blur(24px) saturate(150%); -webkit-backdrop-filter: blur(24px) saturate(150%); border-top: 1px solid rgba(255,255,255,0.12); box-shadow: inset 0 1px 0 rgba(255,255,255,0.14); }
 .foot-inner { padding: 56px 48px 64px; display: flex; justify-content: space-between; align-items: flex-end; }
@@ -561,6 +595,7 @@ main { position: relative; z-index: 1; }
 .nav-search:hover { background: rgba(255,255,255,0.13); color: #FFFFFF; }
 .nav-search:active { transform: scale(0.93); }
 .nav-search:focus-visible { outline: 2px solid rgba(255,255,255,0.7); outline-offset: 2px; }
+.cmdk[hidden] { display: none; }
 .cmdk {
   position: fixed; inset: 0; z-index: 90;
   background: rgba(5,10,22,0.55);

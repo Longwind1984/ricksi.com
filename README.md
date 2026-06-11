@@ -35,6 +35,10 @@ npm run sync            # 一键：采集全部 → commit → push（--no-push 
 | `collect-usage` | Claude Code 本地 JSONL（真实）+ 早期按活跃度估算（标记） | `data/usage.json` |
 | `sync-vault` | Obsidian `04AI/` 真实结构与双链 | `data/graph.json` + `content/kb/` + 隐私清单 |
 | `fetch-github` | GitHub GraphQL（Actions 每日 cron，需 token） | 合并进 activity 的 gh 维度 |
+| `collect-weread` | 微信读书书架/进度/划线数（需 cookie，见下） | `data/reading.json` + 封面 |
+
+**微信读书接入**：登录 [weread.qq.com](https://weread.qq.com) 后复制完整 Cookie，写入 `scripts/.weread-cookie`
+（已 gitignore，绝不入库），下次 `npm run sync` 自动采集；cookie 过期时采集器会报错提示更新。
 
 **每日自动同步**（可选）：
 
@@ -70,8 +74,23 @@ npm run build     # 产出 dist/（145 静态页）
 
 之后每次 `npm run sync` 或 git push 都会自动触发重建——数据保持新鲜。
 
+## 站点能力速查
+
+- `/graph` 全屏知识图谱：搜索、主题域过滤、缩放、`?focus=笔记slug` 深链分享
+- `⌘K` / `/` 全站命令面板：支持 `/kb` `/blog` `/proj` 前缀过滤
+- View Transitions 页面转场、RSS（/rss.xml）、sitemap、玻璃 404
+- 每篇文章/笔记构建时生成玻璃风 OG 分享卡（satori，CJK 字体在 assets-src/fonts）
+- Liquid Glass 对齐：降级三档（减透明/无 backdrop-filter/高对比）、滚动收缩导航、44px 触达
+
+## Backlog（记录在案，未排期）
+
+- 图谱时间轴回放（按笔记创建时间的生长动画）
+- Chromium 折射镶边色散（feDisplacementMap RGB 三通道）
+- 站内「减少透明度」手动开关；多语言 EN；隐私友好访问统计
+
 ## 待替换素材
 
-- 三个项目卡的截图/录屏（现为占位框）
+- Slash Goal / 行程套件的真实截图（现为设计 SVG 封面，`src/data/projects.ts` 可换）
 - 「下载简历」按钮的 PDF（`public/assets/` 放入后改 `Glass.astro` 两处链接）
+- 微信读书 cookie（见上）让阅读区从样例变真实
 - `content/posts/` 继续添加文章（front-matter 照首篇）

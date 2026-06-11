@@ -94,6 +94,29 @@ export const SAMPLE_DAYS14 = [
 
 export const SAMPLE_KB_STATS = [['1,247', '篇笔记'], ['3,892', '条双链'], ['5', '个主题域']];
 
+/* 阅读样例（微信读书 cookie 未配置时的回退；cover null → 渐变占位封面） */
+export const SAMPLE_READING = {
+  sample: true,
+  stats: { total: 36, finished: 21, reading: 3, notes: 412 },
+  current: {
+    id: 's1',
+    title: '思考，快与慢',
+    author: '丹尼尔·卡尼曼',
+    cover: null,
+    progress: 62,
+    notes: 38,
+    finished: false,
+  },
+  shelf: [
+    { id: 's1', title: '思考，快与慢', author: '丹尼尔·卡尼曼', cover: null, progress: 62, finished: false },
+    { id: 's2', title: '创新者的窘境', author: '克莱顿·克里斯坦森', cover: null, progress: 100, finished: true },
+    { id: 's3', title: '人月神话', author: '弗雷德里克·布鲁克斯', cover: null, progress: 100, finished: true },
+    { id: 's4', title: '设计中的设计', author: '原研哉', cover: null, progress: 34, finished: false },
+    { id: 's5', title: '失控', author: '凯文·凯利', cover: null, progress: 100, finished: true },
+    { id: 's6', title: '禅与摩托车维修艺术', author: '罗伯特·波西格', cover: null, progress: 18, finished: false },
+  ],
+};
+
 export const SAMPLE_POSTS = [
   { date: '2026.05', title: '从 Codex 源码看 Slash 命令的交互设计', tag: '源码拆解', href: '#' },
   { date: '2026.04', title: 'AI PM 的第一性原理：上下文管理', tag: '产品方法', href: '#' },

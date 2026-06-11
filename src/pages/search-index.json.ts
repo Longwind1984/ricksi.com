@@ -15,6 +15,7 @@ export const GET: APIRoute = async () => {
     { t: 'page', title: '全屏知识图谱', sub: '/graph', href: '/graph' },
     { t: 'page', title: '知识库', sub: '全部笔记', href: '/kb/' },
     { t: 'page', title: '思考与写作', sub: '全部文章', href: '/blog/' },
+    { t: 'page', title: '阅读', sub: 'WeRead 书架', href: '/#reading' },
     // 项目
     ...PROJECTS.map((p) => ({ t: 'proj', title: p.title, sub: p.tags.join(' · '), href: '/#projects' })),
     // 文章

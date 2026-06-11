@@ -18,6 +18,7 @@ export function loadSiteData() {
     activity: readJson('activity.json'),
     usage: readJson('usage.json'),
     graph: readJson('graph.json'),
+    reading: readJson('reading.json'),
   };
 }
 

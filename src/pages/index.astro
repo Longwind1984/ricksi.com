@@ -4,10 +4,22 @@ import { getCollection } from 'astro:content';
 import { PROJECTS } from '../data/projects';
 import ProjRow from '../components/ProjRow.astro';
 import { loadSiteData, stamp } from '../lib/site-data.mjs';
-import { sampleHeatmap, SAMPLE_USAGE, SAMPLE_CODING, SAMPLE_KB_STATS, SAMPLE_POSTS, SAMPLE_DAYS14 } from '../lib/sample.js';
+import { sampleHeatmap, SAMPLE_USAGE, SAMPLE_CODING, SAMPLE_KB_STATS, SAMPLE_POSTS, SAMPLE_DAYS14, SAMPLE_READING } from '../lib/sample.js';
 import TrendChart from '../components/TrendChart.astro';
 
-const { activity, usage, graph } = loadSiteData();
+const { activity, usage, graph, reading: readingData } = loadSiteData();
+
+/* ---- 阅读（微信读书；无数据回退样例） ---- */
+const reading = readingData ?? SAMPLE_READING;
+const readingStamp = readingData ? stamp(readingData.generated_at) : null;
+const RD_GRADS = [
+  'linear-gradient(160deg,#27416B,#0F1D38)',
+  'linear-gradient(160deg,#2E5C50,#10241F)',
+  'linear-gradient(160deg,#6B4A27,#2A1B0E)',
+  'linear-gradient(160deg,#54306B,#1E1030)',
+  'linear-gradient(160deg,#6B2738,#280E15)',
+  'linear-gradient(160deg,#2A5A6B,#0E2228)',
+];
 
 /* ---- 工作台 · token 用量（真实 usage.json 或样例） ---- */
 const u = usage ?? SAMPLE_USAGE;
@@ -124,6 +136,9 @@ const numbered = (list: typeof PROJECTS, offset = 0) =>
             </a>
             <a href="#blog" class="index-item">
               <span class="index-no">04</span><span class="index-t">Blog</span><span class="index-s">What I've been thinking</span>
+            </a>
+            <a href="#reading" class="index-item">
+              <span class="index-no">05</span><span class="index-t">阅读</span><span class="index-s">What I've been reading</span>
             </a>
           </div>
         </aside>
@@ -314,6 +329,76 @@ const numbered = (list: typeof PROJECTS, offset = 0) =>
               <a class="proj-expand mono blog-all" href="/blog/">查看全部 {postsTotal} 篇 →</a>
             </div>
           )}
+        </section>
+      </div>
+
+      <!-- 05 阅读（微信读书） -->
+      <div class="reveal">
+        <section class="sec" id="reading">
+          <div class="sec-head">
+            <span class="mono sec-no">05</span>
+            <div class="sec-title-row">
+              <h2 class="sec-title">阅读</h2>
+              <span class="mono sec-en">READING · WEREAD</span>
+            </div>
+            <span class="sec-desc">输入决定输出——书架也是工作台的一部分</span>
+          </div>
+
+          <div class="rd-stats">
+            <div><div class="mono stat-k">藏书</div><div class="stat-v">{reading.stats.total}<span class="stat-unit">本</span></div></div>
+            <div><div class="mono stat-k">读完</div><div class="stat-v">{reading.stats.finished}<span class="stat-unit">本</span></div></div>
+            <div><div class="mono stat-k">在读</div><div class="stat-v">{reading.stats.reading}<span class="stat-unit">本</span></div></div>
+            <div><div class="mono stat-k">划线与想法</div><div class="stat-v">{reading.stats.notes.toLocaleString()}<span class="stat-unit">条</span></div></div>
+          </div>
+
+          <div class="rd-grid">
+            {reading.current && (
+              <div class="rd-current">
+                <div class="mono wb-label">最近在读</div>
+                <div class="rd-current-card">
+                  {reading.current.cover ? (
+                    <img class="rd-cover rd-cover-lg" src={reading.current.cover} alt={`《${reading.current.title}》封面`} loading="lazy" />
+                  ) : (
+                    <div class="rd-cover rd-cover-lg rd-cover-ph" style={`background:${RD_GRADS[0]}`}>
+                      <span>{reading.current.title.slice(0, 1)}</span>
+                    </div>
+                  )}
+                  <div class="rd-current-info">
+                    <div class="rd-book-title">{reading.current.title}</div>
+                    <div class="rd-book-author mono">{reading.current.author}</div>
+                    <div class="rd-progress">
+                      <div class="rd-progress-bar"><span style={`width:${reading.current.progress}%`}></span></div>
+                      <span class="mono rd-progress-num">{reading.current.progress}%</span>
+                    </div>
+                    {reading.current.notes > 0 && (
+                      <div class="mono rd-book-notes">{reading.current.notes} 条划线与想法</div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            )}
+            <div class="rd-shelf-col">
+              <div class="mono wb-label">书架 · 按最近阅读排序</div>
+              <div class="rd-shelf">
+                {reading.shelf.map((b, i) => (
+                  <div class="rd-book" title={`《${b.title}》${b.author ? ' · ' + b.author : ''}${b.finished ? ' · 已读完' : b.progress ? ` · ${b.progress}%` : ''}`}>
+                    {b.cover ? (
+                      <img class="rd-cover" src={b.cover} alt={`《${b.title}》封面`} loading="lazy" />
+                    ) : (
+                      <div class="rd-cover rd-cover-ph" style={`background:${RD_GRADS[i % RD_GRADS.length]}`}>
+                        <span>{b.title.slice(0, 1)}</span>
+                      </div>
+                    )}
+                    {!b.finished && b.progress > 0 && <div class="rd-mini-bar"><span style={`width:${b.progress}%`}></span></div>}
+                    <div class="rd-book-name">{b.title}</div>
+                  </div>
+                ))}
+              </div>
+              <div class="mono wb-stamp">
+                {readingStamp ? `数据来自微信读书 · 更新于 ${readingStamp}` : '样例书架——接入微信读书后展示真实在读与划线'}
+              </div>
+            </div>
+          </div>
         </section>
       </div>
     </div>

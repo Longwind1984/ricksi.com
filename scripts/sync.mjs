@@ -5,14 +5,21 @@ import { execFileSync, execSync } from 'node:child_process';
 const noPush = process.argv.includes('--no-push');
 const run = (cmd, args) => execFileSync(cmd, args, { stdio: 'inherit' });
 
-console.log('── 1/3 活动热力图（git + Obsidian + Claude 日志）');
+console.log('── 1/4 活动热力图（git + Obsidian + Claude 日志）');
 run('node', ['scripts/collect-activity.mjs']);
 
-console.log('── 2/3 Token 用量');
+console.log('── 2/4 Token 用量');
 run('node', ['scripts/collect-usage.mjs']);
 
-console.log('── 3/3 知识库图谱 + 笔记导出');
+console.log('── 3/4 知识库图谱 + 笔记导出');
 run('node', ['scripts/sync-vault.mjs']);
+
+console.log('── 4/4 微信读书（无 cookie 自动跳过）');
+try {
+  run('node', ['scripts/collect-weread.mjs']);
+} catch {
+  console.warn('   微信读书采集失败，沿用上次数据');
+}
 
 if (noPush) {
   console.log('✓ 同步完成（--no-push，未提交）');
@@ -20,12 +27,12 @@ if (noPush) {
 }
 
 try {
-  const status = execSync('git status --porcelain data content/kb', { encoding: 'utf8' });
+  const status = execSync('git status --porcelain data content/kb public/assets/books', { encoding: 'utf8' });
   if (!status.trim()) {
     console.log('✓ 数据无变化，无需提交');
     process.exit(0);
   }
-  execSync('git add data content/kb', { stdio: 'inherit' });
+  execSync('git add data content/kb public/assets/books', { stdio: 'inherit' });
   execSync(`git commit -m "chore(data): daily sync ${new Date().toISOString().slice(0, 10)}"`, { stdio: 'inherit' });
   const hasRemote = execSync('git remote', { encoding: 'utf8' }).trim();
   if (hasRemote) {
