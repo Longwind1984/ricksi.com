@@ -42,7 +42,12 @@ const clientData = subgraph
   : null;
 ---
 
-<Glass title={`${note.data.title} · 知识库 · Rick Si`} description={`知识库笔记：${note.data.title}（${clusterName}）`} active="knowledge">
+<Glass
+  title={`${note.data.title} · 知识库 · Rick Si`}
+  description={`知识库笔记：${note.data.title}（${clusterName}）`}
+  active="knowledge"
+  ogImage={`/og/kb/${note.id}.png`}
+>
   <main class="sub-main">
     <div class="container article-container">
       <article class="sec article">

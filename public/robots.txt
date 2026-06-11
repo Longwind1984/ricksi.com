@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /og/
 
-# Sitemap: 备案域名确定后补充
+Sitemap: https://ricksi.com/sitemap-index.xml

@@ -2,6 +2,7 @@
 // 玻璃视觉系统共享布局：head / 悬浮导航 / 页脚
 // isHome: 首页启用 scrollspy + 首屏透明导航；子页固定高亮 active 栏目
 import { ClientRouter } from 'astro:transitions';
+import LQIP_RAW from '../lib/hero-lqip.txt?raw';
 import '../styles/glass.css';
 
 interface Props {
@@ -10,8 +11,22 @@ interface Props {
   active?: string | null;
   isHome?: boolean;
   noFooter?: boolean;
+  ogImage?: string;
+  jsonLd?: Record<string, unknown> | null;
 }
-const { title, description = '', active = null, isHome = false, noFooter = false } = Astro.props;
+const {
+  title,
+  description = '',
+  active = null,
+  isHome = false,
+  noFooter = false,
+  ogImage = '/assets/og.jpg',
+  jsonLd = null,
+} = Astro.props;
+
+/* hero LQIP：超小内联占位铺在 body 上，大图（body::before）加载完成前先有形 */
+const LQIP = LQIP_RAW.trim();
+const ogAbs = new URL(ogImage, Astro.site ?? 'https://ricksi.com').href;
 
 const navItems = [
   ['projects', '项目'],
@@ -32,7 +47,11 @@ const navItems = [
     <meta property="og:title" content={title} />
     {description && <meta property="og:description" content={description} />}
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="/assets/og.jpg" />
+    <meta property="og:image" content={ogAbs} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="alternate" type="application/rss+xml" title="Rick Si · 思考与写作" href="/rss.xml" />
+    {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+    <style set:html={`body{background-image:url(${LQIP});background-size:cover;background-position:center 32%;}`}></style>
     <ClientRouter />
   </head>
   <body>

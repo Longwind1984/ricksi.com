@@ -79,13 +79,19 @@ for (const f of walk(AI_ROOT, { exclude: ['.obsidian', '.trash'] })) {
   });
 }
 
-/* ---------- 2. 解析双链 ---------- */
+/* ---------- 2. 解析双链（顺带收集死链报告） ---------- */
 const WIKILINK = /\[\[([^\]|#\n]+)(#[^\]|\n]*)?(\|[^\]\n]*)?\]\]/g;
+const deadLinks = new Map(); // target -> [来源笔记]
 for (const note of notes.values()) {
   const found = new Set();
   for (const m of note.body.matchAll(WIKILINK)) {
     const target = m[1].trim().replace(/\.md$/, '').split('/').pop();
-    if (target && target !== note.name && notes.has(target)) found.add(target);
+    if (!target || target === note.name) continue;
+    if (notes.has(target)) found.add(target);
+    else {
+      if (!deadLinks.has(target)) deadLinks.set(target, []);
+      deadLinks.get(target).push(note.name);
+    }
   }
   note.links = [...found];
 }
@@ -202,3 +208,9 @@ console.log(
     `；排除 ${notes.size - pub.length} 篇 → ${GRAPH_OUT}`
 );
 if (icloudSkipped) console.warn(`[vault] ⚠ ${icloudSkipped} 个 iCloud 未下载文件被跳过（打开 Obsidian 下载后重跑）`);
+if (deadLinks.size) {
+  console.warn(`[vault] ⚠ ${deadLinks.size} 个死链（指向 04AI 内不存在的笔记，前 10 个）：`);
+  [...deadLinks.entries()].slice(0, 10).forEach(([t, srcs]) => {
+    console.warn(`    [[${t}]] ← ${srcs.slice(0, 3).join('、')}${srcs.length > 3 ? ` 等 ${srcs.length} 篇` : ''}`);
+  });
+}

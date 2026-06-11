@@ -18,7 +18,20 @@ const next = all[i - 1] ?? null;
 const fmt = (d: Date) => d.toISOString().slice(0, 10);
 ---
 
-<Glass title={`${post.data.title} · Rick Si`} description={post.data.description ?? post.data.title} active="blog">
+<Glass
+  title={`${post.data.title} · Rick Si`}
+  description={post.data.description ?? post.data.title}
+  active="blog"
+  ogImage={`/og/blog/${post.id}.png`}
+  jsonLd={{
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: post.data.title,
+    datePublished: post.data.date.toISOString(),
+    inLanguage: 'zh-CN',
+    author: { '@type': 'Person', name: '司豪杰 Rick Si', url: 'https://ricksi.com' },
+  }}
+>
   <div class="read-progress" id="read-progress"></div>
   <main class="sub-main">
     <div class="container article-narrow">
