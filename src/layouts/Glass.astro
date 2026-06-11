@@ -1,6 +1,7 @@
 ---
 // 玻璃视觉系统共享布局：head / 悬浮导航 / 页脚
 // isHome: 首页启用 scrollspy + 首屏透明导航；子页固定高亮 active 栏目
+import { ClientRouter } from 'astro:transitions';
 import '../styles/glass.css';
 
 interface Props {
@@ -32,6 +33,7 @@ const navItems = [
     {description && <meta property="og:description" content={description} />}
     <meta property="og:type" content="website" />
     <meta property="og:image" content="/assets/og.jpg" />
+    <ClientRouter />
   </head>
   <body>
     <!-- Liquid Glass 折射滤镜：凸透镜位移贴图（R → x 位移，G → y 位移，中心 128 为零位移） -->
@@ -49,7 +51,7 @@ const navItems = [
     </svg>
 
     <div class="page">
-      <header class:list={['site-head', { 'over-hero': isHome }]} id="site-head" data-hero={isHome ? 'true' : undefined}>
+      <header class:list={['site-head', { 'over-hero': isHome }]} id="site-head" data-hero={isHome ? 'true' : undefined} style="view-transition-name: site-head">
         <div class="site-head-inner">
           <a href={isHome ? '#top' : '/'} class="brand" id="brand">Rick's Home Page</a>
           <nav

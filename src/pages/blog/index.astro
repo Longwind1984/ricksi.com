@@ -63,7 +63,8 @@ const tags = [...new Set(posts.map((p) => p.data.tag))];
   </main>
 
   <script>
-    // 标签过滤（纯 DOM，无依赖）
+    // 标签过滤（纯 DOM；元素级监听随页面替换自然释放）
+    document.addEventListener('astro:page-load', () => {
     const wrap = document.getElementById('blog-tags');
     if (wrap) {
       wrap.addEventListener('click', (e) => {
@@ -80,5 +81,6 @@ const tags = [...new Set(posts.map((p) => p.data.tag))];
         });
       });
     }
+    });
   </script>
 </Glass>

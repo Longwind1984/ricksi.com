@@ -3,7 +3,11 @@
 import { sampleGraph, GRAPH_PALETTE, SAMPLE_CLUSTERS } from '../lib/sample.js';
 import { renderGraph } from './graph-view.js';
 
-const siteData = (() => {
+let homeAbort = null;
+let homeGraphCtl = null;
+function initHome(sig) {
+  if (!document.getElementById('site-data')) return; // 仅首页
+  const siteData = (() => {
   try {
     return JSON.parse(document.getElementById('site-data').textContent);
   } catch {
@@ -117,7 +121,7 @@ if (siteData.weeks) {
   });
   document.addEventListener('pointerdown', (e) => {
     if (!e.target.closest('.hm-cell')) tip.classList.remove('show');
-  });
+  }, { signal: sig });
 
   // 维度切换：按所选维度重算等级（非零值分位数阈值）
   const dimButtons = document.querySelectorAll('.hm-dim');
@@ -161,14 +165,14 @@ if (kgPaper && siteData.graph) {
   const legend = document.getElementById('kg-legend');
   const legEls = [];
 
-  const ctl = renderGraph(kgPaper, graph, {
+  const ctl = (homeGraphCtl = renderGraph(kgPaper, graph, {
     mode: 'full',
     onStateChange(state) {
       legEls.forEach((el, j) =>
         el.classList.toggle('active', state.type === 'cluster' && state.value === graph.clusters[j].id)
       );
     },
-  });
+  }));
 
   // 图例 = 真按钮：hover 预览高亮；click/Enter 锁定（触屏与键盘的等价路径）
   let lockedCluster = null;
@@ -295,3 +299,13 @@ function renderSampleGraph(host) {
   }
   setHov(null);
 }
+
+}
+
+document.addEventListener('astro:page-load', () => {
+  homeAbort?.abort();
+  homeAbort = new AbortController();
+  homeGraphCtl?.destroy?.();
+  homeGraphCtl = null;
+  initHome(homeAbort.signal);
+});

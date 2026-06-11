@@ -49,9 +49,13 @@ const fmt = (d: Date) => d.toISOString().slice(0, 10);
   </main>
 
   <script>
-    // 阅读进度条（rAF 节流）
-    const bar = document.getElementById('read-progress');
-    if (bar) {
+    // 阅读进度条（rAF 节流；View Transitions 下每次导航重挂）
+    let progressAbort: AbortController | null = null;
+    document.addEventListener('astro:page-load', () => {
+      progressAbort?.abort();
+      const bar = document.getElementById('read-progress');
+      if (!bar) return;
+      progressAbort = new AbortController();
       let raf = 0;
       const update = () => {
         raf = 0;
@@ -59,7 +63,7 @@ const fmt = (d: Date) => d.toISOString().slice(0, 10);
         bar.style.transform = `scaleX(${max > 0 ? Math.min(1, scrollY / max) : 0})`;
       };
       update();
-      addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(update); }, { passive: true });
-    }
+      addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(update); }, { passive: true, signal: progressAbort.signal });
+    });
   </script>
 </Glass>

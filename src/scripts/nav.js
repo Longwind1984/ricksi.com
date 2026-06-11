@@ -2,15 +2,15 @@
 // 首页：<nav data-scrollspy="projects,workbench,knowledge,blog"> 滚动跟随
 // 子页：<nav data-active="kb"> 固定高亮当前栏目，胶囊仍有悬停跟随
 
-(function () {
-  // 折射透镜只在 Chromium 系启用（backdrop-filter: url() 仅 Chromium 实际渲染；
-  // @supports 在 Safari/Firefox 误报，故用 UA 判定 + CSS 渐进增强，杜绝静默裸态）
-  if (/Chrome\//.test(navigator.userAgent)) {
-    document.documentElement.classList.add('lg-refract');
-  }
-  // 桌面端 .sec 用预模糊图替代大面积 backdrop-filter（资产随构建产出，见 glass.css）
-  document.documentElement.classList.add('sec-prerendered');
+// 折射透镜只在 Chromium 系启用（backdrop-filter: url() 仅 Chromium 实际渲染；
+// @supports 在 Safari/Firefox 误报，故用 UA 判定 + CSS 渐进增强，杜绝静默裸态）
+if (/Chrome\//.test(navigator.userAgent)) {
+  document.documentElement.classList.add('lg-refract');
+}
+// 桌面端 .sec 用预模糊图替代大面积 backdrop-filter（资产随构建产出，见 glass.css）
+document.documentElement.classList.add('sec-prerendered');
 
+function initNav(sig) {
   const head = document.getElementById('site-head');
   const nav = document.getElementById('nav');
   const pill = document.getElementById('nav-pill');
@@ -25,6 +25,7 @@
   let activeTab = fixedActive;
   let hoverTab = null;
   const phys = { x: 0, w: 0, vx: 0, vw: 0, tx: 0, tw: 0, visible: false, raf: 0 };
+  sig.addEventListener('abort', () => { if (phys.raf) cancelAnimationFrame(phys.raf); });
 
   // 液态弹簧：胶囊朝目标滑动，速度映射为拉伸形变 + 折射强度
   function runPillSpring() {
@@ -118,7 +119,7 @@
   const remeasure = () => updatePill();
   requestAnimationFrame(remeasure);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(remeasure);
-  window.addEventListener('resize', remeasure);
+  window.addEventListener('resize', remeasure, { signal: sig });
 
   // scrollspy（仅首页）
   if (spyIds.length) {
@@ -134,8 +135,8 @@
     spy();
     requestAnimationFrame(spy);
     setTimeout(spy, 350);
-    window.addEventListener('scroll', spy, { passive: true });
-    window.addEventListener('resize', spy);
+    window.addEventListener('scroll', spy, { passive: true, signal: sig });
+    window.addEventListener('resize', spy, { signal: sig });
   }
 
   // 首屏透明 / 滚动后加深（仅带 hero 的页面）
@@ -146,8 +147,8 @@
     };
     calc();
     requestAnimationFrame(calc);
-    window.addEventListener('scroll', calc, { passive: true });
-    window.addEventListener('resize', calc);
+    window.addEventListener('scroll', calc, { passive: true, signal: sig });
+    window.addEventListener('resize', calc, { signal: sig });
   }
 
   // 滚动形变（iOS 26 tab bar minimize）：下滚累计 >80px 收缩让位内容，上滚立即展开
@@ -169,6 +170,14 @@
         morph.t = setTimeout(updatePill, 480); // 等过渡结束后按新几何重测胶囊
       }
     };
-    window.addEventListener('scroll', morph, { passive: true });
+    window.addEventListener('scroll', morph, { passive: true, signal: sig });
   }
-})();
+}
+
+/* View Transitions：每次导航后重建（astro:page-load 首次加载也会触发） */
+let navAbort = null;
+document.addEventListener('astro:page-load', () => {
+  navAbort?.abort();
+  navAbort = new AbortController();
+  initNav(navAbort.signal);
+});

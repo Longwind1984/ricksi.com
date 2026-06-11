@@ -2,9 +2,13 @@
 import { renderGraph } from './graph-view.js';
 import { GRAPH_PALETTE } from '../lib/sample.js';
 
-const dataEl = document.getElementById('gx-data');
-const stage = document.getElementById('graph-stage');
-if (dataEl && stage) {
+let gxCtl = null;
+document.addEventListener('astro:page-load', () => {
+  gxCtl?.destroy?.();
+  gxCtl = null;
+  const dataEl = document.getElementById('gx-data');
+  const stage = document.getElementById('graph-stage');
+  if (!dataEl || !stage) return;
   const { graph } = JSON.parse(dataEl.textContent);
 
   const panel = document.getElementById('gx-panel');
@@ -28,11 +32,11 @@ if (dataEl && stage) {
     history.replaceState(null, '', `?focus=${encodeURIComponent(n.slug)}`);
   }
 
-  const ctl = renderGraph(stage, graph, {
+  const ctl = (gxCtl = renderGraph(stage, graph, {
     mode: 'full',
     width: 1200,
     onSelect: showPanel,
-  });
+  }));
 
   document.getElementById('gx-p-close').addEventListener('click', () => {
     panel.hidden = true;
@@ -92,4 +96,4 @@ if (dataEl && stage) {
       document.querySelector(`.gx-cluster[data-cluster="${cid}"]`)?.classList.add('active');
     }
   }, 900);
-}
+});

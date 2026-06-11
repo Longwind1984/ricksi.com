@@ -545,6 +545,13 @@ main { position: relative; z-index: 1; }
   .reveal-in { opacity: 1; transform: none; transition: opacity .6s ease, transform .6s ease; }
 }
 
+/* View Transitions：导航胶囊跨页连续；reduce-motion 时关闭全部转场动画 */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) { animation: none !important; }
+}
+
 /* ============ 降级三档（HIG 无障碍降级体系；自定义玻璃必须自带） ============ */
 /* 档1：用户主动降低透明度（Chrome/Edge 118+；Safari 未实现 → 档2 兜底） */
 @media (prefers-reduced-transparency: reduce) {
