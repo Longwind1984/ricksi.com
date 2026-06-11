@@ -1,0 +1,64 @@
+---
+import Glass from '../layouts/Glass.astro';
+import { loadSiteData, stamp } from '../lib/site-data.mjs';
+
+const { graph } = loadSiteData();
+const clientData = graph ? JSON.stringify({ graph }).replace(/</g, '\\u003c') : null;
+const updated = graph ? stamp(graph.generated_at) : null;
+---
+
+<Glass
+  title="知识图谱 · 司豪杰 Rick Si"
+  description={`全屏知识图谱：${graph?.stats.notes ?? 0} 篇笔记、${graph?.stats.links ?? 0} 条双链、${graph?.stats.domains ?? 0} 个主题域，可缩放探索、点击直达笔记。`}
+  active="knowledge"
+  noFooter
+>
+  <main class="graph-full">
+    {graph ? (
+      <>
+        <div class="graph-stage" id="graph-stage"></div>
+
+        <!-- 顶部控制条 -->
+        <div class="graph-bar">
+          <input id="gx-search" class="kg-search mono" type="search" placeholder={`搜索 ${graph.stats.notes} 篇笔记…`} />
+          <div class="gx-clusters" id="gx-clusters">
+            {graph.clusters.map((c) => (
+              <button class="hm-dim gx-cluster" data-cluster={c.id}>{c.name} · {c.count}</button>
+            ))}
+          </div>
+        </div>
+
+        <!-- 缩放控件 -->
+        <div class="gx-zoom">
+          <button class="gx-zbtn" id="gx-zoom-in" aria-label="放大">+</button>
+          <button class="gx-zbtn" id="gx-zoom-out" aria-label="缩小">−</button>
+          <button class="gx-zbtn" id="gx-fit" aria-label="适配视图">◌</button>
+          <button class="gx-zbtn" id="gx-reset" aria-label="重置">↺</button>
+        </div>
+
+        <!-- 节点信息面板（桌面右侧浮卡 / 移动端底部 sheet） -->
+        <aside class="gx-panel" id="gx-panel" hidden>
+          <div class="gx-panel-cluster mono" id="gx-p-cluster"></div>
+          <div class="gx-panel-title" id="gx-p-title"></div>
+          <div class="gx-panel-meta mono" id="gx-p-meta"></div>
+          <div class="gx-panel-actions">
+            <a class="btn-accent gx-open" id="gx-p-open" href="#">打开笔记</a>
+            <button class="proj-expand" id="gx-p-focus">以此为中心</button>
+            <button class="gx-close" id="gx-p-close" aria-label="关闭">✕</button>
+          </div>
+        </aside>
+
+        <div class="mono graph-stamp">{graph.stats.notes} 篇 · {graph.stats.links} 双链 · 更新于 {updated} · 拖拽节点 / 滚轮与双指缩放 / 点击节点看详情</div>
+      </>
+    ) : (
+      <div class="container sub-main">
+        <section class="sec"><p class="kg-note">本地运行 `npm run sync` 后这里会出现完整图谱。</p></section>
+      </div>
+    )}
+  </main>
+
+  {clientData && <script type="application/json" id="gx-data" set:html={clientData} />}
+  <script>
+    import '../scripts/graph-explore.js';
+  </script>
+</Glass>

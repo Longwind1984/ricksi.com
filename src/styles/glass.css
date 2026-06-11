@@ -331,8 +331,23 @@ main { position: relative; z-index: 1; }
 .kg-search::placeholder { color: rgba(255,255,255,0.4); }
 .kg-search:focus { border-color: color-mix(in srgb, var(--accent) 65%, transparent); background: rgba(255,255,255,0.1); }
 .kg-search-hint { font-size: 11px; color: var(--accent); white-space: nowrap; }
+.kg-links { display: flex; gap: 20px; flex-wrap: wrap; }
 .kg-browse { display: inline-block; margin-top: 14px; font-size: 12px; color: rgba(255,255,255,0.66); letter-spacing: 0.06em; transition: color .2s; }
 .kg-browse:hover { color: var(--accent); }
+/* /kb/ 顶部的全屏图谱入口卡 */
+.graph-entry {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding: 22px 26px; border-radius: var(--r-card);
+  background: rgba(6,12,26,0.5); border: 1px solid rgba(255,255,255,0.14);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+  transition: border-color .2s, background-color .2s, transform .35s var(--ease-liquid);
+  -webkit-tap-highlight-color: transparent;
+}
+.graph-entry:hover { border-color: color-mix(in srgb, var(--accent) 55%, transparent); background: rgba(10,18,36,0.6); }
+.graph-entry:active { transform: scale(0.99); }
+.graph-entry-t { font-family: var(--head); font-size: 17px; font-weight: 600; color: #FFFFFF; }
+.graph-entry-s { font-size: 11.5px; color: rgba(255,255,255,0.5); margin-top: 4px; }
+.graph-entry-arrow { font-size: 22px; color: var(--accent); }
 /* 触屏点选节点的浮层卡 */
 .kg-node-card {
   position: absolute; left: 16px; bottom: 16px; z-index: 5;
@@ -370,6 +385,86 @@ main { position: relative; z-index: 1; }
 
 /* 子页面（博客文章 / 知识库笔记）基础布局 */
 .sub-main { padding-top: 110px; min-height: 70vh; }
+
+/* ============ 全屏知识图谱 /graph ============ */
+.graph-full { position: fixed; inset: 0; overflow: hidden; }
+.graph-stage { position: absolute; inset: 0; }
+.graph-stage svg { width: 100%; height: 100%; display: block; }
+/* 顶部控制条：导航下方悬浮 */
+.graph-bar {
+  position: absolute; top: 84px; left: 24px; right: 24px; z-index: 10;
+  display: flex; gap: 14px; align-items: center; flex-wrap: wrap;
+  pointer-events: none;
+}
+.graph-bar > * { pointer-events: auto; }
+.graph-bar .kg-search {
+  flex: 0 0 240px;
+  background: rgba(14,24,44,0.6);
+  backdrop-filter: blur(20px) saturate(170%);
+  -webkit-backdrop-filter: blur(20px) saturate(170%);
+}
+.gx-clusters { display: flex; gap: 6px; flex-wrap: wrap; }
+.gx-cluster { backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); background: rgba(14,24,44,0.5); }
+/* 缩放控件 */
+.gx-zoom {
+  position: absolute; right: 22px; bottom: 84px; z-index: 10;
+  display: flex; flex-direction: column; gap: 6px;
+}
+.gx-zbtn {
+  width: 44px; height: 44px; border-radius: 14px;
+  font-family: inherit; font-size: 17px; color: #FFFFFF; cursor: pointer;
+  background: rgba(14,24,44,0.6);
+  backdrop-filter: blur(18px) saturate(170%);
+  -webkit-backdrop-filter: blur(18px) saturate(170%);
+  border: 1px solid rgba(255,255,255,0.22);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.2), 0 8px 24px rgba(2,8,20,0.4);
+  transition: background-color .18s, transform .35s var(--ease-liquid);
+  -webkit-tap-highlight-color: transparent;
+}
+.gx-zbtn:hover { background: rgba(30,46,76,0.7); }
+.gx-zbtn:active { transform: scale(0.92); }
+.gx-zbtn:focus-visible { outline: 2px solid rgba(255,255,255,0.7); outline-offset: 2px; }
+/* 节点信息面板：桌面右侧浮卡 */
+.gx-panel {
+  position: absolute; right: 22px; top: 150px; z-index: 12; width: 300px;
+  padding: 22px 24px; border-radius: 20px;
+  background: rgba(12,22,42,0.82);
+  backdrop-filter: blur(26px) saturate(170%);
+  -webkit-backdrop-filter: blur(26px) saturate(170%);
+  border: 1px solid rgba(255,255,255,0.24);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.26), inset 1px 0 0 rgba(255,255,255,0.08), 0 18px 56px rgba(2,8,20,0.55);
+}
+.gx-panel-cluster { font-size: 10.5px; letter-spacing: 0.1em; margin-bottom: 8px; }
+.gx-panel-title { font-family: var(--head); font-size: 19px; font-weight: 700; color: #FFFFFF; line-height: 1.45; margin-bottom: 8px; text-wrap: pretty; }
+.gx-panel-meta { font-size: 10.5px; color: rgba(255,255,255,0.5); margin-bottom: 16px; }
+.gx-panel-actions { display: flex; gap: 8px; align-items: center; }
+.gx-panel-actions .btn-accent { height: 36px; padding: 0 16px; font-size: 13px; margin-left: 0; }
+.gx-panel-actions .proj-expand { height: 36px; padding: 0 14px; font-size: 11px; }
+.gx-close {
+  margin-left: auto; width: 30px; height: 30px; border-radius: 999px;
+  font-family: inherit; font-size: 12px; color: rgba(255,255,255,0.6); cursor: pointer;
+  background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.16);
+}
+.gx-close:hover { color: #FFFFFF; background: rgba(255,255,255,0.14); }
+.graph-stamp {
+  position: absolute; left: 24px; bottom: 16px; z-index: 10;
+  font-size: 10.5px; color: rgba(255,255,255,0.45); letter-spacing: 0.04em;
+}
+@media (max-width: 700px) {
+  .graph-bar { top: 70px; left: 14px; right: 14px; }
+  .graph-bar .kg-search { flex: 1 1 100%; }
+  /* 主题域 chips 单行横滑 */
+  .gx-clusters { flex-wrap: nowrap; overflow-x: auto; width: 100%; padding-bottom: 4px; scrollbar-width: none; }
+  .gx-clusters::-webkit-scrollbar { display: none; }
+  .gx-cluster { flex: 0 0 auto; }
+  .gx-zoom { bottom: calc(96px + env(safe-area-inset-bottom)); right: 14px; }
+  /* 信息面板变底部 sheet（停靠在 Dock 上方） */
+  .gx-panel {
+    right: 14px; left: 14px; top: auto; width: auto;
+    bottom: calc(88px + env(safe-area-inset-bottom));
+  }
+  .graph-stamp { display: none; }
+}
 .article-container { display: grid; grid-template-columns: 1fr 360px; gap: 28px; align-items: start; }
 .article { margin: 0 0 28px; }
 .art-side { margin: 0; position: sticky; top: 92px; }

@@ -164,6 +164,7 @@ export function renderGraph(host, graph, opts = {}) {
   }
   /* 自动取景：模拟冷却期间相机持续跟随布局；用户手动缩放/平移后不再打扰 */
   let userTouchedView = false;
+  let followNode = null; // focusNode 后冷却期内相机锁定该节点（布局还在动时不漂移）
   function fitToView() {
     if (userTouchedView || !nodes.length) return;
     // 用 4%-96% 分位包围盒取景，离群孤点不至于把主体挤到角落
@@ -187,9 +188,15 @@ export function renderGraph(host, graph, opts = {}) {
   } else {
     sim.on('tick', () => {
       tick();
-      fitToView();
+      if (followNode !== null) {
+        view.x = W / 2 - nodes[followNode].x * view.k;
+        view.y = H / 2 - nodes[followNode].y * view.k;
+        applyView();
+      } else {
+        fitToView();
+      }
     });
-    sim.on('end', fitToView);
+    sim.on('end', () => (followNode === null ? fitToView() : undefined));
   }
 
   /* ---------- 高亮状态机：hover 邻域 / 主题域 / 搜索 三类互斥 ---------- */
@@ -266,17 +273,20 @@ export function renderGraph(host, graph, opts = {}) {
       const [p1, p2] = [...pointers.values()];
       pinchStart = { d: Math.hypot(p1.x - p2.x, p1.y - p2.y), k: view.k };
       userTouchedView = true;
+      followNode = null;
       dragNode = null; panStart = null;
       return;
     }
     const ci = circleEls.indexOf(e.target);
     if (ci >= 0) {
       dragNode = nodes[ci];
-      userTouchedView = true; // 拖拽节点时相机不再自动跟随
+      userTouchedView = true;
+      followNode = null; // 拖拽节点时相机不再自动跟随
       sim.alphaTarget(0.25).restart();
     } else {
       panStart = { px: e.clientX, py: e.clientY, vx: view.x, vy: view.y };
       userTouchedView = true;
+      followNode = null;
       svg.style.cursor = 'grabbing';
     }
   });
@@ -345,6 +355,13 @@ export function renderGraph(host, graph, opts = {}) {
     card = null;
   }
   function handleTap(n, evt) {
+    // explore 模式：任何指针类型都交给页面的信息面板（不弹内置卡）
+    if (opts.onSelect) {
+      state = { type: 'node', value: nodes.indexOf(n) };
+      applyState();
+      opts.onSelect(n);
+      return;
+    }
     const isTouch = evt.pointerType === 'touch';
     if (!isTouch) {
       navigate(n);
@@ -374,11 +391,25 @@ export function renderGraph(host, graph, opts = {}) {
   });
 
   function navigate(n) {
-    if (opts.onNavigate) opts.onNavigate(n);
+    if (opts.onSelect) opts.onSelect(n); // explore 模式：选中出信息面板，由页面决定跳转
+    else if (opts.onNavigate) opts.onNavigate(n);
     else if (n.slug) window.location.href = `/kb/${n.slug}/`;
   }
 
-  /* ---------- 对外控制器（图例 hover / 搜索） ---------- */
+  /* 居中缩放（按钮控制用；与滚轮同一坐标数学，锚点取画布中心） */
+  function zoomBy(factor) {
+    userTouchedView = true;
+    const cx = W / 2, cy = H / 2;
+    const k2 = Math.min(6, Math.max(0.4, view.k * factor));
+    view.x = cx - ((cx - view.x) / view.k) * k2;
+    view.y = cy - ((cy - view.y) / view.k) * k2;
+    view.k = k2;
+    layer.style.transition = 'transform .3s ease';
+    applyView();
+    setTimeout(() => (layer.style.transition = ''), 320);
+  }
+
+  /* ---------- 对外控制器（图例 hover / 搜索 / 全屏页控件） ---------- */
   return {
     highlightCluster(cid) {
       state = cid === null ? { type: null, value: null } : { type: 'cluster', value: cid };
@@ -398,6 +429,41 @@ export function renderGraph(host, graph, opts = {}) {
       state = { type: 'search', value: hits };
       applyState();
       return hits.size;
+    },
+    zoomIn() { zoomBy(1.45); },
+    zoomOut() { zoomBy(1 / 1.45); },
+    fit() {
+      userTouchedView = false;
+      followNode = null;
+      layer.style.transition = 'transform .35s ease';
+      fitToView();
+      setTimeout(() => (layer.style.transition = ''), 380);
+    },
+    reset() {
+      dismissCard();
+      state = { type: null, value: null };
+      applyState();
+      this.fit();
+    },
+    /* 聚焦某篇笔记：高亮其邻域并把视野移过去 */
+    focusNode(slug) {
+      const i = nodes.findIndex((n) => n.slug === slug);
+      if (i < 0) return null;
+      state = { type: 'node', value: i };
+      applyState();
+      userTouchedView = true;
+      followNode = i;
+      const k = Math.max(view.k, 1.5);
+      view.k = k;
+      view.x = W / 2 - nodes[i].x * k;
+      view.y = H / 2 - nodes[i].y * k;
+      layer.style.transition = 'transform .45s ease';
+      applyView();
+      setTimeout(() => (layer.style.transition = ''), 480);
+      return nodes[i];
+    },
+    nodeBySlug(slug) {
+      return nodes.find((n) => n.slug === slug) || null;
     },
     destroy() {
       sim.stop();

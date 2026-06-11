@@ -10,9 +10,6 @@ const byCluster = clusters.map((c) => ({
     .filter((n) => n.cluster === c.id)
     .sort((a, b) => b.deg - a.deg),
 }));
-const clientData = graph
-  ? JSON.stringify({ graph, mode: 'full' }).replace(/</g, '\\u003c')
-  : null;
 const updated = graph ? stamp(graph.generated_at) : null;
 ---
 
@@ -35,11 +32,16 @@ const updated = graph ? stamp(graph.generated_at) : null;
           </span>
         </div>
         {graph ? (
-          <div class="kg-paper kb-full" id="kb-graph"></div>
+          <a class="graph-entry" href="/graph">
+            <div>
+              <div class="graph-entry-t">全屏探索知识图谱</div>
+              <div class="graph-entry-s mono">缩放平移 · 主题域过滤 · 搜索 · 点击节点直达笔记 · 支持手机</div>
+            </div>
+            <span class="graph-entry-arrow">→</span>
+          </a>
         ) : (
           <p class="kg-note">本地运行 `npm run sync` 后这里会出现完整图谱。</p>
         )}
-        <p class="kg-note">拖拽节点 · 滚轮/双指缩放 · 点击节点打开笔记</p>
       </section>
 
       {byCluster.map((c) => (
@@ -64,8 +66,4 @@ const updated = graph ? stamp(graph.generated_at) : null;
     </div>
   </main>
 
-  {clientData && <script type="application/json" id="kb-graph-data" set:html={clientData} />}
-  <script>
-    import '../../scripts/kb-page.js';
-  </script>
 </Glass>

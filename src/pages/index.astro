@@ -267,7 +267,12 @@ const numbered = (list: typeof PROJECTS, offset = 0) =>
                   ? '拖拽节点 · 滚轮缩放 · 悬停看邻域 · 点击节点打开笔记。数据来自 Obsidian 库真实双链结构。'
                   : '悬停主题域可高亮对应节点。样例数据——完整 Obsidian 库较大，部署版按需接入。'}
               </p>
-              {graph && <a class="kg-browse mono" href="/kb/">浏览全部笔记 →</a>}
+              {graph && (
+                <div class="kg-links">
+                  <a class="kg-browse mono" href="/graph">全屏探索图谱 →</a>
+                  <a class="kg-browse mono" href="/kb/">浏览全部笔记 →</a>
+                </div>
+              )}
             </div>
           </div>
         </section>

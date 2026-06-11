@@ -8,8 +8,9 @@ interface Props {
   description?: string;
   active?: string | null;
   isHome?: boolean;
+  noFooter?: boolean;
 }
-const { title, description = '', active = null, isHome = false } = Astro.props;
+const { title, description = '', active = null, isHome = false, noFooter = false } = Astro.props;
 
 const navItems = [
   ['projects', '项目'],
@@ -68,6 +69,7 @@ const navItems = [
 
       <slot />
 
+      {noFooter ? null : (
       <footer class="site-foot" id="contact">
         <div class="container foot-inner">
           <div>
@@ -86,6 +88,7 @@ const navItems = [
           </div>
         </div>
       </footer>
+      )}
     </div>
 
     <script>
