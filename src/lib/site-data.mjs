@@ -19,6 +19,7 @@ export function loadSiteData() {
     usage: readJson('usage.json'),
     graph: readJson('graph.json'),
     reading: readJson('reading.json'),
+    frontier: readJson('frontier.json'),
   };
 }
 

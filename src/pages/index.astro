@@ -1,34 +1,49 @@
 ---
+import fs from 'node:fs';
+import path from 'node:path';
 import Glass from '../layouts/Glass.astro';
 import { getCollection } from 'astro:content';
+import { portraitFallbackSvg as ftFallbackSvg, DOMAIN_ACCENT as FT_ACCENT } from '../lib/frontier-ui.mjs';
 import { PROJECTS } from '../data/projects';
 import ProjRow from '../components/ProjRow.astro';
 import { loadSiteData, stamp } from '../lib/site-data.mjs';
-import { sampleHeatmap, SAMPLE_USAGE, SAMPLE_CODING, SAMPLE_KB_STATS, SAMPLE_POSTS, SAMPLE_DAYS14, SAMPLE_READING } from '../lib/sample.js';
+import { gradOf } from '../lib/reading-ui.mjs';
+import { sampleHeatmap, SAMPLE_USAGE, SAMPLE_CODING, SAMPLE_KB_STATS, SAMPLE_POSTS, SAMPLE_DAYS14, SAMPLE_READING, SAMPLE_FRONTIER } from '../lib/sample.js';
 import TrendChart from '../components/TrendChart.astro';
 
-const { activity, usage, graph, reading: readingData } = loadSiteData();
+const { activity, usage, graph, reading: readingData, frontier: frontierData } = loadSiteData();
 
-/* ---- 阅读（微信读书；无数据回退样例） ---- */
+/* ---- 前沿追踪卡（缺数据回退样例）----
+   选条规则（2026-06-12 审计）：importance≥4 优先 + 时间序，排除 insufficientContext，取 3 条
+   ——模型已经打过分，门面不给「信息不足」的条目展位 */
+const ftData = frontierData ?? SAMPLE_FRONTIER;
+const isFtSample = !frontierData;
+const FT_TYPE_LABEL: Record<string, string> = { authored: '署名作品', statement: '本人发言', action: '个人行动', cited: '被引用' };
+const ftOwnerMap = new Map<string, any>();
+for (const p of ftData.people ?? []) ftOwnerMap.set(p.slug, p);
+for (const t of ftData.topics ?? []) ftOwnerMap.set(t.slug, t);
+const FT_PORTRAIT_DIR = path.resolve('public/assets/frontier');
+const ftPortraitOf = (slug: string) =>
+  slug && fs.existsSync(path.join(FT_PORTRAIT_DIR, `${slug}.webp`)) ? `/assets/frontier/${slug}.webp` : null;
+
+const ftPool = (ftData.entries ?? [])
+  .filter((e: any) => !e.insufficientContext)
+  .map((e: any) => {
+    const owner = ftOwnerMap.get(e.person ?? e.topicSource);
+    return { ...e, ownerName: owner?.name ?? e.sourceName, ownerSlug: e.person ?? e.topicSource, domain: owner?.domain ?? '' };
+  });
+const ftPicked = [...ftPool.filter((e: any) => (e.importance ?? 3) >= 4), ...ftPool.filter((e: any) => (e.importance ?? 3) < 4)].slice(0, 3);
+const ftHero = ftPicked[0] ?? null;
+const ftRows = ftPicked.slice(1);
+const ftActiveSlugs = new Set((ftData.entries ?? []).map((e: any) => e.person).filter(Boolean));
+const ftTotal = ftData.stats?.totalEntries ?? 0;
+const ftPeopleCount = (ftData.people ?? []).length;
+const ftStamp = stamp(ftData.stats?.lastRun?.at ?? ftData.generated_at);
+
+/* ---- 阅读（微信读书；无数据回退样例）。首页只留精简 teaser，完整内容在 /reading/ ---- */
 const reading = readingData ?? SAMPLE_READING;
 const readingStamp = readingData ? stamp(readingData.generated_at) : null;
 const aiTopics = (reading as any).aiTopics ?? [];
-const highlights = (reading as any).highlights ?? [];
-/* AI 共创书字排封面的话题色 */
-const TOPIC_GRADS: Record<string, string> = {
-  memory: 'linear-gradient(155deg,#3D2E6B 0%,#1A1238 100%)',
-  evals: 'linear-gradient(155deg,#1F5B52 0%,#0C2522 100%)',
-  prompt: 'linear-gradient(155deg,#6B4A1F 0%,#2A1C0C 100%)',
-  agency: 'linear-gradient(155deg,#1F3F6B 0%,#0C1A2E 100%)',
-};
-const RD_GRADS = [
-  'linear-gradient(160deg,#27416B,#0F1D38)',
-  'linear-gradient(160deg,#2E5C50,#10241F)',
-  'linear-gradient(160deg,#6B4A27,#2A1B0E)',
-  'linear-gradient(160deg,#54306B,#1E1030)',
-  'linear-gradient(160deg,#6B2738,#280E15)',
-  'linear-gradient(160deg,#2A5A6B,#0E2228)',
-];
 
 /* ---- 工作台 · token 用量（真实 usage.json 或样例） ---- */
 const u = usage ?? SAMPLE_USAGE;
@@ -189,11 +204,14 @@ const numbered = (list: typeof PROJECTS, offset = 0) =>
             <a href="#knowledge" class="index-item">
               <span class="index-no">03</span><span class="index-t">知识库图谱</span><span class="index-s">What I've learned</span>
             </a>
+            <a href="#frontier" class="index-item">
+              <span class="index-no">04</span><span class="index-t">前沿追踪</span><span class="index-s">Who I'm tracking</span>
+            </a>
             <a href="#blog" class="index-item">
-              <span class="index-no">04</span><span class="index-t">思考与写作</span><span class="index-s">What I've been thinking</span>
+              <span class="index-no">05</span><span class="index-t">思考与写作</span><span class="index-s">What I've been thinking</span>
             </a>
             <a href="#reading" class="index-item">
-              <span class="index-no">05</span><span class="index-t">阅读</span><span class="index-s">What I've been reading</span>
+              <span class="index-no">06</span><span class="index-t">阅读</span><span class="index-s">What I've been reading</span>
             </a>
           </div>
         </aside>
@@ -334,7 +352,15 @@ const numbered = (list: typeof PROJECTS, offset = 0) =>
             <span class="sec-desc">与 Claude 共建的系统化知识工程——方法公开、来源标注</span>
           </div>
           <div class="kg-grid">
-            <div class="kg-paper" id="kg-paper"></div>
+            <div class="kg-stage">
+              <div class="kg-paper" id="kg-paper"></div>
+              {graph && (
+                <a class="kg-expand mono" href="/graph" aria-label="全屏探索 3D 知识图谱">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6"/><path d="M9 21H3v-6"/><path d="M21 3l-7 7"/><path d="M3 21l7-7"/></svg>
+                  全屏探索
+                </a>
+              )}
+            </div>
             <div class="kg-side">
               <div class="kg-stats">
                 {kbStats.map(([v, k]) => (
@@ -355,7 +381,6 @@ const numbered = (list: typeof PROJECTS, offset = 0) =>
               </p>
               {graph && (
                 <div class="kg-links">
-                  <a class="kg-browse mono" href="/graph">全屏探索图谱 →</a>
                   <a class="kg-browse mono" href="/kb/">浏览全部笔记 →</a>
                 </div>
               )}
@@ -364,11 +389,76 @@ const numbered = (list: typeof PROJECTS, offset = 0) =>
         </section>
       </div>
 
-      <!-- 04 思考与写作 -->
+      <!-- 04 前沿追踪 -->
+      <div class="reveal">
+        <section class="sec" id="frontier">
+          <div class="sec-head">
+            <span class="mono sec-no">04</span>
+            <div class="sec-title-row">
+              <h2 class="sec-title"><a href="/frontier/" class="sec-title-link">前沿追踪</a></h2>
+              <span class="mono sec-en">FRONTIER{ftTotal ? ` · ${ftTotal}` : ''}</span>
+            </div>
+            <span class="sec-desc">盯着 {ftPeopleCount} 位 AI 前沿人物的公开痕迹，每天抓取，模型梳理成中文{isFtSample && <em class="sample-badge">样例数据</em>}</span>
+          </div>
+          <!-- 头像锚点条：回答「这是什么模块」——盯人 -->
+          <a class="ft-home-strip" href="/frontier/#people" aria-label="查看在追的人完整档案">
+            {(ftData.people ?? []).map((p: any) => {
+              const portrait = ftPortraitOf(p.slug);
+              const on = ftActiveSlugs.has(p.slug);
+              return (
+                <span class:list={['ft-home-ava', { dim: !on }]} style={`--p-accent:${FT_ACCENT[p.domain] ?? '#7FB3F0'}`} title={p.name}>
+                  {portrait ? <img src={portrait} alt={p.name} width="36" height="36" loading="lazy" /> : <Fragment set:html={ftFallbackSvg(p)} />}
+                </span>
+              );
+            })}
+            <span class="mono ft-home-strip-more">在追的 {ftPeopleCount} 人 →</span>
+          </a>
+
+          <!-- 今日要点：importance 最高的一条 -->
+          {ftHero && (
+            <a class="ft-home-hero" href={`/frontier/#e-${ftHero.id}`}>
+              <span class="ft-home-hero-ava" style={`--p-accent:${FT_ACCENT[ftHero.domain] ?? '#7FB3F0'}`}>
+                {ftPortraitOf(ftHero.ownerSlug) ? (
+                  <img src={ftPortraitOf(ftHero.ownerSlug)} alt={ftHero.ownerName} width="56" height="56" loading="lazy" />
+                ) : (
+                  <Fragment set:html={ftFallbackSvg({ slug: ftHero.ownerSlug ?? 'topic', name: ftHero.ownerName, domain: ftHero.domain })} />
+                )}
+              </span>
+              <span class="ft-home-hero-main">
+                <span class="mono ft-home-hero-meta">{ftHero.ownerName} · {FT_TYPE_LABEL[ftHero.contentType] ?? ''} · {ftHero.date.slice(5).replace('-', '.')}</span>
+                <span class="ft-home-title">{ftHero.titleZh}</span>
+                <span class="ft-home-verdict">{ftHero.verdict}</span>
+              </span>
+              <span class="arrow">→</span>
+            </a>
+          )}
+
+          <!-- 次级两条：紧凑行（判断 clamp 1 行） -->
+          <div>
+            {ftRows.map((e: any) => (
+              <a href={`/frontier/#e-${e.id}`} class="blog-row ft-home-row">
+                <span class="mono blog-date">{e.date.slice(5).replace('-', '.')}</span>
+                <span class="blog-main">
+                  <span class="blog-title ft-home-title">{e.titleZh}</span>
+                  <span class="blog-desc ft-home-verdict-1">{e.ownerName} · {e.verdict}</span>
+                </span>
+                <span class="tag mono">{FT_TYPE_LABEL[e.contentType] ?? ''}</span>
+                <span class="arrow">→</span>
+              </a>
+            ))}
+          </div>
+          <div class="proj-expand-row">
+            <a class="proj-expand mono" href="/frontier/">进入前沿追踪{ftTotal ? ` · 全部 ${ftTotal} 条` : ''} →</a>
+          </div>
+          {ftStamp && <p class="mono wb-stamp">最近核查 {ftStamp} · 本轮新增 {ftData.stats?.lastRun?.added ?? 0} 条</p>}
+        </section>
+      </div>
+
+      <!-- 05 思考与写作 -->
       <div class="reveal">
         <section class="sec" id="blog">
           <div class="sec-head">
-            <span class="mono sec-no">04</span>
+            <span class="mono sec-no">05</span>
             <div class="sec-title-row">
               <h2 class="sec-title"><a href="/blog/" class="sec-title-link">思考与写作</a></h2>
               <span class="mono sec-en">WRITING</span>
@@ -393,16 +483,16 @@ const numbered = (list: typeof PROJECTS, offset = 0) =>
         </section>
       </div>
 
-      <!-- 05 阅读（微信读书） -->
+      <!-- 06 阅读（微信读书） -->
       <div class="reveal">
         <section class="sec" id="reading">
           <div class="sec-head">
-            <span class="mono sec-no">05</span>
+            <span class="mono sec-no">06</span>
             <div class="sec-title-row">
-              <h2 class="sec-title">阅读</h2>
+              <h2 class="sec-title"><a href="/reading/" class="sec-title-link">阅读</a></h2>
               <span class="mono sec-en">READING · WEREAD</span>
             </div>
-            <span class="sec-desc">真实书架与 AI 共创分区展示，统计来自微信读书官方接口</span>
+            <span class="sec-desc">书目人工筛选 · 点击任何一本进入划线页</span>
           </div>
 
           <div class="rd-stats">
@@ -418,49 +508,27 @@ const numbered = (list: typeof PROJECTS, offset = 0) =>
           </div>
 
           {aiTopics.length > 0 && (
-            <div class="rd-ai">
+            <div class="rd-ai rd-ai-compact">
               <div class="rd-ai-head">
                 <span class="mono wb-label">AI 共创阅读 · 方法论展示</span>
-                <span class="rd-ai-note">
-                  与 Claude 共写长文 → 转 ePub 导入微信读书 → 在通勤路上精读划线。以下为非出版物的自制书，不计入上方阅读统计。
-                </span>
+                <span class="rd-ai-note">与 Claude 共写长文 → 转 ePub 导入微信读书精读，自制书不计入上方统计</span>
+                <a class="mono rd-topic-link" href="/reading/#ai">话题与划线 →</a>
               </div>
-              <div class="rd-ai-grid">
-                {aiTopics.map((t: any) => (
-                  <div class="rd-topic">
-                    <div class="rd-topic-head">
-                      <b>{t.topic}</b>
-                      {t.graphFocus && (
-                        <a class="mono rd-topic-link" href={`/graph?focus=${encodeURIComponent(t.graphFocus)}`}>知识图谱 ↗</a>
-                      )}
-                    </div>
-                    <p class="rd-topic-blurb">{t.blurb}</p>
-                    <div class="rd-topic-books">
-                      {t.books.map((b: any) => (
-                        <div class="rd-aibook" title={`《${b.title}》${b.notes ? ` · ${b.notes} 条划线与想法` : ''}`}>
-                          <div class="rd-aibook-cover" style={`background:${TOPIC_GRADS[t.id] ?? TOPIC_GRADS.agency}`}>
-                            <span class="mono rd-aibook-badge">AI 共创</span>
-                            <span class="rd-aibook-title">{b.title}</span>
-                            <span class="mono rd-aibook-author">{b.author || 'with Claude'}</span>
-                          </div>
-                          {b.notes > 0 && <div class="mono rd-aibook-notes">{b.notes} 条划线</div>}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
+              <div class="rd-ai-strip">
+                {aiTopics.flatMap((t: any) => t.books.map((b: any) => ({ ...b, topic: t.topic }))).map((b: any) => (
+                  <a class="rd-aibook rd-aibook-sm" href={`/reading/${b.id}/`} title={`《${b.title}》· ${b.topic}${(b.highlights ?? []).length ? ` · ${b.highlights.length} 条划线` : ''}`}>
+                    {b.cover ? (
+                      <img class="rd-aibook-img" src={b.cover} alt={`《${b.title}》封面`} loading="lazy" />
+                    ) : (
+                      <div class="rd-aibook-cover">
+                        <span class="mono rd-aibook-badge">AI 共创</span>
+                        <span class="rd-aibook-title">{b.title}</span>
+                      </div>
+                    )}
+                    <div class="mono rd-aibook-topic">{b.topic}</div>
+                  </a>
                 ))}
               </div>
-              {highlights.length > 0 && (
-                <div class="rd-quotes">
-                  <div class="mono wb-label">共创书里的划线</div>
-                  {highlights.map((h: any) => (
-                    <blockquote class="rd-quote">
-                      {h.text}
-                      <cite class="mono rd-quote-from">《{h.from}》</cite>
-                    </blockquote>
-                  ))}
-                </div>
-              )}
             </div>
           )}
 
@@ -468,11 +536,11 @@ const numbered = (list: typeof PROJECTS, offset = 0) =>
             {reading.current && (
               <div class="rd-current">
                 <div class="mono wb-label">最近在读</div>
-                <div class="rd-current-card">
+                <a class="rd-current-card rd-card-link" href={readingData ? `/reading/${reading.current.id}/` : '/reading/'}>
                   {reading.current.cover ? (
                     <img class="rd-cover rd-cover-lg" src={reading.current.cover} alt={`《${reading.current.title}》封面`} loading="lazy" />
                   ) : (
-                    <div class="rd-cover rd-cover-lg rd-cover-ph" style={`background:${RD_GRADS[0]}`}>
+                    <div class="rd-cover rd-cover-lg rd-cover-ph" style={`background:${gradOf(reading.current.id)}`}>
                       <span>{reading.current.title.slice(0, 1)}</span>
                     </div>
                   )}
@@ -484,33 +552,36 @@ const numbered = (list: typeof PROJECTS, offset = 0) =>
                       <span class="mono rd-progress-num">{reading.current.progress}%</span>
                     </div>
                     {reading.current.notes > 0 && (
-                      <div class="mono rd-book-notes">{reading.current.notes} 条划线与想法</div>
+                      <div class="mono rd-book-notes">{reading.current.notes} 条划线与想法 →</div>
                     )}
                   </div>
-                </div>
+                </a>
               </div>
             )}
             <div class="rd-shelf-col">
-              <div class="mono wb-label">书架 · 按最近阅读排序</div>
+              <div class="mono wb-label">书架 · 最近 9 本</div>
               <div class="rd-shelf">
-                {reading.shelf.map((b, i) => (
-                  <div class="rd-book" title={`《${b.title}》${b.author ? ' · ' + b.author : ''}${b.finished ? ' · 已读完' : b.progress ? ` · ${b.progress}%` : ''}`}>
+                {reading.shelf.slice(0, 9).map((b) => (
+                  <a class="rd-book" href={readingData ? `/reading/${b.id}/` : '/reading/'} title={`《${b.title}》${b.author ? ' · ' + b.author : ''}${b.finished ? ' · 已读完' : b.progress ? ` · ${b.progress}%` : ''}`}>
                     {b.cover ? (
                       <img class="rd-cover" src={b.cover} alt={`《${b.title}》封面`} loading="lazy" />
                     ) : (
-                      <div class="rd-cover rd-cover-ph" style={`background:${RD_GRADS[i % RD_GRADS.length]}`}>
+                      <div class="rd-cover rd-cover-ph" style={`background:${gradOf(b.id)}`}>
                         <span>{b.title.slice(0, 1)}</span>
                       </div>
                     )}
                     {!b.finished && b.progress > 0 && <div class="rd-mini-bar"><span style={`width:${b.progress}%`}></span></div>}
                     <div class="rd-book-name">{b.title}</div>
-                  </div>
+                  </a>
                 ))}
               </div>
               <div class="mono wb-stamp">
-                {readingStamp ? `数据来自微信读书 · 更新于 ${readingStamp}` : '样例书架——接入微信读书后展示真实在读与划线'}
+                {readingStamp ? `数据来自微信读书 · 更新于 ${readingStamp} · 书目人工筛选` : '样例书架——接入微信读书后展示真实在读与划线'}
               </div>
             </div>
+          </div>
+          <div class="proj-expand-row">
+            <a class="proj-expand mono blog-all" href="/reading/">进入阅读页：全部书目与划线 →</a>
           </div>
         </section>
       </div>

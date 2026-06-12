@@ -36,6 +36,7 @@ npm run sync            # 一键：采集全部 → commit → push（--no-push 
 | `sync-vault` | Obsidian `04AI/` 真实结构与双链（04T 专题库下钻 F1~F6 切面；内置发布消毒管线） | `data/graph.json` + `content/kb/` + 隐私清单 |
 | `fetch-github` | GitHub GraphQL（Actions 每日 cron，需 token） | 合并进 activity 的 gh 维度 |
 | `collect-weread` | 微信读书官方 Agent API（书架/笔记/统计/划线 + AI 共创书白名单） | `data/reading.json` + 封面 |
+| `collect-frontier` | AI 学者/信息源公开动态（博客 RSS / arXiv / YouTube / X 镜像池）→ `claude -p` 无头梳理成中文摘要+判断+标签 | `data/frontier.json`（滚动 90 天）+ 月度归档 + 去重账本 |
 
 **发布消毒管线**（sync-vault 内置，只改发布版不动库原文件）：剥离「衍生对话存档」等工作残桩小节、
 清除「待补充」占位行、屏蔽词替换并报告、私人日记类 wikilink 抹成〔私人记录〕、敏感标题默认不发布
@@ -44,6 +45,28 @@ npm run sync            # 一键：采集全部 → commit → push（--no-push 
 
 **微信读书 AI 共创书白名单**：secret=1 私密书一律排除，仅 `scripts/config.mjs → wereadAiTopics`
 按书名显式放行（当前 4 话题 8 本），在主页阅读区以独立「方法论展示」分区呈现、不混入真实阅读统计。
+
+**前沿追踪（/frontier）**：追踪名单（人物/话题/信息源）在 `scripts/config.mjs → frontier` 集中配置，
+随时增删。每条产出 = 中文标题 + 一句话判断 + 200-400 字摘要 + 标签 + 原文摘录（核查锚点）+ 原文链接。
+模型调用走本机 `claude -p` 无头模式（现有订阅，零 API 计费；`--no-session-persistence` 防止污染
+usage/activity 统计）。X 抓取依赖第三方镜像池（nitter 等，单源失败静默缺失、次日补抓，
+`stats.lastRun.skippedSources` 可见）。内容双闸：`excludePatterns` 正则预过滤 + 模型判定
+`relevant=false` 丢弃——涉政内容为硬性排除（站点部署在备案域名）。摘要只允许基于抓到的原文，
+信息不足时模型自报 `insufficientContext` 并收短。
+
+**新增追踪人物 SOP（一致性靠管线不靠手感）**：
+
+1. `scripts/config.mjs → frontier.people` 加一条：`slug`（kebab-case）/`name`/`domain`（四枚举之一，
+   要扩分类先改 `domains`）/`title`（机构+角色，≤20 字）/`bio`（一句话定位，≤40 字）/`sources`
+2. `npm run collect:frontier -- --dry-run` —— 启动即跑 config 校验：slug 格式与唯一性、domain 枚举、
+   source type/handle/url 合法性，不合法直接报错退出（这是增量管线的通断检查点）；同时实测新源可达性
+3. `npm run frontier:portraits` —— 只为缺头像的人生成：风格由 config 的 `stylePrompt` 模板锁定
+   （不传参考图——实测参考图会让模型「串脸」，纯模板已足够保证跨批次风格一致）；无 key 时打印
+   prompt 清单可手动生成（PNG 丢进 `public/assets/frontier/` 重跑脚本即自动压成 webp）
+4. `npm run build` 预览 —— 头像没生成也不破版：人物卡自动回退程序化「星座字母牌」（slug 种子确定性 SVG，
+   与深空视觉同源）
+
+分类一致性由 `domains` 闭集枚举保证；标签一致性由「每次梳理把现有 TOP30 标签注入 prompt 要求优先复用」控制漂移。
 
 **微信读书接入（官方 Skill 体系）**：打开 [weread.qq.com/r/weread-skills](https://weread.qq.com/r/weread-skills)
 登录并复制 API Key（`wrk-` 开头），写入 `scripts/.weread-key`（已 gitignore，绝不入库），
@@ -92,8 +115,10 @@ npm run build     # 产出 dist/（145 静态页）
 - 阅读页 reader chrome：kb/blog 详情页收起完整导航（R monogram + 分享/搜索），滚读自动隐藏；
   分享按钮弹出 OG 卡（复制链接 / 下载 / 系统分享）
 - 工作台口径 v2：今日全口径+输出注脚、累计 = Code 实测/估算 + 网页粗估分列、估算方法页内可达
-- `⌘K` / `/` 全站命令面板：支持 `/kb` `/blog` `/proj` 前缀过滤
-- View Transitions 页面转场、RSS（/rss.xml）、sitemap、玻璃 404、全站 OG 卡（含 /og/home.png）
+- `/frontier` **前沿追踪**：10+ 位 AI 前沿人物与机构源的每日动态流，模型梳理中文摘要与一句话判断；
+  四维筛选（类型/领域/人物/标签）+ URL 深链 + 独立订阅源（/frontier.xml）；`?view=cards` 切卡片流视图
+- `⌘K` / `/` 全站命令面板：支持 `/kb` `/blog` `/proj` `/ft` 前缀过滤
+- View Transitions 页面转场、RSS（/rss.xml + /frontier.xml）、sitemap、玻璃 404、全站 OG 卡（含 /og/home.png）
 - Liquid Glass 对齐:降级三档（减透明/无 backdrop-filter/高对比）、滚动收缩导航、44px 触达
 - 招聘官视角的批判性审查存档于 `docs/interviewer-critique.md`（v3 迭代的需求来源之一）
 

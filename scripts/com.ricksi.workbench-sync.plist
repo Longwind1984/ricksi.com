@@ -21,6 +21,17 @@
   </array>
   <key>WorkingDirectory</key>
   <string>/Users/rick/Claude_Code/Rick's Personal/rick-homepage</string>
+  <key>EnvironmentVariables</key>
+  <dict>
+    <!-- launchd 环境没有交互 shell 的 PATH 与代理 alias：
+         PATH 让 npm/node/git/claude 可寻址；代理变量供 collect-frontier 抓外网与 claude CLI 使用 -->
+    <key>PATH</key>
+    <string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+    <key>HTTPS_PROXY</key>
+    <string>http://127.0.0.1:7897</string>
+    <key>HTTP_PROXY</key>
+    <string>http://127.0.0.1:7897</string>
+  </dict>
   <key>StartCalendarInterval</key>
   <dict>
     <key>Hour</key>

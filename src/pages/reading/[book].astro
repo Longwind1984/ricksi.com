@@ -1,0 +1,92 @@
+---
+// 书籍落地页：承载单本书的划线句子（书目范围由 config.wereadShelf / wereadAiTopics 白名单控制）
+import Glass from '../../layouts/Glass.astro';
+import { loadSiteData } from '../../lib/site-data.mjs';
+import { TOPIC_GRADS, gradOf } from '../../lib/reading-ui.mjs';
+
+export async function getStaticPaths() {
+  const { reading } = loadSiteData();
+  if (!reading) return [];
+  const map = new Map();
+  for (const b of [...(reading.shelf ?? []), ...(reading.current ? [reading.current] : [])]) {
+    if (!map.has(b.id)) map.set(b.id, { ...b });
+  }
+  for (const t of reading.aiTopics ?? []) {
+    for (const b of t.books) {
+      map.set(b.id, { ...(map.get(b.id) ?? {}), ...b, ai: true, topic: t.topic, topicId: t.id, graphFocus: t.graphFocus });
+    }
+  }
+  return [...map.values()].map((book) => ({ params: { book: book.id }, props: { book } }));
+}
+
+const { book } = Astro.props;
+const highlights = (book as any).highlights ?? [];
+const cover = (book as any).cover ?? null;
+const grad = (book as any).ai ? (TOPIC_GRADS as any)[(book as any).topicId] ?? TOPIC_GRADS.agency : gradOf(book.id);
+---
+
+<Glass
+  title={`《${book.title}》· 阅读 · Rick Si`}
+  description={`《${book.title}》${book.author ? `（${book.author}）` : ''}的阅读划线${highlights.length ? `：${highlights.length} 条` : ''}。`}
+  active="reading"
+  reader
+>
+  <div class="read-progress" id="read-progress"></div>
+  <main class="sub-main">
+    <div class="container article-narrow">
+      <article class="sec article">
+        <nav class="mono art-crumb">
+          <a href="/reading/">阅读</a>
+          <span> / </span>
+          <span>{(book as any).ai ? 'AI 共创' : '书架'}</span>
+        </nav>
+
+        <div class="bk-head">
+          {cover ? (
+            <img class="rd-cover bk-cover" src={cover} alt={`《${book.title}》封面`} />
+          ) : (
+            <div class="rd-cover bk-cover rd-cover-ph" style={`background:${grad}`}>
+              {(book as any).ai ? (
+                <span class="bk-cover-typo">
+                  <em class="mono rd-aibook-badge">AI 共创</em>
+                  <b>{book.title}</b>
+                </span>
+              ) : (
+                <span>{book.title.slice(0, 1)}</span>
+              )}
+            </div>
+          )}
+          <div class="bk-info">
+            <h1 class="art-title bk-title">{book.title}</h1>
+            <div class="mono art-meta bk-meta">
+              {book.author && <span>{book.author}</span>}
+              {(book as any).ai && <span class="prov-badge ai">与 Claude 共创 · 自制 ePub</span>}
+              {book.finished ? <span>已读完</span> : book.progress > 0 ? <span>读到 {book.progress}%</span> : null}
+              {book.notes > 0 && <span>{book.notes} 条划线与想法</span>}
+            </div>
+            {(book as any).ai && (book as any).graphFocus && (
+              <a class="mono rd-topic-link" href={`/graph?focus=${encodeURIComponent((book as any).graphFocus)}`}>
+                「{(book as any).topic}」话题在知识图谱中的对应专题 ↗
+              </a>
+            )}
+          </div>
+        </div>
+
+        {highlights.length > 0 ? (
+          <div class="bk-quotes">
+            <div class="mono wb-label">划线 · {highlights.length} 条</div>
+            {highlights.map((q: string) => (
+              <blockquote class="rd-quote bk-quote">{q}</blockquote>
+            ))}
+          </div>
+        ) : (
+          <p class="kg-note">这本书还没有公开的划线。</p>
+        )}
+
+        <div class="art-pager">
+          <a href="/reading/" class="art-pager-link">← 返回阅读</a>
+        </div>
+      </article>
+    </div>
+  </main>
+</Glass>

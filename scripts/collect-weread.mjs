@@ -132,6 +132,7 @@ try {
         id: b.bookId,
         title,
         author: b.author || '',
+        cover: (CONFIG.wereadAiCovers || {})[title] ?? null, // 导入书 API 无封面，用本地原版/重绘资产
         progress: nb.progress ?? 0,
         finished: b.finishReading === 1 || nb.finished === true,
         notes: nb.notes || 0,
@@ -143,34 +144,74 @@ try {
     }
   }
 
-  /* 5c. 代表划线：只从 AI 共创白名单书里抽（题材天然可控，公版书划线有暴露风险——
-        2026-06-12 用户决策），按笔记数取前两本，共 ≤3 条 */
-  let highlights = [];
-  const hlSources = aiTopics
-    .flatMap((t) => t.books)
-    .filter((b) => b.notes > 0)
-    .sort((a, b) => b.notes - a.notes)
-    .slice(0, 2);
-  for (const b of hlSources) {
-    if (highlights.length >= 3) break;
+  /* 5c. 书架展示中间层：config.wereadShelf 人工白名单（同名版本取读得最深的那本）
+        或 auto 旧规则；manual 模式下打印候选清单供筛选 */
+  const sh = CONFIG.wereadShelf || {};
+  let shelfDisplay;
+  if (sh.mode === 'manual' && Array.isArray(sh.titles) && sh.titles.length) {
+    shelfDisplay = [];
+    for (const t of sh.titles) {
+      const cands = enriched
+        .filter((b) => b.title === t)
+        .sort((a, b) => b.finished - a.finished || b.progress - a.progress || b.lastRead - a.lastRead);
+      if (cands[0]) shelfDisplay.push(cands[0]);
+      else console.warn(`[weread] ⚠ 书架白名单未找到：《${t}》`);
+    }
+    const shown = new Set(shelfDisplay.map((b) => b.id));
+    const candidates = enriched.filter((b) => !shown.has(b.id) && (b.finished || b.progress > 0 || b.notes > 0));
+    if (candidates.length) {
+      console.log(`[weread] 候选书目（有阅读痕迹但未在白名单，共 ${candidates.length} 本，前 25 供挑选）：`);
+      candidates
+        .slice(0, 25)
+        .forEach((b) =>
+          console.log(
+            `    《${b.title}》${b.finished ? ' 读完' : b.progress ? ` ${b.progress}%` : ''}${b.notes ? ` · ${b.notes} 注` : ''}`
+          )
+        );
+    }
+  } else {
+    shelfDisplay = enriched.filter((b) => b.finished || b.progress > 0);
+  }
+
+  /* 5d. 每本展示书抓划线（公开发布到 /reading/<id>/，由白名单中间层控制范围） */
+  const detailBooks = [
+    ...new Map(
+      [...shelfDisplay.slice(0, 24), ...aiTopics.flatMap((t) => t.books), ...(current ? [current] : [])].map((b) => [
+        b.id,
+        b,
+      ])
+    ).values(),
+  ];
+  for (const b of detailBooks) {
     try {
       const bm = await gw('/book/bookmarklist', { bookId: b.id });
-      const picks = (bm.updated || [])
+      b.highlights = (bm.updated || [])
         .map((m) => (m.markText || '').trim())
-        .filter((t) => t.length >= 16 && t.length <= 110);
-      for (const t of picks) {
-        if (highlights.length < 3 && !highlights.some((h) => h.text === t)) {
-          highlights.push({ text: t, from: b.title });
-        }
-      }
+        .filter((t) => t.length >= 8)
+        .slice(0, 60)
+        .map((t) => (t.length > 300 ? t.slice(0, 300) + '…' : t));
     } catch (e) {
-      console.warn(`[weread] 划线接口失败《${b.title}》（不阻塞）：`, e.message);
+      b.highlights = [];
+      console.warn(`[weread] 划线抓取失败《${b.title}》：`, e.message);
     }
   }
 
-  /* 6. 书架策展：只展示「读出过进度或读完」的书（一排 0% 封面是噪音不是信号），
-        封面下载（压缩到 240px） */
-  const shelfDisplay = enriched.filter((b) => b.finished || b.progress > 0);
+  /* 5e. 首页代表划线：从 AI 共创书的已抓划线里取 ≤3 条（题材天然可控——2026-06-12 决策） */
+  let highlights = [];
+  for (const b of aiTopics
+    .flatMap((t) => t.books)
+    .filter((x) => (x.highlights || []).length)
+    .sort((a, b) => b.notes - a.notes)) {
+    for (const t of b.highlights) {
+      if (highlights.length >= 3) break;
+      if (t.length >= 16 && t.length <= 110 && !highlights.some((h) => h.text === t)) {
+        highlights.push({ text: t, from: b.title });
+      }
+    }
+    if (highlights.length >= 3) break;
+  }
+
+  /* 6. 封面下载（压缩到 240px） */
   fs.mkdirSync(COVER_DIR, { recursive: true });
   let newCovers = 0;
   for (const b of shelfDisplay.slice(0, 24)) {
@@ -212,7 +253,7 @@ try {
     current,
     highlights,
     aiTopics,
-    shelf: shelfDisplay.slice(0, 18).map(({ coverUrl, ...keep }) => keep),
+    shelf: shelfDisplay.slice(0, 24).map(({ coverUrl, ...keep }) => keep),
   };
   writeJson(OUT, out);
   console.log(

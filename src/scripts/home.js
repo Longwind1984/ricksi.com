@@ -252,6 +252,25 @@ if (kgPaper && siteData.graph) {
     legEls.push(item);
   });
 
+  // 图例折叠：主题域多于 7 个时默认只显前 6 个（14 个全铺会把卡片撑得过长）
+  const LEG_SHOW = 6;
+  if (legEls.length > LEG_SHOW + 1) {
+    legEls.slice(LEG_SHOW).forEach((el) => (el.hidden = true));
+    const toggle = document.createElement('button');
+    toggle.type = 'button';
+    toggle.className = 'kg-leg-toggle mono';
+    toggle.setAttribute('aria-expanded', 'false');
+    const closedText = `展开全部 ${legEls.length} 个主题域 ↓`;
+    toggle.textContent = closedText;
+    toggle.addEventListener('click', () => {
+      const open = toggle.getAttribute('aria-expanded') !== 'true';
+      toggle.setAttribute('aria-expanded', String(open));
+      legEls.slice(LEG_SHOW).forEach((el) => (el.hidden = !open));
+      toggle.textContent = open ? '收起 ↑' : closedText;
+    });
+    legend.appendChild(toggle);
+  }
+
   const input = document.getElementById('kg-search');
   const hint = document.getElementById('kg-search-hint');
   input?.addEventListener('input', () => {

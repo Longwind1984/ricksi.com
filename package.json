@@ -11,6 +11,8 @@
     "sync": "node scripts/sync.mjs",
     "collect:activity": "node scripts/collect-activity.mjs",
     "collect:usage": "node scripts/collect-usage.mjs",
+    "collect:frontier": "node scripts/collect-frontier.mjs",
+    "frontier:portraits": "node scripts/generate-frontier-portraits.mjs",
     "sync:vault": "node scripts/sync-vault.mjs"
   },
   "dependencies": {

@@ -4,9 +4,9 @@
 // 控制器与 2D 版（graph-view.js）同形：highlightCluster / search / zoomIn / zoomOut /
 // fit / reset / focusNode / nodeBySlug / destroy / onSelect 回调 + ready Promise。
 import ForceGraph3D from '3d-force-graph';
-import SpriteText from 'three-spritetext';
 import * as THREE from 'three';
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
+import { CSS2DRenderer, CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer.js';
 import { forceX, forceY, forceZ } from 'd3-force-3d';
 import { GRAPH_PALETTE } from '../lib/sample.js';
 
@@ -69,10 +69,15 @@ export function renderGraph3D(host, graph, opts = {}) {
     n.z = a.z + (Math.random() - 0.5) * 90;
   });
 
-  /* ---------- 实例 ---------- */
+  /* ---------- 实例 ----------
+     标签走 CSS2DRenderer（DOM 叠加层）：不进 bloom 后处理管线，文字零炫光、
+     系统字体渲染清晰——这也是 NASA Eyes 的标签做法 */
+  const css2d = new CSS2DRenderer();
+  css2d.domElement.style.pointerEvents = 'none';
   const Graph = new ForceGraph3D(host, {
     controlType: 'orbit',
     rendererConfig: { antialias: !isMobile, powerPreference: 'high-performance', alpha: false },
+    extraRenderers: [css2d],
   })
     .backgroundColor(BG)
     .showNavInfo(false)
@@ -229,25 +234,23 @@ export function renderGraph3D(host, graph, opts = {}) {
     n.__group = g;
     return g;
   }
-  function ensureSprite(n) {
-    if (n.__sprite) return n.__sprite;
-    const s = new SpriteText(n.title, 4.2, '#D7E3F4');
-    s.fontFace = "'PingFang SC','Hiragino Sans GB','Noto Sans SC',sans-serif";
-    s.fontWeight = '500';
-    s.strokeWidth = 1.6;
-    s.strokeColor = 'rgba(0,0,5,0.92)';
-    s.material.depthWrite = false;
-    s.material.fog = false;
-    s.position.y = radius(n) * params.nodeScale + 5;
-    s.visible = false;
-    n.__group.add(s);
-    n.__sprite = s;
-    return s;
+  function ensureLabel(n) {
+    if (n.__label) return n.__label;
+    const el = document.createElement('div');
+    el.className = 'gx-label';
+    el.textContent = n.title;
+    const o = new CSS2DObject(el);
+    o.position.y = radius(n) * params.nodeScale + 4;
+    o.visible = false;
+    n.__group.add(o);
+    n.__label = o;
+    n.__labelEl = el;
+    return o;
   }
   function applyNodeScale() {
     for (const n of nodes) {
       if (n.__mesh) n.__mesh.scale.setScalar(radius(n) * params.nodeScale);
-      if (n.__sprite) n.__sprite.position.y = radius(n) * params.nodeScale + 5;
+      if (n.__label) n.__label.position.y = radius(n) * params.nodeScale + 4;
     }
   }
 
@@ -340,13 +343,14 @@ export function renderGraph3D(host, graph, opts = {}) {
       if (grid.has(cell)) continue;
       grid.add(cell);
       show.add(n.id);
-      const s = ensureSprite(n);
-      s.visible = true;
-      // 距离渐隐：近处全显，超过 2.2R 淡出
-      s.material.opacity = Math.max(0.25, Math.min(1, 2.2 - d / (R * 1.05)));
+      const o = ensureLabel(n);
+      o.visible = true;
+      // 距离渐隐：近处全显，超过 2.2R 淡出；选中节点的标签强调
+      n.__labelEl.style.opacity = Math.max(0.3, Math.min(1, 2.2 - d / (R * 1.05)));
+      n.__labelEl.classList.toggle('sel', state.type === 'node' && n.id === state.value);
     }
     for (const n of nodes) {
-      if (n.__sprite && !show.has(n.id)) n.__sprite.visible = false;
+      if (n.__label && !show.has(n.id)) n.__label.visible = false;
     }
   }
   const lodTimer = setInterval(updateLabels, 180);

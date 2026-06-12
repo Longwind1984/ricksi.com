@@ -1,0 +1,163 @@
+---
+// 阅读模块总页：完整看板 + AI 共创话题 + 全量策展书架（首页只留精简 teaser）
+import Glass from '../../layouts/Glass.astro';
+import { loadSiteData, stamp } from '../../lib/site-data.mjs';
+import { TOPIC_GRADS, gradOf } from '../../lib/reading-ui.mjs';
+
+const { reading } = loadSiteData();
+const readingStamp = reading ? stamp(reading.generated_at) : null;
+const aiTopics = (reading as any)?.aiTopics ?? [];
+const quotes = (reading as any)?.highlights ?? [];
+const shelf = (reading as any)?.shelf ?? [];
+const current = (reading as any)?.current ?? null;
+const hlCount = (b: any) => (b.highlights ?? []).length;
+---
+
+<Glass
+  title="阅读 · 司豪杰 Rick Si"
+  description={`阅读看板：${reading?.stats?.total ?? 0} 本藏书、${reading?.stats?.notes ?? 0} 条划线与想法，含 AI 共创阅读方法论展示。数据来自微信读书官方接口，书目经人工筛选。`}
+  active="reading"
+>
+  <main class="sub-main">
+    <div class="container">
+      {reading ? (
+        <>
+          <section class="sec">
+            <div class="sec-head">
+              <span class="mono sec-no">RD</span>
+              <div class="sec-title-row">
+                <h2 class="sec-title">阅读</h2>
+                <span class="mono sec-en">READING · WEREAD</span>
+              </div>
+              <span class="sec-desc">书目经人工筛选展示 · 点击任何一本看划线</span>
+            </div>
+            <div class="rd-stats">
+              {[
+                ['藏书', reading.stats.total, '本'],
+                ['读完', reading.stats.finished, '本'],
+                ...(reading.stats.readDays ? [['阅读天数', reading.stats.readDays, '天']] : []),
+                ...(reading.stats.hours ? [['累计时长', reading.stats.hours, '小时']] : []),
+                ['划线与想法', reading.stats.notes.toLocaleString(), '条'],
+              ].map(([k, v, unit]) => (
+                <div><div class="mono stat-k">{k}</div><div class="stat-v">{v}<span class="stat-unit">{unit}</span></div></div>
+              ))}
+            </div>
+            <div class="mono wb-stamp">
+              {readingStamp ? `数据来自微信读书官方接口 · 更新于 ${readingStamp} · 私密阅读不展示，公开书目由白名单人工筛选` : ''}
+            </div>
+          </section>
+
+          {aiTopics.length > 0 && (
+            <section class="sec" id="ai">
+              <div class="sec-head">
+                <span class="mono sec-no">01</span>
+                <div class="sec-title-row">
+                  <h2 class="sec-title">AI 共创阅读</h2>
+                  <span class="mono sec-en">CO-CREATED · 方法论展示</span>
+                </div>
+                <span class="sec-desc">与 Claude 共写长文 → 转 ePub 导入微信读书 → 通勤路上精读划线</span>
+              </div>
+              <div class="rd-ai-grid">
+                {aiTopics.map((t: any) => (
+                  <div class="rd-topic">
+                    <div class="rd-topic-head">
+                      <b>{t.topic}</b>
+                      {t.graphFocus && (
+                        <a class="mono rd-topic-link" href={`/graph?focus=${encodeURIComponent(t.graphFocus)}`}>知识图谱 ↗</a>
+                      )}
+                    </div>
+                    <p class="rd-topic-blurb">{t.blurb}</p>
+                    <div class="rd-topic-books">
+                      {t.books.map((b: any) => (
+                        <a class="rd-aibook" href={`/reading/${b.id}/`} title={`《${b.title}》${hlCount(b) ? ` · ${hlCount(b)} 条划线` : ''}`}>
+                          {b.cover ? (
+                            <img class="rd-aibook-img" src={b.cover} alt={`《${b.title}》封面`} loading="lazy" />
+                          ) : (
+                            <div class="rd-aibook-cover" style={`background:${TOPIC_GRADS[t.id] ?? TOPIC_GRADS.agency}`}>
+                              <span class="mono rd-aibook-badge">AI 共创</span>
+                              <span class="rd-aibook-title">{b.title}</span>
+                              <span class="mono rd-aibook-author">{b.author || 'with Claude'}</span>
+                            </div>
+                          )}
+                          {hlCount(b) > 0 && <div class="mono rd-aibook-notes">{hlCount(b)} 条划线</div>}
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+              {quotes.length > 0 && (
+                <div class="rd-quotes">
+                  <div class="mono wb-label">共创书里的划线</div>
+                  {quotes.map((h: any) => (
+                    <blockquote class="rd-quote">
+                      {h.text}
+                      <cite class="mono rd-quote-from">《{h.from}》</cite>
+                    </blockquote>
+                  ))}
+                </div>
+              )}
+            </section>
+          )}
+
+          <section class="sec">
+            <div class="sec-head">
+              <span class="mono sec-no">02</span>
+              <div class="sec-title-row">
+                <h2 class="sec-title">书架</h2>
+                <span class="mono sec-en">SHELF · {shelf.length}</span>
+              </div>
+              <span class="sec-desc">按最近阅读排序 · 点击进入划线页</span>
+            </div>
+            <div class="rd-grid">
+              {current && (
+                <div class="rd-current">
+                  <div class="mono wb-label">最近在读</div>
+                  <a class="rd-current-card rd-card-link" href={`/reading/${current.id}/`}>
+                    {current.cover ? (
+                      <img class="rd-cover rd-cover-lg" src={current.cover} alt={`《${current.title}》封面`} loading="lazy" />
+                    ) : (
+                      <div class="rd-cover rd-cover-lg rd-cover-ph" style={`background:${gradOf(current.id)}`}>
+                        <span>{current.title.slice(0, 1)}</span>
+                      </div>
+                    )}
+                    <div class="rd-current-info">
+                      <div class="rd-book-title">{current.title}</div>
+                      <div class="rd-book-author mono">{current.author}</div>
+                      <div class="rd-progress">
+                        <div class="rd-progress-bar"><span style={`width:${current.progress}%`}></span></div>
+                        <span class="mono rd-progress-num">{current.progress}%</span>
+                      </div>
+                      {current.notes > 0 && <div class="mono rd-book-notes">{current.notes} 条划线与想法 →</div>}
+                    </div>
+                  </a>
+                </div>
+              )}
+              <div class="rd-shelf-col">
+                <div class="mono wb-label">全部展示书目</div>
+                <div class="rd-shelf">
+                  {shelf.map((b: any, i: number) => (
+                    <a class="rd-book" href={`/reading/${b.id}/`} title={`《${b.title}》${b.author ? ' · ' + b.author : ''}${hlCount(b) ? ` · ${hlCount(b)} 条划线` : ''}`}>
+                      {b.cover ? (
+                        <img class="rd-cover" src={b.cover} alt={`《${b.title}》封面`} loading="lazy" />
+                      ) : (
+                        <div class="rd-cover rd-cover-ph" style={`background:${gradOf(b.id)}`}>
+                          <span>{b.title.slice(0, 1)}</span>
+                        </div>
+                      )}
+                      {!b.finished && b.progress > 0 && <div class="rd-mini-bar"><span style={`width:${b.progress}%`}></span></div>}
+                      <div class="rd-book-name">{b.title}</div>
+                      {hlCount(b) > 0 && <div class="mono rd-book-hl">{hlCount(b)} 条划线</div>}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </section>
+        </>
+      ) : (
+        <section class="sec"><p class="kg-note">本地配置微信读书 API Key 并运行 `npm run sync` 后，这里会出现真实阅读数据。</p></section>
+      )}
+    </div>
+  </main>
+</Glass>

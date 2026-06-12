@@ -3,8 +3,8 @@
 let indexCache = null;
 let kAbort = null;
 
-const TYPE_LABEL = { page: '页面', proj: '项目', post: '文章', note: '笔记' };
-const PREFIX = { '/kb': 'note', '/blog': 'post', '/proj': 'proj', '/goal': 'proj' };
+const TYPE_LABEL = { page: '页面', proj: '项目', post: '文章', note: '笔记', ft: '前沿', person: '人物' };
+const PREFIX = { '/kb': 'note', '/blog': 'post', '/proj': 'proj', '/goal': 'proj', '/ft': 'ft' };
 
 async function loadIndex() {
   if (!indexCache) {

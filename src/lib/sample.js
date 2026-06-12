@@ -124,3 +124,25 @@ export const SAMPLE_POSTS = [
   { date: '2026.03', title: 'RAG 已死？知识库产品的三条路线', tag: '技术判断', href: '#' },
   { date: '2026.02', title: '用 Claude Code 重建我的个人工作流', tag: '工作流', href: '#' },
 ];
+
+/* 前沿追踪样例（data/frontier.json 缺失时的回退；与采集产物逐字段同构） */
+export const SAMPLE_FRONTIER = {
+  sample: true,
+  generated_at: null,
+  domains: { lab: '前沿实验室', engineering: '工程与教育', research: '研究与评测', writing: '综述与观察' },
+  people: [
+    { slug: 'karpathy', name: 'Andrej Karpathy', domain: 'engineering', title: 'Eureka Labs 创始人，前 Tesla AI / OpenAI', bio: '把复杂 AI 知识压缩成人类可学习接口的教学型思想者。' },
+    { slug: 'dario-amodei', name: 'Dario Amodei', domain: 'lab', title: 'Anthropic CEO', bio: '把模型能力、安全叙事和政策表态放在同一张桌子上的公司型思想者。' },
+    { slug: 'lilian-weng', name: 'Lilian Weng', domain: 'writing', title: 'Thinking Machines 联创', bio: '长文综述的标杆。' },
+    { slug: 'francois-chollet', name: 'François Chollet', domain: 'research', title: 'Keras 作者，ARC-AGI 设计者', bio: '通过重新定义「什么才算智能」来校准 AGI 讨论的概念边界。' },
+  ],
+  topics: [{ slug: 'deepmind', name: 'DeepMind Blog', domain: 'lab' }],
+  stats: { totalEntries: 5, totalAllTime: 5, lastRun: { at: null, fetched: 0, processed: 0, added: 0, llmFailed: 0, rateLimited: false, skippedSources: [] } },
+  entries: [
+    { id: 'sf1', date: '2026-06-11', person: 'karpathy', topicSource: null, sourceName: 'X @karpathy', sourceType: 'x', contentType: 'statement', titleZh: 'Karpathy：上下文窗口是新的程序内存', titleOriginal: 'Context windows are the new program memory', verdict: '把 LLM 应用架构类比操作系统，是理解 agent 工程的关键心智模型。', summaryZh: '样例摘要：Karpathy 在一条长推中把上下文窗口类比为程序内存，提出 agent 框架的本质是新的操作系统调度问题。', tags: ['上下文工程', 'Agent'], url: '#', excerpt: 'Context windows are the new program memory…', importance: 4, insufficientContext: false },
+    { id: 'sf2', date: '2026-06-11', person: 'dario-amodei', topicSource: null, sourceName: 'darioamodei.com', sourceType: 'rss', contentType: 'authored', titleZh: 'Dario 新文：AI 指数时代的政策窗口', titleOriginal: 'Policy on the AI Exponential', verdict: '前沿实验室 CEO 直接给出政策时间表判断，罕见且具体。', summaryZh: '样例摘要：Dario 论证 AI 能力的指数曲线已超出政策机构的响应速度，提出三项可立即执行的制度准备。', tags: ['AI 政策', '安全'], url: '#', excerpt: 'Sample excerpt…', importance: 5, insufficientContext: false },
+    { id: 'sf3', date: '2026-06-10', person: 'lilian-weng', topicSource: null, sourceName: 'lilianweng.github.io', sourceType: 'rss', contentType: 'authored', titleZh: 'Lil\'Log 新篇：Agent 记忆机制综述', titleOriginal: 'Agent Memory', verdict: '又一篇可以直接当 reading list 用的领域地图。', summaryZh: '样例摘要：从工作记忆到情景记忆的工程实现，系统梳理 agent 记忆的设计空间与权衡。', tags: ['记忆', 'Agent', '综述'], url: '#', excerpt: 'Sample excerpt…', importance: 4, insufficientContext: false },
+    { id: 'sf4', date: '2026-06-10', person: 'francois-chollet', topicSource: null, sourceName: 'X @fchollet', sourceType: 'x', contentType: 'statement', titleZh: 'Chollet：基准分数不等于智能', titleOriginal: 'Benchmark scores are not intelligence', verdict: '对当前评测军备竞赛的持续校准，ARC 路线的一贯立场。', summaryZh: '样例摘要：Chollet 重申流体智能与技能习得效率的区分，批评把基准分数当作智能本身的行业惯性。', tags: ['评测', 'AGI'], url: '#', excerpt: 'Sample excerpt…', importance: 3, insufficientContext: false },
+    { id: 'sf5', date: '2026-06-09', person: null, topicSource: 'deepmind', sourceName: 'deepmind.google', sourceType: 'rss', contentType: 'action', titleZh: 'DeepMind 开源文本扩散模型', titleOriginal: 'DiffusionGemma', verdict: '文本扩散路线首次进入可用开源序列，值得跟踪后续生态。', summaryZh: '样例摘要：DeepMind 发布 DiffusionGemma，推理速度较自回归同级模型显著提升。', tags: ['扩散模型', '开源'], url: '#', excerpt: 'Sample excerpt…', importance: 4, insufficientContext: false },
+  ],
+};

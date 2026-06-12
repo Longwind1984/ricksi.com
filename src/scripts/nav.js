@@ -7,8 +7,8 @@
 if (/Chrome\//.test(navigator.userAgent)) {
   document.documentElement.classList.add('lg-refract');
 }
-// 桌面端 .sec 用预模糊图替代大面积 backdrop-filter（资产随构建产出，见 glass.css）
-document.documentElement.classList.add('sec-prerendered');
+// 注：曾用预模糊底图替代 .sec 的 backdrop-filter 省合成成本（sec-prerendered），
+// 2026-06-12 撤销——写死底图与实时玻璃观感有差异，Liquid Glass 一致性优先于合成开销。
 
 function initNav(sig) {
   const head = document.getElementById('site-head');

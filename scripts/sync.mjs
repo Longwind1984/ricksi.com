@@ -5,20 +5,27 @@ import { execFileSync, execSync } from 'node:child_process';
 const noPush = process.argv.includes('--no-push');
 const run = (cmd, args) => execFileSync(cmd, args, { stdio: 'inherit' });
 
-console.log('── 1/4 活动热力图（git + Obsidian + Claude 日志）');
+console.log('── 1/5 活动热力图（git + Obsidian + Claude 日志）');
 run('node', ['scripts/collect-activity.mjs']);
 
-console.log('── 2/4 Token 用量');
+console.log('── 2/5 Token 用量');
 run('node', ['scripts/collect-usage.mjs']);
 
-console.log('── 3/4 知识库图谱 + 笔记导出');
+console.log('── 3/5 知识库图谱 + 笔记导出');
 run('node', ['scripts/sync-vault.mjs']);
 
-console.log('── 4/4 微信读书（无 cookie 自动跳过）');
+console.log('── 4/5 微信读书（无 cookie 自动跳过）');
 try {
   run('node', ['scripts/collect-weread.mjs']);
 } catch {
   console.warn('   微信读书采集失败，沿用上次数据');
+}
+
+console.log('── 5/5 前沿追踪（抓取 + claude 梳理，单源失败不阻塞）');
+try {
+  run('node', ['scripts/collect-frontier.mjs']);
+} catch {
+  console.warn('   前沿追踪采集失败，沿用上次数据');
 }
 
 if (noPush) {

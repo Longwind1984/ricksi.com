@@ -1,0 +1,218 @@
+---
+// 前沿追踪：选定学者/信息源的每日公开动态（claude 梳理中文摘要 + 一句话判断 + 标签）
+// IA（2026-06-12 审计定稿）：人物横滚条在顶（压缩态）→ 筛选 → 动态流（最新一天展开、
+// 更早按日折叠、日组内按重要度排序）→ 完整人物档案沉底（#people）
+// 数据：data/frontier.json（scripts/collect-frontier.mjs 产物）；缺失回退样例 + 徽章
+import fs from 'node:fs';
+import path from 'node:path';
+import Glass from '../layouts/Glass.astro';
+import FrontierEntry from '../components/FrontierEntry.astro';
+import FrontierPersonCard from '../components/FrontierPersonCard.astro';
+import { loadSiteData, stamp } from '../lib/site-data.mjs';
+import { SAMPLE_FRONTIER } from '../lib/sample.js';
+import { portraitFallbackSvg, DOMAIN_ACCENT } from '../lib/frontier-ui.mjs';
+
+/* 构建期探测人物头像（npm run frontier:portraits 产物）；缺图 → 星座字母牌兜底 */
+const PORTRAIT_DIR = path.resolve('public/assets/frontier');
+const portraitOf = (slug: string) =>
+  fs.existsSync(path.join(PORTRAIT_DIR, `${slug}.webp`)) ? `/assets/frontier/${slug}.webp` : null;
+
+const { frontier } = loadSiteData();
+const ft = frontier ?? SAMPLE_FRONTIER;
+const isSample = !frontier;
+
+const domains: Record<string, string> = ft.domains ?? {};
+const people = ft.people ?? [];
+const topics = ft.topics ?? [];
+const ownerMap = new Map<string, { name: string; domain: string }>();
+for (const p of people) ownerMap.set(p.slug, p);
+for (const t of topics) ownerMap.set(t.slug, t);
+
+/* 条目补全归属名与领域（采集产物只存 slug，名称/领域以 config 当前值为准） */
+const lastRunDay = (ft.stats?.lastRun?.at ?? '').slice(0, 10);
+const entries = (ft.entries ?? []).map((e: any) => {
+  const owner = ownerMap.get(e.person ?? e.topicSource);
+  return {
+    ...e,
+    ownerName: owner?.name ?? e.sourceName,
+    domain: owner?.domain ?? '',
+    isNew: !!e.addedAt && e.addedAt === lastRunDay,
+  };
+});
+
+/* 按日分组（entries 已按 date 倒序）；组内按重要度降序（同分保持原序） */
+const byDay = new Map<string, typeof entries>();
+for (const e of entries) {
+  if (!byDay.has(e.date)) byDay.set(e.date, []);
+  byDay.get(e.date)!.push(e);
+}
+for (const list of byDay.values()) {
+  list.sort((a: any, b: any) => (b.importance ?? 3) - (a.importance ?? 3));
+}
+const days = [...byDay.keys()];
+const WEEKDAY = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
+const buildDay = `${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(2, '0')}-${String(new Date().getDate()).padStart(2, '0')}`;
+const dayLabel = (d: string) => {
+  const md = `${d.slice(5, 7)}.${d.slice(8, 10)} ${WEEKDAY[new Date(d + 'T12:00:00').getDay()] ?? ''}`;
+  if (d === buildDay) return `今天 · ${md}`;
+  const y = new Date(new Date(buildDay + 'T12:00:00').getTime() - 86400000);
+  const yk = `${y.getFullYear()}-${String(y.getMonth() + 1).padStart(2, '0')}-${String(y.getDate()).padStart(2, '0')}`;
+  return d === yk ? `昨天 · ${md}` : md;
+};
+const dayTop = (d: string) => byDay.get(d)![0]?.titleZh ?? '';
+
+/* 每归属条目数（横滚条与档案卡上显示；0 条者降权禁点） */
+const countByOwner: Record<string, number> = {};
+for (const e of entries) {
+  const k = e.person ?? e.topicSource;
+  if (k) countByOwner[k] = (countByOwner[k] ?? 0) + 1;
+}
+
+/* 人物按领域分组（档案区用） */
+const peopleByDomain = Object.keys(domains)
+  .map((key) => ({ key, label: domains[key], list: people.filter((p: any) => p.domain === key) }))
+  .filter((g) => g.list.length > 0);
+
+const lastChecked = stamp(ft.stats?.lastRun?.at ?? ft.generated_at);
+const added = ft.stats?.lastRun?.added ?? 0;
+const total = ft.stats?.totalEntries ?? entries.length;
+const TYPE_OPTIONS = [
+  ['authored', '署名作品'],
+  ['statement', '本人发言'],
+  ['action', '个人行动'],
+  ['cited', '被引用'],
+];
+---
+
+<Glass
+  title="前沿追踪 · 司豪杰 Rick Si"
+  description={`盯着 ${people.length} 位 AI 前沿人物与 ${topics.length} 个信息源的公开痕迹，每日抓取，模型梳理，附工作台判断。`}
+  active="frontier"
+>
+  <main class="sub-main">
+    <div class="container">
+      <section class="sec">
+        <div class="sec-head">
+          <span class="mono sec-no">04</span>
+          <div class="sec-title-row">
+            <h2 class="sec-title">前沿追踪</h2>
+            <span class="mono sec-en">FRONTIER · {total}</span>
+          </div>
+          <span class="sec-desc">每天抓取这些人的论文、发言、发布与行动，由模型梳理成中文并给出一句话判断</span>
+        </div>
+
+        <!-- 人物横滚条：压缩态档案（点头像 = 流内只看 TA；完整档案沉底 #people） -->
+        <div class="ft-prail" id="ft-prail">
+          {people.map((p: any) => {
+            const c = countByOwner[p.slug] ?? 0;
+            const portrait = portraitOf(p.slug);
+            return (
+              <button
+                class:list={['ft-prail-item', { 'ft-disabled': c === 0 }]}
+                type="button"
+                data-ft-person={c > 0 ? p.slug : undefined}
+                title={c === 0 ? `${p.name} · 暂无动态` : `${p.name} · ${c} 条`}
+                style={`--p-accent:${DOMAIN_ACCENT[p.domain] ?? '#7FB3F0'}`}
+              >
+                <span class="ft-prail-ava">
+                  {portrait ? <img src={portrait} alt={p.name} width="56" height="56" loading="lazy" /> : <Fragment set:html={portraitFallbackSvg(p)} />}
+                  {c > 0 && <span class="mono ft-prail-n">{c}</span>}
+                </span>
+                <span class="mono ft-prail-name">{p.name.split(' ')[0]}</span>
+              </button>
+            );
+          })}
+          <span class="ft-prail-div" aria-hidden="true"></span>
+          {topics.map((t: any) => {
+            const c = countByOwner[t.slug] ?? 0;
+            return (
+              <button class:list={['hm-dim', 'mono', 'ft-topic-chip', { 'ft-disabled': c === 0 }]} type="button" data-ft-person={c > 0 ? t.slug : undefined}>
+                {t.name}{c ? ` ${c}` : ''}
+              </button>
+            );
+          })}
+        </div>
+        <p class="mono ft-rail-hint">点一个人，下面的流里只看 TA 的痕迹 · <a href="#people">完整档案 ↓</a></p>
+
+        <p class="mono wb-stamp">
+          最近核查 {lastChecked ?? '—'} · 本轮新增 {added} 条
+          {isSample && <em class="sample-badge">样例数据</em>}
+        </p>
+
+        <div class="hm-dims mono ft-filters" id="ft-filters">
+          <div class="ft-frow" data-dim="type">
+            <button class="hm-dim active" data-val="">全部类型</button>
+            {TYPE_OPTIONS.map(([val, label]) => (
+              <button class="hm-dim" data-val={val}>{label}</button>
+            ))}
+          </div>
+          <div class="ft-frow" data-dim="domain">
+            <button class="hm-dim active" data-val="">全部领域</button>
+            {Object.entries(domains).map(([key, label]) => (
+              <button class="hm-dim" data-val={key}>{label}</button>
+            ))}
+          </div>
+          <div class="mono ft-active" id="ft-active" hidden>
+            <button class="hm-dim active" id="ft-active-chip" type="button"></button>
+          </div>
+        </div>
+
+        <p class="mono ft-count" id="ft-count">{entries.length} 条</p>
+
+        <div class="ft-stream rows" id="ft-stream">
+          {days.map((day, di) =>
+            di === 0 ? (
+              <div class="ft-day-group" data-day={day}>
+                <div class="mono blog-year ft-day">{dayLabel(day)} · {byDay.get(day)!.length} 条</div>
+                {byDay.get(day)!.map((e: any) => <FrontierEntry entry={e} />)}
+              </div>
+            ) : (
+              <details class="ft-day-group ft-day-fold" data-day={day}>
+                <summary class="mono ft-day-sum">
+                  <span class="blog-year ft-day">{dayLabel(day)} · {byDay.get(day)!.length} 条</span>
+                  <span class="ft-day-top">最高信号：{dayTop(day)}</span>
+                </summary>
+                {byDay.get(day)!.map((e: any) => <FrontierEntry entry={e} />)}
+              </details>
+            )
+          )}
+        </div>
+
+        <div class="proj-expand-row">
+          <button class="proj-expand mono" id="ft-more" type="button" hidden>显示更早的日子 ↓</button>
+        </div>
+        <p class="kg-note" id="ft-empty" hidden>
+          没有匹配的条目——<button class="ft-clear mono" id="ft-clear" type="button">清除筛选</button>
+        </p>
+        {entries.length === 0 && <p class="kg-note">暂无数据。本地运行 npm run collect:frontier 后这里会出现真实追踪流。</p>}
+      </section>
+
+      <!-- 完整档案：低频的「这个人是谁」场景，沉底 -->
+      <section class="sec" id="people">
+        <div class="sec-head">
+          <span class="mono sec-no">04a</span>
+          <div class="sec-title-row">
+            <h2 class="sec-title">在追的人</h2>
+            <span class="mono sec-en">PEOPLE · {people.length}</span>
+          </div>
+          <span class="sec-desc">头衔、定位与领域——点卡片回到流里只看 TA</span>
+        </div>
+
+        {peopleByDomain.map((g) => (
+          <div class="ft-domain-group">
+            <div class="mono blog-year">{g.label} · {g.list.length} 人</div>
+            <div class="ft-people-grid">
+              {g.list.map((p: any) => (
+                <FrontierPersonCard person={p} count={countByOwner[p.slug] ?? 0} portrait={portraitOf(p.slug)} />
+              ))}
+            </div>
+          </div>
+        ))}
+      </section>
+    </div>
+  </main>
+
+  <script>
+    import '../scripts/frontier.js';
+  </script>
+</Glass>

@@ -12,7 +12,10 @@ export function readJson(file, fallback = null) {
 
 export function writeJson(file, obj) {
   fs.mkdirSync(path.dirname(file), { recursive: true });
-  fs.writeFileSync(file, JSON.stringify(obj, null, 1) + '\n');
+  // 原子写：先写临时文件再 rename，进程中途被杀不会留下半截 JSON（readJson 会把半截当损坏静默归零）
+  const tmp = file + '.tmp';
+  fs.writeFileSync(tmp, JSON.stringify(obj, null, 1) + '\n');
+  fs.renameSync(tmp, file);
 }
 
 /* 本地时区的 YYYY-MM-DD */

@@ -35,9 +35,11 @@ const navItems = [
   ['projects', '项目'],
   ['workbench', '工作台'],
   ['knowledge', '知识库'],
+  ['frontier', '前沿'],
   ['blog', '写作'],
   ['reading', '阅读'],
 ];
+const scrollspyIds = navItems.map(([id]) => id).join(',');
 ---
 
 <!doctype html>
@@ -55,6 +57,7 @@ const navItems = [
     <meta property="og:image" content={ogAbs} />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="alternate" type="application/rss+xml" title="Rick Si · 思考与写作" href="/rss.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Rick Si · 前沿追踪" href="/frontier.xml" />
     {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
     <style set:html={`body{background-image:url(${LQIP});background-size:cover;background-position:center 32%;}`}></style>
     <ClientRouter />
@@ -94,7 +97,7 @@ const navItems = [
           <nav
             class="nav"
             id="nav"
-            data-scrollspy={isHome ? 'projects,workbench,knowledge,blog,reading' : undefined}
+            data-scrollspy={isHome ? scrollspyIds : undefined}
             data-active={!isHome && active ? active : undefined}
           >
             <span class="nav-pill" id="nav-pill"></span>

@@ -1,0 +1,35 @@
+---
+// 前沿追踪人物卡：头像（真图 / 程序化星座字母牌兜底）+ 档案定位 + 条目数
+// 点击 = 在信息流上设人物筛选并滚回流顶（frontier.js 处理）
+import { portraitFallbackSvg, DOMAIN_ACCENT } from '../lib/frontier-ui.mjs';
+
+interface Props {
+  person: { slug: string; name: string; title: string; bio: string; domain: string };
+  count: number;
+  /* 构建期由页面探测 public/assets/frontier/<slug>.webp 是否存在 */
+  portrait?: string | null;
+}
+const { person, count, portrait = null } = Astro.props;
+const accent = DOMAIN_ACCENT[person.domain] ?? '#7FB3F0';
+---
+
+<button
+  class:list={['ft-pcard', { 'ft-disabled': count === 0 }]}
+  type="button"
+  data-ft-person={count > 0 ? person.slug : undefined}
+  style={`--p-accent:${accent}`}
+>
+  <span class="ft-pavatar">
+    {portrait ? (
+      <img src={portrait} alt={person.name} width="64" height="64" loading="lazy" />
+    ) : (
+      <Fragment set:html={portraitFallbackSvg(person)} />
+    )}
+  </span>
+  <span class="ft-pmain">
+    <span class="ft-pname">{person.name}</span>
+    <span class="mono ft-ptitle">{person.title}</span>
+    <span class="ft-pbio">{person.bio}</span>
+  </span>
+  <span class="mono ft-pcount">{count > 0 ? `${count} 条 →` : '暂无动态'}</span>
+</button>

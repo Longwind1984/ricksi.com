@@ -5,3 +5,5 @@ dist/
 npm-debug.log*
 scripts/.weread-cookie
 scripts/.weread-key
+scripts/.gemini-key
+scripts/.frontier-refs/
