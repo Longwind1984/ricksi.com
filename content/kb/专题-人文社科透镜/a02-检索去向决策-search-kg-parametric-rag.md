@@ -2,7 +2,7 @@
 title: A02 检索去向决策·search KG parametric RAG
 cluster: 专题 · 人文社科透镜
 created: '2026-06-07'
-updated: '2026-06-11'
+updated: '2026-06-12'
 provenance: ai
 facet: 信息检索与知识系统
 ---
@@ -48,7 +48,7 @@ flowchart TD
     K -->|是| L[禁用纯 Parametric<br/>强制 Non-Parametric]
 ```
 
-这棵树的反共识落点：**「企业生产」这条横切线会一票否决 parametric memory**。Wang et al.（arXiv:2407.15017〔待核实〕）与 DIVA Portal 的 *LLM: Retrieval vs. Parametric Memory Tradeoff* 论文（2024）都指向同一个产品结论——大多数生产部署倒向非参数记忆，**核心驱动不是技术性能，而是合规要求的可审计性与数据可删除性**。这是 PM 最容易看走眼的一点：以为是「检索更准」才选 RAG，实际上很多时候是「能删除、能审计、能解释」才选 RAG。性能是次要理由，合规是首要理由。
+这棵树的反共识落点：**「企业生产」这条横切线会一票否决 parametric memory**。Wang et al.（arXiv:2407.15017，*Knowledge Mechanisms in Large Language Models: A Survey and Perspective*, EMNLP 2024 Findings〔已核实(2026-06-12)〕）与 DIVA Portal 的 *LLM: Retrieval vs. Parametric Memory Tradeoff* 论文（2024）都指向同一个产品结论——大多数生产部署倒向非参数记忆，**核心驱动不是技术性能，而是合规要求的可审计性与数据可删除性**。这是 PM 最容易看走眼的一点：以为是「检索更准」才选 RAG，实际上很多时候是「能删除、能审计、能解释」才选 RAG。性能是次要理由，合规是首要理由。
 
 ## §3 GraphRAG 何时值得它的构建成本
 
@@ -153,6 +153,7 @@ KG 这条去向的判断主轴是成本。Microsoft GraphRAG（Edge et al., *Fro
 - [AI PM 知识图谱·总索引](/kb/ai-pm-知识图谱/ai-pm-知识图谱-总索引/)
 
 ## 修订日志
+- 2026-06-12 内审·arXiv 联网核实：清了 1 个。§2 正文 arXiv:2407.15017 的 inline〔待核实〕系 R1-grounding（已确证）后的遗留标记，与本日志矛盾——WebFetch 复核确证为 Wang et al., *Knowledge Mechanisms in Large Language Models: A Survey and Perspective*, EMNLP 2024 Findings，标记改为〔已核实(2026-06-12)〕并补全标题/会议。
 - 2026-06-11 P3.4 校链：0417 上下文工程专题已入库，将 §0、§8 两处〔跨专题待落盘〕降级文本恢复为真链 `上下文工程专题`，删除 staging 注解。
 - R1（2026-06-07）：首稿。建立四去向路由框架（parametric/web search/KG/RAG）、判断矩阵、Mermaid 决策树、四类去向错位的判断主轴、长上下文派与「RAG 已死」派的对手回应、认知失调框架（Clemente et al.）与福柯知识/权力的跨域呼应。
 - R1-grounding（2026-06-07）：WebFetch 逐条核实六个 arXiv ID，全部确证标题与作者匹配，去除〔待核实〕标记——2407.15017（Wang et al., Knowledge Mechanisms in LLMs, EMNLP 2024）、2404.16130（Edge et al., GraphRAG）、2404.17723（Xu et al., LinkedIn KG-RAG, SIGIR 2024）、2510.09106（Wang et al., When Retrieval Succeeds and Fails）、2602.03442（Du et al., A-RAG）、2502.04390（Clemente et al., In Praise of Stubbornness）。仍待核实：KA-RAG（MDPI Applied Sciences 2025）、Self-RAG/FLARE 年份、Tow Center 引用研究数字（已标可追溯线索）。

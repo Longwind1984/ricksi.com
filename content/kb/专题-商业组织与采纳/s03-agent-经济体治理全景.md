@@ -2,7 +2,7 @@
 title: S03 Agent 经济体治理全景
 cluster: 专题 · 商业组织与采纳
 created: '2026-06-07'
-updated: '2026-06-11'
+updated: '2026-06-12'
 provenance: ai
 facet: 机制设计
 ---
@@ -151,3 +151,4 @@ facet: 机制设计
 
 ## 修订日志
 - R1（2026-06-07）：首稿。建立五维治理全景（资源/激励/产权/仲裁/声誉）骨架；显式升级对照 0420 VSM、0411 A07、m208、m209；跨域呼应落地双边市场治理迁移（费用治理/纠纷治理/信息透明化）；接受+边界对照 arXiv:2605.08426《Mechanism Design Is Not Enough》；所有单篇论文数字标注来源，未充分核实项标〔待核实〕。
+- 2026-06-12 内审·arXiv 联网核实：WebFetch 重核 §72 引 [arXiv:2605.08426](https://arxiv.org/abs/2605.08426)「Mechanism Design Is Not Enough: Prosocial Agents for Cooperative AI」(Huang 等含 Schölkopf, 2026) 与 §90 引 [arXiv:2604.07970](https://arxiv.org/abs/2604.07970)「Karma Mechanisms…」(Riehl 等, 2026) 身份均与引述一致,论文身份已核(0 存疑)。§72「亲社会 agent 能否被激励复制/抗大规模博弈〔待核实，实证基础薄弱〕」与 §90「Karma 向纯 LLM agent 迁移〔待核实〕」是对结论外推的限定、非论文身份待核,保留不动。

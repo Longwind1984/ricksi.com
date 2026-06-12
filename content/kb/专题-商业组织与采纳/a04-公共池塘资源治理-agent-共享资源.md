@@ -2,7 +2,7 @@
 title: A04 公共池塘资源治理·Agent 共享资源
 cluster: 专题 · 商业组织与采纳
 created: '2026-06-07'
-updated: '2026-06-11'
+updated: '2026-06-12'
 provenance: ai
 facet: 机制设计
 ---
@@ -159,3 +159,4 @@ Ostrom 1990 年原著归纳出长期存续的 CPR 自治制度共有的 8 条设
 
 ## 修订日志
 - R1（2026-06-07）：首稿。建立 CPR 诊断（§1）+ Ostrom 八原则映射表（§2）+ 四错位判断主轴（§3）+ 三对手立场回应（§4）。接地：Ostrom 1990/Hardin 1968/诺奖 2009 经 WebSearch/WebFetch 核实；arXiv 编号（2504.02051/2604.23897/2605.08426/2605.01214/2605.09104）来自专题简报已验证清单。〔待核实〕项：OpenRouter token 数字（单源自引）、SCF 语义共识数据（单源待复现）、八原则精确原文（以原著第90页为准）。
+- 2026-06-12 内审·arXiv 联网核实：WebFetch 重核本节点引用清单中的 [arXiv:2605.08426](https://arxiv.org/abs/2605.08426)「Mechanism Design Is Not Enough: Prosocial Agents for Cooperative AI」(Huang 等含 Schölkopf, 2026) 身份与引述一致,论文身份已核(0 存疑)。三项〔待核实〕(OpenRouter token / SCF 语义共识 / 八原则原文页码) 均为非 arXiv 来源(单源行业数字/书目),按指示保留不动。

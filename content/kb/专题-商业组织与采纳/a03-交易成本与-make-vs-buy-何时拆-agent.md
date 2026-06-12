@@ -2,7 +2,7 @@
 title: A03 交易成本与 Make-vs-Buy·何时拆 Agent
 cluster: 专题 · 商业组织与采纳
 created: '2026-06-07'
-updated: '2026-06-11'
+updated: '2026-06-12'
 provenance: ai
 facet: 机制设计
 ---
@@ -198,3 +198,4 @@ Rick 在滴滴/99 做 费用治理 与双边市场治理时反复算过这笔账
 ## 修订日志
 
 - **R1（2026-06-07）**：首稿。建立 Williamson 三变量→拆 agent 判据映射、治理结构光谱、三错位判断主轴、TCE 三大批评的"接受+边界"回应、科斯定理跨域呼应、Rick 滴滴双边市场一手经验迁移、与 A07/A06/m208/m209/0413/0420 的升级对照。待核实项：(a) Acharya 2026 协调失败 79% 数字单一来源；(b) Agent Contracts token 降 90% 实验室数据待复现；(c) 0133 文件内子概念 `科斯定理`/`交易成本`/`资产专用性` 无独立实体节点，已于 QC 终轮统一降级为行内术语、经 0133新制度经济学 入口承载；(d) 0420 VSM 节点链接已 resolve 为 [_控制论系统化专题·总览](/kb/专题-人文社科透镜/_控制论系统化专题-总览/)。
+- 2026-06-12 内审·arXiv 联网核实：本节点引 Agent Contracts token 降 90% 对应 [arXiv:2601.08815](https://arxiv.org/abs/2601.08815)，WebFetch 重核论文身份「Agent Contracts: A Formal Framework for Resource-Bounded Autonomous AI Systems」(Ye & Tan, 2026) 与引述一致,论文身份已核(0 存疑)。待核实项 (a) Acharya 79%（非 arXiv，单源行业数字）、(b) 90% token 独立复现（单篇实验室数字复现）均非论文身份待核,保留不动。

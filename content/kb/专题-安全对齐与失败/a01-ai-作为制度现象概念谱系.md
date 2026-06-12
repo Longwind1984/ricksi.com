@@ -2,7 +2,7 @@
 title: A01 AI 作为制度现象概念谱系
 cluster: 专题 · 安全对齐与失败
 created: '2026-06-07'
-updated: '2026-06-11'
+updated: '2026-06-12'
 provenance: ai
 facet: AI 作为制度现象
 ---
@@ -72,7 +72,7 @@ AI 公司不只是造出产品被人使用，它们正在**铸造新的制度结
 | Google DeepMind | AI Principles（2018 起） | 企业章程式私人规制 |
 | 全行业 | Frontier Safety Commitments（Seoul, 2024）、白宫自愿承诺（2023） | 自愿性私人协议，无法律强制力 |
 
-一个值得标注的早期信号：有学术工作把这些规格文件（model spec / constitution）分解成可审计的原子命题——据该研究，Anthropic 约 205 条、OpenAI 约 197 条，把它们当作外部审计的治理目标。〔该 arXiv 论文 ID 待核实，引述时降级为"据一项研究"〕这是**私人规则向可问责公共标准转化**的早期迹象——是制度设计框架最有希望的演化方向。
+一个值得标注的早期信号：有学术工作把这些规格文件（model spec / constitution）分解成可审计的原子命题——据该研究，Anthropic 约 205 条、OpenAI 约 197 条，把它们当作外部审计的治理目标（arXiv:2605.24229《How Well Do Models Follow Their Constitutions?》，Jakkli/Rajamanoharan/Nanda, 2026-05-22，ID 已核实（2026-06-12）；205/197 具体条数仍待核实）。这是**私人规则向可问责公共标准转化**的早期迹象——是制度设计框架最有希望的演化方向。
 
 ## §4 判断主轴：三个 90% 的人会搞错的点
 
@@ -109,11 +109,11 @@ AI 公司不只是造出产品被人使用，它们正在**铸造新的制度结
 - **反方一（Knight First Amendment Institute, 2018, "Meet the New Governors, Same as the Old Governors"）**：现有第一修正案框架仍适用且足够，平台调节不等于新型权威，更多是可及性与透明度问题。**接受**：这个批评对——尤其在欧盟，EU AI Act / DSA 的强制执行证明国家仍能有效约束平台自治，"准主权"不应被夸大成"已成主权"。**边界**：但本专题坚持，私人治理在内容与 AI 行为领域**实质性扩张**是事实，国家边界约束是"事后追赶"而非"事前授权"——权力先形成、问责后补位，这个时间差就是风险所在。
 - **反方二（第一修正案学派对"强制公法化"的警惕）**：把平台治理强制纳入公法约束，等于政府变相管控言论。**接受**：这是真实的两难——制度设计框架不天然导向"更多监管"。**边界**：本专题主张的不是"国家接管"，而是"先看见这是治理，再讨论合法性来源"——可以是公民协商（Abiri）、可审计原子命题、独立审查，路径开放，但看不见就无从设计。
 
-**事实接地说明**：本节点中书目类信息（Klonick 2018、Balkin 2016/2018、Zuboff 2019、Wu 2018、Pasquale 2015/2020、Gillespie 2018、Douek 2022、Celeste 2019、Varoufakis 2023、Durand 2020、Morozov 2022、Bai et al. 2022）均来自本专题研究简报的交叉核实来源。**本轮已 WebFetch/WebSearch 二次核实**：arXiv:2212.08073（Bai 等 51 人，Constitutional AI）、arXiv:2406.16696（Abiri, "Public Constitutional AI"）、arXiv:2602.18474（Niu, "The Chancellor Trap"）、arXiv:2410.17481（"AI, Global Governance, and Digital Sovereignty"，含工具/结构/话语权力三分法）；EU AI Act 时间线（2024-08-01 生效 / 2025-02-02 禁止条款 / 2025-08-02 GPAI / 2026-08-02 高风险）；Meta Oversight Board（Klonick "C" 评分、Community Notes 约 900 条 vs EU 约 3500 万条、2028 资助争议、Trump 停权案）。**仍待核实**（文中已标〔待核实〕或降级处理）：(a) Bremmer & Suleyman 2023 *Foreign Affairs* 卷期；(b) Farrell & Newman 2023 具体出处；(c) model spec 原子命题数（约 205 / 约 197 条）及其 arXiv ID；(d) Orozco y Villa & Menendez 2025 (DigiCon) 出处；(e) Birhane et al. 2026 FAccT arXiv ID。〔(f) EO 编号已于 2026-06-11 结清：撤销拜登 EO 14110 的是 EO 14148（2025-01-20），EO 14179（2025-01-23）为其后去监管纲领，WebSearch 核实。〕
+**事实接地说明**：本节点中书目类信息（Klonick 2018、Balkin 2016/2018、Zuboff 2019、Wu 2018、Pasquale 2015/2020、Gillespie 2018、Douek 2022、Celeste 2019、Varoufakis 2023、Durand 2020、Morozov 2022、Bai et al. 2022）均来自本专题研究简报的交叉核实来源。**本轮已 WebFetch/WebSearch 二次核实**：arXiv:2212.08073（Bai 等 51 人，Constitutional AI）、arXiv:2406.16696（Abiri, "Public Constitutional AI"）、arXiv:2602.18474（Niu, "The Chancellor Trap"）、arXiv:2410.17481（"AI, Global Governance, and Digital Sovereignty"，含工具/结构/话语权力三分法）；EU AI Act 时间线（2024-08-01 生效 / 2025-02-02 禁止条款 / 2025-08-02 GPAI / 2026-08-02 高风险）；Meta Oversight Board（Klonick "C" 评分、Community Notes 约 900 条 vs EU 约 3500 万条、2028 资助争议、Trump 停权案）。**仍待核实**（文中已标〔待核实〕或降级处理）：(a) Bremmer & Suleyman 2023 *Foreign Affairs* 卷期；(b) Farrell & Newman 2023 具体出处；(c) model spec 原子命题数（约 205 / 约 197 条）的具体数字〔其溯源 arXiv:2605.24229 已于 2026-06-12 WebFetch 核实〕；(d) Orozco y Villa & Menendez 2025 (DigiCon) 出处。〔(e) Birhane et al. 2026 FAccT arXiv ID 已于 2026-06-12 结清：= arXiv:2605.06806《Big AI's Regulatory Capture》，2026-05-07，WebFetch 核实。〕〔(f) EO 编号已于 2026-06-11 结清：撤销拜登 EO 14110 的是 EO 14148（2025-01-20），EO 14179（2025-01-23）为其后去监管纲领，WebSearch 核实。〕
 
 **failure scenario**：本节点"AI 公司是准国家行为体"的判断，在以下场景失效——(1) 强监管法域（欧盟）下，企业的"主权"被压缩为"合规执行"，准国家性更像修辞；(2) 国家直接收编（如算力/数据国家化压力下），企业从"准主权"退化为"国家代理"，分析单元应切换为 Farrell & Newman 的"国家-私人权力共生"。
 
-**confirmation-bias 砍除**：本专题早期倾向于反复引用 Constitutional AI 作为"准立法"的正面范本——这是 bias。补入反例：Constitutional AI 同样可被读作 Birhane et al. 意义上的"话语俘获"（把工程选择 RLAIF 包装成宪政意象），命名本身就是一种争夺监管叙事的策略，而非中性技术描述。正反两读都要在场。〔Birhane et al. 2026 FAccT 论文 arXiv ID 待核实〕
+**confirmation-bias 砍除**：本专题早期倾向于反复引用 Constitutional AI 作为"准立法"的正面范本——这是 bias。补入反例：Constitutional AI 同样可被读作 Birhane et al. 意义上的"话语俘获"（把工程选择 RLAIF 包装成宪政意象），命名本身就是一种争夺监管叙事的策略，而非中性技术描述。正反两读都要在场。（Birhane et al.《Big AI's Regulatory Capture: Mapping Industry Interference and Government Complicity》，arXiv:2605.06806，FAccT '26，2026-05-07，ID 已核实（2026-06-12））
 
 ## §7 跨域呼应：从制度经济学与秦制框架重读"准主权"
 
@@ -163,3 +163,4 @@ AI 公司不只是造出产品被人使用，它们正在**铸造新的制度结
 - R1（2026-06-07）：首稿。建立"技术合规 → 制度设计"框架切换主轴；铺设三支谱系（法学私人治理 / 政治经济学诊断 / 准主权与数字宪政）；落地三个致命错位（自愿承诺、宪法类比、统一主权者）；接入 Morozov 对手框架破 echo chamber；跨域调度新制度经济学 + 秦制 + 委任民主，并显式标注类比边界。
 - R1.1（2026-06-07）：grounding pass。WebFetch/WebSearch 核实并升格 6 组硬事实（4 个 arXiv ID + EU AI Act 时间线 + Oversight Board 数字），剩余 6 项保留〔待核实〕降级处理（详见 §6 事实接地说明）。
 - 2026-06-11 P3.1 §3 第 3 点订正 EO 笔误：撤销拜登 EO 14110 的应为 EO 14148（2025-01-20），原文误归因给 EO 14179（14179 是 2025-01-23 的后续去监管纲领）；§6 事实接地说明结清待核实项 (f) EO 编号，与 E03 对齐。依据：白宫/Wikipedia EO 14148/14110/14179 原文（WebSearch 核实）。
+- 2026-06-12 内审·arXiv 联网核实：清 2 个 ID-level〔待核实〕——(a) §早期信号处 205/197 原子命题溯源 ID = arXiv:2605.24229《How Well Do Models Follow Their Constitutions?》（Jakkli/Rajamanoharan/Nanda, 2026-05-22）；(b) §confirmation-bias 砍除处 Birhane FAccT 论文 = arXiv:2605.06806《Big AI's Regulatory Capture》（2026-05-07），均经 WebFetch 确证存在且引述吻合；§6 事实接地说明 (c)/(e) 两项相应更新。存疑 0 个；205/197 具体条数、Bremmer & Suleyman 卷期等非 arXiv 项本轮不动。

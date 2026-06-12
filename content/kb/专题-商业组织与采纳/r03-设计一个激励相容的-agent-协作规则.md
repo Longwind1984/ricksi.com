@@ -2,7 +2,7 @@
 title: R03 设计一个激励相容的 Agent 协作规则
 cluster: 专题 · 商业组织与采纳
 created: '2026-06-07'
-updated: '2026-06-11'
+updated: '2026-06-12'
 provenance: ai
 facet: 机制设计
 ---
@@ -226,3 +226,4 @@ IC 自检 (必填, 见 §4):
 ## 修订日志
 
 - **R1（2026-06-07，起草）**：建立五步法 + IC 契约 v1 模板 + §4 四致命错位（四件套）+ §8 钻空子红队陷阱。跨域呼应落地 Rick 滴滴双边市场激励治理三条具体迁移（CPF/PDP/费用治理）。对手框架接入 Schölkopf 组 "Mechanism Design Is Not Enough"（接受+边界）+ Karma 机制（未读对手框架）。与 m209/m208/0419 显式升级对照。事实接地：arXiv 编号均标注核实状态，单源实验室数据标〔待核实〕，Williamson/Ostrom/Hurwicz/Myerson 诺奖事实核实 nobelprize.org。
+- 2026-06-12 内审·arXiv 联网核实：WebFetch 重核 §100 [arXiv:2601.08815](https://arxiv.org/abs/2601.08815)「Agent Contracts」(Ye & Tan, 2026) 与 §140 [arXiv:2604.07970](https://arxiv.org/abs/2604.07970)「Karma Mechanisms…」(Riehl/Schlapbach/Kouvelas/Makridis, 2026) 标题作者均与引述一致,论文身份已核(0 存疑)。§100「90% token 独立复现〔待核实〕」与 §140「Karma 向纯 LLM 框架迁移〔待核实〕」是对单篇数字/结论外推的限定、非论文身份待核,保留不动。

@@ -2,7 +2,7 @@
 title: S01 Multi-Agent 激励结构分层剖面
 cluster: 专题 · 商业组织与采纳
 created: '2026-06-07'
-updated: '2026-06-11'
+updated: '2026-06-12'
 provenance: ai
 facet: 机制设计
 ---
@@ -222,3 +222,4 @@ Rick 在滴滴双边市场的一手经验在这里能直接迁移（详见 [E03 
 ## 修订日志
 
 - **R1（2026-06-07）**：首稿。建立六层激励剖面框架；§0 辨析「激励剖面 vs 能力剖面 vs VSM」；三条致命耦合（配额×调度公地悲剧 / 信息×仲裁 / 责任缺失×目标对齐道德风险）四件套；接入 Hurwicz/Gibbard-Satterthwaite/Maskin/Myerson-Satterthwaite/Ostrom/Williamson 经济学骨架；对手三框架回应（基础设施层论 / 亲社会 agent / 交易成本）；Rick 双边市场→agent 披露层迁移；映射 0411 A07/A06、0420 VSM、m208/m209 升级对照。待核实项：Acharya「79% 协调失败」单源；亲社会 agent 大规模可复制性；0420/0133 节点链接存在性需终轮 resolve。
+- 2026-06-12 内审·arXiv 联网核实：WebFetch 重核 §162 对手二引 [arXiv:2605.08426](https://arxiv.org/abs/2605.08426)「Mechanism Design Is Not Enough: Prosocial Agents for Cooperative AI」(Huang/Tharas/Marro/Truong/Schölkopf/La Malfa/Jin, 2026) 身份与引述一致,论文身份已核(0 存疑)。§162「亲社会 agent 大规模可复制/可被激励诱导〔待核实〕」是对论文结论外推的限定、非论文身份待核,保留不动。

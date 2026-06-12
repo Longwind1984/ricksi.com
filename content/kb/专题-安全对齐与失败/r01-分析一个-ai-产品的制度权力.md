@@ -2,7 +2,7 @@
 title: R01 分析一个 AI 产品的制度权力
 cluster: 专题 · 安全对齐与失败
 created: '2026-06-07'
-updated: '2026-06-11'
+updated: '2026-06-12'
 provenance: ai
 facet: AI 作为制度现象
 ---
@@ -41,7 +41,7 @@ facet: AI 作为制度现象
 
 ### L1 立法权 — 找那份"宪法"
 
-取证线索：产品有没有一份**公开的、定期修订的、声称普遍适用的规则文本**？Klonick 在 "The New Governors"（*Harvard Law Review* 131, 2018, pp.1598–1670）里论证 Facebook/Twitter/YouTube 的内容政策"在功能上构成私法体系"。AI 公司把这一步做得更露骨：Anthropic 的 Constitutional AI（Bai 等, "Constitutional AI: Harmlessness from AI Feedback", arXiv:2212.08073, 2022）直接用一份明文"宪法"训练模型；学术界已把 Model Spec / Constitution 拆成可审计的原子命题做外部审计（据称 Anthropic 约 205 条、OpenAI 约 197 条，来源：0430 专题接地材料引 arXiv 分析〔arXiv ID 待核实〕）。**填表问题**：规则谁起草？谁批准？修订有没有公示期？普通用户能不能参与？——如果答案全是"公司内部说了算"，这就是**无授权的私人立法**。
+取证线索：产品有没有一份**公开的、定期修订的、声称普遍适用的规则文本**？Klonick 在 "The New Governors"（*Harvard Law Review* 131, 2018, pp.1598–1670）里论证 Facebook/Twitter/YouTube 的内容政策"在功能上构成私法体系"。AI 公司把这一步做得更露骨：Anthropic 的 Constitutional AI（Bai 等, "Constitutional AI: Harmlessness from AI Feedback", arXiv:2212.08073, 2022）直接用一份明文"宪法"训练模型；学术界已把 Model Spec / Constitution 拆成可审计的原子命题做外部审计（据称 Anthropic 约 205 条、OpenAI 约 197 条，来源：arXiv:2605.24229《How Well Do Models Follow Their Constitutions?》，Jakkli/Rajamanoharan/Nanda, 2026-05-22，ID 已核实（2026-06-12）；205/197 具体条数仍待核实）。**填表问题**：规则谁起草？谁批准？修订有没有公示期？普通用户能不能参与？——如果答案全是"公司内部说了算"，这就是**无授权的私人立法**。
 
 ### L2 司法权 — 找那个"法院"
 
@@ -164,3 +164,4 @@ Klonick 自己的转向也是边界提示：她后续研究转向 EU DSA/DMA 执
 ## 修订日志
 - R1（2026-06-07）：首稿。建立六层制度权力审计主表（L1–L6）+ 逐层取证 + 缺口诊断（接 O'Donnell 横向/纵向问责）+ 四坑判断主轴 + 四框架互掐回应 + 三类 PM 落地 + 末尾"分析≠改变权力"边界承担。
 - R2（2026-06-07）：grounding pass。WebFetch 验证四个 arXiv ID 全部为真且与论点匹配——2212.08073（Bai 等, Constitutional AI: Harmlessness from AI Feedback, 2022）、2410.17481（Srivastava & Bullock, AI, Global Governance, and Digital Sovereignty, 2024）、2602.18474（Xuechen Niu, The Chancellor Trap）、2605.06806（Birhane 等, Big AI's Regulatory Capture）。补全标题/作者，移除对应〔待核实〕标记。余下〔待核实〕：CAI/OpenAI 原子命题条数（205/197）、Bremmer & Suleyman 2023 Foreign Affairs 具体卷期——均为二手转引，保留标记。
+- 2026-06-12 内审·arXiv 联网核实：清 1 个 ID-level〔待核实〕——L1 取证线索处 205/197 原子命题溯源 ID = arXiv:2605.24229《How Well Do Models Follow Their Constitutions?》（Jakkli/Rajamanoharan/Nanda, 2026-05-22）经 WebFetch 确证存在且引述吻合。存疑 0 个；205/197 具体条数与 Bremmer & Suleyman 卷期为非 arXiv 项，本轮不动。

@@ -2,7 +2,7 @@
 title: G02 STS 代际演化详解
 cluster: 专题 · 人文社科透镜
 created: '2026-06-07'
-updated: '2026-06-11'
+updated: '2026-06-12'
 provenance: ai
 facet: STS
 ---
@@ -224,3 +224,4 @@ Akrich（1992, "The De-Scription of Technical Objects", in Bijker & Law eds., *S
 
 ## 修订日志
 - R1（2026-06-07）：首稿。逐代展开 STS 四代（前史/SSK/SCOT-SST/ANT/想象力-基础设施），每代配奠基著作（带年份+期刊/出版社）、核心洞察、给 AI 分析的遗产、"它又瞎了什么"对手框架接力。判断主轴四误用点四件套齐备；§3、§5a 落地人类学/国际化跨域迁移；§8 提出本专题独特命题（AI script 比传统更强）；与 c13/p307/G01/A01 显式升级对照。Barkett 2026 arXiv:2602.23679（作者 Emilio Barkett、提交日 2026-02-27、主题）已 WebFetch 核实。唯一待核实项：EASST 2026 generative AI script 专题的最终结论（仍在争议中，文中已标〔争议中〕，未当确证）。
+- 2026-06-12 内审·arXiv 联网核实：清了 0 个、存疑 0 个（本节点唯一 arXiv:2602.23679 此前已核实；本轮重新 WebFetch 复核仍为真实论文，标题/作者/提交日不变）。"唯一待核实项"EASST 2026 为非 arXiv 会议来源，未处理。

@@ -2,7 +2,7 @@
 title: S01 Agent 六层架构剖面
 cluster: 专题 · 安全对齐与失败
 created: '2026-05-18'
-updated: '2026-06-11'
+updated: '2026-06-12'
 provenance: ai
 facet: Agent
 ---
@@ -391,3 +391,4 @@ flowchart TB
   3. § 9 提出"层间耦合错误的代价 = 相邻层的成本累乘"元规则
   4. 关联节点分两档
 - **R1 → R2（2026-05-18）**：PPAF 表述明确"非英文学界主流术语，此处作为统称"。
+- 2026-06-12 内审修复：frontmatter 补 final_path 字段（= 本文件在库内实际相对路径）。

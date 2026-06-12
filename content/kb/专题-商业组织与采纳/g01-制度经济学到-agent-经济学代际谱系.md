@@ -2,7 +2,7 @@
 title: G01 制度经济学到 Agent 经济学代际谱系
 cluster: 专题 · 商业组织与采纳
 created: '2026-06-07'
-updated: '2026-06-11'
+updated: '2026-06-12'
 provenance: ai
 facet: 机制设计
 ---
@@ -178,3 +178,4 @@ facet: 机制设计
 
 ## 修订日志
 - 2026-06-07 R0：首稿。建立"驱动力—瓶颈—反例"四代反线性框架（G0 制度经济学 / G1 机制设计 / G2 计算机制设计 / G3 multi-agent LLM 经济学）；以 Kuhn 不可通约性论证三次范式断裂；接入 Ostrom 多中心治理与 Russell 对齐风险两个 Rick 未读对手框架；落地 Rick 双边市场一手经验迁移；与 A07/m208/m209/0420-VSM 做显式升级对照。arXiv 编号均来自接地证据包（已标注核实状态），文中保留 ⚠️/〔待核实〕标记。
+- 2026-06-12 内审·arXiv 联网核实：WebFetch 重核本节点两条 arXiv 引用身份——[arXiv:2604.07970](https://arxiv.org/abs/2604.07970)「Karma Mechanisms for Decentralised, Cooperative Multi Agent Path Finding」(Riehl/Schlapbach/Kouvelas/Makridis, 2026) 与 [arXiv:2605.08426](https://arxiv.org/abs/2605.08426)「Mechanism Design Is Not Enough: Prosocial Agents for Cooperative AI」(Huang/Tharas/Marro/Truong/Schölkopf/La Malfa/Jin, 2026) 标题作者均与引述一致,身份已核(0 存疑)。§75「Karma 向纯 LLM agent 迁移〔待核实〕」与 §123「亲社会 agent 大规模可扩展性〔待核实〕」是对论文结论外推的限定、非论文身份待核,保留不动。

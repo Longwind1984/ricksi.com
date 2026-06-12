@@ -2,7 +2,7 @@
 title: R01 建一个带 Citation 的检索问答
 cluster: 专题 · 人文社科透镜
 created: '2026-06-07'
-updated: '2026-06-11'
+updated: '2026-06-12'
 provenance: ai
 facet: 信息检索与知识系统
 ---
@@ -99,7 +99,7 @@ def align_and_verify(answer, hits):
 | **Footer 链接列表** | 末尾列全 URL | Copy.ai | 轻量、重透明 |
 | **Aligned Sidebar** | 答案与来源并排 | 长文研究工具 | 高信息密度 |
 
-一项对照实验（*Source Transparency Design in Conversational AI*, arXiv:2601.14611, 2025〔预印本，待评审〕）测了 Collapsible / Hover Card / Footer / Aligned Sidebar 四种界面，结论有张力：**Hover Card 让"不打断工作流的按需核验"最流畅；但 Aligned Sidebar 在高信息密度下，用户的批判性思维与综合评分显著更高。** 核心矛盾是**流畅性 vs 强制反思**——做得越顺滑，用户越不去真正点开核验。这对 PM 是个反直觉的提醒：**最好的引用 UI 不一定是用户体感最舒服的那个。**
+一项对照实验（He & Liu, *Seeing to Think? How Source Transparency Design Shapes Interactive Information Seeking and Evaluation in Conversational AI*, arXiv:2601.14611, 2026〔arXiv 已核实(2026-06-12)·预印本，同行评审状态未定〕）测了 Collapsible / Hover Card / Footer / Aligned Sidebar 四种界面，结论有张力：**Hover Card 让"不打断工作流的按需核验"最流畅；但 Aligned Sidebar 在高信息密度下，用户的批判性思维与综合评分显著更高。** 核心矛盾是**流畅性 vs 强制反思**——做得越顺滑，用户越不去真正点开核验。这对 PM 是个反直觉的提醒：**最好的引用 UI 不一定是用户体感最舒服的那个。**
 
 ## §4 判断主轴：90% 的人在引用对齐上会搞错的四个点
 
@@ -184,5 +184,6 @@ def align_and_verify(answer, hits):
 - [AI PM 知识图谱·总索引](/kb/ai-pm-知识图谱/ai-pm-知识图谱-总索引/) — 全局导航入口
 
 ## 修订日志
+- 2026-06-12 内审·arXiv 联网核实：清了 1 个（存疑 0）。§引用 UX 处 arXiv:2601.14611 经 WebFetch 确证为 He & Liu, *Seeing to Think? How Source Transparency Design Shapes Interactive Information Seeking and Evaluation in Conversational AI*, 2026——订正三处错误：旧写年份"2025"→"2026"、旧拟标题"Source Transparency Design in Conversational AI"订正为真实全名、补作者 He & Liu；〔预印本，待评审〕标记改为〔arXiv 已核实·同行评审状态未定〕。
 - 2026-06-07 R1：首稿。建立三阶段骨架（检索/生成/引用对齐）+ 四错点判断主轴 + 维特根斯坦指称怀疑论跨域呼应。核心结论：引用对齐是链路最难环节，假溯源伪装成成功，supported rate 应取代引用条数作北极星。事实接地：Liu et al. EMNLP 2023(51.5%/74.5%)、Tow Center 2025(37%/60%+)、arXiv:2604.03173 URL 幻觉率均标注来源与待核实状态。
 - 2026-06-11 P3.1 接地修复：错点三 JMIR e53164 反例旧值"Gemini 76% / ChatGPT-4o 20%"系捏造（模型名与数值均错），订正为 Chelli et al. 2024 原文真值 GPT-3.5 39.6% / GPT-4 28.6% / Bard 91.4%，并补全文标题与 JMIR URL（来源：https://www.jmir.org/2024/1/e53164 ，WebFetch+WebSearch 2026-06-11 核实，与 R03 订正一致）。

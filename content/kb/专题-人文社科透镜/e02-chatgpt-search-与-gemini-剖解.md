@@ -74,7 +74,7 @@ facet: 信息检索与知识系统
 
 **错位二：以为"引用越多 = 越可信"。**
 - 症状：照搬 Perplexity 的"句子级 21.87 条引用"做自家产品的标杆。
-- 为什么会错：引用是认知负担。arXiv 2601.14611（2025）实验对比四种引用界面（Collapsible / Hover Card / Footer / Aligned Sidebar）发现核心矛盾是"流畅性 vs 强制反思验证"——过度引用并不增加信任，反而可能制造认知噪音。
+- 为什么会错：引用是认知负担。arXiv 2601.14611（He & Liu, *Seeing to Think?*, 2026）实验对比四种引用界面（Collapsible / Hover Card / Footer / Aligned Sidebar）发现核心矛盾是"流畅性 vs 强制反思验证"——过度引用并不增加信任，反而可能制造认知噪音。
 - 正确做法：把引用密度当成**与任务匹配的设计变量**，不是越多越好的 KPI。
 - 真实反例：Granola（会议笔记）用"原文片段悬停预览"而非堆砌编号；Copy.ai 用"末尾列全部 URL"优先透明度——不同任务用不同引用粒度（来源：ShapeofAI.com 引用 UX 模式库）。
 
@@ -160,5 +160,6 @@ facet: 信息检索与知识系统
 
 ## 修订日志
 
-- 2026-06-11 P0 收口：将 R0 日志里"待 grounding pass 复核 JMIR 76% 数据"的过期待办标为"✅ 已解决"——正文 JMIR 反例旧捏造值早已订正为真值（依据：正文 §「真实反例」已无 76%/20%，A04/R01/R03 同步订正日志）；arXiv 2601.14611 预印本状态仍保留为待核实。
-- R0（2026-06-07）：首稿。建立"检索作为功能 vs 本体"判断主轴；三剖面（触发/引用/来源）对照表；四点判断主轴四件套；接入麦克卢汉媒介理论与出版商经济学对手框架；与 Perplexity/c13/c09/m205 升级对照。接地证据均来自简报核实材料（Tow Center 2025-03、Whitehat SEO 2025、DiscoveredLabs 2026、JMIR 2024 e53164、Liu et al. EMNLP 2023 arXiv:2304.09848、arXiv 2601.14611、OpenAI 2024-11、frugaltesting.com）。待 grounding pass 复核：~~JMIR 76% 数据的任务语境标注~~（✅ 已解决（2026-06-11）：旧"76%"系捏造值，正文已订正为 Chelli et al. 2024 真值 Bard 91.4%/GPT-3.5 39.6%/GPT-4 28.6%）、arXiv 2601.14611 预印本状态〔仍待核实〕。
+- 2026-06-12 内审·arXiv 联网核实：清了 1 个（存疑 0）。WebFetch 确证 arXiv:2601.14611 = He & Liu, *Seeing to Think? How Source Transparency Design Shapes Interactive Information Seeking and Evaluation in Conversational AI*, 2026（提交 2026-01-21）存在且主题吻合；订正正文错位二旧写年份"2025"→"2026"并补作者/标题；arXiv 存在性〔已核实(2026-06-12)〕，仍为预印本、同行评审状态未定的限定保留。
+- 2026-06-11 P0 收口：将 R0 日志里"待 grounding pass 复核 JMIR 76% 数据"的过期待办标为"✅ 已解决"——正文 JMIR 反例旧捏造值早已订正为真值（依据：正文 §「真实反例」已无 76%/20%，A04/R01/R03 同步订正日志）；arXiv 2601.14611 arXiv 存在性已于 2026-06-12 内审 WebFetch 确证，唯同行评审状态未定。
+- R0（2026-06-07）：首稿。建立"检索作为功能 vs 本体"判断主轴；三剖面（触发/引用/来源）对照表；四点判断主轴四件套；接入麦克卢汉媒介理论与出版商经济学对手框架；与 Perplexity/c13/c09/m205 升级对照。接地证据均来自简报核实材料（Tow Center 2025-03、Whitehat SEO 2025、DiscoveredLabs 2026、JMIR 2024 e53164、Liu et al. EMNLP 2023 arXiv:2304.09848、arXiv 2601.14611、OpenAI 2024-11、frugaltesting.com）。待 grounding pass 复核：~~JMIR 76% 数据的任务语境标注~~（✅ 已解决（2026-06-11）：旧"76%"系捏造值，正文已订正为 Chelli et al. 2024 真值 Bard 91.4%/GPT-3.5 39.6%/GPT-4 28.6%）、arXiv 2601.14611 arXiv 存在性〔已核实(2026-06-12)〕，仅同行评审状态未定。

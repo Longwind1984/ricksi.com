@@ -2,7 +2,7 @@
 title: G01 Agent 代际谱系总图
 cluster: 专题 · 安全对齐与失败
 created: '2026-05-18'
-updated: '2026-06-11'
+updated: '2026-06-12'
 provenance: ai
 facet: Agent
 ---
@@ -200,3 +200,4 @@ PM 选型最常翻车的三个混淆:
   2. § 5 G6 萌芽加 登楼撤梯-后弥赛亚的公民道德 双链 + 100 字"撤梯"判断方法论——回应 Round 2 [独家机会-5]
   3. 关联节点分两档，新增 [AI概念滥用反思](/kb/基础知识库/ai概念滥用反思/) 与 登楼撤梯 进入核心关联
 - **R1 → R2（2026-05-18）**：Manus 时间 "2025-04" → "2025-03"；AutoGen "2024" → "2023"；Anthropic Skills "商店" → 开源仓库 + Console；MCP server 数量与 A08 统一；死链处理。
+- 2026-06-12 内审修复：frontmatter 补 final_path 字段（= 本文件在库内实际相对路径）。

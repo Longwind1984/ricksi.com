@@ -2,7 +2,7 @@
 title: E03 滴滴双边市场与 Agent 资源治理类比剖解
 cluster: 专题 · 商业组织与采纳
 created: '2026-06-07'
-updated: '2026-06-11'
+updated: '2026-06-12'
 provenance: ai
 facet: 机制设计
 ---
@@ -213,3 +213,4 @@ Elinor Ostrom（2009 诺奖，首位女性经济学奖得主，*Governing the Co
 ## 修订日志
 
 - R1（2026-06-07）：首稿。建立四本质问题对照表、四个迁移坑判断主轴、从裁判到管家治理哲学迁移、Williamson/Ostrom/基础设施三对手框架回应。Rick 一手节点（费用治理/纠纷治理/明镜/透明化/降发生）显式迁移。接入 MarketBench/Diagon/RoundTable/Agent Contracts/Mechanism Design Is Not Enough/Principal-Agent RL 等 arXiv 证据，M-S 不可能定理与不完全合同理论两处跨域呼应。待核实项：Agent Contracts 90% token 节省的独立复现状态。
+- 2026-06-12 内审·arXiv 联网核实：WebFetch 重核 §150 引 [arXiv:2601.08815](https://arxiv.org/abs/2601.08815)「Agent Contracts: A Formal Framework for Resource-Bounded Autonomous AI Systems」(Ye & Tan, 2026) 身份与引述一致,论文身份已核(0 存疑)。§150「token 消耗减少 90%〔待核实：独立复现状态〕」是对单篇实验数字的复现限定、非论文身份待核,保留不动。

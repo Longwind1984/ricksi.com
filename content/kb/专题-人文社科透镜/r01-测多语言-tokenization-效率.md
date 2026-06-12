@@ -2,7 +2,7 @@
 title: R01 测多语言 Tokenization 效率
 cluster: 专题 · 人文社科透镜
 created: '2026-06-07'
-updated: '2026-06-11'
+updated: '2026-06-12'
 provenance: ai
 facet: 计算语言学
 ---
@@ -188,7 +188,7 @@ def diagnose(tok, kind, text):
 - **症状**：社媒说「用中文写 prompt 省 token」，于是把系统 prompt 全改中文省成本。
 - **为什么错**：省不省**取决于 tokenizer，不是语言本身**。在 GPT/Claude 旧词表上中文反而贵；省 token 也可能伴随任务成功率下降，抵消节省。
 - **正确做法**：对**你选定的那个模型**实测，而非套用通用说法。
-- **真实反例**：Ren et al. 2026「Mythbuster」（[arXiv:2604.14210](https://arxiv.org/abs/2604.14210)）实测三模型：MiniMax 中文贵 1.28×、GPT-5.x-mini 中文贵 1.09×、GLM-5 几乎持平 0.98×——「中文省 40%」是神话，且即便省了 token，任务成功率下降可抵消。
+- **真实反例**：Ren et al. 2026「Chinese Language Is Not More Efficient Than English in Vibe Coding: A Preliminary Study on Token Cost and Problem-Solving Rate」（[arXiv:2604.14210](https://arxiv.org/abs/2604.14210)）实测三模型：MiniMax 中文贵 1.28×、GPT-5.x-mini 中文贵 1.09×、GLM-5 几乎持平 0.98×——「中文省 40%」是神话，且即便省了 token，任务成功率下降可抵消。
 
 ### 坑 4：用各语言「各自写的文本」对比，把文体差异当 tokenizer 差异
 - **症状**：抓了英文新闻 + 中文论坛帖来比 token，得出离谱比值。
@@ -286,3 +286,4 @@ Langdon Winner 的名言「artifacts have politics」（人工物有政治性）
 
 - **R1（2026-06-07）**：首稿。建立三层脚本骨架（最小/中型/进阶），五坑判断主轴，对手框架（Arnett et al. 2025「可修复论」）接受+边界回应，STS 技术不中立跨域呼应 + Agre 批判性技术实践对手框架，Rick 巴西/拉美 fieldwork 迁移，与 c02 显式升级对照（操作化下游，不复述机制）。所有量化数字接地至 Petrov 2023 / Ahia 2023 / Churchill & Skiena 2025 / Lundin 2025 / Ren 2026 / Maksymenko & Turuta 2025 / TechFlow 2026 实测；FLORES-200 HF config 名（`facebook/flores`, config `"all"`, 脚本码 `eng_Latn` 等）已经 WebSearch 核实。
 - 2026-06-11 P3.1 接地修复：WebFetch 核实 arXiv:2601.13328 正文 Table 2，确证掸语 19.09×（GPT-2/3）、孟加拉语 8.43×（Claude 2.1）精确值真实，§数据接地保留并加注"正文 Table 2"；据论文提交日 2026-01-19 将引用年份由 2025 改为 2026。来源：https://arxiv.org/html/2601.13328v1 。
+- 2026-06-12 内审修复：去掉 arXiv:2604.14210 库内自创的「Mythbuster」花字前缀（§4 坑 3 真实反例），补回真实标题「Chinese Language Is Not More Efficient Than English in Vibe Coding: A Preliminary Study on Token Cost and Problem-Solving Rate」（来源：Rick 内审权威值）。

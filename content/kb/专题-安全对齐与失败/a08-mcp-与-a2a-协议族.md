@@ -2,7 +2,7 @@
 title: A08 MCP 与 A2A 协议族
 cluster: 专题 · 安全对齐与失败
 created: '2026-05-18'
-updated: '2026-06-11'
+updated: '2026-06-12'
 provenance: ai
 facet: Agent
 ---
@@ -229,3 +229,4 @@ m208 谈选型时主要在比 framework；G5 之后，更关键的是问"该 fra
   6. PM 决策启示加入两个 Q+A 面试模板（"为什么 MCP 能起来" + "MCP vs Function Calling"）
   7. 关联节点分两档
 - **R1 → R2（2026-05-18）**：MCP server 数量"4500+"改为"数千个量级"；A2A 50+ 厂商联署时间从"2026-Q1"修正为"2025-04-09 首发即 50+"，补充 2026-04 已达 150+。
+- 2026-06-12 内审修复：frontmatter 补 final_path 字段（= 本文件在库内实际相对路径）。

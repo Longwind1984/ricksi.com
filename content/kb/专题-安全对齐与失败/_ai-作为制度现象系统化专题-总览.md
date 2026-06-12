@@ -2,7 +2,7 @@
 title: _AI 作为制度现象系统化专题·总览
 cluster: 专题 · 安全对齐与失败
 created: '2026-06-07'
-updated: '2026-06-11'
+updated: '2026-06-12'
 provenance: ai
 facet: AI 作为制度现象
 featured: true
@@ -180,7 +180,7 @@ flowchart TB
 2. Morozov, *Critique of Techno-Feudal Reason*, NLR 133/134 (2022)——反"技术封建/主权"叙事（A05/G01/E03/S01）。
 3. Niu, *The Chancellor Trap*, arXiv:2602.18474 (2026)——主权掏空、宰相陷阱（A05/S01/E03）。
 4. Orozco y Villa & Menendez / DigiCon, *On "Constitutional" AI* (2025)——CAI"规范过薄""shiny distraction"（A02/A05/S01）。
-5. Schuett et al., 渐进式监管论（arXiv:2407.07300〔ID 待核实〕）——原则先行的灵活性立场（A02/A05）。
+5. Schuett, Anderljung, Carlier, Koessler & Garfinkel, *From Principles to Rules: A Regulatory Approach for Frontier AI*（arXiv:2407.07300, 2024，ID 已核实（2026-06-12））——原则先行、渐进规则化的灵活性立场（A02/A05）。
 6. Sandra Wachter, Yale JOLT 26:3——EU AI Act 三大漏洞（A05）。
 7. 监管趋同论 /"布鲁塞尔效应"——技术标准趋同（E03 §6）。
 8. Lancieri, Edelson & Bechtold, ProMarket (2025)——战略碎片化 / "AI 孤岛"反趋同（E03/G01）。

@@ -2,7 +2,7 @@
 title: E03 专题工厂作为多 Agent 协作 Case 剖解
 cluster: 专题 · 人文社科透镜
 created: '2026-06-07'
-updated: '2026-06-11'
+updated: '2026-06-12'
 provenance: ai
 facet: 自我民族志
 ---
@@ -217,4 +217,5 @@ Polanyi 的命题"我们知道的比我们能说出来的多（we know more than
 
 ## §11 修订日志
 
-- **R0（2026-06-07）初稿**：按宪章 §4 十一段骨架成文。判断主轴五错点、对手框架（Delamont/Walford/Anderson/Parasuraman）、Polanyi 跨域呼应、五处〔Rick 待填〕模板齐备。事实接地：方法学者/年份/arXiv ID 取自 grounding 简报（Anderson 2006、Lee & See 2004、Parasuraman & Manzey 2010、Bansal 2021 arXiv:2006.14779、Vasconcelos 2023 arXiv:2212.06823、Schemmer 2023 arXiv:2302.02187、Li 2024 arXiv:2404.19738、von Hippel 1986）。"40+ 对话/节点"数字按 §8 降级标〔待核实〕；唯一硬核 SABCD 分布 S:14/A:103/B:194/C:182 经 `_README.md` 确认。待后续 grounding pass 复核 arXiv ID。
+- **R0（2026-06-07）初稿**：按宪章 §4 十一段骨架成文。判断主轴五错点、对手框架（Delamont/Walford/Anderson/Parasuraman）、Polanyi 跨域呼应、五处〔Rick 待填〕模板齐备。事实接地：方法学者/年份/arXiv ID 取自 grounding 简报（Anderson 2006、Lee & See 2004、Parasuraman & Manzey 2010、Bansal 2021 arXiv:2006.14779、Vasconcelos 2023 arXiv:2212.06823、Schemmer 2023 arXiv:2302.02187、Li 2024 arXiv:2404.19738、von Hippel 1986）。"40+ 对话/节点"数字按 §8 降级标〔待核实〕；唯一硬核 SABCD 分布 S:14/A:103/B:194/C:182 经 `_README.md` 确认。arXiv ID 已核实（2026-06-12）：2006.14779（Bansal et al. 2020/2021）、2212.06823（Vasconcelos et al. 2022/2023）、2302.02187（Schemmer et al. 2023, IUI）、2404.19738（Li et al. 2024, CHI），标题/作者/年份与本节点引述吻合。
+- **2026-06-12 内审·arXiv 联网核实**：清了 4 个（2006.14779 / 2212.06823 / 2302.02187 / 2404.19738，全部 WebFetch 存在且引述吻合），存疑 0 个。

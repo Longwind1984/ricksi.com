@@ -2,7 +2,7 @@
 title: A04 Reasoning Effort 作为可计费资源
 cluster: 专题 · 能力与训练
 created: '2026-06-07'
-updated: '2026-06-11'
+updated: '2026-06-12'
 provenance: ai
 facet: 推理与测试时计算
 ---
@@ -67,7 +67,7 @@ graph LR
 - **症状**：产品里所有请求统一设 `high`/`max`，账单暴涨、p99 延迟爆炸，质量却没明显提升。
 - **为什么会错**：误用了线性进步假设，没看边际效用曲线在高端转负。
 - **正确做法**：默认 `medium` 起步，跑 eval 确认哪类请求真的从升档受益，再**按场景**升档。
-- **真实反例**：Phi-4-reasoning 平均生成约 6,780 thinking token，标准 Phi-4 仅约 378，但前者在常规任务上准确率反而更低（数字来源：0433 专题接地简报引述的 Phi-4 对照，原始论文待精确核实〔待核实：Phi-4-reasoning 具体 token 与准确率出处〕）。"越想越差"这一**净负收益**方向另有大样本佐证：arXiv:2505.00127《Between Underthinking and Overthinking: An Empirical Study of Reasoning Length and Correctness in LLMs》（Su, Healey, Nakov, Cardie，2025，已核实标题与作者）发现 LLM 倾向于在简单问题上 overthink、生成不必要的长输出。Anthropic 官方文档亦直接警告：`max` 在 Opus 4.7 上"on some structured-output or less intelligence-sensitive tasks it can lead to overthinking"（来源：Claude API Docs 2025）。
+- **真实反例**：推理模型平均生成约 6,780 thinking token，标准 Phi-4 仅约 378.6，但 Phi-4-reasoning-plus 在常规数学任务上准确率 69.54% 反而低于标准 Phi-4 的 78.92%（来源已核实：arXiv:2507.04023《Do LLMs Overthink Basic Math Reasoning?》Srivastava et al., Virginia Tech，Table 2/§5.3；69.54%/78.92%/378.6 token 见 Table 2，~6,780 为 abstract 推理模型平均值）。"越想越差"这一**净负收益**方向另有大样本佐证：arXiv:2505.00127《Between Underthinking and Overthinking: An Empirical Study of Reasoning Length and Correctness in LLMs》（Su, Healey, Nakov, Cardie，2025，已核实标题与作者）发现 LLM 倾向于在简单问题上 overthink、生成不必要的长输出。Anthropic 官方文档亦直接警告：`max` 在 Opus 4.7 上"on some structured-output or less intelligence-sensitive tasks it can lead to overthinking"（来源：Claude API Docs 2025）。
 
 **错点二：把 effort 当硬 token 预算，向业务方承诺固定成本/延迟。**
 - **症状**：写需求时承诺"low 档每条 ≤500 token、≤1 秒返回"，上线后被难 case 打脸。
@@ -154,6 +154,7 @@ graph LR
 - 本节点已无残留死链；跨域 控制论 / 认知科学 现已入库，相关引用已回链至各自总览（2026-06-11 P3.4 校链）。
 
 ## 修订日志
+- 2026-06-12 内审修复：Phi-4 token/准确率出处的〔待核实〕已解除。早前 R0.1 把该组数字降级是因未在 2505.00127/2509.06861/2508.13141 中找到——本次经 WebSearch+WebFetch 定位真实出处为 **arXiv:2507.04023《Do LLMs Overthink Basic Math Reasoning?》（Srivastava et al., Virginia Tech）Table 2/§5.3**（Phi-4 78.92%/~378.6 token、Phi-4-reasoning-plus 69.54%、abstract 推理模型平均 ~6,780 token），正文已改署真值与正确来源、删除〔待核实〕，2505.00127 保留为"越想越差"方向佐证。
 - 2026-06-11 P3.4 校链：跨域 0420 控制论 / 0426 认知科学现已入库，待建清单中的"待建专题"表述恢复为真 0420 总览 / 0426 总览 链。
 - 2026-06-07 R0：首稿。确立"滑杆不是开关 / 可计费资源采购模型"主轴；四件套判断主轴（误用 max / 误当硬预算 / 误补知识缺口 / 误用 prompt 约束）；经济学边际分析跨域呼应；接受+边界回应"effort 旋钮是伪命题"对手框架；升级对照 c11（深化）/ m209（对话）。
 - 2026-06-07 R0.1：grounding pass。WebFetch 核实 arXiv:2505.00127（《Between Underthinking and Overthinking》Su/Healey/Nakov/Cardie）、2509.06861（《Test-Time Scaling … Not Effective for Knowledge-Intensive Tasks Yet》Zhao/Hooi/Ng）、2508.13141（《OptimalThinkingBench》Aggarwal 等）三篇标题与作者属实，去除三处〔待核实〕。Phi-4-reasoning 具体 token/准确率数字原始出处未在上述三篇中确认，已降级为〔待核实〕并改用 2505.00127 作"越想越差"方向佐证。

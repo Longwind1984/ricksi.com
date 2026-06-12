@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-06-11T18:09:26.847Z",
+ "generated_at": "2026-06-12T13:30:15.634Z",
  "nodes": [
   {
    "id": 0,
@@ -147,11 +147,11 @@
   },
   {
    "id": 18,
-   "title": "Harness词义辨析",
-   "slug": "基础知识库/harness词义辨析",
+   "title": "Goodhart 定律",
+   "slug": "基础知识库/goodhart-定律",
    "cluster": 1,
-   "deg": 5,
-   "created": "2026-05-18"
+   "deg": 3,
+   "created": "2026-06-12"
   },
   {
    "id": 19,
@@ -187,6 +187,14 @@
   },
   {
    "id": 23,
+   "title": "LiveBench",
+   "slug": "基础知识库/livebench",
+   "cluster": 1,
+   "deg": 4,
+   "created": "2026-06-12"
+  },
+  {
+   "id": 24,
    "title": "LoRA",
    "slug": "基础知识库/lora",
    "cluster": 1,
@@ -194,7 +202,7 @@
    "created": "2026-06-03"
   },
   {
-   "id": 24,
+   "id": 25,
    "title": "MoE",
    "slug": "基础知识库/moe",
    "cluster": 1,
@@ -202,7 +210,15 @@
    "created": "2026-06-06"
   },
   {
-   "id": 25,
+   "id": 26,
+   "title": "Model Spec",
+   "slug": "基础知识库/model-spec",
+   "cluster": 1,
+   "deg": 5,
+   "created": "2026-06-12"
+  },
+  {
+   "id": 27,
    "title": "Polanyi 默会知识与提示工程的认识论张力",
    "slug": "基础知识库/polanyi-默会知识与提示工程的认识论张力",
    "cluster": 1,
@@ -210,7 +226,7 @@
    "created": "2026-05-16"
   },
   {
-   "id": 26,
+   "id": 28,
    "title": "Prompt Caching",
    "slug": "基础知识库/prompt-caching",
    "cluster": 1,
@@ -218,7 +234,7 @@
    "created": "2026-05-18"
   },
   {
-   "id": 27,
+   "id": 29,
    "title": "RAG",
    "slug": "基础知识库/rag",
    "cluster": 1,
@@ -226,15 +242,15 @@
    "created": "2026-06-03"
   },
   {
-   "id": 28,
+   "id": 30,
    "title": "RLHF",
    "slug": "基础知识库/rlhf",
    "cluster": 1,
-   "deg": 14,
+   "deg": 16,
    "created": "2026-06-03"
   },
   {
-   "id": 29,
+   "id": 31,
    "title": "SFT",
    "slug": "基础知识库/sft",
    "cluster": 1,
@@ -242,7 +258,7 @@
    "created": "2026-05-22"
   },
   {
-   "id": 30,
+   "id": 32,
    "title": "Scaling Laws",
    "slug": "基础知识库/scaling-laws",
    "cluster": 1,
@@ -250,7 +266,7 @@
    "created": "2026-06-04"
   },
   {
-   "id": 31,
+   "id": 33,
    "title": "Softmax",
    "slug": "基础知识库/softmax",
    "cluster": 1,
@@ -258,7 +274,7 @@
    "created": "2026-06-07"
   },
   {
-   "id": 32,
+   "id": 34,
    "title": "Test-Time Compute",
    "slug": "基础知识库/test-time-compute",
    "cluster": 1,
@@ -266,7 +282,7 @@
    "created": "2026-05-13"
   },
   {
-   "id": 33,
+   "id": 35,
    "title": "Tokenization",
    "slug": "基础知识库/tokenization",
    "cluster": 1,
@@ -274,7 +290,7 @@
    "created": "2026-06-03"
   },
   {
-   "id": 34,
+   "id": 36,
    "title": "Transformer 注意力机制四问",
    "slug": "基础知识库/transformer-注意力机制四问",
    "cluster": 1,
@@ -282,7 +298,7 @@
    "created": "2026-05-16"
   },
   {
-   "id": 35,
+   "id": 37,
    "title": "Transformer 简洁性的后见偏差",
    "slug": "基础知识库/transformer-简洁性的后见偏差",
    "cluster": 1,
@@ -290,7 +306,7 @@
    "created": "2026-05-16"
   },
   {
-   "id": 36,
+   "id": 38,
    "title": "c01 - 认知重构：从确定性系统到概率系统",
    "slug": "基础知识库/c01-认知重构-从确定性系统到概率系统",
    "cluster": 1,
@@ -298,7 +314,7 @@
    "created": "2026-05-13"
   },
   {
-   "id": 37,
+   "id": 39,
    "title": "c02 - Tokenization 与词表工程",
    "slug": "基础知识库/c02-tokenization-与词表工程",
    "cluster": 1,
@@ -306,7 +322,7 @@
    "created": "2026-05-13"
   },
   {
-   "id": 38,
+   "id": 40,
    "title": "c03 - Transformer 核心机制与注意力变体",
    "slug": "基础知识库/c03-transformer-核心机制与注意力变体",
    "cluster": 1,
@@ -314,7 +330,7 @@
    "created": "2026-05-13"
   },
   {
-   "id": 39,
+   "id": 41,
    "title": "c04 - 模型训练全阶段 Pipeline",
    "slug": "基础知识库/c04-模型训练全阶段-pipeline",
    "cluster": 1,
@@ -322,7 +338,7 @@
    "created": "2026-05-13"
   },
   {
-   "id": 40,
+   "id": 42,
    "title": "c05 - 算力物理定律与 KV Cache",
    "slug": "基础知识库/c05-算力物理定律与-kv-cache",
    "cluster": 1,
@@ -330,7 +346,7 @@
    "created": "2026-05-13"
   },
   {
-   "id": 41,
+   "id": 43,
    "title": "c06 - 架构演进：Dense MoE SSM Hybrid",
    "slug": "基础知识库/c06-架构演进-dense-moe-ssm-hybrid",
    "cluster": 1,
@@ -338,7 +354,7 @@
    "created": "2026-05-13"
   },
   {
-   "id": 42,
+   "id": 44,
    "title": "c07 - 量化 Quantization 与端侧部署",
    "slug": "基础知识库/c07-量化-quantization-与端侧部署",
    "cluster": 1,
@@ -346,7 +362,7 @@
    "created": "2026-05-13"
   },
   {
-   "id": 43,
+   "id": 45,
    "title": "c08 - 解码策略与生成控制",
    "slug": "基础知识库/c08-解码策略与生成控制",
    "cluster": 1,
@@ -354,7 +370,7 @@
    "created": "2026-05-13"
   },
   {
-   "id": 44,
+   "id": 46,
    "title": "c09 - RAG 架构",
    "slug": "基础知识库/c09-rag-架构",
    "cluster": 1,
@@ -362,7 +378,7 @@
    "created": "2026-05-13"
   },
   {
-   "id": 45,
+   "id": 47,
    "title": "c10 - Agent 技术栈与工具调用",
    "slug": "基础知识库/c10-agent-技术栈与工具调用",
    "cluster": 1,
@@ -370,7 +386,7 @@
    "created": "2026-05-18"
   },
   {
-   "id": 46,
+   "id": 48,
    "title": "c11 - System 2 思维与 Test-Time Compute",
    "slug": "基础知识库/c11-system-2-思维与-test-time-compute",
    "cluster": 1,
@@ -378,7 +394,7 @@
    "created": "2026-05-13"
   },
   {
-   "id": 47,
+   "id": 49,
    "title": "c12 - 多模态融合与具身智能",
    "slug": "基础知识库/c12-多模态融合与具身智能",
    "cluster": 1,
@@ -386,7 +402,7 @@
    "created": "2026-05-13"
   },
   {
-   "id": 48,
+   "id": 50,
    "title": "c13 - 幻觉的不可消除性",
    "slug": "基础知识库/c13-幻觉的不可消除性",
    "cluster": 1,
@@ -394,15 +410,15 @@
    "created": "2026-05-13"
   },
   {
-   "id": 49,
+   "id": 51,
    "title": "c14 - 模型评估体系与 Goodhart 陷阱",
    "slug": "基础知识库/c14-模型评估体系与-goodhart-陷阱",
    "cluster": 1,
-   "deg": 13,
+   "deg": 14,
    "created": "2026-05-13"
   },
   {
-   "id": 50,
+   "id": 52,
    "title": "c15 - 数据墙与后训练霸权",
    "slug": "基础知识库/c15-数据墙与后训练霸权",
    "cluster": 1,
@@ -410,7 +426,15 @@
    "created": "2026-05-13"
   },
   {
-   "id": 51,
+   "id": 53,
+   "title": "reward hacking",
+   "slug": "基础知识库/reward-hacking",
+   "cluster": 1,
+   "deg": 4,
+   "created": "2026-06-12"
+  },
+  {
+   "id": 54,
    "title": "亚特兰大 70 数据辨析与 AI 幻觉应对",
    "slug": "基础知识库/亚特兰大-70-数据辨析与-ai-幻觉应对",
    "cluster": 1,
@@ -418,7 +442,7 @@
    "created": "2026-05-16"
   },
   {
-   "id": 52,
+   "id": 55,
    "title": "合成数据",
    "slug": "基础知识库/合成数据",
    "cluster": 1,
@@ -426,7 +450,7 @@
    "created": "2026-06-04"
   },
   {
-   "id": 53,
+   "id": 56,
    "title": "多模型分层",
    "slug": "基础知识库/多模型分层",
    "cluster": 1,
@@ -434,23 +458,23 @@
    "created": "2026-05-18"
   },
   {
-   "id": 54,
+   "id": 57,
    "title": "幻觉",
    "slug": "基础知识库/幻觉",
    "cluster": 1,
-   "deg": 11,
+   "deg": 12,
    "created": "2026-05-13"
   },
   {
-   "id": 55,
+   "id": 58,
    "title": "强化学习",
    "slug": "基础知识库/强化学习",
    "cluster": 1,
-   "deg": 7,
+   "deg": 8,
    "created": "2026-06-07"
   },
   {
-   "id": 56,
+   "id": 59,
    "title": "拓展：多模态统一 Tokenizer 空间",
    "slug": "基础知识库/拓展-多模态统一-tokenizer-空间",
    "cluster": 1,
@@ -458,7 +482,7 @@
    "created": "2026-03-24"
   },
   {
-   "id": 57,
+   "id": 60,
    "title": "拓展：无 Tokenizer 路线",
    "slug": "基础知识库/拓展-无-tokenizer-路线",
    "cluster": 1,
@@ -466,7 +490,15 @@
    "created": "2026-03-24"
   },
   {
-   "id": 58,
+   "id": 61,
+   "title": "构念效度",
+   "slug": "基础知识库/构念效度",
+   "cluster": 1,
+   "deg": 4,
+   "created": "2026-06-12"
+  },
+  {
+   "id": 62,
    "title": "概率论·DL视角学习路径",
    "slug": "基础知识库/概率论-dl视角学习路径",
    "cluster": 1,
@@ -474,7 +506,7 @@
    "created": "2026-05-16"
   },
   {
-   "id": 59,
+   "id": 63,
    "title": "模块 0 拓展材料｜  AI 技术底层逻辑 · 扩展阅读与学习资料索引",
    "slug": "基础知识库/模块-0-拓展材料｜-ai-技术底层逻辑-扩展阅读与学习资料索引",
    "cluster": 1,
@@ -482,7 +514,7 @@
    "created": "2026-03-24"
   },
   {
-   "id": 60,
+   "id": 64,
    "title": "模块 0：AI 技术底层逻辑与模型范式解析",
    "slug": "基础知识库/模块-0-ai-技术底层逻辑与模型范式解析",
    "cluster": 1,
@@ -490,7 +522,7 @@
    "created": "2026-03-24"
   },
   {
-   "id": 61,
+   "id": 65,
    "title": "灾难性遗忘",
    "slug": "基础知识库/灾难性遗忘",
    "cluster": 1,
@@ -498,7 +530,7 @@
    "created": "2026-06-06"
   },
   {
-   "id": 62,
+   "id": 66,
    "title": "群体智力作为语言幻觉与 LLM 涌现",
    "slug": "基础知识库/群体智力作为语言幻觉与-llm-涌现",
    "cluster": 1,
@@ -506,7 +538,7 @@
    "created": "2026-05-16"
   },
   {
-   "id": 63,
+   "id": 67,
    "title": "自回归生成",
    "slug": "基础知识库/自回归生成",
    "cluster": 1,
@@ -514,7 +546,7 @@
    "created": "2026-06-06"
   },
   {
-   "id": 64,
+   "id": 68,
    "title": "量化",
    "slug": "基础知识库/量化",
    "cluster": 1,
@@ -522,7 +554,7 @@
    "created": "2026-05-13"
   },
   {
-   "id": 65,
+   "id": 69,
    "title": "问题：为什么词表数量必须是离散有限的？",
    "slug": "基础知识库/问题-为什么词表数量必须是离散有限的",
    "cluster": 1,
@@ -530,7 +562,7 @@
    "created": "2026-03-24"
   },
   {
-   "id": 66,
+   "id": 70,
    "title": "隐空间与 RAG 的概念偷换辨析",
    "slug": "基础知识库/隐空间与-rag-的概念偷换辨析",
    "cluster": 1,
@@ -538,7 +570,7 @@
    "created": "2026-05-16"
   },
   {
-   "id": 67,
+   "id": 71,
    "title": "预训练",
    "slug": "基础知识库/预训练",
    "cluster": 1,
@@ -546,7 +578,7 @@
    "created": "2026-06-04"
   },
   {
-   "id": 68,
+   "id": 72,
    "title": "0框架-模块二",
    "slug": "工程化与落地架构/0框架-模块二",
    "cluster": 2,
@@ -554,7 +586,7 @@
    "created": "2026-05-13"
   },
   {
-   "id": 69,
+   "id": 73,
    "title": "m201 - Prompt Engineering 实战体系",
    "slug": "工程化与落地架构/m201-prompt-engineering-实战体系",
    "cluster": 2,
@@ -562,7 +594,7 @@
    "created": "2026-05-13"
   },
   {
-   "id": 70,
+   "id": 74,
    "title": "m202 - 工程选型决策矩阵",
    "slug": "工程化与落地架构/m202-工程选型决策矩阵",
    "cluster": 2,
@@ -570,7 +602,7 @@
    "created": "2026-05-13"
   },
   {
-   "id": 71,
+   "id": 75,
    "title": "m203 - RAG 生产环境：Embedding 与文档解析",
    "slug": "工程化与落地架构/m203-rag-生产环境-embedding-与文档解析",
    "cluster": 2,
@@ -578,7 +610,7 @@
    "created": "2026-05-13"
   },
   {
-   "id": 72,
+   "id": 76,
    "title": "m204 - RAG 生产环境：Chunking 与范式演进",
    "slug": "工程化与落地架构/m204-rag-生产环境-chunking-与范式演进",
    "cluster": 2,
@@ -586,7 +618,7 @@
    "created": "2026-05-13"
   },
   {
-   "id": 73,
+   "id": 77,
    "title": "m205 - RAG 生产环境：索引运维与评估体系",
    "slug": "工程化与落地架构/m205-rag-生产环境-索引运维与评估体系",
    "cluster": 2,
@@ -594,7 +626,7 @@
    "created": "2026-05-13"
   },
   {
-   "id": 74,
+   "id": 78,
    "title": "m206 - Agent 产品化：记忆机制与技术进展",
    "slug": "工程化与落地架构/m206-agent-产品化-记忆机制与技术进展",
    "cluster": 2,
@@ -602,7 +634,7 @@
    "created": "2026-05-18"
   },
   {
-   "id": 75,
+   "id": 79,
    "title": "m207 - Agent 产品化：场景推演与失败模式",
    "slug": "工程化与落地架构/m207-agent-产品化-场景推演与失败模式",
    "cluster": 2,
@@ -610,7 +642,7 @@
    "created": "2026-05-18"
   },
   {
-   "id": 76,
+   "id": 80,
    "title": "m208 - AI 基础设施与中间件选型",
    "slug": "工程化与落地架构/m208-ai-基础设施与中间件选型",
    "cluster": 2,
@@ -618,7 +650,7 @@
    "created": "2026-05-18"
   },
   {
-   "id": 77,
+   "id": 81,
    "title": "m209 - 推理成本控制手册",
    "slug": "工程化与落地架构/m209-推理成本控制手册",
    "cluster": 2,
@@ -626,7 +658,7 @@
    "created": "2026-05-13"
   },
   {
-   "id": 78,
+   "id": 82,
    "title": "m210 - 数据工程流实操",
    "slug": "工程化与落地架构/m210-数据工程流实操",
    "cluster": 2,
@@ -634,7 +666,7 @@
    "created": "2026-05-13"
   },
   {
-   "id": 79,
+   "id": 83,
    "title": "0框架-模块三",
    "slug": "产品设计与交互范式/0框架-模块三",
    "cluster": 3,
@@ -642,7 +674,7 @@
    "created": "2026-05-13"
   },
   {
-   "id": 80,
+   "id": 84,
    "title": "p301 - 交互范式跃迁与对话框局限",
    "slug": "产品设计与交互范式/p301-交互范式跃迁与对话框局限",
    "cluster": 3,
@@ -650,7 +682,7 @@
    "created": "2026-05-13"
   },
   {
-   "id": 81,
+   "id": 85,
    "title": "p302 - 七种 AI 交互设计模式",
    "slug": "产品设计与交互范式/p302-七种-ai-交互设计模式",
    "cluster": 3,
@@ -658,7 +690,7 @@
    "created": "2026-05-13"
   },
   {
-   "id": 82,
+   "id": 86,
    "title": "p303 - 克服空白画布综合症",
    "slug": "产品设计与交互范式/p303-克服空白画布综合症",
    "cluster": 3,
@@ -666,7 +698,7 @@
    "created": "2026-05-13"
   },
   {
-   "id": 83,
+   "id": 87,
    "title": "p304 - 防御性 UX：对抗延迟与幻觉",
    "slug": "产品设计与交互范式/p304-防御性-ux-对抗延迟与幻觉",
    "cluster": 3,
@@ -674,7 +706,7 @@
    "created": "2026-05-13"
   },
   {
-   "id": 84,
+   "id": 88,
    "title": "p305 - 信任架构与可解释性设计",
    "slug": "产品设计与交互范式/p305-信任架构与可解释性设计",
    "cluster": 3,
@@ -682,7 +714,7 @@
    "created": "2026-05-13"
   },
   {
-   "id": 85,
+   "id": 89,
    "title": "p306 - 数据飞轮与反馈回路设计",
    "slug": "产品设计与交互范式/p306-数据飞轮与反馈回路设计",
    "cluster": 3,
@@ -690,7 +722,7 @@
    "created": "2026-05-13"
   },
   {
-   "id": 86,
+   "id": 90,
    "title": "p307 - Copilot 到 Autopilot 光谱",
    "slug": "产品设计与交互范式/p307-copilot-到-autopilot-光谱",
    "cluster": 3,
@@ -698,7 +730,7 @@
    "created": "2026-05-13"
   },
   {
-   "id": 87,
+   "id": 91,
    "title": "p308 - 多模态与脱离屏幕的交互",
    "slug": "产品设计与交互范式/p308-多模态与脱离屏幕的交互",
    "cluster": 3,
@@ -706,7 +738,7 @@
    "created": "2026-05-13"
   },
   {
-   "id": 88,
+   "id": 92,
    "title": "p309 - 特殊品类交互设计要点",
    "slug": "产品设计与交互范式/p309-特殊品类交互设计要点",
    "cluster": 3,
@@ -714,7 +746,7 @@
    "created": "2026-05-13"
   },
   {
-   "id": 89,
+   "id": 93,
    "title": "AI PM 知识图谱框架设计",
    "slug": "产品/ai-pm-知识图谱框架设计",
    "cluster": 5,
@@ -722,7 +754,7 @@
    "created": "2026-05-16"
   },
   {
-   "id": 90,
+   "id": 94,
    "title": "Claude routines 调研与 memory allowlist 设计",
    "slug": "产品/claude-routines-调研与-memory-allowlist-设计",
    "cluster": 5,
@@ -730,7 +762,7 @@
    "created": "2026-05-16"
   },
   {
-   "id": 91,
+   "id": 95,
    "title": "博物馆 AI 导览 APP",
    "slug": "产品/博物馆-ai-导览-app",
    "cluster": 5,
@@ -738,7 +770,7 @@
    "created": "2026-05-16"
   },
   {
-   "id": 92,
+   "id": 96,
    "title": "旅行规划 Skill 套件系统设计",
    "slug": "产品/旅行规划-skill-套件系统设计",
    "cluster": 5,
@@ -746,7 +778,7 @@
    "created": "2026-05-16"
   },
   {
-   "id": 93,
+   "id": 97,
    "title": "AI 协作中的中文造词反馈",
    "slug": "ai-协作方法论/ai-协作中的中文造词反馈",
    "cluster": 6,
@@ -754,7 +786,7 @@
    "created": "2026-05-16"
   },
   {
-   "id": 94,
+   "id": 98,
    "title": "Claude Project Instructions",
    "slug": "ai-协作方法论/claude-project-instructions",
    "cluster": 6,
@@ -762,7 +794,7 @@
    "created": "2026-05-16"
   },
   {
-   "id": 95,
+   "id": 99,
    "title": "Claude 阅读非虚构 instruction 设计",
    "slug": "ai-协作方法论/claude-阅读非虚构-instruction-设计",
    "cluster": 6,
@@ -770,7 +802,7 @@
    "created": "2026-05-16"
   },
   {
-   "id": 96,
+   "id": 100,
    "title": "Skill 系统的本质",
    "slug": "ai-协作方法论/skill-系统的本质",
    "cluster": 6,
@@ -778,7 +810,7 @@
    "created": "2026-05-18"
   },
   {
-   "id": 97,
+   "id": 101,
    "title": "intellectual-lens skill 设计",
    "slug": "ai-协作方法论/intellectual-lens-skill-设计",
    "cluster": 6,
@@ -786,7 +818,7 @@
    "created": "2026-05-16"
   },
   {
-   "id": 98,
+   "id": 102,
    "title": "intellectual-lens skill 通过圣周案例的迭代",
    "slug": "ai-协作方法论/intellectual-lens-skill-通过圣周案例的迭代",
    "cluster": 6,
@@ -794,7 +826,7 @@
    "created": "2026-05-16"
   },
   {
-   "id": 99,
+   "id": 103,
    "title": "trip-structure skill",
    "slug": "工具/trip-structure-skill",
    "cluster": 7,
@@ -802,7 +834,7 @@
    "created": "2026-05-16"
   },
   {
-   "id": 100,
+   "id": 104,
    "title": "AI 拟人化遮掩",
    "slug": "ai-公司与产品/ai-拟人化遮掩",
    "cluster": 9,
@@ -810,7 +842,7 @@
    "created": "2026-05-16"
   },
   {
-   "id": 101,
+   "id": 105,
    "title": "Anthropic",
    "slug": "ai-公司与产品/anthropic",
    "cluster": 9,
@@ -818,7 +850,7 @@
    "created": "2026-05-15"
   },
   {
-   "id": 102,
+   "id": 106,
    "title": "ChatGPT",
    "slug": "ai-公司与产品/chatgpt",
    "cluster": 9,
@@ -826,15 +858,15 @@
    "created": "2026-05-15"
   },
   {
-   "id": 103,
+   "id": 107,
    "title": "Claude Code",
    "slug": "ai-公司与产品/claude-code",
    "cluster": 9,
-   "deg": 13,
+   "deg": 12,
    "created": "2026-05-15"
   },
   {
-   "id": 104,
+   "id": 108,
    "title": "Claude Opus",
    "slug": "ai-公司与产品/claude-opus",
    "cluster": 9,
@@ -842,7 +874,7 @@
    "created": "2026-05-15"
   },
   {
-   "id": 105,
+   "id": 109,
    "title": "Claude Sonnet",
    "slug": "ai-公司与产品/claude-sonnet",
    "cluster": 9,
@@ -850,7 +882,7 @@
    "created": "2026-05-15"
   },
   {
-   "id": 106,
+   "id": 110,
    "title": "Claude",
    "slug": "ai-公司与产品/claude",
    "cluster": 9,
@@ -858,7 +890,7 @@
    "created": "2026-05-15"
   },
   {
-   "id": 107,
+   "id": 111,
    "title": "Codex",
    "slug": "ai-公司与产品/codex",
    "cluster": 9,
@@ -866,7 +898,7 @@
    "created": "2026-05-19"
   },
   {
-   "id": 108,
+   "id": 112,
    "title": "Computer Use",
    "slug": "ai-公司与产品/computer-use",
    "cluster": 9,
@@ -874,7 +906,7 @@
    "created": "2026-05-18"
   },
   {
-   "id": 109,
+   "id": 113,
    "title": "DALL-E",
    "slug": "ai-公司与产品/dall-e",
    "cluster": 9,
@@ -882,7 +914,7 @@
    "created": "2026-05-19"
   },
   {
-   "id": 110,
+   "id": 114,
    "title": "DeepSeek",
    "slug": "ai-公司与产品/deepseek",
    "cluster": 9,
@@ -890,7 +922,7 @@
    "created": "2026-05-15"
   },
   {
-   "id": 111,
+   "id": 115,
    "title": "GPTs",
    "slug": "ai-公司与产品/gpts",
    "cluster": 9,
@@ -898,7 +930,7 @@
    "created": "2026-05-19"
   },
   {
-   "id": 112,
+   "id": 116,
    "title": "Gemini",
    "slug": "ai-公司与产品/gemini",
    "cluster": 9,
@@ -906,7 +938,7 @@
    "created": "2026-05-15"
   },
   {
-   "id": 113,
+   "id": 117,
    "title": "Manus",
    "slug": "ai-公司与产品/manus",
    "cluster": 9,
@@ -914,7 +946,7 @@
    "created": "2026-05-15"
   },
   {
-   "id": 114,
+   "id": 118,
    "title": "Microsoft",
    "slug": "ai-公司与产品/microsoft",
    "cluster": 9,
@@ -922,15 +954,15 @@
    "created": "2026-05-18"
   },
   {
-   "id": 115,
+   "id": 119,
    "title": "OpenAI",
    "slug": "ai-公司与产品/openai",
    "cluster": 9,
-   "deg": 26,
+   "deg": 27,
    "created": "2026-05-15"
   },
   {
-   "id": 116,
+   "id": 120,
    "title": "Perplexity",
    "slug": "ai-公司与产品/perplexity",
    "cluster": 9,
@@ -938,7 +970,7 @@
    "created": "2026-05-15"
   },
   {
-   "id": 117,
+   "id": 121,
    "title": "Sora",
    "slug": "ai-公司与产品/sora",
    "cluster": 9,
@@ -946,7 +978,7 @@
    "created": "2026-05-19"
   },
   {
-   "id": 118,
+   "id": 122,
    "title": "字节 TRAE 团队人物图谱",
    "slug": "ai-公司与产品/字节-trae-团队人物图谱",
    "cluster": 9,
@@ -954,16 +986,16 @@
    "created": "2026-05-16"
   },
   {
-   "id": 119,
+   "id": 123,
    "title": "A01 评测概念史与语义流变",
    "slug": "专题-评测与度量/a01-评测概念史与语义流变",
    "cluster": 10,
-   "deg": 9,
+   "deg": 10,
    "created": "2026-06-06",
    "facet": "评测"
   },
   {
-   "id": 120,
+   "id": 124,
    "title": "A02 评测对象层级辨析·模型／系统／产品／Agent eval",
    "slug": "专题-评测与度量/a02-评测对象层级辨析-模型／系统／产品／agent-eval",
    "cluster": 10,
@@ -972,16 +1004,16 @@
    "facet": "评测"
   },
   {
-   "id": 121,
+   "id": 125,
    "title": "A03 Benchmark 与数据污染",
    "slug": "专题-评测与度量/a03-benchmark-与数据污染",
    "cluster": 10,
-   "deg": 1,
+   "deg": 3,
    "created": "2026-06-06",
    "facet": "评测"
   },
   {
-   "id": 122,
+   "id": 126,
    "title": "A04 LLM-as-Judge",
    "slug": "专题-评测与度量/a04-llm-as-judge",
    "cluster": 10,
@@ -990,7 +1022,7 @@
    "facet": "评测"
   },
   {
-   "id": 123,
+   "id": 127,
    "title": "A05 人工评测与标注一致性",
    "slug": "专题-评测与度量/a05-人工评测与标注一致性",
    "cluster": 10,
@@ -999,16 +1031,16 @@
    "facet": "评测"
   },
   {
-   "id": 124,
+   "id": 128,
    "title": "A06 Goodhart 与指标失效",
    "slug": "专题-评测与度量/a06-goodhart-与指标失效",
    "cluster": 10,
-   "deg": 1,
+   "deg": 3,
    "created": "2026-06-06",
    "facet": "评测"
   },
   {
-   "id": 125,
+   "id": 129,
    "title": "A07 Red Teaming 作为评测实践",
    "slug": "专题-评测与度量/a07-red-teaming-作为评测实践",
    "cluster": 10,
@@ -1017,7 +1049,7 @@
    "facet": "评测"
   },
   {
-   "id": 126,
+   "id": 130,
    "title": "A08 Eval-driven Development",
    "slug": "专题-评测与度量/a08-eval-driven-development",
    "cluster": 10,
@@ -1026,7 +1058,7 @@
    "facet": "评测"
   },
   {
-   "id": 127,
+   "id": 131,
    "title": "G01 评测范式代际谱系总图",
    "slug": "专题-评测与度量/g01-评测范式代际谱系总图",
    "cluster": 10,
@@ -1035,7 +1067,7 @@
    "facet": "评测"
   },
   {
-   "id": 128,
+   "id": 132,
    "title": "G02 评测代际演化详解",
    "slug": "专题-评测与度量/g02-评测代际演化详解",
    "cluster": 10,
@@ -1044,7 +1076,7 @@
    "facet": "评测"
   },
   {
-   "id": 129,
+   "id": 133,
    "title": "S01 评测体系分层剖面",
    "slug": "专题-评测与度量/s01-评测体系分层剖面",
    "cluster": 10,
@@ -1053,16 +1085,16 @@
    "facet": "评测"
   },
   {
-   "id": 130,
+   "id": 134,
    "title": "S02 评测方法流派对照矩阵",
    "slug": "专题-评测与度量/s02-评测方法流派对照矩阵",
    "cluster": 10,
-   "deg": 3,
-   "created": "2026-06-07",
+   "deg": 4,
+   "created": "2026-06-12",
    "facet": "评测"
   },
   {
-   "id": 131,
+   "id": 135,
    "title": "S03 Eval-Ops 全景",
    "slug": "专题-评测与度量/s03-eval-ops-全景",
    "cluster": 10,
@@ -1071,16 +1103,16 @@
    "facet": "评测"
   },
   {
-   "id": 132,
+   "id": 136,
    "title": "E01 RAGAS & RAG 评测体系剖解",
    "slug": "专题-评测与度量/e01-ragas-rag-评测体系剖解",
    "cluster": 10,
-   "deg": 0,
+   "deg": 1,
    "created": "2026-06-06",
    "facet": "评测"
   },
   {
-   "id": 133,
+   "id": 137,
    "title": "E02 SWE-bench & Coding Agent 评测剖解",
    "slug": "专题-评测与度量/e02-swe-bench-coding-agent-评测剖解",
    "cluster": 10,
@@ -1089,7 +1121,7 @@
    "facet": "评测"
   },
   {
-   "id": 134,
+   "id": 138,
    "title": "E03 Chatbot Arena·LMArena & 人类偏好评测剖解",
    "slug": "专题-评测与度量/e03-chatbot-arena-lmarena-人类偏好评测剖解",
    "cluster": 10,
@@ -1098,7 +1130,7 @@
    "facet": "评测"
   },
   {
-   "id": 135,
+   "id": 139,
    "title": "R01 最小可运行·100 行 LLM-as-Judge",
    "slug": "专题-评测与度量/r01-最小可运行-100-行-llm-as-judge",
    "cluster": 10,
@@ -1107,7 +1139,7 @@
    "facet": "评测"
   },
   {
-   "id": 136,
+   "id": 140,
    "title": "R02 中型·建 benchmark + 标注指南 + IAA 计算",
    "slug": "专题-评测与度量/r02-中型-建-benchmark-+-标注指南-+-iaa-计算",
    "cluster": 10,
@@ -1116,7 +1148,7 @@
    "facet": "评测"
   },
   {
-   "id": 137,
+   "id": 141,
    "title": "R03 Agent trajectory eval 模板",
    "slug": "专题-评测与度量/r03-agent-trajectory-eval-模板",
    "cluster": 10,
@@ -1125,7 +1157,7 @@
    "facet": "评测"
   },
   {
-   "id": 138,
+   "id": 142,
    "title": "README·0412·多视图阅读指南",
    "slug": "专题-评测与度量/readme-0412-多视图阅读指南",
    "cluster": 10,
@@ -1134,17 +1166,17 @@
    "facet": "评测"
   },
   {
-   "id": 139,
+   "id": 143,
    "title": "_评测系统化专题·总览",
    "slug": "专题-评测与度量/_评测系统化专题-总览",
    "cluster": 10,
-   "deg": 6,
+   "deg": 7,
    "created": "2026-06-06",
    "facet": "评测",
    "hub": 1
   },
   {
-   "id": 140,
+   "id": 144,
    "title": "A01 审阅瓶颈命题·从生产瓶颈到审阅瓶颈",
    "slug": "专题-评测与度量/a01-审阅瓶颈命题-从生产瓶颈到审阅瓶颈",
    "cluster": 10,
@@ -1153,7 +1185,7 @@
    "facet": "审阅瓶颈"
   },
   {
-   "id": 141,
+   "id": 145,
    "title": "A02 审阅 验证 橡皮图章辨析",
    "slug": "专题-评测与度量/a02-审阅-验证-橡皮图章辨析",
    "cluster": 10,
@@ -1162,7 +1194,7 @@
    "facet": "审阅瓶颈"
   },
   {
-   "id": 142,
+   "id": 146,
    "title": "A03 信息压缩率与 Progressive Disclosure",
    "slug": "专题-评测与度量/a03-信息压缩率与-progressive-disclosure",
    "cluster": 10,
@@ -1171,7 +1203,7 @@
    "facet": "审阅瓶颈"
   },
   {
-   "id": 143,
+   "id": 147,
    "title": "A04 Confidence-gated 自动执行",
    "slug": "专题-评测与度量/a04-confidence-gated-自动执行",
    "cluster": 10,
@@ -1180,7 +1212,7 @@
    "facet": "审阅瓶颈"
   },
   {
-   "id": 144,
+   "id": 148,
    "title": "A05 审阅界面即产品",
    "slug": "专题-评测与度量/a05-审阅界面即产品",
    "cluster": 10,
@@ -1189,7 +1221,7 @@
    "facet": "审阅瓶颈"
   },
   {
-   "id": 145,
+   "id": 149,
    "title": "A06 自动化偏见与审阅疲劳",
    "slug": "专题-评测与度量/a06-自动化偏见与审阅疲劳",
    "cluster": 10,
@@ -1198,7 +1230,7 @@
    "facet": "审阅瓶颈"
   },
   {
-   "id": 146,
+   "id": 150,
    "title": "G01 人机审阅关系代际谱系总图",
    "slug": "专题-评测与度量/g01-人机审阅关系代际谱系总图",
    "cluster": 10,
@@ -1207,7 +1239,7 @@
    "facet": "审阅瓶颈"
   },
   {
-   "id": 147,
+   "id": 151,
    "title": "G02 审阅关系代际演化详解",
    "slug": "专题-评测与度量/g02-审阅关系代际演化详解",
    "cluster": 10,
@@ -1216,7 +1248,7 @@
    "facet": "审阅瓶颈"
   },
   {
-   "id": 148,
+   "id": 152,
    "title": "S01 审阅成本分层剖面",
    "slug": "专题-评测与度量/s01-审阅成本分层剖面",
    "cluster": 10,
@@ -1225,7 +1257,7 @@
    "facet": "审阅瓶颈"
   },
   {
-   "id": 149,
+   "id": 153,
    "title": "S02 降审阅负荷手段对照矩阵",
    "slug": "专题-评测与度量/s02-降审阅负荷手段对照矩阵",
    "cluster": 10,
@@ -1234,7 +1266,7 @@
    "facet": "审阅瓶颈"
   },
   {
-   "id": 150,
+   "id": 154,
    "title": "S03 审阅-信任-自动化飞轮全景",
    "slug": "专题-评测与度量/s03-审阅-信任-自动化飞轮全景",
    "cluster": 10,
@@ -1243,7 +1275,7 @@
    "facet": "审阅瓶颈"
   },
   {
-   "id": 151,
+   "id": 155,
    "title": "E01 Claude Code 确认与 Diff 机制剖解",
    "slug": "专题-评测与度量/e01-claude-code-确认与-diff-机制剖解",
    "cluster": 10,
@@ -1252,7 +1284,7 @@
    "facet": "审阅瓶颈"
   },
   {
-   "id": 152,
+   "id": 156,
    "title": "E02 Copilot 与 Cursor 审阅界面剖解",
    "slug": "专题-评测与度量/e02-copilot-与-cursor-审阅界面剖解",
    "cluster": 10,
@@ -1261,7 +1293,7 @@
    "facet": "审阅瓶颈"
   },
   {
-   "id": 153,
+   "id": 157,
    "title": "E03 创作工具的审阅哲学剖解·Midjourney 与 Artifact",
    "slug": "专题-评测与度量/e03-创作工具的审阅哲学剖解-midjourney-与-artifact",
    "cluster": 10,
@@ -1270,7 +1302,7 @@
    "facet": "审阅瓶颈"
   },
   {
-   "id": 154,
+   "id": 158,
    "title": "R01 给 AI 输出加 Confidence Display + Diff",
    "slug": "专题-评测与度量/r01-给-ai-输出加-confidence-display-+-diff",
    "cluster": 10,
@@ -1279,7 +1311,7 @@
    "facet": "审阅瓶颈"
   },
   {
-   "id": 155,
+   "id": 159,
    "title": "R02 Progressive Disclosure 信息压缩实验",
    "slug": "专题-评测与度量/r02-progressive-disclosure-信息压缩实验",
    "cluster": 10,
@@ -1288,7 +1320,7 @@
    "facet": "审阅瓶颈"
   },
   {
-   "id": 156,
+   "id": 160,
    "title": "R03 Confidence-gated Auto-accept 阈值实验",
    "slug": "专题-评测与度量/r03-confidence-gated-auto-accept-阈值实验",
    "cluster": 10,
@@ -1297,7 +1329,7 @@
    "facet": "审阅瓶颈"
   },
   {
-   "id": 157,
+   "id": 161,
    "title": "README·0418·多视图阅读指南",
    "slug": "专题-评测与度量/readme-0418-多视图阅读指南",
    "cluster": 10,
@@ -1306,7 +1338,7 @@
    "facet": "审阅瓶颈"
   },
   {
-   "id": 158,
+   "id": 162,
    "title": "_审阅瓶颈系统化专题·总览",
    "slug": "专题-评测与度量/_审阅瓶颈系统化专题-总览",
    "cluster": 10,
@@ -1316,7 +1348,7 @@
    "hub": 1
   },
   {
-   "id": 159,
+   "id": 163,
    "title": "A01 后训练概念谱系与训练-产品边界",
    "slug": "专题-能力与训练/a01-后训练概念谱系与训练-产品边界",
    "cluster": 11,
@@ -1325,16 +1357,16 @@
    "facet": "后训练即产品"
   },
   {
-   "id": 160,
+   "id": 164,
    "title": "A02 命题·后训练决策即产品规格",
    "slug": "专题-能力与训练/a02-命题-后训练决策即产品规格",
    "cluster": 11,
-   "deg": 0,
+   "deg": 1,
    "created": "2026-06-07",
    "facet": "后训练即产品"
   },
   {
-   "id": 161,
+   "id": 165,
    "title": "A03 RLHF RLAIF DPO 的产品含义",
    "slug": "专题-能力与训练/a03-rlhf-rlaif-dpo-的产品含义",
    "cluster": 11,
@@ -1343,7 +1375,7 @@
    "facet": "后训练即产品"
   },
   {
-   "id": 162,
+   "id": 166,
    "title": "A04 Constitutional AI 与行为准则的伦理映射",
    "slug": "专题-能力与训练/a04-constitutional-ai-与行为准则的伦理映射",
    "cluster": 11,
@@ -1352,7 +1384,7 @@
    "facet": "后训练即产品"
   },
   {
-   "id": 163,
+   "id": 167,
    "title": "A05 偏好标注指南即产品规格书",
    "slug": "专题-能力与训练/a05-偏好标注指南即产品规格书",
    "cluster": 11,
@@ -1361,7 +1393,7 @@
    "facet": "后训练即产品"
   },
   {
-   "id": 164,
+   "id": 168,
    "title": "A06 系统提示 工具 护栏作为推理期后训练",
    "slug": "专题-能力与训练/a06-系统提示-工具-护栏作为推理期后训练",
    "cluster": 11,
@@ -1370,7 +1402,7 @@
    "facet": "后训练即产品"
   },
   {
-   "id": 165,
+   "id": 169,
    "title": "G01 行为塑形代际谱系总图",
    "slug": "专题-能力与训练/g01-行为塑形代际谱系总图",
    "cluster": 11,
@@ -1379,7 +1411,7 @@
    "facet": "后训练即产品"
   },
   {
-   "id": 166,
+   "id": 170,
    "title": "G02 后训练代际演化详解",
    "slug": "专题-能力与训练/g02-后训练代际演化详解",
    "cluster": 11,
@@ -1388,7 +1420,7 @@
    "facet": "后训练即产品"
   },
   {
-   "id": 167,
+   "id": 171,
    "title": "S01 行为塑形分层剖面",
    "slug": "专题-能力与训练/s01-行为塑形分层剖面",
    "cluster": 11,
@@ -1397,7 +1429,7 @@
    "facet": "后训练即产品"
   },
   {
-   "id": 168,
+   "id": 172,
    "title": "S02 训练层与产品层行为塑形手段对照矩阵",
    "slug": "专题-能力与训练/s02-训练层与产品层行为塑形手段对照矩阵",
    "cluster": 11,
@@ -1406,7 +1438,7 @@
    "facet": "后训练即产品"
   },
   {
-   "id": 169,
+   "id": 173,
    "title": "S03 后训练 Ops 与数据飞轮全景",
    "slug": "专题-能力与训练/s03-后训练-ops-与数据飞轮全景",
    "cluster": 11,
@@ -1415,16 +1447,16 @@
    "facet": "后训练即产品"
   },
   {
-   "id": 170,
+   "id": 174,
    "title": "E01 Claude 的 Constitutional AI 与 Character 剖解",
    "slug": "专题-能力与训练/e01-claude-的-constitutional-ai-与-character-剖解",
    "cluster": 11,
-   "deg": 0,
+   "deg": 1,
    "created": "2026-06-07",
    "facet": "后训练即产品"
   },
   {
-   "id": 171,
+   "id": 175,
    "title": "E02 ChatGPT 的 RLHF 谄媚与行为调整剖解",
    "slug": "专题-能力与训练/e02-chatgpt-的-rlhf-谄媚与行为调整剖解",
    "cluster": 11,
@@ -1433,7 +1465,7 @@
    "facet": "后训练即产品"
   },
   {
-   "id": 172,
+   "id": 176,
    "title": "E03 DeepSeek R1 的 RL 后训练剖解",
    "slug": "专题-能力与训练/e03-deepseek-r1-的-rl-后训练剖解",
    "cluster": 11,
@@ -1442,7 +1474,7 @@
    "facet": "后训练即产品"
   },
   {
-   "id": 173,
+   "id": 177,
    "title": "R01 最小可运行·DPO 偏好微调",
    "slug": "专题-能力与训练/r01-最小可运行-dpo-偏好微调",
    "cluster": 11,
@@ -1451,7 +1483,7 @@
    "facet": "后训练即产品"
   },
   {
-   "id": 174,
+   "id": 178,
    "title": "R02 中型·写偏好标注指南 + 小规模偏好数据",
    "slug": "专题-能力与训练/r02-中型-写偏好标注指南-+-小规模偏好数据",
    "cluster": 11,
@@ -1460,7 +1492,7 @@
    "facet": "后训练即产品"
   },
   {
-   "id": 175,
+   "id": 179,
    "title": "R03 无训练的行为塑形实验·系统提示与护栏",
    "slug": "专题-能力与训练/r03-无训练的行为塑形实验-系统提示与护栏",
    "cluster": 11,
@@ -1469,7 +1501,7 @@
    "facet": "后训练即产品"
   },
   {
-   "id": 176,
+   "id": 180,
    "title": "README·0415·多视图阅读指南",
    "slug": "专题-能力与训练/readme-0415-多视图阅读指南",
    "cluster": 11,
@@ -1478,17 +1510,17 @@
    "facet": "后训练即产品"
   },
   {
-   "id": 177,
+   "id": 181,
    "title": "_后训练即产品系统化专题·总览",
    "slug": "专题-能力与训练/_后训练即产品系统化专题-总览",
    "cluster": 11,
-   "deg": 2,
+   "deg": 3,
    "created": "2026-06-07",
    "facet": "后训练即产品",
    "hub": 1
   },
   {
-   "id": 178,
+   "id": 182,
    "title": "A01 Reasoning 概念史·从 CoT 到 Test-Time Compute",
    "slug": "专题-能力与训练/a01-reasoning-概念史-从-cot-到-test-time-compute",
    "cluster": 11,
@@ -1497,7 +1529,7 @@
    "facet": "推理与测试时计算"
   },
   {
-   "id": 179,
+   "id": 183,
    "title": "A02 五词辨析·CoT 推理 思考 慢思考 Inference-scaling",
    "slug": "专题-能力与训练/a02-五词辨析-cot-推理-思考-慢思考-inference-scaling",
    "cluster": 11,
@@ -1506,7 +1538,7 @@
    "facet": "推理与测试时计算"
   },
   {
-   "id": 180,
+   "id": 184,
    "title": "A03 System 2 的隐喻陷阱",
    "slug": "专题-能力与训练/a03-system-2-的隐喻陷阱",
    "cluster": 11,
@@ -1515,7 +1547,7 @@
    "facet": "推理与测试时计算"
   },
   {
-   "id": 181,
+   "id": 185,
    "title": "A04 Reasoning Effort 作为可计费资源",
    "slug": "专题-能力与训练/a04-reasoning-effort-作为可计费资源",
    "cluster": 11,
@@ -1524,7 +1556,7 @@
    "facet": "推理与测试时计算"
   },
   {
-   "id": 182,
+   "id": 186,
    "title": "G01 推理范式代际谱系·prompt-CoT 到 RL-reasoning 到推理期搜索",
    "slug": "专题-能力与训练/g01-推理范式代际谱系-prompt-cot-到-rl-reasoning-到推理期搜索",
    "cluster": 11,
@@ -1533,7 +1565,7 @@
    "facet": "推理与测试时计算"
   },
   {
-   "id": 183,
+   "id": 187,
    "title": "G02 o1 到 R1 到当代演化详解",
    "slug": "专题-能力与训练/g02-o1-到-r1-到当代演化详解",
    "cluster": 11,
@@ -1542,7 +1574,7 @@
    "facet": "推理与测试时计算"
   },
   {
-   "id": 184,
+   "id": 188,
    "title": "S01 测试时计算的三种花法·采样 验证 搜索",
    "slug": "专题-能力与训练/s01-测试时计算的三种花法-采样-验证-搜索",
    "cluster": 11,
@@ -1551,7 +1583,7 @@
    "facet": "推理与测试时计算"
   },
   {
-   "id": 185,
+   "id": 189,
    "title": "S02 训练侧 vs 推理侧 Reasoning 可替换栈",
    "slug": "专题-能力与训练/s02-训练侧-vs-推理侧-reasoning-可替换栈",
    "cluster": 11,
@@ -1560,7 +1592,7 @@
    "facet": "推理与测试时计算"
   },
   {
-   "id": 186,
+   "id": 190,
    "title": "S03 Reasoning 与 Agent 循环的耦合点",
    "slug": "专题-能力与训练/s03-reasoning-与-agent-循环的耦合点",
    "cluster": 11,
@@ -1569,7 +1601,7 @@
    "facet": "推理与测试时计算"
   },
   {
-   "id": 187,
+   "id": 191,
    "title": "E01 o3 vs R1 vs Claude Extended Thinking 设计哲学",
    "slug": "专题-能力与训练/e01-o3-vs-r1-vs-claude-extended-thinking-设计哲学",
    "cluster": 11,
@@ -1578,7 +1610,7 @@
    "facet": "推理与测试时计算"
   },
   {
-   "id": 188,
+   "id": 192,
    "title": "E02 Reasoning 反噬·过度思考与延迟灾难",
    "slug": "专题-能力与训练/e02-reasoning-反噬-过度思考与延迟灾难",
    "cluster": 11,
@@ -1587,7 +1619,7 @@
    "facet": "推理与测试时计算"
   },
   {
-   "id": 189,
+   "id": 193,
    "title": "E03 数学代码强开放任务弱的能力剖面",
    "slug": "专题-能力与训练/e03-数学代码强开放任务弱的能力剖面",
    "cluster": 11,
@@ -1596,7 +1628,7 @@
    "facet": "推理与测试时计算"
   },
   {
-   "id": 190,
+   "id": 194,
    "title": "R01 最小可运行·自洽采样投票",
    "slug": "专题-能力与训练/r01-最小可运行-自洽采样投票",
    "cluster": 11,
@@ -1605,7 +1637,7 @@
    "facet": "推理与测试时计算"
   },
   {
-   "id": 191,
+   "id": 195,
    "title": "R02 中型·Reasoning 预算路由器",
    "slug": "专题-能力与训练/r02-中型-reasoning-预算路由器",
    "cluster": 11,
@@ -1614,7 +1646,7 @@
    "facet": "推理与测试时计算"
   },
   {
-   "id": 192,
+   "id": 196,
    "title": "R03 进阶·Verifier-guided 搜索",
    "slug": "专题-能力与训练/r03-进阶-verifier-guided-搜索",
    "cluster": 11,
@@ -1623,7 +1655,7 @@
    "facet": "推理与测试时计算"
   },
   {
-   "id": 193,
+   "id": 197,
    "title": "README·0433·多视图阅读指南",
    "slug": "专题-能力与训练/readme-0433-多视图阅读指南",
    "cluster": 11,
@@ -1632,7 +1664,7 @@
    "facet": "推理与测试时计算"
   },
   {
-   "id": 194,
+   "id": 198,
    "title": "_推理与测试时计算系统化专题·总览",
    "slug": "专题-能力与训练/_推理与测试时计算系统化专题-总览",
    "cluster": 11,
@@ -1642,7 +1674,7 @@
    "hub": 1
   },
   {
-   "id": 195,
+   "id": 199,
    "title": "A01 成本概念史与口径辨析",
    "slug": "专题-工程与成本/a01-成本概念史与口径辨析",
    "cluster": 12,
@@ -1651,7 +1683,7 @@
    "facet": "成本工程"
   },
   {
-   "id": 196,
+   "id": 200,
    "title": "A02 成本对象层级辨析·per-token per-query per-task per-user per-seat",
    "slug": "专题-工程与成本/a02-成本对象层级辨析-per-token-per-query-per-task-per-user-per-seat",
    "cluster": 12,
@@ -1660,7 +1692,7 @@
    "facet": "成本工程"
   },
   {
-   "id": 197,
+   "id": 201,
    "title": "A03 Token Economics 精算",
    "slug": "专题-工程与成本/a03-token-economics-精算",
    "cluster": 12,
@@ -1669,7 +1701,7 @@
    "facet": "成本工程"
   },
   {
-   "id": 198,
+   "id": 202,
    "title": "A04 推理成本三角·模型大小 延迟 质量",
    "slug": "专题-工程与成本/a04-推理成本三角-模型大小-延迟-质量",
    "cluster": 12,
@@ -1678,7 +1710,7 @@
    "facet": "成本工程"
   },
   {
-   "id": 199,
+   "id": 203,
    "title": "A05 模型路由与 Mixture-of-models",
    "slug": "专题-工程与成本/a05-模型路由与-mixture-of-models",
    "cluster": 12,
@@ -1687,7 +1719,7 @@
    "facet": "成本工程"
   },
   {
-   "id": 200,
+   "id": 204,
    "title": "A06 端侧与云端成本重构",
    "slug": "专题-工程与成本/a06-端侧与云端成本重构",
    "cluster": 12,
@@ -1696,7 +1728,7 @@
    "facet": "成本工程"
   },
   {
-   "id": 201,
+   "id": 205,
    "title": "A07 成本约束反向塑造产品",
    "slug": "专题-工程与成本/a07-成本约束反向塑造产品",
    "cluster": 12,
@@ -1705,7 +1737,7 @@
    "facet": "成本工程"
   },
   {
-   "id": 202,
+   "id": 206,
    "title": "G01 推理成本代际谱系总图",
    "slug": "专题-工程与成本/g01-推理成本代际谱系总图",
    "cluster": 12,
@@ -1714,7 +1746,7 @@
    "facet": "成本工程"
   },
   {
-   "id": 203,
+   "id": 207,
    "title": "G02 成本代际演化详解",
    "slug": "专题-工程与成本/g02-成本代际演化详解",
    "cluster": 12,
@@ -1723,7 +1755,7 @@
    "facet": "成本工程"
   },
   {
-   "id": 204,
+   "id": 208,
    "title": "S01 AI 产品成本结构分层剖面",
    "slug": "专题-工程与成本/s01-ai-产品成本结构分层剖面",
    "cluster": 12,
@@ -1732,7 +1764,7 @@
    "facet": "成本工程"
   },
   {
-   "id": 205,
+   "id": 209,
    "title": "S02 降本手段流派对照矩阵",
    "slug": "专题-工程与成本/s02-降本手段流派对照矩阵",
    "cluster": 12,
@@ -1741,7 +1773,7 @@
    "facet": "成本工程"
   },
   {
-   "id": 206,
+   "id": 210,
    "title": "S03 FinOps for AI·成本可观测与归因全景",
    "slug": "专题-工程与成本/s03-finops-for-ai-成本可观测与归因全景",
    "cluster": 12,
@@ -1750,7 +1782,7 @@
    "facet": "成本工程"
   },
   {
-   "id": 207,
+   "id": 211,
    "title": "E01 ChatGPT 与 Claude 的 context rate-limit 产品成本耦合剖解",
    "slug": "专题-工程与成本/e01-chatgpt-与-claude-的-context-rate-limit-产品成本耦合剖解",
    "cluster": 12,
@@ -1759,7 +1791,7 @@
    "facet": "成本工程"
   },
   {
-   "id": 208,
+   "id": 212,
    "title": "E02 Apple Intelligence 与端侧推理成本剖解",
    "slug": "专题-工程与成本/e02-apple-intelligence-与端侧推理成本剖解",
    "cluster": 12,
@@ -1768,7 +1800,7 @@
    "facet": "成本工程"
   },
   {
-   "id": 209,
+   "id": 213,
    "title": "E03 一个 RAG Agent 产品的 unit economics 拆解",
    "slug": "专题-工程与成本/e03-一个-rag-agent-产品的-unit-economics-拆解",
    "cluster": 12,
@@ -1777,7 +1809,7 @@
    "facet": "成本工程"
   },
   {
-   "id": 210,
+   "id": 214,
    "title": "R01 最小可运行·Token 成本计算器",
    "slug": "专题-工程与成本/r01-最小可运行-token-成本计算器",
    "cluster": 12,
@@ -1786,7 +1818,7 @@
    "facet": "成本工程"
   },
   {
-   "id": 211,
+   "id": 215,
    "title": "R02 中型·模型路由 + 语义缓存 降本实验",
    "slug": "专题-工程与成本/r02-中型-模型路由-+-语义缓存-降本实验",
    "cluster": 12,
@@ -1795,7 +1827,7 @@
    "facet": "成本工程"
   },
   {
-   "id": 212,
+   "id": 216,
    "title": "R03 Unit Economics 模型·CAC COGS LTV 与盈亏平衡",
    "slug": "专题-工程与成本/r03-unit-economics-模型-cac-cogs-ltv-与盈亏平衡",
    "cluster": 12,
@@ -1804,7 +1836,7 @@
    "facet": "成本工程"
   },
   {
-   "id": 213,
+   "id": 217,
    "title": "README·0413·多视图阅读指南",
    "slug": "专题-工程与成本/readme-0413-多视图阅读指南",
    "cluster": 12,
@@ -1813,7 +1845,7 @@
    "facet": "成本工程"
   },
   {
-   "id": 214,
+   "id": 218,
    "title": "_成本工程系统化专题·总览",
    "slug": "专题-工程与成本/_成本工程系统化专题-总览",
    "cluster": 12,
@@ -1823,7 +1855,7 @@
    "hub": 1
   },
   {
-   "id": 215,
+   "id": 219,
    "title": "A01 编程工具概念谱系与语义辨析",
    "slug": "专题-工程与成本/a01-编程工具概念谱系与语义辨析",
    "cluster": 12,
@@ -1832,7 +1864,7 @@
    "facet": "编程工具"
   },
   {
-   "id": 216,
+   "id": 220,
    "title": "A02 嵌入形态层级辨析·插件 IDE-fork CLI 云端 PR-bot",
    "slug": "专题-工程与成本/a02-嵌入形态层级辨析-插件-ide-fork-cli-云端-pr-bot",
    "cluster": 12,
@@ -1841,7 +1873,7 @@
    "facet": "编程工具"
   },
   {
-   "id": 217,
+   "id": 221,
    "title": "A03 Codebase 理解机制·repo-map RAG-over-code LSP",
    "slug": "专题-工程与成本/a03-codebase-理解机制-repo-map-rag-over-code-lsp",
    "cluster": 12,
@@ -1850,7 +1882,7 @@
    "facet": "编程工具"
   },
   {
-   "id": 218,
+   "id": 222,
    "title": "A04 编辑应用机制·diff-apply 与 fast-apply",
    "slug": "专题-工程与成本/a04-编辑应用机制-diff-apply-与-fast-apply",
    "cluster": 12,
@@ -1859,7 +1891,7 @@
    "facet": "编程工具"
   },
   {
-   "id": 219,
+   "id": 223,
    "title": "A05 Agentic Coding 信任校准",
    "slug": "专题-工程与成本/a05-agentic-coding-信任校准",
    "cluster": 12,
@@ -1868,7 +1900,7 @@
    "facet": "编程工具"
   },
   {
-   "id": 220,
+   "id": 224,
    "title": "A06 Developer Experience 作为产品力",
    "slug": "专题-工程与成本/a06-developer-experience-作为产品力",
    "cluster": 12,
@@ -1877,7 +1909,7 @@
    "facet": "编程工具"
   },
   {
-   "id": 221,
+   "id": 225,
    "title": "G01 编程工具代际谱系总图",
    "slug": "专题-工程与成本/g01-编程工具代际谱系总图",
    "cluster": 12,
@@ -1886,7 +1918,7 @@
    "facet": "编程工具"
   },
   {
-   "id": 222,
+   "id": 226,
    "title": "G02 编程工具代际演化详解",
    "slug": "专题-工程与成本/g02-编程工具代际演化详解",
    "cluster": 12,
@@ -1895,7 +1927,7 @@
    "facet": "编程工具"
   },
   {
-   "id": 223,
+   "id": 227,
    "title": "S01 Coding Agent 分层架构剖面",
    "slug": "专题-工程与成本/s01-coding-agent-分层架构剖面",
    "cluster": 12,
@@ -1904,7 +1936,7 @@
    "facet": "编程工具"
   },
   {
-   "id": 224,
+   "id": 228,
    "title": "S02 编程工具流派架构对照矩阵",
    "slug": "专题-工程与成本/s02-编程工具流派架构对照矩阵",
    "cluster": 12,
@@ -1913,7 +1945,7 @@
    "facet": "编程工具"
   },
   {
-   "id": 225,
+   "id": 229,
    "title": "S03 Harness for Coding 全景",
    "slug": "专题-工程与成本/s03-harness-for-coding-全景",
    "cluster": 12,
@@ -1922,7 +1954,7 @@
    "facet": "编程工具"
   },
   {
-   "id": 226,
+   "id": 230,
    "title": "E01 Cursor 剖解·IDE-fork 哲学",
    "slug": "专题-工程与成本/e01-cursor-剖解-ide-fork-哲学",
    "cluster": 12,
@@ -1931,7 +1963,7 @@
    "facet": "编程工具"
   },
   {
-   "id": 227,
+   "id": 231,
    "title": "E02 Claude Code 剖解·CLI 哲学",
    "slug": "专题-工程与成本/e02-claude-code-剖解-cli-哲学",
    "cluster": 12,
@@ -1940,7 +1972,7 @@
    "facet": "编程工具"
   },
   {
-   "id": 228,
+   "id": 232,
    "title": "E03 字节 TRAE 与 Windsurf 剖解",
    "slug": "专题-工程与成本/e03-字节-trae-与-windsurf-剖解",
    "cluster": 12,
@@ -1949,7 +1981,7 @@
    "facet": "编程工具"
   },
   {
-   "id": 229,
+   "id": 233,
    "title": "R01 最小可运行·LSP-aware 编辑 loop",
    "slug": "专题-工程与成本/r01-最小可运行-lsp-aware-编辑-loop",
    "cluster": 12,
@@ -1958,7 +1990,7 @@
    "facet": "编程工具"
   },
   {
-   "id": 230,
+   "id": 234,
    "title": "R02 中型·repo-map + RAG-over-code 检索增强",
    "slug": "专题-工程与成本/r02-中型-repo-map-+-rag-over-code-检索增强",
    "cluster": 12,
@@ -1967,7 +1999,7 @@
    "facet": "编程工具"
   },
   {
-   "id": 231,
+   "id": 235,
    "title": "R03 SWE-bench 风格评测跑通",
    "slug": "专题-工程与成本/r03-swe-bench-风格评测跑通",
    "cluster": 12,
@@ -1976,7 +2008,7 @@
    "facet": "编程工具"
   },
   {
-   "id": 232,
+   "id": 236,
    "title": "README·0414·多视图阅读指南",
    "slug": "专题-工程与成本/readme-0414-多视图阅读指南",
    "cluster": 12,
@@ -1985,7 +2017,7 @@
    "facet": "编程工具"
   },
   {
-   "id": 233,
+   "id": 237,
    "title": "_编程工具系统化专题·总览",
    "slug": "专题-工程与成本/_编程工具系统化专题-总览",
    "cluster": 12,
@@ -1995,7 +2027,7 @@
    "hub": 1
   },
   {
-   "id": 234,
+   "id": 238,
    "title": "A01 Context Engineering 概念史与升格",
    "slug": "专题-工程与成本/a01-context-engineering-概念史与升格",
    "cluster": 12,
@@ -2004,7 +2036,7 @@
    "facet": "上下文工程"
   },
   {
-   "id": 235,
+   "id": 239,
    "title": "A02 Context Prompt Memory RAG 辨析",
    "slug": "专题-工程与成本/a02-context-prompt-memory-rag-辨析",
    "cluster": 12,
@@ -2013,7 +2045,7 @@
    "facet": "上下文工程"
   },
   {
-   "id": 236,
+   "id": 240,
    "title": "A03 Context Window 作为资源·非越大越好",
    "slug": "专题-工程与成本/a03-context-window-作为资源-非越大越好",
    "cluster": 12,
@@ -2022,7 +2054,7 @@
    "facet": "上下文工程"
   },
   {
-   "id": 237,
+   "id": 241,
    "title": "A04 信息流决策框架·四去向",
    "slug": "专题-工程与成本/a04-信息流决策框架-四去向",
    "cluster": 12,
@@ -2031,7 +2063,7 @@
    "facet": "上下文工程"
   },
   {
-   "id": 238,
+   "id": 242,
    "title": "A05 Memory Layer 作为一等公民",
    "slug": "专题-工程与成本/a05-memory-layer-作为一等公民",
    "cluster": 12,
@@ -2040,7 +2072,7 @@
    "facet": "上下文工程"
   },
   {
-   "id": 239,
+   "id": 243,
    "title": "A06 状态外化策略",
    "slug": "专题-工程与成本/a06-状态外化策略",
    "cluster": 12,
@@ -2049,7 +2081,7 @@
    "facet": "上下文工程"
   },
   {
-   "id": 240,
+   "id": 244,
    "title": "G01 上下文管理代际谱系总图",
    "slug": "专题-工程与成本/g01-上下文管理代际谱系总图",
    "cluster": 12,
@@ -2058,7 +2090,7 @@
    "facet": "上下文工程"
   },
   {
-   "id": 241,
+   "id": 245,
    "title": "G02 上下文管理代际演化详解",
    "slug": "专题-工程与成本/g02-上下文管理代际演化详解",
    "cluster": 12,
@@ -2067,7 +2099,7 @@
    "facet": "上下文工程"
   },
   {
-   "id": 242,
+   "id": 246,
    "title": "S01 Context 管理分层剖面",
    "slug": "专题-工程与成本/s01-context-管理分层剖面",
    "cluster": 12,
@@ -2076,7 +2108,7 @@
    "facet": "上下文工程"
   },
   {
-   "id": 243,
+   "id": 247,
    "title": "S02 信息流策略对照矩阵",
    "slug": "专题-工程与成本/s02-信息流策略对照矩阵",
    "cluster": 12,
@@ -2085,7 +2117,7 @@
    "facet": "上下文工程"
   },
   {
-   "id": 244,
+   "id": 248,
    "title": "S03 Memory 与 Context Ops 全景",
    "slug": "专题-工程与成本/s03-memory-与-context-ops-全景",
    "cluster": 12,
@@ -2094,7 +2126,7 @@
    "facet": "上下文工程"
   },
   {
-   "id": 245,
+   "id": 249,
    "title": "E01 Claude Code 与 CLAUDE.md 的 Context 管理剖解",
    "slug": "专题-工程与成本/e01-claude-code-与-claude.md-的-context-管理剖解",
    "cluster": 12,
@@ -2103,7 +2135,7 @@
    "facet": "上下文工程"
   },
   {
-   "id": 246,
+   "id": 250,
    "title": "E02 长上下文模型 vs RAG 剖解",
    "slug": "专题-工程与成本/e02-长上下文模型-vs-rag-剖解",
    "cluster": 12,
@@ -2112,7 +2144,7 @@
    "facet": "上下文工程"
   },
   {
-   "id": 247,
+   "id": 251,
    "title": "E03 Agent Memory 产品剖解·Letta MemGPT mem0",
    "slug": "专题-工程与成本/e03-agent-memory-产品剖解-letta-memgpt-mem0",
    "cluster": 12,
@@ -2121,7 +2153,7 @@
    "facet": "上下文工程"
   },
   {
-   "id": 248,
+   "id": 252,
    "title": "R01 最小可运行·Context Compaction",
    "slug": "专题-工程与成本/r01-最小可运行-context-compaction",
    "cluster": 12,
@@ -2130,7 +2162,7 @@
    "facet": "上下文工程"
   },
   {
-   "id": 249,
+   "id": 253,
    "title": "R02 中型·Memory Layer + RAG 混合",
    "slug": "专题-工程与成本/r02-中型-memory-layer-+-rag-混合",
    "cluster": 12,
@@ -2139,7 +2171,7 @@
    "facet": "上下文工程"
   },
   {
-   "id": 250,
+   "id": 254,
    "title": "R03 Sub-agent Context Isolation 模板",
    "slug": "专题-工程与成本/r03-sub-agent-context-isolation-模板",
    "cluster": 12,
@@ -2148,7 +2180,7 @@
    "facet": "上下文工程"
   },
   {
-   "id": 251,
+   "id": 255,
    "title": "README·0417·多视图阅读指南",
    "slug": "专题-工程与成本/readme-0417-多视图阅读指南",
    "cluster": 12,
@@ -2157,7 +2189,7 @@
    "facet": "上下文工程"
   },
   {
-   "id": 252,
+   "id": 256,
    "title": "_上下文工程系统化专题·总览",
    "slug": "专题-工程与成本/_上下文工程系统化专题-总览",
    "cluster": 12,
@@ -2167,7 +2199,7 @@
    "hub": 1
   },
   {
-   "id": 253,
+   "id": 257,
    "title": "A01 Agent 概念史与语义流变",
    "slug": "专题-安全对齐与失败/a01-agent-概念史与语义流变",
    "cluster": 13,
@@ -2176,16 +2208,16 @@
    "facet": "Agent"
   },
   {
-   "id": 254,
+   "id": 258,
    "title": "A02 抽象层级辨析·Harness Framework Agent Skill Orchestrator",
    "slug": "专题-安全对齐与失败/a02-抽象层级辨析-harness-framework-agent-skill-orchestrator",
    "cluster": 13,
-   "deg": 14,
+   "deg": 13,
    "created": "2026-05-18",
    "facet": "Agent"
   },
   {
-   "id": 255,
+   "id": 259,
    "title": "A03 ReAct",
    "slug": "专题-安全对齐与失败/a03-react",
    "cluster": 13,
@@ -2194,7 +2226,7 @@
    "facet": "Agent"
   },
   {
-   "id": 256,
+   "id": 260,
    "title": "A04 Reflexion",
    "slug": "专题-安全对齐与失败/a04-reflexion",
    "cluster": 13,
@@ -2203,7 +2235,7 @@
    "facet": "Agent"
   },
   {
-   "id": 257,
+   "id": 261,
    "title": "A05 Plan-and-Execute",
    "slug": "专题-安全对齐与失败/a05-plan-and-execute",
    "cluster": 13,
@@ -2212,7 +2244,7 @@
    "facet": "Agent"
   },
   {
-   "id": 258,
+   "id": 262,
    "title": "A06 Orchestrator 编排器",
    "slug": "专题-安全对齐与失败/a06-orchestrator-编排器",
    "cluster": 13,
@@ -2221,7 +2253,7 @@
    "facet": "Agent"
   },
   {
-   "id": 259,
+   "id": 263,
    "title": "A07 Multi-Agent Teams",
    "slug": "专题-安全对齐与失败/a07-multi-agent-teams",
    "cluster": 13,
@@ -2230,7 +2262,7 @@
    "facet": "Agent"
   },
   {
-   "id": 260,
+   "id": 264,
    "title": "A08 MCP 与 A2A 协议族",
    "slug": "专题-安全对齐与失败/a08-mcp-与-a2a-协议族",
    "cluster": 13,
@@ -2239,16 +2271,16 @@
    "facet": "Agent"
   },
   {
-   "id": 261,
+   "id": 265,
    "title": "Harness 词义辨析",
    "slug": "专题-安全对齐与失败/harness-词义辨析",
    "cluster": 13,
-   "deg": 14,
+   "deg": 15,
    "created": "2026-06-11",
    "facet": "Agent"
   },
   {
-   "id": 262,
+   "id": 266,
    "title": "G01 Agent 代际谱系总图",
    "slug": "专题-安全对齐与失败/g01-agent-代际谱系总图",
    "cluster": 13,
@@ -2257,7 +2289,7 @@
    "facet": "Agent"
   },
   {
-   "id": 263,
+   "id": 267,
    "title": "G02 五代演化详解·G1-G5",
    "slug": "专题-安全对齐与失败/g02-五代演化详解-g1-g5",
    "cluster": 13,
@@ -2266,7 +2298,7 @@
    "facet": "Agent"
   },
   {
-   "id": 264,
+   "id": 268,
    "title": "S01 Agent 六层架构剖面",
    "slug": "专题-安全对齐与失败/s01-agent-六层架构剖面",
    "cluster": 13,
@@ -2275,7 +2307,7 @@
    "facet": "Agent"
   },
   {
-   "id": 265,
+   "id": 269,
    "title": "S02 流派架构对照表",
    "slug": "专题-安全对齐与失败/s02-流派架构对照表",
    "cluster": 13,
@@ -2284,16 +2316,16 @@
    "facet": "Agent"
   },
   {
-   "id": 266,
+   "id": 270,
    "title": "S03 Harness Engineering 全景",
    "slug": "专题-安全对齐与失败/s03-harness-engineering-全景",
    "cluster": 13,
-   "deg": 24,
+   "deg": 23,
    "created": "2026-05-18",
    "facet": "Agent"
   },
   {
-   "id": 267,
+   "id": 271,
    "title": "E01 Coding Agent·Claude Code & Cursor",
    "slug": "专题-安全对齐与失败/e01-coding-agent-claude-code-cursor",
    "cluster": 13,
@@ -2302,7 +2334,7 @@
    "facet": "Agent"
   },
   {
-   "id": 268,
+   "id": 272,
    "title": "E02 通用 Agent·Manus & Devin",
    "slug": "专题-安全对齐与失败/e02-通用-agent-manus-devin",
    "cluster": 13,
@@ -2311,7 +2343,7 @@
    "facet": "Agent"
   },
   {
-   "id": 269,
+   "id": 273,
    "title": "E03 Multi-Agent 框架·AutoGen & CrewAI & DeerFlow",
    "slug": "专题-安全对齐与失败/e03-multi-agent-框架-autogen-crewai-deerflow",
    "cluster": 13,
@@ -2320,7 +2352,7 @@
    "facet": "Agent"
   },
   {
-   "id": 270,
+   "id": 274,
    "title": "R01 最小可运行·100 行 ReAct",
    "slug": "专题-安全对齐与失败/r01-最小可运行-100-行-react",
    "cluster": 13,
@@ -2329,7 +2361,7 @@
    "facet": "Agent"
   },
   {
-   "id": 271,
+   "id": 275,
    "title": "R02 中型生产·LangGraph + MCP",
    "slug": "专题-安全对齐与失败/r02-中型生产-langgraph-+-mcp",
    "cluster": 13,
@@ -2338,7 +2370,7 @@
    "facet": "Agent"
   },
   {
-   "id": 272,
+   "id": 276,
    "title": "R03 Multi-Agent 模板·AutoGen CrewAI",
    "slug": "专题-安全对齐与失败/r03-multi-agent-模板-autogen-crewai",
    "cluster": 13,
@@ -2347,7 +2379,7 @@
    "facet": "Agent"
   },
   {
-   "id": 273,
+   "id": 277,
    "title": "README·0411·多视图阅读指南",
    "slug": "专题-安全对齐与失败/readme-0411-多视图阅读指南",
    "cluster": 13,
@@ -2356,17 +2388,17 @@
    "facet": "Agent"
   },
   {
-   "id": 274,
+   "id": 278,
    "title": "_Agent 系统化专题·总览",
    "slug": "专题-安全对齐与失败/_agent-系统化专题-总览",
    "cluster": 13,
-   "deg": 28,
+   "deg": 27,
    "created": "2026-05-18",
    "facet": "Agent",
    "hub": 1
   },
   {
-   "id": 275,
+   "id": 279,
    "title": "A01 失败考古学方法论",
    "slug": "专题-安全对齐与失败/a01-失败考古学方法论",
    "cluster": 13,
@@ -2375,7 +2407,7 @@
    "facet": "失败考古学"
   },
   {
-   "id": 276,
+   "id": 280,
    "title": "A02 AI 产品失败分类学·五类",
    "slug": "专题-安全对齐与失败/a02-ai-产品失败分类学-五类",
    "cluster": 13,
@@ -2384,7 +2416,7 @@
    "facet": "失败考古学"
   },
   {
-   "id": 277,
+   "id": 281,
    "title": "A03 输入侧失败·对抗用户与注入",
    "slug": "专题-安全对齐与失败/a03-输入侧失败-对抗用户与注入",
    "cluster": 13,
@@ -2393,7 +2425,7 @@
    "facet": "失败考古学"
   },
   {
-   "id": 278,
+   "id": 282,
    "title": "A04 输出侧失败·幻觉与法律约束",
    "slug": "专题-安全对齐与失败/a04-输出侧失败-幻觉与法律约束",
    "cluster": 13,
@@ -2402,7 +2434,7 @@
    "facet": "失败考古学"
   },
   {
-   "id": 279,
+   "id": 283,
    "title": "A05 边界侧失败·权限承诺与情感",
    "slug": "专题-安全对齐与失败/a05-边界侧失败-权限承诺与情感",
    "cluster": 13,
@@ -2411,7 +2443,7 @@
    "facet": "失败考古学"
   },
   {
-   "id": 280,
+   "id": 284,
    "title": "A06 采纳与组织侧失败",
    "slug": "专题-安全对齐与失败/a06-采纳与组织侧失败",
    "cluster": 13,
@@ -2420,7 +2452,7 @@
    "facet": "失败考古学"
   },
   {
-   "id": 281,
+   "id": 285,
    "title": "G01 AI 失败模式代际演化总图",
    "slug": "专题-安全对齐与失败/g01-ai-失败模式代际演化总图",
    "cluster": 13,
@@ -2429,7 +2461,7 @@
    "facet": "失败考古学"
   },
   {
-   "id": 282,
+   "id": 286,
    "title": "G02 失败模式代际演化详解",
    "slug": "专题-安全对齐与失败/g02-失败模式代际演化详解",
    "cluster": 13,
@@ -2438,7 +2470,7 @@
    "facet": "失败考古学"
   },
   {
-   "id": 283,
+   "id": 287,
    "title": "S01 失败归因分层剖面",
    "slug": "专题-安全对齐与失败/s01-失败归因分层剖面",
    "cluster": 13,
@@ -2447,7 +2479,7 @@
    "facet": "失败考古学"
   },
   {
-   "id": 284,
+   "id": 288,
    "title": "S02 失败类型 × 产品阶段对照矩阵",
    "slug": "专题-安全对齐与失败/s02-失败类型-×-产品阶段对照矩阵",
    "cluster": 13,
@@ -2456,7 +2488,7 @@
    "facet": "失败考古学"
   },
   {
-   "id": 285,
+   "id": 289,
    "title": "S03 失败防御体系全景",
    "slug": "专题-安全对齐与失败/s03-失败防御体系全景",
    "cluster": 13,
@@ -2465,7 +2497,7 @@
    "facet": "失败考古学"
   },
   {
-   "id": 286,
+   "id": 290,
    "title": "E01 Tay 与 Bard 剖解·输入与输出失败",
    "slug": "专题-安全对齐与失败/e01-tay-与-bard-剖解-输入与输出失败",
    "cluster": 13,
@@ -2474,7 +2506,7 @@
    "facet": "失败考古学"
   },
   {
-   "id": 287,
+   "id": 291,
    "title": "E02 Air Canada 与 Chevrolet 剖解·边界与法律失败",
    "slug": "专题-安全对齐与失败/e02-air-canada-与-chevrolet-剖解-边界与法律失败",
    "cluster": 13,
@@ -2483,7 +2515,7 @@
    "facet": "失败考古学"
   },
   {
-   "id": 288,
+   "id": 292,
    "title": "E03 Character.ai 与情感依赖剖解·伦理边界失败",
    "slug": "专题-安全对齐与失败/e03-character.ai-与情感依赖剖解-伦理边界失败",
    "cluster": 13,
@@ -2492,7 +2524,7 @@
    "facet": "失败考古学"
   },
   {
-   "id": 289,
+   "id": 293,
    "title": "R01 失败编码·建一个 bad-case 库",
    "slug": "专题-安全对齐与失败/r01-失败编码-建一个-bad-case-库",
    "cluster": 13,
@@ -2501,7 +2533,7 @@
    "facet": "失败考古学"
   },
   {
-   "id": 290,
+   "id": 294,
    "title": "R02 Launch Criteria 与 Pre-mortem Checklist",
    "slug": "专题-安全对齐与失败/r02-launch-criteria-与-pre-mortem-checklist",
    "cluster": 13,
@@ -2510,7 +2542,7 @@
    "facet": "失败考古学"
   },
   {
-   "id": 291,
+   "id": 295,
    "title": "R03 Red-team 一个 Agent 找失败模式",
    "slug": "专题-安全对齐与失败/r03-red-team-一个-agent-找失败模式",
    "cluster": 13,
@@ -2519,7 +2551,7 @@
    "facet": "失败考古学"
   },
   {
-   "id": 292,
+   "id": 296,
    "title": "README·0416·多视图阅读指南",
    "slug": "专题-安全对齐与失败/readme-0416-多视图阅读指南",
    "cluster": 13,
@@ -2528,7 +2560,7 @@
    "facet": "失败考古学"
   },
   {
-   "id": 293,
+   "id": 297,
    "title": "_失败考古学系统化专题·总览",
    "slug": "专题-安全对齐与失败/_失败考古学系统化专题-总览",
    "cluster": 13,
@@ -2538,7 +2570,7 @@
    "hub": 1
   },
   {
-   "id": 294,
+   "id": 298,
    "title": "A01 对齐概念谱系与语义辨析",
    "slug": "专题-安全对齐与失败/a01-对齐概念谱系与语义辨析",
    "cluster": 13,
@@ -2547,25 +2579,25 @@
    "facet": "对齐哲学"
   },
   {
-   "id": 295,
+   "id": 299,
    "title": "A02 Outer vs Inner Alignment 与 Mesa-optimization",
    "slug": "专题-安全对齐与失败/a02-outer-vs-inner-alignment-与-mesa-optimization",
    "cluster": 13,
-   "deg": 0,
+   "deg": 1,
    "created": "2026-06-07",
    "facet": "对齐哲学"
   },
   {
-   "id": 296,
+   "id": 300,
    "title": "A03 Reward Hacking 与 Goodhart",
    "slug": "专题-安全对齐与失败/a03-reward-hacking-与-goodhart",
    "cluster": 13,
-   "deg": 0,
+   "deg": 2,
    "created": "2026-06-07",
    "facet": "对齐哲学"
   },
   {
-   "id": 297,
+   "id": 301,
    "title": "A04 Constitutional AI 的伦理学根基",
    "slug": "专题-安全对齐与失败/a04-constitutional-ai-的伦理学根基",
    "cluster": 13,
@@ -2574,7 +2606,7 @@
    "facet": "对齐哲学"
   },
   {
-   "id": 298,
+   "id": 302,
    "title": "A05 Mechanistic Interpretability 的产品与安全含义",
    "slug": "专题-安全对齐与失败/a05-mechanistic-interpretability-的产品与安全含义",
    "cluster": 13,
@@ -2583,7 +2615,7 @@
    "facet": "对齐哲学"
   },
   {
-   "id": 299,
+   "id": 303,
    "title": "A06 AI 意识与道德地位",
    "slug": "专题-安全对齐与失败/a06-ai-意识与道德地位",
    "cluster": 13,
@@ -2592,7 +2624,7 @@
    "facet": "对齐哲学"
   },
   {
-   "id": 300,
+   "id": 304,
    "title": "G01 对齐范式代际谱系总图",
    "slug": "专题-安全对齐与失败/g01-对齐范式代际谱系总图",
    "cluster": 13,
@@ -2601,7 +2633,7 @@
    "facet": "对齐哲学"
   },
   {
-   "id": 301,
+   "id": 305,
    "title": "G02 对齐范式代际演化详解",
    "slug": "专题-安全对齐与失败/g02-对齐范式代际演化详解",
    "cluster": 13,
@@ -2610,7 +2642,7 @@
    "facet": "对齐哲学"
   },
   {
-   "id": 302,
+   "id": 306,
    "title": "S01 对齐问题分层剖面",
    "slug": "专题-安全对齐与失败/s01-对齐问题分层剖面",
    "cluster": 13,
@@ -2619,7 +2651,7 @@
    "facet": "对齐哲学"
   },
   {
-   "id": 303,
+   "id": 307,
    "title": "S02 对齐方法流派对照矩阵",
    "slug": "专题-安全对齐与失败/s02-对齐方法流派对照矩阵",
    "cluster": 13,
@@ -2628,7 +2660,7 @@
    "facet": "对齐哲学"
   },
   {
-   "id": 304,
+   "id": 308,
    "title": "S03 Scalable Oversight 与可解释性全景",
    "slug": "专题-安全对齐与失败/s03-scalable-oversight-与可解释性全景",
    "cluster": 13,
@@ -2637,7 +2669,7 @@
    "facet": "对齐哲学"
   },
   {
-   "id": 305,
+   "id": 309,
    "title": "E01 Anthropic Constitutional AI 与 RSP 剖解",
    "slug": "专题-安全对齐与失败/e01-anthropic-constitutional-ai-与-rsp-剖解",
    "cluster": 13,
@@ -2646,7 +2678,7 @@
    "facet": "对齐哲学"
   },
   {
-   "id": 306,
+   "id": 310,
    "title": "E02 OpenAI Superalignment 与 Deliberative Alignment 剖解",
    "slug": "专题-安全对齐与失败/e02-openai-superalignment-与-deliberative-alignment-剖解",
    "cluster": 13,
@@ -2655,7 +2687,7 @@
    "facet": "对齐哲学"
   },
   {
-   "id": 307,
+   "id": 311,
    "title": "E03 AI Welfare 与道德地位争论剖解",
    "slug": "专题-安全对齐与失败/e03-ai-welfare-与道德地位争论剖解",
    "cluster": 13,
@@ -2664,7 +2696,7 @@
    "facet": "对齐哲学"
   },
   {
-   "id": 308,
+   "id": 312,
    "title": "R01 观察 Reward Hacking 的最小实验",
    "slug": "专题-安全对齐与失败/r01-观察-reward-hacking-的最小实验",
    "cluster": 13,
@@ -2673,7 +2705,7 @@
    "facet": "对齐哲学"
   },
   {
-   "id": 309,
+   "id": 313,
    "title": "R02 用 CAI 原则做一次自我批判改写",
    "slug": "专题-安全对齐与失败/r02-用-cai-原则做一次自我批判改写",
    "cluster": 13,
@@ -2682,7 +2714,7 @@
    "facet": "对齐哲学"
   },
   {
-   "id": 310,
+   "id": 314,
    "title": "R03 简单可解释性探针",
    "slug": "专题-安全对齐与失败/r03-简单可解释性探针",
    "cluster": 13,
@@ -2691,7 +2723,7 @@
    "facet": "对齐哲学"
   },
   {
-   "id": 311,
+   "id": 315,
    "title": "README·0419·多视图阅读指南",
    "slug": "专题-安全对齐与失败/readme-0419-多视图阅读指南",
    "cluster": 13,
@@ -2700,7 +2732,7 @@
    "facet": "对齐哲学"
   },
   {
-   "id": 312,
+   "id": 316,
    "title": "_对齐哲学系统化专题·总览",
    "slug": "专题-安全对齐与失败/_对齐哲学系统化专题-总览",
    "cluster": 13,
@@ -2710,7 +2742,7 @@
    "hub": 1
   },
   {
-   "id": 313,
+   "id": 317,
    "title": "A01 AI 作为制度现象概念谱系",
    "slug": "专题-安全对齐与失败/a01-ai-作为制度现象概念谱系",
    "cluster": 13,
@@ -2719,7 +2751,7 @@
    "facet": "AI 作为制度现象"
   },
   {
-   "id": 314,
+   "id": 318,
    "title": "A02 Constitutional AI 作为字面宪法",
    "slug": "专题-安全对齐与失败/a02-constitutional-ai-作为字面宪法",
    "cluster": 13,
@@ -2728,7 +2760,7 @@
    "facet": "AI 作为制度现象"
   },
   {
-   "id": 315,
+   "id": 319,
    "title": "A03 平台内容治理作为准立法",
    "slug": "专题-安全对齐与失败/a03-平台内容治理作为准立法",
    "cluster": 13,
@@ -2737,7 +2769,7 @@
    "facet": "AI 作为制度现象"
   },
   {
-   "id": 316,
+   "id": 320,
    "title": "A04 API Policy 作为准监管权力",
    "slug": "专题-安全对齐与失败/a04-api-policy-作为准监管权力",
    "cluster": 13,
@@ -2746,7 +2778,7 @@
    "facet": "AI 作为制度现象"
   },
   {
-   "id": 317,
+   "id": 321,
    "title": "A05 AI 公司作为准国家行为体",
    "slug": "专题-安全对齐与失败/a05-ai-公司作为准国家行为体",
    "cluster": 13,
@@ -2755,7 +2787,7 @@
    "facet": "AI 作为制度现象"
   },
   {
-   "id": 318,
+   "id": 322,
    "title": "A06 制度俘获与问责真空",
    "slug": "专题-安全对齐与失败/a06-制度俘获与问责真空",
    "cluster": 13,
@@ -2764,7 +2796,7 @@
    "facet": "AI 作为制度现象"
   },
   {
-   "id": 319,
+   "id": 323,
    "title": "G01 AI 治理制度代际谱系总图",
    "slug": "专题-安全对齐与失败/g01-ai-治理制度代际谱系总图",
    "cluster": 13,
@@ -2773,7 +2805,7 @@
    "facet": "AI 作为制度现象"
   },
   {
-   "id": 320,
+   "id": 324,
    "title": "G02 AI 治理制度代际演化详解",
    "slug": "专题-安全对齐与失败/g02-ai-治理制度代际演化详解",
    "cluster": 13,
@@ -2782,7 +2814,7 @@
    "facet": "AI 作为制度现象"
   },
   {
-   "id": 321,
+   "id": 325,
    "title": "S01 AI 制度权力分层剖面",
    "slug": "专题-安全对齐与失败/s01-ai-制度权力分层剖面",
    "cluster": 13,
@@ -2791,7 +2823,7 @@
    "facet": "AI 作为制度现象"
   },
   {
-   "id": 322,
+   "id": 326,
    "title": "S02 AI 治理模式对照矩阵",
    "slug": "专题-安全对齐与失败/s02-ai-治理模式对照矩阵",
    "cluster": 13,
@@ -2800,7 +2832,7 @@
    "facet": "AI 作为制度现象"
   },
   {
-   "id": 323,
+   "id": 327,
    "title": "S03 AI 准国家治理全景",
    "slug": "专题-安全对齐与失败/s03-ai-准国家治理全景",
    "cluster": 13,
@@ -2809,7 +2841,7 @@
    "facet": "AI 作为制度现象"
   },
   {
-   "id": 324,
+   "id": 328,
    "title": "E01 Anthropic Constitution 与 RSP 作为制度剖解",
    "slug": "专题-安全对齐与失败/e01-anthropic-constitution-与-rsp-作为制度剖解",
    "cluster": 13,
@@ -2818,7 +2850,7 @@
    "facet": "AI 作为制度现象"
   },
   {
-   "id": 325,
+   "id": 329,
    "title": "E02 平台内容治理制度剖解",
    "slug": "专题-安全对齐与失败/e02-平台内容治理制度剖解",
    "cluster": 13,
@@ -2827,7 +2859,7 @@
    "facet": "AI 作为制度现象"
   },
   {
-   "id": 326,
+   "id": 330,
    "title": "E03 中美 AI 监管制度对比剖解",
    "slug": "专题-安全对齐与失败/e03-中美-ai-监管制度对比剖解",
    "cluster": 13,
@@ -2836,7 +2868,7 @@
    "facet": "AI 作为制度现象"
   },
   {
-   "id": 327,
+   "id": 331,
    "title": "R01 分析一个 AI 产品的制度权力",
    "slug": "专题-安全对齐与失败/r01-分析一个-ai-产品的制度权力",
    "cluster": 13,
@@ -2845,7 +2877,7 @@
    "facet": "AI 作为制度现象"
   },
   {
-   "id": 328,
+   "id": 332,
    "title": "R02 设计一个 AI 治理制度",
    "slug": "专题-安全对齐与失败/r02-设计一个-ai-治理制度",
    "cluster": 13,
@@ -2854,7 +2886,7 @@
    "facet": "AI 作为制度现象"
   },
   {
-   "id": 329,
+   "id": 333,
    "title": "R03 AI 制度问责机制设计",
    "slug": "专题-安全对齐与失败/r03-ai-制度问责机制设计",
    "cluster": 13,
@@ -2863,7 +2895,7 @@
    "facet": "AI 作为制度现象"
   },
   {
-   "id": 330,
+   "id": 334,
    "title": "README·0430·多视图阅读指南",
    "slug": "专题-安全对齐与失败/readme-0430-多视图阅读指南",
    "cluster": 13,
@@ -2872,7 +2904,7 @@
    "facet": "AI 作为制度现象"
   },
   {
-   "id": 331,
+   "id": 335,
    "title": "_AI 作为制度现象系统化专题·总览",
    "slug": "专题-安全对齐与失败/_ai-作为制度现象系统化专题-总览",
    "cluster": 13,
@@ -2882,7 +2914,7 @@
    "hub": 1
   },
   {
-   "id": 332,
+   "id": 336,
    "title": "A01 Safety vs Security vs Alignment 三词分治",
    "slug": "专题-安全对齐与失败/a01-safety-vs-security-vs-alignment-三词分治",
    "cluster": 13,
@@ -2891,7 +2923,7 @@
    "facet": "AI 红队与攻防"
   },
   {
-   "id": 333,
+   "id": 337,
    "title": "A02 攻击分类学·注入 越狱 投毒 抽取",
    "slug": "专题-安全对齐与失败/a02-攻击分类学-注入-越狱-投毒-抽取",
    "cluster": 13,
@@ -2900,7 +2932,7 @@
    "facet": "AI 红队与攻防"
   },
   {
-   "id": 334,
+   "id": 338,
    "title": "A03 直接注入 vs 间接注入的产品含义",
    "slug": "专题-安全对齐与失败/a03-直接注入-vs-间接注入的产品含义",
    "cluster": 13,
@@ -2909,7 +2941,7 @@
    "facet": "AI 红队与攻防"
   },
   {
-   "id": 335,
+   "id": 339,
    "title": "A04 Guardrail 的能力与谎言",
    "slug": "专题-安全对齐与失败/a04-guardrail-的能力与谎言",
    "cluster": 13,
@@ -2918,7 +2950,7 @@
    "facet": "AI 红队与攻防"
   },
   {
-   "id": 336,
+   "id": 340,
    "title": "G01 对抗攻防军备竞赛谱系",
    "slug": "专题-安全对齐与失败/g01-对抗攻防军备竞赛谱系",
    "cluster": 13,
@@ -2927,7 +2959,7 @@
    "facet": "AI 红队与攻防"
   },
   {
-   "id": 337,
+   "id": 341,
    "title": "G02 攻防代际演化详解·从单轮越狱到 Agent 注入",
    "slug": "专题-安全对齐与失败/g02-攻防代际演化详解-从单轮越狱到-agent-注入",
    "cluster": 13,
@@ -2936,7 +2968,7 @@
    "facet": "AI 红队与攻防"
   },
   {
-   "id": 338,
+   "id": 342,
    "title": "S01 纵深防御可替换栈·输入 模型 输出 权限",
    "slug": "专题-安全对齐与失败/s01-纵深防御可替换栈-输入-模型-输出-权限",
    "cluster": 13,
@@ -2945,7 +2977,7 @@
    "facet": "AI 红队与攻防"
   },
   {
-   "id": 339,
+   "id": 343,
    "title": "S02 训练侧 vs 系统侧防御对照",
    "slug": "专题-安全对齐与失败/s02-训练侧-vs-系统侧防御对照",
    "cluster": 13,
@@ -2954,7 +2986,7 @@
    "facet": "AI 红队与攻防"
   },
   {
-   "id": 340,
+   "id": 344,
    "title": "S03 Agent 权限边界与最小权限设计",
    "slug": "专题-安全对齐与失败/s03-agent-权限边界与最小权限设计",
    "cluster": 13,
@@ -2963,7 +2995,7 @@
    "facet": "AI 红队与攻防"
   },
   {
-   "id": 341,
+   "id": 345,
    "title": "E01 Chevrolet 与 Air Canada·边界失效剖解",
    "slug": "专题-安全对齐与失败/e01-chevrolet-与-air-canada-边界失效剖解",
    "cluster": 13,
@@ -2972,7 +3004,7 @@
    "facet": "AI 红队与攻防"
   },
   {
-   "id": 342,
+   "id": 346,
    "title": "E02 间接注入真实案例复盘",
    "slug": "专题-安全对齐与失败/e02-间接注入真实案例复盘",
    "cluster": 13,
@@ -2981,7 +3013,7 @@
    "facet": "AI 红队与攻防"
   },
   {
-   "id": 343,
+   "id": 347,
    "title": "E03 红队报告反推产品原则",
    "slug": "专题-安全对齐与失败/e03-红队报告反推产品原则",
    "cluster": 13,
@@ -2990,7 +3022,7 @@
    "facet": "AI 红队与攻防"
   },
   {
-   "id": 344,
+   "id": 348,
    "title": "R01 给 Bot 跑一轮越狱评测(防御视角)",
    "slug": "专题-安全对齐与失败/r01-给-bot-跑一轮越狱评测-防御视角",
    "cluster": 13,
@@ -2999,7 +3031,7 @@
    "facet": "AI 红队与攻防"
   },
   {
-   "id": 345,
+   "id": 349,
    "title": "R02 自动化红队流水线",
    "slug": "专题-安全对齐与失败/r02-自动化红队流水线",
    "cluster": 13,
@@ -3008,7 +3040,7 @@
    "facet": "AI 红队与攻防"
   },
   {
-   "id": 346,
+   "id": 350,
    "title": "R03 注入防御 + 权限沙箱",
    "slug": "专题-安全对齐与失败/r03-注入防御-+-权限沙箱",
    "cluster": 13,
@@ -3017,7 +3049,7 @@
    "facet": "AI 红队与攻防"
   },
   {
-   "id": 347,
+   "id": 351,
    "title": "README·0435·多视图阅读指南",
    "slug": "专题-安全对齐与失败/readme-0435-多视图阅读指南",
    "cluster": 13,
@@ -3026,7 +3058,7 @@
    "facet": "AI 红队与攻防"
   },
   {
-   "id": 348,
+   "id": 352,
    "title": "_AI 红队与攻防系统化专题·总览",
    "slug": "专题-安全对齐与失败/_ai-红队与攻防系统化专题-总览",
    "cluster": 13,
@@ -3036,7 +3068,7 @@
    "hub": 1
   },
   {
-   "id": 349,
+   "id": 353,
    "title": "A01 机制设计概念谱系与语义",
    "slug": "专题-商业组织与采纳/a01-机制设计概念谱系与语义",
    "cluster": 14,
@@ -3045,7 +3077,7 @@
    "facet": "机制设计"
   },
   {
-   "id": 350,
+   "id": 354,
    "title": "A02 Multi-Agent 即机制设计问题",
    "slug": "专题-商业组织与采纳/a02-multi-agent-即机制设计问题",
    "cluster": 14,
@@ -3054,7 +3086,7 @@
    "facet": "机制设计"
   },
   {
-   "id": 351,
+   "id": 355,
    "title": "A03 交易成本与 Make-vs-Buy·何时拆 Agent",
    "slug": "专题-商业组织与采纳/a03-交易成本与-make-vs-buy-何时拆-agent",
    "cluster": 14,
@@ -3063,7 +3095,7 @@
    "facet": "机制设计"
   },
   {
-   "id": 352,
+   "id": 356,
    "title": "A04 公共池塘资源治理·Agent 共享资源",
    "slug": "专题-商业组织与采纳/a04-公共池塘资源治理-agent-共享资源",
    "cluster": 14,
@@ -3072,7 +3104,7 @@
    "facet": "机制设计"
   },
   {
-   "id": 353,
+   "id": 357,
    "title": "A05 激励相容与规则设计",
    "slug": "专题-商业组织与采纳/a05-激励相容与规则设计",
    "cluster": 14,
@@ -3081,7 +3113,7 @@
    "facet": "机制设计"
   },
   {
-   "id": 354,
+   "id": 358,
    "title": "A06 信息不对称与委托代理",
    "slug": "专题-商业组织与采纳/a06-信息不对称与委托代理",
    "cluster": 14,
@@ -3090,7 +3122,7 @@
    "facet": "机制设计"
   },
   {
-   "id": 355,
+   "id": 359,
    "title": "G01 制度经济学到 Agent 经济学代际谱系",
    "slug": "专题-商业组织与采纳/g01-制度经济学到-agent-经济学代际谱系",
    "cluster": 14,
@@ -3099,7 +3131,7 @@
    "facet": "机制设计"
   },
   {
-   "id": 356,
+   "id": 360,
    "title": "G02 机制设计代际演化详解",
    "slug": "专题-商业组织与采纳/g02-机制设计代际演化详解",
    "cluster": 14,
@@ -3108,7 +3140,7 @@
    "facet": "机制设计"
   },
   {
-   "id": 357,
+   "id": 361,
    "title": "S01 Multi-Agent 激励结构分层剖面",
    "slug": "专题-商业组织与采纳/s01-multi-agent-激励结构分层剖面",
    "cluster": 14,
@@ -3117,7 +3149,7 @@
    "facet": "机制设计"
   },
   {
-   "id": 358,
+   "id": 362,
    "title": "S02 Agent 协作机制对照矩阵",
    "slug": "专题-商业组织与采纳/s02-agent-协作机制对照矩阵",
    "cluster": 14,
@@ -3126,7 +3158,7 @@
    "facet": "机制设计"
   },
   {
-   "id": 359,
+   "id": 363,
    "title": "S03 Agent 经济体治理全景",
    "slug": "专题-商业组织与采纳/s03-agent-经济体治理全景",
    "cluster": 14,
@@ -3135,7 +3167,7 @@
    "facet": "机制设计"
   },
   {
-   "id": 360,
+   "id": 364,
    "title": "E01 Multi-agent 框架的激励缺失剖解",
    "slug": "专题-商业组织与采纳/e01-multi-agent-框架的激励缺失剖解",
    "cluster": 14,
@@ -3144,7 +3176,7 @@
    "facet": "机制设计"
   },
   {
-   "id": 361,
+   "id": 365,
    "title": "E02 Agent 市场与拍卖机制剖解",
    "slug": "专题-商业组织与采纳/e02-agent-市场与拍卖机制剖解",
    "cluster": 14,
@@ -3153,7 +3185,7 @@
    "facet": "机制设计"
   },
   {
-   "id": 362,
+   "id": 366,
    "title": "E03 滴滴双边市场与 Agent 资源治理类比剖解",
    "slug": "专题-商业组织与采纳/e03-滴滴双边市场与-agent-资源治理类比剖解",
    "cluster": 14,
@@ -3162,7 +3194,7 @@
    "facet": "机制设计"
   },
   {
-   "id": 363,
+   "id": 367,
    "title": "R01 给 Multi-agent 加资源配额机制",
    "slug": "专题-商业组织与采纳/r01-给-multi-agent-加资源配额机制",
    "cluster": 14,
@@ -3171,7 +3203,7 @@
    "facet": "机制设计"
   },
   {
-   "id": 364,
+   "id": 368,
    "title": "R02 用交易成本判据决定拆不拆 Agent",
    "slug": "专题-商业组织与采纳/r02-用交易成本判据决定拆不拆-agent",
    "cluster": 14,
@@ -3180,7 +3212,7 @@
    "facet": "机制设计"
   },
   {
-   "id": 365,
+   "id": 369,
    "title": "R03 设计一个激励相容的 Agent 协作规则",
    "slug": "专题-商业组织与采纳/r03-设计一个激励相容的-agent-协作规则",
    "cluster": 14,
@@ -3189,7 +3221,7 @@
    "facet": "机制设计"
   },
   {
-   "id": 366,
+   "id": 370,
    "title": "README·0421·多视图阅读指南",
    "slug": "专题-商业组织与采纳/readme-0421-多视图阅读指南",
    "cluster": 14,
@@ -3198,7 +3230,7 @@
    "facet": "机制设计"
   },
   {
-   "id": 367,
+   "id": 371,
    "title": "_机制设计系统化专题·总览",
    "slug": "专题-商业组织与采纳/_机制设计系统化专题-总览",
    "cluster": 14,
@@ -3208,7 +3240,7 @@
    "hub": 1
   },
   {
-   "id": 368,
+   "id": 372,
    "title": "A01 技术采纳与组织变革概念谱系",
    "slug": "专题-商业组织与采纳/a01-技术采纳与组织变革概念谱系",
    "cluster": 14,
@@ -3217,7 +3249,7 @@
    "facet": "组织采纳"
   },
   {
-   "id": 369,
+   "id": 373,
    "title": "A02 Crossing the Chasm 在 AI 语境",
    "slug": "专题-商业组织与采纳/a02-crossing-the-chasm-在-ai-语境",
    "cluster": 14,
@@ -3226,7 +3258,7 @@
    "facet": "组织采纳"
   },
   {
-   "id": 370,
+   "id": 374,
    "title": "A03 变革管理框架与 AI 部署摩擦",
    "slug": "专题-商业组织与采纳/a03-变革管理框架与-ai-部署摩擦",
    "cluster": 14,
@@ -3235,7 +3267,7 @@
    "facet": "组织采纳"
   },
   {
-   "id": 371,
+   "id": 375,
    "title": "A04 组织 AI Literacy 建设",
    "slug": "专题-商业组织与采纳/a04-组织-ai-literacy-建设",
    "cluster": 14,
@@ -3244,7 +3276,7 @@
    "facet": "组织采纳"
   },
   {
-   "id": 372,
+   "id": 376,
    "title": "A05 AI 项目失败的组织归因",
    "slug": "专题-商业组织与采纳/a05-ai-项目失败的组织归因",
    "cluster": 14,
@@ -3253,7 +3285,7 @@
    "facet": "组织采纳"
   },
   {
-   "id": 373,
+   "id": 377,
    "title": "A06 Demo-to-Enterprise 鸿沟的组织维度",
    "slug": "专题-商业组织与采纳/a06-demo-to-enterprise-鸿沟的组织维度",
    "cluster": 14,
@@ -3262,7 +3294,7 @@
    "facet": "组织采纳"
   },
   {
-   "id": 374,
+   "id": 378,
    "title": "G01 企业技术采纳代际谱系总图",
    "slug": "专题-商业组织与采纳/g01-企业技术采纳代际谱系总图",
    "cluster": 14,
@@ -3271,7 +3303,7 @@
    "facet": "组织采纳"
   },
   {
-   "id": 375,
+   "id": 379,
    "title": "G02 企业采纳代际演化详解",
    "slug": "专题-商业组织与采纳/g02-企业采纳代际演化详解",
    "cluster": 14,
@@ -3280,7 +3312,7 @@
    "facet": "组织采纳"
   },
   {
-   "id": 376,
+   "id": 380,
    "title": "S01 AI 组织采纳分层剖面",
    "slug": "专题-商业组织与采纳/s01-ai-组织采纳分层剖面",
    "cluster": 14,
@@ -3289,7 +3321,7 @@
    "facet": "组织采纳"
   },
   {
-   "id": 377,
+   "id": 381,
    "title": "S02 采纳与变革框架对照矩阵",
    "slug": "专题-商业组织与采纳/s02-采纳与变革框架对照矩阵",
    "cluster": 14,
@@ -3298,16 +3330,16 @@
    "facet": "组织采纳"
   },
   {
-   "id": 378,
+   "id": 382,
    "title": "S03 组织 AI 转型全景",
    "slug": "专题-商业组织与采纳/s03-组织-ai-转型全景",
    "cluster": 14,
-   "deg": 1,
+   "deg": 2,
    "created": "2026-06-07",
    "facet": "组织采纳"
   },
   {
-   "id": 379,
+   "id": 383,
    "title": "E01 AI 项目组织失败案例剖解",
    "slug": "专题-商业组织与采纳/e01-ai-项目组织失败案例剖解",
    "cluster": 14,
@@ -3316,7 +3348,7 @@
    "facet": "组织采纳"
   },
   {
-   "id": 380,
+   "id": 384,
    "title": "E02 企业 AI 采纳成功与失败对比剖解",
    "slug": "专题-商业组织与采纳/e02-企业-ai-采纳成功与失败对比剖解",
    "cluster": 14,
@@ -3325,7 +3357,7 @@
    "facet": "组织采纳"
   },
   {
-   "id": 381,
+   "id": 385,
    "title": "E03 滴滴跨团队拉通经验迁移剖解",
    "slug": "专题-商业组织与采纳/e03-滴滴跨团队拉通经验迁移剖解",
    "cluster": 14,
@@ -3334,7 +3366,7 @@
    "facet": "组织采纳"
   },
   {
-   "id": 382,
+   "id": 386,
    "title": "R01 AI 采纳就绪度评估",
    "slug": "专题-商业组织与采纳/r01-ai-采纳就绪度评估",
    "cluster": 14,
@@ -3343,7 +3375,7 @@
    "facet": "组织采纳"
   },
   {
-   "id": 383,
+   "id": 387,
    "title": "R02 变革管理计划模板",
    "slug": "专题-商业组织与采纳/r02-变革管理计划模板",
    "cluster": 14,
@@ -3352,7 +3384,7 @@
    "facet": "组织采纳"
   },
   {
-   "id": 384,
+   "id": 388,
    "title": "R03 AI Literacy 培训设计",
    "slug": "专题-商业组织与采纳/r03-ai-literacy-培训设计",
    "cluster": 14,
@@ -3361,7 +3393,7 @@
    "facet": "组织采纳"
   },
   {
-   "id": 385,
+   "id": 389,
    "title": "README·0428·多视图阅读指南",
    "slug": "专题-商业组织与采纳/readme-0428-多视图阅读指南",
    "cluster": 14,
@@ -3370,7 +3402,7 @@
    "facet": "组织采纳"
   },
   {
-   "id": 386,
+   "id": 390,
    "title": "_组织采纳系统化专题·总览",
    "slug": "专题-商业组织与采纳/_组织采纳系统化专题-总览",
    "cluster": 14,
@@ -3380,7 +3412,7 @@
    "hub": 1
   },
   {
-   "id": 387,
+   "id": 391,
    "title": "A01 护城河概念史·从 Porter 到 AI-native",
    "slug": "专题-商业组织与采纳/a01-护城河概念史-从-porter-到-ai-native",
    "cluster": 14,
@@ -3389,7 +3421,7 @@
    "facet": "AI 产品护城河与商业模式"
   },
   {
-   "id": 388,
+   "id": 392,
    "title": "A02 套壳辨析·Thin Wrapper 的真伪判据",
    "slug": "专题-商业组织与采纳/a02-套壳辨析-thin-wrapper-的真伪判据",
    "cluster": 14,
@@ -3398,7 +3430,7 @@
    "facet": "AI 产品护城河与商业模式"
   },
   {
-   "id": 389,
+   "id": 393,
    "title": "A03 数据飞轮的祛魅·哪种数据真能复用",
    "slug": "专题-商业组织与采纳/a03-数据飞轮的祛魅-哪种数据真能复用",
    "cluster": 14,
@@ -3407,7 +3439,7 @@
    "facet": "AI 产品护城河与商业模式"
   },
   {
-   "id": 390,
+   "id": 394,
    "title": "A04 Outcome-based 定价的概念边界",
    "slug": "专题-商业组织与采纳/a04-outcome-based-定价的概念边界",
    "cluster": 14,
@@ -3416,7 +3448,7 @@
    "facet": "AI 产品护城河与商业模式"
   },
   {
-   "id": 391,
+   "id": 395,
    "title": "G01 商业模式代际谱系·SaaS 到 AI-native",
    "slug": "专题-商业组织与采纳/g01-商业模式代际谱系-saas-到-ai-native",
    "cluster": 14,
@@ -3425,7 +3457,7 @@
    "facet": "AI 产品护城河与商业模式"
   },
   {
-   "id": 392,
+   "id": 396,
    "title": "G02 定价模式演化详解·Seat 到 Usage 到 Outcome",
    "slug": "专题-商业组织与采纳/g02-定价模式演化详解-seat-到-usage-到-outcome",
    "cluster": 14,
@@ -3434,7 +3466,7 @@
    "facet": "AI 产品护城河与商业模式"
   },
   {
-   "id": 393,
+   "id": 397,
    "title": "S01 AI 产业链价值生态位地图·利润池在哪",
    "slug": "专题-商业组织与采纳/s01-ai-产业链价值生态位地图-利润池在哪",
    "cluster": 14,
@@ -3443,7 +3475,7 @@
    "facet": "AI 产品护城河与商业模式"
   },
   {
-   "id": 394,
+   "id": 398,
    "title": "S02 五类护城河可替换栈·数据 工作流 网络 成本 品牌",
    "slug": "专题-商业组织与采纳/s02-五类护城河可替换栈-数据-工作流-网络-成本-品牌",
    "cluster": 14,
@@ -3452,7 +3484,7 @@
    "facet": "AI 产品护城河与商业模式"
   },
   {
-   "id": 395,
+   "id": 399,
    "title": "S03 Unit Economics 拆解·CAC vs COGS vs LTV",
    "slug": "专题-商业组织与采纳/s03-unit-economics-拆解-cac-vs-cogs-vs-ltv",
    "cluster": 14,
@@ -3461,7 +3493,7 @@
    "facet": "AI 产品护城河与商业模式"
   },
   {
-   "id": 396,
+   "id": 400,
    "title": "E01 Perplexity vs Google·搜索利润池争夺",
    "slug": "专题-商业组织与采纳/e01-perplexity-vs-google-搜索利润池争夺",
    "cluster": 14,
@@ -3470,7 +3502,7 @@
    "facet": "AI 产品护城河与商业模式"
   },
   {
-   "id": 397,
+   "id": 401,
    "title": "E02 Cursor 与 Copilot·应用层能否守住",
    "slug": "专题-商业组织与采纳/e02-cursor-与-copilot-应用层能否守住",
    "cluster": 14,
@@ -3479,7 +3511,7 @@
    "facet": "AI 产品护城河与商业模式"
   },
   {
-   "id": 398,
+   "id": 402,
    "title": "E03 套壳死亡螺旋复盘",
    "slug": "专题-商业组织与采纳/e03-套壳死亡螺旋复盘",
    "cluster": 14,
@@ -3488,7 +3520,7 @@
    "facet": "AI 产品护城河与商业模式"
   },
   {
-   "id": 399,
+   "id": 403,
    "title": "R01 给一个 AI 产品建 UE 模型 Sheet",
    "slug": "专题-商业组织与采纳/r01-给一个-ai-产品建-ue-模型-sheet",
    "cluster": 14,
@@ -3497,7 +3529,7 @@
    "facet": "AI 产品护城河与商业模式"
   },
   {
-   "id": 400,
+   "id": 404,
    "title": "R02 护城河审计 Checklist",
    "slug": "专题-商业组织与采纳/r02-护城河审计-checklist",
    "cluster": 14,
@@ -3506,7 +3538,7 @@
    "facet": "AI 产品护城河与商业模式"
   },
   {
-   "id": 401,
+   "id": 405,
    "title": "R03 定价模式压测剧本",
    "slug": "专题-商业组织与采纳/r03-定价模式压测剧本",
    "cluster": 14,
@@ -3515,7 +3547,7 @@
    "facet": "AI 产品护城河与商业模式"
   },
   {
-   "id": 402,
+   "id": 406,
    "title": "README·0434·多视图阅读指南",
    "slug": "专题-商业组织与采纳/readme-0434-多视图阅读指南",
    "cluster": 14,
@@ -3524,7 +3556,7 @@
    "facet": "AI 产品护城河与商业模式"
   },
   {
-   "id": 403,
+   "id": 407,
    "title": "_AI 产品护城河与商业模式系统化专题·总览",
    "slug": "专题-商业组织与采纳/_ai-产品护城河与商业模式系统化专题-总览",
    "cluster": 14,
@@ -3534,7 +3566,7 @@
    "hub": 1
   },
   {
-   "id": 404,
+   "id": 408,
    "title": "A01 控制论概念谱系与语义",
    "slug": "专题-人文社科透镜/a01-控制论概念谱系与语义",
    "cluster": 15,
@@ -3543,7 +3575,7 @@
    "facet": "控制论"
   },
   {
-   "id": 405,
+   "id": 409,
    "title": "A02 Agent 即控制系统",
    "slug": "专题-人文社科透镜/a02-agent-即控制系统",
    "cluster": 15,
@@ -3552,7 +3584,7 @@
    "facet": "控制论"
   },
   {
-   "id": 406,
+   "id": 410,
    "title": "A03 Ashby 必要多样性定律",
    "slug": "专题-人文社科透镜/a03-ashby-必要多样性定律",
    "cluster": 15,
@@ -3561,7 +3593,7 @@
    "facet": "控制论"
   },
   {
-   "id": 407,
+   "id": 411,
    "title": "A04 反馈回路与稳定性",
    "slug": "专题-人文社科透镜/a04-反馈回路与稳定性",
    "cluster": 15,
@@ -3570,7 +3602,7 @@
    "facet": "控制论"
   },
   {
-   "id": 408,
+   "id": 412,
    "title": "A05 Viable System Model",
    "slug": "专题-人文社科透镜/a05-viable-system-model",
    "cluster": 15,
@@ -3579,7 +3611,7 @@
    "facet": "控制论"
   },
   {
-   "id": 409,
+   "id": 413,
    "title": "A06 控制的极限·涌现与不可控",
    "slug": "专题-人文社科透镜/a06-控制的极限-涌现与不可控",
    "cluster": 15,
@@ -3588,7 +3620,7 @@
    "facet": "控制论"
   },
   {
-   "id": 410,
+   "id": 414,
    "title": "G01 控制论与系统思维代际谱系总图",
    "slug": "专题-人文社科透镜/g01-控制论与系统思维代际谱系总图",
    "cluster": 15,
@@ -3597,7 +3629,7 @@
    "facet": "控制论"
   },
   {
-   "id": 411,
+   "id": 415,
    "title": "G02 控制论代际演化详解",
    "slug": "专题-人文社科透镜/g02-控制论代际演化详解",
    "cluster": 15,
@@ -3606,7 +3638,7 @@
    "facet": "控制论"
   },
   {
-   "id": 412,
+   "id": 416,
    "title": "S01 Agent 控制系统分层剖面",
    "slug": "专题-人文社科透镜/s01-agent-控制系统分层剖面",
    "cluster": 15,
@@ -3615,7 +3647,7 @@
    "facet": "控制论"
   },
   {
-   "id": 413,
+   "id": 417,
    "title": "S02 控制范式对照矩阵",
    "slug": "专题-人文社科透镜/s02-控制范式对照矩阵",
    "cluster": 15,
@@ -3624,7 +3656,7 @@
    "facet": "控制论"
   },
   {
-   "id": 414,
+   "id": 418,
    "title": "S03 多 Agent 作为可存活系统全景",
    "slug": "专题-人文社科透镜/s03-多-agent-作为可存活系统全景",
    "cluster": 15,
@@ -3633,7 +3665,7 @@
    "facet": "控制论"
   },
   {
-   "id": 415,
+   "id": 419,
    "title": "E01 Orchestrator 失控的控制论解释",
    "slug": "专题-人文社科透镜/e01-orchestrator-失控的控制论解释",
    "cluster": 15,
@@ -3642,7 +3674,7 @@
    "facet": "控制论"
   },
   {
-   "id": 416,
+   "id": 420,
    "title": "E02 Agent 反馈振荡与 Repetition Loop 剖解",
    "slug": "专题-人文社科透镜/e02-agent-反馈振荡与-repetition-loop-剖解",
    "cluster": 15,
@@ -3651,7 +3683,7 @@
    "facet": "控制论"
   },
   {
-   "id": 417,
+   "id": 421,
    "title": "E03 Multi-agent 治理作为 VSM 剖解",
    "slug": "专题-人文社科透镜/e03-multi-agent-治理作为-vsm-剖解",
    "cluster": 15,
@@ -3660,7 +3692,7 @@
    "facet": "控制论"
   },
   {
-   "id": 418,
+   "id": 422,
    "title": "R01 给 Agent 加显式反馈回路与稳定性监控",
    "slug": "专题-人文社科透镜/r01-给-agent-加显式反馈回路与稳定性监控",
    "cluster": 15,
@@ -3669,7 +3701,7 @@
    "facet": "控制论"
   },
   {
-   "id": 419,
+   "id": 423,
    "title": "R02 用 Requisite Variety 估 Orchestrator 容量",
    "slug": "专题-人文社科透镜/r02-用-requisite-variety-估-orchestrator-容量",
    "cluster": 15,
@@ -3678,7 +3710,7 @@
    "facet": "控制论"
   },
   {
-   "id": 420,
+   "id": 424,
    "title": "R03 VSM 风格多层 Agent 治理模板",
    "slug": "专题-人文社科透镜/r03-vsm-风格多层-agent-治理模板",
    "cluster": 15,
@@ -3687,7 +3719,7 @@
    "facet": "控制论"
   },
   {
-   "id": 421,
+   "id": 425,
    "title": "README·0420·多视图阅读指南",
    "slug": "专题-人文社科透镜/readme-0420-多视图阅读指南",
    "cluster": 15,
@@ -3696,7 +3728,7 @@
    "facet": "控制论"
   },
   {
-   "id": 422,
+   "id": 426,
    "title": "_控制论系统化专题·总览",
    "slug": "专题-人文社科透镜/_控制论系统化专题-总览",
    "cluster": 15,
@@ -3706,7 +3738,7 @@
    "hub": 1
   },
   {
-   "id": 423,
+   "id": 427,
    "title": "A01 STS 概念谱系与语义",
    "slug": "专题-人文社科透镜/a01-sts-概念谱系与语义",
    "cluster": 15,
@@ -3715,7 +3747,7 @@
    "facet": "STS"
   },
   {
-   "id": 424,
+   "id": 428,
    "title": "A02 Script 理论·产品内嵌脚本",
    "slug": "专题-人文社科透镜/a02-script-理论-产品内嵌脚本",
    "cluster": 15,
@@ -3724,7 +3756,7 @@
    "facet": "STS"
   },
   {
-   "id": 425,
+   "id": 429,
    "title": "A03 Actor-Network Theory·AI 作为非人行动者",
    "slug": "专题-人文社科透镜/a03-actor-network-theory-ai-作为非人行动者",
    "cluster": 15,
@@ -3733,7 +3765,7 @@
    "facet": "STS"
   },
   {
-   "id": 426,
+   "id": 430,
    "title": "A04 Sociotechnical Imaginaries·跨文化",
    "slug": "专题-人文社科透镜/a04-sociotechnical-imaginaries-跨文化",
    "cluster": 15,
@@ -3742,7 +3774,7 @@
    "facet": "STS"
   },
   {
-   "id": 427,
+   "id": 431,
    "title": "A05 技术的社会建构 vs 技术决定论",
    "slug": "专题-人文社科透镜/a05-技术的社会建构-vs-技术决定论",
    "cluster": 15,
@@ -3751,7 +3783,7 @@
    "facet": "STS"
   },
   {
-   "id": 428,
+   "id": 432,
    "title": "A06 基础设施研究·AI 作为隐形基础设施",
    "slug": "专题-人文社科透镜/a06-基础设施研究-ai-作为隐形基础设施",
    "cluster": 15,
@@ -3760,7 +3792,7 @@
    "facet": "STS"
   },
   {
-   "id": 429,
+   "id": 433,
    "title": "G01 STS 思潮代际谱系总图",
    "slug": "专题-人文社科透镜/g01-sts-思潮代际谱系总图",
    "cluster": 15,
@@ -3769,7 +3801,7 @@
    "facet": "STS"
   },
   {
-   "id": 430,
+   "id": 434,
    "title": "G02 STS 代际演化详解",
    "slug": "专题-人文社科透镜/g02-sts-代际演化详解",
    "cluster": 15,
@@ -3778,7 +3810,7 @@
    "facet": "STS"
   },
   {
-   "id": 431,
+   "id": 435,
    "title": "S01 AI 产品社会嵌入分析框架剖面",
    "slug": "专题-人文社科透镜/s01-ai-产品社会嵌入分析框架剖面",
    "cluster": 15,
@@ -3787,7 +3819,7 @@
    "facet": "STS"
   },
   {
-   "id": 432,
+   "id": 436,
    "title": "S02 STS 分析工具对照矩阵",
    "slug": "专题-人文社科透镜/s02-sts-分析工具对照矩阵",
    "cluster": 15,
@@ -3796,7 +3828,7 @@
    "facet": "STS"
   },
   {
-   "id": 433,
+   "id": 437,
    "title": "S03 跨文化 AI 产品差异分析全景",
    "slug": "专题-人文社科透镜/s03-跨文化-ai-产品差异分析全景",
    "cluster": 15,
@@ -3805,7 +3837,7 @@
    "facet": "STS"
   },
   {
-   "id": 434,
+   "id": 438,
    "title": "E01 ChatGPT 的 Script 与 ANT 剖解",
    "slug": "专题-人文社科透镜/e01-chatgpt-的-script-与-ant-剖解",
    "cluster": 15,
@@ -3814,7 +3846,7 @@
    "facet": "STS"
   },
   {
-   "id": 435,
+   "id": 439,
    "title": "E02 AI 在中美拉美的 Imaginaries 差异剖解",
    "slug": "专题-人文社科透镜/e02-ai-在中美拉美的-imaginaries-差异剖解",
    "cluster": 15,
@@ -3823,7 +3855,7 @@
    "facet": "STS"
   },
   {
-   "id": 436,
+   "id": 440,
    "title": "E03 AI 作为基础设施的隐形化剖解",
    "slug": "专题-人文社科透镜/e03-ai-作为基础设施的隐形化剖解",
    "cluster": 15,
@@ -3832,7 +3864,7 @@
    "facet": "STS"
   },
   {
-   "id": 437,
+   "id": 441,
    "title": "R01 给一个 AI 产品做 Script 分析",
    "slug": "专题-人文社科透镜/r01-给一个-ai-产品做-script-分析",
    "cluster": 15,
@@ -3841,7 +3873,7 @@
    "facet": "STS"
   },
   {
-   "id": 438,
+   "id": 442,
    "title": "R02 ANT 描摹一个 AI 工作流的行动者网络",
    "slug": "专题-人文社科透镜/r02-ant-描摹一个-ai-工作流的行动者网络",
    "cluster": 15,
@@ -3850,7 +3882,7 @@
    "facet": "STS"
   },
   {
-   "id": 439,
+   "id": 443,
    "title": "R03 跨文化 Imaginaries 对比分析模板",
    "slug": "专题-人文社科透镜/r03-跨文化-imaginaries-对比分析模板",
    "cluster": 15,
@@ -3859,7 +3891,7 @@
    "facet": "STS"
   },
   {
-   "id": 440,
+   "id": 444,
    "title": "README·0422·多视图阅读指南",
    "slug": "专题-人文社科透镜/readme-0422-多视图阅读指南",
    "cluster": 15,
@@ -3868,17 +3900,17 @@
    "facet": "STS"
   },
   {
-   "id": 441,
+   "id": 445,
    "title": "_STS 系统化专题·总览",
    "slug": "专题-人文社科透镜/_sts-系统化专题-总览",
    "cluster": 15,
-   "deg": 2,
+   "deg": 3,
    "created": "2026-06-07",
    "facet": "STS",
    "hub": 1
   },
   {
-   "id": 442,
+   "id": 446,
    "title": "A01 自我民族志方法论·作为方法非领域",
    "slug": "专题-人文社科透镜/a01-自我民族志方法论-作为方法非领域",
    "cluster": 15,
@@ -3887,7 +3919,7 @@
    "facet": "自我民族志"
   },
   {
-   "id": 443,
+   "id": 447,
    "title": "A02 使用即数据·什么算 observation",
    "slug": "专题-人文社科透镜/a02-使用即数据-什么算-observation",
    "cluster": 15,
@@ -3896,7 +3928,7 @@
    "facet": "自我民族志"
   },
   {
-   "id": 444,
+   "id": 448,
    "title": "A03 信任校准的自我观察",
    "slug": "专题-人文社科透镜/a03-信任校准的自我观察",
    "cluster": 15,
@@ -3905,7 +3937,7 @@
    "facet": "自我民族志"
   },
   {
-   "id": 445,
+   "id": 449,
    "title": "A04 注意力分配的隐性算法",
    "slug": "专题-人文社科透镜/a04-注意力分配的隐性算法",
    "cluster": 15,
@@ -3914,7 +3946,7 @@
    "facet": "自我民族志"
   },
   {
-   "id": 446,
+   "id": 450,
    "title": "A05 Skill 生态建设作为设计实践",
    "slug": "专题-人文社科透镜/a05-skill-生态建设作为设计实践",
    "cluster": 15,
@@ -3923,7 +3955,7 @@
    "facet": "自我民族志"
   },
   {
-   "id": 447,
+   "id": 451,
    "title": "A06 自我民族志的认识论陷阱",
    "slug": "专题-人文社科透镜/a06-自我民族志的认识论陷阱",
    "cluster": 15,
@@ -3932,7 +3964,7 @@
    "facet": "自我民族志"
   },
   {
-   "id": 448,
+   "id": 452,
    "title": "G01 Rick 的 AI 使用代际演化总图",
    "slug": "专题-人文社科透镜/g01-rick-的-ai-使用代际演化总图",
    "cluster": 15,
@@ -3941,7 +3973,7 @@
    "facet": "自我民族志"
   },
   {
-   "id": 449,
+   "id": 453,
    "title": "G02 使用代际演化详解",
    "slug": "专题-人文社科透镜/g02-使用代际演化详解",
    "cluster": 15,
@@ -3950,7 +3982,7 @@
    "facet": "自我民族志"
   },
   {
-   "id": 450,
+   "id": 454,
    "title": "S01 深度 AI 用户行为模型剖面",
    "slug": "专题-人文社科透镜/s01-深度-ai-用户行为模型剖面",
    "cluster": 15,
@@ -3959,7 +3991,7 @@
    "facet": "自我民族志"
   },
   {
-   "id": 451,
+   "id": 455,
    "title": "S02 使用模式对照矩阵",
    "slug": "专题-人文社科透镜/s02-使用模式对照矩阵",
    "cluster": 15,
@@ -3968,7 +4000,7 @@
    "facet": "自我民族志"
   },
   {
-   "id": 452,
+   "id": 456,
    "title": "S03 个人 AI 工作流系统全景",
    "slug": "专题-人文社科透镜/s03-个人-ai-工作流系统全景",
    "cluster": 15,
@@ -3977,7 +4009,7 @@
    "facet": "自我民族志"
   },
   {
-   "id": 453,
+   "id": 457,
    "title": "E01 Trip-planning Skill Workflow 剖解",
    "slug": "专题-人文社科透镜/e01-trip-planning-skill-workflow-剖解",
    "cluster": 15,
@@ -3986,7 +4018,7 @@
    "facet": "自我民族志"
   },
   {
-   "id": 454,
+   "id": 458,
    "title": "E02 知识生产 Workflow 剖解·deep-survey 与本 vault",
    "slug": "专题-人文社科透镜/e02-知识生产-workflow-剖解-deep-survey-与本-vault",
    "cluster": 15,
@@ -3995,7 +4027,7 @@
    "facet": "自我民族志"
   },
   {
-   "id": 455,
+   "id": 459,
    "title": "E03 专题工厂作为多 Agent 协作 Case 剖解",
    "slug": "专题-人文社科透镜/e03-专题工厂作为多-agent-协作-case-剖解",
    "cluster": 15,
@@ -4004,7 +4036,7 @@
    "facet": "自我民族志"
   },
   {
-   "id": 456,
+   "id": 460,
    "title": "R01 建一个 AI 使用日志与编码方案",
    "slug": "专题-人文社科透镜/r01-建一个-ai-使用日志与编码方案",
    "cluster": 15,
@@ -4013,7 +4045,7 @@
    "facet": "自我民族志"
   },
   {
-   "id": 457,
+   "id": 461,
    "title": "R02 从使用日志做模式识别",
    "slug": "专题-人文社科透镜/r02-从使用日志做模式识别",
    "cluster": 15,
@@ -4022,7 +4054,7 @@
    "facet": "自我民族志"
   },
   {
-   "id": 458,
+   "id": 462,
    "title": "R03 把自我民族志写成作品集材料",
    "slug": "专题-人文社科透镜/r03-把自我民族志写成作品集材料",
    "cluster": 15,
@@ -4031,7 +4063,7 @@
    "facet": "自我民族志"
   },
   {
-   "id": 459,
+   "id": 463,
    "title": "README·0423·多视图阅读指南",
    "slug": "专题-人文社科透镜/readme-0423-多视图阅读指南",
    "cluster": 15,
@@ -4040,7 +4072,7 @@
    "facet": "自我民族志"
   },
   {
-   "id": 460,
+   "id": 464,
    "title": "_自我民族志系统化专题·总览",
    "slug": "专题-人文社科透镜/_自我民族志系统化专题-总览",
    "cluster": 15,
@@ -4050,7 +4082,7 @@
    "hub": 1
   },
   {
-   "id": 461,
+   "id": 465,
    "title": "A01 拟剧理论概念谱系与语义",
    "slug": "专题-人文社科透镜/a01-拟剧理论概念谱系与语义",
    "cluster": 15,
@@ -4059,7 +4091,7 @@
    "facet": "拟剧理论"
   },
   {
-   "id": 462,
+   "id": 466,
    "title": "A02 前台 后台与 AI 推理可见性",
    "slug": "专题-人文社科透镜/a02-前台-后台与-ai-推理可见性",
    "cluster": 15,
@@ -4068,7 +4100,7 @@
    "facet": "拟剧理论"
   },
   {
-   "id": 463,
+   "id": 467,
    "title": "A03 Face Work 与 AI 错误恢复",
    "slug": "专题-人文社科透镜/a03-face-work-与-ai-错误恢复",
    "cluster": 15,
@@ -4077,7 +4109,7 @@
    "facet": "拟剧理论"
   },
   {
-   "id": 464,
+   "id": 468,
    "title": "A04 Performativity·AI Persona 的表演性建构",
    "slug": "专题-人文社科透镜/a04-performativity-ai-persona-的表演性建构",
    "cluster": 15,
@@ -4086,7 +4118,7 @@
    "facet": "拟剧理论"
   },
   {
-   "id": 465,
+   "id": 469,
    "title": "A05 印象管理与 AI 人设设计",
    "slug": "专题-人文社科透镜/a05-印象管理与-ai-人设设计",
    "cluster": 15,
@@ -4095,7 +4127,7 @@
    "facet": "拟剧理论"
   },
   {
-   "id": 466,
+   "id": 470,
    "title": "A06 拟人化的双刃",
    "slug": "专题-人文社科透镜/a06-拟人化的双刃",
    "cluster": 15,
@@ -4104,7 +4136,7 @@
    "facet": "拟剧理论"
   },
   {
-   "id": 467,
+   "id": 471,
    "title": "G01 AI 人格设计代际谱系总图",
    "slug": "专题-人文社科透镜/g01-ai-人格设计代际谱系总图",
    "cluster": 15,
@@ -4113,7 +4145,7 @@
    "facet": "拟剧理论"
   },
   {
-   "id": 468,
+   "id": 472,
    "title": "G02 AI 人格设计代际演化详解",
    "slug": "专题-人文社科透镜/g02-ai-人格设计代际演化详解",
    "cluster": 15,
@@ -4122,7 +4154,7 @@
    "facet": "拟剧理论"
   },
   {
-   "id": 469,
+   "id": 473,
    "title": "S01 AI Persona 设计分层剖面",
    "slug": "专题-人文社科透镜/s01-ai-persona-设计分层剖面",
    "cluster": 15,
@@ -4131,7 +4163,7 @@
    "facet": "拟剧理论"
   },
   {
-   "id": 470,
+   "id": 474,
    "title": "S02 AI 人设设计流派对照矩阵",
    "slug": "专题-人文社科透镜/s02-ai-人设设计流派对照矩阵",
    "cluster": 15,
@@ -4140,7 +4172,7 @@
    "facet": "拟剧理论"
   },
   {
-   "id": 471,
+   "id": 475,
    "title": "S03 AI 表演性身份系统全景",
    "slug": "专题-人文社科透镜/s03-ai-表演性身份系统全景",
    "cluster": 15,
@@ -4149,7 +4181,7 @@
    "facet": "拟剧理论"
   },
   {
-   "id": 472,
+   "id": 476,
    "title": "E01 Claude Character 与 ChatGPT Persona 剖解",
    "slug": "专题-人文社科透镜/e01-claude-character-与-chatgpt-persona-剖解",
    "cluster": 15,
@@ -4158,7 +4190,7 @@
    "facet": "拟剧理论"
   },
   {
-   "id": 473,
+   "id": 477,
    "title": "E02 Character.ai 情感型 Persona 剖解",
    "slug": "专题-人文社科透镜/e02-character.ai-情感型-persona-剖解",
    "cluster": 15,
@@ -4167,7 +4199,7 @@
    "facet": "拟剧理论"
   },
   {
-   "id": 474,
+   "id": 478,
    "title": "E03 AI 道歉与错误恢复剖解",
    "slug": "专题-人文社科透镜/e03-ai-道歉与错误恢复剖解",
    "cluster": 15,
@@ -4176,7 +4208,7 @@
    "facet": "拟剧理论"
   },
   {
-   "id": 475,
+   "id": 479,
    "title": "R01 设计一个 AI Persona·前后台边界",
    "slug": "专题-人文社科透镜/r01-设计一个-ai-persona-前后台边界",
    "cluster": 15,
@@ -4185,7 +4217,7 @@
    "facet": "拟剧理论"
   },
   {
-   "id": 476,
+   "id": 480,
    "title": "R02 错误恢复与道歉话术设计实验",
    "slug": "专题-人文社科透镜/r02-错误恢复与道歉话术设计实验",
    "cluster": 15,
@@ -4194,7 +4226,7 @@
    "facet": "拟剧理论"
   },
   {
-   "id": 477,
+   "id": 481,
    "title": "R03 Persona 一致性测试",
    "slug": "专题-人文社科透镜/r03-persona-一致性测试",
    "cluster": 15,
@@ -4203,7 +4235,7 @@
    "facet": "拟剧理论"
   },
   {
-   "id": 478,
+   "id": 482,
    "title": "README·0424·多视图阅读指南",
    "slug": "专题-人文社科透镜/readme-0424-多视图阅读指南",
    "cluster": 15,
@@ -4212,7 +4244,7 @@
    "facet": "拟剧理论"
   },
   {
-   "id": 479,
+   "id": 483,
    "title": "_拟剧理论系统化专题·总览",
    "slug": "专题-人文社科透镜/_拟剧理论系统化专题-总览",
    "cluster": 15,
@@ -4222,7 +4254,7 @@
    "hub": 1
   },
   {
-   "id": 480,
+   "id": 484,
    "title": "A01 信号理论概念谱系与语义",
    "slug": "专题-人文社科透镜/a01-信号理论概念谱系与语义",
    "cluster": 15,
@@ -4231,7 +4263,7 @@
    "facet": "信号理论"
   },
   {
-   "id": 481,
+   "id": 485,
    "title": "A02 信号坍缩·AI 让信号成本趋零",
    "slug": "专题-人文社科透镜/a02-信号坍缩-ai-让信号成本趋零",
    "cluster": 15,
@@ -4240,7 +4272,7 @@
    "facet": "信号理论"
   },
   {
-   "id": 482,
+   "id": 486,
    "title": "A03 凭证经济学与 AI 时代的凭证贬值",
    "slug": "专题-人文社科透镜/a03-凭证经济学与-ai-时代的凭证贬值",
    "cluster": 15,
@@ -4249,7 +4281,7 @@
    "facet": "信号理论"
   },
   {
-   "id": 483,
+   "id": 487,
    "title": "A04 AI 不能伪造的信号",
    "slug": "专题-人文社科透镜/a04-ai-不能伪造的信号",
    "cluster": 15,
@@ -4258,7 +4290,7 @@
    "facet": "信号理论"
   },
   {
-   "id": 484,
+   "id": 488,
    "title": "A05 依赖 UGC 信号的产品的设计挑战",
    "slug": "专题-人文社科透镜/a05-依赖-ugc-信号的产品的设计挑战",
    "cluster": 15,
@@ -4267,7 +4299,7 @@
    "facet": "信号理论"
   },
   {
-   "id": 485,
+   "id": 489,
    "title": "A06 信号与验证的关系",
    "slug": "专题-人文社科透镜/a06-信号与验证的关系",
    "cluster": 15,
@@ -4276,7 +4308,7 @@
    "facet": "信号理论"
   },
   {
-   "id": 486,
+   "id": 490,
    "title": "G01 信号-验证机制代际谱系总图",
    "slug": "专题-人文社科透镜/g01-信号-验证机制代际谱系总图",
    "cluster": 15,
@@ -4285,7 +4317,7 @@
    "facet": "信号理论"
   },
   {
-   "id": 487,
+   "id": 491,
    "title": "G02 信号机制代际演化详解",
    "slug": "专题-人文社科透镜/g02-信号机制代际演化详解",
    "cluster": 15,
@@ -4294,7 +4326,7 @@
    "facet": "信号理论"
   },
   {
-   "id": 488,
+   "id": 492,
    "title": "S01 信号系统分层剖面",
    "slug": "专题-人文社科透镜/s01-信号系统分层剖面",
    "cluster": 15,
@@ -4303,7 +4335,7 @@
    "facet": "信号理论"
   },
   {
-   "id": 489,
+   "id": 493,
    "title": "S02 信号类型对照矩阵",
    "slug": "专题-人文社科透镜/s02-信号类型对照矩阵",
    "cluster": 15,
@@ -4312,7 +4344,7 @@
    "facet": "信号理论"
   },
   {
-   "id": 490,
+   "id": 494,
    "title": "S03 AI 时代信号生态全景",
    "slug": "专题-人文社科透镜/s03-ai-时代信号生态全景",
    "cluster": 15,
@@ -4321,7 +4353,7 @@
    "facet": "信号理论"
   },
   {
-   "id": 491,
+   "id": 495,
    "title": "E01 招聘与简历筛选信号坍缩剖解",
    "slug": "专题-人文社科透镜/e01-招聘与简历筛选信号坍缩剖解",
    "cluster": 15,
@@ -4330,7 +4362,7 @@
    "facet": "信号理论"
   },
   {
-   "id": 492,
+   "id": 496,
    "title": "E02 内容平台与学术评审信号坍缩剖解",
    "slug": "专题-人文社科透镜/e02-内容平台与学术评审信号坍缩剖解",
    "cluster": 15,
@@ -4339,7 +4371,7 @@
    "facet": "信号理论"
   },
   {
-   "id": 493,
+   "id": 497,
    "title": "E03 Rick 个人 AI-proof 求职信号设计剖解",
    "slug": "专题-人文社科透镜/e03-rick-个人-ai-proof-求职信号设计剖解",
    "cluster": 15,
@@ -4348,7 +4380,7 @@
    "facet": "信号理论"
   },
   {
-   "id": 494,
+   "id": 498,
    "title": "R01 评估一个信号的 AI-可伪造性",
    "slug": "专题-人文社科透镜/r01-评估一个信号的-ai-可伪造性",
    "cluster": 15,
@@ -4357,7 +4389,7 @@
    "facet": "信号理论"
   },
   {
-   "id": 495,
+   "id": 499,
    "title": "R02 设计一个抗 AI 的产品信号机制",
    "slug": "专题-人文社科透镜/r02-设计一个抗-ai-的产品信号机制",
    "cluster": 15,
@@ -4366,7 +4398,7 @@
    "facet": "信号理论"
   },
   {
-   "id": 496,
+   "id": 500,
    "title": "R03 构建个人 AI-proof 求职信号组合",
    "slug": "专题-人文社科透镜/r03-构建个人-ai-proof-求职信号组合",
    "cluster": 15,
@@ -4375,7 +4407,7 @@
    "facet": "信号理论"
   },
   {
-   "id": 497,
+   "id": 501,
    "title": "README·0425·多视图阅读指南",
    "slug": "专题-人文社科透镜/readme-0425-多视图阅读指南",
    "cluster": 15,
@@ -4384,7 +4416,7 @@
    "facet": "信号理论"
   },
   {
-   "id": 498,
+   "id": 502,
    "title": "_信号理论系统化专题·总览",
    "slug": "专题-人文社科透镜/_信号理论系统化专题-总览",
    "cluster": 15,
@@ -4394,7 +4426,7 @@
    "hub": 1
   },
   {
-   "id": 499,
+   "id": 503,
    "title": "A01 认知科学与 AI 交互概念谱系",
    "slug": "专题-人文社科透镜/a01-认知科学与-ai-交互概念谱系",
    "cluster": 15,
@@ -4403,7 +4435,7 @@
    "facet": "认知科学"
   },
   {
-   "id": 500,
+   "id": 504,
    "title": "A02 双系统理论与 AI 接受",
    "slug": "专题-人文社科透镜/a02-双系统理论与-ai-接受",
    "cluster": 15,
@@ -4412,7 +4444,7 @@
    "facet": "认知科学"
   },
   {
-   "id": 501,
+   "id": 505,
    "title": "A03 认知负荷理论与 AI 信息呈现",
    "slug": "专题-人文社科透镜/a03-认知负荷理论与-ai-信息呈现",
    "cluster": 15,
@@ -4421,7 +4453,7 @@
    "facet": "认知科学"
   },
   {
-   "id": 502,
+   "id": 506,
    "title": "A04 心智模型形成·概率系统 vs 确定系统",
    "slug": "专题-人文社科透镜/a04-心智模型形成-概率系统-vs-确定系统",
    "cluster": 15,
@@ -4430,7 +4462,7 @@
    "facet": "认知科学"
   },
   {
-   "id": 503,
+   "id": 507,
    "title": "A05 锚定效应与 AI 输出",
    "slug": "专题-人文社科透镜/a05-锚定效应与-ai-输出",
    "cluster": 15,
@@ -4439,7 +4471,7 @@
    "facet": "认知科学"
   },
   {
-   "id": 504,
+   "id": 508,
    "title": "A06 自动化偏见与学习性无助",
    "slug": "专题-人文社科透镜/a06-自动化偏见与学习性无助",
    "cluster": 15,
@@ -4448,7 +4480,7 @@
    "facet": "认知科学"
   },
   {
-   "id": 505,
+   "id": 509,
    "title": "G01 HCI 认知范式代际谱系总图",
    "slug": "专题-人文社科透镜/g01-hci-认知范式代际谱系总图",
    "cluster": 15,
@@ -4457,7 +4489,7 @@
    "facet": "认知科学"
   },
   {
-   "id": 506,
+   "id": 510,
    "title": "G02 交互认知范式代际演化详解",
    "slug": "专题-人文社科透镜/g02-交互认知范式代际演化详解",
    "cluster": 15,
@@ -4466,7 +4498,7 @@
    "facet": "认知科学"
   },
   {
-   "id": 507,
+   "id": 511,
    "title": "S01 AI 交互的认知负荷分层剖面",
    "slug": "专题-人文社科透镜/s01-ai-交互的认知负荷分层剖面",
    "cluster": 15,
@@ -4475,7 +4507,7 @@
    "facet": "认知科学"
   },
   {
-   "id": 508,
+   "id": 512,
    "title": "S02 认知偏差 × AI 交互对照矩阵",
    "slug": "专题-人文社科透镜/s02-认知偏差-×-ai-交互对照矩阵",
    "cluster": 15,
@@ -4484,7 +4516,7 @@
    "facet": "认知科学"
   },
   {
-   "id": 509,
+   "id": 513,
    "title": "S03 认知友好 AI 设计全景",
    "slug": "专题-人文社科透镜/s03-认知友好-ai-设计全景",
    "cluster": 15,
@@ -4493,7 +4525,7 @@
    "facet": "认知科学"
   },
   {
-   "id": 510,
+   "id": 514,
    "title": "E01 对话框交互的认知负荷剖解",
    "slug": "专题-人文社科透镜/e01-对话框交互的认知负荷剖解",
    "cluster": 15,
@@ -4502,7 +4534,7 @@
    "facet": "认知科学"
   },
   {
-   "id": 511,
+   "id": 515,
    "title": "E02 Generative UI 与 Artifact 的认知设计剖解",
    "slug": "专题-人文社科透镜/e02-generative-ui-与-artifact-的认知设计剖解",
    "cluster": 15,
@@ -4511,7 +4543,7 @@
    "facet": "认知科学"
   },
   {
-   "id": 512,
+   "id": 516,
    "title": "E03 AI 锚定与心智模型失配案例剖解",
    "slug": "专题-人文社科透镜/e03-ai-锚定与心智模型失配案例剖解",
    "cluster": 15,
@@ -4520,7 +4552,7 @@
    "facet": "认知科学"
   },
   {
-   "id": 513,
+   "id": 517,
    "title": "R01 测一个 AI 界面的认知负荷",
    "slug": "专题-人文社科透镜/r01-测一个-ai-界面的认知负荷",
    "cluster": 15,
@@ -4529,7 +4561,7 @@
    "facet": "认知科学"
   },
   {
-   "id": 514,
+   "id": 518,
    "title": "R02 设计降认知负荷的 AI 呈现",
    "slug": "专题-人文社科透镜/r02-设计降认知负荷的-ai-呈现",
    "cluster": 15,
@@ -4538,7 +4570,7 @@
    "facet": "认知科学"
   },
   {
-   "id": 515,
+   "id": 519,
    "title": "R03 心智模型校准实验",
    "slug": "专题-人文社科透镜/r03-心智模型校准实验",
    "cluster": 15,
@@ -4547,7 +4579,7 @@
    "facet": "认知科学"
   },
   {
-   "id": 516,
+   "id": 520,
    "title": "README·0426·多视图阅读指南",
    "slug": "专题-人文社科透镜/readme-0426-多视图阅读指南",
    "cluster": 15,
@@ -4556,7 +4588,7 @@
    "facet": "认知科学"
   },
   {
-   "id": 517,
+   "id": 521,
    "title": "_认知科学系统化专题·总览",
    "slug": "专题-人文社科透镜/_认知科学系统化专题-总览",
    "cluster": 15,
@@ -4566,7 +4598,7 @@
    "hub": 1
   },
   {
-   "id": 518,
+   "id": 522,
    "title": "A01 信息检索与知识系统概念谱系",
    "slug": "专题-人文社科透镜/a01-信息检索与知识系统概念谱系",
    "cluster": 15,
@@ -4575,7 +4607,7 @@
    "facet": "信息检索与知识系统"
   },
   {
-   "id": 519,
+   "id": 523,
    "title": "A02 检索去向决策·search KG parametric RAG",
    "slug": "专题-人文社科透镜/a02-检索去向决策-search-kg-parametric-rag",
    "cluster": 15,
@@ -4584,7 +4616,7 @@
    "facet": "信息检索与知识系统"
   },
   {
-   "id": 520,
+   "id": 524,
    "title": "A03 Citation 与 Attribution 产品设计",
    "slug": "专题-人文社科透镜/a03-citation-与-attribution-产品设计",
    "cluster": 15,
@@ -4593,7 +4625,7 @@
    "facet": "信息检索与知识系统"
   },
   {
-   "id": 521,
+   "id": 525,
    "title": "A04 Grounding 与 Hallucination 产品策略",
    "slug": "专题-人文社科透镜/a04-grounding-与-hallucination-产品策略",
    "cluster": 15,
@@ -4602,7 +4634,7 @@
    "facet": "信息检索与知识系统"
   },
   {
-   "id": 522,
+   "id": 526,
    "title": "A05 知识时效性与更新",
    "slug": "专题-人文社科透镜/a05-知识时效性与更新",
    "cluster": 15,
@@ -4611,7 +4643,7 @@
    "facet": "信息检索与知识系统"
   },
   {
-   "id": 523,
+   "id": 527,
    "title": "A06 企业知识管理的 AI 化",
    "slug": "专题-人文社科透镜/a06-企业知识管理的-ai-化",
    "cluster": 15,
@@ -4620,7 +4652,7 @@
    "facet": "信息检索与知识系统"
   },
   {
-   "id": 524,
+   "id": 528,
    "title": "G01 信息检索代际谱系总图",
    "slug": "专题-人文社科透镜/g01-信息检索代际谱系总图",
    "cluster": 15,
@@ -4629,7 +4661,7 @@
    "facet": "信息检索与知识系统"
   },
   {
-   "id": 525,
+   "id": 529,
    "title": "G02 信息检索代际演化详解",
    "slug": "专题-人文社科透镜/g02-信息检索代际演化详解",
    "cluster": 15,
@@ -4638,7 +4670,7 @@
    "facet": "信息检索与知识系统"
   },
   {
-   "id": 526,
+   "id": 530,
    "title": "S01 知识系统分层剖面",
    "slug": "专题-人文社科透镜/s01-知识系统分层剖面",
    "cluster": 15,
@@ -4647,7 +4679,7 @@
    "facet": "信息检索与知识系统"
   },
   {
-   "id": 527,
+   "id": 531,
    "title": "S02 检索范式对照矩阵",
    "slug": "专题-人文社科透镜/s02-检索范式对照矩阵",
    "cluster": 15,
@@ -4656,7 +4688,7 @@
    "facet": "信息检索与知识系统"
   },
   {
-   "id": 528,
+   "id": 532,
    "title": "S03 知识产品全景",
    "slug": "专题-人文社科透镜/s03-知识产品全景",
    "cluster": 15,
@@ -4665,7 +4697,7 @@
    "facet": "信息检索与知识系统"
   },
   {
-   "id": 529,
+   "id": 533,
    "title": "E01 Perplexity 剖解·引用前置模式",
    "slug": "专题-人文社科透镜/e01-perplexity-剖解-引用前置模式",
    "cluster": 15,
@@ -4674,7 +4706,7 @@
    "facet": "信息检索与知识系统"
   },
   {
-   "id": 530,
+   "id": 534,
    "title": "E02 ChatGPT Search 与 Gemini 剖解",
    "slug": "专题-人文社科透镜/e02-chatgpt-search-与-gemini-剖解",
    "cluster": 15,
@@ -4683,7 +4715,7 @@
    "facet": "信息检索与知识系统"
   },
   {
-   "id": 531,
+   "id": 535,
    "title": "E03 企业知识库 AI 化剖解",
    "slug": "专题-人文社科透镜/e03-企业知识库-ai-化剖解",
    "cluster": 15,
@@ -4692,7 +4724,7 @@
    "facet": "信息检索与知识系统"
   },
   {
-   "id": 532,
+   "id": 536,
    "title": "R01 建一个带 Citation 的检索问答",
    "slug": "专题-人文社科透镜/r01-建一个带-citation-的检索问答",
    "cluster": 15,
@@ -4701,7 +4733,7 @@
    "facet": "信息检索与知识系统"
   },
   {
-   "id": 533,
+   "id": 537,
    "title": "R02 知识时效性更新机制",
    "slug": "专题-人文社科透镜/r02-知识时效性更新机制",
    "cluster": 15,
@@ -4710,7 +4742,7 @@
    "facet": "信息检索与知识系统"
   },
   {
-   "id": 534,
+   "id": 538,
    "title": "R03 Grounding 评估",
    "slug": "专题-人文社科透镜/r03-grounding-评估",
    "cluster": 15,
@@ -4719,7 +4751,7 @@
    "facet": "信息检索与知识系统"
   },
   {
-   "id": 535,
+   "id": 539,
    "title": "README·0427·多视图阅读指南",
    "slug": "专题-人文社科透镜/readme-0427-多视图阅读指南",
    "cluster": 15,
@@ -4728,7 +4760,7 @@
    "facet": "信息检索与知识系统"
   },
   {
-   "id": 536,
+   "id": 540,
    "title": "_信息检索与知识系统系统化专题·总览",
    "slug": "专题-人文社科透镜/_信息检索与知识系统系统化专题-总览",
    "cluster": 15,
@@ -4738,7 +4770,7 @@
    "hub": 1
   },
   {
-   "id": 537,
+   "id": 541,
    "title": "A01 计算语言学与 LLM 概念谱系",
    "slug": "专题-人文社科透镜/a01-计算语言学与-llm-概念谱系",
    "cluster": 15,
@@ -4747,7 +4779,7 @@
    "facet": "计算语言学"
   },
   {
-   "id": 538,
+   "id": 542,
    "title": "A02 语用学与 Prompt 设计",
    "slug": "专题-人文社科透镜/a02-语用学与-prompt-设计",
    "cluster": 15,
@@ -4756,7 +4788,7 @@
    "facet": "计算语言学"
   },
   {
-   "id": 539,
+   "id": 543,
    "title": "A03 多语言 Tokenization 效率差异",
    "slug": "专题-人文社科透镜/a03-多语言-tokenization-效率差异",
    "cluster": 15,
@@ -4765,7 +4797,7 @@
    "facet": "计算语言学"
   },
   {
-   "id": 540,
+   "id": 544,
    "title": "A04 翻译≠本地化",
    "slug": "专题-人文社科透镜/a04-翻译≠本地化",
    "cluster": 15,
@@ -4774,7 +4806,7 @@
    "facet": "计算语言学"
   },
   {
-   "id": 541,
+   "id": 545,
    "title": "A05 理解与生成的不对称",
    "slug": "专题-人文社科透镜/a05-理解与生成的不对称",
    "cluster": 15,
@@ -4783,7 +4815,7 @@
    "facet": "计算语言学"
   },
   {
-   "id": 542,
+   "id": 546,
    "title": "A06 语言相对性与 LLM 跨语言偏差",
    "slug": "专题-人文社科透镜/a06-语言相对性与-llm-跨语言偏差",
    "cluster": 15,
@@ -4792,7 +4824,7 @@
    "facet": "计算语言学"
   },
   {
-   "id": 543,
+   "id": 547,
    "title": "G01 计算语言学与 NLP 代际谱系总图",
    "slug": "专题-人文社科透镜/g01-计算语言学与-nlp-代际谱系总图",
    "cluster": 15,
@@ -4801,7 +4833,7 @@
    "facet": "计算语言学"
   },
   {
-   "id": 544,
+   "id": 548,
    "title": "G02 NLP 代际演化详解",
    "slug": "专题-人文社科透镜/g02-nlp-代际演化详解",
    "cluster": 15,
@@ -4810,7 +4842,7 @@
    "facet": "计算语言学"
   },
   {
-   "id": 545,
+   "id": 549,
    "title": "S01 多语言 LLM 产品分层剖面",
    "slug": "专题-人文社科透镜/s01-多语言-llm-产品分层剖面",
    "cluster": 15,
@@ -4819,7 +4851,7 @@
    "facet": "计算语言学"
   },
   {
-   "id": 546,
+   "id": 550,
    "title": "S02 语言学视角 × LLM 现象对照矩阵",
    "slug": "专题-人文社科透镜/s02-语言学视角-×-llm-现象对照矩阵",
    "cluster": 15,
@@ -4828,7 +4860,7 @@
    "facet": "计算语言学"
   },
   {
-   "id": 547,
+   "id": 551,
    "title": "S03 多语言 AI 产品全景",
    "slug": "专题-人文社科透镜/s03-多语言-ai-产品全景",
    "cluster": 15,
@@ -4837,7 +4869,7 @@
    "facet": "计算语言学"
   },
   {
-   "id": 548,
+   "id": 552,
    "title": "E01 多语言 Tokenization 成本剖解",
    "slug": "专题-人文社科透镜/e01-多语言-tokenization-成本剖解",
    "cluster": 15,
@@ -4846,7 +4878,7 @@
    "facet": "计算语言学"
   },
   {
-   "id": 549,
+   "id": 553,
    "title": "E02 跨文化 Prompt 与本地化剖解",
    "slug": "专题-人文社科透镜/e02-跨文化-prompt-与本地化剖解",
    "cluster": 15,
@@ -4855,7 +4887,7 @@
    "facet": "计算语言学"
   },
   {
-   "id": 550,
+   "id": 554,
    "title": "E03 拉美多语言 AI 产品剖解",
    "slug": "专题-人文社科透镜/e03-拉美多语言-ai-产品剖解",
    "cluster": 15,
@@ -4864,7 +4896,7 @@
    "facet": "计算语言学"
   },
   {
-   "id": 551,
+   "id": 555,
    "title": "R01 测多语言 Tokenization 效率",
    "slug": "专题-人文社科透镜/r01-测多语言-tokenization-效率",
    "cluster": 15,
@@ -4873,7 +4905,7 @@
    "facet": "计算语言学"
   },
   {
-   "id": 552,
+   "id": 556,
    "title": "R02 语用学增强 Prompt 设计",
    "slug": "专题-人文社科透镜/r02-语用学增强-prompt-设计",
    "cluster": 15,
@@ -4882,7 +4914,7 @@
    "facet": "计算语言学"
   },
   {
-   "id": 553,
+   "id": 557,
    "title": "R03 多语言质量评估",
    "slug": "专题-人文社科透镜/r03-多语言质量评估",
    "cluster": 15,
@@ -4891,7 +4923,7 @@
    "facet": "计算语言学"
   },
   {
-   "id": 554,
+   "id": 558,
    "title": "README·0429·多视图阅读指南",
    "slug": "专题-人文社科透镜/readme-0429-多视图阅读指南",
    "cluster": 15,
@@ -4900,7 +4932,7 @@
    "facet": "计算语言学"
   },
   {
-   "id": 555,
+   "id": 559,
    "title": "_计算语言学系统化专题·总览",
    "slug": "专题-人文社科透镜/_计算语言学系统化专题-总览",
    "cluster": 15,
@@ -4910,7 +4942,7 @@
    "hub": 1
   },
   {
-   "id": 556,
+   "id": 560,
    "title": "A01 AI 作为认识论中介概念谱系",
    "slug": "专题-人文社科透镜/a01-ai-作为认识论中介概念谱系",
    "cluster": 15,
@@ -4919,7 +4951,7 @@
    "facet": "AI 认识论中介"
   },
   {
-   "id": 557,
+   "id": 561,
    "title": "A02 知识 vs 知识的模拟",
    "slug": "专题-人文社科透镜/a02-知识-vs-知识的模拟",
    "cluster": 15,
@@ -4928,7 +4960,7 @@
    "facet": "AI 认识论中介"
   },
   {
-   "id": 558,
+   "id": 562,
    "title": "A03 Verification vs Rubber-stamping",
    "slug": "专题-人文社科透镜/a03-verification-vs-rubber-stamping",
    "cluster": 15,
@@ -4937,7 +4969,7 @@
    "facet": "AI 认识论中介"
   },
   {
-   "id": 559,
+   "id": 563,
    "title": "A04 校准与信任的认识论",
    "slug": "专题-人文社科透镜/a04-校准与信任的认识论",
    "cluster": 15,
@@ -4946,7 +4978,7 @@
    "facet": "AI 认识论中介"
   },
   {
-   "id": 560,
+   "id": 564,
    "title": "A05 默会知识与 AI 的认识论张力",
    "slug": "专题-人文社科透镜/a05-默会知识与-ai-的认识论张力",
    "cluster": 15,
@@ -4955,7 +4987,7 @@
    "facet": "AI 认识论中介"
   },
   {
-   "id": 561,
+   "id": 565,
    "title": "A06 认识论决定产品设计",
    "slug": "专题-人文社科透镜/a06-认识论决定产品设计",
    "cluster": 15,
@@ -4964,7 +4996,7 @@
    "facet": "AI 认识论中介"
   },
   {
-   "id": 562,
+   "id": 566,
    "title": "G01 知识中介技术代际谱系总图",
    "slug": "专题-人文社科透镜/g01-知识中介技术代际谱系总图",
    "cluster": 15,
@@ -4973,7 +5005,7 @@
    "facet": "AI 认识论中介"
   },
   {
-   "id": 563,
+   "id": 567,
    "title": "G02 知识中介代际演化详解",
    "slug": "专题-人文社科透镜/g02-知识中介代际演化详解",
    "cluster": 15,
@@ -4982,7 +5014,7 @@
    "facet": "AI 认识论中介"
   },
   {
-   "id": 564,
+   "id": 568,
    "title": "S01 AI 认识论中介分层剖面",
    "slug": "专题-人文社科透镜/s01-ai-认识论中介分层剖面",
    "cluster": 15,
@@ -4991,7 +5023,7 @@
    "facet": "AI 认识论中介"
   },
   {
-   "id": 565,
+   "id": 569,
    "title": "S02 认识论立场对照矩阵",
    "slug": "专题-人文社科透镜/s02-认识论立场对照矩阵",
    "cluster": 15,
@@ -5000,7 +5032,7 @@
    "facet": "AI 认识论中介"
   },
   {
-   "id": 566,
+   "id": 570,
    "title": "S03 认识论友好 AI 全景",
    "slug": "专题-人文社科透镜/s03-认识论友好-ai-全景",
    "cluster": 15,
@@ -5009,7 +5041,7 @@
    "facet": "AI 认识论中介"
   },
   {
-   "id": 567,
+   "id": 571,
    "title": "E01 AI 研究助手的认识论剖解",
    "slug": "专题-人文社科透镜/e01-ai-研究助手的认识论剖解",
    "cluster": 15,
@@ -5018,7 +5050,7 @@
    "facet": "AI 认识论中介"
   },
   {
-   "id": 568,
+   "id": 572,
    "title": "E02 AI 报告审阅的认识论剖解",
    "slug": "专题-人文社科透镜/e02-ai-报告审阅的认识论剖解",
    "cluster": 15,
@@ -5027,7 +5059,7 @@
    "facet": "AI 认识论中介"
   },
   {
-   "id": 569,
+   "id": 573,
    "title": "E03 教育与学习 AI 的认识论剖解",
    "slug": "专题-人文社科透镜/e03-教育与学习-ai-的认识论剖解",
    "cluster": 15,
@@ -5036,7 +5068,7 @@
    "facet": "AI 认识论中介"
   },
   {
-   "id": 570,
+   "id": 574,
    "title": "R01 评估一个 AI 输出的认识论地位",
    "slug": "专题-人文社科透镜/r01-评估一个-ai-输出的认识论地位",
    "cluster": 15,
@@ -5045,7 +5077,7 @@
    "facet": "AI 认识论中介"
   },
   {
-   "id": 571,
+   "id": 575,
    "title": "R02 设计 Verification 而非 Rubber-stamp 的审阅流",
    "slug": "专题-人文社科透镜/r02-设计-verification-而非-rubber-stamp-的审阅流",
    "cluster": 15,
@@ -5054,7 +5086,7 @@
    "facet": "AI 认识论中介"
   },
   {
-   "id": 572,
+   "id": 576,
    "title": "R03 Confidence 与 Citation 的认识论设计",
    "slug": "专题-人文社科透镜/r03-confidence-与-citation-的认识论设计",
    "cluster": 15,
@@ -5063,7 +5095,7 @@
    "facet": "AI 认识论中介"
   },
   {
-   "id": 573,
+   "id": 577,
    "title": "README·0431·多视图阅读指南",
    "slug": "专题-人文社科透镜/readme-0431-多视图阅读指南",
    "cluster": 15,
@@ -5072,7 +5104,7 @@
    "facet": "AI 认识论中介"
   },
   {
-   "id": 574,
+   "id": 578,
    "title": "_AI 认识论中介系统化专题·总览",
    "slug": "专题-人文社科透镜/_ai-认识论中介系统化专题-总览",
    "cluster": 15,
@@ -5082,7 +5114,7 @@
    "hub": 1
   },
   {
-   "id": 575,
+   "id": 579,
    "title": "A01 AI 产品时间性概念谱系",
    "slug": "专题-人文社科透镜/a01-ai-产品时间性概念谱系",
    "cluster": 15,
@@ -5091,7 +5123,7 @@
    "facet": "AI 产品的时间性"
   },
   {
-   "id": 576,
+   "id": 580,
    "title": "A02 模型更新致行为突变",
    "slug": "专题-人文社科透镜/a02-模型更新致行为突变",
    "cluster": 15,
@@ -5100,7 +5132,7 @@
    "facet": "AI 产品的时间性"
   },
   {
-   "id": 577,
+   "id": 581,
    "title": "A03 供应商依赖与控制权丧失",
    "slug": "专题-人文社科透镜/a03-供应商依赖与控制权丧失",
    "cluster": 15,
@@ -5109,7 +5141,7 @@
    "facet": "AI 产品的时间性"
   },
   {
-   "id": 578,
+   "id": 582,
    "title": "A04 无 Changelog 的认识论",
    "slug": "专题-人文社科透镜/a04-无-changelog-的认识论",
    "cluster": 15,
@@ -5118,7 +5150,7 @@
    "facet": "AI 产品的时间性"
   },
   {
-   "id": 579,
+   "id": 583,
    "title": "A05 路径依赖与技术锁定",
    "slug": "专题-人文社科透镜/a05-路径依赖与技术锁定",
    "cluster": 15,
@@ -5127,7 +5159,7 @@
    "facet": "AI 产品的时间性"
   },
   {
-   "id": 580,
+   "id": 584,
    "title": "A06 滴滴平台政策类比与 AI 的更极端性",
    "slug": "专题-人文社科透镜/a06-滴滴平台政策类比与-ai-的更极端性",
    "cluster": 15,
@@ -5136,7 +5168,7 @@
    "facet": "AI 产品的时间性"
   },
   {
-   "id": 581,
+   "id": 585,
    "title": "G01 软件时间性代际谱系总图",
    "slug": "专题-人文社科透镜/g01-软件时间性代际谱系总图",
    "cluster": 15,
@@ -5145,7 +5177,7 @@
    "facet": "AI 产品的时间性"
   },
   {
-   "id": 582,
+   "id": 586,
    "title": "G02 软件时间性代际演化详解",
    "slug": "专题-人文社科透镜/g02-软件时间性代际演化详解",
    "cluster": 15,
@@ -5154,7 +5186,7 @@
    "facet": "AI 产品的时间性"
   },
   {
-   "id": 583,
+   "id": 587,
    "title": "S01 AI 时间性风险分层剖面",
    "slug": "专题-人文社科透镜/s01-ai-时间性风险分层剖面",
    "cluster": 15,
@@ -5163,7 +5195,7 @@
    "facet": "AI 产品的时间性"
   },
   {
-   "id": 584,
+   "id": 588,
    "title": "S02 时间性风险应对策略对照矩阵",
    "slug": "专题-人文社科透镜/s02-时间性风险应对策略对照矩阵",
    "cluster": 15,
@@ -5172,7 +5204,7 @@
    "facet": "AI 产品的时间性"
   },
   {
-   "id": 585,
+   "id": 589,
    "title": "S03 AI 供应链时间性全景",
    "slug": "专题-人文社科透镜/s03-ai-供应链时间性全景",
    "cluster": 15,
@@ -5181,7 +5213,7 @@
    "facet": "AI 产品的时间性"
   },
   {
-   "id": 586,
+   "id": 590,
    "title": "E01 模型弃用与更新致产品突变案例剖解",
    "slug": "专题-人文社科透镜/e01-模型弃用与更新致产品突变案例剖解",
    "cluster": 15,
@@ -5190,7 +5222,7 @@
    "facet": "AI 产品的时间性"
   },
   {
-   "id": 587,
+   "id": 591,
    "title": "E02 套壳产品的时间性脆弱剖解",
    "slug": "专题-人文社科透镜/e02-套壳产品的时间性脆弱剖解",
    "cluster": 15,
@@ -5199,7 +5231,7 @@
    "facet": "AI 产品的时间性"
   },
   {
-   "id": 588,
+   "id": 592,
    "title": "E03 滴滴平台政策变更 vs AI 模型更新对比剖解",
    "slug": "专题-人文社科透镜/e03-滴滴平台政策变更-vs-ai-模型更新对比剖解",
    "cluster": 15,
@@ -5208,7 +5240,7 @@
    "facet": "AI 产品的时间性"
   },
   {
-   "id": 589,
+   "id": 593,
    "title": "R01 模型更新回归测试机制",
    "slug": "专题-人文社科透镜/r01-模型更新回归测试机制",
    "cluster": 15,
@@ -5217,7 +5249,7 @@
    "facet": "AI 产品的时间性"
   },
   {
-   "id": 590,
+   "id": 594,
    "title": "R02 多模型路由抗供应商锁定",
    "slug": "专题-人文社科透镜/r02-多模型路由抗供应商锁定",
    "cluster": 15,
@@ -5226,7 +5258,7 @@
    "facet": "AI 产品的时间性"
   },
   {
-   "id": 591,
+   "id": 595,
    "title": "R03 时间性风险评估",
    "slug": "专题-人文社科透镜/r03-时间性风险评估",
    "cluster": 15,
@@ -5235,7 +5267,7 @@
    "facet": "AI 产品的时间性"
   },
   {
-   "id": 592,
+   "id": 596,
    "title": "README·0432·多视图阅读指南",
    "slug": "专题-人文社科透镜/readme-0432-多视图阅读指南",
    "cluster": 15,
@@ -5244,7 +5276,7 @@
    "facet": "AI 产品的时间性"
   },
   {
-   "id": 593,
+   "id": 597,
    "title": "_AI 产品的时间性系统化专题·总览",
    "slug": "专题-人文社科透镜/_ai-产品的时间性系统化专题-总览",
    "cluster": 15,
@@ -5257,27 +5289,27 @@
  "edges": [
   [
    0,
-   36
-  ],
-  [
-   0,
-   54
-  ],
-  [
-   0,
-   29
-  ],
-  [
-   0,
-   37
-  ],
-  [
-   0,
-   33
-  ],
-  [
-   0,
    38
+  ],
+  [
+   0,
+   57
+  ],
+  [
+   0,
+   31
+  ],
+  [
+   0,
+   39
+  ],
+  [
+   0,
+   35
+  ],
+  [
+   0,
+   40
   ],
   [
    0,
@@ -5289,119 +5321,7 @@
   ],
   [
    0,
-   39
-  ],
-  [
-   0,
-   67
-  ],
-  [
-   0,
-   23
-  ],
-  [
-   0,
-   28
-  ],
-  [
-   0,
-   40
-  ],
-  [
-   0,
-   63
-  ],
-  [
-   0,
    41
-  ],
-  [
-   0,
-   24
-  ],
-  [
-   0,
-   42
-  ],
-  [
-   0,
-   64
-  ],
-  [
-   0,
-   43
-  ],
-  [
-   0,
-   31
-  ],
-  [
-   0,
-   17
-  ],
-  [
-   0,
-   44
-  ],
-  [
-   0,
-   27
-  ],
-  [
-   0,
-   16
-  ],
-  [
-   0,
-   45
-  ],
-  [
-   0,
-   10
-  ],
-  [
-   0,
-   46
-  ],
-  [
-   0,
-   32
-  ],
-  [
-   0,
-   55
-  ],
-  [
-   0,
-   47
-  ],
-  [
-   0,
-   48
-  ],
-  [
-   0,
-   49
-  ],
-  [
-   0,
-   30
-  ],
-  [
-   0,
-   50
-  ],
-  [
-   0,
-   52
-  ],
-  [
-   0,
-   69
-  ],
-  [
-   0,
-   70
   ],
   [
    0,
@@ -5409,7 +5329,103 @@
   ],
   [
    0,
-   72
+   24
+  ],
+  [
+   0,
+   30
+  ],
+  [
+   0,
+   42
+  ],
+  [
+   0,
+   67
+  ],
+  [
+   0,
+   43
+  ],
+  [
+   0,
+   25
+  ],
+  [
+   0,
+   44
+  ],
+  [
+   0,
+   68
+  ],
+  [
+   0,
+   45
+  ],
+  [
+   0,
+   33
+  ],
+  [
+   0,
+   17
+  ],
+  [
+   0,
+   46
+  ],
+  [
+   0,
+   29
+  ],
+  [
+   0,
+   16
+  ],
+  [
+   0,
+   47
+  ],
+  [
+   0,
+   10
+  ],
+  [
+   0,
+   48
+  ],
+  [
+   0,
+   34
+  ],
+  [
+   0,
+   58
+  ],
+  [
+   0,
+   49
+  ],
+  [
+   0,
+   50
+  ],
+  [
+   0,
+   51
+  ],
+  [
+   0,
+   32
+  ],
+  [
+   0,
+   52
+  ],
+  [
+   0,
+   55
   ],
   [
    0,
@@ -5437,27 +5453,27 @@
   ],
   [
    0,
-   274
+   79
   ],
   [
    0,
-   273
+   80
   ],
   [
    0,
-   253
+   81
   ],
   [
    0,
-   254
+   82
   ],
   [
    0,
-   255
+   278
   ],
   [
    0,
-   256
+   277
   ],
   [
    0,
@@ -5477,6 +5493,10 @@
   ],
   [
    0,
+   261
+  ],
+  [
+   0,
    262
   ],
   [
@@ -5486,10 +5506,6 @@
   [
    0,
    264
-  ],
-  [
-   0,
-   265
   ],
   [
    0,
@@ -5521,27 +5537,27 @@
   ],
   [
    0,
-   261
+   273
   ],
   [
    0,
-   96
+   274
   ],
   [
    0,
-   80
+   275
   ],
   [
    0,
-   81
+   276
   ],
   [
    0,
-   82
+   265
   ],
   [
    0,
-   83
+   100
   ],
   [
    0,
@@ -5550,10 +5566,6 @@
   [
    0,
    85
-  ],
-  [
-   0,
-   102
   ],
   [
    0,
@@ -5569,15 +5581,35 @@
   ],
   [
    0,
+   89
+  ],
+  [
+   0,
+   106
+  ],
+  [
+   0,
+   90
+  ],
+  [
+   0,
+   91
+  ],
+  [
+   0,
+   92
+  ],
+  [
+   0,
    2
   ],
   [
    0,
-   115
+   119
   ],
   [
    0,
-   61
+   65
   ],
   [
    1,
@@ -5605,159 +5637,11 @@
   ],
   [
    1,
-   68
+   72
   ],
   [
    1,
-   79
-  ],
-  [
-   1,
-   89
-  ],
-  [
-   1,
-   91
-  ],
-  [
-   1,
-   92
-  ],
-  [
-   1,
-   90
-  ],
-  [
-   1,
-   99
-  ],
-  [
-   1,
-   101
-  ],
-  [
-   1,
-   115
-  ],
-  [
-   1,
-   106
-  ],
-  [
-   1,
-   94
-  ],
-  [
-   1,
-   274
-  ],
-  [
-   1,
-   273
-  ],
-  [
-   1,
-   110
-  ],
-  [
-   1,
-   114
-  ],
-  [
-   1,
-   116
-  ],
-  [
-   1,
-   113
-  ],
-  [
-   1,
-   268
-  ],
-  [
-   1,
-   104
-  ],
-  [
-   1,
-   105
-  ],
-  [
-   1,
-   102
-  ],
-  [
-   1,
-   112
-  ],
-  [
-   1,
-   103
-  ],
-  [
-   1,
-   108
-  ],
-  [
-   1,
-   100
-  ],
-  [
-   1,
-   34
-  ],
-  [
-   1,
-   35
-  ],
-  [
-   1,
-   12
-  ],
-  [
-   1,
-   65
-  ],
-  [
-   1,
-   66
-  ],
-  [
-   1,
-   20
-  ],
-  [
-   1,
-   62
-  ],
-  [
-   1,
-   18
-  ],
-  [
-   1,
-   96
-  ],
-  [
-   1,
-   254
-  ],
-  [
-   1,
-   266
-  ],
-  [
-   1,
-   9
-  ],
-  [
-   1,
-   51
-  ],
-  [
-   1,
-   6
+   83
   ],
   [
    1,
@@ -5769,7 +5653,27 @@
   ],
   [
    1,
-   97
+   96
+  ],
+  [
+   1,
+   94
+  ],
+  [
+   1,
+   103
+  ],
+  [
+   1,
+   105
+  ],
+  [
+   1,
+   119
+  ],
+  [
+   1,
+   110
   ],
   [
    1,
@@ -5777,7 +5681,15 @@
   ],
   [
    1,
-   25
+   278
+  ],
+  [
+   1,
+   277
+  ],
+  [
+   1,
+   114
   ],
   [
    1,
@@ -5785,35 +5697,115 @@
   ],
   [
    1,
-   60
+   120
   ],
   [
    1,
-   7
+   117
   ],
   [
    1,
-   59
+   272
   ],
   [
    1,
-   10
+   108
   ],
   [
    1,
-   45
+   109
   ],
   [
    1,
-   74
+   106
   ],
   [
    1,
-   75
+   116
   ],
   [
    1,
-   86
+   107
+  ],
+  [
+   1,
+   112
+  ],
+  [
+   1,
+   104
+  ],
+  [
+   1,
+   36
+  ],
+  [
+   1,
+   37
+  ],
+  [
+   1,
+   12
+  ],
+  [
+   1,
+   69
+  ],
+  [
+   1,
+   70
+  ],
+  [
+   1,
+   20
+  ],
+  [
+   1,
+   66
+  ],
+  [
+   1,
+   265
+  ],
+  [
+   1,
+   100
+  ],
+  [
+   1,
+   258
+  ],
+  [
+   1,
+   270
+  ],
+  [
+   1,
+   9
+  ],
+  [
+   1,
+   54
+  ],
+  [
+   1,
+   6
+  ],
+  [
+   1,
+   97
+  ],
+  [
+   1,
+   99
+  ],
+  [
+   1,
+   101
+  ],
+  [
+   1,
+   102
   ],
   [
    1,
@@ -5821,51 +5813,87 @@
   ],
   [
    1,
+   122
+  ],
+  [
+   1,
+   64
+  ],
+  [
+   1,
+   7
+  ],
+  [
+   1,
+   63
+  ],
+  [
+   1,
+   10
+  ],
+  [
+   1,
+   47
+  ],
+  [
+   1,
+   78
+  ],
+  [
+   1,
+   79
+  ],
+  [
+   1,
+   90
+  ],
+  [
+   1,
+   29
+  ],
+  [
+   1,
    16
   ],
   [
    1,
-   44
+   46
   ],
   [
    1,
-   71
+   75
   ],
   [
    1,
-   72
+   76
   ],
   [
    1,
-   73
+   77
   ],
   [
    1,
-   54
+   57
   ],
   [
    1,
-   48
+   50
   ],
   [
    1,
-   49
+   51
   ],
   [
    1,
-   83
+   87
   ],
   [
    1,
-   84
+   88
   ],
   [
    4,
-   60
-  ],
-  [
-   4,
-   102
+   64
   ],
   [
    4,
@@ -5876,8 +5904,8 @@
    110
   ],
   [
-   5,
-   30
+   4,
+   114
   ],
   [
    5,
@@ -5885,7 +5913,7 @@
   ],
   [
    5,
-   46
+   34
   ],
   [
    5,
@@ -5893,19 +5921,23 @@
   ],
   [
    5,
-   54
+   50
+  ],
+  [
+   5,
+   57
   ],
   [
    6,
-   95
+   99
   ],
   [
    6,
-   106
+   110
   ],
   [
    6,
-   28
+   30
   ],
   [
    7,
@@ -5913,31 +5945,31 @@
   ],
   [
    7,
-   110
+   114
   ],
   [
    7,
-   101
+   105
   ],
   [
    7,
-   115
+   119
   ],
   [
    8,
-   104
+   108
   ],
   [
    8,
-   36
+   38
   ],
   [
    8,
-   54
+   57
   ],
   [
    8,
-   29
+   31
   ],
   [
    8,
@@ -5945,15 +5977,15 @@
   ],
   [
    8,
-   37
+   39
   ],
   [
    8,
-   33
+   35
   ],
   [
    8,
-   38
+   40
   ],
   [
    8,
@@ -5965,35 +5997,7 @@
   ],
   [
    8,
-   31
-  ],
-  [
-   8,
-   39
-  ],
-  [
-   8,
-   67
-  ],
-  [
-   8,
-   30
-  ],
-  [
-   8,
-   28
-  ],
-  [
-   8,
-   27
-  ],
-  [
-   8,
-   40
-  ],
-  [
-   8,
-   63
+   33
   ],
   [
    8,
@@ -6001,7 +6005,19 @@
   ],
   [
    8,
-   24
+   71
+  ],
+  [
+   8,
+   32
+  ],
+  [
+   8,
+   30
+  ],
+  [
+   8,
+   29
   ],
   [
    8,
@@ -6009,15 +6025,31 @@
   ],
   [
    8,
-   64
-  ],
-  [
-   8,
-   23
+   67
   ],
   [
    8,
    43
+  ],
+  [
+   8,
+   25
+  ],
+  [
+   8,
+   44
+  ],
+  [
+   8,
+   68
+  ],
+  [
+   8,
+   24
+  ],
+  [
+   8,
+   45
   ],
   [
    8,
@@ -6029,23 +6061,7 @@
   ],
   [
    8,
-   44
-  ],
-  [
-   8,
-   45
-  ],
-  [
-   8,
    46
-  ],
-  [
-   8,
-   32
-  ],
-  [
-   8,
-   55
   ],
   [
    8,
@@ -6057,6 +6073,14 @@
   ],
   [
    8,
+   34
+  ],
+  [
+   8,
+   58
+  ],
+  [
+   8,
    49
   ],
   [
@@ -6065,23 +6089,27 @@
   ],
   [
    8,
+   51
+  ],
+  [
+   8,
    52
   ],
   [
    8,
-   61
+   55
   ],
   [
    8,
-   106
+   65
+  ],
+  [
+   8,
+   110
   ],
   [
    10,
-   32
-  ],
-  [
-   10,
-   43
+   34
   ],
   [
    10,
@@ -6089,31 +6117,27 @@
   ],
   [
    10,
-   46
+   47
   ],
   [
    10,
-   274
+   48
   ],
   [
    10,
-   253
+   278
   ],
   [
    10,
-   254
+   257
   ],
   [
    10,
-   262
+   258
   ],
   [
    10,
-   263
-  ],
-  [
-   10,
-   264
+   266
   ],
   [
    10,
@@ -6125,15 +6149,19 @@
   ],
   [
    10,
-   269
+   271
   ],
   [
    10,
-   270
+   272
   ],
   [
-   11,
-   38
+   10,
+   273
+  ],
+  [
+   10,
+   274
   ],
   [
    11,
@@ -6141,19 +6169,23 @@
   ],
   [
    11,
-   41
+   42
   ],
   [
    11,
-   47
+   43
+  ],
+  [
+   11,
+   49
   ],
   [
    12,
-   37
+   39
   ],
   [
    12,
-   33
+   35
   ],
   [
    12,
@@ -6161,43 +6193,15 @@
   ],
   [
    12,
-   31
+   33
   ],
   [
    12,
-   36
+   38
   ],
   [
    13,
-   49
-  ],
-  [
-   14,
-   101
-  ],
-  [
-   14,
-   28
-  ],
-  [
-   14,
-   106
-  ],
-  [
-   14,
-   115
-  ],
-  [
-   14,
-   102
-  ],
-  [
-   14,
-   112
-  ],
-  [
-   14,
-   104
+   51
   ],
   [
    14,
@@ -6205,11 +6209,39 @@
   ],
   [
    14,
-   84
+   30
   ],
   [
    14,
-   49
+   110
+  ],
+  [
+   14,
+   119
+  ],
+  [
+   14,
+   106
+  ],
+  [
+   14,
+   116
+  ],
+  [
+   14,
+   108
+  ],
+  [
+   14,
+   109
+  ],
+  [
+   14,
+   88
+  ],
+  [
+   14,
+   51
   ],
   [
    15,
@@ -6217,63 +6249,55 @@
   ],
   [
    15,
-   37
+   39
   ],
   [
    15,
-   33
+   35
   ],
   [
    15,
-   38
+   40
   ],
   [
    15,
-   42
-  ],
-  [
-   16,
    44
   ],
   [
    16,
-   63
+   46
   ],
   [
    16,
-   36
+   67
   ],
   [
    16,
-   33
+   38
   ],
   [
    16,
-   27
+   35
   ],
   [
    16,
-   47
+   29
   ],
   [
    16,
-   26
+   49
   ],
   [
-   17,
-   43
-  ],
-  [
-   17,
-   26
-  ],
-  [
-   17,
-   260
+   16,
+   28
   ],
   [
    17,
    45
+  ],
+  [
+   17,
+   28
   ],
   [
    17,
@@ -6281,27 +6305,27 @@
   ],
   [
    17,
-   274
+   47
+  ],
+  [
+   17,
+   268
+  ],
+  [
+   17,
+   278
   ],
   [
    18,
-   103
+   51
   ],
   [
    18,
-   254
+   300
   ],
   [
    18,
-   266
-  ],
-  [
-   18,
-   274
-  ],
-  [
-   19,
-   38
+   30
   ],
   [
    19,
@@ -6312,28 +6336,24 @@
    42
   ],
   [
-   20,
-   63
+   19,
+   44
   ],
   [
    20,
-   38
-  ],
-  [
-   21,
    67
   ],
   [
-   21,
-   29
+   20,
+   40
   ],
   [
    21,
-   28
+   71
   ],
   [
    21,
-   33
+   31
   ],
   [
    21,
@@ -6341,63 +6361,63 @@
   ],
   [
    21,
-   39
+   35
   ],
   [
    21,
-   54
+   32
   ],
   [
    21,
-   61
+   41
+  ],
+  [
+   21,
+   57
+  ],
+  [
+   21,
+   65
   ],
   [
    22,
-   106
+   110
   ],
   [
    22,
-   103
+   107
   ],
   [
    22,
-   45
+   47
   ],
   [
    22,
-   30
+   32
   ],
   [
    23,
-   27
+   143
   ],
   [
    23,
-   28
+   134
   ],
   [
    23,
-   39
+   125
   ],
   [
    23,
-   42
+   128
   ],
   [
-   23,
+   24,
    29
   ],
   [
-   23,
-   61
-  ],
-  [
-   23,
-   53
-  ],
-  [
-   23,
-   64
+   24,
+   30
   ],
   [
    24,
@@ -6405,167 +6425,167 @@
   ],
   [
    24,
-   30
+   44
   ],
   [
    24,
-   53
+   31
   ],
   [
    24,
-   110
+   65
   ],
   [
-   26,
-   101
+   24,
+   56
   ],
   [
-   26,
-   115
+   24,
+   68
   ],
   [
-   26,
-   110
+   25,
+   43
   ],
   [
-   26,
-   74
+   25,
+   32
   ],
   [
-   26,
-   40
+   25,
+   56
   ],
   [
-   26,
-   53
-  ],
-  [
-   26,
-   103
-  ],
-  [
-   26,
-   112
-  ],
-  [
-   27,
-   61
-  ],
-  [
-   27,
-   39
-  ],
-  [
-   27,
+   25,
    114
   ],
   [
-   27,
-   101
+   26,
+   119
   ],
   [
-   27,
-   44
+   26,
+   30
   ],
   [
-   27,
-   48
+   26,
+   174
   ],
   [
-   27,
-   33
+   26,
+   164
   ],
   [
-   28,
-   101
-  ],
-  [
-   28,
-   110
+   26,
+   181
   ],
   [
    28,
-   39
+   105
   ],
   [
    28,
-   48
+   119
   ],
   [
    28,
+   114
+  ],
+  [
+   28,
+   78
+  ],
+  [
+   28,
+   42
+  ],
+  [
+   28,
+   56
+  ],
+  [
+   28,
+   107
+  ],
+  [
+   28,
+   116
+  ],
+  [
+   29,
+   65
+  ],
+  [
+   29,
+   41
+  ],
+  [
+   29,
+   118
+  ],
+  [
+   29,
+   105
+  ],
+  [
+   29,
+   46
+  ],
+  [
+   29,
    50
   ],
   [
-   28,
-   29
-  ],
-  [
-   28,
-   55
-  ],
-  [
-   28,
-   54
-  ],
-  [
    29,
-   67
+   35
   ],
   [
-   29,
+   30,
+   105
+  ],
+  [
+   30,
+   114
+  ],
+  [
+   30,
+   41
+  ],
+  [
+   30,
    50
   ],
   [
-   29,
-   54
-  ],
-  [
-   29,
-   44
-  ],
-  [
-   29,
-   36
-  ],
-  [
-   29,
-   39
-  ],
-  [
-   29,
+   30,
    52
   ],
   [
    30,
-   32
+   31
   ],
   [
    30,
-   50
+   58
   ],
   [
    30,
-   49
+   57
   ],
   [
-   30,
-   39
+   31,
+   71
   ],
   [
-   30,
-   46
-  ],
-  [
-   30,
-   67
-  ],
-  [
-   30,
+   31,
    52
   ],
   [
    31,
-   54
+   57
+  ],
+  [
+   31,
+   46
   ],
   [
    31,
@@ -6573,31 +6593,39 @@
   ],
   [
    31,
-   43
+   41
   ],
   [
    31,
+   55
+  ],
+  [
+   32,
+   34
+  ],
+  [
+   32,
+   52
+  ],
+  [
+   32,
+   51
+  ],
+  [
+   32,
+   41
+  ],
+  [
+   32,
    48
   ],
   [
-   31,
-   49
-  ],
-  [
-   31,
-   32
-  ],
-  [
-   31,
-   63
+   32,
+   71
   ],
   [
    32,
-   46
-  ],
-  [
-   32,
-   45
+   55
   ],
   [
    33,
@@ -6605,63 +6633,83 @@
   ],
   [
    33,
-   56
+   40
   ],
   [
    33,
-   37
+   45
   ],
   [
    33,
-   38
+   50
   ],
   [
    33,
-   44
+   51
   ],
   [
    33,
-   47
+   34
   ],
   [
    33,
-   65
+   67
   ],
   [
    34,
-   38
+   48
+  ],
+  [
+   34,
+   47
   ],
   [
    35,
-   95
+   60
   ],
   [
    35,
-   38
+   59
+  ],
+  [
+   35,
+   39
+  ],
+  [
+   35,
+   40
+  ],
+  [
+   35,
+   46
+  ],
+  [
+   35,
+   49
+  ],
+  [
+   35,
+   69
   ],
   [
    36,
-   54
-  ],
-  [
-   36,
-   70
-  ],
-  [
-   36,
-   37
+   40
   ],
   [
    37,
-   71
+   99
   ],
   [
    37,
-   38
+   40
   ],
   [
    38,
-   76
+   57
+  ],
+  [
+   38,
+   74
   ],
   [
    38,
@@ -6669,23 +6717,7 @@
   ],
   [
    39,
-   67
-  ],
-  [
-   39,
-   61
-  ],
-  [
-   39,
-   55
-  ],
-  [
-   39,
-   70
-  ],
-  [
-   39,
-   78
+   75
   ],
   [
    39,
@@ -6693,23 +6725,7 @@
   ],
   [
    40,
-   63
-  ],
-  [
-   40,
-   101
-  ],
-  [
-   40,
-   115
-  ],
-  [
-   40,
-   42
-  ],
-  [
-   40,
-   77
+   80
   ],
   [
    40,
@@ -6717,31 +6733,47 @@
   ],
   [
    41,
-   104
+   71
   ],
   [
    41,
-   110
+   65
+  ],
+  [
+   41,
+   58
+  ],
+  [
+   41,
+   74
+  ],
+  [
+   41,
+   82
   ],
   [
    41,
    42
   ],
   [
-   41,
-   76
+   42,
+   67
   ],
   [
    42,
-   64
+   105
   ],
   [
    42,
-   77
+   119
   ],
   [
    42,
-   76
+   44
+  ],
+  [
+   42,
+   81
   ],
   [
    42,
@@ -6749,35 +6781,31 @@
   ],
   [
    43,
-   115
+   108
   ],
   [
    43,
-   102
-  ],
-  [
-   43,
-   106
-  ],
-  [
-   43,
-   69
+   114
   ],
   [
    43,
    44
   ],
   [
-   44,
-   71
+   43,
+   80
   ],
   [
    44,
-   72
+   68
   ],
   [
    44,
-   73
+   81
+  ],
+  [
+   44,
+   80
   ],
   [
    44,
@@ -6785,35 +6813,19 @@
   ],
   [
    45,
-   102
+   119
   ],
   [
    45,
-   101
+   106
   ],
   [
    45,
-   74
+   110
   ],
   [
    45,
-   75
-  ],
-  [
-   45,
-   274
-  ],
-  [
-   45,
-   263
-  ],
-  [
-   45,
-   264
-  ],
-  [
-   45,
-   265
+   73
   ],
   [
    45,
@@ -6821,27 +6833,11 @@
   ],
   [
    46,
-   110
+   75
   ],
   [
    46,
-   115
-  ],
-  [
-   46,
-   101
-  ],
-  [
-   46,
-   106
-  ],
-  [
-   46,
-   55
-  ],
-  [
-   46,
-   69
+   76
   ],
   [
    46,
@@ -6853,11 +6849,35 @@
   ],
   [
    47,
-   63
+   106
   ],
   [
    47,
-   77
+   105
+  ],
+  [
+   47,
+   78
+  ],
+  [
+   47,
+   79
+  ],
+  [
+   47,
+   278
+  ],
+  [
+   47,
+   267
+  ],
+  [
+   47,
+   268
+  ],
+  [
+   47,
+   269
   ],
   [
    47,
@@ -6865,15 +6885,31 @@
   ],
   [
    48,
-   54
+   114
   ],
   [
    48,
-   69
+   119
+  ],
+  [
+   48,
+   105
+  ],
+  [
+   48,
+   110
+  ],
+  [
+   48,
+   58
   ],
   [
    48,
    73
+  ],
+  [
+   48,
+   81
   ],
   [
    48,
@@ -6881,19 +6917,11 @@
   ],
   [
    49,
-   104
+   67
   ],
   [
    49,
-   54
-  ],
-  [
-   49,
-   73
-  ],
-  [
-   49,
-   75
+   81
   ],
   [
    49,
@@ -6901,231 +6929,247 @@
   ],
   [
    50,
+   57
+  ],
+  [
+   50,
+   73
+  ],
+  [
+   50,
+   77
+  ],
+  [
+   50,
+   51
+  ],
+  [
+   51,
+   108
+  ],
+  [
+   51,
+   57
+  ],
+  [
+   51,
+   77
+  ],
+  [
+   51,
+   79
+  ],
+  [
+   51,
    52
-  ],
-  [
-   50,
-   110
-  ],
-  [
-   50,
-   78
-  ],
-  [
-   51,
-   106
-  ],
-  [
-   51,
-   104
-  ],
-  [
-   52,
-   67
-  ],
-  [
-   52,
-   110
   ],
   [
    52,
    55
   ],
   [
-   53,
-   106
+   52,
+   114
+  ],
+  [
+   52,
+   82
   ],
   [
    53,
-   115
+   300
   ],
   [
    53,
+   58
+  ],
+  [
+   53,
+   299
+  ],
+  [
+   53,
+   57
+  ],
+  [
+   54,
    110
   ],
   [
-   53,
-   103
-  ],
-  [
-   53,
-   112
-  ],
-  [
-   53,
-   116
-  ],
-  [
-   53,
-   104
-  ],
-  [
-   53,
-   105
-  ],
-  [
-   53,
-   102
-  ],
-  [
-   53,
-   74
+   54,
+   108
   ],
   [
    55,
+   71
+  ],
+  [
+   55,
+   114
+  ],
+  [
+   55,
+   58
+  ],
+  [
+   56,
    110
   ],
   [
-   57,
-   110
+   56,
+   119
+  ],
+  [
+   56,
+   114
+  ],
+  [
+   56,
+   107
+  ],
+  [
+   56,
+   116
+  ],
+  [
+   56,
+   120
+  ],
+  [
+   56,
+   108
+  ],
+  [
+   56,
+   109
+  ],
+  [
+   56,
+   106
+  ],
+  [
+   56,
+   78
   ],
   [
    58,
-   63
-  ],
-  [
-   59,
-   101
-  ],
-  [
-   59,
-   110
-  ],
-  [
-   59,
-   115
+   114
   ],
   [
    60,
-   104
+   114
   ],
   [
-   60,
-   65
+   61,
+   123
   ],
   [
-   60,
-   115
+   61,
+   125
   ],
   [
-   60,
-   101
+   61,
+   136
   ],
   [
-   60,
-   110
+   61,
+   128
   ],
   [
-   60,
-   112
+   62,
+   67
   ],
   [
-   66,
-   106
+   63,
+   105
   ],
   [
-   68,
+   63,
+   114
+  ],
+  [
+   63,
+   119
+  ],
+  [
+   64,
+   108
+  ],
+  [
+   64,
    69
   ],
   [
-   68,
-   70
+   64,
+   119
   ],
   [
-   68,
-   71
+   64,
+   105
   ],
   [
-   68,
-   72
+   64,
+   114
   ],
   [
-   68,
-   73
-  ],
-  [
-   68,
-   74
-  ],
-  [
-   68,
-   75
-  ],
-  [
-   68,
-   76
-  ],
-  [
-   68,
-   77
-  ],
-  [
-   68,
-   78
-  ],
-  [
-   69,
-   77
-  ],
-  [
-   69,
-   106
-  ],
-  [
-   69,
-   115
-  ],
-  [
-   69,
-   70
+   64,
+   116
   ],
   [
    70,
-   75
-  ],
-  [
-   70,
-   77
-  ],
-  [
-   70,
-   76
-  ],
-  [
-   70,
-   71
-  ],
-  [
-   70,
-   73
-  ],
-  [
-   70,
-   78
-  ],
-  [
-   70,
-   74
-  ],
-  [
-   71,
-   115
-  ],
-  [
-   71,
-   106
-  ],
-  [
-   71,
-   72
-  ],
-  [
-   72,
-   101
+   110
   ],
   [
    72,
    73
+  ],
+  [
+   72,
+   74
+  ],
+  [
+   72,
+   75
+  ],
+  [
+   72,
+   76
+  ],
+  [
+   72,
+   77
+  ],
+  [
+   72,
+   78
+  ],
+  [
+   72,
+   79
+  ],
+  [
+   72,
+   80
+  ],
+  [
+   72,
+   81
+  ],
+  [
+   72,
+   82
+  ],
+  [
+   73,
+   81
+  ],
+  [
+   73,
+   110
+  ],
+  [
+   73,
+   119
   ],
   [
    73,
@@ -7133,63 +7177,39 @@
   ],
   [
    74,
-   101
+   79
   ],
   [
    74,
-   106
+   81
   ],
   [
    74,
-   115
-  ],
-  [
-   74,
-   77
-  ],
-  [
-   74,
-   103
-  ],
-  [
-   74,
-   274
-  ],
-  [
-   74,
-   268
-  ],
-  [
-   74,
-   260
-  ],
-  [
-   74,
-   267
+   80
   ],
   [
    74,
    75
   ],
   [
-   75,
+   74,
    77
   ],
   [
-   75,
-   274
+   74,
+   82
+  ],
+  [
+   74,
+   78
   ],
   [
    75,
-   269
+   119
   ],
   [
    75,
-   272
-  ],
-  [
-   75,
-   268
+   110
   ],
   [
    75,
@@ -7197,39 +7217,11 @@
   ],
   [
    76,
-   77
-  ],
-  [
-   76,
-   274
-  ],
-  [
-   76,
-   258
-  ],
-  [
-   76,
-   254
-  ],
-  [
-   76,
-   266
-  ],
-  [
-   77,
    105
   ],
   [
-   77,
-   106
-  ],
-  [
-   77,
-   110
-  ],
-  [
-   77,
-   101
+   76,
+   77
   ],
   [
    77,
@@ -7237,123 +7229,163 @@
   ],
   [
    78,
-   116
+   105
   ],
   [
    78,
-   106
+   110
+  ],
+  [
+   78,
+   119
+  ],
+  [
+   78,
+   81
+  ],
+  [
+   78,
+   107
+  ],
+  [
+   78,
+   278
+  ],
+  [
+   78,
+   272
+  ],
+  [
+   78,
+   264
+  ],
+  [
+   78,
+   271
+  ],
+  [
+   78,
+   79
+  ],
+  [
+   79,
+   81
+  ],
+  [
+   79,
+   278
+  ],
+  [
+   79,
+   273
+  ],
+  [
+   79,
+   276
+  ],
+  [
+   79,
+   272
   ],
   [
    79,
    80
   ],
   [
-   79,
+   80,
    81
   ],
   [
-   79,
+   80,
+   278
+  ],
+  [
+   80,
+   262
+  ],
+  [
+   80,
+   258
+  ],
+  [
+   80,
+   270
+  ],
+  [
+   81,
+   109
+  ],
+  [
+   81,
+   110
+  ],
+  [
+   81,
+   114
+  ],
+  [
+   81,
+   105
+  ],
+  [
+   81,
    82
   ],
   [
-   79,
-   83
+   82,
+   120
   ],
   [
-   79,
+   82,
+   110
+  ],
+  [
+   83,
    84
   ],
   [
-   79,
+   83,
    85
   ],
   [
-   79,
+   83,
    86
   ],
   [
-   79,
+   83,
    87
   ],
   [
-   79,
+   83,
    88
   ],
   [
-   80,
-   82
-  ],
-  [
-   80,
-   84
-  ],
-  [
-   80,
-   86
-  ],
-  [
-   80,
-   81
-  ],
-  [
-   81,
-   85
-  ],
-  [
-   81,
-   102
-  ],
-  [
-   81,
-   116
-  ],
-  [
-   81,
-   106
-  ],
-  [
-   81,
-   115
-  ],
-  [
-   81,
-   82
-  ],
-  [
-   82,
-   102
-  ],
-  [
-   82,
-   106
-  ],
-  [
-   82,
-   83
+   83,
+   89
   ],
   [
    83,
-   116
+   90
   ],
   [
    83,
-   102
+   91
   ],
   [
    83,
-   85
-  ],
-  [
-   83,
-   84
-  ],
-  [
-   84,
-   116
+   92
   ],
   [
    84,
    86
+  ],
+  [
+   84,
+   88
+  ],
+  [
+   84,
+   90
   ],
   [
    84,
@@ -7361,7 +7393,23 @@
   ],
   [
    85,
-   102
+   89
+  ],
+  [
+   85,
+   106
+  ],
+  [
+   85,
+   120
+  ],
+  [
+   85,
+   110
+  ],
+  [
+   85,
+   119
   ],
   [
    85,
@@ -7369,7 +7417,11 @@
   ],
   [
    86,
-   102
+   106
+  ],
+  [
+   86,
+   110
   ],
   [
    86,
@@ -7377,171 +7429,147 @@
   ],
   [
    87,
+   120
+  ],
+  [
+   87,
+   106
+  ],
+  [
+   87,
+   89
+  ],
+  [
+   87,
    88
+  ],
+  [
+   88,
+   120
+  ],
+  [
+   88,
+   90
+  ],
+  [
+   88,
+   89
+  ],
+  [
+   89,
+   106
+  ],
+  [
+   89,
+   90
   ],
   [
    90,
    106
   ],
   [
-   93,
-   103
+   90,
+   91
+  ],
+  [
+   91,
+   92
   ],
   [
    94,
-   106
-  ],
-  [
-   94,
-   101
-  ],
-  [
-   95,
-   97
-  ],
-  [
-   95,
-   106
-  ],
-  [
-   96,
-   106
-  ],
-  [
-   96,
-   103
-  ],
-  [
-   96,
-   101
-  ],
-  [
-   96,
-   254
-  ],
-  [
-   96,
-   266
-  ],
-  [
-   96,
-   274
+   110
   ],
   [
    97,
-   106
+   107
+  ],
+  [
+   98,
+   110
+  ],
+  [
+   98,
+   105
   ],
   [
    99,
-   103
-  ],
-  [
-   100,
-   106
-  ],
-  [
-   100,
    101
   ],
   [
-   101,
-   115
+   99,
+   110
   ],
   [
-   101,
-   106
+   100,
+   110
   ],
   [
-   101,
-   104
+   100,
+   107
   ],
   [
-   101,
+   100,
    105
   ],
   [
-   101,
-   103
+   100,
+   258
   ],
   [
-   101,
-   112
+   100,
+   270
+  ],
+  [
+   100,
+   278
   ],
   [
    101,
    110
   ],
   [
-   102,
-   115
+   103,
+   107
   ],
   [
-   102,
-   106
+   104,
+   110
   ],
   [
-   102,
-   112
+   104,
+   105
   ],
   [
-   102,
+   105,
+   119
+  ],
+  [
+   105,
+   110
+  ],
+  [
+   105,
+   108
+  ],
+  [
+   105,
+   109
+  ],
+  [
+   105,
+   107
+  ],
+  [
+   105,
    116
   ],
   [
-   102,
+   105,
    114
   ],
   [
-   102,
-   110
-  ],
-  [
-   102,
-   108
-  ],
-  [
-   103,
-   106
-  ],
-  [
-   103,
-   104
-  ],
-  [
-   103,
-   105
-  ],
-  [
-   104,
-   106
-  ],
-  [
-   104,
-   105
-  ],
-  [
-   104,
-   110
-  ],
-  [
-   104,
-   112
-  ],
-  [
-   105,
-   106
-  ],
-  [
-   105,
-   110
-  ],
-  [
-   105,
-   112
-  ],
-  [
    106,
-   112
+   119
   ],
   [
    106,
@@ -7549,43 +7577,55 @@
   ],
   [
    106,
-   108
+   116
+  ],
+  [
+   106,
+   120
+  ],
+  [
+   106,
+   118
+  ],
+  [
+   106,
+   114
+  ],
+  [
+   106,
+   112
   ],
   [
    107,
-   115
+   110
   ],
   [
    107,
-   111
+   108
   ],
   [
    107,
    109
   ],
   [
-   107,
-   117
-  ],
-  [
-   107,
-   108
-  ],
-  [
-   107,
-   114
+   108,
+   110
   ],
   [
    108,
-   115
+   109
   ],
   [
    108,
    114
   ],
   [
+   108,
+   116
+  ],
+  [
    109,
-   115
+   110
   ],
   [
    109,
@@ -7593,15 +7633,15 @@
   ],
   [
    109,
-   117
-  ],
-  [
-   109,
-   111
+   116
   ],
   [
    110,
-   115
+   116
+  ],
+  [
+   110,
+   114
   ],
   [
    110,
@@ -7609,631 +7649,559 @@
   ],
   [
    111,
+   119
+  ],
+  [
+   111,
    115
   ],
   [
    111,
-   117
+   113
+  ],
+  [
+   111,
+   121
+  ],
+  [
+   111,
+   112
+  ],
+  [
+   111,
+   118
   ],
   [
    112,
-   115
+   119
   ],
   [
    112,
-   116
+   118
   ],
   [
    113,
-   268
+   119
+  ],
+  [
+   113,
+   118
+  ],
+  [
+   113,
+   121
   ],
   [
    113,
    115
-  ],
-  [
-   113,
-   116
-  ],
-  [
-   113,
-   261
-  ],
-  [
-   113,
-   264
-  ],
-  [
-   113,
-   263
   ],
   [
    114,
-   115
+   119
+  ],
+  [
+   114,
+   116
   ],
   [
    115,
-   117
+   119
   ],
   [
-   119,
-   124
+   115,
+   121
+  ],
+  [
+   116,
+   119
+  ],
+  [
+   116,
+   120
+  ],
+  [
+   117,
+   272
+  ],
+  [
+   117,
+   119
+  ],
+  [
+   117,
+   120
+  ],
+  [
+   117,
+   265
+  ],
+  [
+   117,
+   268
+  ],
+  [
+   117,
+   267
+  ],
+  [
+   118,
+   119
   ],
   [
    119,
    121
   ],
   [
-   119,
-   122
+   123,
+   128
   ],
   [
-   119,
-   120
+   123,
+   125
   ],
   [
-   119,
-   123
+   123,
+   126
   ],
   [
-   119,
-   129
+   123,
+   124
   ],
   [
-   119,
-   130
-  ],
-  [
-   119,
-   134
-  ],
-  [
-   119,
+   123,
    127
   ],
   [
-   120,
-   254
-  ],
-  [
-   125,
-   256
-  ],
-  [
-   127,
-   262
-  ],
-  [
-   127,
-   134
-  ],
-  [
-   127,
+   123,
    133
   ],
   [
-   127,
-   129
-  ],
-  [
-   128,
+   123,
    134
   ],
   [
-   128,
-   133
+   123,
+   138
   ],
   [
-   128,
-   129
-  ],
-  [
-   128,
-   262
-  ],
-  [
-   129,
-   264
-  ],
-  [
-   130,
+   123,
    131
   ],
   [
-   130,
-   134
+   124,
+   258
+  ],
+  [
+   129,
+   260
   ],
   [
    131,
-   264
+   266
   ],
   [
-   133,
+   131,
+   138
+  ],
+  [
+   131,
+   137
+  ],
+  [
+   131,
+   133
+  ],
+  [
+   132,
+   138
+  ],
+  [
+   132,
+   137
+  ],
+  [
+   132,
+   133
+  ],
+  [
+   132,
    266
   ],
   [
    133,
-   267
-  ],
-  [
-   138,
-   139
-  ],
-  [
-   138,
-   274
-  ],
-  [
-   138,
-   264
-  ],
-  [
-   138,
-   262
-  ],
-  [
-   139,
-   256
-  ],
-  [
-   139,
-   274
-  ],
-  [
-   139,
-   264
-  ],
-  [
-   139,
-   262
-  ],
-  [
-   139,
    268
   ],
   [
-   141,
+   134,
+   135
+  ],
+  [
+   134,
+   138
+  ],
+  [
+   135,
+   268
+  ],
+  [
+   137,
+   270
+  ],
+  [
+   137,
+   271
+  ],
+  [
+   142,
    143
   ],
   [
-   146,
+   142,
+   278
+  ],
+  [
+   142,
+   268
+  ],
+  [
+   142,
+   266
+  ],
+  [
+   143,
+   260
+  ],
+  [
+   143,
+   278
+  ],
+  [
+   143,
+   268
+  ],
+  [
+   143,
+   266
+  ],
+  [
+   143,
+   272
+  ],
+  [
+   145,
    147
   ],
   [
-   146,
-   262
+   150,
+   151
   ],
   [
-   151,
-   267
-  ],
-  [
-   152,
-   158
-  ],
-  [
-   152,
-   267
+   150,
+   266
   ],
   [
    155,
-   156
+   271
   ],
   [
-   157,
-   158
+   156,
+   162
   ],
   [
-   157,
-   274
+   156,
+   271
   ],
   [
-   158,
-   262
+   159,
+   160
   ],
   [
-   158,
-   274
+   161,
+   162
   ],
   [
-   158,
-   267
+   161,
+   278
   ],
   [
-   176,
-   177
+   162,
+   266
   ],
   [
-   176,
-   274
+   162,
+   278
   ],
   [
-   177,
-   274
+   162,
+   271
   ],
   [
-   179,
-   255
+   180,
+   181
+  ],
+  [
+   180,
+   278
   ],
   [
    181,
-   188
-  ],
-  [
-   182,
-   184
-  ],
-  [
-   182,
-   255
-  ],
-  [
-   182,
-   264
+   278
   ],
   [
    183,
-   188
-  ],
-  [
-   184,
-   255
-  ],
-  [
-   184,
-   264
+   259
   ],
   [
    185,
-   188
-  ],
-  [
-   185,
-   274
-  ],
-  [
-   186,
-   264
-  ],
-  [
-   186,
-   255
-  ],
-  [
-   186,
-   266
-  ],
-  [
-   186,
-   189
-  ],
-  [
-   186,
-   256
-  ],
-  [
-   186,
-   257
-  ],
-  [
-   186,
-   258
-  ],
-  [
-   187,
-   188
-  ],
-  [
-   190,
-   191
-  ],
-  [
-   190,
-   255
-  ],
-  [
-   190,
    192
   ],
   [
-   191,
-   256
+   186,
+   188
+  ],
+  [
+   186,
+   259
+  ],
+  [
+   186,
+   268
+  ],
+  [
+   187,
+   192
+  ],
+  [
+   188,
+   259
+  ],
+  [
+   188,
+   268
+  ],
+  [
+   189,
+   192
+  ],
+  [
+   189,
+   278
+  ],
+  [
+   190,
+   268
+  ],
+  [
+   190,
+   259
+  ],
+  [
+   190,
+   270
+  ],
+  [
+   190,
+   193
+  ],
+  [
+   190,
+   260
+  ],
+  [
+   190,
+   261
+  ],
+  [
+   190,
+   262
   ],
   [
    191,
-   255
-  ],
-  [
-   191,
-   258
-  ],
-  [
-   193,
-   194
-  ],
-  [
-   193,
-   266
-  ],
-  [
-   193,
-   274
-  ],
-  [
-   193,
-   264
-  ],
-  [
-   193,
-   255
+   192
   ],
   [
    194,
-   264
+   195
   ],
   [
    194,
-   255
+   259
   ],
   [
    194,
-   266
-  ],
-  [
-   194,
-   274
-  ],
-  [
-   194,
-   256
-  ],
-  [
-   194,
-   258
-  ],
-  [
-   195,
-   205
-  ],
-  [
-   195,
-   197
-  ],
-  [
-   195,
    196
   ],
   [
    195,
-   212
+   260
   ],
   [
    195,
-   207
+   259
   ],
   [
    195,
-   200
-  ],
-  [
-   195,
-   208
-  ],
-  [
-   195,
-   201
-  ],
-  [
-   195,
-   202
-  ],
-  [
-   195,
-   198
-  ],
-  [
-   195,
-   210
-  ],
-  [
-   195,
-   204
-  ],
-  [
-   195,
-   209
-  ],
-  [
-   195,
-   206
-  ],
-  [
-   196,
-   197
-  ],
-  [
-   196,
-   209
-  ],
-  [
-   196,
-   210
-  ],
-  [
-   196,
-   207
-  ],
-  [
-   196,
-   201
-  ],
-  [
-   196,
-   200
-  ],
-  [
-   196,
-   206
-  ],
-  [
-   196,
-   212
-  ],
-  [
-   196,
-   198
-  ],
-  [
-   196,
-   199
-  ],
-  [
-   196,
-   204
-  ],
-  [
-   196,
-   214
+   262
   ],
   [
    197,
+   198
+  ],
+  [
+   197,
+   270
+  ],
+  [
+   197,
+   278
+  ],
+  [
+   197,
+   268
+  ],
+  [
+   197,
+   259
+  ],
+  [
+   198,
+   268
+  ],
+  [
+   198,
+   259
+  ],
+  [
+   198,
+   270
+  ],
+  [
+   198,
+   278
+  ],
+  [
+   198,
+   260
+  ],
+  [
+   198,
+   262
+  ],
+  [
+   199,
+   209
+  ],
+  [
+   199,
+   201
+  ],
+  [
+   199,
+   200
+  ],
+  [
+   199,
+   216
+  ],
+  [
+   199,
+   211
+  ],
+  [
+   199,
+   204
+  ],
+  [
+   199,
+   212
+  ],
+  [
+   199,
+   205
+  ],
+  [
+   199,
+   206
+  ],
+  [
+   199,
+   202
+  ],
+  [
+   199,
+   214
+  ],
+  [
+   199,
+   208
+  ],
+  [
+   199,
+   213
+  ],
+  [
+   199,
+   210
+  ],
+  [
+   200,
+   201
+  ],
+  [
+   200,
+   213
+  ],
+  [
+   200,
+   214
+  ],
+  [
+   200,
+   211
+  ],
+  [
+   200,
+   205
+  ],
+  [
+   200,
+   204
+  ],
+  [
+   200,
+   210
+  ],
+  [
+   200,
+   216
+  ],
+  [
+   200,
+   202
+  ],
+  [
+   200,
    203
   ],
   [
-   197,
-   207
-  ],
-  [
-   197,
-   205
-  ],
-  [
-   197,
-   198
-  ],
-  [
-   197,
-   210
-  ],
-  [
-   197,
-   212
-  ],
-  [
-   197,
-   201
-  ],
-  [
-   197,
-   202
-  ],
-  [
-   197,
-   199
-  ],
-  [
-   197,
-   204
-  ],
-  [
-   197,
-   214
-  ],
-  [
-   198,
-   209
-  ],
-  [
-   198,
-   199
-  ],
-  [
-   198,
-   210
-  ],
-  [
-   198,
-   207
-  ],
-  [
-   198,
-   211
-  ],
-  [
-   198,
-   200
-  ],
-  [
-   198,
-   201
-  ],
-  [
-   198,
-   214
-  ],
-  [
-   199,
-   205
-  ],
-  [
-   199,
-   206
-  ],
-  [
-   199,
-   202
-  ],
-  [
-   199,
-   201
-  ],
-  [
-   199,
-   211
-  ],
-  [
-   199,
-   209
-  ],
-  [
-   199,
-   214
-  ],
-  [
-   200,
-   204
-  ],
-  [
-   200,
-   202
-  ],
-  [
-   200,
-   212
-  ],
-  [
-   200,
-   211
-  ],
-  [
-   200,
-   205
-  ],
-  [
    200,
    208
   ],
   [
    200,
-   201
+   218
   ],
   [
    201,
-   212
+   207
   ],
   [
    201,
-   206
+   211
+  ],
+  [
+   201,
+   209
   ],
   [
    201,
@@ -8241,15 +8209,35 @@
   ],
   [
    201,
-   210
-  ],
-  [
-   201,
    214
   ],
   [
    201,
-   207
+   216
+  ],
+  [
+   201,
+   205
+  ],
+  [
+   201,
+   206
+  ],
+  [
+   201,
+   203
+  ],
+  [
+   201,
+   208
+  ],
+  [
+   201,
+   218
+  ],
+  [
+   202,
+   213
   ],
   [
    202,
@@ -8261,99 +8249,111 @@
   ],
   [
    202,
-   205
-  ],
-  [
-   202,
-   208
-  ],
-  [
-   202,
-   210
-  ],
-  [
-   202,
-   274
-  ],
-  [
-   203,
-   205
-  ],
-  [
-   203,
-   208
-  ],
-  [
-   203,
    211
   ],
   [
+   202,
+   215
+  ],
+  [
+   202,
+   204
+  ],
+  [
+   202,
+   205
+  ],
+  [
+   202,
+   218
+  ],
+  [
+   203,
+   209
+  ],
+  [
    203,
    210
   ],
   [
    203,
-   214
+   206
+  ],
+  [
+   203,
+   205
+  ],
+  [
+   203,
+   215
+  ],
+  [
+   203,
+   213
+  ],
+  [
+   203,
+   218
   ],
   [
    204,
+   208
+  ],
+  [
+   204,
+   206
+  ],
+  [
+   204,
+   216
+  ],
+  [
+   204,
+   215
+  ],
+  [
+   204,
+   209
+  ],
+  [
+   204,
+   212
+  ],
+  [
+   204,
+   205
+  ],
+  [
+   205,
+   216
+  ],
+  [
+   205,
+   210
+  ],
+  [
+   205,
+   206
+  ],
+  [
+   205,
+   214
+  ],
+  [
+   205,
+   218
+  ],
+  [
+   205,
+   211
+  ],
+  [
+   206,
    207
   ],
   [
-   204,
-   209
-  ],
-  [
-   204,
-   206
-  ],
-  [
-   204,
-   212
-  ],
-  [
-   204,
-   210
-  ],
-  [
-   204,
-   211
-  ],
-  [
-   204,
-   205
-  ],
-  [
-   204,
-   208
-  ],
-  [
-   204,
-   264
-  ],
-  [
-   204,
-   214
-  ],
-  [
-   205,
-   210
-  ],
-  [
-   205,
-   211
-  ],
-  [
-   205,
-   208
-  ],
-  [
-   205,
-   206
-  ],
-  [
-   205,
-   214
+   206,
+   218
   ],
   [
    206,
@@ -8361,14 +8361,6 @@
   ],
   [
    206,
-   210
-  ],
-  [
-   206,
-   211
-  ],
-  [
-   206,
    212
   ],
   [
@@ -8376,8 +8368,8 @@
    214
   ],
   [
-   207,
-   212
+   206,
+   278
   ],
   [
    207,
@@ -8385,379 +8377,415 @@
   ],
   [
    207,
-   210
+   212
+  ],
+  [
+   207,
+   215
   ],
   [
    207,
    214
   ],
   [
-   208,
-   210
+   207,
+   218
   ],
   [
    208,
-   212
-  ],
-  [
-   208,
-   214
-  ],
-  [
-   209,
-   210
-  ],
-  [
-   209,
-   212
-  ],
-  [
-   209,
-   274
-  ],
-  [
-   210,
-   212
-  ],
-  [
-   210,
    211
   ],
   [
+   208,
+   213
+  ],
+  [
+   208,
+   210
+  ],
+  [
+   208,
+   216
+  ],
+  [
+   208,
+   214
+  ],
+  [
+   208,
+   215
+  ],
+  [
+   208,
+   209
+  ],
+  [
+   208,
+   212
+  ],
+  [
+   208,
+   268
+  ],
+  [
+   208,
+   218
+  ],
+  [
+   209,
+   214
+  ],
+  [
+   209,
+   215
+  ],
+  [
+   209,
+   212
+  ],
+  [
+   209,
+   210
+  ],
+  [
+   209,
+   218
+  ],
+  [
+   210,
+   213
+  ],
+  [
    210,
    214
+  ],
+  [
+   210,
+   215
+  ],
+  [
+   210,
+   216
+  ],
+  [
+   210,
+   218
   ],
   [
    211,
-   212
+   216
+  ],
+  [
+   211,
+   213
   ],
   [
    211,
    214
+  ],
+  [
+   211,
+   218
   ],
   [
    212,
    214
   ],
   [
+   212,
+   216
+  ],
+  [
+   212,
+   218
+  ],
+  [
    213,
    214
   ],
   [
    213,
-   264
+   216
+  ],
+  [
+   213,
+   278
   ],
   [
    214,
-   264
+   216
   ],
   [
    214,
-   274
+   215
+  ],
+  [
+   214,
+   218
   ],
   [
    215,
-   227
+   216
   ],
   [
    215,
-   261
+   218
   ],
   [
    216,
-   261
-  ],
-  [
-   216,
-   266
-  ],
-  [
-   216,
-   227
-  ],
-  [
-   216,
-   228
+   218
   ],
   [
    217,
-   227
+   218
   ],
   [
-   219,
-   266
-  ],
-  [
-   219,
-   227
-  ],
-  [
-   219,
-   228
-  ],
-  [
-   219,
-   258
-  ],
-  [
-   219,
-   260
-  ],
-  [
-   220,
-   261
-  ],
-  [
-   221,
-   227
-  ],
-  [
-   221,
-   228
-  ],
-  [
-   221,
-   261
-  ],
-  [
-   222,
-   226
-  ],
-  [
-   222,
-   227
-  ],
-  [
-   222,
-   259
-  ],
-  [
-   222,
-   228
-  ],
-  [
-   223,
-   224
-  ],
-  [
-   223,
-   264
-  ],
-  [
-   223,
-   228
-  ],
-  [
-   223,
-   261
-  ],
-  [
-   223,
-   266
-  ],
-  [
-   223,
-   230
-  ],
-  [
-   224,
-   266
-  ],
-  [
-   224,
-   267
-  ],
-  [
-   224,
-   261
-  ],
-  [
-   225,
-   266
-  ],
-  [
-   225,
-   261
-  ],
-  [
-   226,
-   228
-  ],
-  [
-   227,
-   261
-  ],
-  [
-   227,
-   266
-  ],
-  [
-   227,
-   259
-  ],
-  [
-   227,
-   260
-  ],
-  [
-   228,
-   267
-  ],
-  [
-   228,
-   266
-  ],
-  [
-   230,
-   231
-  ],
-  [
-   230,
-   260
-  ],
-  [
-   232,
-   233
-  ],
-  [
-   232,
-   264
-  ],
-  [
-   232,
-   266
-  ],
-  [
-   232,
-   267
-  ],
-  [
-   233,
-   267
-  ],
-  [
-   233,
-   264
-  ],
-  [
-   233,
-   266
-  ],
-  [
-   233,
-   260
-  ],
-  [
-   233,
-   263
-  ],
-  [
-   233,
-   259
-  ],
-  [
-   233,
-   261
-  ],
-  [
-   237,
-   238
-  ],
-  [
-   237,
-   242
-  ],
-  [
-   238,
-   274
-  ],
-  [
-   239,
-   259
-  ],
-  [
-   242,
-   264
-  ],
-  [
-   245,
-   248
-  ],
-  [
-   245,
-   267
-  ],
-  [
-   250,
-   259
-  ],
-  [
-   250,
-   258
-  ],
-  [
-   250,
-   272
-  ],
-  [
-   250,
-   271
-  ],
-  [
-   250,
-   260
-  ],
-  [
-   251,
-   252
-  ],
-  [
-   251,
-   274
-  ],
-  [
-   251,
-   264
-  ],
-  [
-   252,
-   274
-  ],
-  [
-   252,
-   264
-  ],
-  [
-   252,
-   260
-  ],
-  [
-   252,
-   267
-  ],
-  [
-   252,
+   217,
    268
   ],
   [
-   253,
-   254
+   218,
+   268
   ],
   [
-   253,
+   218,
+   278
+  ],
+  [
+   219,
+   231
+  ],
+  [
+   219,
+   265
+  ],
+  [
+   220,
+   265
+  ],
+  [
+   220,
+   270
+  ],
+  [
+   220,
+   231
+  ],
+  [
+   220,
+   232
+  ],
+  [
+   221,
+   231
+  ],
+  [
+   223,
+   270
+  ],
+  [
+   223,
+   231
+  ],
+  [
+   223,
+   232
+  ],
+  [
+   223,
    262
   ],
   [
-   253,
-   255
+   223,
+   264
   ],
   [
-   253,
-   259
+   224,
+   265
+  ],
+  [
+   225,
+   231
+  ],
+  [
+   225,
+   232
+  ],
+  [
+   225,
+   265
+  ],
+  [
+   226,
+   230
+  ],
+  [
+   226,
+   231
+  ],
+  [
+   226,
+   263
+  ],
+  [
+   226,
+   232
+  ],
+  [
+   227,
+   228
+  ],
+  [
+   227,
+   268
+  ],
+  [
+   227,
+   232
+  ],
+  [
+   227,
+   265
+  ],
+  [
+   227,
+   270
+  ],
+  [
+   227,
+   234
+  ],
+  [
+   228,
+   270
+  ],
+  [
+   228,
+   271
+  ],
+  [
+   228,
+   265
+  ],
+  [
+   229,
+   270
+  ],
+  [
+   229,
+   265
+  ],
+  [
+   230,
+   232
+  ],
+  [
+   231,
+   265
+  ],
+  [
+   231,
+   270
+  ],
+  [
+   231,
+   263
+  ],
+  [
+   231,
+   264
+  ],
+  [
+   232,
+   271
+  ],
+  [
+   232,
+   270
+  ],
+  [
+   234,
+   235
+  ],
+  [
+   234,
+   264
+  ],
+  [
+   236,
+   237
+  ],
+  [
+   236,
+   268
+  ],
+  [
+   236,
+   270
+  ],
+  [
+   236,
+   271
+  ],
+  [
+   237,
+   271
+  ],
+  [
+   237,
+   268
+  ],
+  [
+   237,
+   270
+  ],
+  [
+   237,
+   264
+  ],
+  [
+   237,
+   267
+  ],
+  [
+   237,
+   263
+  ],
+  [
+   237,
+   265
+  ],
+  [
+   241,
+   242
+  ],
+  [
+   241,
+   246
+  ],
+  [
+   242,
+   278
+  ],
+  [
+   243,
+   263
+  ],
+  [
+   246,
+   268
+  ],
+  [
+   249,
+   252
+  ],
+  [
+   249,
+   271
   ],
   [
    254,
-   261
+   263
   ],
   [
    254,
@@ -8765,19 +8793,15 @@
   ],
   [
    254,
-   258
+   276
   ],
   [
    254,
-   259
+   275
   ],
   [
    254,
-   260
-  ],
-  [
-   254,
-   266
+   264
   ],
   [
    255,
@@ -8785,107 +8809,123 @@
   ],
   [
    255,
-   257
+   278
   ],
   [
    255,
-   270
+   268
   ],
   [
-   255,
+   256,
+   278
+  ],
+  [
+   256,
+   268
+  ],
+  [
+   256,
+   264
+  ],
+  [
+   256,
+   271
+  ],
+  [
+   256,
+   272
+  ],
+  [
+   257,
    258
   ],
   [
-   255,
+   257,
+   266
+  ],
+  [
+   257,
+   259
+  ],
+  [
+   257,
+   263
+  ],
+  [
+   258,
+   265
+  ],
+  [
+   258,
+   266
+  ],
+  [
+   258,
    262
   ],
   [
-   256,
+   258,
+   263
+  ],
+  [
+   258,
    264
-  ],
-  [
-   256,
-   257
-  ],
-  [
-   256,
-   259
-  ],
-  [
-   257,
-   258
-  ],
-  [
-   257,
-   259
-  ],
-  [
-   257,
-   269
   ],
   [
    258,
    270
   ],
   [
-   258,
-   269
+   259,
+   260
   ],
   [
-   258,
-   259
-  ],
-  [
-   258,
+   259,
    261
   ],
   [
-   258,
-   271
-  ],
-  [
-   258,
-   260
+   259,
+   274
   ],
   [
    259,
-   269
+   262
   ],
   [
    259,
-   272
+   266
   ],
   [
-   259,
-   260
+   260,
+   268
+  ],
+  [
+   260,
+   261
   ],
   [
    260,
    263
-  ],
-  [
-   260,
-   271
   ],
   [
    261,
-   266
+   262
+  ],
+  [
+   261,
+   263
+  ],
+  [
+   261,
+   273
   ],
   [
    262,
-   268
+   274
   ],
   [
    262,
-   270
-  ],
-  [
-   262,
-   271
-  ],
-  [
-   262,
-   272
+   273
   ],
   [
    262,
@@ -8893,77 +8933,97 @@
   ],
   [
    262,
+   265
+  ],
+  [
+   262,
+   275
+  ],
+  [
+   262,
    264
   ],
   [
-   262,
-   267
-  ],
-  [
-   262,
-   269
-  ],
-  [
-   262,
-   274
+   263,
+   273
   ],
   [
    263,
-   269
-  ],
-  [
-   263,
-   266
-  ],
-  [
-   263,
-   270
-  ],
-  [
-   263,
-   271
-  ],
-  [
-   263,
-   272
+   276
   ],
   [
    263,
    264
   ],
   [
-   263,
-   265
-  ],
-  [
-   263,
+   264,
    267
   ],
   [
-   263,
-   268
-  ],
-  [
-   263,
-   274
-  ],
-  [
    264,
-   265
-  ],
-  [
-   264,
-   266
+   275
   ],
   [
    265,
-   266
+   270
+  ],
+  [
+   266,
+   272
+  ],
+  [
+   266,
+   274
+  ],
+  [
+   266,
+   275
+  ],
+  [
+   266,
+   276
   ],
   [
    266,
    267
   ],
   [
+   266,
+   268
+  ],
+  [
+   266,
+   271
+  ],
+  [
+   266,
+   273
+  ],
+  [
+   266,
+   278
+  ],
+  [
+   267,
+   273
+  ],
+  [
+   267,
+   270
+  ],
+  [
+   267,
+   274
+  ],
+  [
+   267,
+   275
+  ],
+  [
+   267,
+   276
+  ],
+  [
    267,
    268
   ],
@@ -8972,512 +9032,552 @@
    269
   ],
   [
+   267,
+   271
+  ],
+  [
+   267,
+   272
+  ],
+  [
+   267,
+   278
+  ],
+  [
    268,
    269
   ],
   [
+   268,
+   270
+  ],
+  [
    269,
-   272
+   270
   ],
   [
    270,
    271
   ],
   [
-   270,
-   272
-  ],
-  [
    271,
    272
   ],
   [
+   271,
+   273
+  ],
+  [
+   272,
+   273
+  ],
+  [
    273,
-   274
+   276
+  ],
+  [
+   274,
+   275
+  ],
+  [
+   274,
+   276
+  ],
+  [
+   275,
+   276
   ],
   [
    277,
    278
   ],
   [
-   277,
-   279
+   281,
+   282
   ],
   [
-   277,
-   280
+   281,
+   283
   ],
   [
-   287,
-   288
+   281,
+   284
   ],
   [
-   292,
-   293
+   291,
+   292
   ],
   [
-   303,
+   296,
+   297
+  ],
+  [
+   307,
+   316
+  ],
+  [
+   310,
    312
   ],
   [
-   306,
-   308
+   310,
+   313
   ],
   [
-   306,
-   309
+   310,
+   314
   ],
   [
-   306,
-   310
-  ],
-  [
-   311,
-   312
-  ],
-  [
-   316,
-   318
+   315,
+   316
   ],
   [
    320,
-   327
+   322
   ],
   [
-   320,
-   356
-  ],
-  [
-   320,
-   430
-  ],
-  [
-   320,
+   324,
    331
   ],
   [
-   328,
-   329
+   324,
+   360
   ],
   [
-   330,
-   331
+   324,
+   434
   ],
   [
-   340,
-   346
+   324,
+   335
   ],
   [
-   342,
-   346
+   332,
+   333
   ],
   [
-   347,
-   348
+   334,
+   335
   ],
   [
-   350,
-   422
+   344,
+   350
+  ],
+  [
+   346,
+   350
   ],
   [
    351,
-   422
+   352
+  ],
+  [
+   354,
+   426
   ],
   [
    355,
-   410
-  ],
-  [
-   357,
-   422
-  ],
-  [
-   358,
-   422
+   426
   ],
   [
    359,
-   422
+   414
   ],
   [
-   364,
-   365
+   361,
+   426
   ],
   [
-   366,
-   367
+   362,
+   426
   ],
   [
-   367,
-   422
+   363,
+   426
+  ],
+  [
+   368,
+   369
   ],
   [
    370,
-   372
+   371
   ],
   [
    371,
-   502
+   426
+  ],
+  [
+   374,
+   376
   ],
   [
    375,
-   383
-  ],
-  [
-   377,
-   378
-  ],
-  [
-   377,
-   386
+   506
   ],
   [
    379,
-   427
+   387
   ],
   [
-   379,
-   436
-  ],
-  [
-   380,
+   381,
    382
   ],
   [
-   384,
-   517
+   381,
+   390
+  ],
+  [
+   382,
+   445
+  ],
+  [
+   383,
+   431
+  ],
+  [
+   383,
+   440
   ],
   [
    384,
-   502
-  ],
-  [
-   384,
-   504
-  ],
-  [
-   384,
-   503
-  ],
-  [
-   384,
-   515
-  ],
-  [
-   385,
    386
   ],
   [
-   387,
-   388
+   388,
+   521
+  ],
+  [
+   388,
+   506
+  ],
+  [
+   388,
+   508
+  ],
+  [
+   388,
+   507
+  ],
+  [
+   388,
+   519
   ],
   [
    389,
-   397
+   390
   ],
   [
    391,
    392
   ],
   [
-   402,
-   403
+   393,
+   401
   ],
   [
-   403,
-   498
+   395,
+   396
   ],
   [
-   405,
-   406
-  ],
-  [
-   407,
-   408
+   406,
+   407
   ],
   [
    407,
-   411
+   502
   ],
   [
-   419,
-   420
+   409,
+   410
   ],
   [
-   421,
-   422
+   411,
+   412
   ],
   [
-   424,
-   427
+   411,
+   415
   ],
   [
-   424,
-   426
-  ],
-  [
-   424,
-   425
-  ],
-  [
-   425,
-   427
-  ],
-  [
-   425,
-   428
-  ],
-  [
-   425,
-   435
+   423,
+   424
   ],
   [
    425,
    426
+  ],
+  [
+   428,
+   431
+  ],
+  [
+   428,
+   430
+  ],
+  [
+   428,
+   429
   ],
   [
    429,
-   435
+   431
+  ],
+  [
+   429,
+   432
+  ],
+  [
+   429,
+   439
   ],
   [
    429,
    430
   ],
   [
-   432,
-   433
-  ],
-  [
-   432,
-   441
-  ],
-  [
-   438,
+   433,
    439
   ],
   [
-   440,
-   441
+   433,
+   434
   ],
   [
-   451,
-   456
+   436,
+   437
   ],
   [
-   451,
-   457
+   436,
+   445
   ],
   [
-   459,
+   442,
+   443
+  ],
+  [
+   444,
+   445
+  ],
+  [
+   455,
    460
   ],
   [
-   462,
-   463
+   455,
+   461
   ],
   [
    463,
    464
   ],
   [
-   463,
-   465
+   466,
+   467
   ],
   [
-   466,
-   473
+   467,
+   468
+  ],
+  [
+   467,
+   469
   ],
   [
    470,
-   473
+   477
   ],
   [
-   471,
-   473
-  ],
-  [
-   471,
-   474
-  ],
-  [
-   472,
-   473
-  ],
-  [
-   472,
-   474
+   474,
+   477
   ],
   [
    475,
-   476
+   477
   ],
   [
-   478,
-   479
+   475,
+   478
   ],
   [
-   481,
-   482
+   476,
+   477
   ],
   [
-   481,
-   483
+   476,
+   478
+  ],
+  [
+   479,
+   480
   ],
   [
    482,
    483
   ],
   [
-   483,
-   485
+   485,
+   486
   ],
   [
-   490,
-   496
+   485,
+   487
+  ],
+  [
+   486,
+   487
+  ],
+  [
+   487,
+   489
   ],
   [
    494,
-   495
+   500
   ],
   [
-   494,
-   496
+   498,
+   499
   ],
   [
-   497,
-   498
+   498,
+   500
   ],
   [
-   500,
-   517
+   501,
+   502
   ],
   [
-   505,
-   506
+   504,
+   521
   ],
   [
-   516,
-   517
+   509,
+   510
   ],
   [
-   518,
+   520,
+   521
+  ],
+  [
+   522,
+   530
+  ],
+  [
+   522,
+   524
+  ],
+  [
+   522,
    526
   ],
   [
-   518,
-   520
+   522,
+   527
   ],
   [
-   518,
-   522
-  ],
-  [
-   518,
+   522,
    523
   ],
   [
-   518,
-   519
-  ],
-  [
-   524,
-   526
-  ],
-  [
-   535,
-   536
+   528,
+   530
   ],
   [
    539,
    540
   ],
   [
-   540,
-   542
+   543,
+   544
   ],
   [
-   540,
-   541
+   544,
+   546
   ],
   [
-   542,
-   550
+   544,
+   545
   ],
   [
    546,
-   547
+   554
   ],
   [
-   548,
-   549
+   550,
+   551
   ],
   [
-   548,
-   550
+   552,
+   553
   ],
   [
-   554,
-   555
+   552,
+   554
   ],
   [
-   562,
-   574
+   558,
+   559
   ],
   [
-   573,
-   574
-  ],
-  [
-   576,
-   579
-  ],
-  [
-   576,
-   588
+   566,
+   578
   ],
   [
    577,
-   589
-  ],
-  [
-   578,
-   588
+   578
   ],
   [
    580,
-   589
+   583
+  ],
+  [
+   580,
+   592
   ],
   [
    581,
-   588
-  ],
-  [
-   582,
    593
   ],
   [
-   583,
-   588
+   582,
+   592
+  ],
+  [
+   584,
+   593
   ],
   [
    585,
-   588
+   592
   ],
   [
    586,
-   589
+   597
   ],
   [
    587,
+   592
+  ],
+  [
+   589,
+   592
+  ],
+  [
+   590,
    593
   ],
   [
    591,
-   593
+   597
   ],
   [
-   592,
-   593
+   595,
+   597
+  ],
+  [
+   596,
+   597
   ]
  ],
  "clusters": [
@@ -9489,7 +9589,7 @@
   {
    "id": 1,
    "name": "基础知识库",
-   "count": 64
+   "count": 68
   },
   {
    "id": 2,
@@ -9553,10 +9653,10 @@
   }
  ],
  "stats": {
-  "notes": 594,
-  "links": 1056,
+  "notes": 598,
+  "links": 1073,
   "domains": 14,
   "vaultNotesAll": null,
-  "aiNotesAll": 603
+  "aiNotesAll": 607
  }
 }

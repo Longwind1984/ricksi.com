@@ -2,7 +2,7 @@
 title: A03 ReAct
 cluster: 专题 · 安全对齐与失败
 created: '2026-05-18'
-updated: '2026-06-11'
+updated: '2026-06-12'
 provenance: ai
 facet: Agent
 ---
@@ -89,3 +89,4 @@ ReAct 的关键贡献不是"教会模型用工具"——这件事 toolformer、f
   3. § 五.1 接 R01 复现的"亲手撞墙"建议，形成 A03 ↔ R01 对话
   4. 关联节点分两档
 - **R1 → R2（2026-05-18）**：Shunyu Yao 所在机构修正为"2024-10 Anthropic / 2025-10 Google DeepMind"；Toolformer 引用补全为完整 arXiv 编号。
+- 2026-06-12 内审修复：frontmatter 补 final_path 字段（= 本文件在库内实际相对路径）。

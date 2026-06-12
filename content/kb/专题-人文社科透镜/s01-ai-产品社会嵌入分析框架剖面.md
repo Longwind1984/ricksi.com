@@ -2,7 +2,7 @@
 title: S01 AI 产品社会嵌入分析框架剖面
 cluster: 专题 · 人文社科透镜
 created: '2026-06-07'
-updated: '2026-06-11'
+updated: '2026-06-12'
 provenance: ai
 facet: STS
 ---
@@ -229,3 +229,4 @@ PM 脑中的默认框架是 Rogers 的创新扩散（innovators → laggards 五
 ## 修订日志
 
 - R1（2026-06-07）：首稿。建立六层框架（脚本/相关社会群体/行动者网络/社会技术想象/基础设施化/权力与问责），每层配 STS 工具 + PM 分析问题表；判断主轴写满三个层间致命耦合（四件套）；补 ANT 道德中立 / Dal Molin LLM 非典型基础设施 / Winner SCOT 批判三处"接受+边界"；跨域呼应以人类学→巴西-拉美 fieldwork 做显式迁移；与 c13/0416/0418/0419/p306/p307 建立升级对照。所有 STS 文献年份/期刊据接地简报核实，arXiv:2602.23679 据简报标注提交日期。
+- 2026-06-12 内审·arXiv 联网核实：清了 1 个、存疑 0 个。本节点原仅"据简报"标注 arXiv:2602.23679，本轮独立 WebFetch `https://arxiv.org/abs/2602.23679` 确认其为真实论文 Emilio Barkett《The Compulsory Imaginary: AGI and Corporate Authority》（提交 2026-02-27），标题/作者/日期/Altman-Amodei 论点与正文引述全对，由"据简报"升级为"已核实(2026-06-12)"。

@@ -2,7 +2,7 @@
 title: _AI 认识论中介系统化专题·总览
 cluster: 专题 · 人文社科透镜
 created: '2026-06-07'
-updated: '2026-06-11'
+updated: '2026-06-12'
 provenance: ai
 facet: AI 认识论中介
 featured: true
@@ -147,7 +147,7 @@ flowchart TD
 | **S 结构** | 六模块互补、依赖清晰、入口可导航 | ≥8 | **8.3** | A→S→E→R 主链 + G 横切清晰；A06/S01 双承重；三路径入口；少量节点别名/双链名待迁库统一（见 §8 QC） |
 | **A 判断密度** | 反共识、可证伪、带数字的判断 | ≥8 | **8.2** | 每节有判断主轴四件套；"接受点设防""验证瓶颈""引用≠验证""默会天花板"等反共识判断密集，带可证伪指标（捕获率、ECE、grounding_match） |
 | **B 边界含量** | 显式标注失效场景与赌注 | ≥7.5 | **8.0** | 每节有赌注段 + failure scenario；R03 §9 主动承认"模板填满≠认识论达标"是少见的诚实自限 |
-| **C 认识论自觉** | 区分事实/推测/赌注、引用可追溯 | ≥8 | **8.2**（QC 后上调） | 大量 arXiv ID 经 WebFetch/WebSearch 核实并去〔待核实〕；未核实项显式降级为"据称"。**原扣分项已消除**：Huemmer 2026 信念-表现差距曾跨节点不一致（E02 grounding pass 误作 80.8pp），2026-06-07 QC pass 经独立 WebFetch 复核 arXiv:2601.17055 摘要确认官方值 34.6pp，已统一全专题（见 §8 QC #1 ✅） |
+| **C 认识论自觉** | 区分事实/推测/赌注、引用可追溯 | ≥8 | **8.2**（QC 后上调） | 核心 arXiv ID 经 WebFetch/WebSearch 核实并去〔待核实〕；**仍有约 6 处确实未核实，已就地诚实降级标注、非"全专题已核"**（清单见 §8 QC #5）。**原扣分项已消除**：Huemmer 2026 信念-表现差距曾跨节点不一致（E02 grounding pass 误作 80.8pp），2026-06-07 QC pass 经独立 WebFetch 复核 arXiv:2601.17055 摘要确认官方值 34.6pp，已统一全专题（见 §8 QC #1 ✅） |
 | **D 可演进性** | 双链密度、修订日志、改稿档案 | ≥8.5 | **8.5** | 专题内互链 + 升级对照 + 跨专题链密集，双链 >20；每节修订日志记 R→grounding pass；改稿档案在 `_topic_factory/` |
 | **E 对手拷问能力** | 对主流反方给出带证据的回应 | ≥7 | **8.2** | 计算可靠主义作为主对手贯穿全专题"接受+边界"；引入 ≥4 个 Rick 未读对手框架并具体落地 |
 
@@ -204,9 +204,10 @@ flowchart TD
 - [RLHF](/kb/基础知识库/rlhf/)
 - [AI PM 知识图谱·总索引](/kb/ai-pm-知识图谱/ai-pm-知识图谱-总索引/)
 
-> [!check] QC 状态（2026-06-07 0431 归档审阅 pass · 1–3 已处理 · 4 为长期登记）
+> [!check] QC 状态（2026-06-07 0431 归档审阅 pass · 1–3 已处理 · 4 为长期登记 · 5 为 2026-06-12 内审补登）
 > 1. **✅ Huemmer 2026 数字不一致（已解决，原最高优先级 / 一票否决边缘）**：独立 WebFetch 复核 arXiv:2601.17055 摘要——belief-performance gap 官方值为 **34.6 个百分点**（reliance 73.9% / verification confidence 68.1% / hard-task accuracy 47.8% 均吻合）。E02 此前 grounding pass 误改的"约 +80.8pp"已回正为 34.6pp，全专题 9 处（A02/A03/A04/A06/E01/E02/E03/R01/R02 + S01/S03）统一，一票否决风险解除。第三作者更正（Alessandro Facchini）属 arXiv:2601.09871，与本数字无关、保留。
 > 2. **✅ A01 错误双链（已修复）**：R01 §0/§9 的 `A01 知识与知识的模拟` 语义错链已改为 [A02 知识 vs 知识的模拟](/kb/专题-人文社科透镜/a02-知识-vs-知识的模拟/)（并补 [A01 AI 作为认识论中介概念谱系](/kb/专题-人文社科透镜/a01-ai-作为认识论中介概念谱系/)）；S02 §10 经核未含此错链，无需改。
 > 3. **✅ 跨专题号简写双链（已修复）**：A02/A03/A05/E02/R01/S01/S03/G01 内 `0418 审阅瓶颈系统化专题`/`0427 知识系统专题`/`0431 …·总览` 等死链简写，已全部改为真实 basename（`_审阅瓶颈系统化专题·总览` 等），高频处用 `0418 …` 别名管道保留阅读手感。另：G02 内 `G01 知识中介代际谱系总图` 起草期旧名（缺"技术"二字）已校正为 [G01 知识中介技术代际谱系总图](/kb/专题-人文社科透镜/g01-知识中介技术代际谱系总图/)；G01 内 `延展心智` 幻影节点已降级为文本。`社会认识论`/`盖梯尔问题`/`可靠主义` 三个 0114 内概念的死链一律降级为文本（指向 0114认识论），并登记入本专题《_待建概念清单》。
+> 5. **⚠️ 核实状态诚实化（2026-06-12 内审）**：本专题**并非"全专题已统一核实"**——此前 §7 C 维一度给人此印象，现更正。已核实：三个核心 arXiv ID（2601.17055 Huemmer、2410.02499 Fierro、2512.19570 Hila）经 A01/A04/E02/S01/A02 等节点 WebFetch/WebSearch 确证；本次内审已把 G02 §5/§8 内对这三个 ID 残留的〔待核实〕统一为〔已核实（2026-06-12）〕，消除"同一 ID 一处已核一处待核"的台账矛盾。EU AI Act 生效口径已全专题统一为 **2024-08-01 正式生效；高风险系统义务自 2026-08-02 适用**（删除原模糊的"（2024）"口径，2024-03-13 为欧洲议会表决、仅作背景）。**仍诚实保留为待核实**（非编造、已就地降级标注，迁库前宜补 grounding）：Sardelli/Aporia 来源（A01）、Hossenfelder 2023 具体出处（A02，已声明"不以其立场为论据"）、*Minds and Machines* 2026 卷期（A04）、Robodebt/荷兰福利案法律细节与 EU AI Act 具体条款编号（A03/E01/R03）、explainability theater 具体效应量（A03）、Perplexity/Gemini 层-2 错误率实测（E01）。
 > 4. **待建概念清单（全专题汇总，绝不在主库建 stub/概念卡/人物卡）**：Don Ihde、Bruno Latour、Ian Hacking、Peter-Paul Verbeek、Alvin Goldman、C.A.J. Coady、Jennifer Lackey、Ori Freiman、Edmund Gettier、Paul Humphreys、John Searle、Andy Clark & David Chalmers、Adams & Aizawa、Miranda Fricker、Michael Polanyi（区别于 06人/Karl Polanyi）、Gilbert Ryle、Harry Collins、David Autor、Thomas Kuhn、Harold Innis、McLuhan、Elizabeth Eisenstein、Adrian Johns、Eli Pariser、Luciano Floridi、Sugata Mitra、Jason Stanley、Timothy Williamson、Benjamin Bloom、Robert Bjork、Lee & See、Ferrario、Durán & Formanek、Parasuraman & Manzey、Bainbridge、Plantinga、Renieris、Austin；概念卡候选：认识论事故（epistemic accident）、计算可靠主义、适当依赖、自动化自满、explainability theater、citation theater、verification bottleneck、ECE/reliability diagram、技术性信念、合意困难（desirable difficulties）、流畅性错觉。全部以普通文本承载，登记待 Rick 决定是否后续建库。**Goldman 社会认识论如需链接，用 0114认识论 内「社会认识论」概念条目（主库无独立节点，不建死链），不建 Alvin Goldman 人物卡。**
 

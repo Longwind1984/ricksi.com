@@ -2,7 +2,7 @@
 title: A04 Sociotechnical Imaginaries·跨文化
 cluster: 专题 · 人文社科透镜
 created: '2026-06-07'
-updated: '2026-06-11'
+updated: '2026-06-12'
 provenance: ai
 facet: STS
 ---
@@ -144,3 +144,4 @@ PM 工具箱里已经有两套现成框架解释"为什么 X 在 A 国成、在 
 ## 修订日志
 - 2026-06-07 R0 首稿：建立 imaginaries vs 采纳曲线/本地化的框架辨析；三承重结构；核能→AI 跨国比较；§3 四件套判断主轴（搬运=赌 imaginaries 同构）；§4 对手框架接受+边界（Rudek/Waller/Minerva 2025）；§5 巴西-拉美田野 + 人类学本体论显式迁移；专题内 Akrich/ANT/SCOT 呼应；p307/0117/c13 升级对照。
 - 2026-06-07 R0.1 核实：WebFetch+WebSearch 确认 Barkett 2026 arXiv:2602.23679（Emilio Barkett，提交 2026-02-27），移除待核实标记并补全作者名与两条修辞机制。剩余待核实项：Hendricks, Karhunmaa & Delvenne 年份（1 项）。
+- 2026-06-12 内审·arXiv 联网核实：清了 0 个、存疑 0 个（本节点唯一 arXiv:2602.23679 已于 R0.1 核实；本轮重新 WebFetch 复核仍为真实论文，标题/作者/提交日不变）。剩余待核实项 Hendricks/Karhunmaa/Delvenne 年份为非 arXiv 书目，未处理。

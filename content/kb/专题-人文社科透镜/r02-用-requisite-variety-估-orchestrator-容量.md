@@ -2,7 +2,7 @@
 title: R02 用 Requisite Variety 估 Orchestrator 容量
 cluster: 专题 · 人文社科透镜
 created: '2026-06-07'
-updated: '2026-06-11'
+updated: '2026-06-12'
 provenance: ai
 facet: 控制论
 ---
@@ -45,7 +45,7 @@ RV 估算的核心是把"任务需要多少 variety"(`V(D)`,扰动侧)和"orches
 
 **第二步:估调节器侧 `V(R)`——orchestrator 装得下多少**
 
-按 §1 三维度各取数量级,取**最小项**作为 V(R) 的实际上界(短板约束)。重点诚实评估 `V_ctx`:不要用标称窗口(1M token),要用**有效**窗口。有公开测量显示,长上下文模型在远低于标称窗口处性能已显著下降(如有报道在约 100K token 量级出现明显衰减),拒绝有害请求的概率也随上下文长度**非单调变化**〔具体数值与论文细节待核实,见末尾〕。把这条记进 V_ctx 的折扣里:有效 variety 远小于标称 variety。
+按 §1 三维度各取数量级,取**最小项**作为 V(R) 的实际上界(短板约束)。重点诚实评估 `V_ctx`:不要用标称窗口(1M token),要用**有效**窗口。公开测量显示,长上下文模型在远低于标称窗口处性能已显著下降(1M–2M 窗口模型在约 100K token 处性能下降超 50%),拒绝有害请求的概率也随上下文长度**非单调变化**(arXiv:2512.02445《When Refusals Fail》,已核实 2026-06-12)。把这条记进 V_ctx 的折扣里:有效 variety 远小于标称 variety。
 
 **第三步:比值与判读**
 
@@ -137,3 +137,4 @@ RV 估算的核心是把"任务需要多少 variety"(`V(D)`,扰动侧)和"orches
 ## §9 修订日志
 
 - R1(2026-06-07):首稿。建立 RV 估算四步框架 + 三维 variety 拆解 + 四坑判断主轴 + 接受/边界双立场对手回应。Good Regulator 定理、Cemri 失败模式研究、Ashby 信道容量约束均接地;长上下文衰减具体数值标〔待核实〕。
+- 2026-06-12 内审修复:§2 长上下文衰减由〔待核实〕统一为已核实——arXiv:2512.02445《When Refusals Fail: Unstable Safety Mechanisms in Long-Context LLM Agents》经 WebFetch arXiv 摘要确证(1M–2M 窗口模型在 100K token 处良性与有害任务性能均降超 50%、拒绝概率非单调),补回论文名与编号并去除〔待核实〕标记。

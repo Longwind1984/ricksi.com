@@ -2,7 +2,7 @@
 title: E01 Multi-agent 框架的激励缺失剖解
 cluster: 专题 · 商业组织与采纳
 created: '2026-06-07'
-updated: '2026-06-11'
+updated: '2026-06-12'
 provenance: ai
 facet: 机制设计
 ---
@@ -146,3 +146,4 @@ facet: 机制设计
 
 ## 修订日志
 - 2026-06-07 R0：首稿。建立"裸协作=未被设计的博弈"主轴；三框架机制原语对照表（WebFetch 核实）；Ostrom/Williamson/激励相容三尺子；四个致命耦合点四件套；对手框架（基础设施分层 + 不完全合同理论 arXiv:2605.08426）接受+边界；滴滴双边市场→agent 治理一手迁移表；与 E03/m208/m209/A07 升级对照。待核实项：Acharya 79% 协调失败率（单源）、Karma 机制向 LLM 迁移、亲社会 agent 可扩展性、Agent Contracts 独立复现。
+- 2026-06-12 内审·arXiv 联网核实：WebFetch 重核 [arXiv:2605.08426](https://arxiv.org/abs/2605.08426)（§96 引）「Mechanism Design Is Not Enough: Prosocial Agents for Cooperative AI」(Huang/Tharas/Marro 等, 2026) 与 [arXiv:2604.07970](https://arxiv.org/abs/2604.07970)（§112 Karma）身份均与引述一致,论文身份已核(0 存疑)。§96「亲社会 agent 大规模可扩展性证据薄弱〔待核实〕」与 §112「Karma 从物理机器人向 LLM 迁移〔待核实〕」是对结论外推的限定,非论文身份待核,保留不动。

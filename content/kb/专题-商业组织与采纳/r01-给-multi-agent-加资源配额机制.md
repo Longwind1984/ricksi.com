@@ -2,7 +2,7 @@
 title: R01 给 Multi-agent 加资源配额机制
 cluster: 专题 · 商业组织与采纳
 created: '2026-06-07'
-updated: '2026-06-11'
+updated: '2026-06-12'
 provenance: ai
 facet: 机制设计
 ---
@@ -309,3 +309,4 @@ Coase 1937《企业的性质》的核心：企业边界由"内部组织成本 vs
 
 ## 修订日志
 - **R1（2026-06-07）**：首稿。建立"配额/优先级/分级制裁"三原语 + 可跑对照实验骨架；接入 Ostrom（8 原则映射）、Williamson（协调成本 vs 复杂度成本判断）、机制设计（逆向博弈论 + VCG 取舍）三框架；对手框架回应"Mechanism Design Is Not Enough"（接受不完全合同的福利损失，坚持"先建墙再种花"）+ Karma 机制（破 echo chamber）；显式迁移 Rick 滴滴双边市场/费用治理一手经验；6 条 demo≠生产边界 + 示意数字降级标注。
+- 2026-06-12 内审·arXiv 联网核实：WebFetch 重核本节点两条 arXiv 引用身份——§241 [arXiv:2604.07970](https://arxiv.org/abs/2604.07970)「Karma Mechanisms for Decentralised, Cooperative Multi Agent Path Finding」(Riehl 等, 2026) 与 §309 [arXiv:2601.08815](https://arxiv.org/abs/2601.08815)「Agent Contracts」(Ye & Tan, 2026) 标题作者均与引述一致,论文身份已核(0 存疑)。§241「Karma 向纯 LLM agent 迁移〔待核实〕」与 §309「90% token 节省独立复现〔待核实〕」是对结论外推/单篇数字复现的限定、非论文身份待核,保留不动。

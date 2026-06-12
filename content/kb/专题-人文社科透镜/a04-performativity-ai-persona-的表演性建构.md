@@ -2,7 +2,7 @@
 title: A04 Performativity·AI Persona 的表演性建构
 cluster: 专题 · 人文社科透镜
 created: '2026-06-07'
-updated: '2026-06-11'
+updated: '2026-06-12'
 provenance: ai
 facet: 拟剧理论
 ---
@@ -148,3 +148,4 @@ Butler 的 performativity 精确地反对这个滑变。它告诉评测团队：
 
 - **R1（2026-06-07）**：首稿。确立主轴=Butler performativity 重述「人格一致性」（属性→产物）；§0 做 Goffman/Butler 框架级辨析（前后台 vs 无先在主体）；§3 四错位主轴（属性误保管 / 意志论谬误 / 单次评判 / 藏后台无用）；§5 三对手（Nussbaum 规范性缺位 + Wilshire 本体论悲观〔未读对手〕+ Anthropic PSM 业界对手）；显式升级对照 [Constitutional AI](/kb/基础知识库/constitutional-ai/) [幻觉](/kb/基础知识库/幻觉/) [p305 - 信任架构与可解释性设计](/kb/产品设计与交互范式/p305-信任架构与可解释性设计/) 及本专题 A01–A03，不复述。
 - **R1.1（2026-06-07）grounding pass**：经 WebFetch 核实并修正——arXiv:2510.24796（Shang & Liu, "Mutual Wanting in Human–AI Interaction…"，主流 AI 论坛而非仅 Reddit）、2505.13995（Cheng et al., "ELEPHANT…"，面子保全比人类高约 45 个百分点，原稿"约 50%"已订正）、2509.21305（Vennemeyer et al., "Sycophancy Is Not One Thing: Causal Separation…"）三个 arXiv ID 全部确证；PSM 标题/日期确证为「The persona selection model」, alignment.anthropic.com/2026/psm, 2026-02-23；Critical Legal Thinking 2016 文确证支持 citational/非意志论解读，已删除对 Butler 直接引语的存疑包装。仍存〔待核实〕：Wilshire 原典（现引二手综述）、Replika 2023 意大利 Garante 监管具体文号。
+- 2026-06-12 内审·arXiv 联网核实：清了 3 个/存疑 0 个。本节 3 个 arXiv ID 直接 WebFetch 重核全部确证：2510.24796 = Shang《Mutual Wanting in Human–AI Interaction…》（2025-10-27，首作 HaoYang Shang）、2505.13995 = Cheng《ELEPHANT…》（2025，面子保全比人类高 45 个百分点）、2509.21305 = Vennemeyer《Sycophancy Is Not One Thing: Causal Separation…》（2025-09-25），标题/作者/年份与本节引述吻合。两处非 arXiv 待核实（Wilshire 原典、Replika Garante 文号）维持不动，不在本轮范围。

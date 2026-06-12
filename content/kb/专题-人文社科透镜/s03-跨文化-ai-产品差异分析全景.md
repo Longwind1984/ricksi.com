@@ -2,7 +2,7 @@
 title: S03 跨文化 AI 产品差异分析全景
 cluster: 专题 · 人文社科透镜
 created: '2026-06-07'
-updated: '2026-06-11'
+updated: '2026-06-12'
 provenance: ai
 facet: STS
 ---
@@ -139,3 +139,4 @@ flowchart TD
 
 ## 修订日志
 - R1（2026-06-07）：首稿。建立 imaginaries+SCOT 双镜头框架；四象限表；判断主轴四错位（i18n≠localization、市场无现成 imaginary、监管非一维、AI script 自我改写）配 Rick 一手反例；三处对手回应（Hofstede/Rogers、imaginaries 自身批评、Barkett 企业想象）；两处跨域呼应（Jasanoff 制度惯性、Latour ANT/OPP）；failure scenario；升级对照 Rick 国际化节点。arXiv:2602.23679 已 WebFetch 核实（Barkett 2026，标题/作者/日期/论点全对）。
+- 2026-06-12 内审·arXiv 联网核实：清了 0 个、存疑 0 个（本节点唯一 arXiv:2602.23679 此前已核实；本轮重新 WebFetch 复核仍为真实论文，标题/作者/提交日不变）。

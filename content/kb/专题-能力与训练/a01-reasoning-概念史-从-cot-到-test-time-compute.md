@@ -2,7 +2,7 @@
 title: A01 Reasoning 概念史·从 CoT 到 Test-Time Compute
 cluster: 专题 · 能力与训练
 created: '2026-06-07'
-updated: '2026-06-11'
+updated: '2026-06-12'
 provenance: ai
 facet: 推理与测试时计算
 ---
@@ -114,7 +114,7 @@ R1-Zero 的意义不在于分数，而在于它**证明了推理能力可以由 
 ### 错位三：把"思考 token 越多越好"当成单调规律
 
 - **症状**：默认开 max effort、堆最长 thinking budget，以为越想越准。
-- **为什么会错**：overthinking 是已确证的反例。Phi-4-reasoning 平均生成 **6,780 tokens** vs 标准 Phi-4 的 **378 tokens**，准确率反而更低（69.54% vs 78.92%，来源：[arXiv:2505.00127](https://arxiv.org/abs/2505.00127)）。强行延长推理预算会让边际收益转负——R1-32B 在 AIME 上 12K token 见顶 55.8%、16K 回落 54.9%，约 7,000 token 后"把对的改错"开始超过"把错的改对"（来源：[arXiv:2604.10739](https://arxiv.org/abs/2604.10739)「When More Thinking Hurts」，已 WebFetch 核实 ID 真实、年份为 2026-04；旧稿"87.3%→70.3%"系误引、已更正）。
+- **为什么会错**：overthinking 是已确证的反例。Phi-4-reasoning-plus 准确率 **69.54%**、反而低于标准 Phi-4 的 **78.92%**，而推理模型平均要烧约 **6,780 个 token**（标准 Phi-4 仅约 **378.6 个**）——更长不等于更对（来源：[arXiv:2507.04023](https://arxiv.org/abs/2507.04023)《Do LLMs Overthink Basic Math Reasoning?》Srivastava et al., Virginia Tech，Table 2 / §5.3；69.54%/78.92%/378.6 token 见 Table 2，~6,780 token 为其 abstract 给出的推理模型平均值）。强行延长推理预算会让边际收益转负——R1-32B 在 AIME 上 12K token 见顶 55.8%、16K 回落 54.9%，约 7,000 token 后"把对的改错"开始超过"把错的改对"（来源：[arXiv:2604.10739](https://arxiv.org/abs/2604.10739)「When More Thinking Hurts」，已 WebFetch 核实 ID 真实、年份为 2026-04；旧稿"87.3%→70.3%"系误引、已更正）。
 - **正确做法**：reasoning 不是免费午餐——存在 underthinking 与 overthinking 双边界，先用 medium effort 跑 eval 再决定是否升档。
 - **真实反例**：[arXiv:2508.13141](https://arxiv.org/abs/2508.13141)（OptimalThinkingBench，33 模型）发现**没有一个模型**能同时避免 over- 和 under-thinking。"想得越久越准"是被实证否定的直觉。
 
@@ -193,3 +193,4 @@ R1-Zero 的意义不在于分数，而在于它**证明了推理能力可以由 
 
 - R0（2026-06-07）：首稿。建立"三幕概念史 + 三错位判断主轴 + Kuhn 不可通约跨域"骨架。事实接地用专题简报中已 WebFetch/WebSearch 核实的数字。落盘后补核：Wei et al. 2022 CoT arXiv:2201.11903 已 WebSearch 确证；Kambhampati 立场（arXiv:2403.04121 "Can LLMs Reason and Plan?" + arXiv:2402.01817 LLM-Modulo, ICML 2024）已 WebSearch 确证。剩余待核实项：arXiv:2506.02878 撤回状态（已在文中标注"已撤回、证据存疑"，未二次核验撤回页）。
 - QC（2026-06-07，0433 QC Agent）：arXiv:2604.10739 经 WebFetch 核实 ID 真实（"When More Thinking Hurts"，2026-04-12 提交），年份 2604=26年04月，非异常；旧引"87.3%→70.3%"与原文不符，已统一替换为 R1-32B AIME 55.8%/54.9% 真实数据，与 E02/E03 对齐，去除"年份异常〔待核实〕"标记。
+- 2026-06-12 内审修复：Phi-4 对照数字此前误署 arXiv:2505.00127——WebFetch 复核 2505.00127 与 2504.21318 两篇 abstract/HTML 全文均不含该组 token 与准确率。真实出处经 WebSearch+WebFetch 锁定为 **arXiv:2507.04023《Do LLMs Overthink Basic Math Reasoning?》（Srivastava et al., Virginia Tech）Table 2/§5.3**：Phi-4 78.92%±3.27/~378.6 token、Phi-4-reasoning-plus 69.54%±3.50，abstract 给推理模型平均 ~6,780 token。错位三正文已改署真值与正确来源（含表号），并澄清 69.54% 实为 reasoning-**plus** 档。

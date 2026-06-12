@@ -2,7 +2,7 @@
 title: E02 AI 报告审阅的认识论剖解
 cluster: 专题 · 人文社科透镜
 created: '2026-06-07'
-updated: '2026-06-11'
+updated: '2026-06-12'
 provenance: ai
 facet: AI 认识论中介
 ---
@@ -48,7 +48,7 @@ facet: AI 认识论中介
 
 **力量三：人在回路 ≠ 人在认识论上在场。**
 - 症状：流程图上有审批节点，事故复盘时却发现"人"早已实质失效。
-- 为什么会错：制度上的"人在回路"只保证了**程序合规**（procedural compliance），不保证**认识论有效**（epistemic efficacy）。荷兰儿童福利金算法丑闻、澳大利亚 Robodebt 案都是教科书案例：系统里明明有人审环节，但管理惯性、体制激励和自动化偏差共同把人的判断边缘化到只剩盖章。2025 治理文献把这点说透——"Beyond Procedural Compliance: Human Oversight as a Dimension of Well-being Efficacy in AI Governance"（arXiv:2512.13768, 2025）主张把人的监督重构为一种可培养的能力而非程序勾选；EU AI Act（2024）要求高风险系统支持"effective human oversight"，但如何把这句法律翻译成可检验的认识论条件，学界尚无共识。
+- 为什么会错：制度上的"人在回路"只保证了**程序合规**（procedural compliance），不保证**认识论有效**（epistemic efficacy）。荷兰儿童福利金算法丑闻、澳大利亚 Robodebt 案都是教科书案例：系统里明明有人审环节，但管理惯性、体制激励和自动化偏差共同把人的判断边缘化到只剩盖章。2025 治理文献把这点说透——"Beyond Procedural Compliance: Human Oversight as a Dimension of Well-being Efficacy in AI Governance"（arXiv:2512.13768, 2025）主张把人的监督重构为一种可培养的能力而非程序勾选；EU AI Act（2024-08-01 正式生效；高风险系统义务自 2026-08-02 适用）要求高风险系统支持"effective human oversight"，但如何把这句法律翻译成可检验的认识论条件，学界尚无共识。
 - 正确做法：human-in-the-loop 的触发条件不能设成"所有输出都过人手"（必然退化为橡皮图章），而要设成"只在审阅者能形成可靠判断、且后果足够重的子集上触发"。
 - 真实反例：把审批从"全量盖章"改为"按风险分级，只对高后果 + 可核实片段强制人审，其余走可靠性闸门自动放行"。
 
@@ -128,3 +128,4 @@ facet: AI 认识论中介
 - R0（2026-06-07）首稿：建立 verification/rubber-stamping 的 Goldman 可靠主义四分；判断主轴四件套（验证成本/流畅性幻觉/程序合规/自满不可训练）；§3 三类设计机制接 0418；§5 接受互补论 + 边界 + bias 自查；§6 testimony×Gettier 跨域；§8 显式升级 0418、c13，对话 0427。
 - R0 grounding pass（2026-06-07）：经 WebSearch 核实三个 arXiv ID 均真实存在（2601.17055 Huemmer、2601.09871 Ferrario·Facchini·Durán、2512.13768 Beyond Procedural Compliance），移除〔待核实〕标记；修正第三作者为 Alessandro Facchini（原误作 Alberto）；修正 Huemmer 数据——验证置信度约 68.1%、复杂任务准确率仅 47.8%。Goldman/Gettier/Lee&See/Parasuraman&Manzey/Durán&Formanek/Freiman 等经典文献作者·标题·年份沿用已核实接地证据。
 - QC pass（2026-06-07，0431 归档审阅）：独立 WebFetch 复核 arXiv:2601.17055 摘要——belief-performance gap 官方数值为 **34.6 个百分点**（reliance 73.9%、verification confidence 68.1%、hard-task accuracy 47.8% 均吻合）。本节 R0 grounding pass 误改为"约 +80.8pp"，现回正为 34.6pp，与专题其余 8 节（A02/A03/A04/A06/E01/E03/R01/R02）统一，解除总览 §8 QC #1 的一票否决风险。第三作者 Alessandro Facchini 保留（针对 2601.09871，与本条无关）。
+- 2026-06-12 内审修复：§合规段 EU AI Act 生效口径统一为"2024-08-01 正式生效；高风险系统义务自 2026-08-02 适用"（权威值，呼应总览 §8 QC #5）。

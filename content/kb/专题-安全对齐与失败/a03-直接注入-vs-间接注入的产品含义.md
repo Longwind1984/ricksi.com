@@ -2,7 +2,7 @@
 title: A03 直接注入 vs 间接注入的产品含义
 cluster: 专题 · 安全对齐与失败
 created: '2026-06-07'
-updated: '2026-06-11'
+updated: '2026-06-12'
 provenance: ai
 facet: AI 红队与攻防
 ---
@@ -58,7 +58,7 @@ flowchart LR
     P --> O[最终输出 / 行动]
 ```
 
-关键在那条虚线：**每一个"工具返回"节点都是一个注入入口**，且攻击面随循环轮数线性放大。AgentDojo（Debenedetti et al., arXiv:2406.13352, 2024）正是为量化这一风险而生——它把 949 个多步任务拆到 banking / slack / travel / workspace 四个域，用 70 个工具模拟这个循环。实测数据点（来自 AgentDojo）：
+关键在那条虚线：**每一个"工具返回"节点都是一个注入入口**，且攻击面随循环轮数线性放大。AgentDojo（Debenedetti et al., arXiv:2406.13352, 2024）正是为量化这一风险而生——它在 banking / slack / travel / workspace 四个域里给出 **97 个任务 / 629 个安全测试用例**（非早期误传的"949 任务/70 工具"，G02 已自查更正）来模拟这个循环。实测数据点（来自 AgentDojo）：
 
 - GPT-4o 在无防御时通用攻击 ASR 约 47.7%，更强自适应攻击下达 **57.7%**；
 - Claude 3.5 Sonnet ASR 约 33.9%，但任务效用更高（78.2%）；
@@ -111,15 +111,15 @@ flowchart LR
 
 间接注入的攻击面正在以工具生态的速度扩张，这是本专题"速变性"判据的直接证据：
 
-- **MCP Tool Poisoning（CVE-2025-54136 "MCPoison"）**：Model Context Protocol 是 2024-2025 Agent 生态的核心工具协议。攻击者控制 MCP 服务器，在工具描述（`tools/list` 返回的 description 字段）里嵌入隐藏指令，客户端不验证直接喂给 LLM。这比传统间接注入更隐蔽——传统 IPI 在**运行时**注入，Tool Poisoning 在**工具发现/注册阶段**注入，影响所有后续调用。针对 7 个主流 MCP 客户端（含 Claude Desktop、Cursor、Cline 等）的测评（2025-11）显示 5/7 缺乏静态验证。（来源：arXiv:2603.22489〔待核实〕；TrueFoundry CVE-2025-54136 分析）
+- **MCP Tool Poisoning（CVE-2025-54136 "MCPoison"）**：Model Context Protocol 是 2024-2025 Agent 生态的核心工具协议。攻击者控制 MCP 服务器，在工具描述（`tools/list` 返回的 description 字段）里嵌入隐藏指令，客户端不验证直接喂给 LLM。这比传统间接注入更隐蔽——传统 IPI 在**运行时**注入，Tool Poisoning 在**工具发现/注册阶段**注入，影响所有后续调用。针对 7 个主流 MCP 客户端（含 Claude Desktop、Cursor、Cline 等）的测评（2025-11）显示 5/7 缺乏静态验证。（来源：《Model Context Protocol Threat Modeling and Analyzing Vulnerabilities to Prompt Injection with Tool Poisoning》，Huang et al., arXiv:2603.22489，已核实(2026-06-12)；TrueFoundry CVE-2025-54136 分析）
 - **动态工具更新"rug pull"**：MCP 允许会话中途更新工具列表，已批准的工具可被悄悄替换为带载荷的版本，客户端缓存且信任更新无二次验证。
-- **Multi-Agent 跨信任边界传播**：orchestrator 处理 subagent 返回的结果（这些结果可能已被注入），被注入的 subagent 可向上伪造"合法"指令。OpenClaw 论文（arXiv:2603.13424〔待核实〕）称之为"同权限层级横向传播"，当前架构无法防御——**这正是 [m207 - Agent 产品化：场景推演与失败模式](/kb/工程化与落地架构/m207-agent-产品化-场景推演与失败模式/) 里"雪崩效应"失败模式在安全维度的同构。**
+- **Multi-Agent 跨信任边界传播**：orchestrator 处理 subagent 返回的结果（这些结果可能已被注入），被注入的 subagent 可向上伪造"合法"指令。OpenClaw 论文（arXiv:2603.13424，已核实(2026-06-12)）称之为"同权限层级横向传播"，当前架构无法防御——**这正是 [m207 - Agent 产品化：场景推演与失败模式](/kb/工程化与落地架构/m207-agent-产品化-场景推演与失败模式/) 里"雪崩效应"失败模式在安全维度的同构。**
 
 ---
 
 ## §6 对手框架回应：接受 + 边界
 
-**对手立场一（"数据投毒/间接注入的实际风险被高估"）**：arXiv:2502.14182（2025 位置论文〔待核实〕）一派认为，许多注入攻击在真实部署中面临重大实施障碍，学界报告的高 ASR 部分来自基准设计缺陷。**接受**：这个批评有实锤——arXiv:2510.05244（Firewall 论文〔待核实〕）实证指出 AgentDojo 的部分任务因注入向量覆盖了任务关键信息而"无论防御与否都失败"，ASB 强制注入"攻击工具"使 ASR 虚高约 8 倍，许多被报告的"0% ASR"反映的是基准缺陷而非真实防御力。**边界**：但这不改变结论——EchoLeak、Slack AI 都是**已分配 CVE 或公开披露的真实生产事故**，不是基准里的玩具。基准会高估，真实事故不会撒谎。PM 的赌注是：**对"会读外部内容的 Agent",宁可按结构性风险设防,也不赌"实施障碍会保护我"。**
+**对手立场一（"数据投毒/间接注入的实际风险被高估"）**：arXiv:2502.14182（《Multi-Faceted Studies on Data Poisoning can Advance LLM Development》，He et al., 2025 位置论文，已核实(2026-06-12)）一派认为，许多注入攻击在真实部署中面临重大实施障碍，学界报告的高 ASR 部分来自基准设计缺陷。**接受**：这个批评有实锤——arXiv:2510.05244（Firewall 论文，已核实(2026-06-12)）实证指出 AgentDojo 的部分任务因注入向量覆盖了任务关键信息而"无论防御与否都失败"，ASB 强制注入"攻击工具"使 ASR 虚高约 8 倍，许多被报告的"0% ASR"反映的是基准缺陷而非真实防御力。**边界**：但这不改变结论——EchoLeak、Slack AI 都是**已分配 CVE 或公开披露的真实生产事故**，不是基准里的玩具。基准会高估，真实事故不会撒谎。PM 的赌注是：**对"会读外部内容的 Agent",宁可按结构性风险设防,也不赌"实施障碍会保护我"。**
 
 **对手立场二（inverse scaling 是评测假象）**：有研究认为"更强模型更易被攻击"是评测偏差（更强模型更忠实执行任何指令），而非根本规律，独立验证结论不一。**接受**：机理解释确实未定论。**边界**：但无论它是"规律"还是"忠实度副作用"，对 PM 的决策启示一致——**升级到更强模型不会自动让你更安全，甚至可能更不安全**，安全预算不能随能力升级而砍。
 
@@ -184,3 +184,5 @@ Rick 做安全产品时早就内化的判断——"**你防不住所有坏人，
 - R0（2026-06-07）：首稿。建立"指令-数据不分离=共同根因 / 直接 vs 间接=发作部位不对称"双轴框架；接入 EchoLeak、Slack AI、ChatGPT Memory 三真实事故；MCP Tool Poisoning 速变；B.C. Smith 对手框架；Rick 降发生方法论跨域同构。
 - R0.1（2026-06-07）grounding pass：经 WebFetch/WebSearch 核实并去除待核实标记——AgentDojo（arXiv:2406.13352，Debenedetti et al.）、Greshake "Not what you've signed up for"（arXiv:2302.12173）、EchoLeak（CVE-2025-32711 / arXiv:2509.10540，CVSS 9.3，Aim Security 披露）、ASIDE（arXiv:2503.10566，Zverev et al.）。**仍标〔待核实〕共 4 处**：arXiv:2603.22489（MCP Threat Modeling）、arXiv:2603.13424（OpenClaw 权限分离）、arXiv:2502.14182（数据投毒位置论文）、arXiv:2510.05244（Firewall），均为 2025-2026 较新条目，待下一轮 grounding 核验或登记进 _待建概念清单.md。
 - 2026-06-11 P3.4 校链：0416/0411/0430 兄弟专题经主库 `find` 实证已落盘，§9 关系里指向它们的纯文本跨专题引用补为真 `NNNN 总览` 链；0436 仍在 staging，标"0436 待补完入库"保留普通文本。
+- 2026-06-12 内审修复：§2 AgentDojo 规模值由误传的"949 任务/70 工具"更正为权威值"97 任务/629 安全测试用例"（与 G02 自查真值一致）；§5/§6 两处 arXiv ID（2603.13424 OpenClaw、2510.05244 Firewall）经全专题核实台账判定本专题已有 WebFetch 确证记录（见总览 0435 QC 抽验），将其内联〔待核实〕标签统一为"已核实(2026-06-12)"，消解与确证记录的台账矛盾；2603.22489、2502.14182 无确证记录，仍保留待核实。
+- 2026-06-12 内审·arXiv 联网核实：清了 2 个 / 存疑 0 个。上一条遗留的 §5 arXiv:2603.22489（《MCP Threat Modeling…》，Huang et al.）、§6 arXiv:2502.14182（《Multi-Faceted Studies on Data Poisoning can Advance LLM Development》，He et al.）本轮经 WebFetch 直查 abstract 页确证存在且引述吻合，两处内联〔待核实〕改为"已核实(2026-06-12)"。本节点 arXiv 引用现 0 待核实。

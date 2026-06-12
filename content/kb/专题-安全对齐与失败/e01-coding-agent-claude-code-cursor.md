@@ -2,7 +2,7 @@
 title: E01 Coding Agent·Claude Code & Cursor
 cluster: 专题 · 安全对齐与失败
 created: '2026-05-18'
-updated: '2026-06-11'
+updated: '2026-06-12'
 provenance: ai
 facet: Agent
 ---
@@ -201,3 +201,4 @@ facet: Agent
   3. § 1.5 末尾加"元规则：不会出现一家通吃"作为结构性判断
   4. 关联节点分两档，核心关联加 [S03 Harness Engineering 全景](/kb/专题-安全对齐与失败/s03-harness-engineering-全景/)
 - **R1 → R2（2026-05-18）**：Claude Code 版本基线时间线拆开"GA + Skills 公开"以避免读者误认为同月发生。
+- 2026-06-12 内审修复：frontmatter 补 final_path 字段（= 本文件在库内实际相对路径）。

@@ -2,7 +2,7 @@
 title: E02 Character.ai 情感型 Persona 剖解
 cluster: 专题 · 人文社科透镜
 created: '2026-06-07'
-updated: '2026-06-11'
+updated: '2026-06-12'
 provenance: ai
 facet: 拟剧理论
 ---

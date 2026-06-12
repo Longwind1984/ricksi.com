@@ -2,7 +2,7 @@
 title: R01 评估一个信号的 AI-可伪造性
 cluster: 专题 · 人文社科透镜
 created: '2026-06-07'
-updated: '2026-06-11'
+updated: '2026-06-12'
 provenance: ai
 facet: 信号理论
 ---
@@ -132,7 +132,7 @@ Cui, Dias & Ye（2025, arXiv:2509.25054，"Signaling in the Age of AI: Evidence 
 - **症状**：信号坍缩了，第一反应是上 AI 检测工具，把 AI 生成的内容筛掉，幻想恢复信号。
 - **为什么会错**：检测器是在错误的层面打仗。它问"这条内容是不是 AI 写的"，但你真正要的是"这个筛选机制还成不成立"。检测器是一场**结构上无法赢的军备竞赛**。
 - **正确做法**：不要修内容层，要换信号层——把依赖"内容质量"的信号，换成依赖"时间/实时/第三方时间戳"的信号（评分表右栏的"替代方向"）。
-- **真实反例**：OpenAI 自家 AI 文本检测器只能正确识别 26% 的 AI 文本、误判 9% 人类文本，2023 年 7 月**下线关闭**（已核实）。Christianson（*Patterns*, 2024, PMC11573885，已核实）系统论证 AI 检测工具高假阳性、高假阴性且歧视非母语者；学界共识（arXiv:2308.00862）：**没有任何水印同时满足鲁棒性、不可伪造性、公开可检测性三条件**。检测器修不好坍缩的信号——这正是本框架要在"信号设计层"而非"内容鉴别层"评估的根本原因。
+- **真实反例**：OpenAI 自家 AI 文本检测器只能正确识别 26% 的 AI 文本、误判 9% 人类文本，2023 年 7 月**下线关闭**（已核实）。Christianson（*Patterns*, 2024, PMC11573885，已核实）系统论证 AI 检测工具高假阳性、高假阴性且歧视非母语者；学界共识（强水印不可能性，正确出处为 Zhang 等 *Watermarks in the Sand*, 2023, arXiv:2311.04378〔已核实，见 E02 grounding；原引 arXiv:2308.00862 经 WebFetch 确证为误植（实为 Shoker 等《CBM for AI: Workshop Proceedings》2023），已核实(2026-06-12)，勿沿用〕）：**没有任何水印同时满足鲁棒性、不可伪造性、公开可检测性三条件**。检测器修不好坍缩的信号——这正是本框架要在"信号设计层"而非"内容鉴别层"评估的根本原因。
 
 ### 错位四：忘了打分会随时间漂移，把今天的快照当永久结论
 
@@ -227,3 +227,5 @@ Cui, Dias & Ye（2025, arXiv:2509.25054，"Signaling in the Age of AI: Evidence 
 ## 修订日志
 
 - **R0（2026-06-07）**：首稿。建立三轴框架（Cost_AI × Forge × Sep）+ 可用评分表 + 复合判定规则；§3 四错位判断主轴；§5 三对手回应（普惠论 / Caplan / Luhmann）；§6 单调上升趋势结论；E03 落到 Rick 自身知识库作为 Forge=0 信号案例。事实接地：Spence 1973、Zahavi 1975、Galdin & Silbert 2025、Cui Dias Ye 2025、Caplan 2018、Huntington-Klein 2021、OpenAI 检测器下线、NeurIPS 幻觉引用审计均经简报核实；EU AI Act 招聘高风险义务日期经 WebSearch 核实（原定 2026-08-02，受 Digital AI Omnibus 递延提案影响，状态流动）；Edelman 信任数据标〔据称/未经同行评审〕；Luhmann 原文未逐句核实，标概念引入。
+- **2026-06-12 内审修复**：对齐标签矛盾——§水印不可能性原引 arXiv:2308.00862（本节点原未标核实状态，而 S03/README 标〔待核实〕，台账不一致）实为误植；按 E02 grounding 已确证的正确出处更正为 Zhang 等《Watermarks in the Sand》(2023, arXiv:2311.04378)，并标注误植 ID 勿沿用。
+- **2026-06-12 内审·arXiv 联网核实**：WebFetch 实测 arXiv:2308.00862，确证其实为 Shoker 等《Confidence-Building Measures for Artificial Intelligence: Workshop Proceedings》(2023)，与"水印不可能三角"无关——误植判定坐实；§正文内联注从"待核实，勿沿用"升级为"已核实(2026-06-12)，勿沿用"。同步 WebFetch 确证正确出处 2311.04378 = Zhang 等《Watermarks in the Sand: Impossibility of Strong Watermarking》。清了 1 个误植 / 存疑 0 个。

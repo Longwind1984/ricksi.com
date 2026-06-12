@@ -2,7 +2,7 @@
 title: S02 训练侧 vs 系统侧防御对照
 cluster: 专题 · 安全对齐与失败
 created: '2026-06-07'
-updated: '2026-06-11'
+updated: '2026-06-12'
 provenance: ai
 facet: AI 红队与攻防
 ---
@@ -31,7 +31,7 @@ facet: AI 红队与攻防
 | RLHF / 安全微调 | 用人类偏好把有害输出概率压低 | Unit42 实测对齐在 109/123 个 jailbreak 提示上成功阻断 | Unit42 Palo Alto, 2025 |
 | Constitutional AI | 模型按明文原则自我批评+改写，再 RLAIF | 见 [Constitutional AI](/kb/基础知识库/constitutional-ai/) | Anthropic |
 | Constitutional Classifiers | 训练专用分类器守在 I/O 两端 | 越狱成功率 86% → 4.4%，过度拒绝仅 +0.38%，算力 +23.7% | Anthropic, arXiv:2501.18837 |
-| 对抗训练 / 潜空间对抗训练 | 把对抗样本喂进训练分布 | 提升鲁棒性，但与攻击者军备竞赛 | 潜空间对抗训练 LAT〔具体 arXiv ID 待核实〕 |
+| 对抗训练 / 潜空间对抗训练 | 把对抗样本喂进训练分布 | 提升鲁棒性，但与攻击者军备竞赛 | 潜空间对抗训练 LAT，Yi et al., arXiv:2501.10639，已核实(2026-06-12) |
 | 指令层级 Instruction Hierarchy | 训练模型按 system>user>tool 优先级服从 | 已部署 GPT-4o；AgentDojo 显示可被部分绕过 | Wallace et al., arXiv:2404.13208 |
 | 数据-指令分离 StruQ / ASIDE | 结构化角色分离 / 数据 token 正交旋转 | ASIDE 在注入基准上显著提升鲁棒性、不降基线 | arXiv:2503.10566 (ICLR 2026) |
 
@@ -171,3 +171,4 @@ flowchart TD
 - R1（2026-06-07）：首稿。建立"概率性控制 × 确定性控制"作为训练侧/系统侧的本质分界；四维对照（覆盖/成本/可绕过/可维护）；§3 决策树 + 三条铁律；§4 四个致命误区；Ashby 必要多样性定律作为"单层必漏"的第一性解释。
 - R1.1（2026-06-07）：grounding 校验。WebSearch 核实并解除以下〔待核实〕标记——STACK arXiv:2506.24068（McKenzie et al., UK AISI，ClearHarm 黑盒 71%/迁移 33% 已确认）、ICON arXiv:2602.20708、OpenClaw arXiv:2603.13424（补正精确数字：全流水线 0% ASR、隔离单用 0.31%/323×、JSON 单用 14.18%）、SecInfer arXiv:2509.24967；EU AI Act 第 55 条 10^25 FLOP 阈值与对抗性测试义务（2025-08-02 适用）已确认。剩余待核实项：潜空间对抗训练具体 arXiv ID、本专题同级节点全名（S01 等，暂降级为普通文本并登记 _待建概念清单.md）。
 - 2026-06-11 P3.4 校链：0419/0415/0430 三兄弟专题经主库 `find` 实证已落盘，§4/§5/§10 指向它们的降级文本恢复为真 `NNNN 总览` 链并删 staging 注解；仅 0436 仍在 staging，改标"0436 待补完入库"保留普通文本。
+- 2026-06-12 内审·arXiv 联网核实：清了 1 个 / 存疑 0 个。R1.1 遗留"潜空间对抗训练具体 arXiv ID 待核实"——经 WebFetch 锁定为《Latent-space adversarial training with post-aware calibration…》（Yi et al., arXiv:2501.10639，与 G02 已引同源），§1 训练侧对照表该行〔具体 arXiv ID 待核实〕补为真实编号并标"已核实(2026-06-12)"。本节点正文 arXiv 引用现 0 待核实。

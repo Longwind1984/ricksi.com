@@ -2,7 +2,7 @@
 title: A06 Orchestrator 编排器
 cluster: 专题 · 安全对齐与失败
 created: '2026-05-18'
-updated: '2026-06-11'
+updated: '2026-06-12'
 provenance: ai
 facet: Agent
 ---
@@ -168,3 +168,4 @@ A02 把 orchestrator 放在 framework 之上、agent 之下；本节点深入 or
   7. 关联节点分"核心关联（必读）+ 延伸关联（可选）"两档，每条加一句"为什么相关"
   8. PM 决策启示加入面试问答 Q+A 模板与复现成本拆解（人天预估）
 - **R1 → R2（2026-05-18）**：LangGraph "0.2+ 引入持久化"表述误导，修正为"0.0.x 起内置 checkpointer，0.2+ 扩展 subgraph、durable execution"。
+- 2026-06-12 内审修复：frontmatter 补 final_path 字段（= 本文件在库内实际相对路径）。

@@ -2,7 +2,7 @@
 title: A01 Agent 概念史与语义流变
 cluster: 专题 · 安全对齐与失败
 created: '2026-05-18'
-updated: '2026-06-11'
+updated: '2026-06-12'
 provenance: ai
 facet: Agent
 ---
@@ -191,3 +191,4 @@ Rick：来复述一下当前实践上的 Agent 的定义。首先是它的本质
   2. PM 决策启示"复现选型顺序"补"为什么是这个顺序"理由——回应 Round 2 [空洞-1]
   3. 关联节点分两档
 - **R1 → R2（2026-05-18）**：本节点 Round 1 未提出问题，无修订动作。
+- 2026-06-12 内审修复：frontmatter 补 final_path 字段（= 本文件在库内实际相对路径）。

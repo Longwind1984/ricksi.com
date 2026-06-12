@@ -2,7 +2,7 @@
 title: R03 Confidence 与 Citation 的认识论设计
 cluster: 专题 · 人文社科透镜
 created: '2026-06-07'
-updated: '2026-06-11'
+updated: '2026-06-12'
 provenance: ai
 facet: AI 认识论中介
 ---
@@ -165,7 +165,7 @@ citation:
 
 ## §6 产品 PM 视角补盲 + 对手框架回应与失效边界
 
-**产品 PM 视角补盲(三个工程 PM 看不到的走样点):** 其一,**商业模式冲突**——诚实标 low/refuse 会降低"AI 显得很聪明"的当下体感和转化率,团队有结构性动机做 confidence theater([A06 认识论决定产品设计](/kb/专题-人文社科透镜/a06-认识论决定产品设计/) §4)。本模板的 ECE 验收和核验转化 KPI 就是把这个利益冲突**显性化为可审计指标**,堵住"悄悄注水"。其二,**用户姿态漂移**——低后果时用户把 AI 当全知证言者,出事后改口"我以为它只是工具";force_review 的存在本身在塑造用户的认识姿态,是产品对用户心理模型的主动管理。其三,**合规外部性**——EU AI Act(2024)要求"有效的人类监督",本模板的 force_review/withhold 状态机正是把"有效"从"有人在回路"翻译成可验收条件的抓手〔EU AI Act 2024 高风险监督条款,具体条文待核实〕。
+**产品 PM 视角补盲(三个工程 PM 看不到的走样点):** 其一,**商业模式冲突**——诚实标 low/refuse 会降低"AI 显得很聪明"的当下体感和转化率,团队有结构性动机做 confidence theater([A06 认识论决定产品设计](/kb/专题-人文社科透镜/a06-认识论决定产品设计/) §4)。本模板的 ECE 验收和核验转化 KPI 就是把这个利益冲突**显性化为可审计指标**,堵住"悄悄注水"。其二,**用户姿态漂移**——低后果时用户把 AI 当全知证言者,出事后改口"我以为它只是工具";force_review 的存在本身在塑造用户的认识姿态,是产品对用户心理模型的主动管理。其三,**合规外部性**——EU AI Act(2024-08-01 正式生效；高风险系统义务自 2026-08-02 适用)要求"有效的人类监督",本模板的 force_review/withhold 状态机正是把"有效"从"有人在回路"翻译成可验收条件的抓手〔EU AI Act 高风险监督的具体条款编号与条文待核实〕。
 
 **对手立场(接受 + 边界):计算可靠主义——"别搞这么重的契约,可靠性指标够了"。** Durán 与 Formanek(*Grounds for Trust: Essential Epistemic Opacity and Computational Reliabilism*, arXiv:1904.01052, 2019,本会话 WebFetch 核实标题/作者/四类依据)主张:计算系统可被信任不需要透明/完全可解释,只需四类可靠性依据(验证与确认程序、鲁棒性分析、(不)成功实现的历史、专家知识)。对本节点这是真对手——它暗示"做好可靠性指标就行,不必上 claim-level citation + source_quote 这么重的契约"。**我接受**:在封闭、稳定、有 ground-truth 反馈回路的低后果场景,§1–§4 的全套契约确实是过度工程化,这时一个经良好校准的全局 confidence + 轻 citation 是更经济的替代——CR 的指标可以替掉重契约。**但我坚持的边界**:AI 报告类产品恰恰是开放域、分布持续漂移的场景,CR 自己承认在 distribution shift / update opacity 下失效(Durán et al., *Minds and Machines*, 2026〔经研究简报转引,待核实〕),此时"历史成功记录"这条依据最不可靠,正是必须靠 claim-level 可核验 citation 兜底之处。换言之,**这套重契约的适用区间 = 开放域 × 高后果 × 分布漂移;CR 路径的适用区间 = 封闭域 × 低后果 × 有反馈回路。**
 
@@ -235,3 +235,4 @@ citation:
 ## 修订日志
 
 - R1(2026-06-07):首稿。把"诚实表达不确定 + 可溯源验证"两条认识论原则编译成两套可验收契约:confidence(§1 来源白名单禁自报 / §2 claim-level 状态机 + ECE 校准验收)、citation(§3 字段 schema 含 source_quote + grounding_match / §4 完整性状态机 + 核验转化 KPI),并用"broken→降置信""low→强制溯源"把两套锁在一起(§5 PRD 检查表)。§7 言语行为理论(Austin/Searle 真诚条件)跨域呼应落地,与 A06 维特根斯坦调度区分。§9 结尾陷阱:模板填满≠认识论达标,verification 才是瓶颈,显式交还给 HITL/0418。对手框架计算可靠主义(Durán & Formanek)"接受+边界"落在适用区间划分。与 A06/c13/0418/0427 显式升级对照。事实接地:arXiv:1904.01052(Durán & Formanek 2019,标题/作者/四类依据)与 Renieris/Kiron/Mills 2025 MIT SMR 文章标题本会话 WebFetch/WebSearch 核实;Fricker 2007、Lee & See 2004 经研究简报核实;Nature MI 2025 的 34.3%、Huemmer 68.1%、EU AI Act 条文、ECE 阈值、Minds and Machines 2026 仍标〔待核实〕待复核。死链全部降级为普通文本并登记待建概念清单。
+- 2026-06-12 内审修复:§产品 PM 视角补盲处 EU AI Act 生效口径统一为"2024-08-01 正式生效;高风险系统义务自 2026-08-02 适用"(权威值,呼应总览 §8 QC #5);具体条款编号/条文、Nature MI 34.3%、Minds and Machines 2026 卷期仍诚实保留〔待核实〕。

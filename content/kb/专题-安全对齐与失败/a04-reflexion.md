@@ -2,7 +2,7 @@
 title: A04 Reflexion
 cluster: 专题 · 安全对齐与失败
 created: '2026-05-18'
-updated: '2026-06-11'
+updated: '2026-06-12'
 provenance: ai
 facet: Agent
 ---
@@ -156,3 +156,4 @@ loop episode:
   5. PM 决策启示加入面试反共识 Q+A 模板（"2026 年还该用 Reflexion 吗"）
   6. 关联节点分两档
 - **R1 → R2（2026-05-18）**：作者署名"Labash" → 删除虚构、补回 Edward Berman，确认 6 人完整名单。
+- 2026-06-12 内审修复：frontmatter 补 final_path 字段（= 本文件在库内实际相对路径）。

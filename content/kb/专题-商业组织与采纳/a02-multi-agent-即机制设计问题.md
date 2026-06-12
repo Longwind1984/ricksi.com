@@ -2,7 +2,7 @@
 title: A02 Multi-Agent 即机制设计问题
 cluster: 专题 · 商业组织与采纳
 created: '2026-06-07'
-updated: '2026-06-11'
+updated: '2026-06-12'
 provenance: ai
 facet: 机制设计
 ---
@@ -155,3 +155,4 @@ multi-agent 系统里，被共抢的"公地"是三样东西：
 ## 修订日志
 
 - R1（2026-06-07）：首稿。建立"multi-agent = 机制设计问题"主轴；四件套判断主轴（投票/透明/隐藏行动/机制不足）；接入 Ostrom 自治治理与不完全合约理论两个对手框架；跨域呼应用 Rick 滴滴双边市场一手经验做显式迁移；与 0411 A07/A06/E03、0420 VSM、m208、m209、0413 成本建立显式升级对照。事实接地：机制设计三位诺奖得主（Hurwicz/Maskin/Myerson, 2007）、Coase（1937/1991）、Williamson（2009）、Ostrom（1990/2009）、Vickrey（1961）、Arrow（1951）、Hardin（1968）均经研究简报核实；arXiv 编号（2411.07161、2604.23897、2604.06688、2601.23211、2504.03255、2506.01900、2605.08426、2604.16339）来自已验证简报。待核实项：多维类型最优机制是否有新突破；Acharya 79% 协调失败率（单源）；Diagon 实验需更大规模复现。
+- 2026-06-12 内审·arXiv 联网核实：WebFetch 重核 §102 引 [arXiv:2605.08426](https://arxiv.org/abs/2605.08426)「Mechanism Design Is Not Enough: Prosocial Agents for Cooperative AI」(Huang 等含 Schölkopf, 2026) 身份与引述一致,论文身份已核(0 存疑)。§102「多维最优机制是否有新突破〔待核实〕」属开放研究问题、非 arXiv 身份核实,不动。

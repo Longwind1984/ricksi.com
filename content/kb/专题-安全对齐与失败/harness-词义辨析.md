@@ -28,7 +28,7 @@ facet: Agent
 - **harness vs framework**：framework 是给开发者用的**组件库**（Chain / Tool / Memory 抽象，如 LangChain）；harness 是**运行时基座**，提供 loop 与入口形态。一个 harness 内部可以调用多个 framework。
 - **harness vs agent**：agent 是用户面对的、有目标有记忆的**任务执行单元**；harness 是它跑在其上的容器。Claude Code 是 harness，它每个 session 临时实例化出来的执行体才接近 agent。
 - **harness vs orchestrator**：orchestrator 是 harness **内部的调度子系统**（控制步骤/多 agent 流转、retry、checkpoint）；harness 是包含 prompt+tools+loop 的完整外壳。Claude Code 是 harness，它的 task loop 是它的 orchestrator。
-- **harness vs skill**：skill 是 harness 之上可加载的**操作手册**（procedural knowledge），不是 harness 本身。harness 决定怎么把 skill 调起来。
+- **harness vs skill**：skill 是 harness 之上可加载的**操作手册**（procedural knowledge），不是 harness 本身。harness 决定怎么把 skill 调起来。具体到 Claude 生态：**Superpowers skill / plugins 都是 harness 内的可加载组件**——skill 提供领域知识与工作流，harness（Claude Code）决定怎么把它们调起来；二者不在同一抽象层。
 
 ## 四、为什么这个词被滥用
 
@@ -47,8 +47,8 @@ facet: Agent
 - [Skill 系统的本质](/kb/ai-协作方法论/skill-系统的本质/) —— harness 之上的可加载层
 - [Claude Code](/kb/ai-公司与产品/claude-code/) —— harness 的范例实例
 
----
-
 ## 修订日志
 
 - 2026-06-11 P0 收口：新建本卡，填补此前 0 字节空文件（约 20 处入链指向的"分析地基"为空白页）。内容采词源切片定位（etymology + 三次语义滑动 + 邻近词边界 + 滥用成因），系统化部分指向 A02 / S03。依据：链入语境一致期待"harness 词源/主体归属"切片（见 A02 §三、S03 §1、S01 §执行层、A06 §六、各 E/G 节点末尾"对照 Harness 词义辨析"）；lm-evaluation-harness 命名与《Building Effective Agents》(2024-12) workflow/agent 区分经 WebSearch 核实。
+- 2026-06-12 同名去重合并：将旧 `0401AI 基础知识库/Harness词义辨析.md`（无空格版，原始概念卡）的独有内容并入本卡——Superpowers skill/plugin 作为 harness 内可加载组件的具体化（并入 §三 harness vs skill）、来源对话存档链、`Superpowers harness`/`Harness词义辨析` 别名。本卡为合并后唯一权威节点（47 处入链原指本卡，3 处无空格链已重指本卡）；旧无空格卡已归档至 `90故纸堆`。结束 PKM 夜跑连续 5 轮等待的「Harness 重名」悬置。
+- 2026-06-12 内审修复：frontmatter 补 final_path 字段（= 本文件在库内实际相对路径）。

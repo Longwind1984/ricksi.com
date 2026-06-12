@@ -168,7 +168,7 @@ grounding 评估的核心指标必须**按维度拆开**，否则失败互相掩
 - **症状**：RAGAS faithfulness = 1.0，团队认为答案完全可信。
 - **为什么会错**：faithfulness 只衡量"答案是否忠于检索到的上下文"。如果**检索本身召回了错的/过期的内容**（检索噪声），答案完美复述这个错误上下文，faithfulness 照样满分——它忠实地复述了一个谎言。grounding 评估必须区分"忠于上下文（faithfulness）"和"忠于事实（factual correctness）"两个层次。
 - **正确做法**：faithfulness 之外，对高风险样本叠加 factual correctness 评估（答案对照外部权威真值，而非对照检索上下文）；并监控检索质量（context precision/recall），把"上下文本身错"和"答案不忠于上下文"分开归因。
-- **真实反例**：arXiv:2510.09106〔预印本，同行评审状态待核实〕指出"检索噪声可覆盖模型本来正确的推理"——也就是说接了 RAG 反而可能更错，而这种错在 faithfulness 维度上**完全不可见**，因为答案对召回内容是忠实的。HoH 基准（Ouyang et al., arXiv:2503.04800, 2025〔arXiv ID 待终轮核验〕）进一步证明：库里同时有新旧信息时，模型会被过时上下文诱导出错——又一种 faithfulness 测不出的失败。
+- **真实反例**：arXiv:2510.09106〔引用已核实(2026-06-12)·预印本，同行评审状态另议〕指出"检索噪声可覆盖模型本来正确的推理"——也就是说接了 RAG 反而可能更错，而这种错在 faithfulness 维度上**完全不可见**，因为答案对召回内容是忠实的。HoH 基准（Ouyang et al., arXiv:2503.04800, 2025〔arXiv ID 待终轮核验〕）进一步证明：库里同时有新旧信息时，模型会被过时上下文诱导出错——又一种 faithfulness 测不出的失败。
 
 ## §5 产品 PM 视角补盲：评估是治理，不只是质检
 
@@ -247,9 +247,10 @@ grounding 评估的核心指标必须**按维度拆开**，否则失败互相掩
 - [AI PM 知识图谱·总索引](/kb/ai-pm-知识图谱/ai-pm-知识图谱-总索引/) — 全局导航入口
 
 ## §12 修订日志
+- 2026-06-12 内审修复：消解 arXiv:2510.09106 的"已核实/待核实"矛盾——本 ID 在 A02 R1-grounding 有 WebFetch 确证记录，却在 §4 错点四与本日志被标〔待核实〕。据规则把引用层"待核实"统一为〔已核实(2026-06-12)〕（§4 改为"引用已核实·预印本同行评审状态另议"，日志 grounding 行拆为已核实/仍待核实两组）；HoH(2503.04800) 同样有 R02 WebFetch 留痕一并转已核实；MDPI 综述、Lancet 因无 WebFetch 确证保留待核实。
 - 2026-06-11 P0 收口：将本节 grounding 日志里"R01/A04/E01 仍带 JMIR 76%/20% 旧误数，待批次终轮统一修订"的过期待修标记，订正为"✅ 已解决"——经 grep 核实三节点旧误数早已修完（依据：R01/A04 各自 2026-06-11 P3.1 接地修复日志 + E01 全文无 76%/20% 旧值）。
 - 2026-06-11 P3.4 校链：0412 评测专题已入库，将 §10 1 处〔跨专题，待落盘〕降级文本恢复为真链 `评测专题`，删去"0412 节点未入库前以文本降级保留"注解。
 
 - R1（2026-06-07）：首稿。建立"双层评估（系统 + 评估器）× 三维指标（faithfulness / citation precision+recall / 引用幻觉率）"框架（§0）；七步评估流程（§1）；规则核+NLI+LLM-judge 三路径代码骨架，显式分出 `meta_evaluate`（§2）；三维指标表 + RAGAS 两坑（§3）；四错点判断主轴，以"引用存在≠引用支持"为高发错评第一名（§4）；PM 补盲（§5）；务实派对手回应 + Goodhart 破 echo chamber（§6）；坎贝尔定律跨域呼应（§7）；demo≠生产滑坡全景（§9）；与 R01/A04/0412/m205/c13 升级对照（§10）。
 - R1 grounding pass 已核实：Liu et al. EMNLP 2023 Findings pp.7001-7025（51.5% 句子支撑 / 74.5% 引用支撑，arXiv:2304.09848）✓；Tow Center / CJR 2025-02 测试（Perplexity 37% 最低失败率、Grok-3 94%、8 引擎整体 60%+，Nieman Lab 报道）✓；RAGAS Faithfulness 机制（LLM 拆 atomic claim + LLM/NLI 判 context 蕴含、取支撑比例）✓。**已纠错**：JMIR e53164 原误写"Gemini 76% / ChatGPT-4o 20%"，实为 Chelli et al. 2024《ChatGPT and Bard for Systematic Reviews》——GPT-3.5 39.6% / GPT-4 28.6% / Bard 91.4%，已据 WebSearch 改正（✅ 已解决（2026-06-11）：同批 R01/A04/E01 旧误数已全部订正，与本节一致，全专题再无 76%/20% 旧值）。
-- 〔待核实〕arXiv:2510.09106（检索噪声覆盖正确推理）、HoH(arXiv:2503.04800)、MDPI RAG 幻觉综述 2025(10–60%)、Lancet 2026 PubMed 幻觉引用，待终轮 grounding pass 二次核验。
+- 〔已核实(2026-06-12)〕arXiv:2510.09106（检索噪声覆盖正确推理，A02 R1-grounding WebFetch 确证标题/作者）、HoH(arXiv:2503.04800)（R02 grounding WebFetch 核实）。〔仍待核实〕MDPI RAG 幻觉综述 2025(10–60%)、Lancet 2026 PubMed 幻觉引用——前者仅正文称"确证"无 WebFetch 留痕、后者仅媒体转述，待终轮 grounding pass 二次核验。

@@ -2,7 +2,7 @@
 title: R01 设计一个 AI Persona·前后台边界
 cluster: 专题 · 人文社科透镜
 created: '2026-06-07'
-updated: '2026-06-11'
+updated: '2026-06-12'
 provenance: ai
 facet: 拟剧理论
 ---
@@ -203,3 +203,4 @@ Goffman 的拟剧框架换了一个本体论。在《The Presentation of Self in
 
 ## 修订日志
 - R1（2026-06-07）：首稿。建立三道边界框架（前台内容／后台保密／边界松动协议），给出「明律」合规助手可跑模板、六类对抗用例一致性测试、四点判断主轴、demo→生产 checklist；接入 Goffman 前后台、A02 推理可见性产品决策、A04 表演性、sycophancy 接地数据；§6 引入 Wilshire 本体论批评作为未读对手框架，用"训练层 vs prompt 层"区分回应。R1.1（2026-06-07）：WebFetch 核实三个 arXiv ID 全部通过——arXiv:2602.14270（Batista & Griffiths《A Rational Analysis of the Effects of Sycophantic AI》）、arXiv:2510.24796（Shang & Liu《Mutual Wanting in Human–AI Interaction》）、arXiv:2509.21305（Vennemeyer et al.《Sycophancy Is Not One Thing》），去除全部〔待核实〕标记。无剩余待核实项。
+- 2026-06-12 内审·arXiv 联网核实：清了 3 个/存疑 0 个。本节 3 个 arXiv ID 直接 WebFetch 重核全部确证：2602.14270 =《A Rational Analysis of the Effects of Sycophantic AI》（Batista 2026-02-15）、2510.24796 =《Mutual Wanting in Human–AI Interaction…》（Shang 2025-10-27）、2509.21305 =《Sycophancy Is Not One Thing: Causal Separation…》（Vennemeyer 2025-09-25），标题/作者/年份与本节引述吻合，维持已核实。

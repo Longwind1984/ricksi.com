@@ -2,7 +2,7 @@
 title: S03 AI 表演性身份系统全景
 cluster: 专题 · 人文社科透镜
 created: '2026-06-07'
-updated: '2026-06-11'
+updated: '2026-06-12'
 provenance: ai
 facet: 拟剧理论
 ---

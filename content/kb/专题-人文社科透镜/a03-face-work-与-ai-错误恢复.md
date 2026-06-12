@@ -2,7 +2,7 @@
 title: A03 Face Work 与 AI 错误恢复
 cluster: 专题 · 人文社科透镜
 created: '2026-06-07'
-updated: '2026-06-11'
+updated: '2026-06-12'
 provenance: ai
 facet: 拟剧理论
 ---
@@ -155,4 +155,6 @@ Goffman 的根本贡献是把"互动"从心理学的"个体行为"提升为**社
 
 ## 修订日志
 
-- R1（2026-06-07）首稿：建立 Goffman face-work → AI 错误恢复的主框架；判断主轴 4 错位（功能/社交错读、道歉廉价化、署名效应、幻觉特殊类）；对手框架接入 Norman 极简派 + 3 条 failure scenario + bias 砍除；跨域呼应落到"互动秩序破裂 vs 单方故障"与 AI face-work 不对称性。接地：Goffman 1955/1967、ELIZA/Hofstadter、Kadambi arXiv:2604.15316、Ashktorab arXiv:2507.02745、Telematics 2024、arXiv:2603.16643——arXiv ID 待 WebFetch 复核；跨文化外推标〔待核实〕。
+- R1（2026-06-07）首稿：建立 Goffman face-work → AI 错误恢复的主框架；判断主轴 4 错位（功能/社交错读、道歉廉价化、署名效应、幻觉特殊类）；对手框架接入 Norman 极简派 + 3 条 failure scenario + bias 砍除；跨域呼应落到"互动秩序破裂 vs 单方故障"与 AI face-work 不对称性。接地：Goffman 1955/1967、ELIZA/Hofstadter、Kadambi arXiv:2604.15316、Ashktorab arXiv:2507.02745、Telematics 2024、arXiv:2603.16643——arXiv ID 已核实（2026-06-12 台账对齐：2604.15316 经本专题 R02／S01 节点 WebFetch 复核标题/作者/年份/核心发现吻合；2603.16643 经 A02 节点 WebFetch 复核《Good Arguments Against the People Pleasers》Feng et al. 2026 确证；本节原"待 WebFetch 复核"标记与同专题已核实记录矛盾，统一为已核实）；跨文化外推仍标〔待核实〕。
+- 2026-06-12 内审修复：台账对齐——arXiv:2604.15316、arXiv:2603.16643 在本专题他处已有 WebFetch 确证，本节 R1 日志原标"待 WebFetch 复核"属台账自相矛盾，统一改为"已核实（2026-06-12）"并注明确证出处节点。
+- 2026-06-12 内审·arXiv 联网核实：清了 2 个/存疑 0 个。本节直接 WebFetch 复核——2604.15316 确证为 Kadambi《Anthropomorphism and Trust in Human-Large Language Model interactions》（2026-03-01 提交，warmth+认知共情预测全部结果、competence 除拟人化外预测全部，与本节引述吻合）；2603.16643 确证为 Feng et al.《Good Arguments Against the People Pleasers…》（2026）。§跨文化外推〔待核实〕属非 arXiv 项（理论外推性），维持不动。

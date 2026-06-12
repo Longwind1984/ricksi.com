@@ -2,7 +2,7 @@
 title: G01 STS 思潮代际谱系总图
 cluster: 专题 · 人文社科透镜
 created: '2026-06-07'
-updated: '2026-06-11'
+updated: '2026-06-12'
 provenance: ai
 facet: STS
 ---
@@ -255,4 +255,5 @@ graph TD
 ---
 
 ## 修订日志
-- R1 (2026-06-07)：首稿。建立 G0–G6 七代谱系骨架；以 Kuhn 不可通约为元理论锚否决线性进步叙事；每代配【驱动力/命题/瓶颈/反例/推翻者】；判断主轴四坑四件套；§5 跨域呼应落地 Kuhn 并下"G6 暂非新范式"赌注与失效条件；接地清单逐条标源，Barkett arXiv 编号与 Moses 桥案例显式标注待核实/有争议。
+- R1 (2026-06-07)：首稿。建立 G0–G6 七代谱系骨架；以 Kuhn 不可通约为元理论锚否决线性进步叙事；每代配【驱动力/命题/瓶颈/反例/推翻者】；判断主轴四坑四件套；§5 跨域呼应落地 Kuhn 并下"G6 暂非新范式"赌注与失效条件；接地清单逐条标源，Barkett arXiv 编号显式标注待核实（首稿状态，后续已核实，见下）、Moses 桥案例标〔有争议〕。
+- 2026-06-12 内审·arXiv 联网核实：清了 1 个、存疑 0 个。本节点 arXiv:2602.23679（Barkett 2026）经 WebFetch `https://arxiv.org/abs/2602.23679` 确认为真实论文《The Compulsory Imaginary: AGI and Corporate Authority》（Emilio Barkett，提交 2026-02-27），标题/作者/日期/Altman-Amodei 论点全对，正文三处引用（§G0 反例、§Imaginaries 支流、参考文献）均已标"已 WebFetch 核实"，首稿"待核实"标记本轮正式销账。Moses 桥〔有争议〕为非 arXiv 学界争议，未处理。

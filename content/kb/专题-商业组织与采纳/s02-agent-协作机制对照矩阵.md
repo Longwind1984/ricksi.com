@@ -2,7 +2,7 @@
 title: S02 Agent 协作机制对照矩阵
 cluster: 专题 · 商业组织与采纳
 created: '2026-06-07'
-updated: '2026-06-11'
+updated: '2026-06-12'
 provenance: ai
 facet: 机制设计
 ---
@@ -123,4 +123,5 @@ graph TD
 
 ## 修订日志
 - R1（2026-06-07）：首稿。建立五机制×四维矩阵 + 决策树 + 判断主轴四件套;接入 Ostrom 自治治理(未读对手框架)与 Russell prosocial(对手立场);跨域呼应落地 Rick 双边市场治理一手迁移;显式升级对照 A07/A06/VSM/m208/m209/0413。待核实项:Diagon 透明度反直觉结果的复现、Agent Contracts 90% 节省的独立复现、prosocial agent 大规模可扩展性。
+- 2026-06-12 内审·arXiv 联网核实：WebFetch 重核 §83 引 [arXiv:2605.08426](https://arxiv.org/abs/2605.08426)「Mechanism Design Is Not Enough: Prosocial Agents for Cooperative AI」与 §104 引 [arXiv:2601.08815](https://arxiv.org/abs/2601.08815)「Agent Contracts」(Ye & Tan, 2026) 身份均与引述一致,论文身份已核(0 存疑)。注：§83 把对手立场冠以「Stuart Russell 等」、把论文归于「Schölkopf 组」——Russell 非 2605.08426 作者(作者为 Huang/Tharas/Marro/Truong/Schölkopf/La Malfa/Jin),原文意在「Russell 持此反方立场、Schölkopf 组论文为其形式化支撑」,语义可辨,保留;Schölkopf 确为作者之一,归属无误。§83「prosocial 可扩展性〔待核实〕」与 §104「90% 独立复现〔待核实〕」是结论外推/单篇数字限定,非论文身份待核,保留不动。
 - 2026-06-11 P3.4 校链:§1 注脚里"双边市场"占位示意去双链改纯文本(全 vault 无此节点),`0133信息经济学` 入口链保留。

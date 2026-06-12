@@ -2,7 +2,7 @@
 title: S01 多语言 LLM 产品分层剖面
 cluster: 专题 · 人文社科透镜
 created: '2026-06-07'
-updated: '2026-06-11'
+updated: '2026-06-12'
 provenance: ai
 facet: 计算语言学
 ---
@@ -104,7 +104,7 @@ flowchart TD
 **接地证据——LLM 不是文化中立的：** Aksoy（2024，arXiv:2412.18863）用更新版道德基础问卷（MFQ-2）测 8 种语言，发现多语言 LLM 倾向**施加英语主导的道德规范**而非反映各文化价值。Ramezani & Xu（2023，arXiv:2402.02135）测得道德推理能力跨语言排序：英语 > 西班牙语 > 俄语 > 中文 > 印地语 > 斯瓦希里语。Liang & Mahmoud（2025，arXiv:2512.16029）用 BBQ 基准发现阿拉伯语/西语呈现更高刻板印象偏差，且"年龄偏见显性最低、内隐最高"——**标准基准存在评估盲区**。
 
 > [!warning] 致命耦合 #4：本地化层缺失致文化事故（L1/L6 跨层共谋）
-> 症状：产品在拉美上线后因某条 AI 生成内容触犯当地禁忌/价值观引发舆情。为什么会错：PM 做完 L5（格式本地化）就以为"本地化完成"，跳过了 L6；且因为 L1 的 token 溢价（见 §2），低资源语言/拉美土著语言的训练与对齐数据本就稀薄——**L1 的数据贫困直接削弱 L6 的对齐质量**，两层共谋。研究（arXiv:2510.10677, 2025）显示低资源语言的安全防护更弱，极少数据即可绕过非英语对齐。正确做法：(a) L6 不是翻译 L5，是独立的文化红队 + 本地 RLHF + 合规审查；(b) 把文化适配的责任人从"翻译/本地化团队"上提到"产品 + 法务 + 当地运营"；(c) 用跨文化基准（MFQ-2、本地化 BBQ）做发布门禁。这正是 Rick 的 人类学、民族志 田野方法的用武之地——文化禁忌不是查表能查到的，需要田野式的当地洞察。
+> 症状：产品在拉美上线后因某条 AI 生成内容触犯当地禁忌/价值观引发舆情。为什么会错：PM 做完 L5（格式本地化）就以为"本地化完成"，跳过了 L6；且因为 L1 的 token 溢价（见 §2），低资源语言/拉美土著语言的训练与对齐数据本就稀薄——**L1 的数据贫困直接削弱 L6 的对齐质量**，两层共谋。研究显示低资源语言的安全防护更弱——把英语有害输入翻译成低资源语言即可绕过 GPT-4 护栏，AdvBench 上攻击成功率约 79%（来源：Yong, Menghini & Bach, "Low-Resource Languages Jailbreak GPT-4," arXiv:2310.02446，已核实 2026-06-12）；防御侧仅需极少数据即可补强（Chen et al., "Unlocking LLM Safeguards for Low-Resource Languages," arXiv:2510.10677, 2025，已核实 2026-06-12）。正确做法：(a) L6 不是翻译 L5，是独立的文化红队 + 本地 RLHF + 合规审查；(b) 把文化适配的责任人从"翻译/本地化团队"上提到"产品 + 法务 + 当地运营"；(c) 用跨文化基准（MFQ-2、本地化 BBQ）做发布门禁。这正是 Rick 的 人类学、民族志 田野方法的用武之地——文化禁忌不是查表能查到的，需要田野式的当地洞察。
 
 ## 产品 PM 视角补盲
 
@@ -166,3 +166,4 @@ flowchart TD
 
 - **R1（2026-06-07）：** 首稿。建立六层剖面框架（tokenization/语言检测/理解/生成/本地化/文化适配），落地 4 个致命耦合（成本穿透、路由级联、理解-生成不对称、文化事故/数据贫困共谋）四件套；接入 3 处对手框架（关联理论 / Arnett 词表论 / Bender 强版）+ 2 个 Rick 未读框架（关联理论、形式语言生成-识别不对称）；跨域呼应迁移语言相对性 + STS 至 L6，显式接入 Rick 拉美 fieldwork；与 c02 建立"零件图 vs 传力路径图"升级对照。事实接地：tokenization 数字标来源，arXiv ID 取自已核实简报。两个近知识边界的 2026 预印本已 WebFetch 复核——arXiv:2604.14210（Ren, Shen, Zhou, Ng, Raj，"Chinese Language Is Not More Efficient Than English in Vibe Coding"）、arXiv:2601.13328（Churchill & Skiena，"Reducing Tokenization Premiums for Low-Resource Languages"，2026-01-19 提交）均确证存在、标题与作者匹配。本节点 0 处疑似编造。
 - 2026-06-11 P3.1 接地修复：WebFetch 核实 arXiv:2601.13328 正文 Table 2，确证掸语 19.09×（GPT-2/3）精确值真实，L1 段保留；引用标签 Churchill & Skiena 由 2025 改为 2026（论文提交日 2026-01-19）。来源：https://arxiv.org/html/2601.13328v1 。
+- 2026-06-12 内审修复：纠正致命耦合 #4（L1/L6）对 arXiv:2510.10677 的误引——该篇实为防御工作（Chen et al., "Unlocking LLM Safeguards for Low-Resource Languages"，WebFetch 已核实），原文却拿它当"绕过对齐"的攻击证据。攻击侧证据改引已核实的 Yong et al. arXiv:2310.02446（"Low-Resource Languages Jailbreak GPT-4"，AdvBench ASR ~79%），2510.10677 保留为防御侧补强引用，两者均标"已核实 2026-06-12"。与 S03 R0.1 grounding 的判定对齐。

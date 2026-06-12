@@ -82,7 +82,7 @@ facet: 推理与测试时计算
 - **症状**：默认把 effort 拉到 max、把 thinking budget 拉满。
 - **为什么会错**：推理侧存在 overthinking——简单题上多想会**掉点**，且延迟/成本灾难。
 - **正确做法**：推理侧投入要按任务难度自适应；先用 medium 跑 eval 再决定是否升档。
-- **真实反例**：Phi-4-reasoning 平均生成 6,780 tokens vs 标准 Phi-4 的 378 tokens，但准确率反而**更低**（arXiv:2505.00127）；arXiv:2604.10739 实测 R1-32B 在 AIME 上 12K token 见顶 55.8%、16K 回落 54.9%，约 7,000 token 后负向翻转超过正向翻转——增加推理 budget 导致模型放弃已正确的答案（已 WebFetch 核实；旧稿"87.3%→70.3%"系误引、已更正，与 E02/E03 对齐）。详见 [E02 Reasoning 反噬·过度思考与延迟灾难](/kb/专题-能力与训练/e02-reasoning-反噬-过度思考与延迟灾难/)。
+- **真实反例**：推理模型平均生成约 6,780 tokens vs 标准 Phi-4 的约 378.6 tokens，但 Phi-4-reasoning-plus 准确率 69.54% 反而**低于**标准 Phi-4 的 78.92%（arXiv:2507.04023《Do LLMs Overthink Basic Math Reasoning?》Table 2/§5.3）；arXiv:2604.10739 实测 R1-32B 在 AIME 上 12K token 见顶 55.8%、16K 回落 54.9%，约 7,000 token 后负向翻转超过正向翻转——增加推理 budget 导致模型放弃已正确的答案（已 WebFetch 核实；旧稿"87.3%→70.3%"系误引、已更正，与 E02/E03 对齐）。详见 [E02 Reasoning 反噬·过度思考与延迟灾难](/kb/专题-能力与训练/e02-reasoning-反噬-过度思考与延迟灾难/)。
 
 ### 错位四：以为"benchmark 分数高 = 这个替换在我的任务上也成立"
 
@@ -188,6 +188,7 @@ facet: 推理与测试时计算
 ## 修订日志
 
 - **R0（2026-06-07）**：首稿。建立"可替换栈"框架（训练侧 CapEx vs 推理侧 OpEx 两个算力池 + 双向替换汇率 + 四道失效边界）；接地 Snell 2024(14×/>4×)、Wu 2024、R1 蒸馏 32B、o1 AIME 74→83→93、Phi-4-reasoning overthinking、arXiv:2509.06861 知识边界、ARC-AGI-2 崩塌、Yu 2025 验证器缺陷、arXiv:2502.12215 虚假扩展;跨域调度 Simon 有限理性(破 echo chamber)+ 控制论采样-验证回路;升级对照 c11/m209/0411/0412/0426/0420。
+- **2026-06-12 内审修复**：失效边界一的 Phi-4 反例来源由误署的 arXiv:2505.00127 改为真实出处 **arXiv:2507.04023《Do LLMs Overthink Basic Math Reasoning?》Table 2/§5.3**（Phi-4 78.92%/~378.6 token、Phi-4-reasoning-plus 69.54%、abstract 推理模型平均 ~6,780 token），并补全准确率分数。依据：WebFetch 复核 2505.00127/2504.21318 全文均不含该组数字。
 
 > [!todo] 本专题待建概念清单（死链降级登记，勿在主库建 stub）
 > - （已修复）起草期内链 `S01 三种推理期计算范式·并行顺序内化` 实指本专题 S01，已校正为 [S01 测试时计算的三种花法·采样 验证 搜索](/kb/专题-能力与训练/s01-测试时计算的三种花法-采样-验证-搜索/)。

@@ -2,7 +2,7 @@
 title: AI 知识图谱
 cluster: AI PM 知识图谱
 created: '2026-05-18'
-updated: '2026-06-11'
+updated: '2026-06-12'
 provenance: co
 ---
 
@@ -114,7 +114,7 @@ provenance: co
 - [群体智力作为语言幻觉与 LLM 涌现](/kb/基础知识库/群体智力作为语言幻觉与-llm-涌现/) — 维特根斯坦视角下的涌现
 
 ### 4. Agent 与 harness 概念群（详见 [0411](/kb/专题-安全对齐与失败/_agent-系统化专题-总览/)）
-- [Harness词义辨析](/kb/基础知识库/harness词义辨析/) — harness 在 AI 工程社区的三次语义滑动
+- [Harness 词义辨析](/kb/专题-安全对齐与失败/harness-词义辨析/) — harness 在 AI 工程社区的三次语义滑动
 - [Skill 系统的本质](/kb/ai-协作方法论/skill-系统的本质/) — Claude Skill 不是代码、不是插件，是 procedural knowledge 文档化
 - 0411 专题深化：[A02 抽象层级辨析·Harness Framework Agent Skill Orchestrator](/kb/专题-安全对齐与失败/a02-抽象层级辨析-harness-framework-agent-skill-orchestrator/) / [S03 Harness Engineering 全景](/kb/专题-安全对齐与失败/s03-harness-engineering-全景/)
 
@@ -148,7 +148,7 @@ provenance: co
 - 厂商：[Anthropic](/kb/ai-公司与产品/anthropic/) → 产品 [Claude](/kb/ai-公司与产品/claude/) / [Claude Code](/kb/ai-公司与产品/claude-code/) / [Computer Use](/kb/ai-公司与产品/computer-use/) / [Claude Opus](/kb/ai-公司与产品/claude-opus/) / [Claude Sonnet](/kb/ai-公司与产品/claude-sonnet/)
 - 协作机制：[Claude Project Instructions](/kb/ai-协作方法论/claude-project-instructions/) / [Claude 阅读非虚构 instruction 设计](/kb/ai-协作方法论/claude-阅读非虚构-instruction-设计/)
 - Skill 层：[Skill 系统的本质](/kb/ai-协作方法论/skill-系统的本质/) / [trip-structure skill](/kb/工具/trip-structure-skill/) / [intellectual-lens skill 设计](/kb/ai-协作方法论/intellectual-lens-skill-设计/) / [intellectual-lens skill 通过圣周案例的迭代](/kb/ai-协作方法论/intellectual-lens-skill-通过圣周案例的迭代/) / [旅行规划 Skill 套件系统设计](/kb/产品/旅行规划-skill-套件系统设计/)
-- harness 层：[Harness词义辨析](/kb/基础知识库/harness词义辨析/) → 0411 深化 [S03 Harness Engineering 全景](/kb/专题-安全对齐与失败/s03-harness-engineering-全景/)
+- harness 层：[Harness 词义辨析](/kb/专题-安全对齐与失败/harness-词义辨析/) → 0411 深化 [S03 Harness Engineering 全景](/kb/专题-安全对齐与失败/s03-harness-engineering-全景/)
 - Rick 立场观察：AI 产品代差观察与微博打磨（"Anthropic 会成为 AI 时代赢家"）
 
 ### 主题 B：LLM 学习路径（Rick 自己走的路）

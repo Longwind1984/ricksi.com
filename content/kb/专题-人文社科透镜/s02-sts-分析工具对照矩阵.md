@@ -2,7 +2,7 @@
 title: S02 STS 分析工具对照矩阵
 cluster: 专题 · 人文社科透镜
 created: '2026-06-07'
-updated: '2026-06-11'
+updated: '2026-06-12'
 provenance: ai
 facet: STS
 ---
@@ -167,3 +167,4 @@ flowchart TD
 ## 修订日志
 
 - **R1（2026-06-07）**：首稿。建立五工具×五问题核心矩阵 + Mermaid 决策流；每工具补"何时用/何时别用/失效边界"三段；Akrich"AI 超强动态脚本"论点、ANT"AI agent 作行动者"、imaginaries 跨文化矩阵为三个判断主轴；接入 Winner/Collins&Yearley/Mills/Rudek/Dal Molin 五处对手立场（接受+边界）；跨域呼应落地人类学+拉美 fieldwork；Barkett arXiv:2602.23679 经 WebFetch 核实（题/作者/日期/主题全对）；EASST 2026 讨论标〔争议中〕。
+- 2026-06-12 内审·arXiv 联网核实：清了 0 个、存疑 0 个（本节点唯一 arXiv:2602.23679 此前已核实；本轮重新 WebFetch 复核仍为真实论文，标题/作者/提交日不变）。EASST 2026 为非 arXiv 会议来源，未处理。

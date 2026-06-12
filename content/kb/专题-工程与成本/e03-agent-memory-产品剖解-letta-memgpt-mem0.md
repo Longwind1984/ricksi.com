@@ -2,7 +2,7 @@
 title: E03 Agent Memory 产品剖解·Letta MemGPT mem0
 cluster: 专题 · 工程与成本
 created: '2026-06-07'
-updated: '2026-06-11'
+updated: '2026-06-12'
 provenance: ai
 facet: 上下文工程
 ---
@@ -98,7 +98,7 @@ mem0 在其发布材料中声称竞品 MemGPT 在 LoCoMo benchmark 上得分 **6
 - **接受**:对于很多场景,这个怀疑是对的——一个结构良好的 `NOTES.md` + 文件读写工具,确实能解决 80% 的记忆需求,不需要专门的 memory SaaS。这也呼应 Anthropic memory tool(`memory_20250818`)的极简哲学:就是让 agent 在 `/memories` 目录读写文件。
 - **边界**:但这个"文件即记忆"方案在**多用户、高并发、需要语义检索和冲突消解**时会崩。当记忆从"一个项目的笔记"变成"一千万用户各自的画像"时,你需要的就是 mem0 那套提取/索引/遗忘管道了。我赌的是:**记忆品类会两极分化**——单 Agent/单项目用文件就够(Letta 的反例已证明),多租户用户记忆才需要专门基础设施。中间地带的产品最危险。
 
-**对手立场二(引入 Rick 未读的对手框架):认知科学的记忆理论 vs 工程实现的草率类比。** 当前所有 memory 产品都借用人类记忆分类——working / episodic / semantic / procedural(arXiv 2602.06052,2026-02,60 位作者综述,把五类映射到 agent 架构)。但认知科学家 Endel Tulving 提出 episodic/semantic 区分时,强调的是**意识体验的不同**(episodic 带"重新体验"的主观时间感),而工程实现只是把它降维成"带时间戳的向量 vs 不带时间戳的向量"。
+**对手立场二(引入 Rick 未读的对手框架):认知科学的记忆理论 vs 工程实现的草率类比。** 当前所有 memory 产品都借用人类记忆分类——working / episodic / semantic / procedural(arXiv 2602.06052,2026-01,60 位作者综述 "Rethinking Memory Mechanisms of Foundation Agents in the Second Half",把五类映射到 agent 架构)。但认知科学家 Endel Tulving 提出 episodic/semantic 区分时,强调的是**意识体验的不同**(episodic 带"重新体验"的主观时间感),而工程实现只是把它降维成"带时间戳的向量 vs 不带时间戳的向量"。
 - **接受**:这个类比有启发性,帮工程师组织了思路,综述论文也确实推进了术语统一。
 - **边界**:但 PM 要警惕**类比通胀**——用人脑词汇包装的向量数据库,会诱导用户产生远超产品实际能力的期待(见 §4 错点一)。这正是本专题反复强调的术语滑变病理:借一个高熵的人类概念,降维成低熵的机器实现,却保留高熵的营销话术。这与 0114认识论 关心的"概念如何在迁移中悄悄变形"是同一个病。
 
@@ -150,6 +150,7 @@ mem0 在其发布材料中声称竞品 MemGPT 在 LoCoMo benchmark 上得分 **6
 ## 修订日志
 
 - 2026-06-07 R0:首稿。立判断主轴"memory 产品成熟度 vs 炒作鸿沟",以 Letta vs mem0 的 LoCoMo benchmark 互撕为手术刀;升级对照 m206(补 benchmark 可信度危机、写入幻觉风险);跨域呼应维特根斯坦私人语言论证;引入认知科学记忆理论作为 Rick 未读对手框架;接地 MemGPT/mem0 论文、LongMemEval、融资与产品规模数字,均标来源与年份。
+- 2026-06-12 内审·arXiv 联网核实:清了 2 个(2603.07670 / 2602.06052,均 WebFetch arxiv.org/abs 确认论文真实存在且标题/作者/作者数与本节点引述吻合,"待核实项 0 处"脚注从"沿用简报标注"升级为已核实);顺手订正 §5 对 2602.06052 的提交月份(简报误标 2026-02,实为 2026-01),并补全两篇综述真实标题。存疑 0 个。
 
 ---
-*待核实项:0 处(本节点所有硬事实——MemGPT/mem0 论文作者与编号、LoCoMo 互撕双方公开数字、LongMemEval 发现、mem0 融资与产品规模——均来自已核实简报,标注了来源与查询日 2026-06-07;arXiv 2603.07670 / 2602.06052 为简报提供的 2026 年综述编号,沿用简报标注。)*
+*待核实项:0 处(本节点所有硬事实——MemGPT/mem0 论文作者与编号、LoCoMo 互撕双方公开数字、LongMemEval 发现、mem0 融资与产品规模——均来自已核实简报,标注了来源与查询日 2026-06-07;arXiv 2603.07670 / 2602.06052 两篇 2026 年综述编号已核实(2026-06-12,WebFetch arxiv.org/abs):2603.07670 = "Memory for Autonomous LLM Agents: Mechanisms, Evaluation, and Emerging Frontiers"(Pengfei Du,2026-03-08);2602.06052 = "Rethinking Memory Mechanisms of Foundation Agents in the Second Half: A Survey"(Wei-Chieh Huang 等 60 位作者,2026-01-14——原标"2026-02"系沿用简报误差,已订正为 2026-01)。)*

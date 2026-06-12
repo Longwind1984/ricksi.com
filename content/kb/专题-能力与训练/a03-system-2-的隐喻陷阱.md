@@ -33,7 +33,7 @@ facet: 推理与测试时计算
 
 但映射在三个关键维度上失真，而失真之处恰恰是 PM 决策最依赖的地方。
 
-**其一，System 2 是「克制」，推理模型是「铺张」。** Kahneman 的 System 2 核心是**抑制**——它的功劳在于拦住 System 1 的冲动答案。而推理模型的默认动作恰恰相反：它倾向于**生成更多**。这导致一个 Kahneman 框架完全预测不到的病理——overthinking。arXiv:2505.00127（"Between Underthinking and Overthinking"，2025）报告，Phi-4-reasoning 平均生成 6,780 个推理 token，而标准 Phi-4 只需 378 个，但前者准确率反而更低（69.54% vs 78.92%）。一个真正的 System 2，越用力应该越准；推理模型却会「想得越多、错得越多」。隐喻在此不仅失效，而且**反向误导**。
+**其一，System 2 是「克制」，推理模型是「铺张」。** Kahneman 的 System 2 核心是**抑制**——它的功劳在于拦住 System 1 的冲动答案。而推理模型的默认动作恰恰相反：它倾向于**生成更多**。这导致一个 Kahneman 框架完全预测不到的病理——overthinking。arXiv:2507.04023（《Do LLMs Overthink Basic Math Reasoning?》Srivastava et al., Virginia Tech，Table 2/§5.3）报告，推理模型平均要烧约 6,780 个 token（标准 Phi-4 仅约 378.6 个），但 Phi-4-reasoning-plus 准确率 69.54% 反而低于标准 Phi-4 的 78.92%。一个真正的 System 2，越用力应该越准；推理模型却会「想得越多、错得越多」。隐喻在此不仅失效，而且**反向误导**。
 
 **其二，「aha moment」可能不是涌现，而是解锁。** 第 §1 行三的同构，其实正处于学界争议中心。arXiv:2503.20783（"Understanding R1-Zero-Like Training: A Critical Perspective"，2025-03）给出反证：DeepSeek-V3-Base 在 RL 训练的 epoch 0（即未经任何推理 RL）就已显现「aha moment」迹象，Qwen2.5 base model 在无提示模板时也表现出强推理。换言之，RL 可能只是**解锁（unlock）了基座模型预训练时已编码的模式**，而非**创造（emerge）了新的认知能力**。如果属实，那么「模型学会了 System 2 式的反思」这个叙事，就从「认知跃迁」降格为「采样分布的重新加权」。
 
@@ -124,5 +124,6 @@ facet: 推理与测试时计算
 - [AI PM 知识图谱·总索引](/kb/ai-pm-知识图谱/ai-pm-知识图谱-总索引/) — 全局入口
 
 ## 修订日志
+- 2026-06-12 内审修复：Phi-4 对照（6,780 vs 378 token、69.54% vs 78.92%）此前误署 arXiv:2505.00127。WebFetch 复核 2505.00127/2504.21318 abstract 均不含该组数字，真实出处经检索锁定为 **arXiv:2507.04023《Do LLMs Overthink Basic Math Reasoning?》（Srivastava et al.）Table 2/§5.3**。正文已改署真值与正确来源，并标明 69.54% 系 Phi-4-reasoning-**plus** 档、378.6 为 Phi-4 平均、~6,780 为 abstract 推理模型平均值。
 - 2026-06-11 P3.4 校链：0426 认知科学 / 0420 控制论现已入库，§7 升级对照与 §8 延伸入口处"（待建专题，未发布，降级为普通文本）"恢复为真 0426 总览 / 0420 总览 链。
 - 2026-06-07 R0：首稿。建立隐喻审计框架；三处同构 / 三处非同构对照；四点判断主轴；引入 Andy Clark 延展心智与 Dennett 意向性立场作为 Rick 未读对手框架；与 c11 纠偏、0426 祛魅、0420 控制论显式对照。overthinking 准确率掉点引用 arXiv:2604.10739。〔2026-06-11 P0 收口更正：原写"87.3%→70.3%（thinking token 1,100→15,980）经 WebSearch 核实"系误判——该对数字经 WebFetch 复核与原文不符、实为编造；本节正文（见上"真实反例"行）已统一替换为 R1-32B AIME 12K 见顶 55.8%/16K 回落 54.9%、约 7,000 token 负向翻转超过正向翻转的真实数据。〕创意任务是否因 reasoning 掉点缺高质量对照实验，已显式标〔待核实〕留白。

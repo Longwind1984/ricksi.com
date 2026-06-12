@@ -2,7 +2,7 @@
 title: A01 Safety vs Security vs Alignment 三词分治
 cluster: 专题 · 安全对齐与失败
 created: '2026-06-07'
-updated: '2026-06-11'
+updated: '2026-06-12'
 provenance: ai
 facet: AI 红队与攻防
 ---
@@ -80,7 +80,7 @@ Ji 等（"AI Alignment: A Comprehensive Survey", 2023, arXiv:2310.19852）的对
 > 症状："我们对齐做好了，安全和攻防自然就解决了。"
 > 为什么会错：三根轴正交。对齐解决"目标对不对"，解决不了"架构能不能区分指令与数据"（security），也解决不了"分布外输入会不会触发幻觉"（safety）。data poisoning 甚至可以在对齐阶段（RLHF 偏好数据）下毒——PoisonBench（2024〔待核实〕）区分了对齐退化攻击与内容注入攻击，说明**对齐过程本身就是一个 security 攻击面**。
 > 正确做法：三套防御并行建栈，不互相替代。
-> 真实反例：ICLR 2025 论文（arXiv:4dade38〔待核实〕）证实标准 RLHF 和对抗训练**不能可靠移除预训练后门**，甚至可能使其更难检测——对齐手段对 security 后门基本无效。
+> 真实反例：ICLR 2025 论文《Persistent Pre-Training Poisoning of LLMs》（Zhang et al., arXiv:2410.13722，已核实(2026-06-12)）证实**预训练阶段下毒只需污染 0.1% 数据即可在 SFT/DPO 对齐后依然持续生效**，标准对齐无法可靠清除预训练后门——对齐手段对 security 后门基本无效。（"对抗训练可能使后门更难检测"这一子论断另出自 Sleeper Agents，arXiv:2401.05566，见 E01/E03。原稿误把 ICLR 会议论文集 PDF 哈希 `4dade38…` 当作 arXiv 编号，已订正。）
 
 ---
 
@@ -92,7 +92,7 @@ Ji 等（"AI Alignment: A Comprehensive Survey", 2023, arXiv:2310.19852）的对
 |---|---|---|---|---|
 | **过滤≈安全** | "加了内容过滤，注入就解决了" | 过滤是 safety 分类器，学"有没有害"不学"是不是注入指令"；有 8-47% 绕过率 | 注入用 security 架构手段（指令-数据分离/权限隔离/沙箱） | EchoLeak 绕过 XPIA 过滤层零点击得手（CVE-2025-32711, CVSS 9.3） |
 | **对齐≈防攻击** | "模型很乖，攻击会被拒绝" | 注入利用"听话"；inverse scaling——越强越易被注入 | 架构层解注入，训练只是必要非充分 | AgentDojo：GPT-4o 无防御 ASR 57.7%（arXiv:2406.13352） |
-| **对齐≈总和** | "对齐好了，安全和攻防自然解决" | 三轴正交；RLHF 偏好数据本身是攻击面 | 三套防御栈并行，不互相替代 | RLHF 无法移除预训练后门（ICLR 2025〔待核实〕） |
+| **对齐≈总和** | "对齐好了，安全和攻防自然解决" | 三轴正交；RLHF 偏好数据本身是攻击面 | 三套防御栈并行，不互相替代 | 标准对齐无法清除预训练后门（arXiv:2410.13722，已核实(2026-06-12)） |
 | **safety 手段做确定性边界** | "护栏拦住了，可以放心自动执行" | safety 是概率性控制（降低非归零），不是硬墙 | 高风险/不可逆操作上确定性控制（HITL/权限不给/沙箱） | Constitutional Classifiers 4.4% 残余越狱率＋1 例通用越狱（arXiv:2501.18837） |
 
 > [!note] 一句话记忆法
@@ -166,3 +166,4 @@ Ji 等（"AI Alignment: A Comprehensive Survey", 2023, arXiv:2310.19852）的对
 ## 修订日志
 
 - R0（2026-06-07）：首稿。建立"威胁来源 × 失败模式 × 防御工具箱"三轴分治框架；四类错位诊断表（§4）；维特根斯坦语言游戏跨域呼应（§6）；接入 Lin/Sun/Shroff 的"防火 vs 防盗"反方耦合论并标边界。多处事实声明标〔待核实〕，待 grounding pass 用 WebSearch/WebFetch 核实 arXiv ID 与具体数字。
+- 2026-06-12 内审·arXiv 联网核实：清了 1 个 / 存疑 0 个。§3 warning#3 与 §4 诊断表两处"ICLR 2025 论文"引用——原稿误把 ICLR 会议论文集 PDF 哈希 `4dade38…` 当作 arXiv 编号，经 WebSearch+WebFetch 锁定真身为《Persistent Pre-Training Poisoning of LLMs》（Zhang/Rando/Carlini/Tramèr et al., **arXiv:2410.13722**，ICLR 2025），订正编号并补正核心论断（污染 0.1% 预训练数据即可穿透 SFT/DPO 持续生效）；"对抗训练使后门更难检测"子论断另归 Sleeper Agents(arXiv:2401.05566)。PoisonBench(2024) 与 OWASP LLM Top 10 2025 两处〔待核实〕属书目/规范来源、无内联 arXiv ID，本轮不动。
