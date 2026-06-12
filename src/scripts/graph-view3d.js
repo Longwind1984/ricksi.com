@@ -16,10 +16,23 @@ const LINK_DIM = 'rgba(143,168,204,0.16)';
 const LINK_BASE = 'rgba(143,168,204,0.36)';
 const LINK_LIT = 'rgba(2,191,231,0.85)';
 
+/* 可调力学参数（/graph 参数面板的默认值；linkStrength/nodeScale/labelDensity 是倍率） */
+export const GRAPH_PARAM_DEFAULTS = {
+  charge: -42, // 节点间斥力
+  linkDistance: 34, // 双链目标距离
+  linkStrength: 1, // 双链拉力倍率（基准 0.6/min(deg)^0.6 的 hub 减弱不变）
+  anchor: 0.13, // 主题域向心引力
+  nodeScale: 1, // 节点大小倍率
+  labelDensity: 1, // 标签数量倍率
+};
+
+/* opts.mini：主页预览模式——自转氛围、禁缩放/平移（不劫持页面滚轮）、少标签、点节点交给 onSelect */
 export function renderGraph3D(host, graph, opts = {}) {
   const isMobile = matchMedia('(pointer: coarse)').matches;
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isMini = !!opts.mini;
   const FLY_MS = reduced ? 0 : 1000;
+  const params = { ...GRAPH_PARAM_DEFAULTS };
 
   /* ---------- 数据 ---------- */
   const nodes = graph.nodes.map((n) => ({ ...n }));
@@ -68,7 +81,7 @@ export function renderGraph3D(host, graph, opts = {}) {
     .linkColor(linkColorFn)
     .linkOpacity(1)
     .linkWidth(0)
-    .enableNodeDrag(!isMobile)
+    .enableNodeDrag(!isMobile && !isMini)
     .warmupTicks(reduced ? 260 : 80)
     .cooldownTicks(reduced ? 0 : 220)
     .d3AlphaDecay(0.028)
@@ -88,11 +101,26 @@ export function renderGraph3D(host, graph, opts = {}) {
 
   const renderer = Graph.renderer();
   renderer.setPixelRatio(Math.min(isMobile ? 1.5 : 2, devicePixelRatio || 1));
+  // 显式按宿主尺寸初始化（默认取窗口大小；ResizeObserver 的初始回调不可依赖）
+  if (host.clientWidth && host.clientHeight) {
+    Graph.width(host.clientWidth).height(host.clientHeight);
+  }
   if (typeof window !== 'undefined') window.__g3d = Graph; // 调试钩子（仅内存引用，不影响生产）
   Graph.controls().enableDamping = true;
   Graph.controls().dampingFactor = 0.06;
   Graph.controls().minDistance = 30;
   Graph.controls().maxDistance = 1050; // 始终留在星壳（r≥1200）内侧
+  if (isMini) {
+    // 氛围自转的预览窗：滚轮/平移留给页面，触屏完全不拦（pan-y 保证页面可滚）
+    const c = Graph.controls();
+    c.autoRotate = !reduced;
+    c.autoRotateSpeed = 0.55;
+    c.enableZoom = false;
+    c.enablePan = false;
+    if (isMobile) c.enabled = false;
+    renderer.domElement.style.touchAction = 'pan-y';
+    host.style.cursor = 'grab';
+  }
   // 初始机位：不等收敛先给一个 NASA 式斜上视角（内置 zoomToFit 会把离群点和星壳都框进去，弃用）
   Graph.cameraPosition({ x: R * 0.9, y: R * 0.55, z: R * 2.2 }, { x: 0, y: 0, z: 0 }, 0);
 
@@ -119,18 +147,26 @@ export function renderGraph3D(host, graph, opts = {}) {
     Graph.cameraPosition({ x: c.x + p.x, y: c.y + p.y, z: c.z + p.z }, c, ms);
   }
 
-  /* ---------- 力参数（语义对齐 2D 版：hub 边减弱、孤点强锚定） ---------- */
-  Graph.d3Force('charge').strength(-42).distanceMax(300);
-  Graph.d3Force('link')
-    .distance(34)
-    .strength((l) => 0.6 / Math.min(degOf(l.source), degOf(l.target)) ** 0.6);
+  /* ---------- 力参数（语义对齐 2D 版：hub 边减弱、孤点强锚定；全部读 params 支持运行时调节） ----------
+     注意：d3-force 的 strength 访问器在 .strength() 调用时缓存逐节点值，
+     所以 setParams 后必须重新 set 一遍同一个访问器才会生效。 */
   const ax = (n) => anchor[n.cluster].x;
   const ay = (n) => anchor[n.cluster].y;
   const az = (n) => anchor[n.cluster].z;
-  const anchorStrength = (n) => ((n.deg || 0) === 0 ? 0.32 : 0.13);
-  Graph.d3Force('x', forceX(ax).strength(anchorStrength));
-  Graph.d3Force('y', forceY(ay).strength(anchorStrength));
-  Graph.d3Force('z', forceZ(az).strength(anchorStrength));
+  const anchorStrength = (n) => ((n.deg || 0) === 0 ? Math.min(0.6, params.anchor * 2.5) : params.anchor);
+  Graph.d3Force('x', forceX(ax));
+  Graph.d3Force('y', forceY(ay));
+  Graph.d3Force('z', forceZ(az));
+  function applyPhysics() {
+    Graph.d3Force('charge').strength(params.charge).distanceMax(300);
+    Graph.d3Force('link')
+      .distance(params.linkDistance)
+      .strength((l) => (params.linkStrength * 0.6) / Math.min(degOf(l.source), degOf(l.target)) ** 0.6);
+    Graph.d3Force('x').strength(anchorStrength);
+    Graph.d3Force('y').strength(anchorStrength);
+    Graph.d3Force('z').strength(anchorStrength);
+  }
+  applyPhysics();
 
   /* ---------- NASA Eyes 视觉层 ---------- */
   const scene = Graph.scene();
@@ -141,7 +177,7 @@ export function renderGraph3D(host, graph, opts = {}) {
   if (!isMobile) {
     bloom = new UnrealBloomPass(
       new THREE.Vector2(host.clientWidth || 800, host.clientHeight || 600),
-      0.72, // strength（过高会把聚类色洗成白心）
+      isMini ? 0.55 : 0.72, // strength（过高会把聚类色洗成白心；预览窗更轻）
       0.42, // radius
       0.18 // threshold：节点 emissive 发光、星点微光
     );
@@ -149,7 +185,7 @@ export function renderGraph3D(host, graph, opts = {}) {
   }
 
   function makeStarfield() {
-    const N = isMobile ? 800 : 1500;
+    const N = isMini ? 500 : isMobile ? 800 : 1500;
     const pos = new Float32Array(N * 3);
     for (let i = 0; i < N; i++) {
       // 球壳分布 r ∈ [1200, 2600]，远离图主体
@@ -185,10 +221,11 @@ export function renderGraph3D(host, graph, opts = {}) {
       opacity: 0.95,
     });
     const mesh = new THREE.Mesh(sphereGeo, mat);
-    mesh.scale.setScalar(radius(n));
+    mesh.scale.setScalar(radius(n) * params.nodeScale);
     const g = new THREE.Group();
     g.add(mesh);
     n.__mat = mat;
+    n.__mesh = mesh;
     n.__group = g;
     return g;
   }
@@ -201,11 +238,17 @@ export function renderGraph3D(host, graph, opts = {}) {
     s.strokeColor = 'rgba(0,0,5,0.92)';
     s.material.depthWrite = false;
     s.material.fog = false;
-    s.position.y = radius(n) + 5;
+    s.position.y = radius(n) * params.nodeScale + 5;
     s.visible = false;
     n.__group.add(s);
     n.__sprite = s;
     return s;
+  }
+  function applyNodeScale() {
+    for (const n of nodes) {
+      if (n.__mesh) n.__mesh.scale.setScalar(radius(n) * params.nodeScale);
+      if (n.__sprite) n.__sprite.position.y = radius(n) * params.nodeScale + 5;
+    }
   }
 
   /* ---------- 高亮状态机：node / cluster / search 三态（语义复刻 2D applyState） ---------- */
@@ -262,14 +305,15 @@ export function renderGraph3D(host, graph, opts = {}) {
     const top = nodes.filter((n) => n.cluster === cid).sort((a, b) => (b.deg || 0) - (a.deg || 0))[0];
     if (top) hubs.add(top.id);
   }
-  const MAX_LABELS = isMobile ? 28 : 60;
+  const baseMaxLabels = isMini ? 12 : isMobile ? 28 : 60;
+  let maxLabels = baseMaxLabels;
   const GRID_X = 10, GRID_Y = 7;
   const proj = new THREE.Vector3();
   function updateLabels() {
     const cam = Graph.camera();
     if (!cam) return;
     const camPos = cam.position;
-    // 优先级：选中 3 > 邻域/搜索命中 2 > hub 1 > 近距 0
+    // 优先级：选中 3 > 邻域/搜索命中 2 > hub 1 > 近距 0（mini 不开近距档，预览窗保持干净）
     const cand = [];
     for (const n of nodes) {
       if (n.x === undefined) continue;
@@ -280,14 +324,14 @@ export function renderGraph3D(host, graph, opts = {}) {
       else if (state.type === 'search' && state.value.has(n.id) && state.value.size <= 25) pr = 2;
       else if (state.type === 'cluster' && n.cluster === state.value && hubs.has(n.id)) pr = 2;
       else if (state.type === null && hubs.has(n.id)) pr = 1;
-      else if (state.type === null && d < R * 1.1) pr = 0;
+      else if (!isMini && state.type === null && d < R * 1.1) pr = 0;
       if (pr >= 0) cand.push({ n, d, pr });
     }
     cand.sort((a, b) => b.pr - a.pr || a.d - b.d);
     const grid = new Set();
     const show = new Set();
     for (const { n, d } of cand) {
-      if (show.size >= MAX_LABELS) break;
+      if (show.size >= maxLabels) break;
       proj.set(n.x, n.y, n.z).project(cam);
       if (proj.z > 1) continue; // 相机背后
       const gx = Math.floor(((proj.x + 1) / 2) * GRID_X);
@@ -376,6 +420,22 @@ export function renderGraph3D(host, graph, opts = {}) {
     },
     focusNode,
     nodeBySlug: (slug) => bySlug.get(slug) || null,
+    getParams: () => ({ ...params }),
+    /* 运行时调参：物理项重设力并 reheat，视觉项直接改材质/精灵；传 null 重置为默认 */
+    setParams(p) {
+      const prev = { ...params };
+      Object.assign(params, p || GRAPH_PARAM_DEFAULTS);
+      const physicsChanged = ['charge', 'linkDistance', 'linkStrength', 'anchor'].some(
+        (k) => params[k] !== prev[k]
+      );
+      if (physicsChanged) {
+        applyPhysics();
+        Graph.d3ReheatSimulation();
+      }
+      if (params.nodeScale !== prev.nodeScale) applyNodeScale();
+      maxLabels = Math.round(baseMaxLabels * params.labelDensity);
+      updateLabels();
+    },
     destroy() {
       // View Transitions 下页面永不卸载：不显式丢 GL context，反复进出会撞浏览器 8-16 个上限
       clearInterval(lodTimer);

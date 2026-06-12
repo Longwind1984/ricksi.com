@@ -28,14 +28,41 @@ const updated = graph ? stamp(graph.generated_at) : null;
           </div>
         </div>
 
-        <!-- 缩放控件 + 2D/3D 切换 -->
+        <!-- 缩放控件 + 2D/3D 切换 + 力学参数 -->
         <div class="gx-zoom">
           <button class="gx-zbtn gx-mode" id="gx-mode" aria-label="切换 2D / 3D 视图" aria-pressed="false">3D</button>
+          <button class="gx-zbtn gx-tune" id="gx-tune" aria-label="力学参数" aria-pressed="false" title="力学参数">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="7" x2="20" y2="7"/><circle cx="9" cy="7" r="2.4" fill="rgba(10,20,38,0.9)"/><line x1="4" y1="17" x2="20" y2="17"/><circle cx="15" cy="17" r="2.4" fill="rgba(10,20,38,0.9)"/></svg>
+          </button>
           <button class="gx-zbtn" id="gx-zoom-in" aria-label="放大">+</button>
           <button class="gx-zbtn" id="gx-zoom-out" aria-label="缩小">−</button>
           <button class="gx-zbtn" id="gx-fit" aria-label="适配视图">◌</button>
           <button class="gx-zbtn" id="gx-reset" aria-label="重置">↺</button>
         </div>
+
+        <!-- 力学参数面板（Obsidian 式可玩调参；仅 3D 视图） -->
+        <aside class="gx-params" id="gx-params" hidden>
+          <div class="gx-params-head">
+            <span class="mono gx-params-title">力学参数</span>
+            <button class="gx-params-reset mono" id="gx-params-reset" type="button">重置</button>
+            <button class="gx-close" id="gx-params-close" aria-label="关闭" type="button">✕</button>
+          </div>
+          {[
+            ['charge', '斥力', 5, 150, 1, 42, '节点互相推开的力度'],
+            ['linkDistance', '链接距离', 10, 100, 1, 34, '相连笔记的目标间距'],
+            ['linkStrength', '链接拉力', 0, 200, 5, 100, '双链把笔记拉到一起的强度 %'],
+            ['anchor', '聚类引力', 0, 40, 1, 13, '笔记被拉回所属主题域的强度'],
+            ['nodeScale', '节点大小', 40, 220, 5, 100, '%'],
+            ['labelDensity', '标签密度', 0, 200, 10, 100, '同屏标题数量 %'],
+          ].map(([key, label, min, max, step, val, tip]) => (
+            <label class="gx-prow" title={String(tip)}>
+              <span class="gx-prow-label">{label}</span>
+              <input type="range" id={`gp-${key}`} min={min} max={max} step={step} value={val} data-key={key} />
+              <b class="mono gx-prow-val" id={`gpv-${key}`}>{val}</b>
+            </label>
+          ))}
+          <p class="mono gx-params-note">实时生效 · 自动保存 · 仅 3D 视图</p>
+        </aside>
 
         <!-- 3D 引擎加载提示（chunk ~1MB，慢网可感知） -->
         <div class="gx-loading mono" id="gx-loading" hidden>正在加载 3D 引擎…</div>

@@ -1,7 +1,10 @@
 // 首页行为：占位链接 / 滚动浮现 / 实时 token 跳动 / 知识图谱渲染
 // 数据从 #site-data JSON 读取（构建时注入；real 字段缺失即回退样例）
+// 图谱卡：滚动进视口后懒加载 3D 预览（three 异步 chunk，不进首发包）；
+// WebGL 不可用 / reduced-motion / 加载失败 → 回退 2D
 import { sampleGraph, GRAPH_PALETTE, SAMPLE_CLUSTERS } from '../lib/sample.js';
 import { renderGraph } from './graph-view.js';
+import { webglOK } from './graph-mode.js';
 
 let homeAbort = null;
 let homeGraphCtl = null;
@@ -165,14 +168,61 @@ if (kgPaper && siteData.graph) {
   const legend = document.getElementById('kg-legend');
   const legEls = [];
 
-  const ctl = (homeGraphCtl = renderGraph(kgPaper, graph, {
-    mode: 'full',
-    onStateChange(state) {
-      legEls.forEach((el, j) =>
-        el.classList.toggle('active', state.type === 'cluster' && state.value === graph.clusters[j].id)
-      );
-    },
-  }));
+  // 图例/搜索通过 homeGraphCtl 间接调用：2D 与 3D 控制器 API 同形，挂载时机不同
+  const onStateChange = (state) => {
+    legEls.forEach((el, j) =>
+      el.classList.toggle('active', state.type === 'cluster' && state.value === graph.clusters[j].id)
+    );
+  };
+  const mount2d = () => {
+    homeGraphCtl = renderGraph(kgPaper, graph, { mode: 'full', onStateChange });
+  };
+
+  const use3d = webglOK() && window.matchMedia('(prefers-reduced-motion: no-preference)').matches;
+  if (use3d) {
+    kgPaper.classList.add('kg-3d');
+    const hintEl = document.createElement('span');
+    hintEl.className = 'kg-3d-hint mono';
+    hintEl.textContent = '3D 预览加载中…';
+    kgPaper.appendChild(hintEl);
+    let mounted = false;
+    async function mount3d() {
+      if (mounted) return;
+      mounted = true;
+      try {
+        const { renderGraph3D } = await import('./graph-view3d.js');
+        if (sig.aborted) return;
+        hintEl.remove();
+        homeGraphCtl = renderGraph3D(kgPaper, graph, {
+          mini: true,
+          onStateChange,
+          onSelect: (n) => {
+            window.location.href = `/graph?focus=${encodeURIComponent(n.slug)}`;
+          },
+        });
+        const note = document.getElementById('kg-note');
+        if (note) note.textContent = '3D 预览：拖拽旋转 · 点击节点在全图中定位。数据来自 Obsidian 库真实双链结构。';
+      } catch (e) {
+        console.error('[home] 3D 预览加载失败，回退 2D：', e);
+        hintEl.remove();
+        kgPaper.classList.remove('kg-3d');
+        mount2d();
+      }
+    }
+    // 懒加载触发：滚动 + 初始位置检查（不依赖 IntersectionObserver——部分环境不投递回调）
+    const nearView = () => {
+      const r = kgPaper.getBoundingClientRect();
+      return r.top < innerHeight + 360 && r.bottom > -360;
+    };
+    const tryMount = () => {
+      if (!mounted && nearView()) mount3d();
+    };
+    window.addEventListener('scroll', tryMount, { passive: true, signal: sig });
+    window.addEventListener('resize', tryMount, { passive: true, signal: sig });
+    requestAnimationFrame(tryMount);
+  } else {
+    mount2d();
+  }
 
   // 图例 = 真按钮：hover 预览高亮；click/Enter 锁定（触屏与键盘的等价路径）
   let lockedCluster = null;
@@ -186,13 +236,13 @@ if (kgPaper && siteData.graph) {
     dot.style.background = GRAPH_PALETTE[c.id % GRAPH_PALETTE.length];
     item.appendChild(dot);
     item.appendChild(document.createTextNode(`${c.name} · ${c.count}`));
-    item.addEventListener('mouseenter', () => { if (lockedCluster === null) ctl.highlightCluster(c.id); });
-    item.addEventListener('mouseleave', () => { if (lockedCluster === null) ctl.highlightCluster(null); });
-    item.addEventListener('focus', () => { if (lockedCluster === null) ctl.highlightCluster(c.id); });
-    item.addEventListener('blur', () => { if (lockedCluster === null) ctl.highlightCluster(null); });
+    item.addEventListener('mouseenter', () => { if (lockedCluster === null) homeGraphCtl?.highlightCluster(c.id); });
+    item.addEventListener('mouseleave', () => { if (lockedCluster === null) homeGraphCtl?.highlightCluster(null); });
+    item.addEventListener('focus', () => { if (lockedCluster === null) homeGraphCtl?.highlightCluster(c.id); });
+    item.addEventListener('blur', () => { if (lockedCluster === null) homeGraphCtl?.highlightCluster(null); });
     item.addEventListener('click', () => {
       lockedCluster = lockedCluster === c.id ? null : c.id;
-      ctl.highlightCluster(lockedCluster);
+      homeGraphCtl?.highlightCluster(lockedCluster);
       legEls.forEach((el, j) => {
         el.classList.toggle('locked', graph.clusters[j].id === lockedCluster);
         el.setAttribute('aria-pressed', String(graph.clusters[j].id === lockedCluster));
@@ -205,7 +255,7 @@ if (kgPaper && siteData.graph) {
   const input = document.getElementById('kg-search');
   const hint = document.getElementById('kg-search-hint');
   input?.addEventListener('input', () => {
-    const n = ctl.search(input.value);
+    const n = homeGraphCtl?.search(input.value) ?? 0;
     if (hint) hint.textContent = input.value.trim() ? `${n} 篇匹配` : '';
   });
 } else if (kgPaper) {

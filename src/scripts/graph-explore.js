@@ -28,9 +28,46 @@ document.addEventListener('astro:page-load', () => {
   const modeBtn = document.getElementById('gx-mode');
   const search = document.getElementById('gx-search');
   const stamp = document.getElementById('gx-stamp');
+  const tuneBtn = document.getElementById('gx-tune');
+  const paramsPanel = document.getElementById('gx-params');
   let current = null;
   let ctl = null;
   let mode = resolveMode();
+
+  /* ---------- 力学参数面板（仅 3D 控制器有 setParams） ----------
+     滑杆用整数刻度（百分比/正数斥力），换算成引擎参数 */
+  const PKEY = 'kg-graph-params';
+  const toEngine = (k, v) => (k === 'charge' ? -v : k === 'linkDistance' ? v : v / 100);
+  const toUi = (k, v) => (k === 'charge' ? -v : k === 'linkDistance' ? v : Math.round(v * 100));
+  const loadSavedParams = () => {
+    try {
+      return JSON.parse(localStorage.getItem(PKEY)) || null;
+    } catch {
+      return null;
+    }
+  };
+  function syncSliders(engineParams) {
+    paramsPanel?.querySelectorAll('input[type="range"]').forEach((inp) => {
+      const k = inp.dataset.key;
+      if (engineParams[k] === undefined) return;
+      inp.value = toUi(k, engineParams[k]);
+      const v = document.getElementById(`gpv-${k}`);
+      if (v) v.textContent = inp.value;
+    });
+  }
+  function initParams() {
+    if (!tuneBtn || !paramsPanel) return;
+    const is3d = mode === '3d' && !!ctl?.setParams;
+    tuneBtn.hidden = !is3d;
+    if (!is3d) {
+      paramsPanel.hidden = true;
+      tuneBtn?.setAttribute('aria-pressed', 'false');
+      return;
+    }
+    const saved = loadSavedParams();
+    if (saved) ctl.setParams(saved);
+    syncSliders(ctl.getParams());
+  }
 
   const clusterName = (id) => graph.clusters.find((c) => c.id === id)?.name ?? '';
 
@@ -74,6 +111,7 @@ document.addEventListener('astro:page-load', () => {
       return;
     }
     gxCtl = ctl;
+    initParams();
     if (stamp) {
       stamp.textContent =
         mode === '3d'
@@ -109,6 +147,38 @@ document.addEventListener('astro:page-load', () => {
       saveMode(next);
       panel.hidden = true;
       boot(next);
+    });
+  }
+
+  if (tuneBtn && paramsPanel) {
+    tuneBtn.addEventListener('click', () => {
+      const open = paramsPanel.hidden;
+      paramsPanel.hidden = !open;
+      tuneBtn.setAttribute('aria-pressed', String(open));
+    });
+    document.getElementById('gx-params-close')?.addEventListener('click', () => {
+      paramsPanel.hidden = true;
+      tuneBtn.setAttribute('aria-pressed', 'false');
+    });
+    document.getElementById('gx-params-reset')?.addEventListener('click', () => {
+      if (!ctl?.setParams) return;
+      ctl.setParams(null);
+      localStorage.removeItem(PKEY);
+      syncSliders(ctl.getParams());
+    });
+    paramsPanel.querySelectorAll('input[type="range"]').forEach((inp) => {
+      inp.addEventListener('input', () => {
+        const k = inp.dataset.key;
+        const v = document.getElementById(`gpv-${k}`);
+        if (v) v.textContent = inp.value;
+        if (!ctl?.setParams) return;
+        ctl.setParams({ [k]: toEngine(k, +inp.value) });
+        try {
+          localStorage.setItem(PKEY, JSON.stringify(ctl.getParams()));
+        } catch {
+          /* 隐私模式下静默 */
+        }
+      });
     });
   }
 

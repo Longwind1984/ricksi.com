@@ -1,5 +1,27 @@
 # WORKLOG（append-only，倒金字塔：结论在前、清单沉底）
 
+## 2026-06-12（续）· v3.1：主页图谱卡 3D 化 + 全屏页力学参数面板
+
+### 做了什么
+
+1. **主页图谱预览升 3D**：知识库区的图谱卡从 2D SVG 换成迷你 3D 深空窗——滚动到该区块时才懒加载 three（不进首页首发包），缓慢自转营造氛围；滚轮/双指留给页面滚动（不劫持），桌面可拖拽旋转，点击任意节点直接跳到全图并聚焦该笔记；图例 hover/锁定与搜索照常联动（2D/3D 控制器 API 同形，零分叉）。WebGL 不可用、系统减少动态或加载失败时自动回退原 2D。
+2. **/graph 力学参数面板**（Obsidian Graph View 式可玩调参）：缩放栏新增 ⚙ 按钮，弹出玻璃面板含六个滑杆——斥力、链接距离、链接拉力、聚类引力、节点大小、标签密度；物理项实时重热布局，视觉项即时生效；自动存 localStorage、一键重置；仅 3D 视图显示（切 2D 自动收起）。
+
+### 关键决策与已知问题
+
+- 懒加载触发从 IntersectionObserver 换成「滚动 + 初始位置检查」：预览环境实测 IO 连初始回调都不投递，站内 reveal 动画早有同类兜底，这里跟齐。
+- 3D 实例构造后显式按宿主尺寸 set 一次 width/height：默认取窗口尺寸，而 ResizeObserver 的初始回调同样不可依赖（修掉了迷你窗 canvas 撑满全窗的 bug）。
+- 调参的 d3-force 坑：strength 访问器在 .strength() 调用时缓存逐节点值，setParams 后必须重新 set 同一访问器再 reheat 才生效（graph-view3d.js 内注释留档）。
+- 「reheat 不动」排查结论：预览窗后台化时 Chrome 冻结 rAF，引擎自然不 tick——环境现象非代码缺陷，源码链路（engineRunning → 无条件 layoutTick）已核对。
+- scripts/config.mjs 里新增的「前沿追踪」配置草案不属于本次工作，未提交。
+
+### 文件级变更
+
+- `src/scripts/graph-view3d.js`（mini 模式 / GRAPH_PARAM_DEFAULTS / setParams·getParams / applyPhysics·applyNodeScale / 显式初始尺寸）
+- `src/scripts/home.js`（图谱卡懒加载 3D + 回退链 + 文案动态切换）
+- `src/scripts/graph-explore.js`（参数面板接线 / localStorage 持久 / 模式联动显隐）
+- `src/pages/graph.astro`（⚙ 按钮 + 面板 markup）、`src/styles/glass.css`（.kg-3d / .gx-params / 滑杆样式）
+
 ## 2026-06-12 · v3：信任修复 + 3D 图谱 + 六点迭代
 
 ### 做了什么（给非开发者的版本）
