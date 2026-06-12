@@ -2,12 +2,12 @@
 // 字母牌是确定性生成（slug 哈希做种子）：同一人物每次构建产出完全一致的 SVG，
 // 风格与 Liquid Glass 深空体系同源——新增人物即使头像未生成也不破版、不违和。
 
-/* 领域强调色（与 GRAPH_PALETTE 同源，避免新色票） */
+/* 领域强调色（设计系统 v2 图谱色环非邻接四档 h240/180/90/300，与 GRAPH_PALETTE 同源） */
 export const DOMAIN_ACCENT = {
-  lab: '#7FB3F0',
-  engineering: '#6FD3C0',
-  research: '#E8B36A',
-  writing: '#B79DEF',
+  lab: '#71C1F7',
+  engineering: '#59CEBA',
+  research: '#D3B460',
+  writing: '#C2A7F4',
 };
 
 /* slug → 稳定 uint32 种子 */
@@ -62,6 +62,6 @@ export function portraitFallbackSvg(person) {
 <stop offset="0" stop-color="#101A2E"/><stop offset="1" stop-color="#0A1222"/></linearGradient></defs>
 <rect width="120" height="120" fill="url(#g-${person.slug})"/>${lines}${dots}
 <text x="60" y="66" text-anchor="middle" dominant-baseline="middle" font-family="ui-monospace,Menlo,monospace" font-size="34" letter-spacing="2" fill="rgba(255,255,255,0.88)">${initialsOf(person.name)}</text>
-<line x1="42" y1="84" x2="78" y2="84" stroke="#E8B36A" stroke-width="1.2" stroke-opacity="0.85"/>
+<line x1="42" y1="84" x2="78" y2="84" stroke="#F4C761" stroke-width="1.2" stroke-opacity="0.85"/>
 </svg>`;
 }

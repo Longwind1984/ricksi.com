@@ -23,6 +23,7 @@ const fmt = (d: Date) => d.toISOString().slice(0, 10);
   description={post.data.description ?? post.data.title}
   active="blog"
   ogImage={`/og/blog/${post.id}.png`}
+  shareImage={`/share/blog/${post.id}.jpg`}
   jsonLd={{
     '@context': 'https://schema.org',
     '@type': 'Article',

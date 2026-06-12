@@ -143,7 +143,7 @@ export function renderGraph(host, graph, opts = {}) {
     t.textContent = n.title;
     t.style.transition = 'opacity .2s';
     t.style.pointerEvents = 'none';
-    t.style.fontFamily = "'PingFang SC', 'Noto Sans SC', sans-serif";
+    t.style.fontFamily = "'MiSans Latin', 'MiSans', 'MiSans L3', 'PingFang SC', sans-serif";
     layer.appendChild(t);
     return t;
   });

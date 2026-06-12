@@ -1,3 +1,4 @@
+/* 2026-06-13 修复：本地拉丁 VF 改独立家族名 'MiSans Latin' 置栈首——同名 'MiSans' 时其 weight:100 900 在任意字重赢得家族内匹配，CJK 直接跳到 L3，CDN 子集永不加载 */
 /* ============================================================
    字体加载 · 组合壹(自托管加固版)
    策略:
@@ -19,7 +20,7 @@
 /* MiSans Latin VF · 本地,拉丁范围全字重 —— 声明在 @import 之后,
    同 family 同区间时后声明者优先,拉丁字符走本地 */
 @font-face {
-  font-family: 'MiSans';
+  font-family: 'MiSans Latin';
   src: url('../assets/fonts/MiSansLatinVF.ttf') format('truetype-variations');
   font-weight: 100 900;
   font-display: swap;

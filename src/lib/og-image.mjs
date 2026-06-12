@@ -1,11 +1,13 @@
 // 构建时 OG 分享图：satori（文字转矢量路径，环境无关）+ resvg 光栅化
-// 玻璃风模板：深 navy 渐变 + 玻璃卡 + 标题 + 类别 chip + 域名
+// v2「钴蓝之夜」模板：钴蓝渐变 + 玻璃卡 + 标题 + 群青类别 chip + 域名（字体 MiSans）
 import fs from 'node:fs';
 import path from 'node:path';
 import satori from 'satori';
 import { Resvg } from '@resvg/resvg-js';
 
-const fontData = fs.readFileSync(path.resolve('assets-src/fonts/NotoSansCJKsc-Medium.otf'));
+const fontRegular = fs.readFileSync(path.resolve('assets-src/fonts/MiSans-Regular.ttf'));
+const fontSemibold = fs.readFileSync(path.resolve('assets-src/fonts/MiSans-Semibold.ttf'));
+const fontNoto = fs.readFileSync(path.resolve('assets-src/fonts/NotoSansCJKsc-Medium.otf')); // MiSans v1 缺字兜底
 
 export async function renderOg({ title, sub, kind }) {
   const svg = await satori(
@@ -19,8 +21,8 @@ export async function renderOg({ title, sub, kind }) {
           flexDirection: 'column',
           justifyContent: 'center',
           padding: '80px',
-          background: 'linear-gradient(160deg, #14264A 0%, #0A1426 58%, #060C19 100%)',
-          fontFamily: 'Noto Sans SC',
+          background: 'linear-gradient(160deg, #16266A 0%, #0B1538 55%, #070D20 100%)',
+          fontFamily: 'MiSans',
           position: 'relative',
         },
         children: [
@@ -49,8 +51,8 @@ export async function renderOg({ title, sub, kind }) {
                             display: 'flex',
                             padding: '8px 22px',
                             borderRadius: '999px',
-                            border: '1.5px solid rgba(77,159,236,0.7)',
-                            background: 'rgba(77,159,236,0.28)',
+                            border: '1.5px solid rgba(120,168,255,0.7)',
+                            background: 'rgba(54,112,238,0.32)',
                             color: '#FFFFFF',
                             fontSize: '24px',
                           },
@@ -76,7 +78,7 @@ export async function renderOg({ title, sub, kind }) {
                       display: 'flex',
                       color: '#FFFFFF',
                       fontSize: title.length > 18 ? '58px' : '72px',
-                      fontWeight: 500,
+                      fontWeight: 600,
                       lineHeight: 1.35,
                     },
                     children: title,
@@ -107,7 +109,11 @@ export async function renderOg({ title, sub, kind }) {
     {
       width: 1200,
       height: 630,
-      fonts: [{ name: 'Noto Sans SC', data: fontData, weight: 500, style: 'normal' }],
+      fonts: [
+        { name: 'MiSans', data: fontRegular, weight: 400, style: 'normal' },
+        { name: 'MiSans', data: fontSemibold, weight: 600, style: 'normal' },
+        { name: 'Noto Sans SC', data: fontNoto, weight: 500, style: 'normal' },
+      ],
     }
   );
 

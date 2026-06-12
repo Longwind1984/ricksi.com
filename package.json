@@ -28,6 +28,7 @@
   },
   "devDependencies": {
     "@resvg/resvg-js": "^2.6.2",
+    "qrcode": "^1.5.4",
     "satori": "^0.26.0",
     "sharp": "^0.34.5"
   }

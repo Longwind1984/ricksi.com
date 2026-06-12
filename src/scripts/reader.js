@@ -41,14 +41,16 @@ function init(sig) {
     const copyBtn = document.getElementById('share-copy');
     const dlLink = document.getElementById('share-download');
     const nativeBtn = document.getElementById('share-native');
-    const og = openBtn.dataset.og || '';
+    /* 竖版玻璃明信片优先（data-share），无则回退横版 OG 卡 */
+    const card = openBtn.dataset.share || openBtn.dataset.og || '';
+    const ext = card.endsWith('.jpg') ? '.jpg' : '.png';
     const title = openBtn.dataset.title || document.title;
     const url = location.origin + location.pathname;
 
     const open = () => {
-      img.src = og;
-      dlLink.href = og;
-      dlLink.setAttribute('download', (title.split('·')[0] || 'card').trim() + '.png');
+      img.src = card;
+      dlLink.href = card;
+      dlLink.setAttribute('download', (title.split('·')[0] || 'card').trim() + ext);
       modal.hidden = false;
       copyBtn.textContent = '复制链接';
       copyBtn.focus();
@@ -76,9 +78,9 @@ function init(sig) {
         const payload = { title, url };
         try {
           // 能带图就带图（iOS/Android 分享面板出卡片）
-          const blob = await fetch(og).then((r) => (r.ok ? r.blob() : null));
+          const blob = await fetch(card).then((r) => (r.ok ? r.blob() : null));
           if (blob) {
-            const file = new File([blob], 'card.png', { type: blob.type || 'image/png' });
+            const file = new File([blob], 'card' + ext, { type: blob.type || 'image/jpeg' });
             if (navigator.canShare?.({ files: [file] })) payload.files = [file];
           }
         } catch { /* 取不到图就纯链接分享 */ }

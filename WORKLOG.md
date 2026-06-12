@@ -1,5 +1,52 @@
 # WORKLOG（append-only，倒金字塔：结论在前、清单沉底）
 
+## 2026-06-13 · v4：设计系统入库 + v2「钴蓝之夜」全站落地 + 玻璃明信片分享卡
+
+### ⚠ 体验影响（置顶，全部为用户可见层变更，未经确认不算定稿）
+
+1. **全站换色**：底色转深钴蓝 #070D20 系；操作色从冰川蓝 #4D9FEC 换为群青 `oklch(0.58 0.20 263)`；新增太阳金 `oklch(0.85 0.13 86)` 仅用于小字数据强调（kicker/live/热力图顶档），永不上按钮和大数字。
+2. **背景压暗 78%→62% + 右上太阳金晕**：照片透出更多、戏剧中心保留——整页观感显著变亮。
+3. **全站字体更换（SF Pro 退役）**：UI 主力 MiSans（拉丁本地 VF + CJK CDN 子集 npmmirror 源 + 本地 L3 兜底 14.7MB）；数据/标签/落款 Geist Mono；书摘/引文换霞鹜文楷「人的声音」。中文渲染从系统苹方变为 MiSans——所有平台观感一致但与 v3 不同。
+4. **玻璃配方钴蓝化**：.sec/导航/卡片从灰白渐变玻璃改为钴蓝透色玻璃，描边由白改蓝白三档。
+5. **热力图 4 档→5 档「雪夜→日出」**：群青逐档攀升，最活跃的 ~2% 天（当前仅 2026-06-07）变成带微辉光的金格。
+6. **图谱 12 色等明度色环替换 18 色旧板**：2D/3D/图例/主页一致换色；3D 选中青 #02bfe7（NASA 词汇）保留未动。
+7. **前沿模块领域色随色环更新**（lab/工程/研究/写作 = h240/180/90/300），研究域从旧金 #E8B36A 改为 h90 暗金。
+8. **kb/blog 分享卡从横版 OG 换为竖版 360×640 玻璃明信片**（设计系统 ShareCard 规格）：雪山照片 + 钴蓝玻璃面板 + 金 kicker + 来源徽章/主题 chip + URL/钩子/QR 落款 + 摄影署名；弹层与下载/系统分享随之切换（横版 OG 卡保留给社交平台 meta 抓取，同步换 v2 配色与 MiSans）。
+
+### 做了什么
+
+1. **设计系统入库**（commit 24b1603 已推送）：`docs/design-system/` 完整收录 Claude Design 产出的 v2「钴蓝之夜」包（tokens/组件/18 张规范卡/UI kit/参考存档；剔除 78MB uploads 原始字体）。写入项目记忆：后续 UI 改动必须先查阅该包。
+2. **v2 全站落地**：以 DS `styles/glass.css`（v2 基底）重组 `src/styles/glass.css`，回贴 v3.2-v3.6 漂移块（kg-stage/gx-label/rd-ai/bk-/ft- 共 ~300 行）并适配（gx-label 字体、ft 旧金→太阳金）；`src/styles/tokens/` 镜像 DS tokens；字体管线（fonts.css + Glass.astro CDN link + public/fonts 新增 6 个字体文件）；JS 侧 GRAPH_PALETTE/DOMAIN_ACCENT/热力图分档同步。
+3. **ShareCard 实现**：`src/lib/share-card.mjs`（satori，无 backdrop-filter → 面板内嵌 hero-blur 按 cover 几何精确对齐再叠钴蓝渐变，与实时玻璃同配方）；三形态 node/article/site；`/share/kb|blog/*.jpg` + `/share/site.jpg` 构建期端点（JPEG q82 ≈ 55KB/张）；QR（qrcode 依赖）指向页面 URL；reader 分享弹层换竖卡。
+4. **撤销项坚持**：DS 快照仍带 sec-prerendered 假毛玻璃路径，按 2026-06-12 用户决策剔除不回归。
+
+### 关键决策与被否决的备选
+
+- **CDN 选 npmmirror 而非 DS 写的 jsdelivr**：站点部署大陆备案域名，jsdelivr 在大陆长期不稳；npmmirror（阿里）同包同路径。DS 文件本身未改，落地层替换。
+- **分享卡 satori 玻璃**：被否决的备选是「半透明渐变假玻璃」（无模糊，违背 Liquid Glass 调性）与「客户端 DOM 截图」（html2canvas 不支持 backdrop-filter）；采用「预模糊照片对齐内嵌」——烘焙图像里这是物理等价实现，非作弊路径。
+- **竖卡输出 JPEG 而非 PNG**：照片底 PNG 单张 >700KB×640 张不可接受；JPEG q82 ≈ 55KB，dist 增量 ~35MB。
+- **MiSans 构建字体取官方 zip 静态 Regular/Semibold**（npm 包只有切片 woff2，satori 不识）；标题 600 重，缺字回退 Noto Medium。
+
+### 当前状态：能跑什么、怎么跑
+
+- `npm run dev` → localhost:4321；`npm run build` → ~1270 页产物（634 页 + ~640 张竖卡 + ~630 张 OG）。
+- 本地未推送，等用户过目 v2 观感与分享卡后再推（用户可见层默认草案）。
+
+### 未尽事项与已知问题
+
+1. v2 换色后全站截图细看（对比度/降级三档/移动端）只做了抽查级验证，未逐页审。
+2. MiSans CJK CDN 子集 4 档字重声明值为 330/450/520/630（包内口径），CSS 350-700 请求按最近匹配——观感 OK 但与名义字重有偏差。
+3. 分享卡标题超 30 字符截断（lineClamp 2 + 字符保险），04T 超长标题如「R02 中型·模型路由 + 语义缓存 降本实验」恰好 2 行；更长的会带 …。
+4. site 形态分享卡已生成 `/share/site.jpg` 但暂无入口（主页非 reader 页无分享钮）——待定是否在页脚加。
+5. config.mjs 里前沿头像生成 prompt 仍引用旧色（#4D9FEC/#E8B36A）——改了会使新旧头像风格不一致，留待头像整体重生成时一并处理。
+
+### 文件级变更清单（自动罗列，可跳读）
+
+- 新增：`docs/design-system/`（120 文件）、`src/styles/tokens/{colors,typography,radius-motion}.css`、`src/styles/fonts.css`、`src/lib/share-card.mjs`、`src/pages/share/kb/[...slug].jpg.ts`、`src/pages/share/blog/[...slug].jpg.ts`、`src/pages/share/site.jpg.ts`、`public/fonts/{MiSansLatinVF.ttf,MiSansL3-Regular.otf,GeistMono-*.woff2,OFL-Geist.txt}`、`assets-src/fonts/{MiSans-Regular,MiSans-Semibold}.ttf`、`assets-src/fonts/{GeistMono-Regular,GeistMono-Medium}.otf`、`assets-src/fonts/LXGWWenKai-Regular.ttf`
+- 重写：`src/styles/glass.css`（DS v2 基底 + 漂移块回贴，1290 行）
+- 修改：`src/layouts/Glass.astro`（tokens/fonts import + CDN link + shareImage prop + 竖卡弹层）、`src/scripts/reader.js`（data-share 优先）、`src/scripts/home.js`（热力 5 档 + 2D 标签字体）、`src/scripts/graph-view.js`（标签字体）、`src/components/TrendChart.astro`（Geist Mono）、`src/lib/sample.js`（12 色环）、`src/lib/frontier-ui.mjs`（领域色）、`src/lib/og-image.mjs`（v2 配色 + MiSans）、`scripts/lib/util.mjs`（热力 5 档）、`src/pages/kb/[...slug].astro`、`src/pages/blog/[...slug].astro`（shareImage）、`package.json`（+qrcode devDep）
+- 数据：`data/activity.json`（5 档重生成）
+
 ## 2026-06-12（六续）· v3.6：前沿追踪体验大改——似真头像 + IA 反转 + 重要度全链路
 
 ### 做了什么（按用户四条反馈逐一）

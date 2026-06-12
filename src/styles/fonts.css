@@ -1,0 +1,50 @@
+/* ============================================================
+   字体加载 · 组合壹（docs/design-system/tokens/fonts.css 的 repo 适配版）
+   - 拉丁 = 本地 MiSans Latin VF（全字重，瞬时加载）
+   - CJK  = CDN 按需子集（npmmirror 主源，大陆可达；声明见 Glass.astro <link>）
+     + 本地 MiSans L3 离线兜底（60,340 字形，Regular）
+   - Mono = 本地 Geist Mono 静态 4 字重 · JetBrains Mono 回退
+   - 阅读点缀 = 霞鹜文楷（CDN，体积大不自托管；声明见 Glass.astro <link>）
+   注意：本地拉丁 VF 用独立家族名 'MiSans Latin' 置于栈首——若与 CDN 同名为
+   'MiSans'，VF 的 font-weight:100 900 会在任意字重赢得家族内匹配，CJK 字形
+   （不在其 unicode-range）直接跳家族落到 L3，CDN 子集永远不加载（2026-06-13 实测修复）。
+   ============================================================ */
+
+/* MiSans Latin VF · 本地，拉丁范围全字重 */
+@font-face {
+  font-family: 'MiSans Latin';
+  src: url('/fonts/MiSansLatinVF.ttf') format('truetype-variations');
+  font-weight: 100 900;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+2000-206F, U+2070-209F, U+20A0-20CF, U+2100-218F, U+2190-21BB;
+}
+
+/* MiSans L3 · 本地完整 CJK 字库（CDN 失效时的兜底，栈序排在 'MiSans' 之后） */
+@font-face {
+  font-family: 'MiSans L3';
+  src: url('/fonts/MiSansL3-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-display: swap;
+}
+
+/* Geist Mono · 本地静态 4 字重（OFL，public/fonts/OFL-Geist.txt） */
+@font-face { font-family: 'Geist Mono'; src: url('/fonts/GeistMono-Regular.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Geist Mono'; src: url('/fonts/GeistMono-Medium.woff2') format('woff2'); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Geist Mono'; src: url('/fonts/GeistMono-SemiBold.woff2') format('woff2'); font-weight: 600; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Geist Mono'; src: url('/fonts/GeistMono-Bold.woff2') format('woff2'); font-weight: 700; font-style: normal; font-display: swap; }
+
+/* JetBrains Mono 400/700 · 自托管回退 */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/jetbrains-mono-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/jetbrains-mono-700.woff2') format('woff2');
+}

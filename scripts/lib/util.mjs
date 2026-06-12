@@ -64,7 +64,8 @@ export function buildWeeks(days, weeksCount, totalOf) {
   }
   inRange.sort((a, b) => a - b);
   const q = (p) => (inRange.length ? inRange[Math.min(inRange.length - 1, Math.floor(p * inRange.length))] : 1);
-  const t1 = q(0.35), t2 = q(0.7), t3 = q(0.92);
+  /* 设计系统 v2 · 雪夜→日出 5 档：l1-l3 群青逐档攀升，l4 = 日出的金（n ≥ q(0.98)，小样本时即最活跃那几天） */
+  const t1 = q(0.35), t2 = q(0.7), t4 = q(0.98);
 
   const weeks = [];
   for (let w = 0; w < weeksCount; w++) {
@@ -75,7 +76,7 @@ export function buildWeeks(days, weeksCount, totalOf) {
       const k = dayKey(date);
       const rec = days[k];
       const n = totalOf(rec);
-      const l = n === 0 ? 0 : n <= t1 ? 1 : n <= t2 ? 2 : n <= t3 ? 3 : 3;
+      const l = n === 0 ? 0 : n <= t1 ? 1 : n <= t2 ? 2 : n < t4 ? 3 : 4;
       col.push({ d: k, n, l, b: rec || undefined });
     }
     weeks.push(col);

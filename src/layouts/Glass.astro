@@ -3,6 +3,11 @@
 // isHome: 首页启用 scrollspy + 首屏透明导航；子页固定高亮 active 栏目
 import { ClientRouter } from 'astro:transitions';
 import LQIP_RAW from '../lib/hero-lqip.txt?raw';
+// 设计系统 v2「钴蓝之夜」：tokens（docs/design-system 镜像）→ 本地字体 → 玻璃系统
+import '../styles/tokens/colors.css';
+import '../styles/tokens/typography.css';
+import '../styles/tokens/radius-motion.css';
+import '../styles/fonts.css';
 import '../styles/glass.css';
 
 interface Props {
@@ -15,6 +20,8 @@ interface Props {
   jsonLd?: Record<string, unknown> | null;
   /* 阅读页 chrome：完整导航换成「左上 R monogram + 右上 分享/搜索」浮动件，滚读时自动隐藏 */
   reader?: boolean;
+  /* 竖版玻璃明信片分享卡（设计系统 ShareCard，360×640 @2x）；缺省回退横版 OG 卡 */
+  shareImage?: string;
 }
 const {
   title,
@@ -25,6 +32,7 @@ const {
   ogImage = '/assets/og.jpg',
   jsonLd = null,
   reader = false,
+  shareImage = null,
 } = Astro.props;
 
 /* hero LQIP：超小内联占位铺在 body 上，大图（body::before）加载完成前先有形 */
@@ -49,6 +57,14 @@ const scrollspyIds = navItems.map(([id]) => id).join(',');
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
+    <!-- MiSans CJK 按需子集 + 霞鹜文楷（阅读点缀）：npmmirror 主源（大陆可达）。
+         置于 head 顶部，保证本地 MiSans Latin VF（fonts.css，后声明）覆盖拉丁区间 -->
+    <link rel="preconnect" href="https://registry.npmmirror.com" crossorigin />
+    <link rel="stylesheet" href="https://registry.npmmirror.com/misans/4.1.0/files/lib/Normal/MiSans-Regular.min.css" />
+    <link rel="stylesheet" href="https://registry.npmmirror.com/misans/4.1.0/files/lib/Normal/MiSans-Medium.min.css" />
+    <link rel="stylesheet" href="https://registry.npmmirror.com/misans/4.1.0/files/lib/Normal/MiSans-Semibold.min.css" />
+    <link rel="stylesheet" href="https://registry.npmmirror.com/misans/4.1.0/files/lib/Normal/MiSans-Bold.min.css" />
+    <link rel="stylesheet" href="https://registry.npmmirror.com/lxgw-wenkai-webfont/1.7.0/files/lxgwwenkai-regular.css" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta property="og:title" content={title} />
@@ -82,7 +98,7 @@ const scrollspyIds = navItems.map(([id]) => id).join(',');
         <header class="reader-chrome" id="reader-chrome" style="view-transition-name: site-head">
           <a href="/" class="reader-home" aria-label="回到首页 · 司豪杰 Rick Si">R</a>
           <div class="reader-actions">
-            <button class="reader-btn" id="share-open" aria-label="分享本页" data-og={ogImage} data-title={title}>
+            <button class="reader-btn" id="share-open" aria-label="分享本页" data-og={ogImage} data-share={shareImage} data-title={title}>
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 8 5-5 5 5"/><path d="M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></svg>
             </button>
             <button class="reader-btn nav-search" aria-label="搜索（⌘K 或 /）">
@@ -143,11 +159,13 @@ const scrollspyIds = navItems.map(([id]) => id).join(',');
       )}
     </div>
 
-    {/* 分享卡片弹层：直接复用构建期生成的 OG 卡 */}
+    {/* 分享卡片弹层：竖版玻璃明信片（构建期生成；无 shareImage 的页面回退横版 OG 卡） */}
     {reader && (
       <div class="share-modal" id="share-modal" hidden>
         <div class="share-panel" role="dialog" aria-label="分享本页">
-          <img class="share-card-img" id="share-card-img" alt="本页分享卡片预览" width="600" height="315" />
+          {shareImage
+            ? <img class="share-card-img shc-vert" id="share-card-img" alt="本页分享卡片预览" width="320" height="569" />
+            : <img class="share-card-img" id="share-card-img" alt="本页分享卡片预览" width="600" height="315" />}
           <div class="share-actions">
             <button class="proj-expand" id="share-copy" type="button">复制链接</button>
             <a class="proj-expand share-dl" id="share-download" download>下载卡片</a>

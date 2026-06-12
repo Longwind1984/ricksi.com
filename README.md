@@ -10,15 +10,20 @@
 │   ├── pages/           # index（主页）/ blog / kb（141 篇笔记页 + 图谱索引）
 │   ├── layouts/Glass.astro   # 玻璃视觉系统共享布局（导航/页脚/折射滤镜）
 │   ├── scripts/         # nav 液态胶囊 / home 主页行为 / graph-view 力导向图谱
-│   ├── styles/glass.css # 设计系统（含移动端底部 Dock 设计）
-│   └── lib/             # 构建时数据装载（缺失自动回退样例值）
+│   ├── styles/          # glass.css（v2 钴蓝之夜）+ tokens/（设计系统镜像）+ fonts.css
+│   └── lib/             # 构建时数据装载（缺失自动回退样例值）+ og/分享卡渲染器
 ├── content/
 │   ├── posts/           # 博客 Markdown（front-matter: title/date/tag）
 │   └── kb/              # 知识库（由 sync-vault 从 Obsidian 自动生成，勿手改）
 ├── data/                # 采集产物（JSON 入库 = 永久数据存档）
 ├── scripts/             # 数据采集器（见下）
+├── docs/design-system/  # ★ 全项目设计指导准则（v2 钴蓝之夜完整包）——任何 UI 改动前先读它
 └── legacy/index.html    # 设计稿原始实现存档（视觉基准）
 ```
+
+**设计准则**：`docs/design-system/`（Claude Design 产出）是唯一视觉事实源——色彩（群青唯一操作色 +
+太阳金数据光）、字体组合壹（MiSans + Geist Mono + 霞鹜文楷）、玻璃配方、圆角/动效 token、组件规格
+（含 ShareCard 分享卡）。`src/styles/tokens/` 是它的镜像，改 token 两边同步。
 
 ## 数据管线：本地优先 + 仓库即存档
 
@@ -113,7 +118,8 @@ npm run build     # 产出 dist/（145 静态页）
 - 知识库分层：索引页「精选 · 总览与代表作」+ 完整归档；每篇笔记标注来源档位（共创 / AI 整理），
   方法公开于博文《这个库是怎么来的》
 - 阅读页 reader chrome：kb/blog 详情页收起完整导航（R monogram + 分享/搜索），滚读自动隐藏；
-  分享按钮弹出 OG 卡（复制链接 / 下载 / 系统分享）
+  分享按钮弹出**竖版玻璃明信片**（360×640 @2x，设计系统 ShareCard：照片 + 钴蓝玻璃面板 +
+  来源徽章 + QR，构建期 satori 生成 `/share/kb|blog/*.jpg`；横版 OG 卡保留给社交 meta）
 - 工作台口径 v2：今日全口径+输出注脚、累计 = Code 实测/估算 + 网页粗估分列、估算方法页内可达
 - `/frontier` **前沿追踪**：10+ 位 AI 前沿人物与机构源的每日动态流，模型梳理中文摘要与一句话判断；
   四维筛选（类型/领域/人物/标签）+ URL 深链 + 独立订阅源（/frontier.xml）；`?view=cards` 切卡片流视图

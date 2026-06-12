@@ -143,11 +143,12 @@ if (siteData.weeks) {
     });
     values.sort((a, b) => a - b);
     const q = (p) => (values.length ? values[Math.min(values.length - 1, Math.floor(p * values.length))] : 1);
-    const t1 = q(0.35), t2 = q(0.7), t3 = q(0.92);
+    /* 雪夜→日出 5 档（与 scripts/lib/util.mjs buildWeeks 同口径）：v ≥ q(0.98) 进金顶档 */
+    const t1 = q(0.35), t2 = q(0.7), t4 = q(0.98);
     cells.forEach((el) => {
       const cell = weeks[+el.dataset.w][+el.dataset.d];
       const v = cell.future ? 0 : valueOf(cell, dim);
-      const l = v === 0 ? 0 : v <= t1 ? 1 : v <= t2 ? 2 : 3;
+      const l = v === 0 ? 0 : v <= t1 ? 1 : v <= t2 ? 2 : v < t4 ? 3 : 4;
       el.className = 'hm-cell l' + l + (cell.future ? ' future' : '');
     });
   }
@@ -324,7 +325,7 @@ function renderSampleGraph(host) {
     t.setAttribute('font-weight', n.hub ? 700 : 400);
     t.setAttribute('fill', n.hub ? '#FFFFFF' : '#A9BAD6');
     t.style.transition = 'opacity .25s';
-    t.style.fontFamily = "'PingFang SC', 'Noto Sans SC', sans-serif";
+    t.style.fontFamily = "'MiSans Latin', 'MiSans', 'MiSans L3', 'PingFang SC', sans-serif";
     t.textContent = n.label;
     svg.appendChild(t);
     textEls.push({ el: t, n });

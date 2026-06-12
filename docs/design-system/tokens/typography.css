@@ -5,8 +5,8 @@
    -apple-system 回退保险的身份存在于栈尾。
    ============================================================ */
 :root {
-  --font-display: 'MiSans', 'MiSans L3', -apple-system, 'PingFang SC', 'HarmonyOS Sans SC', 'Microsoft YaHei', sans-serif;
-  --font-body: 'MiSans', 'MiSans L3', -apple-system, 'PingFang SC', 'HarmonyOS Sans SC', 'Microsoft YaHei', sans-serif;
+  --font-display: 'MiSans Latin', 'MiSans', 'MiSans L3', -apple-system, 'PingFang SC', 'HarmonyOS Sans SC', 'Microsoft YaHei', sans-serif;
+  --font-body: 'MiSans Latin', 'MiSans', 'MiSans L3', -apple-system, 'PingFang SC', 'HarmonyOS Sans SC', 'Microsoft YaHei', sans-serif;
   --font-mono: 'Geist Mono', 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
   --font-reading: 'LXGW WenKai', 'Kaiti SC', 'STKaiti', serif; /* 仅书摘/划线/引文 */
 

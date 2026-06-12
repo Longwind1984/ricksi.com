@@ -29,8 +29,9 @@ export function sampleHeatmap(weeks = 22) {
 
 /* Obsidian 风格样例图谱（seed 11），与设计稿同构 */
 export const SAMPLE_CLUSTERS = ['Agent 与工具调用', 'RAG 与检索', '模型原理', '产品方法', 'Infra 与工程'];
-/* 18 色：覆盖 04AI 9 域 + 04T 六切面（cluster id 不连续，取模回绕也不易撞色） */
-export const GRAPH_PALETTE = ['#7FB3F0', '#6FD3C0', '#F0B070', '#B79DEF', '#EAE6DC', '#8FE08F', '#F09DB5', '#9DD3F0', '#D8C97F', '#C4A6E8', '#A8B8C8', '#F08D6E', '#7FE0D8', '#E8A8E0', '#A8E06E', '#F0D898', '#8FA8F0', '#D88F8F'];
+/* 设计系统 v2 · 图谱 12 色等明度色环 oklch(0.78 0.11 h)，h 每 30° 一档（hex 预换算供 SVG/three.js）。
+   数组序按「相邻 cluster 非邻接取档」展开：240/180/90/300/30 起，后续保持 ≥90° 跳距，任意两色并置和谐 */
+export const GRAPH_PALETTE = ['#71C1F7', '#59CEBA', '#D3B460', '#C2A7F4', '#F69C8D', '#AEC26F', '#DF9ED9', '#51CADE', '#EBA66D', '#9CB4FE', '#82CB92', '#F199B4'];
 
 export function sampleGraph(width = 880, height = 470, seed = 11) {
   const rand = rng(seed);
