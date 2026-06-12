@@ -165,6 +165,9 @@ export function renderGraph(host, graph, opts = {}) {
   /* 自动取景：模拟冷却期间相机持续跟随布局；用户手动缩放/平移后不再打扰 */
   let userTouchedView = false;
   let followNode = null; // focusNode 后冷却期内相机锁定该节点（布局还在动时不漂移）
+  // view 必须先于 fitToView 的首次同步调用声明（静态布局路径在构造期就取景，后置声明会踩 TDZ）
+  let view = { x: 0, y: 0, k: 1 };
+  const applyView = () => layer.setAttribute('transform', `translate(${view.x},${view.y}) scale(${view.k})`);
   function fitToView() {
     if (userTouchedView || !nodes.length) return;
     // 用 4%-96% 分位包围盒取景，离群孤点不至于把主体挤到角落
@@ -179,12 +182,17 @@ export function renderGraph(host, graph, opts = {}) {
     view.y = H / 2 - ((y0 + y1) / 2) * k;
     applyView();
   }
-  // Reduce Motion：跳过弹簧收敛动画，同步演算出稳态布局直接呈现（HIG 降级）
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  // Reduce Motion / 大图（>300 节点逐帧写 SVG 属性太贵）：跳过收敛动画，同步演算稳态直接呈现
+  let readyResolve;
+  const ready = new Promise((r) => (readyResolve = r));
+  const staticLayout =
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches || (mode === 'full' && nodes.length > 300);
+  if (staticLayout) {
     sim.stop();
     sim.tick(220);
     tick();
     fitToView();
+    readyResolve();
   } else {
     sim.on('tick', () => {
       tick();
@@ -196,7 +204,10 @@ export function renderGraph(host, graph, opts = {}) {
         fitToView();
       }
     });
-    sim.on('end', () => (followNode === null ? fitToView() : undefined));
+    sim.on('end', () => {
+      if (followNode === null) fitToView();
+      readyResolve();
+    });
   }
 
   /* ---------- 高亮状态机：hover 邻域 / 主题域 / 搜索 三类互斥 ---------- */
@@ -241,9 +252,6 @@ export function renderGraph(host, graph, opts = {}) {
   applyState();
 
   /* ---------- 缩放 / 平移 / 节点拖拽 / 点击（含触屏两段式） ---------- */
-  let view = { x: 0, y: 0, k: 1 };
-  const applyView = () => layer.setAttribute('transform', `translate(${view.x},${view.y}) scale(${view.k})`);
-
   const toLocal = (evt) => {
     const r = svg.getBoundingClientRect();
     const sx = ((evt.clientX - r.left) / r.width) * W;
@@ -411,6 +419,7 @@ export function renderGraph(host, graph, opts = {}) {
 
   /* ---------- 对外控制器（图例 hover / 搜索 / 全屏页控件） ---------- */
   return {
+    ready,
     highlightCluster(cid) {
       state = cid === null ? { type: null, value: null } : { type: 'cluster', value: cid };
       applyState();

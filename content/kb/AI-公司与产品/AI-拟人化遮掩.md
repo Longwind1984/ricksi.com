@@ -3,6 +3,7 @@ title: AI 拟人化遮掩
 cluster: AI 公司与产品
 created: '2026-05-16'
 updated: '2026-05-18'
+provenance: co
 ---
 # AI 拟人化遮掩
 
@@ -22,5 +23,3 @@ updated: '2026-05-18'
 - [Claude](/kb/ai-公司与产品/claude/) — Anthropic 旗下 LLM，本对话中出现该失误的对象
 - [Anthropic](/kb/ai-公司与产品/anthropic/) — Claude 的开发公司
 
-## 衍生对话存档
-- 费城导览中的 AI 元层批评

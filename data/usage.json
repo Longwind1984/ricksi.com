@@ -1,20 +1,24 @@
 {
- "generated_at": "2026-06-11T03:18:24.305Z",
- "today": 39598302,
- "week": "1.2B",
+ "generated_at": "2026-06-11T17:16:18.257Z",
+ "today": 46512938,
+ "today_out": 251701,
+ "today_cache_share": 90,
+ "week": "1.5B",
  "cumulative": "2.0B",
+ "cumulative_code": "1.9B",
+ "cumulative_web": "99M",
  "models": [
   [
    "Opus",
-   81
+   78
   ],
   [
    "Fable",
-   12
+   16
   ],
   [
    "Sonnet",
-   5
+   4
   ],
   [
    "Haiku",
@@ -22,10 +26,6 @@
   ]
  ],
  "days7": [
-  {
-   "d": "周五",
-   "v": 3.29
-  },
   {
    "d": "周六",
    "v": 169.64
@@ -47,8 +47,12 @@
    "v": 142.76
   },
   {
+   "d": "周四",
+   "v": 308.46
+  },
+  {
    "d": "今天",
-   "v": 39.6
+   "v": 46.51
   }
  ],
  "series": {
@@ -407,926 +411,147 @@
     }
    }
   },
-  "2026-05-23": {
-   "total": 2180739,
-   "estimated": true
+  "2026-06-11": {
+   "total": 308456989,
+   "models": {
+    "haiku-4-5-20251001": {
+     "in": 1560,
+     "out": 34755,
+     "cw": 355571,
+     "cr": 4268447,
+     "total": 4660333
+    },
+    "fable-5": {
+     "in": 173593,
+     "out": 212097,
+     "cw": 2727437,
+     "cr": 125435941,
+     "total": 128549068
+    },
+    "opus-4-8": {
+     "in": 847523,
+     "out": 454910,
+     "cw": 4708609,
+     "cr": 169236546,
+     "total": 175247588
+    },
+    "<synthetic>": {
+     "in": 0,
+     "out": 0,
+     "cw": 0,
+     "cr": 0,
+     "total": 0
+    }
+   }
   },
-  "2026-05-22": {
-   "total": 23624675,
-   "estimated": true
+  "2026-06-12": {
+   "total": 46512938,
+   "models": {
+    "fable-5": {
+     "in": 58004,
+     "out": 168407,
+     "cw": 882491,
+     "cr": 17620892,
+     "total": 18729794
+    },
+    "opus-4-8": {
+     "in": 224455,
+     "out": 66429,
+     "cw": 3255762,
+     "cr": 23677564,
+     "total": 27224210
+    },
+    "<synthetic>": {
+     "in": 0,
+     "out": 0,
+     "cw": 0,
+     "cr": 0,
+     "total": 0
+    },
+    "haiku-4-5-20251001": {
+     "in": 10882,
+     "out": 16865,
+     "cw": 72392,
+     "cr": 458795,
+     "total": 558934
+    }
+   }
   },
-  "2026-05-26": {
-   "total": 1090370,
-   "estimated": true
-  },
-  "2026-05-21": {
-   "total": 38526394,
-   "estimated": true
-  },
-  "2026-05-20": {
-   "total": 28713067,
-   "estimated": true
-  },
-  "2023-03-22": {
-   "total": 3634565,
-   "estimated": true
-  },
-  "2023-03-30": {
-   "total": 18536284,
-   "estimated": true
-  },
-  "2026-05-16": {
-   "total": 125755965,
+  "2026-05-13": {
+   "total": 13587776,
    "estimated": true
   },
   "2026-05-14": {
-   "total": 202445296,
-   "estimated": true
-  },
-  "2026-05-18": {
-   "total": 20717023,
-   "estimated": true
-  },
-  "2026-05-17": {
-   "total": 5088392,
-   "estimated": true
-  },
-  "2026-05-19": {
-   "total": 3634565,
+   "total": 25252358,
    "estimated": true
   },
   "2026-05-15": {
-   "total": 6178761,
+   "total": 5922877,
    "estimated": true
   },
-  "2024-10-09": {
-   "total": 363457,
+  "2026-05-16": {
+   "total": 25252358,
    "estimated": true
   },
-  "2025-09-25": {
-   "total": 1090370,
+  "2026-05-17": {
+   "total": 4877663,
    "estimated": true
   },
-  "2024-02-26": {
-   "total": 726913,
+  "2026-05-18": {
+   "total": 19859057,
    "estimated": true
   },
-  "2025-07-02": {
-   "total": 726913,
+  "2026-05-19": {
+   "total": 3484045,
    "estimated": true
   },
-  "2024-01-22": {
-   "total": 726913,
+  "2026-05-20": {
+   "total": 25252358,
    "estimated": true
   },
-  "2023-11-20": {
-   "total": 2180739,
+  "2026-05-21": {
+   "total": 25252358,
    "estimated": true
   },
-  "2023-04-11": {
-   "total": 1453826,
+  "2026-05-22": {
+   "total": 22646293,
    "estimated": true
   },
-  "2023-04-24": {
-   "total": 1453826,
+  "2026-05-23": {
+   "total": 2090427,
    "estimated": true
   },
-  "2023-05-08": {
-   "total": 363457,
+  "2026-05-26": {
+   "total": 1045214,
    "estimated": true
-  },
-  "2023-05-22": {
-   "total": 726913,
-   "estimated": true
-  },
-  "2023-05-30": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2023-06-05": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2023-06-16": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2023-06-20": {
-   "total": 726913,
-   "estimated": true
-  },
-  "2023-07-05": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2023-07-10": {
-   "total": 726913,
-   "estimated": true
-  },
-  "2023-07-25": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2023-08-01": {
-   "total": 726913,
-   "estimated": true
-  },
-  "2023-08-07": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2023-08-10": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2023-08-13": {
-   "total": 1090370,
-   "estimated": true
-  },
-  "2023-08-22": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2023-08-28": {
-   "total": 1090370,
-   "estimated": true
-  },
-  "2023-09-07": {
-   "total": 726913,
-   "estimated": true
-  },
-  "2023-09-12": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2023-09-18": {
-   "total": 726913,
-   "estimated": true
-  },
-  "2023-10-08": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2023-10-13": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2023-10-20": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2023-10-24": {
-   "total": 1453826,
-   "estimated": true
-  },
-  "2023-10-30": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2023-11-08": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2023-11-13": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2023-11-27": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2023-12-04": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2023-12-11": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2023-12-18": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2023-12-26": {
-   "total": 726913,
-   "estimated": true
-  },
-  "2024-03-04": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2024-03-11": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2024-03-19": {
-   "total": 726913,
-   "estimated": true
-  },
-  "2024-03-25": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2024-04-01": {
-   "total": 726913,
-   "estimated": true
-  },
-  "2024-04-08": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2024-04-15": {
-   "total": 1453826,
-   "estimated": true
-  },
-  "2024-04-17": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2024-04-23": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2024-05-06": {
-   "total": 726913,
-   "estimated": true
-  },
-  "2024-01-09": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2024-05-13": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2024-05-20": {
-   "total": 726913,
-   "estimated": true
-  },
-  "2024-06-04": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2024-06-11": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2024-06-14": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2024-06-25": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2024-07-01": {
-   "total": 1090370,
-   "estimated": true
-  },
-  "2024-07-08": {
-   "total": 726913,
-   "estimated": true
-  },
-  "2024-07-15": {
-   "total": 1453826,
-   "estimated": true
-  },
-  "2024-01-15": {
-   "total": 1817283,
-   "estimated": true
-  },
-  "2024-07-29": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2024-08-05": {
-   "total": 726913,
-   "estimated": true
-  },
-  "2024-08-13": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2024-08-19": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2024-08-27": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2024-09-02": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2024-09-04": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2024-09-17": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2024-09-26": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2024-10-08": {
-   "total": 1453826,
-   "estimated": true
-  },
-  "2024-10-17": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2024-10-21": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2024-10-28": {
-   "total": 726913,
-   "estimated": true
-  },
-  "2024-11-08": {
-   "total": 726913,
-   "estimated": true
-  },
-  "2024-11-18": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2024-11-25": {
-   "total": 726913,
-   "estimated": true
-  },
-  "2024-11-27": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2024-01-29": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2024-12-09": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2024-12-16": {
-   "total": 726913,
-   "estimated": true
-  },
-  "2024-12-20": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2024-03-07": {
-   "total": 1090370,
-   "estimated": true
-  },
-  "2024-02-18": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2025-03-04": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2025-03-10": {
-   "total": 726913,
-   "estimated": true
-  },
-  "2025-03-18": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2025-03-24": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2025-04-07": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2025-04-22": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2024-12-30": {
-   "total": 726913,
-   "estimated": true
-  },
-  "2025-05-15": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2025-05-22": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2025-05-27": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2025-06-09": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2025-06-16": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2025-06-26": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2025-07-28": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2025-07-31": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2025-08-13": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2025-08-29": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2025-09-08": {
-   "total": 726913,
-   "estimated": true
-  },
-  "2025-09-18": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2025-09-24": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2025-01-22": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2025-02-08": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2025-02-14": {
-   "total": 726913,
-   "estimated": true
-  },
-  "2025-02-17": {
-   "total": 726913,
-   "estimated": true
-  },
-  "2023-11-21": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2024-01-23": {
-   "total": 726913,
-   "estimated": true
-  },
-  "2024-03-08": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2024-08-06": {
-   "total": 726913,
-   "estimated": true
-  },
-  "2025-07-03": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2024-01-12": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2024-02-19": {
-   "total": 726913,
-   "estimated": true
-  },
-  "2025-02-24": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2024-08-01": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2024-04-16": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2023-12-20": {
-   "total": 1090370,
-   "estimated": true
-  },
-  "2024-08-08": {
-   "total": 3271109,
-   "estimated": true
-  },
-  "2024-07-31": {
-   "total": 726913,
-   "estimated": true
-  },
-  "2024-03-01": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2024-08-14": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2025-09-10": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2024-03-26": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2024-03-13": {
-   "total": 726913,
-   "estimated": true
-  },
-  "2023-03-27": {
-   "total": 1090370,
-   "estimated": true
-  },
-  "2023-04-04": {
-   "total": 1090370,
-   "estimated": true
-  },
-  "2023-04-13": {
-   "total": 726913,
-   "estimated": true
-  },
-  "2023-04-23": {
-   "total": 1453826,
-   "estimated": true
-  },
-  "2023-04-25": {
-   "total": 726913,
-   "estimated": true
-  },
-  "2023-04-26": {
-   "total": 2180739,
-   "estimated": true
-  },
-  "2023-04-27": {
-   "total": 726913,
-   "estimated": true
-  },
-  "2023-11-10": {
-   "total": 1090370,
-   "estimated": true
-  },
-  "2023-11-22": {
-   "total": 1090370,
-   "estimated": true
-  },
-  "2024-01-19": {
-   "total": 1090370,
-   "estimated": true
-  },
-  "2024-10-13": {
-   "total": 1453826,
-   "estimated": true
-  },
-  "2025-02-27": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2025-10-03": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2023-04-17": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2023-04-02": {
-   "total": 4361479,
-   "estimated": true
-  },
-  "2023-12-21": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2023-03-23": {
-   "total": 2544196,
-   "estimated": true
-  },
-  "2023-04-21": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2023-03-20": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2023-04-14": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2023-04-18": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2023-03-31": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2023-05-24": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2023-07-27": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2023-03-24": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2023-12-01": {
-   "total": 1453826,
-   "estimated": true
-  },
-  "2024-12-06": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2024-01-31": {
-   "total": 1090370,
-   "estimated": true
-  },
-  "2025-03-21": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2025-02-21": {
-   "total": 726913,
-   "estimated": true
-  },
-  "2023-03-21": {
-   "total": 5088392,
-   "estimated": true
-  },
-  "2024-01-16": {
-   "total": 1090370,
-   "estimated": true
-  },
-  "2024-11-24": {
-   "total": 1453826,
-   "estimated": true
-  },
-  "2026-03-24": {
-   "total": 2544196,
-   "estimated": true
-  },
-  "2026-05-13": {
-   "total": 14174805,
-   "estimated": true
-  },
-  "2023-03-26": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2023-12-10": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2023-12-09": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2025-01-19": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2025-04-17": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2025-05-26": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2025-06-07": {
-   "total": 726913,
-   "estimated": true
-  },
-  "2024-01-18": {
-   "total": 726913,
-   "estimated": true
-  },
-  "2024-02-20": {
-   "total": 1090370,
-   "estimated": true
-  },
-  "2025-01-30": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2025-05-04": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2025-06-21": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2025-06-24": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2025-01-18": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2023-12-24": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2024-07-03": {
-   "total": 726913,
-   "estimated": true
-  },
-  "2024-12-15": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2025-04-13": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2025-08-28": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2025-02-06": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2025-06-27": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2024-03-02": {
-   "total": 726913,
-   "estimated": true
-  },
-  "2025-01-29": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2025-06-17": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2025-11-14": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2026-01-31": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2025-11-11": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2025-11-12": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2024-11-03": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2025-05-28": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2025-06-10": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2025-08-05": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2023-06-09": {
-   "total": 726913,
-   "estimated": true
-  },
-  "2023-04-28": {
-   "total": 726913,
-   "estimated": true
-  },
-  "2025-08-04": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2023-11-14": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2023-11-24": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2023-11-07": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2024-11-14": {
-   "total": 726913,
-   "estimated": true
-  },
-  "2023-06-12": {
-   "total": 1090370,
-   "estimated": true
-  },
-  "2025-01-02": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2023-09-20": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2025-09-06": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2022-12-20": {
-   "total": 726913,
-   "estimated": true
-  },
-  "2024-01-04": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2025-03-25": {
-   "total": 726913,
-   "estimated": true
-  },
-  "2023-09-22": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2024-06-12": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2025-06-30": {
-   "total": 726913,
-   "estimated": true
-  },
-  "2023-05-05": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2024-07-10": {
-   "total": 726913,
-   "estimated": true
-  },
-  "2025-09-27": {
-   "total": 363457,
-   "estimated": true
-  },
-  "2026-06-11": {
-   "total": 39598302,
-   "models": {
-    "opus-4-8": {
-     "in": 48,
-     "out": 1836,
-     "cw": 3156,
-     "cr": 88089,
-     "total": 93129
-    },
-    "fable-5": {
-     "in": 78196,
-     "out": 82617,
-     "cw": 1380284,
-     "cr": 37964076,
-     "total": 39505173
-    }
-   }
   }
  },
  "method": {
-  "real_window": "2026-05-27 起（Claude Code 本地日志，按消息去重）",
-  "estimated_days": 224,
-  "estimated_share": "31%",
-  "note": "更早期按当日活跃度（git/笔记/AI 会话）校准估算，标记 estimated；真实数据逐日固化入库"
+  "version": 2,
+  "real_window": "2026-05-27 起（Claude Code 本地日志，按消息去重，含输入/输出/缓存读写全口径）",
+  "real_days": 17,
+  "estimated_days": 12,
+  "estimated_share": "9%",
+  "web_estimate": {
+   "total": "99M",
+   "since": "2025-07-01",
+   "basis": "无日志依据的参数化粗估（日均对话数 × 单对话均量 + 长文共创），参数见 docs/token-estimation.md",
+   "breakdown": [
+    {
+     "from": "2025-07-01",
+     "to": "2025-12-31",
+     "days": 184,
+     "tokens": 22080000
+    },
+    {
+     "from": "2026-01-01",
+     "to": "2026-06-12",
+     "days": 163,
+     "tokens": 77075714
+    }
+   ]
+  },
+  "v1_cumulative": "2.0B",
+  "note": "v2 口径（2026-06-12）：Claude Code 实测 + 2026-05 起用期活跃度估算 + 网页端参数化粗估三段分列；v1 曾把 2023-2025 的 git/笔记活动按低强度 AI 用量回填（已纠正，v1 数字留档于 v1_cumulative）"
  }
 }

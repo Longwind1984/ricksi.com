@@ -112,10 +112,68 @@ try {
     }
   }
 
-  /* 6. 封面下载（压缩到 240px） */
+  /* 5b. AI 共创导入书（CB_ 前缀）：secret 书默认全排除，仅 config 白名单按书名放行。
+        同名取 readUpdateTime 最新去重；无封面（导入书拿不到），前端用字排封面。 */
+  const cbAll = (shelf.books || []).filter((b) => String(b.bookId).startsWith('CB_'));
+  const aiTopics = [];
+  for (const t of CONFIG.wereadAiTopics || []) {
+    const books = [];
+    for (const title of t.titles) {
+      const cands = cbAll
+        .filter((b) => (b.title || '').trim() === title)
+        .sort((a, b) => (b.readUpdateTime || 0) - (a.readUpdateTime || 0));
+      const b = cands[0];
+      if (!b) {
+        console.warn(`[weread] ⚠ 白名单书未在书架找到：《${title}》`);
+        continue;
+      }
+      const nb = noteMap.get(b.bookId) || {};
+      books.push({
+        id: b.bookId,
+        title,
+        author: b.author || '',
+        progress: nb.progress ?? 0,
+        finished: b.finishReading === 1 || nb.finished === true,
+        notes: nb.notes || 0,
+        lastRead: b.readUpdateTime || 0,
+      });
+    }
+    if (books.length) {
+      aiTopics.push({ id: t.id, topic: t.topic, blurb: t.blurb, graphFocus: t.graphFocus || null, books });
+    }
+  }
+
+  /* 5c. 代表划线：只从 AI 共创白名单书里抽（题材天然可控，公版书划线有暴露风险——
+        2026-06-12 用户决策），按笔记数取前两本，共 ≤3 条 */
+  let highlights = [];
+  const hlSources = aiTopics
+    .flatMap((t) => t.books)
+    .filter((b) => b.notes > 0)
+    .sort((a, b) => b.notes - a.notes)
+    .slice(0, 2);
+  for (const b of hlSources) {
+    if (highlights.length >= 3) break;
+    try {
+      const bm = await gw('/book/bookmarklist', { bookId: b.id });
+      const picks = (bm.updated || [])
+        .map((m) => (m.markText || '').trim())
+        .filter((t) => t.length >= 16 && t.length <= 110);
+      for (const t of picks) {
+        if (highlights.length < 3 && !highlights.some((h) => h.text === t)) {
+          highlights.push({ text: t, from: b.title });
+        }
+      }
+    } catch (e) {
+      console.warn(`[weread] 划线接口失败《${b.title}》（不阻塞）：`, e.message);
+    }
+  }
+
+  /* 6. 书架策展：只展示「读出过进度或读完」的书（一排 0% 封面是噪音不是信号），
+        封面下载（压缩到 240px） */
+  const shelfDisplay = enriched.filter((b) => b.finished || b.progress > 0);
   fs.mkdirSync(COVER_DIR, { recursive: true });
   let newCovers = 0;
-  for (const b of enriched.slice(0, 24)) {
+  for (const b of shelfDisplay.slice(0, 24)) {
     if (!b.coverUrl) continue;
     const file = path.join(COVER_DIR, `${b.id}.jpg`);
     b.cover = `/assets/books/${b.id}.jpg`;
@@ -152,7 +210,9 @@ try {
       hours,
     },
     current,
-    shelf: enriched.slice(0, 18).map(({ coverUrl, ...keep }) => keep),
+    highlights,
+    aiTopics,
+    shelf: shelfDisplay.slice(0, 18).map(({ coverUrl, ...keep }) => keep),
   };
   writeJson(OUT, out);
   console.log(

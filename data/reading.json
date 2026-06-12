@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-06-11T05:43:01.176Z",
+ "generated_at": "2026-06-12T03:51:04.574Z",
  "source": "weread-official-gateway",
  "stats": {
   "total": 400,
@@ -22,17 +22,127 @@
   "lastRead": 1779689428,
   "cover": "/assets/books/26297952.jpg"
  },
- "shelf": [
+ "highlights": [
   {
-   "id": "567464",
-   "title": "人的行动",
-   "author": "路德维希·冯·米塞斯编著",
-   "progress": 0,
-   "finished": false,
-   "notes": 0,
-   "lastRead": 1780577795,
-   "cover": "/assets/books/567464.jpg"
+   "text": "思维链忠实性（chain-of-thought faithfulness，指模型写出来的推理步骤，是否真实反映了它内部实际的计算过程）：模型完全可能写出一段看似严谨、实则与它真正「怎么得到答案」无关的事后说辞。",
+   "from": "当分数成为目标"
   },
+  {
+   "text": "人更倾向于给更长、更自信、格式更漂亮的回答投票，哪怕它在事实上更糟。",
+   "from": "当分数成为目标"
+  },
+  {
+   "text": "系统随机抽两个匿名模型各答一份，用户选出更喜欢的那个；海量的成对投票（截至 2026 年初已积累近五百万票）经统计后，折算成一个 Elo 等级分（Elo rating，源自国际象棋的相对实力评分系统）排行榜。",
+   "from": "当分数成为目标"
+  }
+ ],
+ "aiTopics": [
+  {
+   "id": "memory",
+   "topic": "记忆机制",
+   "blurb": "与 Claude 共写的三本小书，拆同一个问题：AI 的「记忆」到底是什么——和知识库的上下文工程专题互为印证。",
+   "graphFocus": "专题-工程与成本/_上下文工程系统化专题-总览",
+   "books": [
+    {
+     "id": "CB_DGW1DA1D1Gaf74D75c8Xy130",
+     "title": "记忆的四种耦合",
+     "author": "Rick's Opus 4.6 Max",
+     "progress": 0,
+     "finished": false,
+     "notes": 0,
+     "lastRead": 1780646908
+    },
+    {
+     "id": "CB_43523D20VGaf74D75cFum4Wr",
+     "title": "记忆的梯度",
+     "author": "Rick",
+     "progress": 0,
+     "finished": false,
+     "notes": 0,
+     "lastRead": 1780636123
+    },
+    {
+     "id": "CB_CCi60i61DGWW74C75c5qJ163",
+     "title": "记忆 一个词的解剖",
+     "author": "",
+     "progress": 0,
+     "finished": false,
+     "notes": 0,
+     "lastRead": 1780552357
+    }
+   ]
+  },
+  {
+   "id": "evals",
+   "topic": "评测与分数",
+   "blurb": "Goodhart 定律在 AI 评测里的回声：当分数成为目标，分数就不再是好分数。",
+   "graphFocus": "专题-评测与度量/_评测系统化专题-总览",
+   "books": [
+    {
+     "id": "CB_5JEDIiDJmGix74F75c43r2oz",
+     "title": "当分数成为目标",
+     "author": "Rick’s Opus 4.8 Extra",
+     "progress": 59,
+     "finished": true,
+     "notes": 11,
+     "lastRead": 1781019440
+    },
+    {
+     "id": "CB_1WXAqbApPGrF74H75c0XS19o",
+     "title": "分数之外",
+     "author": "Rick’s Opus 4.8 Extra",
+     "progress": 0,
+     "finished": false,
+     "notes": 0,
+     "lastRead": 1780854746
+    }
+   ]
+  },
+  {
+   "id": "prompt",
+   "topic": "提示词工程",
+   "blurb": "从咒语到工程——这本写完之后，我再也没把提示词当玄学。",
+   "graphFocus": null,
+   "books": [
+    {
+     "id": "CB_4J94dn4cuFzc74K75cGMP3Bg",
+     "title": "提示词工程：从咒语，到工程",
+     "author": "Rick’s Opus 4.8 Extra",
+     "progress": 50,
+     "finished": true,
+     "notes": 7,
+     "lastRead": 1781197393
+    }
+   ]
+  },
+  {
+   "id": "agency",
+   "topic": "自主与信号",
+   "blurb": "Agent 自主性的边界，以及人怎么读懂机器发出的信号。",
+   "graphFocus": null,
+   "books": [
+    {
+     "id": "CB_2WE5yw5x2Geo74E75cDcLBYx",
+     "title": "自主的尺度",
+     "author": "Rick",
+     "progress": 0,
+     "finished": false,
+     "notes": 0,
+     "lastRead": 1780854754
+    },
+    {
+     "id": "CB_5JEChYCghGix74F75c8xPAcn",
+     "title": "信号的阶梯",
+     "author": "Rick",
+     "progress": 0,
+     "finished": false,
+     "notes": 0,
+     "lastRead": 1780849435
+    }
+   ]
+  }
+ ],
+ "shelf": [
   {
    "id": "26297952",
    "title": "论美国的民主",
@@ -52,36 +162,6 @@
    "notes": 38,
    "lastRead": 1779556554,
    "cover": "/assets/books/40420317.jpg"
-  },
-  {
-   "id": "909755",
-   "title": "读懂中国青铜器：文化、形式、功能与图案",
-   "author": "戴克成",
-   "progress": 0,
-   "finished": false,
-   "notes": 0,
-   "lastRead": 1779358968,
-   "cover": "/assets/books/909755.jpg"
-  },
-  {
-   "id": "23875144",
-   "title": "中国青铜器（中文版）",
-   "author": "李松",
-   "progress": 0,
-   "finished": false,
-   "notes": 0,
-   "lastRead": 1779357707,
-   "cover": "/assets/books/23875144.jpg"
-  },
-  {
-   "id": "3300072976",
-   "title": "中国青铜图典",
-   "author": "谢海元 顾望",
-   "progress": 0,
-   "finished": false,
-   "notes": 0,
-   "lastRead": 1779357598,
-   "cover": "/assets/books/3300072976.jpg"
   },
   {
    "id": "25913035",
@@ -104,36 +184,6 @@
    "cover": "/assets/books/23723903.jpg"
   },
   {
-   "id": "22486197",
-   "title": "风险社会：新的现代性之路",
-   "author": "乌尔里希·贝克",
-   "progress": 0,
-   "finished": false,
-   "notes": 0,
-   "lastRead": 1778131541,
-   "cover": "/assets/books/22486197.jpg"
-  },
-  {
-   "id": "3300150290",
-   "title": "我的信仰（轻经典）",
-   "author": "胡适",
-   "progress": 0,
-   "finished": false,
-   "notes": 0,
-   "lastRead": 1777839596,
-   "cover": "/assets/books/3300150290.jpg"
-  },
-  {
-   "id": "936593",
-   "title": "无政府、国家和乌托邦",
-   "author": "罗伯特·诺奇克",
-   "progress": 0,
-   "finished": false,
-   "notes": 0,
-   "lastRead": 1777725426,
-   "cover": "/assets/books/936593.jpg"
-  },
-  {
    "id": "3300063041",
    "title": "博尔赫斯，写作课（博尔赫斯全集）",
    "author": "[阿根廷]豪尔赫·路易斯·博尔赫斯",
@@ -152,26 +202,6 @@
    "notes": 13,
    "lastRead": 1777697375,
    "cover": "/assets/books/752696.jpg"
-  },
-  {
-   "id": "3300176693",
-   "title": "大转型：我们时代的政治与经济起源",
-   "author": "[匈]卡尔·波兰尼",
-   "progress": 0,
-   "finished": false,
-   "notes": 0,
-   "lastRead": 1777696290,
-   "cover": "/assets/books/3300176693.jpg"
-  },
-  {
-   "id": "36235914",
-   "title": "大众的反叛",
-   "author": "[西]奥尔特加·加塞特",
-   "progress": 0,
-   "finished": false,
-   "notes": 0,
-   "lastRead": 1777695586,
-   "cover": "/assets/books/36235914.jpg"
   },
   {
    "id": "3300044710",
@@ -194,14 +224,104 @@
    "cover": "/assets/books/3300125285.jpg"
   },
   {
-   "id": "3300189835",
-   "title": "我的天才朋友",
-   "author": "[瑞典]弗雷德里克·巴克曼",
-   "progress": 0,
+   "id": "3300035096",
+   "title": "开放社会及其敌人（全二卷）",
+   "author": "波普尔",
+   "progress": 8,
    "finished": false,
-   "notes": 0,
-   "lastRead": 1777668595,
-   "cover": "/assets/books/3300189835.jpg"
+   "notes": 21,
+   "lastRead": 1777567601,
+   "cover": "/assets/books/3300035096.jpg"
+  },
+  {
+   "id": "41102664",
+   "title": "忧郁的热带",
+   "author": "[法]克洛德·列维-斯特劳斯",
+   "progress": 0,
+   "finished": true,
+   "notes": 1,
+   "lastRead": 1777180672,
+   "cover": "/assets/books/41102664.jpg"
+  },
+  {
+   "id": "23492351",
+   "title": "道德的谱系（经典与解释）",
+   "author": "尼采",
+   "progress": 24,
+   "finished": false,
+   "notes": 4,
+   "lastRead": 1775796271,
+   "cover": "/assets/books/23492351.jpg"
+  },
+  {
+   "id": "3300031270",
+   "title": "论李维",
+   "author": "[意] 尼科洛・马基雅维里",
+   "progress": 3,
+   "finished": false,
+   "notes": 1,
+   "lastRead": 1775678941,
+   "cover": "/assets/books/3300031270.jpg"
+  },
+  {
+   "id": "3300045961",
+   "title": "面对现代世界问题的人类学（列维-斯特劳斯文集16）",
+   "author": "[法]克洛德·列维-斯特劳斯",
+   "progress": 100,
+   "finished": true,
+   "notes": 30,
+   "lastRead": 1773729066,
+   "cover": "/assets/books/3300045961.jpg"
+  },
+  {
+   "id": "25856499",
+   "title": "如何做田野笔记",
+   "author": "罗伯特·埃默森 雷切尔·弗雷兹 琳达·肖",
+   "progress": 21,
+   "finished": false,
+   "notes": 10,
+   "lastRead": 1773728309,
+   "cover": "/assets/books/25856499.jpg"
+  },
+  {
+   "id": "827628",
+   "title": "鲁迅全集（全20卷）",
+   "author": "鲁迅",
+   "progress": 8,
+   "finished": false,
+   "notes": 95,
+   "lastRead": 1773716408,
+   "cover": "/assets/books/827628.jpg"
+  },
+  {
+   "id": "40504312",
+   "title": "略萨作品：酒吧长谈（精装珍藏版）",
+   "author": "马里奥·巴尔加斯·略萨",
+   "progress": 3,
+   "finished": false,
+   "notes": 8,
+   "lastRead": 1773001476,
+   "cover": "/assets/books/40504312.jpg"
+  },
+  {
+   "id": "38626255",
+   "title": "略萨作品：给青年小说家的信",
+   "author": "马里奥·巴尔加斯·略萨",
+   "progress": 13,
+   "finished": false,
+   "notes": 1,
+   "lastRead": 1773001279,
+   "cover": "/assets/books/38626255.jpg"
+  },
+  {
+   "id": "30810892",
+   "title": "安第斯山脉的生与死：追寻土匪、英雄和革命者的足迹（甲骨文系列）",
+   "author": "金·麦夸里",
+   "progress": 11,
+   "finished": false,
+   "notes": 7,
+   "lastRead": 1771352575,
+   "cover": "/assets/books/30810892.jpg"
   }
  ]
 }

@@ -3,6 +3,7 @@ title: Sora
 cluster: AI 公司与产品
 created: '2026-05-19'
 updated: '2026-05-19'
+provenance: co
 ---
 
 # Sora
@@ -72,7 +73,7 @@ Sora 不是单一模型而是 OpenAI 的**视频原生 stack** ：
 - 同公司产品：[ChatGPT](/kb/ai-公司与产品/chatgpt/) [DALL-E](/kb/ai-公司与产品/dall-e/) [GPTs](/kb/ai-公司与产品/gpts/) [Codex](/kb/ai-公司与产品/codex/) Whisper
 - 竞品：Veo / Runway Gen-4 / 可灵 / Hailuo
 - 技术：Diffusion / Diffusion Transformer / Latent Diffusion / 多模态
-- 议题：深伪 / 数据版权 / [Constitutional AI](/kb/ai-基础知识库/constitutional-ai/) / [多模型分层](/kb/ai-基础知识库/多模型分层/)
+- 议题：深伪 / 数据版权 / [Constitutional AI](/kb/基础知识库/constitutional-ai/) / [多模型分层](/kb/基础知识库/多模型分层/)
 - 政策合作：[Microsoft](/kb/ai-公司与产品/microsoft/)（Azure 训练算力支撑早期 Sora 1）
 
 ## 来源

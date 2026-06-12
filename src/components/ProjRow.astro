@@ -1,4 +1,6 @@
 ---
+// 项目行：有 href 的渲染为链接；无链接（仓库整理中）渲染为普通行 + 状态 chip，
+// 杜绝「看起来可点、点了无声失败」的占位链接。
 interface Props {
   no: string;
   title: string;
@@ -6,22 +8,26 @@ interface Props {
   tags: string[];
   img: string;
   alt: string;
-  href: string;
+  href?: string;
+  icon?: string;
 }
-const { no, title, desc, tags, img, alt, href } = Astro.props;
+const { no, title, desc, tags, img, alt, href, icon } = Astro.props;
+const live = !!href && href !== '#';
+const Wrap = live ? 'a' : 'div';
 ---
 
-<a
-  href={href}
-  class:list={['proj-row', { noop: href === '#' }]}
-  target={href.startsWith('http') ? '_blank' : undefined}
-  rel={href.startsWith('http') ? 'noreferrer' : undefined}
+<Wrap
+  href={live ? href : undefined}
+  class:list={['proj-row', { wip: !live }]}
+  target={live && href!.startsWith('http') ? '_blank' : undefined}
+  rel={live && href!.startsWith('http') ? 'noreferrer' : undefined}
 >
   <span class="proj-no">{no}</span>
   <div class="proj-body">
     <div class="proj-title-row">
+      {icon && <span class="proj-icon" set:html={icon} />}
       <h3 class="proj-title">{title}</h3>
-      <span class="arrow">→</span>
+      {live ? <span class="arrow">→</span> : <span class="tag mono wip-tag">仓库整理中</span>}
     </div>
     <p class="proj-desc">{desc}</p>
     <div class="tag-row">
@@ -29,4 +35,4 @@ const { no, title, desc, tags, img, alt, href } = Astro.props;
     </div>
   </div>
   <div class="ph"><img src={img} alt={alt} loading="lazy" /></div>
-</a>
+</Wrap>

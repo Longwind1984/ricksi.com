@@ -3,6 +3,7 @@ title: Claude Project Instructions
 cluster: AI 协作方法论
 created: '2026-05-16'
 updated: '2026-05-18'
+provenance: co
 ---
 
 # Claude Project Instructions
@@ -25,5 +26,3 @@ Anthropic Claude Web 的 Project 功能本质是给一组对话注入持久 syst
 - *Prompt Engineering*
 - *RAG*
 
-## 衍生对话存档
-- Claude Project instruction 原理与拉美史项目设计

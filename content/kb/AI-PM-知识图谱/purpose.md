@@ -3,6 +3,7 @@ title: purpose
 cluster: AI PM 知识图谱
 created: '2026-05-18'
 updated: '2026-05-18'
+provenance: co
 ---
 
 # AI PM 知识图谱 · purpose

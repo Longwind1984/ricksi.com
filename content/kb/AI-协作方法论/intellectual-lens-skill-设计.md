@@ -3,6 +3,7 @@ title: intellectual-lens skill 设计
 cluster: AI 协作方法论
 created: '2026-05-16'
 updated: '2026-05-18'
+provenance: co
 ---
 
 # intellectual-lens skill 设计
@@ -45,6 +46,3 @@ intellectual-lens 后来被实际 build 出来（见 `20260405-intellectual-lens
 - Rick 写作 SABCD 评级体系 — 同期的另一类 "把写作判断外化为工具" 的尝试
 - [Claude](/kb/ai-公司与产品/claude/) — 承载 skill 的 runtime
 
-## 衍生对话存档
-
-- 来源对话

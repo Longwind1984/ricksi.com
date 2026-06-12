@@ -3,6 +3,7 @@ title: Microsoft
 cluster: AI 公司与产品
 created: '2026-05-18'
 updated: '2026-05-18'
+provenance: co
 ---
 
 # Microsoft
@@ -25,7 +26,7 @@ updated: '2026-05-18'
 - 2024 Phi-3 系列开源小模型发布，对外标榜"小模型路线"。
 - 2025 Copilot+ PC 品牌联合 OEM 厂商推动端侧 NPU 大规模铺货。
 - 2025.11 Ignite 后转向 "Agent Factory" 叙事，把 Copilot Studio 重定位为企业 Agent 工厂。
-- 2026 当下 Copilot 全线渗透但用户满意度持续低于 [ChatGPT](/kb/ai-公司与产品/chatgpt/) / [Claude](/kb/ai-公司与产品/claude/)——Rick 在 20260304-AI产品体验的代差与组织问题 与 20260304-微软Copilot和谷歌Gemini的产品体验问题 中详细记录。
+- 2026 当下 Copilot 全线渗透但用户满意度持续低于 [ChatGPT](/kb/ai-公司与产品/chatgpt/) / [Claude](/kb/ai-公司与产品/claude/)——Rick 在 〔私人记录〕 与 〔私人记录〕 中详细记录。
 
 ## 与 OpenAI 的合作-竞争关系
 - **合作面**：Azure 是 OpenAI 训练 / 推理的独家算力供应商；OpenAI 获得资本与上层政治资源，Microsoft 获得最强模型的优先接入权。
@@ -42,7 +43,7 @@ updated: '2026-05-18'
 ## 对 Rick 的价值
 - **AI 产品组织失败的典型样本**：Copilot 全产品铺面，但用户满意度、留存、口碑都不如 ChatGPT / Claude / Cursor 等纯 AI 产品。Rick 在多篇笔记中把 Microsoft Copilot 作为"组织结构与产品体验之间的代差"案例——大公司即便拿到最强模型 + 最广渠道，依然做不出最好用的 AI 产品。这一观察对 通往 AI PM 之路 的目标公司选择有直接影响。
 - **理解 OpenAI 真实治理结构的窗口**：要看清 [OpenAI](/kb/ai-公司与产品/openai/) 的实际权力分布，必须看 Microsoft 的资本与算力杠杆。Sam Altman / Satya Nadella 的双人轴心是 AI 行业最重要的 power couple。
-- **企业 AI 落地的 incumbent 视角**：Rick 在 AI 产品形态 与 [Agent 产品化](/kb/ai-工程化与落地架构/m206-agent-产品化-记忆机制与技术进展/) 中分析的"AI 嵌入既有 SaaS vs 重新发明"两种路线，Microsoft 是前者最大规模的实证样本。
+- **企业 AI 落地的 incumbent 视角**：Rick 在 AI 产品形态 与 [Agent 产品化](/kb/工程化与落地架构/m206-agent-产品化-记忆机制与技术进展/) 中分析的"AI 嵌入既有 SaaS vs 重新发明"两种路线，Microsoft 是前者最大规模的实证样本。
 
 ## 关键人物
 - **Satya Nadella**（CEO）：印度裔，2014 接任后完成 Microsoft 从"Windows-first"到"cloud-first / AI-first"的战略转型；与 Altman 形成 AI 时代最重要的 CEO 双人轴。
@@ -56,11 +57,10 @@ updated: '2026-05-18'
 - 投资对象：[OpenAI](/kb/ai-公司与产品/openai/)（核心）
 - 自研 / 收编：MAI、Inflection AI、Phi 系列、GitHub Copilot
 - 对照公司：Google [Anthropic](/kb/ai-公司与产品/anthropic/) Amazon Meta Apple
-- 产品议题：m205 - AI 产品形态：从工具到 Agent [m206 - Agent 产品化：记忆机制与技术进展](/kb/ai-工程化与落地架构/m206-agent-产品化-记忆机制与技术进展/) 20260304-AI产品体验的代差与组织问题 20260304-微软Copilot和谷歌Gemini的产品体验问题 20260304-微软和谷歌AI产品体验的组织问题
+- 产品议题：m205 - AI 产品形态：从工具到 Agent [m206 - Agent 产品化：记忆机制与技术进展](/kb/工程化与落地架构/m206-agent-产品化-记忆机制与技术进展/) 〔私人记录〕 〔私人记录〕 〔私人记录〕
 - 职业议题：通往 AI PM 之路
 
 ## 来源 / 证据池
 - 公开来源：Microsoft Investor Relations、Build / Ignite 年度大会 keynote、Satya Nadella 公开访谈
 - 关键文章：Stratechery (Ben Thompson) 长期对 Microsoft–OpenAI 关系的分析
-- Rick 库内既有分析：20260304-AI产品体验的代差与组织问题 20260304-微软Copilot和谷歌Gemini的产品体验问题 20260304-微软和谷歌AI产品体验的组织问题
-- （待补充：从 Cubox 反链汇集的具体证据）
+- Rick 库内既有分析：〔私人记录〕 〔私人记录〕 〔私人记录〕

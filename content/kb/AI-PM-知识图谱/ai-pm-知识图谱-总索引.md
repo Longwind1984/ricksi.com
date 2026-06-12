@@ -1,8 +1,9 @@
 ---
 title: AI PM 知识图谱·总索引
 cluster: AI PM 知识图谱
-created: '2026-05-18'
-updated: '2026-05-18'
+created: '2026-06-11'
+updated: '2026-06-11'
+provenance: co
 ---
 # AI 产品经理系统性知识图谱
 
@@ -28,10 +29,10 @@ updated: '2026-05-18'
 | --------------------------- | ------------------------- | ---------------- |
 | [[#模块一：AI 技术底层逻辑与模型范式|M1]] | 这个技术在物理上能不能做？成本量级是什么？     | ✅ 已完成（c01–c15）   |
 | [[#模块二：AI 工程化与落地架构|M2]]    | 在具体约束下，该选什么、怎么组合、成本多少？    | ✅ 已完成（m201–m210） |
-| [[#模块三：AI 产品设计与交互范式|M3]]   | 面对非确定性和高延迟，产品和交互应该怎么设计？   | 🔲 待建设           |
-| [[#模块四：AI 商业化、生态与战略壁垒|M4]] | 这个 AI 产品的钱从哪来？护城河在哪？能活多久？ | 🔲 待建设           |
-| [[#模块五：AI 风险管理、伦理与合规|M5]]  | 这个 AI 功能会不会让公司被罚、被骂、被起诉？  | 🔲 待建设           |
-| **专题：[[#专题：Agent 系统化（0411）|Agent 系统化]]** | 跨 M1/M2/M3 的横向深入：语词流变 / 代际谱系 / 架构剖面 / 流派实例 / 复现实操 / 阅读路径 | ✅ 已完成（0411 · 22 节点 · 5 轮批判性同行评议） |
+| [[#模块三：AI 产品设计与交互范式|M3]]   | 面对非确定性和高延迟，产品和交互应该怎么设计？   | ✅ 已完成（p301–p309）   |
+| [[#模块四：AI 商业化、生态与战略壁垒|M4]] | 这个 AI 产品的钱从哪来？护城河在哪？能活多久？ | ✅ 由专题库填充（0434/0428/0421） |
+| [[#模块五：AI 风险管理、伦理与合规|M5]]  | 这个 AI 功能会不会让公司被罚、被骂、被起诉？  | ✅ 由专题库填充（0430/0435/0419/0416） |
+| **专题库：04T 专题库（25 专题）** | 跨 M1–M5 的横向深入系统化专题，按 F1–F6 六家族组织（0411 Agent 为其一） | ✅ 已入库（`04AI/04T 专题库` · 约 475 节点 · SABCD 均 8.0） |
 
 ---
 
@@ -49,59 +50,59 @@ updated: '2026-05-18'
 
 | 章节 | 主题 | 核心概念 |
 |------|------|---------|
-| [c01](/kb/ai-基础知识库/c01-认知重构-从确定性系统到概率系统/) | 认知重构：从确定性系统到概率系统 | [幻觉与校准](/kb/ai-基础知识库/幻觉/)、[SFT](/kb/ai-基础知识库/sft/) |
-| [c02](/kb/ai-基础知识库/c02-tokenization-与词表工程/) | Tokenization 与词表工程 | [Tokenization](/kb/ai-基础知识库/tokenization/) |
-| [c03](/kb/ai-基础知识库/c03-transformer-核心机制与注意力变体/) | Transformer 核心机制与注意力变体 | [Attention](/kb/ai-基础知识库/attention/)、[KV Cache](/kb/ai-基础知识库/kv-cache/) |
-| [c04](/kb/ai-基础知识库/c04-模型训练全阶段-pipeline/) | 模型训练全阶段 Pipeline | [预训练](/kb/ai-基础知识库/预训练/)、[LoRA](/kb/ai-基础知识库/lora/)、[RLHF/DPO](/kb/ai-基础知识库/rlhf/) |
-| [c05](/kb/ai-基础知识库/c05-算力物理定律与-kv-cache/) | 算力物理定律与 KV Cache 账本推演 | [KV Cache](/kb/ai-基础知识库/kv-cache/)、[自回归](/kb/ai-基础知识库/自回归生成/) |
-| [c06](/kb/ai-基础知识库/c06-架构演进-dense-moe-ssm-hybrid/) | 架构演进：Dense / MoE / SSM / Hybrid | [MoE](/kb/ai-基础知识库/moe/)、[Attention](/kb/ai-基础知识库/attention/) |
-| [c07](/kb/ai-基础知识库/c07-量化-quantization-与端侧部署/) | 量化（Quantization）与端侧部署 | [量化](/kb/ai-基础知识库/量化/)、[QLoRA](/kb/ai-基础知识库/lora/) |
-| [c08](/kb/ai-基础知识库/c08-解码策略与生成控制/) | 解码策略与生成控制 | [Softmax](/kb/ai-基础知识库/softmax/)、[Function Calling](/kb/ai-基础知识库/function-calling/) |
-| [c09](/kb/ai-基础知识库/c09-rag-架构/) | RAG 架构的工程解构与非参数化记忆 | [RAG](/kb/ai-基础知识库/rag/)、[Embedding](/kb/ai-基础知识库/embedding/) |
-| [c10](/kb/ai-基础知识库/c10-agent-技术栈与工具调用/) | Agent 技术栈与工具调用 | [Agent](/kb/ai-基础知识库/agent/)、[Function Calling](/kb/ai-基础知识库/function-calling/) |
-| [c11](/kb/ai-基础知识库/c11-system-2-思维与-test-time-compute/) | System 2 思维与 Test-Time Compute | [System 2 TTC](/kb/ai-基础知识库/test-time-compute/)、[RL](/kb/ai-基础知识库/强化学习/) |
-| [c12](/kb/ai-基础知识库/c12-多模态融合与具身智能/) | 多模态融合与具身智能 | [视觉 Tokenization](/kb/ai-基础知识库/tokenization/)、[CLIP](/kb/ai-基础知识库/embedding/) |
-| [c13](/kb/ai-基础知识库/c13-幻觉的不可消除性/) | 彻底祛魅：为什么幻觉无法被彻底消除 | [幻觉与校准](/kb/ai-基础知识库/幻觉/)、[RLHF](/kb/ai-基础知识库/rlhf/) |
-| [c14](/kb/ai-基础知识库/c14-模型评估体系与-goodhart-陷阱/) | 模型评估体系与 Goodhart 陷阱 | [Scaling Laws](/kb/ai-基础知识库/scaling-laws/)、[幻觉](/kb/ai-基础知识库/幻觉/) |
-| [c15](/kb/ai-基础知识库/c15-数据墙与后训练霸权/) | 数据墙与后训练霸权 | [合成数据](/kb/ai-基础知识库/合成数据/)、[SFT](/kb/ai-基础知识库/sft/) |
+| [c01](/kb/基础知识库/c01-认知重构-从确定性系统到概率系统/) | 认知重构：从确定性系统到概率系统 | [幻觉与校准](/kb/基础知识库/幻觉/)、[SFT](/kb/基础知识库/sft/) |
+| [c02](/kb/基础知识库/c02-tokenization-与词表工程/) | Tokenization 与词表工程 | [Tokenization](/kb/基础知识库/tokenization/) |
+| [c03](/kb/基础知识库/c03-transformer-核心机制与注意力变体/) | Transformer 核心机制与注意力变体 | [Attention](/kb/基础知识库/attention/)、[KV Cache](/kb/基础知识库/kv-cache/) |
+| [c04](/kb/基础知识库/c04-模型训练全阶段-pipeline/) | 模型训练全阶段 Pipeline | [预训练](/kb/基础知识库/预训练/)、[LoRA](/kb/基础知识库/lora/)、[RLHF/DPO](/kb/基础知识库/rlhf/) |
+| [c05](/kb/基础知识库/c05-算力物理定律与-kv-cache/) | 算力物理定律与 KV Cache 账本推演 | [KV Cache](/kb/基础知识库/kv-cache/)、[自回归](/kb/基础知识库/自回归生成/) |
+| [c06](/kb/基础知识库/c06-架构演进-dense-moe-ssm-hybrid/) | 架构演进：Dense / MoE / SSM / Hybrid | [MoE](/kb/基础知识库/moe/)、[Attention](/kb/基础知识库/attention/) |
+| [c07](/kb/基础知识库/c07-量化-quantization-与端侧部署/) | 量化（Quantization）与端侧部署 | [量化](/kb/基础知识库/量化/)、[QLoRA](/kb/基础知识库/lora/) |
+| [c08](/kb/基础知识库/c08-解码策略与生成控制/) | 解码策略与生成控制 | [Softmax](/kb/基础知识库/softmax/)、[Function Calling](/kb/基础知识库/function-calling/) |
+| [c09](/kb/基础知识库/c09-rag-架构/) | RAG 架构的工程解构与非参数化记忆 | [RAG](/kb/基础知识库/rag/)、[Embedding](/kb/基础知识库/embedding/) |
+| [c10](/kb/基础知识库/c10-agent-技术栈与工具调用/) | Agent 技术栈与工具调用 | [Agent](/kb/基础知识库/agent/)、[Function Calling](/kb/基础知识库/function-calling/) |
+| [c11](/kb/基础知识库/c11-system-2-思维与-test-time-compute/) | System 2 思维与 Test-Time Compute | [System 2 TTC](/kb/基础知识库/test-time-compute/)、[RL](/kb/基础知识库/强化学习/) |
+| [c12](/kb/基础知识库/c12-多模态融合与具身智能/) | 多模态融合与具身智能 | [视觉 Tokenization](/kb/基础知识库/tokenization/)、[CLIP](/kb/基础知识库/embedding/) |
+| [c13](/kb/基础知识库/c13-幻觉的不可消除性/) | 彻底祛魅：为什么幻觉无法被彻底消除 | [幻觉与校准](/kb/基础知识库/幻觉/)、[RLHF](/kb/基础知识库/rlhf/) |
+| [c14](/kb/基础知识库/c14-模型评估体系与-goodhart-陷阱/) | 模型评估体系与 Goodhart 陷阱 | [Scaling Laws](/kb/基础知识库/scaling-laws/)、[幻觉](/kb/基础知识库/幻觉/) |
+| [c15](/kb/基础知识库/c15-数据墙与后训练霸权/) | 数据墙与后训练霸权 | [合成数据](/kb/基础知识库/合成数据/)、[SFT](/kb/基础知识库/sft/) |
 
 ### 前沿发展（2025–2026）
 
-- **推理期算力缩放（[Test-Time Compute](/kb/ai-基础知识库/test-time-compute/)）**：从预训练阶段的"大力出奇迹"，转向推理阶段的"慢思考"涌现。o1/o3 及 R1 范式证明了给予模型更多思考时间，可通过[强化学习](/kb/ai-基础知识库/强化学习/)实现推理能力的指数级跃升。
-- **后训练（Post-training）的霸权**：基础模型架构逐渐同质化，决定最终产品差异化体验的核心，彻底转移到 [SFT](/kb/ai-基础知识库/sft/) 和 [RLHF](/kb/ai-基础知识库/rlhf/) 的数据质量与对齐工艺上。
-- **架构分化与端侧觉醒**：[MoE](/kb/ai-基础知识库/moe/) 成为云端降本标配，SSM（Mamba）在端侧硬件和无限上下文场景中开始破局。
+- **推理期算力缩放（[Test-Time Compute](/kb/基础知识库/test-time-compute/)）**：从预训练阶段的"大力出奇迹"，转向推理阶段的"慢思考"涌现。o1/o3 及 R1 范式证明了给予模型更多思考时间，可通过[强化学习](/kb/基础知识库/强化学习/)实现推理能力的指数级跃升。
+- **后训练（Post-training）的霸权**：基础模型架构逐渐同质化，决定最终产品差异化体验的核心，彻底转移到 [SFT](/kb/基础知识库/sft/) 和 [RLHF](/kb/基础知识库/rlhf/) 的数据质量与对齐工艺上。
+- **架构分化与端侧觉醒**：[MoE](/kb/基础知识库/moe/) 成为云端降本标配，SSM（Mamba）在端侧硬件和无限上下文场景中开始破局。
 
 ---
 
 ## 模块二：AI 工程化与落地架构
 
 **文件夹**：`0402AI 工程化与落地架构`
-**定位**：AI 产品的"供应链、组装厂与最后一公里"。一个裸露的基础模型就像是一个博学但缺乏业务语境的大学生。工程化架构的任务是为其配备"专业手册（[RAG](/kb/ai-基础知识库/rag/)）"、"技能培训（微调）"和"工作工具（[Agent](/kb/ai-基础知识库/agent/)）"。
+**定位**：AI 产品的"供应链、组装厂与最后一公里"。一个裸露的基础模型就像是一个博学但缺乏业务语境的大学生。工程化架构的任务是为其配备"专业手册（[RAG](/kb/基础知识库/rag/)）"、"技能培训（微调）"和"工作工具（[Agent](/kb/基础知识库/agent/)）"。
 
 **解决的问题**：
 - 解决大模型固有的三大痛点——知识滞后性、垂直领域专业度不足、以及缺乏长记忆
-- 帮助 PM 在"直接调用 API"、"外挂知识库（[RAG](/kb/ai-基础知识库/rag/)）"与"微调（[SFT](/kb/ai-基础知识库/sft/)/[LoRA](/kb/ai-基础知识库/lora/)）"之间做出最合理的 ROI 决策
+- 帮助 PM 在"直接调用 API"、"外挂知识库（[RAG](/kb/基础知识库/rag/)）"与"微调（[SFT](/kb/基础知识库/sft/)/[LoRA](/kb/基础知识库/lora/)）"之间做出最合理的 ROI 决策
 
 ### 章节索引
 
 | 章节 | 主题 | 核心概念 |
 |------|------|---------|
-| [m201](/kb/ai-工程化与落地架构/m201-prompt-engineering-实战体系/) | Prompt Engineering 实战体系 | CoT、Few-shot、Structured Prompting |
-| [m202](/kb/ai-工程化与落地架构/m202-工程选型决策矩阵/) | 工程选型决策矩阵 | [RAG](/kb/ai-基础知识库/rag/) vs [SFT](/kb/ai-基础知识库/sft/) vs [Agent](/kb/ai-基础知识库/agent/) |
-| [m203](/kb/ai-工程化与落地架构/m203-rag-生产环境-embedding-与文档解析/) | RAG 生产：Embedding 模型选型与文档解析 | [Embedding](/kb/ai-基础知识库/embedding/)、BGE-M3、Docling |
-| [m204](/kb/ai-工程化与落地架构/m204-rag-生产环境-chunking-与范式演进/) | RAG 生产：Chunking 策略与范式演进 | Contextual Retrieval、Agentic RAG |
-| [m205](/kb/ai-工程化与落地架构/m205-rag-生产环境-索引运维与评估体系/) | RAG 生产：索引运维与 RAGAS 评估 | RAGAS 四指标、LLM-as-Judge |
-| [m206](/kb/ai-工程化与落地架构/m206-agent-产品化-记忆机制与技术进展/) | Agent 产品化：记忆机制与技术进展 | 长/短期记忆、Computer Use、A2A |
-| [m207](/kb/ai-工程化与落地架构/m207-agent-产品化-场景推演与失败模式/) | Agent 产品化：场景推演与失败模式 | HITL、六类失败模式、评估体系 |
-| [m208](/kb/ai-工程化与落地架构/m208-ai-基础设施与中间件选型/) | AI 基础设施与中间件选型 | 向量数据库、编排框架、Observability |
-| [m209](/kb/ai-工程化与落地架构/m209-推理成本控制手册/) | 推理成本控制手册 | Prompt Caching、模型路由、语义缓存 |
-| [m210](/kb/ai-工程化与落地架构/m210-数据工程流实操/) | 数据工程流实操 | [合成数据](/kb/ai-基础知识库/合成数据/)、[DPO](/kb/ai-基础知识库/rlhf/) 标注、数据飞轮 |
+| [m201](/kb/工程化与落地架构/m201-prompt-engineering-实战体系/) | Prompt Engineering 实战体系 | CoT、Few-shot、Structured Prompting |
+| [m202](/kb/工程化与落地架构/m202-工程选型决策矩阵/) | 工程选型决策矩阵 | [RAG](/kb/基础知识库/rag/) vs [SFT](/kb/基础知识库/sft/) vs [Agent](/kb/基础知识库/agent/) |
+| [m203](/kb/工程化与落地架构/m203-rag-生产环境-embedding-与文档解析/) | RAG 生产：Embedding 模型选型与文档解析 | [Embedding](/kb/基础知识库/embedding/)、BGE-M3、Docling |
+| [m204](/kb/工程化与落地架构/m204-rag-生产环境-chunking-与范式演进/) | RAG 生产：Chunking 策略与范式演进 | Contextual Retrieval、Agentic RAG |
+| [m205](/kb/工程化与落地架构/m205-rag-生产环境-索引运维与评估体系/) | RAG 生产：索引运维与 RAGAS 评估 | RAGAS 四指标、LLM-as-Judge |
+| [m206](/kb/工程化与落地架构/m206-agent-产品化-记忆机制与技术进展/) | Agent 产品化：记忆机制与技术进展 | 长/短期记忆、Computer Use、A2A |
+| [m207](/kb/工程化与落地架构/m207-agent-产品化-场景推演与失败模式/) | Agent 产品化：场景推演与失败模式 | HITL、六类失败模式、评估体系 |
+| [m208](/kb/工程化与落地架构/m208-ai-基础设施与中间件选型/) | AI 基础设施与中间件选型 | 向量数据库、编排框架、Observability |
+| [m209](/kb/工程化与落地架构/m209-推理成本控制手册/) | 推理成本控制手册 | Prompt Caching、模型路由、语义缓存 |
+| [m210](/kb/工程化与落地架构/m210-数据工程流实操/) | 数据工程流实操 | [合成数据](/kb/基础知识库/合成数据/)、[DPO](/kb/基础知识库/rlhf/) 标注、数据飞轮 |
 
 ### 前沿发展
 
 - **Agentic Workflow 的全面普及**：取代早期简单的一问一答，引入反思、纠错和多步骤规划
-- **Multi-Agent 协同架构**：不同的 [Agent](/kb/ai-基础知识库/agent/) 扮演不同角色（Planner、Coder、Reviewer）协同完成复杂任务
-- **数据管道的全面自动化**：从依赖人类数据向 [合成数据](/kb/ai-基础知识库/合成数据/) 演进，数据清洗与生成管道成为 AI 工程的核心竞争力
+- **Multi-Agent 协同架构**：不同的 [Agent](/kb/基础知识库/agent/) 扮演不同角色（Planner、Coder、Reviewer）协同完成复杂任务
+- **数据管道的全面自动化**：从依赖人类数据向 [合成数据](/kb/基础知识库/合成数据/) 演进，数据清洗与生成管道成为 AI 工程的核心竞争力
 
 ---
 
@@ -114,44 +115,44 @@ updated: '2026-05-18'
 
 ### 入口与导航
 
-- **专题总览**：[_Agent 系统化专题·总览](/kb/agent-系统化专题/_agent-系统化专题-总览/)
-- **多视图阅读指南**：[README·多视图阅读指南](/kb/agent-系统化专题/readme-多视图阅读指南/)（30 天速通 / M1-M5 决策链 / 紧迫度优先 三路径）
+- **专题总览**：[_Agent 系统化专题·总览](/kb/专题-安全对齐与失败/_agent-系统化专题-总览/)
+- **多视图阅读指南**：[README·多视图阅读指南](/kb/专题-安全对齐与失败/readme-0411-多视图阅读指南/)（30 天速通 / M1-M5 决策链 / 紧迫度优先 三路径）
 - **可交互知识图谱**：`06 阅读指南/knowledge-graph.html`（29 节点 + 60 边 + 双维过滤）
 
 ### 节点索引
 
 | 模块 | 节点 | 说明 |
 |------|------|------|
-| 01 概念辨析 | [A01 Agent 概念史与语义流变](/kb/agent-系统化专题/a01-agent-概念史与语义流变/) | 词源 → 四次语义滑动 → 滥用边界 |
-| 01 概念辨析 | [A02 抽象层级辨析·Harness Framework Agent Skill Orchestrator](/kb/agent-系统化专题/a02-抽象层级辨析-harness-framework-agent-skill-orchestrator/) | 五词混用的统一分层 |
-| 01 概念辨析 | [A03 ReAct](/kb/agent-系统化专题/a03-react/) | G1 奠基范式 |
-| 01 概念辨析 | [A04 Reflexion](/kb/agent-系统化专题/a04-reflexion/) | G3 反思代表 |
-| 01 概念辨析 | [A05 Plan-and-Execute](/kb/agent-系统化专题/a05-plan-and-execute/) | 先规划后执行 |
-| 01 概念辨析 | [A06 Orchestrator 编排器](/kb/agent-系统化专题/a06-orchestrator-编排器/) | 编排器与 framework 的边界 |
-| 01 概念辨析 | [A07 Multi-Agent Teams](/kb/agent-系统化专题/a07-multi-agent-teams/) | 三种架构 + Anthropic 反 multi-agent 立场 |
-| 01 概念辨析 | [A08 MCP 与 A2A 协议族](/kb/agent-系统化专题/a08-mcp-与-a2a-协议族/) | G5 协议化代表 + 政治经济学边界 |
-| 02 代际演化 | [G01 Agent 代际谱系总图](/kb/agent-系统化专题/g01-agent-代际谱系总图/) | G1→G5 谱系 + Lakatos 退化纲领判据 |
-| 02 代际演化 | [G02 五代演化详解·G1-G5](/kb/agent-系统化专题/g02-五代演化详解-g1-g5/) | 每代 paper / 产品 / 范式 / 遗产 |
-| 03 架构剖面 | [S01 Agent 六层架构剖面](/kb/agent-系统化专题/s01-agent-六层架构剖面/) | 感知/规划/记忆/工具/执行/反思 |
-| 03 架构剖面 | [S02 流派架构对照表](/kb/agent-系统化专题/s02-流派架构对照表/) | 六范式 × 六层映射矩阵 |
-| 03 架构剖面 | [S03 Harness Engineering 全景](/kb/agent-系统化专题/s03-harness-engineering-全景/) | Hashimoto 命名 + Dreyfus 技能分级 |
-| 04 实例剖解 | [E01 Coding Agent·Claude Code & Cursor](/kb/agent-系统化专题/e01-coding-agent-claude-code-cursor/) | 协作者 vs 延伸的手 |
-| 04 实例剖解 | [E02 通用 Agent·Manus & Devin](/kb/agent-系统化专题/e02-通用-agent-manus-devin/) | 70% 是数学约束不是工程问题 |
-| 04 实例剖解 | [E03 Multi-Agent 框架·AutoGen & CrewAI & DeerFlow](/kb/agent-系统化专题/e03-multi-agent-框架-autogen-crewai-deerflow/) | 三家 × A07 判据反向评估 |
-| 05 复现指南 | [R01 最小可运行·100 行 ReAct](/kb/agent-系统化专题/r01-最小可运行-100-行-react/) | 30 分钟跑通 + 六层映射 |
-| 05 复现指南 | [R02 中型生产·LangGraph + MCP](/kb/agent-系统化专题/r02-中型生产-langgraph-+-mcp/) | 状态机 + HITL + MCP 接入 |
-| 05 复现指南 | [R03 Multi-Agent 模板·AutoGen CrewAI](/kb/agent-系统化专题/r03-multi-agent-模板-autogen-crewai/) | 同任务双框架对照 + 失败案例 |
-| 06 阅读指南 | [README·多视图阅读指南](/kb/agent-系统化专题/readme-多视图阅读指南/) | 三路径 + 10 题自测 + Week 4 反方对话训练 |
+| 01 概念辨析 | [A01 Agent 概念史与语义流变](/kb/专题-安全对齐与失败/a01-agent-概念史与语义流变/) | 词源 → 四次语义滑动 → 滥用边界 |
+| 01 概念辨析 | [A02 抽象层级辨析·Harness Framework Agent Skill Orchestrator](/kb/专题-安全对齐与失败/a02-抽象层级辨析-harness-framework-agent-skill-orchestrator/) | 五词混用的统一分层 |
+| 01 概念辨析 | [A03 ReAct](/kb/专题-安全对齐与失败/a03-react/) | G1 奠基范式 |
+| 01 概念辨析 | [A04 Reflexion](/kb/专题-安全对齐与失败/a04-reflexion/) | G3 反思代表 |
+| 01 概念辨析 | [A05 Plan-and-Execute](/kb/专题-安全对齐与失败/a05-plan-and-execute/) | 先规划后执行 |
+| 01 概念辨析 | [A06 Orchestrator 编排器](/kb/专题-安全对齐与失败/a06-orchestrator-编排器/) | 编排器与 framework 的边界 |
+| 01 概念辨析 | [A07 Multi-Agent Teams](/kb/专题-安全对齐与失败/a07-multi-agent-teams/) | 三种架构 + Anthropic 反 multi-agent 立场 |
+| 01 概念辨析 | [A08 MCP 与 A2A 协议族](/kb/专题-安全对齐与失败/a08-mcp-与-a2a-协议族/) | G5 协议化代表 + 政治经济学边界 |
+| 02 代际演化 | [G01 Agent 代际谱系总图](/kb/专题-安全对齐与失败/g01-agent-代际谱系总图/) | G1→G5 谱系 + Lakatos 退化纲领判据 |
+| 02 代际演化 | [G02 五代演化详解·G1-G5](/kb/专题-安全对齐与失败/g02-五代演化详解-g1-g5/) | 每代 paper / 产品 / 范式 / 遗产 |
+| 03 架构剖面 | [S01 Agent 六层架构剖面](/kb/专题-安全对齐与失败/s01-agent-六层架构剖面/) | 感知/规划/记忆/工具/执行/反思 |
+| 03 架构剖面 | [S02 流派架构对照表](/kb/专题-安全对齐与失败/s02-流派架构对照表/) | 六范式 × 六层映射矩阵 |
+| 03 架构剖面 | [S03 Harness Engineering 全景](/kb/专题-安全对齐与失败/s03-harness-engineering-全景/) | Hashimoto 命名 + Dreyfus 技能分级 |
+| 04 实例剖解 | [E01 Coding Agent·Claude Code & Cursor](/kb/专题-安全对齐与失败/e01-coding-agent-claude-code-cursor/) | 协作者 vs 延伸的手 |
+| 04 实例剖解 | [E02 通用 Agent·Manus & Devin](/kb/专题-安全对齐与失败/e02-通用-agent-manus-devin/) | 70% 是数学约束不是工程问题 |
+| 04 实例剖解 | [E03 Multi-Agent 框架·AutoGen & CrewAI & DeerFlow](/kb/专题-安全对齐与失败/e03-multi-agent-框架-autogen-crewai-deerflow/) | 三家 × A07 判据反向评估 |
+| 05 复现指南 | [R01 最小可运行·100 行 ReAct](/kb/专题-安全对齐与失败/r01-最小可运行-100-行-react/) | 30 分钟跑通 + 六层映射 |
+| 05 复现指南 | [R02 中型生产·LangGraph + MCP](/kb/专题-安全对齐与失败/r02-中型生产-langgraph-+-mcp/) | 状态机 + HITL + MCP 接入 |
+| 05 复现指南 | [R03 Multi-Agent 模板·AutoGen CrewAI](/kb/专题-安全对齐与失败/r03-multi-agent-模板-autogen-crewai/) | 同任务双框架对照 + 失败案例 |
+| 06 阅读指南 | README·多视图阅读指南 | 三路径 + 10 题自测 + Week 4 反方对话训练 |
 
 ### 与现有节点的关系
 
 | 现有节点 | 本专题升级 |
 |---|---|
-| [c10](/kb/ai-基础知识库/c10-agent-技术栈与工具调用/) | 被 [S01 Agent 六层架构剖面](/kb/agent-系统化专题/s01-agent-六层架构剖面/) + [G02 五代演化详解·G1-G5](/kb/agent-系统化专题/g02-五代演化详解-g1-g5/) 双重深化 |
-| [m206](/kb/ai-工程化与落地架构/m206-agent-产品化-记忆机制与技术进展/) | 被 [A07 Multi-Agent Teams](/kb/agent-系统化专题/a07-multi-agent-teams/) + [E02 通用 Agent·Manus & Devin](/kb/agent-系统化专题/e02-通用-agent-manus-devin/) 补充 |
-| [m207](/kb/ai-工程化与落地架构/m207-agent-产品化-场景推演与失败模式/) | 被 [E03 Multi-Agent 框架·AutoGen & CrewAI & DeerFlow](/kb/agent-系统化专题/e03-multi-agent-框架-autogen-crewai-deerflow/) + [R03 Multi-Agent 模板·AutoGen CrewAI](/kb/agent-系统化专题/r03-multi-agent-模板-autogen-crewai/) 实例化 |
-| [m208](/kb/ai-工程化与落地架构/m208-ai-基础设施与中间件选型/) | 被 [A06 Orchestrator 编排器](/kb/agent-系统化专题/a06-orchestrator-编排器/) + [S03 Harness Engineering 全景](/kb/agent-系统化专题/s03-harness-engineering-全景/) 概念深化 |
-| [Harness 词义辨析](/kb/agent-系统化专题/harness-词义辨析/) | 被 [A02 抽象层级辨析·Harness Framework Agent Skill Orchestrator](/kb/agent-系统化专题/a02-抽象层级辨析-harness-framework-agent-skill-orchestrator/) + [S03 Harness Engineering 全景](/kb/agent-系统化专题/s03-harness-engineering-全景/) 完整化 |
+| [c10](/kb/基础知识库/c10-agent-技术栈与工具调用/) | 被 [S01 Agent 六层架构剖面](/kb/专题-安全对齐与失败/s01-agent-六层架构剖面/) + [G02 五代演化详解·G1-G5](/kb/专题-安全对齐与失败/g02-五代演化详解-g1-g5/) 双重深化 |
+| [m206](/kb/工程化与落地架构/m206-agent-产品化-记忆机制与技术进展/) | 被 [A07 Multi-Agent Teams](/kb/专题-安全对齐与失败/a07-multi-agent-teams/) + [E02 通用 Agent·Manus & Devin](/kb/专题-安全对齐与失败/e02-通用-agent-manus-devin/) 补充 |
+| [m207](/kb/工程化与落地架构/m207-agent-产品化-场景推演与失败模式/) | 被 [E03 Multi-Agent 框架·AutoGen & CrewAI & DeerFlow](/kb/专题-安全对齐与失败/e03-multi-agent-框架-autogen-crewai-deerflow/) + [R03 Multi-Agent 模板·AutoGen CrewAI](/kb/专题-安全对齐与失败/r03-multi-agent-模板-autogen-crewai/) 实例化 |
+| [m208](/kb/工程化与落地架构/m208-ai-基础设施与中间件选型/) | 被 [A06 Orchestrator 编排器](/kb/专题-安全对齐与失败/a06-orchestrator-编排器/) + [S03 Harness Engineering 全景](/kb/专题-安全对齐与失败/s03-harness-engineering-全景/) 概念深化 |
+| [Harness 词义辨析](/kb/专题-安全对齐与失败/harness-词义辨析/) | 被 [A02 抽象层级辨析·Harness Framework Agent Skill Orchestrator](/kb/专题-安全对齐与失败/a02-抽象层级辨析-harness-framework-agent-skill-orchestrator/) + [S03 Harness Engineering 全景](/kb/专题-安全对齐与失败/s03-harness-engineering-全景/) 完整化 |
 | [Skill 系统的本质](/kb/ai-协作方法论/skill-系统的本质/) | 链入 A02 抽象层级辨析 |
 
 ---
@@ -165,7 +166,7 @@ updated: '2026-05-18'
 
 **解决的问题**：
 - 彻底解决用户的"Prompt 焦虑"（用户不知道系统能干什么，也不知道该怎么问）
-- 在模型响应慢、必然存在[幻觉](/kb/ai-基础知识库/幻觉/)的客观限制下，通过产品机制设计弥补体验落差
+- 在模型响应慢、必然存在[幻觉](/kb/基础知识库/幻觉/)的客观限制下，通过产品机制设计弥补体验落差
 - 建立校准良好的用户信任（不是最大化信任，而是让信任程度与 AI 实际可靠性匹配）
 - 设计能自动采集高质量训练数据的产品交互，形成数据飞轮
 
@@ -173,30 +174,35 @@ updated: '2026-05-18'
 
 | 章节 | 主题 | 核心设计问题 |
 |------|------|------------|
-| [p301](/kb/ai-产品设计与交互范式/p301-交互范式跃迁与对话框局限/) | 交互范式跃迁与对话框局限 | 从精确控制到意图委托，对话框并非万能 |
-| [p302](/kb/ai-产品设计与交互范式/p302-七种-ai-交互设计模式/) | 七种 AI 交互设计模式 | 超越对话框的产品形态：行内补全、Generative UI、后台 [Agent](/kb/ai-基础知识库/agent/) 等 |
-| [p303](/kb/ai-产品设计与交互范式/p303-克服空白画布综合症/) | 克服空白画布综合症 | 可发现性缺失的根源与场景化入口设计 |
-| [p304](/kb/ai-产品设计与交互范式/p304-防御性-ux-对抗延迟与幻觉/) | 防御性 UX：对抗延迟与[幻觉](/kb/ai-基础知识库/幻觉/) | 流式输出心理学、置信度外显、优雅降级 |
-| [p305](/kb/ai-产品设计与交互范式/p305-信任架构与可解释性设计/) | 信任架构与可解释性设计 | 校准信任 vs 最大化信任、推理过程外显 |
-| [p306](/kb/ai-产品设计与交互范式/p306-数据飞轮与反馈回路设计/) | 数据飞轮与反馈回路设计 | Copilot/Midjourney/[ChatGPT](/kb/ai-公司与产品/chatgpt/) 三种数据捕获哲学对比 |
-| [p307](/kb/ai-产品设计与交互范式/p307-copilot-到-autopilot-光谱/) | Copilot → Autopilot 光谱 | AI 控制权分配的五层框架与动态升降级机制 |
-| [p308](/kb/ai-产品设计与交互范式/p308-多模态与脱离屏幕的交互/) | 多模态与脱离屏幕的交互 | 语音打断/话轮管理、视觉交互、穿戴设备 |
-| [p309](/kb/ai-产品设计与交互范式/p309-特殊品类交互设计要点/) | 特殊品类交互设计要点 | 全双工语音、代码 AI、AI 客服、创意工具 |
+| [p301](/kb/产品设计与交互范式/p301-交互范式跃迁与对话框局限/) | 交互范式跃迁与对话框局限 | 从精确控制到意图委托，对话框并非万能 |
+| [p302](/kb/产品设计与交互范式/p302-七种-ai-交互设计模式/) | 七种 AI 交互设计模式 | 超越对话框的产品形态：行内补全、Generative UI、后台 [Agent](/kb/基础知识库/agent/) 等 |
+| [p303](/kb/产品设计与交互范式/p303-克服空白画布综合症/) | 克服空白画布综合症 | 可发现性缺失的根源与场景化入口设计 |
+| [p304](/kb/产品设计与交互范式/p304-防御性-ux-对抗延迟与幻觉/) | 防御性 UX：对抗延迟与[幻觉](/kb/基础知识库/幻觉/) | 流式输出心理学、置信度外显、优雅降级 |
+| [p305](/kb/产品设计与交互范式/p305-信任架构与可解释性设计/) | 信任架构与可解释性设计 | 校准信任 vs 最大化信任、推理过程外显 |
+| [p306](/kb/产品设计与交互范式/p306-数据飞轮与反馈回路设计/) | 数据飞轮与反馈回路设计 | Copilot/Midjourney/[ChatGPT](/kb/ai-公司与产品/chatgpt/) 三种数据捕获哲学对比 |
+| [p307](/kb/产品设计与交互范式/p307-copilot-到-autopilot-光谱/) | Copilot → Autopilot 光谱 | AI 控制权分配的五层框架与动态升降级机制 |
+| [p308](/kb/产品设计与交互范式/p308-多模态与脱离屏幕的交互/) | 多模态与脱离屏幕的交互 | 语音打断/话轮管理、视觉交互、穿戴设备 |
+| [p309](/kb/产品设计与交互范式/p309-特殊品类交互设计要点/) | 特殊品类交互设计要点 | 全双工语音、代码 AI、AI 客服、创意工具 |
 
 ### 前沿发展
 
-- **Copilot → Autopilot 演进**：从 L1 建议者（用户决定是否采纳）向 L3 代理人（[Agent](/kb/ai-基础知识库/agent/) 自主执行，关键节点请示用户）快速迁移，用户控制权持续让渡
+- **Copilot → Autopilot 演进**：从 L1 建议者（用户决定是否采纳）向 L3 代理人（[Agent](/kb/基础知识库/agent/) 自主执行，关键节点请示用户）快速迁移，用户控制权持续让渡
 - **Invisible AI（隐形 AI）**：AI 能力无缝嵌入用户现有工作流（Notion AI、飞书智能助手），用户感知不到"在使用 AI"——AI 渗透率最高、存在感最低的形态
-- **Generative UI（动态生成 UI）**：LLM 通过 [Function Calling](/kb/ai-基础知识库/function-calling/) 直接生成可交互的 UI 组件（表格、图表、表单），而非纯文本输出
+- **Generative UI（动态生成 UI）**：LLM 通过 [Function Calling](/kb/基础知识库/function-calling/) 直接生成可交互的 UI 组件（表格、图表、表单），而非纯文本输出
 - **原生多模态重塑语音交互**：GPT-4o 范式（< 300ms 端到端延迟）让全双工语音对话成为可能，从根本上改变语音 AI 的产品设计范式
 
 ---
 
 ## 模块四：AI 商业化、生态与战略壁垒
 
-> 🔲 **待建设** — 占位内容，供未来新增模块四时使用
+> ✅ **已由专题库填充**（2026-06-11）— 详见 [_专题库总索引](/kb/ai-pm-知识图谱/_专题库总索引/) 的 **F5 商业组织与采纳** 家族。下方规划框架已由以下专题实体化：
+>
+> **核心专题入口**：
+> - 0434 AI 产品护城河与商业模式（M4 主轴：五类护城河 / 单位经济 / 价值池下移）
+> - 0428 组织采纳（企业落地、采纳学、Demo-to-Enterprise 鸿沟）
+> - 0421 机制设计（定价 / 激励相容 / 拍卖）
+> - 相关透镜：0425 信号理论、0432 AI 产品的时间性
 
-**文件夹**（待创建）：`0404AI 商业化与战略壁垒`
 **定位**：AI 产品的"市场坐标与生死存亡护城河"。在底层大模型能力以月为单位快速迭代、甚至被巨头通过降价/免费战推向基础设施化的趋势下，必须理解什么是真正的商业价值，并认清**"数据垄断是终极护城河"**的商业底层逻辑。
 
 **解决的问题**：
@@ -224,9 +230,15 @@ updated: '2026-05-18'
 
 ## 模块五：AI 风险管理、伦理与合规
 
-> 🔲 **待建设** — 占位内容，供未来新增模块五时使用
+> ✅ **已由专题库填充**（2026-06-11）— 详见 [_专题库总索引](/kb/ai-pm-知识图谱/_专题库总索引/) 的 **F4 安全对齐与失败** 家族。下方规划框架已由以下专题实体化：
+>
+> **核心专题入口**：
+> - 0430 AI 作为制度现象（M5 主轴：合规与制度权力 / 中美监管对比 / 政治敏感逐句接地）
+> - 0435 AI 红队与攻防（防御纵深栈 / Agent 工具链注入）
+> - 0419 对齐哲学（对齐的认识论与工程实现）
+> - 0416 失败考古学（事故案例库与法律风险）
+> - 〔待补完后入库：0436 Agent 安全与权限〕
 
-**文件夹**（待创建）：`0405AI 风险管理与合规`
 **定位**：AI 产品的"安全刹车系统与底线"。在强监管时代，合规不再是法务团队在产品上线前的后置审核工作，而是直接影响产品架构选型、数据流转设计甚至商业化生死的关键产品特性（Feature）。
 
 **解决的问题**：
@@ -243,12 +255,12 @@ updated: '2026-05-18'
    - 对抗性攻击防范：提示词注入攻击（Prompt Injection）、越狱（Jailbreak）、数据投毒（Data Poisoning）
    - 系统级安全护栏（Guardrails）：输入端过滤恶意意图，输出端拦截有害/敏感内容
 3. **知识产权（IP）与版权风险管理**：训练数据侵权诉讼的应对思路；AI 生成内容（AIGC）的版权归属界定困境
-4. **AI 伦理与价值观对齐**：消除算法固有的性别、种族、文化偏见；[RLHF](/kb/ai-基础知识库/rlhf/) 对齐过程中的价值观注入与设计
+4. **AI 伦理与价值观对齐**：消除算法固有的性别、种族、文化偏见；[RLHF](/kb/基础知识库/rlhf/) 对齐过程中的价值观注入与设计
 
 **前沿发展**：
 - **对抗与防御的升级**：自动化红队测试（Automated Red Teaming）常态化；深度伪造（Deepfake）鉴别与内容溯源不可见水印技术
 - **监管框架落地**：全球性 AI 立法（如《欧盟 AI Act》）进入实质性惩罚阶段，对高风险系统提出了近乎苛刻的透明度和人工监督要求
-- **责任界定难题**：当自主执行任务的 [Agent](/kb/ai-基础知识库/agent/) 造成商业损失或侵权，法律责任由谁承担？
+- **责任界定难题**：当自主执行任务的 [Agent](/kb/基础知识库/agent/) 造成商业损失或侵权，法律责任由谁承担？
 
 ---
 
@@ -258,15 +270,15 @@ updated: '2026-05-18'
 
 | 类别 | 概念卡 |
 |------|--------|
-| **架构** | [Attention 机制](/kb/ai-基础知识库/attention/)、[MoE](/kb/ai-基础知识库/moe/)、[KV Cache](/kb/ai-基础知识库/kv-cache/)、[自回归生成](/kb/ai-基础知识库/自回归生成/)、[量化](/kb/ai-基础知识库/量化/) |
-| **训练** | [预训练](/kb/ai-基础知识库/预训练/)、[SFT](/kb/ai-基础知识库/sft/)、[LoRA/PEFT](/kb/ai-基础知识库/lora/)、[RLHF/DPO](/kb/ai-基础知识库/rlhf/)、[强化学习](/kb/ai-基础知识库/强化学习/)、[Scaling Laws](/kb/ai-基础知识库/scaling-laws/) |
-| **工程** | [RAG](/kb/ai-基础知识库/rag/)、[Embedding](/kb/ai-基础知识库/embedding/)、[Tokenization](/kb/ai-基础知识库/tokenization/)、[Agent](/kb/ai-基础知识库/agent/)、[Function Calling](/kb/ai-基础知识库/function-calling/) |
-| **数据** | [合成数据](/kb/ai-基础知识库/合成数据/)、[灾难性遗忘](/kb/ai-基础知识库/灾难性遗忘/) |
-| **产品** | [幻觉与校准](/kb/ai-基础知识库/幻觉/)、[System 2 TTC](/kb/ai-基础知识库/test-time-compute/)、[Softmax](/kb/ai-基础知识库/softmax/) |
+| **架构** | [Attention 机制](/kb/基础知识库/attention/)、[MoE](/kb/基础知识库/moe/)、[KV Cache](/kb/基础知识库/kv-cache/)、[自回归生成](/kb/基础知识库/自回归生成/)、[量化](/kb/基础知识库/量化/) |
+| **训练** | [预训练](/kb/基础知识库/预训练/)、[SFT](/kb/基础知识库/sft/)、[LoRA/PEFT](/kb/基础知识库/lora/)、[RLHF/DPO](/kb/基础知识库/rlhf/)、[强化学习](/kb/基础知识库/强化学习/)、[Scaling Laws](/kb/基础知识库/scaling-laws/) |
+| **工程** | [RAG](/kb/基础知识库/rag/)、[Embedding](/kb/基础知识库/embedding/)、[Tokenization](/kb/基础知识库/tokenization/)、[Agent](/kb/基础知识库/agent/)、[Function Calling](/kb/基础知识库/function-calling/) |
+| **数据** | [合成数据](/kb/基础知识库/合成数据/)、[灾难性遗忘](/kb/基础知识库/灾难性遗忘/) |
+| **产品** | [幻觉与校准](/kb/基础知识库/幻觉/)、[System 2 TTC](/kb/基础知识库/test-time-compute/)、[Softmax](/kb/基础知识库/softmax/) |
 
 ---
 
-_文档版本：v1.3（2026-05-18 新增 Agent 系统化专题入口） | 已完成：M1（c01–c15）、M2（m201–m210）、M3（p301–p309）、专题 0411（Agent 系统化 · 22 节点）| 待建设：M4、M5_
+_文档版本：v1.4（2026-06-11 M4/M5 由 04T 专题库填充，新增专题库总索引入口） | 已完成：M1（c01–c15）、M2（m201–m210）、M3（p301–p309）、M4/M5（由 04T 专题库 25 专题实体化）、专题库（0411 + 0412–0435）| 导航：[_专题库总索引](/kb/ai-pm-知识图谱/_专题库总索引/)_
 
 ## 早期 React 可视化原型：从"框架层"切入的转型者锚点
 
@@ -276,9 +288,6 @@ _文档版本：v1.3（2026-05-18 新增 Agent 系统化专题入口） | 已完
 - **紧迫度作为转型者锚点**：每个节点标注"对即将求职的转型者"的紧迫度，把抽象学习路径绑定到具体的面试/试用期决策
 
 当前总索引已用 M1–M5 决策导向取代知识域划分，但"紧迫度排序"作为转型者使用视图的元数据，可以在模块三/四扩展中作为可选标签复用。
-
-## 衍生对话存档
-- 早期 React 可视化原型对话
 
 ## 跨域关联
 - 认识论基础 → 0114认识论

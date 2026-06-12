@@ -29,7 +29,8 @@ export function sampleHeatmap(weeks = 22) {
 
 /* Obsidian 风格样例图谱（seed 11），与设计稿同构 */
 export const SAMPLE_CLUSTERS = ['Agent 与工具调用', 'RAG 与检索', '模型原理', '产品方法', 'Infra 与工程'];
-export const GRAPH_PALETTE = ['#7FB3F0', '#6FD3C0', '#F0B070', '#B79DEF', '#EAE6DC', '#8FE08F', '#F09DB5', '#9DD3F0', '#D8C97F', '#C4A6E8', '#A8B8C8'];
+/* 18 色：覆盖 04AI 9 域 + 04T 六切面（cluster id 不连续，取模回绕也不易撞色） */
+export const GRAPH_PALETTE = ['#7FB3F0', '#6FD3C0', '#F0B070', '#B79DEF', '#EAE6DC', '#8FE08F', '#F09DB5', '#9DD3F0', '#D8C97F', '#C4A6E8', '#A8B8C8', '#F08D6E', '#7FE0D8', '#E8A8E0', '#A8E06E', '#F0D898', '#8FA8F0', '#D88F8F'];
 
 export function sampleGraph(width = 880, height = 470, seed = 11) {
   const rand = rng(seed);

@@ -3,6 +3,7 @@ title: Gemini
 cluster: AI 公司与产品
 created: '2026-05-15'
 updated: '2026-05-17'
+provenance: co
 ---
 
 # Gemini
@@ -27,7 +28,7 @@ updated: '2026-05-17'
 - **长上下文 = 战略优势**：1M–2M token 上下文窗口是 Gemini 的第一性差异化。"把整本书 / 整个代码库 / 几小时视频一次性塞进去"是其他模型 2026 仍难匹敌的能力。
 - **原生多模态**：从训练阶段就以多模态语料对齐，不是后接编码器。Pixel 上的实时摄像头识图 + Gemini Live 语音对话 → "AI 助手 = OS 一部分"的形态尝试。
 - **大厂分发反向赋能**：Search AI Overviews 直接面向 Google 数十亿用户；Workspace 把 Gemini 塞进 Docs/Gmail/Sheets。这是 Anthropic / OpenAI 无法复制的渠道。
-- **组织拖累的产品意志缺位**：Rick 多次评论 Google AI 产品"技术领先但产品决断力弱"——发布节奏被组织内部协调与品牌风险拖慢，导致很多模型能力没转化为体验领先。这是 20260304-AI产品体验的代差与组织问题 的标志性案例。
+- **组织拖累的产品意志缺位**：Rick 〔私人记录〕 Google AI 产品"技术领先但产品决断力弱"——发布节奏被组织内部协调与品牌风险拖慢，导致很多模型能力没转化为体验领先。这是 〔私人记录〕 的标志性案例。
 - **Deep Research 是少数突破**：在"长任务 + 网络搜索 + 报告生成"垂直里 Deep Research 比 [ChatGPT](/kb/ai-公司与产品/chatgpt/) 与 [Perplexity](/kb/ai-公司与产品/perplexity/) 体验都更稳，是 Gemini 的产品代表作。
 
 ## 与同行对比
@@ -36,7 +37,7 @@ updated: '2026-05-17'
 - **vs. 其他大厂派**：Microsoft Copilot 在 Office 端、Apple Intelligence 在端侧、Meta AI 在 Instagram/WhatsApp——Gemini 是其中产品形态最完整、模型自研最强的一家。
 
 ## 对 Rick 的价值
-- **"大厂派 AI 产品组织化失误"研究样本**：Rick 关注组织能力 × 产品体验的关系（20260304-AI产品体验的代差与组织问题）。Gemini 是研究"组织规模、协调成本、品牌风险厌恶"如何拖累产品决断的最佳活体案例。
+- **"大厂派 AI 产品组织化失误"研究样本**：Rick 关注组织能力 × 产品体验的关系（〔私人记录〕）。Gemini 是研究"组织规模、协调成本、品牌风险厌恶"如何拖累产品决断的最佳活体案例。
 - **长上下文工作流工具**：Deep Research + 长上下文摘要在 Rick 的 拉美旅行 资料整理、读书笔记综合、跨文档梳理工作里都不可替代——本库多个旅行笔记的来源是 Gemini Deep Research / Google AI Studio 输出（Try Gemini Deep Research-2026-01-12 Mexico Travelogue- Existential - Google AI Studio-2026-01-31）。
 - **多模型工作流的固定槽**：Rick 已形成"Claude 主力写作 + Gemini Deep Research / 长文档 + ChatGPT 备份"的多模型工作栈，Gemini 在其中承担"长文本压缩 + 跨文档检索"的不可替代位置。
 - **AI PM 视角的"反向案例库"**：Gemini 大量功能上线但用户感受迟钝，是研究"功能上线 ≠ 体验上线"的标准教材。
@@ -44,20 +45,18 @@ updated: '2026-05-17'
 ## 关联节点
 - 公司：Google DeepMind Alphabet
 - 产品对照：[ChatGPT](/kb/ai-公司与产品/chatgpt/) [Claude](/kb/ai-公司与产品/claude/) [Perplexity](/kb/ai-公司与产品/perplexity/) [DeepSeek](/kb/ai-公司与产品/deepseek/)
-- 技术：多模态 [KV Cache](/kb/ai-基础知识库/kv-cache/) c08 - 长上下文 [Agent](/kb/ai-基础知识库/agent/) [Function Calling](/kb/ai-基础知识库/function-calling/)
-- 产品议题：m205 - AI 产品形态：从工具到 Agent 20260304-AI产品体验的代差与组织问题 20260304-微博 AI 20260304-微软Copilot和谷歌Gemini的产品体验问题
+- 技术：多模态 [KV Cache](/kb/基础知识库/kv-cache/) c08 - 长上下文 [Agent](/kb/基础知识库/agent/) [Function Calling](/kb/基础知识库/function-calling/)
+- 产品议题：m205 - AI 产品形态：从工具到 Agent 〔私人记录〕 〔私人记录〕 〔私人记录〕
 - Rick 工作流：Try Gemini Deep Research-2026-01-12 Mexico Travelogue- Existential - Google AI Studio-2026-01-31
 
 ## 来源 / 证据池
-
-（待补充: 从 Cubox 或永久笔记反链汇集到此节点的证据条目）
 
 <!-- evidence-pool-start -->
 > [!quote]+ 📎 证据池 · 25 条 · 自动生成于 2026-05-16
 >
 > ## A 级精读
-> - 20260304-微博 AI · 2026-03-04 · AI 巨头对比札记：微软 Copilot 落地差、谷歌产品意志缺位、ChatGPT 沦为客服，唯有 Anthropic/
-> - 20260129-洪都拉斯 🇭🇳 17 天，香蕉共和国行记 · 2026-01-29 · 洪都拉斯17天香蕉共和国行记：边境拒签、Copán 玛雅遗址、铁腚来回获得贴纸延长签的旅行札记。
+> - 〔私人记录〕 · 2026-03-04 · AI 巨头对比札记：微软 Copilot 落地差、谷歌产品意志缺位、ChatGPT 沦为客服，唯有 Anthropic/
+> - 〔私人记录〕 · 2026-01-29 · 洪都拉斯17天香蕉共和国行记：边境拒签、Copán 玛雅遗址、铁腚来回获得贴纸延长签的旅行札记。
 > - Try Gemini Deep Research-2026-01-12 · 2026-01-12 · 在洪都拉斯西部起伏的群山与茂密的雨林之间，静卧着一座被时光凝固的城市——科潘（Copán）。这座位于玛雅文明世界东南边缘
 > - AI赋能决策，听见“未来的声音”-2024-03-28 · 2024-03-28 · 导读 Foreword
 > - 腾讯司晓：“相变”是下个时代的前情提要-2024-02-02 · 2024-02-02 · 司晓 腾讯集团副总裁、腾讯研究院院长 2024 年 1 月 24 日，由腾讯研究院和腾讯可持续社会价值事业部主办的“20
@@ -70,7 +69,7 @@ updated: '2026-05-17'
 > - B · Mexico Travelogue- Existential - Google AI Studio-2026-01-31 · 2026-01-31
 > - B · Google Gemini-2026-01-30 · 2026-01-30
 > - B · Google Gemini-2026-01-21 · 2026-01-21
-> - B · 20260118-在学了15分钟潜水之后，我决定放弃。 · 2026-01-18
+> - B · 〔私人记录〕 · 2026-01-18
 > - B · Google Gemini-2026-01-15 · 2026-01-15
 > - B · Google Gemini-2025-12-26 · 2025-12-26
 > - ...还有 10 条

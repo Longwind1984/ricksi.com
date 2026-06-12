@@ -31,6 +31,7 @@ const fmt = (d: Date) => d.toISOString().slice(0, 10);
     inLanguage: 'zh-CN',
     author: { '@type': 'Person', name: '司豪杰 Rick Si', url: 'https://ricksi.com' },
   }}
+  reader
 >
   <div class="read-progress" id="read-progress"></div>
   <main class="sub-main">
@@ -61,22 +62,5 @@ const fmt = (d: Date) => d.toISOString().slice(0, 10);
     </div>
   </main>
 
-  <script>
-    // 阅读进度条（rAF 节流；View Transitions 下每次导航重挂）
-    let progressAbort: AbortController | null = null;
-    document.addEventListener('astro:page-load', () => {
-      progressAbort?.abort();
-      const bar = document.getElementById('read-progress');
-      if (!bar) return;
-      progressAbort = new AbortController();
-      let raf = 0;
-      const update = () => {
-        raf = 0;
-        const max = document.documentElement.scrollHeight - innerHeight;
-        bar.style.transform = `scaleX(${max > 0 ? Math.min(1, scrollY / max) : 0})`;
-      };
-      update();
-      addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(update); }, { passive: true, signal: progressAbort.signal });
-    });
-  </script>
+  {/* 阅读进度条与 reader chrome 行为统一在 src/scripts/reader.js（Glass 布局全局加载） */}
 </Glass>

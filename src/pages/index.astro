@@ -12,6 +12,15 @@ const { activity, usage, graph, reading: readingData } = loadSiteData();
 /* ---- 阅读（微信读书；无数据回退样例） ---- */
 const reading = readingData ?? SAMPLE_READING;
 const readingStamp = readingData ? stamp(readingData.generated_at) : null;
+const aiTopics = (reading as any).aiTopics ?? [];
+const highlights = (reading as any).highlights ?? [];
+/* AI 共创书字排封面的话题色 */
+const TOPIC_GRADS: Record<string, string> = {
+  memory: 'linear-gradient(155deg,#3D2E6B 0%,#1A1238 100%)',
+  evals: 'linear-gradient(155deg,#1F5B52 0%,#0C2522 100%)',
+  prompt: 'linear-gradient(155deg,#6B4A1F 0%,#2A1C0C 100%)',
+  agency: 'linear-gradient(155deg,#1F3F6B 0%,#0C1A2E 100%)',
+};
 const RD_GRADS = [
   'linear-gradient(160deg,#27416B,#0F1D38)',
   'linear-gradient(160deg,#2E5C50,#10241F)',
@@ -24,6 +33,8 @@ const RD_GRADS = [
 /* ---- 工作台 · token 用量（真实 usage.json 或样例） ---- */
 const u = usage ?? SAMPLE_USAGE;
 const usageStamp = usage ? stamp(usage.generated_at) : null;
+const compact = (n: number) =>
+  n >= 1e9 ? (n / 1e9).toFixed(1) + 'B' : n >= 1e6 ? (n / 1e6).toFixed(1) + 'M' : n >= 1e3 ? Math.round(n / 1e3) + 'K' : String(n);
 
 /* 近 14 日趋势：从 usage.series 派生（实测/估算逐日标记） */
 function days14From(series: Record<string, { total?: number; estimated?: boolean }>) {
@@ -77,10 +88,50 @@ const posts = allPosts.length
   : SAMPLE_POSTS;
 const postsTotal = allPosts.length;
 
+/* ---- 主页图谱卡：构建期降采样（全图 ~600 节点会拖垮首页 SVG 与内联 JSON）----
+   规则：每域 hub（度数第一）+ deg≥2 的节点，按度数截断到 ~160；边过滤后重算各域 count */
+function downsampleGraph(g: any, cap = 160) {
+  if (!g || g.nodes.length <= cap) return g;
+  const byCluster = new Map<number, any[]>();
+  for (const n of g.nodes) {
+    if (!byCluster.has(n.cluster)) byCluster.set(n.cluster, []);
+    byCluster.get(n.cluster)!.push(n);
+  }
+  const keep = new Set<number>();
+  for (const list of byCluster.values()) {
+    list.sort((a, b) => b.deg - a.deg);
+    keep.add(list[0].id); // 每域至少保留 hub
+  }
+  for (const n of [...g.nodes].sort((a, b) => b.deg - a.deg)) {
+    if (keep.size >= cap) break;
+    if (n.deg >= 2) keep.add(n.id);
+  }
+  const idMap = new Map<number, number>();
+  const nodes = g.nodes
+    .filter((n: any) => keep.has(n.id))
+    .map((n: any, i: number) => {
+      idMap.set(n.id, i);
+      return { ...n, id: i };
+    });
+  const edges = g.edges
+    .filter(([a, b]: number[]) => idMap.has(a) && idMap.has(b))
+    .map(([a, b]: number[]) => [idMap.get(a), idMap.get(b)]);
+  const counts = new Map<number, number>();
+  for (const n of nodes) counts.set(n.cluster, (counts.get(n.cluster) || 0) + 1);
+  return {
+    ...g,
+    nodes,
+    edges,
+    clusters: g.clusters.map((c: any) => ({ ...c, count: counts.get(c.id) || 0 })).filter((c: any) => c.count > 0),
+    downsampled: { from: g.nodes.length, to: nodes.length },
+  };
+}
+const homeGraph = downsampleGraph(graph);
+
 /* ---- 注入客户端的数据（ticker 锚点 / 热力图明细 / 图谱数据） ---- */
 const clientData = JSON.stringify({
   weeks: activity?.weeks ?? null,
-  graph: graph ?? null,
+  graph: homeGraph ?? null,
 }).replace(/</g, '\\u003c');
 
 /* 热力图维度（真实数据才有切换） */
@@ -101,8 +152,9 @@ const numbered = (list: typeof PROJECTS, offset = 0) =>
 
 <Glass
   title="司豪杰 Rick Si · AI 产品经理"
-  description="司豪杰 Rick Si — 互联网产品经理转型 AI 产品经理的活数据工作台：项目、实时用量、知识库图谱与写作。"
+  description="司豪杰 Rick Si — 3 年滴滴国际化治理 PM 转型 AI 产品经理的活数据工作台：项目、实时用量、知识库图谱与写作。"
   isHome
+  ogImage="/og/home.png"
   jsonLd={{
     '@context': 'https://schema.org',
     '@type': 'Person',
@@ -120,7 +172,10 @@ const numbered = (list: typeof PROJECTS, offset = 0) =>
         <div class="hero-text">
           <div class="mono kicker">AI 时代的思考与足迹</div>
           <h1 class="hero-title">把产品判断，<br />变成能跑起来的东西。</h1>
-          <p class="hero-sub">互联网产品经理，正在转向 AI 产品方向。读源码、建工具、写思考、养知识库——欢迎来到我的工作台。</p>
+          <p class="hero-sub">
+            我是司豪杰 Rick Si——3 年滴滴出行国际化安全与体验治理产品经理，主导的司机安全产品让安全感知指数提升
+            19pp、历史首次反超 Uber。背包拉美半年后，转型 AI 产品经理：读源码、建工具、写思考、养知识库——这个工作台就是转型的证据。
+          </p>
         </div>
         <aside class="hero-index glass">
           <div class="mono index-label">INDEX · 目录</div>
@@ -156,7 +211,7 @@ const numbered = (list: typeof PROJECTS, offset = 0) =>
               <h2 class="sec-title">项目</h2>
               <span class="mono sec-en">PROJECTS · {PROJECTS.length}</span>
             </div>
-            <span class="sec-desc">每个判断背后，都有一个能跑起来的项目</span>
+            <span class="sec-desc">每个项目都交代：我的角色、关键决策与结果</span>
           </div>
           {numbered(featured).map((p) => <ProjRow {...p} />)}
           {moreProjects.length > 0 && (
@@ -185,12 +240,15 @@ const numbered = (list: typeof PROJECTS, offset = 0) =>
               <h2 class="sec-title">工作台数据</h2>
               <span class="mono sec-en">WORKBENCH · DAILY</span>
             </div>
-            <span class="sec-desc">不是装饰——这是我每天的真实用量</span>
+            <span class="sec-desc">5 月底以来逐日实测；更早部分按公开口径估算并标明</span>
           </div>
           <div class="wb-grid">
             <div class="wb-col">
-              <div class="mono wb-label">今日 TOKEN 用量</div>
+              <div class="mono wb-label">今日 TOKEN 用量{!usage && <em class="sample-badge">样例数据</em>}</div>
               <span class="wb-static-num">{u.today.toLocaleString()}</span>
+              {u.today_out != null && (
+                <div class="mono wb-sub">全口径（含缓存读写 {u.today_cache_share}%）· 其中模型输出 {compact(u.today_out)}</div>
+              )}
               <div class="wb-stat-row">
                 <div>
                   <div class="mono stat-k">本周</div>
@@ -199,6 +257,9 @@ const numbered = (list: typeof PROJECTS, offset = 0) =>
                 <div>
                   <div class="mono stat-k">累计</div>
                   <div class="stat-v">{u.cumulative}<span class="stat-unit">tokens</span></div>
+                  {u.cumulative_code && (
+                    <div class="mono wb-sub">Code 实测+估算 {u.cumulative_code} · 网页端粗估 {u.cumulative_web}</div>
+                  )}
                 </div>
               </div>
               <div class="wb-models">
@@ -208,19 +269,19 @@ const numbered = (list: typeof PROJECTS, offset = 0) =>
               </div>
               {usageStamp && (
                 <div class="mono wb-stamp">
-                  数据更新于 {usageStamp} · 含缓存读写
-                  {usage?.method?.estimated_share && usage.method.estimated_share !== '0%'
-                    ? ` · 早期估算占 ${usage.method.estimated_share}`
-                    : ''}
+                  数据更新于 {usageStamp} · 口径 v2：实测 {usage?.method?.real_days ?? '—'} 天
+                  {usage?.method?.estimated_days ? ` + 起用期估算 ${usage.method.estimated_days} 天` : ''}
+                  {' · '}
+                  <a href="https://github.com/Longwind1984/ricksi.com/blob/main/docs/token-estimation.md" target="_blank" rel="noreferrer" class="wb-method-link">估算方法 ↗</a>
                 </div>
               )}
             </div>
             <div class="wb-col">
-              <div class="mono wb-label">近 14 日用量趋势（M TOKENS）</div>
+              <div class="mono wb-label">近 14 日用量趋势（M TOKENS）{!usage && <em class="sample-badge">样例数据</em>}</div>
               <TrendChart days={days14} />
             </div>
             <div class="wb-col no-border">
-              <div class="mono wb-label">{activity ? '多源活跃 · 近 22 周' : 'CODING 活跃 · 近 22 周'}</div>
+              <div class="mono wb-label">{activity ? '多源活跃 · 近 22 周' : 'CODING 活跃 · 近 22 周'}{!activity && <em class="sample-badge">样例数据</em>}</div>
               <div class="hm" id="heatmap">
                 {heatmapCols.map((col, w) => (
                   <div class="hm-col">
@@ -270,7 +331,7 @@ const numbered = (list: typeof PROJECTS, offset = 0) =>
               <h2 class="sec-title">知识库图谱</h2>
               <span class="mono sec-en">KNOWLEDGE GRAPH</span>
             </div>
-            <span class="sec-desc">AI 产品 × 底层原理，双链生长中</span>
+            <span class="sec-desc">与 Claude 共建的系统化知识工程——方法公开、来源标注</span>
           </div>
           <div class="kg-grid">
             <div class="kg-paper" id="kg-paper"></div>
@@ -341,7 +402,7 @@ const numbered = (list: typeof PROJECTS, offset = 0) =>
               <h2 class="sec-title">阅读</h2>
               <span class="mono sec-en">READING · WEREAD</span>
             </div>
-            <span class="sec-desc">输入决定输出——书架也是工作台的一部分</span>
+            <span class="sec-desc">真实书架与 AI 共创分区展示，统计来自微信读书官方接口</span>
           </div>
 
           <div class="rd-stats">
@@ -355,6 +416,53 @@ const numbered = (list: typeof PROJECTS, offset = 0) =>
               <div><div class="mono stat-k">{k}</div><div class="stat-v">{v}<span class="stat-unit">{unit}</span></div></div>
             ))}
           </div>
+
+          {aiTopics.length > 0 && (
+            <div class="rd-ai">
+              <div class="rd-ai-head">
+                <span class="mono wb-label">AI 共创阅读 · 方法论展示</span>
+                <span class="rd-ai-note">
+                  与 Claude 共写长文 → 转 ePub 导入微信读书 → 在通勤路上精读划线。以下为非出版物的自制书，不计入上方阅读统计。
+                </span>
+              </div>
+              <div class="rd-ai-grid">
+                {aiTopics.map((t: any) => (
+                  <div class="rd-topic">
+                    <div class="rd-topic-head">
+                      <b>{t.topic}</b>
+                      {t.graphFocus && (
+                        <a class="mono rd-topic-link" href={`/graph?focus=${encodeURIComponent(t.graphFocus)}`}>知识图谱 ↗</a>
+                      )}
+                    </div>
+                    <p class="rd-topic-blurb">{t.blurb}</p>
+                    <div class="rd-topic-books">
+                      {t.books.map((b: any) => (
+                        <div class="rd-aibook" title={`《${b.title}》${b.notes ? ` · ${b.notes} 条划线与想法` : ''}`}>
+                          <div class="rd-aibook-cover" style={`background:${TOPIC_GRADS[t.id] ?? TOPIC_GRADS.agency}`}>
+                            <span class="mono rd-aibook-badge">AI 共创</span>
+                            <span class="rd-aibook-title">{b.title}</span>
+                            <span class="mono rd-aibook-author">{b.author || 'with Claude'}</span>
+                          </div>
+                          {b.notes > 0 && <div class="mono rd-aibook-notes">{b.notes} 条划线</div>}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+              {highlights.length > 0 && (
+                <div class="rd-quotes">
+                  <div class="mono wb-label">共创书里的划线</div>
+                  {highlights.map((h: any) => (
+                    <blockquote class="rd-quote">
+                      {h.text}
+                      <cite class="mono rd-quote-from">《{h.from}》</cite>
+                    </blockquote>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
 
           <div class="rd-grid">
             {reading.current && (

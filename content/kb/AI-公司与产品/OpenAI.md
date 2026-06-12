@@ -3,6 +3,7 @@ title: OpenAI
 cluster: AI 公司与产品
 created: '2026-05-15'
 updated: '2026-05-17'
+provenance: co
 ---
 
 # OpenAI
@@ -19,7 +20,7 @@ updated: '2026-05-17'
 - 2018.6 GPT-1 论文发布，确立"Transformer 预训练"范式。
 - 2019.2 GPT-2 发布，因"风险过高"延迟开源——这是大模型时代"安全 vs 开放"争论的第一个公开节点。
 - 2020.5 GPT-3 论文，把"few-shot prompting"推为主流接口；同年 OpenAI API 上线。
-- 2022.3 InstructGPT / [RLHF](/kb/ai-基础知识库/rlhf/) 论文，奠定"指令对齐"工程基础。
+- 2022.3 InstructGPT / [RLHF](/kb/基础知识库/rlhf/) 论文，奠定"指令对齐"工程基础。
 - 2022.11 [ChatGPT](/kb/ai-公司与产品/chatgpt/) 公测，5 天破百万用户、2 个月破亿，是消费互联网史上增长最快的应用。
 - 2023.3 GPT-4 发布；2023.11 GPT-4 Turbo + Assistants API + GPTs 商店尝试。
 - 2024.5 GPT-4o "Omni" 多模态一体化模型 + 实时语音模式。
@@ -37,7 +38,7 @@ updated: '2026-05-17'
 - **vs. [Anthropic](/kb/ai-公司与产品/anthropic/)**：OpenAI 走"消费爆款 + 全模态 + 商业激进"路线，[Anthropic](/kb/ai-公司与产品/anthropic/) 走"开发者企业 + 安全 narrative + 慢节奏"路线。短期收入 OpenAI 领先一个数量级，长期客户结构 Anthropic 更稳。
 - **vs. [Google DeepMind](/kb/ai-公司与产品/gemini/)**：Google 自有计算、搜索分发与端云一体，OpenAI 没有这三个底座但靠 ChatGPT 入口与 GPT 商店反向建立分发；Gemini 在编程、长上下文上的工程优势在 2026 已能与 GPT-5 持平甚至局部领先。
 - **vs. [DeepSeek](/kb/ai-公司与产品/deepseek/) / 国内 lab**：DeepSeek 开源 + 高性价比，OpenAI 闭源 + 高定价；两条路线在 2025–2026 拉开全球 AI 产业的两个极端形态。
-- **vs. Microsoft Copilot**：技术合作伙伴同时是渠道竞争对手。Copilot 渠道铺得广但产品形态偏"在 Office 嵌入对话框"，落地效果远不如 ChatGPT 直接面向用户的形态——这是 Rick 20260304-AI产品体验的代差与组织问题 的核心案例之一。
+- **vs. Microsoft Copilot**：技术合作伙伴同时是渠道竞争对手。Copilot 渠道铺得广但产品形态偏"在 Office 嵌入对话框"，落地效果远不如 ChatGPT 直接面向用户的形态——这是 Rick 〔私人记录〕 的核心案例之一。
 
 ## 对 Rick 的价值
 - **AI 产品演化"激进路线"的样本**：ChatGPT → GPTs → Apps in ChatGPT → Realtime 的产品演化，是研究"AI 公司如何从模型公司变成平台公司"的现成案例，对 通往 AI PM 之路 与 AI 产品形态 都是必读路径。
@@ -55,20 +56,18 @@ updated: '2026-05-17'
 ## 关联节点
 - 产品：[ChatGPT](/kb/ai-公司与产品/chatgpt/) [Sora](/kb/ai-公司与产品/sora/) [DALL-E](/kb/ai-公司与产品/dall-e/) [Codex](/kb/ai-公司与产品/codex/) [GPTs](/kb/ai-公司与产品/gpts/) [Computer Use](/kb/ai-公司与产品/computer-use/)
 - 对照公司：[Anthropic](/kb/ai-公司与产品/anthropic/) [Gemini](/kb/ai-公司与产品/gemini/) [DeepSeek](/kb/ai-公司与产品/deepseek/) [Microsoft](/kb/ai-公司与产品/microsoft/)
-- 研究范式：[RLHF](/kb/ai-基础知识库/rlhf/) [Scaling Laws](/kb/ai-基础知识库/scaling-laws/) c11 - 推理模型与 Long CoT [Function Calling](/kb/ai-基础知识库/function-calling/) [Agent](/kb/ai-基础知识库/agent/)
-- 产品议题：m205 - AI 产品形态：从工具到 Agent [p302 - 七种 AI 交互设计模式](/kb/ai-产品设计与交互范式/p302-七种-ai-交互设计模式/) 20260304-AI产品体验的代差与组织问题
+- 研究范式：[RLHF](/kb/基础知识库/rlhf/) [Scaling Laws](/kb/基础知识库/scaling-laws/) c11 - 推理模型与 Long CoT [Function Calling](/kb/基础知识库/function-calling/) [Agent](/kb/基础知识库/agent/)
+- 产品议题：m205 - AI 产品形态：从工具到 Agent [p302 - 七种 AI 交互设计模式](/kb/产品设计与交互范式/p302-七种-ai-交互设计模式/) 〔私人记录〕
 - 职业议题：通往 AI PM 之路
 
 ## 来源 / 证据池
-
-（待补充: 从 Cubox 或永久笔记反链汇集到此节点的证据条目）
 
 <!-- evidence-pool-start -->
 > [!quote]+ 📎 证据池 · 28 条 · 自动生成于 2026-05-16
 >
 > ## A 级精读
 > - 万字干货：理解 Harness Engineering，看这一篇就够了-2026-04-14 · 2026-04-14 · 本文作者：咸鱼，TRAE 开发者用户
-> - 20260304-微博 AI · 2026-03-04 · AI 巨头对比札记：微软 Copilot 落地差、谷歌产品意志缺位、ChatGPT 沦为客服，唯有 Anthropic/
+> - 〔私人记录〕 · 2026-03-04 · AI 巨头对比札记：微软 Copilot 落地差、谷歌产品意志缺位、ChatGPT 沦为客服，唯有 Anthropic/
 > - 深度｜收入8个月翻4倍，自动化神器n8n创始人：AI要么是一个巨大的机遇，要么是公司的终结-2025-10-13 · 2025-10-13 · Z Potentials 我们与Z Potentials同频共振 488篇原创内容 公众号 ， 图片来源：EU-Star
 > - OpenAI正在押注一场系统级豪赌｜奥特曼最新重磅访谈-2025-10-09 · 2025-10-09 · 10月9日消息，DevDay大会落幕后，山姆・奥特曼再次登上Stratechery访谈节目。这一次，他不谈模型，不谈AG
 > - Dario Amodei — On DeepSeek and Export Controls-2025-01-30 · 2025-01-30 · A few weeks ago I made the case for stronger US export contr
@@ -79,7 +78,7 @@ updated: '2026-05-17'
 > ## B/C 级参考 (20 条)
 > - B · 亚马逊数据中心遇袭：搬上太空能躲过导弹吗？-2026-04-05 · 2026-04-05
 > - B · 字节跳动超级智能体DeerFlow 2.0开源，登顶GitHub Trending第一！-2026-03-05 · 2026-03-05
-> - B · 20260303-产品想法 · 2026-03-03
+> - B · 〔私人记录〕 · 2026-03-03
 > - B · AI Coding日志-序章-2025-11-17 · 2025-11-17
 > - B · AI Coding日志-序章-2025-09-25 · 2025-09-25
 > - B · 非技术背景也能看懂的万能提示词公式-2025-09-25 · 2025-09-25

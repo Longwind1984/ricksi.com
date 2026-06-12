@@ -3,6 +3,7 @@ title: GPTs
 cluster: AI 公司与产品
 created: '2026-05-19'
 updated: '2026-05-19'
+provenance: co
 ---
 
 # GPTs
@@ -76,7 +77,7 @@ updated: '2026-05-19'
 - 母公司：[OpenAI](/kb/ai-公司与产品/openai/)
 - 同公司产品：[ChatGPT](/kb/ai-公司与产品/chatgpt/) [DALL-E](/kb/ai-公司与产品/dall-e/) [Codex](/kb/ai-公司与产品/codex/) [Sora](/kb/ai-公司与产品/sora/) [Computer Use](/kb/ai-公司与产品/computer-use/)
 - 同类对照：豆包 / 扣子（Coze） / Poe / Anthropic Projects / Gemini Gems
-- 概念：[Agent](/kb/ai-基础知识库/agent/) / Custom Action / OpenAPI / [RAG](/kb/ai-基础知识库/rag/)
+- 概念：[Agent](/kb/基础知识库/agent/) / Custom Action / OpenAPI / [RAG](/kb/基础知识库/rag/)
 - 商业模式：平台经济 / 创作者经济 / App Store 模型
 
 ## 来源

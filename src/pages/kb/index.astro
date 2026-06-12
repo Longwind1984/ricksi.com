@@ -10,6 +10,11 @@ const byCluster = clusters.map((c) => ({
     .filter((n) => n.cluster === c.id)
     .sort((a, b) => b.deg - a.deg),
 }));
+/* 精选层：各专题总览 + front-matter featured（sync-vault 打 hub 标），按双链数排序截 36 */
+const featured = (graph?.nodes ?? [])
+  .filter((n: any) => n.hub)
+  .sort((a: any, b: any) => b.deg - a.deg)
+  .slice(0, 36);
 const updated = graph ? stamp(graph.generated_at) : null;
 ---
 
@@ -34,15 +39,40 @@ const updated = graph ? stamp(graph.generated_at) : null;
         {graph ? (
           <a class="graph-entry" href="/graph">
             <div>
-              <div class="graph-entry-t">全屏探索知识图谱</div>
-              <div class="graph-entry-s mono">缩放平移 · 主题域过滤 · 搜索 · 点击节点直达笔记 · 支持手机</div>
+              <div class="graph-entry-t">3D 全图探索</div>
+              <div class="graph-entry-s mono">深空力导向 · 主题域过滤 · 搜索 · 点击节点直达笔记 · 支持手机（可切 2D）</div>
             </div>
             <span class="graph-entry-arrow">→</span>
           </a>
         ) : (
           <p class="kg-note">本地运行 `npm run sync` 后这里会出现完整图谱。</p>
         )}
+        <p class="kg-note">
+          这个库由我与 Claude 共建：选题、切面与质量门是人定的，结构化与初稿大半是 AI 做的——
+          来源档位标在每篇笔记页上，完整方法见<a href="/blog/how-the-knowledge-base-is-built/" class="kb-method-link">《这个库是怎么来的》</a>。
+        </p>
       </section>
+
+      {featured.length > 0 && (
+        <section class="sec">
+          <div class="sec-head">
+            <span class="mono sec-no">★</span>
+            <div class="sec-title-row">
+              <h2 class="sec-title kb-cluster-title">精选 · 专题总览与代表作</h2>
+              <span class="mono sec-en">{featured.length} FEATURED</span>
+            </div>
+            <span class="sec-desc">先读这些；完整归档按主题域展开在下方</span>
+          </div>
+          <div class="kb-note-grid">
+            {featured.map((n) => (
+              <a class="kb-note-chip kb-note-featured" href={`/kb/${n.slug}/`}>
+                <span class="kb-note-title">{n.title}</span>
+                {n.deg > 0 && <span class="mono kb-note-deg">{n.deg}</span>}
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
 
       {byCluster.map((c) => (
         <section class="sec kb-cluster">

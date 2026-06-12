@@ -3,6 +3,7 @@ title: Claude Sonnet
 cluster: AI 公司与产品
 created: '2026-05-15'
 updated: '2026-05-16'
+provenance: co
 ---
 
 # [Claude](/kb/ai-公司与产品/claude/) Sonnet
@@ -37,10 +38,9 @@ updated: '2026-05-16'
 ## 关联节点
 - 系列：[Claude](/kb/ai-公司与产品/claude/) [Claude Opus](/kb/ai-公司与产品/claude-opus/) [Claude Code](/kb/ai-公司与产品/claude-code/)
 - 公司：[Anthropic](/kb/ai-公司与产品/anthropic/)
-- 能力：[Agent](/kb/ai-基础知识库/agent/) [Function Calling](/kb/ai-基础知识库/function-calling/) [RAG](/kb/ai-基础知识库/rag/)
-- 选型框架：[m202 - 工程选型决策矩阵](/kb/ai-工程化与落地架构/m202-工程选型决策矩阵/) [m209 - 推理成本控制手册](/kb/ai-工程化与落地架构/m209-推理成本控制手册/)
+- 能力：[Agent](/kb/基础知识库/agent/) [Function Calling](/kb/基础知识库/function-calling/) [RAG](/kb/基础知识库/rag/)
+- 选型框架：[m202 - 工程选型决策矩阵](/kb/工程化与落地架构/m202-工程选型决策矩阵/) [m209 - 推理成本控制手册](/kb/工程化与落地架构/m209-推理成本控制手册/)
 - 对照产品：[ChatGPT](/kb/ai-公司与产品/chatgpt/) [Gemini](/kb/ai-公司与产品/gemini/) [DeepSeek](/kb/ai-公司与产品/deepseek/)
 
 ## 来源 / 证据池
 - 公开来源：Anthropic Model Card、定价页、Cursor / Claude Code release notes
-- （待补充：从 Cubox 反链汇集的具体证据）

@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 300" font-family="-apple-system,PingFang SC,sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="300" viewBox="0 0 640 300" font-family="-apple-system,PingFang SC,sans-serif">
   <defs>
     <!-- 温度场：参照 WeatherLens 真实运行画面（DWD ICON 温度 2m 图层） -->
     <radialGradient id="t1" cx="0.32" cy="0.42" r="0.55">

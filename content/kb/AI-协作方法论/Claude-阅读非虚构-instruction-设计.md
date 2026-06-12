@@ -3,6 +3,7 @@ title: Claude 阅读非虚构 instruction 设计
 cluster: AI 协作方法论
 created: '2026-05-16'
 updated: '2026-05-18'
+provenance: co
 ---
 
 # Claude 阅读非虚构 instruction 设计
@@ -45,6 +46,3 @@ AI 第一版把场景设为 "用户已经在精读一本书，需要辅助"。Ri
 - [Claude](/kb/ai-公司与产品/claude/) — instruction 的承载平台
 - Rick 写作 SABCD 评级体系 — 另一处 "信任判断 + 不要 SOP" 的实现
 
-## 衍生对话存档
-
-- 来源对话

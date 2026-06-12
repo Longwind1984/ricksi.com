@@ -1,19 +1,37 @@
 {
- "generated_at": "2026-06-11T04:14:11.789Z",
+ "generated_at": "2026-06-11T18:09:26.959Z",
  "excludeClusters": [
   "0404 AI PM 求职与职业发展",
   "0409 待解问题"
  ],
+ "sanitize": {
+  "strippedSections": 79,
+  "placeholdersRemoved": 18,
+  "diaryLinksRedacted": 54,
+  "blockWordNotes": [
+   {
+    "note": "AI概念滥用反思",
+    "words": [
+     "他妈"
+    ]
+   }
+  ]
+ },
  "notes": [
+  {
+   "path": "0400 AI PM 知识图谱/_专题库总索引.md",
+   "publish": true,
+   "links": 2
+  },
   {
    "path": "0400 AI PM 知识图谱/AI 知识图谱.md",
    "publish": true,
-   "links": 78
+   "links": 79
   },
   {
    "path": "0400 AI PM 知识图谱/AI PM 知识图谱·总索引.md",
    "publish": true,
-   "links": 80
+   "links": 81
   },
   {
    "path": "0400 AI PM 知识图谱/purpose.md",
@@ -113,7 +131,7 @@
   {
    "path": "0401AI 基础知识库/Agent.md",
    "publish": true,
-   "links": 15
+   "links": 14
   },
   {
    "path": "0401AI 基础知识库/AGI.md",
@@ -448,31 +466,37 @@
   {
    "path": "0404 AI PM 求职与职业发展/AI 产品代差观察与微博打磨.md",
    "publish": false,
+   "reason": "excludeCluster",
    "links": 2
   },
   {
    "path": "0404 AI PM 求职与职业发展/AI 产品经理面试问题分析.md",
    "publish": false,
+   "reason": "excludeCluster",
    "links": 2
   },
   {
    "path": "0404 AI PM 求职与职业发展/AI 产品组织问题论证质量拆解.md",
    "publish": false,
+   "reason": "excludeCluster",
    "links": 2
   },
   {
    "path": "0404 AI PM 求职与职业发展/AI 技术底层逻辑学习框架的评审与扩展.md",
    "publish": false,
+   "reason": "excludeCluster",
    "links": 9
   },
   {
    "path": "0404 AI PM 求职与职业发展/AI PM 岗位 JD 分析与面试问题反推.md",
    "publish": false,
+   "reason": "excludeCluster",
    "links": 2
   },
   {
    "path": "0404 AI PM 求职与职业发展/AI PM 学习路线的决策链组织法.md",
    "publish": false,
+   "reason": "excludeCluster",
    "links": 4
   },
   {
@@ -533,11 +557,13 @@
   {
    "path": "0409 待解问题/问题集.md",
    "publish": false,
+   "reason": "excludeCluster",
    "links": 0
   },
   {
    "path": "0409 待解问题/Agent 产品评估的五个具体问题.md",
    "publish": false,
+   "reason": "excludeCluster",
    "links": 15
   },
   {
@@ -547,7 +573,8 @@
   },
   {
    "path": "0410 AI 公司与产品/AI 公司政治敏感内容立场对比.md",
-   "publish": true,
+   "publish": false,
+   "reason": "sensitiveTitle",
    "links": 2
   },
   {
@@ -641,114 +668,2379 @@
    "links": 10
   },
   {
-   "path": "0411 Agent 系统化专题/_Agent 系统化专题·总览.md",
+   "path": "04T 专题库/F1 评测与度量/0412 评测系统化专题/_评测系统化专题·总览.md",
    "publish": true,
-   "links": 42
+   "links": 43
   },
   {
-   "path": "0411 Agent 系统化专题/01 概念辨析/A01 Agent 概念史与语义流变.md",
+   "path": "04T 专题库/F1 评测与度量/0412 评测系统化专题/01 概念辨析/A01 评测概念史与语义流变.md",
    "publish": true,
-   "links": 14
+   "links": 17
   },
   {
-   "path": "0411 Agent 系统化专题/01 概念辨析/A02 抽象层级辨析·Harness Framework Agent Skill Orchestrator.md",
+   "path": "04T 专题库/F1 评测与度量/0412 评测系统化专题/01 概念辨析/A02 评测对象层级辨析·模型／系统／产品／Agent eval.md",
    "publish": true,
-   "links": 13
+   "links": 9
   },
   {
-   "path": "0411 Agent 系统化专题/01 概念辨析/A03 ReAct.md",
+   "path": "04T 专题库/F1 评测与度量/0412 评测系统化专题/01 概念辨析/A03 Benchmark 与数据污染.md",
    "publish": true,
-   "links": 10
+   "links": 11
   },
   {
-   "path": "0411 Agent 系统化专题/01 概念辨析/A04 Reflexion.md",
-   "publish": true,
-   "links": 10
-  },
-  {
-   "path": "0411 Agent 系统化专题/01 概念辨析/A05 Plan-and-Execute.md",
+   "path": "04T 专题库/F1 评测与度量/0412 评测系统化专题/01 概念辨析/A04 LLM-as-Judge.md",
    "publish": true,
    "links": 10
   },
   {
-   "path": "0411 Agent 系统化专题/01 概念辨析/A06 Orchestrator 编排器.md",
+   "path": "04T 专题库/F1 评测与度量/0412 评测系统化专题/01 概念辨析/A05 人工评测与标注一致性.md",
    "publish": true,
-   "links": 13
+   "links": 7
   },
   {
-   "path": "0411 Agent 系统化专题/01 概念辨析/A07 Multi-Agent Teams.md",
+   "path": "04T 专题库/F1 评测与度量/0412 评测系统化专题/01 概念辨析/A06 Goodhart 与指标失效.md",
    "publish": true,
    "links": 12
   },
   {
-   "path": "0411 Agent 系统化专题/01 概念辨析/A08 MCP 与 A2A 协议族.md",
-   "publish": true,
-   "links": 13
-  },
-  {
-   "path": "0411 Agent 系统化专题/01 概念辨析/Harness 词义辨析.md",
-   "publish": true,
-   "links": 0
-  },
-  {
-   "path": "0411 Agent 系统化专题/02 代际演化/G01 Agent 代际谱系总图.md",
-   "publish": true,
-   "links": 39
-  },
-  {
-   "path": "0411 Agent 系统化专题/02 代际演化/G02 五代演化详解·G1-G5.md",
-   "publish": true,
-   "links": 53
-  },
-  {
-   "path": "0411 Agent 系统化专题/03 架构剖面/S01 Agent 六层架构剖面.md",
-   "publish": true,
-   "links": 40
-  },
-  {
-   "path": "0411 Agent 系统化专题/03 架构剖面/S02 流派架构对照表.md",
-   "publish": true,
-   "links": 31
-  },
-  {
-   "path": "0411 Agent 系统化专题/03 架构剖面/S03 Harness Engineering 全景.md",
-   "publish": true,
-   "links": 39
-  },
-  {
-   "path": "0411 Agent 系统化专题/04 实例剖解/E01 Coding Agent·Claude Code & Cursor.md",
-   "publish": true,
-   "links": 21
-  },
-  {
-   "path": "0411 Agent 系统化专题/04 实例剖解/E02 通用 Agent·Manus & Devin.md",
-   "publish": true,
-   "links": 23
-  },
-  {
-   "path": "0411 Agent 系统化专题/04 实例剖解/E03 Multi-Agent 框架·AutoGen & CrewAI & DeerFlow.md",
-   "publish": true,
-   "links": 23
-  },
-  {
-   "path": "0411 Agent 系统化专题/05 复现指南/R01 最小可运行·100 行 ReAct.md",
-   "publish": true,
-   "links": 22
-  },
-  {
-   "path": "0411 Agent 系统化专题/05 复现指南/R02 中型生产·LangGraph + MCP.md",
-   "publish": true,
-   "links": 16
-  },
-  {
-   "path": "0411 Agent 系统化专题/05 复现指南/R03 Multi-Agent 模板·AutoGen CrewAI.md",
+   "path": "04T 专题库/F1 评测与度量/0412 评测系统化专题/01 概念辨析/A07 Red Teaming 作为评测实践.md",
    "publish": true,
    "links": 14
   },
   {
-   "path": "0411 Agent 系统化专题/06 阅读指南/README·多视图阅读指南.md",
+   "path": "04T 专题库/F1 评测与度量/0412 评测系统化专题/01 概念辨析/A08 Eval-driven Development.md",
+   "publish": true,
+   "links": 8
+  },
+  {
+   "path": "04T 专题库/F1 评测与度量/0412 评测系统化专题/02 代际演化/G01 评测范式代际谱系总图.md",
+   "publish": true,
+   "links": 18
+  },
+  {
+   "path": "04T 专题库/F1 评测与度量/0412 评测系统化专题/02 代际演化/G02 评测代际演化详解.md",
+   "publish": true,
+   "links": 18
+  },
+  {
+   "path": "04T 专题库/F1 评测与度量/0412 评测系统化专题/03 架构剖面/S01 评测体系分层剖面.md",
+   "publish": true,
+   "links": 31
+  },
+  {
+   "path": "04T 专题库/F1 评测与度量/0412 评测系统化专题/03 架构剖面/S02 评测方法流派对照矩阵.md",
+   "publish": true,
+   "links": 16
+  },
+  {
+   "path": "04T 专题库/F1 评测与度量/0412 评测系统化专题/03 架构剖面/S03 Eval-Ops 全景.md",
+   "publish": true,
+   "links": 14
+  },
+  {
+   "path": "04T 专题库/F1 评测与度量/0412 评测系统化专题/04 实例剖解/E01 RAGAS & RAG 评测体系剖解.md",
+   "publish": true,
+   "links": 11
+  },
+  {
+   "path": "04T 专题库/F1 评测与度量/0412 评测系统化专题/04 实例剖解/E02 SWE-bench & Coding Agent 评测剖解.md",
+   "publish": true,
+   "links": 10
+  },
+  {
+   "path": "04T 专题库/F1 评测与度量/0412 评测系统化专题/04 实例剖解/E03 Chatbot Arena·LMArena & 人类偏好评测剖解.md",
+   "publish": true,
+   "links": 9
+  },
+  {
+   "path": "04T 专题库/F1 评测与度量/0412 评测系统化专题/05 复现指南/R01 最小可运行·100 行 LLM-as-Judge.md",
+   "publish": true,
+   "links": 10
+  },
+  {
+   "path": "04T 专题库/F1 评测与度量/0412 评测系统化专题/05 复现指南/R02 中型·建 benchmark + 标注指南 + IAA 计算.md",
+   "publish": true,
+   "links": 9
+  },
+  {
+   "path": "04T 专题库/F1 评测与度量/0412 评测系统化专题/05 复现指南/R03 Agent trajectory eval 模板.md",
+   "publish": true,
+   "links": 12
+  },
+  {
+   "path": "04T 专题库/F1 评测与度量/0412 评测系统化专题/06 阅读指南/README·0412·多视图阅读指南.md",
+   "publish": true,
+   "links": 31
+  },
+  {
+   "path": "04T 专题库/F1 评测与度量/0418 审阅瓶颈系统化专题/_审阅瓶颈系统化专题·总览.md",
+   "publish": true,
+   "links": 36
+  },
+  {
+   "path": "04T 专题库/F1 评测与度量/0418 审阅瓶颈系统化专题/01 概念辨析/A01 审阅瓶颈命题·从生产瓶颈到审阅瓶颈.md",
+   "publish": true,
+   "links": 13
+  },
+  {
+   "path": "04T 专题库/F1 评测与度量/0418 审阅瓶颈系统化专题/01 概念辨析/A02 审阅 验证 橡皮图章辨析.md",
+   "publish": true,
+   "links": 15
+  },
+  {
+   "path": "04T 专题库/F1 评测与度量/0418 审阅瓶颈系统化专题/01 概念辨析/A03 信息压缩率与 Progressive Disclosure.md",
+   "publish": true,
+   "links": 11
+  },
+  {
+   "path": "04T 专题库/F1 评测与度量/0418 审阅瓶颈系统化专题/01 概念辨析/A04 Confidence-gated 自动执行.md",
+   "publish": true,
+   "links": 15
+  },
+  {
+   "path": "04T 专题库/F1 评测与度量/0418 审阅瓶颈系统化专题/01 概念辨析/A05 审阅界面即产品.md",
+   "publish": true,
+   "links": 10
+  },
+  {
+   "path": "04T 专题库/F1 评测与度量/0418 审阅瓶颈系统化专题/01 概念辨析/A06 自动化偏见与审阅疲劳.md",
+   "publish": true,
+   "links": 13
+  },
+  {
+   "path": "04T 专题库/F1 评测与度量/0418 审阅瓶颈系统化专题/02 代际演化/G01 人机审阅关系代际谱系总图.md",
+   "publish": true,
+   "links": 16
+  },
+  {
+   "path": "04T 专题库/F1 评测与度量/0418 审阅瓶颈系统化专题/02 代际演化/G02 审阅关系代际演化详解.md",
+   "publish": true,
+   "links": 14
+  },
+  {
+   "path": "04T 专题库/F1 评测与度量/0418 审阅瓶颈系统化专题/03 架构剖面/S01 审阅成本分层剖面.md",
+   "publish": true,
+   "links": 15
+  },
+  {
+   "path": "04T 专题库/F1 评测与度量/0418 审阅瓶颈系统化专题/03 架构剖面/S02 降审阅负荷手段对照矩阵.md",
+   "publish": true,
+   "links": 15
+  },
+  {
+   "path": "04T 专题库/F1 评测与度量/0418 审阅瓶颈系统化专题/03 架构剖面/S03 审阅-信任-自动化飞轮全景.md",
+   "publish": true,
+   "links": 14
+  },
+  {
+   "path": "04T 专题库/F1 评测与度量/0418 审阅瓶颈系统化专题/04 实例剖解/E01 Claude Code 确认与 Diff 机制剖解.md",
+   "publish": true,
+   "links": 14
+  },
+  {
+   "path": "04T 专题库/F1 评测与度量/0418 审阅瓶颈系统化专题/04 实例剖解/E02 Copilot 与 Cursor 审阅界面剖解.md",
+   "publish": true,
+   "links": 17
+  },
+  {
+   "path": "04T 专题库/F1 评测与度量/0418 审阅瓶颈系统化专题/04 实例剖解/E03 创作工具的审阅哲学剖解·Midjourney 与 Artifact.md",
+   "publish": true,
+   "links": 15
+  },
+  {
+   "path": "04T 专题库/F1 评测与度量/0418 审阅瓶颈系统化专题/05 复现指南/R01 给 AI 输出加 Confidence Display + Diff.md",
+   "publish": true,
+   "links": 12
+  },
+  {
+   "path": "04T 专题库/F1 评测与度量/0418 审阅瓶颈系统化专题/05 复现指南/R02 Progressive Disclosure 信息压缩实验.md",
+   "publish": true,
+   "links": 16
+  },
+  {
+   "path": "04T 专题库/F1 评测与度量/0418 审阅瓶颈系统化专题/05 复现指南/R03 Confidence-gated Auto-accept 阈值实验.md",
+   "publish": true,
+   "links": 10
+  },
+  {
+   "path": "04T 专题库/F1 评测与度量/0418 审阅瓶颈系统化专题/06 阅读指南/README·0418·多视图阅读指南.md",
+   "publish": true,
+   "links": 31
+  },
+  {
+   "path": "04T 专题库/F2 能力与训练/0415 后训练即产品系统化专题/_后训练即产品系统化专题·总览.md",
+   "publish": true,
+   "links": 39
+  },
+  {
+   "path": "04T 专题库/F2 能力与训练/0415 后训练即产品系统化专题/01 概念辨析/A01 后训练概念谱系与训练-产品边界.md",
+   "publish": true,
+   "links": 16
+  },
+  {
+   "path": "04T 专题库/F2 能力与训练/0415 后训练即产品系统化专题/01 概念辨析/A02 命题·后训练决策即产品规格.md",
+   "publish": true,
+   "links": 16
+  },
+  {
+   "path": "04T 专题库/F2 能力与训练/0415 后训练即产品系统化专题/01 概念辨析/A03 RLHF RLAIF DPO 的产品含义.md",
+   "publish": true,
+   "links": 13
+  },
+  {
+   "path": "04T 专题库/F2 能力与训练/0415 后训练即产品系统化专题/01 概念辨析/A04 Constitutional AI 与行为准则的伦理映射.md",
+   "publish": true,
+   "links": 14
+  },
+  {
+   "path": "04T 专题库/F2 能力与训练/0415 后训练即产品系统化专题/01 概念辨析/A05 偏好标注指南即产品规格书.md",
+   "publish": true,
+   "links": 15
+  },
+  {
+   "path": "04T 专题库/F2 能力与训练/0415 后训练即产品系统化专题/01 概念辨析/A06 系统提示 工具 护栏作为推理期后训练.md",
+   "publish": true,
+   "links": 12
+  },
+  {
+   "path": "04T 专题库/F2 能力与训练/0415 后训练即产品系统化专题/02 代际演化/G01 行为塑形代际谱系总图.md",
+   "publish": true,
+   "links": 19
+  },
+  {
+   "path": "04T 专题库/F2 能力与训练/0415 后训练即产品系统化专题/02 代际演化/G02 后训练代际演化详解.md",
+   "publish": true,
+   "links": 20
+  },
+  {
+   "path": "04T 专题库/F2 能力与训练/0415 后训练即产品系统化专题/03 架构剖面/S01 行为塑形分层剖面.md",
+   "publish": true,
+   "links": 19
+  },
+  {
+   "path": "04T 专题库/F2 能力与训练/0415 后训练即产品系统化专题/03 架构剖面/S02 训练层与产品层行为塑形手段对照矩阵.md",
+   "publish": true,
+   "links": 18
+  },
+  {
+   "path": "04T 专题库/F2 能力与训练/0415 后训练即产品系统化专题/03 架构剖面/S03 后训练 Ops 与数据飞轮全景.md",
+   "publish": true,
+   "links": 12
+  },
+  {
+   "path": "04T 专题库/F2 能力与训练/0415 后训练即产品系统化专题/04 实例剖解/E01 Claude 的 Constitutional AI 与 Character 剖解.md",
+   "publish": true,
+   "links": 15
+  },
+  {
+   "path": "04T 专题库/F2 能力与训练/0415 后训练即产品系统化专题/04 实例剖解/E02 ChatGPT 的 RLHF 谄媚与行为调整剖解.md",
+   "publish": true,
+   "links": 16
+  },
+  {
+   "path": "04T 专题库/F2 能力与训练/0415 后训练即产品系统化专题/04 实例剖解/E03 DeepSeek R1 的 RL 后训练剖解.md",
+   "publish": true,
+   "links": 14
+  },
+  {
+   "path": "04T 专题库/F2 能力与训练/0415 后训练即产品系统化专题/05 复现指南/R01 最小可运行·DPO 偏好微调.md",
+   "publish": true,
+   "links": 13
+  },
+  {
+   "path": "04T 专题库/F2 能力与训练/0415 后训练即产品系统化专题/05 复现指南/R02 中型·写偏好标注指南 + 小规模偏好数据.md",
+   "publish": true,
+   "links": 12
+  },
+  {
+   "path": "04T 专题库/F2 能力与训练/0415 后训练即产品系统化专题/05 复现指南/R03 无训练的行为塑形实验·系统提示与护栏.md",
+   "publish": true,
+   "links": 17
+  },
+  {
+   "path": "04T 专题库/F2 能力与训练/0415 后训练即产品系统化专题/06 阅读指南/README·0415·多视图阅读指南.md",
+   "publish": true,
+   "links": 24
+  },
+  {
+   "path": "04T 专题库/F2 能力与训练/0433 推理与测试时计算系统化专题/_推理与测试时计算系统化专题·总览.md",
+   "publish": true,
+   "links": 42
+  },
+  {
+   "path": "04T 专题库/F2 能力与训练/0433 推理与测试时计算系统化专题/01 概念辨析/A01 Reasoning 概念史·从 CoT 到 Test-Time Compute.md",
+   "publish": true,
+   "links": 11
+  },
+  {
+   "path": "04T 专题库/F2 能力与训练/0433 推理与测试时计算系统化专题/01 概念辨析/A02 五词辨析·CoT 推理 思考 慢思考 Inference-scaling.md",
+   "publish": true,
+   "links": 16
+  },
+  {
+   "path": "04T 专题库/F2 能力与训练/0433 推理与测试时计算系统化专题/01 概念辨析/A03 System 2 的隐喻陷阱.md",
+   "publish": true,
+   "links": 12
+  },
+  {
+   "path": "04T 专题库/F2 能力与训练/0433 推理与测试时计算系统化专题/01 概念辨析/A04 Reasoning Effort 作为可计费资源.md",
+   "publish": true,
+   "links": 16
+  },
+  {
+   "path": "04T 专题库/F2 能力与训练/0433 推理与测试时计算系统化专题/02 代际演化/G01 推理范式代际谱系·prompt-CoT 到 RL-reasoning 到推理期搜索.md",
+   "publish": true,
+   "links": 17
+  },
+  {
+   "path": "04T 专题库/F2 能力与训练/0433 推理与测试时计算系统化专题/02 代际演化/G02 o1 到 R1 到当代演化详解.md",
+   "publish": true,
+   "links": 14
+  },
+  {
+   "path": "04T 专题库/F2 能力与训练/0433 推理与测试时计算系统化专题/03 架构剖面/S01 测试时计算的三种花法·采样 验证 搜索.md",
+   "publish": true,
+   "links": 14
+  },
+  {
+   "path": "04T 专题库/F2 能力与训练/0433 推理与测试时计算系统化专题/03 架构剖面/S02 训练侧 vs 推理侧 Reasoning 可替换栈.md",
+   "publish": true,
+   "links": 16
+  },
+  {
+   "path": "04T 专题库/F2 能力与训练/0433 推理与测试时计算系统化专题/03 架构剖面/S03 Reasoning 与 Agent 循环的耦合点.md",
+   "publish": true,
+   "links": 22
+  },
+  {
+   "path": "04T 专题库/F2 能力与训练/0433 推理与测试时计算系统化专题/04 实例剖解/E01 o3 vs R1 vs Claude Extended Thinking 设计哲学.md",
+   "publish": true,
+   "links": 13
+  },
+  {
+   "path": "04T 专题库/F2 能力与训练/0433 推理与测试时计算系统化专题/04 实例剖解/E02 Reasoning 反噬·过度思考与延迟灾难.md",
+   "publish": true,
+   "links": 12
+  },
+  {
+   "path": "04T 专题库/F2 能力与训练/0433 推理与测试时计算系统化专题/04 实例剖解/E03 数学代码强开放任务弱的能力剖面.md",
+   "publish": true,
+   "links": 13
+  },
+  {
+   "path": "04T 专题库/F2 能力与训练/0433 推理与测试时计算系统化专题/05 复现指南/R01 最小可运行·自洽采样投票.md",
+   "publish": true,
+   "links": 15
+  },
+  {
+   "path": "04T 专题库/F2 能力与训练/0433 推理与测试时计算系统化专题/05 复现指南/R02 中型·Reasoning 预算路由器.md",
+   "publish": true,
+   "links": 17
+  },
+  {
+   "path": "04T 专题库/F2 能力与训练/0433 推理与测试时计算系统化专题/05 复现指南/R03 进阶·Verifier-guided 搜索.md",
+   "publish": true,
+   "links": 13
+  },
+  {
+   "path": "04T 专题库/F2 能力与训练/0433 推理与测试时计算系统化专题/06 阅读指南/README·0433·多视图阅读指南.md",
+   "publish": true,
+   "links": 37
+  },
+  {
+   "path": "04T 专题库/F3 工程与成本/0413 成本工程系统化专题/_成本工程系统化专题·总览.md",
+   "publish": true,
+   "links": 46
+  },
+  {
+   "path": "04T 专题库/F3 工程与成本/0413 成本工程系统化专题/01 概念辨析/A01 成本概念史与口径辨析.md",
+   "publish": true,
+   "links": 22
+  },
+  {
+   "path": "04T 专题库/F3 工程与成本/0413 成本工程系统化专题/01 概念辨析/A02 成本对象层级辨析·per-token per-query per-task per-user per-seat.md",
+   "publish": true,
+   "links": 19
+  },
+  {
+   "path": "04T 专题库/F3 工程与成本/0413 成本工程系统化专题/01 概念辨析/A03 Token Economics 精算.md",
+   "publish": true,
+   "links": 20
+  },
+  {
+   "path": "04T 专题库/F3 工程与成本/0413 成本工程系统化专题/01 概念辨析/A04 推理成本三角·模型大小 延迟 质量.md",
+   "publish": true,
+   "links": 23
+  },
+  {
+   "path": "04T 专题库/F3 工程与成本/0413 成本工程系统化专题/01 概念辨析/A05 模型路由与 Mixture-of-models.md",
+   "publish": true,
+   "links": 25
+  },
+  {
+   "path": "04T 专题库/F3 工程与成本/0413 成本工程系统化专题/01 概念辨析/A06 端侧与云端成本重构.md",
+   "publish": true,
+   "links": 17
+  },
+  {
+   "path": "04T 专题库/F3 工程与成本/0413 成本工程系统化专题/01 概念辨析/A07 成本约束反向塑造产品.md",
+   "publish": true,
+   "links": 24
+  },
+  {
+   "path": "04T 专题库/F3 工程与成本/0413 成本工程系统化专题/02 代际演化/G01 推理成本代际谱系总图.md",
+   "publish": true,
+   "links": 26
+  },
+  {
+   "path": "04T 专题库/F3 工程与成本/0413 成本工程系统化专题/02 代际演化/G02 成本代际演化详解.md",
+   "publish": true,
+   "links": 30
+  },
+  {
+   "path": "04T 专题库/F3 工程与成本/0413 成本工程系统化专题/03 架构剖面/S01 AI 产品成本结构分层剖面.md",
+   "publish": true,
+   "links": 29
+  },
+  {
+   "path": "04T 专题库/F3 工程与成本/0413 成本工程系统化专题/03 架构剖面/S02 降本手段流派对照矩阵.md",
+   "publish": true,
+   "links": 27
+  },
+  {
+   "path": "04T 专题库/F3 工程与成本/0413 成本工程系统化专题/03 架构剖面/S03 FinOps for AI·成本可观测与归因全景.md",
+   "publish": true,
+   "links": 16
+  },
+  {
+   "path": "04T 专题库/F3 工程与成本/0413 成本工程系统化专题/04 实例剖解/E01 ChatGPT 与 Claude 的 context rate-limit 产品成本耦合剖解.md",
+   "publish": true,
+   "links": 23
+  },
+  {
+   "path": "04T 专题库/F3 工程与成本/0413 成本工程系统化专题/04 实例剖解/E02 Apple Intelligence 与端侧推理成本剖解.md",
+   "publish": true,
+   "links": 16
+  },
+  {
+   "path": "04T 专题库/F3 工程与成本/0413 成本工程系统化专题/04 实例剖解/E03 一个 RAG Agent 产品的 unit economics 拆解.md",
+   "publish": true,
+   "links": 27
+  },
+  {
+   "path": "04T 专题库/F3 工程与成本/0413 成本工程系统化专题/05 复现指南/R01 最小可运行·Token 成本计算器.md",
+   "publish": true,
+   "links": 24
+  },
+  {
+   "path": "04T 专题库/F3 工程与成本/0413 成本工程系统化专题/05 复现指南/R02 中型·模型路由 + 语义缓存 降本实验.md",
+   "publish": true,
+   "links": 18
+  },
+  {
+   "path": "04T 专题库/F3 工程与成本/0413 成本工程系统化专题/05 复现指南/R03 Unit Economics 模型·CAC COGS LTV 与盈亏平衡.md",
+   "publish": true,
+   "links": 15
+  },
+  {
+   "path": "04T 专题库/F3 工程与成本/0413 成本工程系统化专题/06 阅读指南/README·0413·多视图阅读指南.md",
+   "publish": true,
+   "links": 30
+  },
+  {
+   "path": "04T 专题库/F3 工程与成本/0414 编程工具系统化专题/_编程工具系统化专题·总览.md",
+   "publish": true,
+   "links": 42
+  },
+  {
+   "path": "04T 专题库/F3 工程与成本/0414 编程工具系统化专题/01 概念辨析/A01 编程工具概念谱系与语义辨析.md",
+   "publish": true,
+   "links": 15
+  },
+  {
+   "path": "04T 专题库/F3 工程与成本/0414 编程工具系统化专题/01 概念辨析/A02 嵌入形态层级辨析·插件 IDE-fork CLI 云端 PR-bot.md",
+   "publish": true,
+   "links": 17
+  },
+  {
+   "path": "04T 专题库/F3 工程与成本/0414 编程工具系统化专题/01 概念辨析/A03 Codebase 理解机制·repo-map RAG-over-code LSP.md",
+   "publish": true,
+   "links": 16
+  },
+  {
+   "path": "04T 专题库/F3 工程与成本/0414 编程工具系统化专题/01 概念辨析/A04 编辑应用机制·diff-apply 与 fast-apply.md",
+   "publish": true,
+   "links": 13
+  },
+  {
+   "path": "04T 专题库/F3 工程与成本/0414 编程工具系统化专题/01 概念辨析/A05 Agentic Coding 信任校准.md",
+   "publish": true,
+   "links": 16
+  },
+  {
+   "path": "04T 专题库/F3 工程与成本/0414 编程工具系统化专题/01 概念辨析/A06 Developer Experience 作为产品力.md",
+   "publish": true,
+   "links": 13
+  },
+  {
+   "path": "04T 专题库/F3 工程与成本/0414 编程工具系统化专题/02 代际演化/G01 编程工具代际谱系总图.md",
+   "publish": true,
+   "links": 19
+  },
+  {
+   "path": "04T 专题库/F3 工程与成本/0414 编程工具系统化专题/02 代际演化/G02 编程工具代际演化详解.md",
+   "publish": true,
+   "links": 23
+  },
+  {
+   "path": "04T 专题库/F3 工程与成本/0414 编程工具系统化专题/03 架构剖面/S01 Coding Agent 分层架构剖面.md",
+   "publish": true,
+   "links": 19
+  },
+  {
+   "path": "04T 专题库/F3 工程与成本/0414 编程工具系统化专题/03 架构剖面/S02 编程工具流派架构对照矩阵.md",
+   "publish": true,
+   "links": 17
+  },
+  {
+   "path": "04T 专题库/F3 工程与成本/0414 编程工具系统化专题/03 架构剖面/S03 Harness for Coding 全景.md",
+   "publish": true,
+   "links": 15
+  },
+  {
+   "path": "04T 专题库/F3 工程与成本/0414 编程工具系统化专题/04 实例剖解/E01 Cursor 剖解·IDE-fork 哲学.md",
+   "publish": true,
+   "links": 14
+  },
+  {
+   "path": "04T 专题库/F3 工程与成本/0414 编程工具系统化专题/04 实例剖解/E02 Claude Code 剖解·CLI 哲学.md",
+   "publish": true,
+   "links": 18
+  },
+  {
+   "path": "04T 专题库/F3 工程与成本/0414 编程工具系统化专题/04 实例剖解/E03 字节 TRAE 与 Windsurf 剖解.md",
+   "publish": true,
+   "links": 13
+  },
+  {
+   "path": "04T 专题库/F3 工程与成本/0414 编程工具系统化专题/05 复现指南/R01 最小可运行·LSP-aware 编辑 loop.md",
+   "publish": true,
+   "links": 13
+  },
+  {
+   "path": "04T 专题库/F3 工程与成本/0414 编程工具系统化专题/05 复现指南/R02 中型·repo-map + RAG-over-code 检索增强.md",
+   "publish": true,
+   "links": 13
+  },
+  {
+   "path": "04T 专题库/F3 工程与成本/0414 编程工具系统化专题/05 复现指南/R03 SWE-bench 风格评测跑通.md",
+   "publish": true,
+   "links": 11
+  },
+  {
+   "path": "04T 专题库/F3 工程与成本/0414 编程工具系统化专题/06 阅读指南/README·0414·多视图阅读指南.md",
+   "publish": true,
+   "links": 30
+  },
+  {
+   "path": "04T 专题库/F3 工程与成本/0417 上下文工程系统化专题/_上下文工程系统化专题·总览.md",
+   "publish": true,
+   "links": 42
+  },
+  {
+   "path": "04T 专题库/F3 工程与成本/0417 上下文工程系统化专题/01 概念辨析/A01 Context Engineering 概念史与升格.md",
+   "publish": true,
+   "links": 18
+  },
+  {
+   "path": "04T 专题库/F3 工程与成本/0417 上下文工程系统化专题/01 概念辨析/A02 Context Prompt Memory RAG 辨析.md",
+   "publish": true,
+   "links": 16
+  },
+  {
+   "path": "04T 专题库/F3 工程与成本/0417 上下文工程系统化专题/01 概念辨析/A03 Context Window 作为资源·非越大越好.md",
+   "publish": true,
+   "links": 13
+  },
+  {
+   "path": "04T 专题库/F3 工程与成本/0417 上下文工程系统化专题/01 概念辨析/A04 信息流决策框架·四去向.md",
+   "publish": true,
+   "links": 18
+  },
+  {
+   "path": "04T 专题库/F3 工程与成本/0417 上下文工程系统化专题/01 概念辨析/A05 Memory Layer 作为一等公民.md",
+   "publish": true,
+   "links": 16
+  },
+  {
+   "path": "04T 专题库/F3 工程与成本/0417 上下文工程系统化专题/01 概念辨析/A06 状态外化策略.md",
+   "publish": true,
+   "links": 17
+  },
+  {
+   "path": "04T 专题库/F3 工程与成本/0417 上下文工程系统化专题/02 代际演化/G01 上下文管理代际谱系总图.md",
+   "publish": true,
+   "links": 18
+  },
+  {
+   "path": "04T 专题库/F3 工程与成本/0417 上下文工程系统化专题/02 代际演化/G02 上下文管理代际演化详解.md",
+   "publish": true,
+   "links": 16
+  },
+  {
+   "path": "04T 专题库/F3 工程与成本/0417 上下文工程系统化专题/03 架构剖面/S01 Context 管理分层剖面.md",
+   "publish": true,
+   "links": 17
+  },
+  {
+   "path": "04T 专题库/F3 工程与成本/0417 上下文工程系统化专题/03 架构剖面/S02 信息流策略对照矩阵.md",
+   "publish": true,
+   "links": 18
+  },
+  {
+   "path": "04T 专题库/F3 工程与成本/0417 上下文工程系统化专题/03 架构剖面/S03 Memory 与 Context Ops 全景.md",
+   "publish": true,
+   "links": 18
+  },
+  {
+   "path": "04T 专题库/F3 工程与成本/0417 上下文工程系统化专题/04 实例剖解/E01 Claude Code 与 CLAUDE.md 的 Context 管理剖解.md",
+   "publish": true,
+   "links": 16
+  },
+  {
+   "path": "04T 专题库/F3 工程与成本/0417 上下文工程系统化专题/04 实例剖解/E02 长上下文模型 vs RAG 剖解.md",
+   "publish": true,
+   "links": 16
+  },
+  {
+   "path": "04T 专题库/F3 工程与成本/0417 上下文工程系统化专题/04 实例剖解/E03 Agent Memory 产品剖解·Letta MemGPT mem0.md",
+   "publish": true,
+   "links": 14
+  },
+  {
+   "path": "04T 专题库/F3 工程与成本/0417 上下文工程系统化专题/05 复现指南/R01 最小可运行·Context Compaction.md",
+   "publish": true,
+   "links": 13
+  },
+  {
+   "path": "04T 专题库/F3 工程与成本/0417 上下文工程系统化专题/05 复现指南/R02 中型·Memory Layer + RAG 混合.md",
+   "publish": true,
+   "links": 14
+  },
+  {
+   "path": "04T 专题库/F3 工程与成本/0417 上下文工程系统化专题/05 复现指南/R03 Sub-agent Context Isolation 模板.md",
+   "publish": true,
+   "links": 13
+  },
+  {
+   "path": "04T 专题库/F3 工程与成本/0417 上下文工程系统化专题/06 阅读指南/README·0417·多视图阅读指南.md",
+   "publish": true,
+   "links": 28
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0411 Agent 系统化专题/_Agent 系统化专题·总览.md",
+   "publish": true,
+   "links": 42
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0411 Agent 系统化专题/01 概念辨析/A01 Agent 概念史与语义流变.md",
+   "publish": true,
+   "links": 14
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0411 Agent 系统化专题/01 概念辨析/A02 抽象层级辨析·Harness Framework Agent Skill Orchestrator.md",
+   "publish": true,
+   "links": 13
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0411 Agent 系统化专题/01 概念辨析/A03 ReAct.md",
+   "publish": true,
+   "links": 10
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0411 Agent 系统化专题/01 概念辨析/A04 Reflexion.md",
+   "publish": true,
+   "links": 10
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0411 Agent 系统化专题/01 概念辨析/A05 Plan-and-Execute.md",
+   "publish": true,
+   "links": 10
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0411 Agent 系统化专题/01 概念辨析/A06 Orchestrator 编排器.md",
+   "publish": true,
+   "links": 13
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0411 Agent 系统化专题/01 概念辨析/A07 Multi-Agent Teams.md",
+   "publish": true,
+   "links": 12
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0411 Agent 系统化专题/01 概念辨析/A08 MCP 与 A2A 协议族.md",
+   "publish": true,
+   "links": 13
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0411 Agent 系统化专题/01 概念辨析/Harness 词义辨析.md",
+   "publish": true,
+   "links": 4
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0411 Agent 系统化专题/02 代际演化/G01 Agent 代际谱系总图.md",
+   "publish": true,
+   "links": 39
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0411 Agent 系统化专题/02 代际演化/G02 五代演化详解·G1-G5.md",
+   "publish": true,
+   "links": 53
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0411 Agent 系统化专题/03 架构剖面/S01 Agent 六层架构剖面.md",
+   "publish": true,
+   "links": 40
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0411 Agent 系统化专题/03 架构剖面/S02 流派架构对照表.md",
+   "publish": true,
+   "links": 31
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0411 Agent 系统化专题/03 架构剖面/S03 Harness Engineering 全景.md",
+   "publish": true,
+   "links": 40
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0411 Agent 系统化专题/04 实例剖解/E01 Coding Agent·Claude Code & Cursor.md",
+   "publish": true,
+   "links": 21
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0411 Agent 系统化专题/04 实例剖解/E02 通用 Agent·Manus & Devin.md",
+   "publish": true,
+   "links": 23
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0411 Agent 系统化专题/04 实例剖解/E03 Multi-Agent 框架·AutoGen & CrewAI & DeerFlow.md",
+   "publish": true,
+   "links": 23
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0411 Agent 系统化专题/05 复现指南/R01 最小可运行·100 行 ReAct.md",
+   "publish": true,
+   "links": 24
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0411 Agent 系统化专题/05 复现指南/R02 中型生产·LangGraph + MCP.md",
+   "publish": true,
+   "links": 17
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0411 Agent 系统化专题/05 复现指南/R03 Multi-Agent 模板·AutoGen CrewAI.md",
+   "publish": true,
+   "links": 15
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0411 Agent 系统化专题/06 阅读指南/README·0411·多视图阅读指南.md",
    "publish": true,
    "links": 33
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0416 失败考古学系统化专题/_失败考古学系统化专题·总览.md",
+   "publish": true,
+   "links": 31
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0416 失败考古学系统化专题/01 概念辨析/A01 失败考古学方法论.md",
+   "publish": true,
+   "links": 13
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0416 失败考古学系统化专题/01 概念辨析/A02 AI 产品失败分类学·五类.md",
+   "publish": true,
+   "links": 14
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0416 失败考古学系统化专题/01 概念辨析/A03 输入侧失败·对抗用户与注入.md",
+   "publish": true,
+   "links": 16
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0416 失败考古学系统化专题/01 概念辨析/A04 输出侧失败·幻觉与法律约束.md",
+   "publish": true,
+   "links": 14
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0416 失败考古学系统化专题/01 概念辨析/A05 边界侧失败·权限承诺与情感.md",
+   "publish": true,
+   "links": 16
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0416 失败考古学系统化专题/01 概念辨析/A06 采纳与组织侧失败.md",
+   "publish": true,
+   "links": 14
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0416 失败考古学系统化专题/02 代际演化/G01 AI 失败模式代际演化总图.md",
+   "publish": true,
+   "links": 15
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0416 失败考古学系统化专题/02 代际演化/G02 失败模式代际演化详解.md",
+   "publish": true,
+   "links": 16
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0416 失败考古学系统化专题/03 架构剖面/S01 失败归因分层剖面.md",
+   "publish": true,
+   "links": 13
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0416 失败考古学系统化专题/03 架构剖面/S02 失败类型 × 产品阶段对照矩阵.md",
+   "publish": true,
+   "links": 14
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0416 失败考古学系统化专题/03 架构剖面/S03 失败防御体系全景.md",
+   "publish": true,
+   "links": 10
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0416 失败考古学系统化专题/04 实例剖解/E01 Tay 与 Bard 剖解·输入与输出失败.md",
+   "publish": true,
+   "links": 18
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0416 失败考古学系统化专题/04 实例剖解/E02 Air Canada 与 Chevrolet 剖解·边界与法律失败.md",
+   "publish": true,
+   "links": 17
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0416 失败考古学系统化专题/04 实例剖解/E03 Character.ai 与情感依赖剖解·伦理边界失败.md",
+   "publish": true,
+   "links": 17
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0416 失败考古学系统化专题/05 复现指南/R01 失败编码·建一个 bad-case 库.md",
+   "publish": true,
+   "links": 12
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0416 失败考古学系统化专题/05 复现指南/R02 Launch Criteria 与 Pre-mortem Checklist.md",
+   "publish": true,
+   "links": 16
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0416 失败考古学系统化专题/05 复现指南/R03 Red-team 一个 Agent 找失败模式.md",
+   "publish": true,
+   "links": 18
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0416 失败考古学系统化专题/06 阅读指南/README·0416·多视图阅读指南.md",
+   "publish": true,
+   "links": 27
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0419 对齐哲学系统化专题/_对齐哲学系统化专题·总览.md",
+   "publish": true,
+   "links": 33
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0419 对齐哲学系统化专题/01 概念辨析/A01 对齐概念谱系与语义辨析.md",
+   "publish": true,
+   "links": 9
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0419 对齐哲学系统化专题/01 概念辨析/A02 Outer vs Inner Alignment 与 Mesa-optimization.md",
+   "publish": true,
+   "links": 10
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0419 对齐哲学系统化专题/01 概念辨析/A03 Reward Hacking 与 Goodhart.md",
+   "publish": true,
+   "links": 14
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0419 对齐哲学系统化专题/01 概念辨析/A04 Constitutional AI 的伦理学根基.md",
+   "publish": true,
+   "links": 10
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0419 对齐哲学系统化专题/01 概念辨析/A05 Mechanistic Interpretability 的产品与安全含义.md",
+   "publish": true,
+   "links": 14
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0419 对齐哲学系统化专题/01 概念辨析/A06 AI 意识与道德地位.md",
+   "publish": true,
+   "links": 7
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0419 对齐哲学系统化专题/02 代际演化/G01 对齐范式代际谱系总图.md",
+   "publish": true,
+   "links": 14
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0419 对齐哲学系统化专题/02 代际演化/G02 对齐范式代际演化详解.md",
+   "publish": true,
+   "links": 18
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0419 对齐哲学系统化专题/03 架构剖面/S01 对齐问题分层剖面.md",
+   "publish": true,
+   "links": 13
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0419 对齐哲学系统化专题/03 架构剖面/S02 对齐方法流派对照矩阵.md",
+   "publish": true,
+   "links": 17
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0419 对齐哲学系统化专题/03 架构剖面/S03 Scalable Oversight 与可解释性全景.md",
+   "publish": true,
+   "links": 11
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0419 对齐哲学系统化专题/04 实例剖解/E01 Anthropic Constitutional AI 与 RSP 剖解.md",
+   "publish": true,
+   "links": 13
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0419 对齐哲学系统化专题/04 实例剖解/E02 OpenAI Superalignment 与 Deliberative Alignment 剖解.md",
+   "publish": true,
+   "links": 15
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0419 对齐哲学系统化专题/04 实例剖解/E03 AI Welfare 与道德地位争论剖解.md",
+   "publish": true,
+   "links": 9
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0419 对齐哲学系统化专题/05 复现指南/R01 观察 Reward Hacking 的最小实验.md",
+   "publish": true,
+   "links": 12
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0419 对齐哲学系统化专题/05 复现指南/R02 用 CAI 原则做一次自我批判改写.md",
+   "publish": true,
+   "links": 11
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0419 对齐哲学系统化专题/05 复现指南/R03 简单可解释性探针.md",
+   "publish": true,
+   "links": 14
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0419 对齐哲学系统化专题/06 阅读指南/README·0419·多视图阅读指南.md",
+   "publish": true,
+   "links": 27
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0430 AI 作为制度现象系统化专题/_AI 作为制度现象系统化专题·总览.md",
+   "publish": true,
+   "links": 21
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0430 AI 作为制度现象系统化专题/01 概念辨析/A01 AI 作为制度现象概念谱系.md",
+   "publish": true,
+   "links": 7
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0430 AI 作为制度现象系统化专题/01 概念辨析/A02 Constitutional AI 作为字面宪法.md",
+   "publish": true,
+   "links": 5
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0430 AI 作为制度现象系统化专题/01 概念辨析/A03 平台内容治理作为准立法.md",
+   "publish": true,
+   "links": 6
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0430 AI 作为制度现象系统化专题/01 概念辨析/A04 API Policy 作为准监管权力.md",
+   "publish": true,
+   "links": 6
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0430 AI 作为制度现象系统化专题/01 概念辨析/A05 AI 公司作为准国家行为体.md",
+   "publish": true,
+   "links": 7
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0430 AI 作为制度现象系统化专题/01 概念辨析/A06 制度俘获与问责真空.md",
+   "publish": true,
+   "links": 4
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0430 AI 作为制度现象系统化专题/02 代际演化/G01 AI 治理制度代际谱系总图.md",
+   "publish": true,
+   "links": 3
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0430 AI 作为制度现象系统化专题/02 代际演化/G02 AI 治理制度代际演化详解.md",
+   "publish": true,
+   "links": 14
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0430 AI 作为制度现象系统化专题/03 架构剖面/S01 AI 制度权力分层剖面.md",
+   "publish": true,
+   "links": 8
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0430 AI 作为制度现象系统化专题/03 架构剖面/S02 AI 治理模式对照矩阵.md",
+   "publish": true,
+   "links": 6
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0430 AI 作为制度现象系统化专题/03 架构剖面/S03 AI 准国家治理全景.md",
+   "publish": true,
+   "links": 7
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0430 AI 作为制度现象系统化专题/04 实例剖解/E01 Anthropic Constitution 与 RSP 作为制度剖解.md",
+   "publish": true,
+   "links": 8
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0430 AI 作为制度现象系统化专题/04 实例剖解/E02 平台内容治理制度剖解.md",
+   "publish": true,
+   "links": 5
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0430 AI 作为制度现象系统化专题/04 实例剖解/E03 中美 AI 监管制度对比剖解.md",
+   "publish": true,
+   "links": 3
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0430 AI 作为制度现象系统化专题/05 复现指南/R01 分析一个 AI 产品的制度权力.md",
+   "publish": true,
+   "links": 7
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0430 AI 作为制度现象系统化专题/05 复现指南/R02 设计一个 AI 治理制度.md",
+   "publish": true,
+   "links": 7
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0430 AI 作为制度现象系统化专题/05 复现指南/R03 AI 制度问责机制设计.md",
+   "publish": true,
+   "links": 8
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0430 AI 作为制度现象系统化专题/06 阅读指南/README·0430·多视图阅读指南.md",
+   "publish": true,
+   "links": 22
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0435 AI 红队与攻防系统化专题/_AI 红队与攻防系统化专题·总览.md",
+   "publish": true,
+   "links": 28
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0435 AI 红队与攻防系统化专题/01 概念辨析/A01 Safety vs Security vs Alignment 三词分治.md",
+   "publish": true,
+   "links": 10
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0435 AI 红队与攻防系统化专题/01 概念辨析/A02 攻击分类学·注入 越狱 投毒 抽取.md",
+   "publish": true,
+   "links": 10
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0435 AI 红队与攻防系统化专题/01 概念辨析/A03 直接注入 vs 间接注入的产品含义.md",
+   "publish": true,
+   "links": 9
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0435 AI 红队与攻防系统化专题/01 概念辨析/A04 Guardrail 的能力与谎言.md",
+   "publish": true,
+   "links": 9
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0435 AI 红队与攻防系统化专题/02 代际演化/G01 对抗攻防军备竞赛谱系.md",
+   "publish": true,
+   "links": 9
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0435 AI 红队与攻防系统化专题/02 代际演化/G02 攻防代际演化详解·从单轮越狱到 Agent 注入.md",
+   "publish": true,
+   "links": 10
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0435 AI 红队与攻防系统化专题/03 架构剖面/S01 纵深防御可替换栈·输入 模型 输出 权限.md",
+   "publish": true,
+   "links": 10
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0435 AI 红队与攻防系统化专题/03 架构剖面/S02 训练侧 vs 系统侧防御对照.md",
+   "publish": true,
+   "links": 10
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0435 AI 红队与攻防系统化专题/03 架构剖面/S03 Agent 权限边界与最小权限设计.md",
+   "publish": true,
+   "links": 18
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0435 AI 红队与攻防系统化专题/04 实例剖解/E01 Chevrolet 与 Air Canada·边界失效剖解.md",
+   "publish": true,
+   "links": 15
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0435 AI 红队与攻防系统化专题/04 实例剖解/E02 间接注入真实案例复盘.md",
+   "publish": true,
+   "links": 14
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0435 AI 红队与攻防系统化专题/04 实例剖解/E03 红队报告反推产品原则.md",
+   "publish": true,
+   "links": 14
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0435 AI 红队与攻防系统化专题/05 复现指南/R01 给 Bot 跑一轮越狱评测(防御视角).md",
+   "publish": true,
+   "links": 7
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0435 AI 红队与攻防系统化专题/05 复现指南/R02 自动化红队流水线.md",
+   "publish": true,
+   "links": 10
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0435 AI 红队与攻防系统化专题/05 复现指南/R03 注入防御 + 权限沙箱.md",
+   "publish": true,
+   "links": 12
+  },
+  {
+   "path": "04T 专题库/F4 安全对齐与失败/0435 AI 红队与攻防系统化专题/06 阅读指南/README·0435·多视图阅读指南.md",
+   "publish": true,
+   "links": 23
+  },
+  {
+   "path": "04T 专题库/F5 商业组织与采纳/0421 机制设计系统化专题/_机制设计系统化专题·总览.md",
+   "publish": true,
+   "links": 29
+  },
+  {
+   "path": "04T 专题库/F5 商业组织与采纳/0421 机制设计系统化专题/01 概念辨析/A01 机制设计概念谱系与语义.md",
+   "publish": true,
+   "links": 8
+  },
+  {
+   "path": "04T 专题库/F5 商业组织与采纳/0421 机制设计系统化专题/01 概念辨析/A02 Multi-Agent 即机制设计问题.md",
+   "publish": true,
+   "links": 11
+  },
+  {
+   "path": "04T 专题库/F5 商业组织与采纳/0421 机制设计系统化专题/01 概念辨析/A03 交易成本与 Make-vs-Buy·何时拆 Agent.md",
+   "publish": true,
+   "links": 11
+  },
+  {
+   "path": "04T 专题库/F5 商业组织与采纳/0421 机制设计系统化专题/01 概念辨析/A04 公共池塘资源治理·Agent 共享资源.md",
+   "publish": true,
+   "links": 10
+  },
+  {
+   "path": "04T 专题库/F5 商业组织与采纳/0421 机制设计系统化专题/01 概念辨析/A05 激励相容与规则设计.md",
+   "publish": true,
+   "links": 8
+  },
+  {
+   "path": "04T 专题库/F5 商业组织与采纳/0421 机制设计系统化专题/01 概念辨析/A06 信息不对称与委托代理.md",
+   "publish": true,
+   "links": 10
+  },
+  {
+   "path": "04T 专题库/F5 商业组织与采纳/0421 机制设计系统化专题/02 代际演化/G01 制度经济学到 Agent 经济学代际谱系.md",
+   "publish": true,
+   "links": 9
+  },
+  {
+   "path": "04T 专题库/F5 商业组织与采纳/0421 机制设计系统化专题/02 代际演化/G02 机制设计代际演化详解.md",
+   "publish": true,
+   "links": 11
+  },
+  {
+   "path": "04T 专题库/F5 商业组织与采纳/0421 机制设计系统化专题/03 架构剖面/S01 Multi-Agent 激励结构分层剖面.md",
+   "publish": true,
+   "links": 13
+  },
+  {
+   "path": "04T 专题库/F5 商业组织与采纳/0421 机制设计系统化专题/03 架构剖面/S02 Agent 协作机制对照矩阵.md",
+   "publish": true,
+   "links": 11
+  },
+  {
+   "path": "04T 专题库/F5 商业组织与采纳/0421 机制设计系统化专题/03 架构剖面/S03 Agent 经济体治理全景.md",
+   "publish": true,
+   "links": 17
+  },
+  {
+   "path": "04T 专题库/F5 商业组织与采纳/0421 机制设计系统化专题/04 实例剖解/E01 Multi-agent 框架的激励缺失剖解.md",
+   "publish": true,
+   "links": 11
+  },
+  {
+   "path": "04T 专题库/F5 商业组织与采纳/0421 机制设计系统化专题/04 实例剖解/E02 Agent 市场与拍卖机制剖解.md",
+   "publish": true,
+   "links": 13
+  },
+  {
+   "path": "04T 专题库/F5 商业组织与采纳/0421 机制设计系统化专题/04 实例剖解/E03 滴滴双边市场与 Agent 资源治理类比剖解.md",
+   "publish": true,
+   "links": 9
+  },
+  {
+   "path": "04T 专题库/F5 商业组织与采纳/0421 机制设计系统化专题/05 复现指南/R01 给 Multi-agent 加资源配额机制.md",
+   "publish": true,
+   "links": 9
+  },
+  {
+   "path": "04T 专题库/F5 商业组织与采纳/0421 机制设计系统化专题/05 复现指南/R02 用交易成本判据决定拆不拆 Agent.md",
+   "publish": true,
+   "links": 11
+  },
+  {
+   "path": "04T 专题库/F5 商业组织与采纳/0421 机制设计系统化专题/05 复现指南/R03 设计一个激励相容的 Agent 协作规则.md",
+   "publish": true,
+   "links": 15
+  },
+  {
+   "path": "04T 专题库/F5 商业组织与采纳/0421 机制设计系统化专题/06 阅读指南/README·0421·多视图阅读指南.md",
+   "publish": true,
+   "links": 29
+  },
+  {
+   "path": "04T 专题库/F5 商业组织与采纳/0428 组织采纳系统化专题/_组织采纳系统化专题·总览.md",
+   "publish": true,
+   "links": 25
+  },
+  {
+   "path": "04T 专题库/F5 商业组织与采纳/0428 组织采纳系统化专题/01 概念辨析/A01 技术采纳与组织变革概念谱系.md",
+   "publish": true,
+   "links": 8
+  },
+  {
+   "path": "04T 专题库/F5 商业组织与采纳/0428 组织采纳系统化专题/01 概念辨析/A02 Crossing the Chasm 在 AI 语境.md",
+   "publish": true,
+   "links": 7
+  },
+  {
+   "path": "04T 专题库/F5 商业组织与采纳/0428 组织采纳系统化专题/01 概念辨析/A03 变革管理框架与 AI 部署摩擦.md",
+   "publish": true,
+   "links": 10
+  },
+  {
+   "path": "04T 专题库/F5 商业组织与采纳/0428 组织采纳系统化专题/01 概念辨析/A04 组织 AI Literacy 建设.md",
+   "publish": true,
+   "links": 9
+  },
+  {
+   "path": "04T 专题库/F5 商业组织与采纳/0428 组织采纳系统化专题/01 概念辨析/A05 AI 项目失败的组织归因.md",
+   "publish": true,
+   "links": 6
+  },
+  {
+   "path": "04T 专题库/F5 商业组织与采纳/0428 组织采纳系统化专题/01 概念辨析/A06 Demo-to-Enterprise 鸿沟的组织维度.md",
+   "publish": true,
+   "links": 6
+  },
+  {
+   "path": "04T 专题库/F5 商业组织与采纳/0428 组织采纳系统化专题/02 代际演化/G01 企业技术采纳代际谱系总图.md",
+   "publish": true,
+   "links": 6
+  },
+  {
+   "path": "04T 专题库/F5 商业组织与采纳/0428 组织采纳系统化专题/02 代际演化/G02 企业采纳代际演化详解.md",
+   "publish": true,
+   "links": 13
+  },
+  {
+   "path": "04T 专题库/F5 商业组织与采纳/0428 组织采纳系统化专题/03 架构剖面/S01 AI 组织采纳分层剖面.md",
+   "publish": true,
+   "links": 10
+  },
+  {
+   "path": "04T 专题库/F5 商业组织与采纳/0428 组织采纳系统化专题/03 架构剖面/S02 采纳与变革框架对照矩阵.md",
+   "publish": true,
+   "links": 9
+  },
+  {
+   "path": "04T 专题库/F5 商业组织与采纳/0428 组织采纳系统化专题/03 架构剖面/S03 组织 AI 转型全景.md",
+   "publish": true,
+   "links": 12
+  },
+  {
+   "path": "04T 专题库/F5 商业组织与采纳/0428 组织采纳系统化专题/04 实例剖解/E01 AI 项目组织失败案例剖解.md",
+   "publish": true,
+   "links": 13
+  },
+  {
+   "path": "04T 专题库/F5 商业组织与采纳/0428 组织采纳系统化专题/04 实例剖解/E02 企业 AI 采纳成功与失败对比剖解.md",
+   "publish": true,
+   "links": 10
+  },
+  {
+   "path": "04T 专题库/F5 商业组织与采纳/0428 组织采纳系统化专题/04 实例剖解/E03 滴滴跨团队拉通经验迁移剖解.md",
+   "publish": true,
+   "links": 8
+  },
+  {
+   "path": "04T 专题库/F5 商业组织与采纳/0428 组织采纳系统化专题/05 复现指南/R01 AI 采纳就绪度评估.md",
+   "publish": true,
+   "links": 6
+  },
+  {
+   "path": "04T 专题库/F5 商业组织与采纳/0428 组织采纳系统化专题/05 复现指南/R02 变革管理计划模板.md",
+   "publish": true,
+   "links": 8
+  },
+  {
+   "path": "04T 专题库/F5 商业组织与采纳/0428 组织采纳系统化专题/05 复现指南/R03 AI Literacy 培训设计.md",
+   "publish": true,
+   "links": 14
+  },
+  {
+   "path": "04T 专题库/F5 商业组织与采纳/0428 组织采纳系统化专题/06 阅读指南/README·0428·多视图阅读指南.md",
+   "publish": true,
+   "links": 25
+  },
+  {
+   "path": "04T 专题库/F5 商业组织与采纳/0434 AI 产品护城河与商业模式系统化专题/_AI 产品护城河与商业模式系统化专题·总览.md",
+   "publish": true,
+   "links": 32
+  },
+  {
+   "path": "04T 专题库/F5 商业组织与采纳/0434 AI 产品护城河与商业模式系统化专题/01 概念辨析/A01 护城河概念史·从 Porter 到 AI-native.md",
+   "publish": true,
+   "links": 10
+  },
+  {
+   "path": "04T 专题库/F5 商业组织与采纳/0434 AI 产品护城河与商业模式系统化专题/01 概念辨析/A02 套壳辨析·Thin Wrapper 的真伪判据.md",
+   "publish": true,
+   "links": 11
+  },
+  {
+   "path": "04T 专题库/F5 商业组织与采纳/0434 AI 产品护城河与商业模式系统化专题/01 概念辨析/A03 数据飞轮的祛魅·哪种数据真能复用.md",
+   "publish": true,
+   "links": 6
+  },
+  {
+   "path": "04T 专题库/F5 商业组织与采纳/0434 AI 产品护城河与商业模式系统化专题/01 概念辨析/A04 Outcome-based 定价的概念边界.md",
+   "publish": true,
+   "links": 9
+  },
+  {
+   "path": "04T 专题库/F5 商业组织与采纳/0434 AI 产品护城河与商业模式系统化专题/02 代际演化/G01 商业模式代际谱系·SaaS 到 AI-native.md",
+   "publish": true,
+   "links": 11
+  },
+  {
+   "path": "04T 专题库/F5 商业组织与采纳/0434 AI 产品护城河与商业模式系统化专题/02 代际演化/G02 定价模式演化详解·Seat 到 Usage 到 Outcome.md",
+   "publish": true,
+   "links": 6
+  },
+  {
+   "path": "04T 专题库/F5 商业组织与采纳/0434 AI 产品护城河与商业模式系统化专题/03 架构剖面/S01 AI 产业链价值生态位地图·利润池在哪.md",
+   "publish": true,
+   "links": 11
+  },
+  {
+   "path": "04T 专题库/F5 商业组织与采纳/0434 AI 产品护城河与商业模式系统化专题/03 架构剖面/S02 五类护城河可替换栈·数据 工作流 网络 成本 品牌.md",
+   "publish": true,
+   "links": 11
+  },
+  {
+   "path": "04T 专题库/F5 商业组织与采纳/0434 AI 产品护城河与商业模式系统化专题/03 架构剖面/S03 Unit Economics 拆解·CAC vs COGS vs LTV.md",
+   "publish": true,
+   "links": 11
+  },
+  {
+   "path": "04T 专题库/F5 商业组织与采纳/0434 AI 产品护城河与商业模式系统化专题/04 实例剖解/E01 Perplexity vs Google·搜索利润池争夺.md",
+   "publish": true,
+   "links": 6
+  },
+  {
+   "path": "04T 专题库/F5 商业组织与采纳/0434 AI 产品护城河与商业模式系统化专题/04 实例剖解/E02 Cursor 与 Copilot·应用层能否守住.md",
+   "publish": true,
+   "links": 10
+  },
+  {
+   "path": "04T 专题库/F5 商业组织与采纳/0434 AI 产品护城河与商业模式系统化专题/04 实例剖解/E03 套壳死亡螺旋复盘.md",
+   "publish": true,
+   "links": 9
+  },
+  {
+   "path": "04T 专题库/F5 商业组织与采纳/0434 AI 产品护城河与商业模式系统化专题/05 复现指南/R01 给一个 AI 产品建 UE 模型 Sheet.md",
+   "publish": true,
+   "links": 9
+  },
+  {
+   "path": "04T 专题库/F5 商业组织与采纳/0434 AI 产品护城河与商业模式系统化专题/05 复现指南/R02 护城河审计 Checklist.md",
+   "publish": true,
+   "links": 10
+  },
+  {
+   "path": "04T 专题库/F5 商业组织与采纳/0434 AI 产品护城河与商业模式系统化专题/05 复现指南/R03 定价模式压测剧本.md",
+   "publish": true,
+   "links": 8
+  },
+  {
+   "path": "04T 专题库/F5 商业组织与采纳/0434 AI 产品护城河与商业模式系统化专题/06 阅读指南/README·0434·多视图阅读指南.md",
+   "publish": true,
+   "links": 21
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0420 控制论系统化专题/_控制论系统化专题·总览.md",
+   "publish": true,
+   "links": 33
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0420 控制论系统化专题/01 概念辨析/A01 控制论概念谱系与语义.md",
+   "publish": true,
+   "links": 11
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0420 控制论系统化专题/01 概念辨析/A02 Agent 即控制系统.md",
+   "publish": true,
+   "links": 15
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0420 控制论系统化专题/01 概念辨析/A03 Ashby 必要多样性定律.md",
+   "publish": true,
+   "links": 13
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0420 控制论系统化专题/01 概念辨析/A04 反馈回路与稳定性.md",
+   "publish": true,
+   "links": 15
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0420 控制论系统化专题/01 概念辨析/A05 Viable System Model.md",
+   "publish": true,
+   "links": 12
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0420 控制论系统化专题/01 概念辨析/A06 控制的极限·涌现与不可控.md",
+   "publish": true,
+   "links": 14
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0420 控制论系统化专题/02 代际演化/G01 控制论与系统思维代际谱系总图.md",
+   "publish": true,
+   "links": 11
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0420 控制论系统化专题/02 代际演化/G02 控制论代际演化详解.md",
+   "publish": true,
+   "links": 10
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0420 控制论系统化专题/03 架构剖面/S01 Agent 控制系统分层剖面.md",
+   "publish": true,
+   "links": 14
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0420 控制论系统化专题/03 架构剖面/S02 控制范式对照矩阵.md",
+   "publish": true,
+   "links": 11
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0420 控制论系统化专题/03 架构剖面/S03 多 Agent 作为可存活系统全景.md",
+   "publish": true,
+   "links": 10
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0420 控制论系统化专题/04 实例剖解/E01 Orchestrator 失控的控制论解释.md",
+   "publish": true,
+   "links": 11
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0420 控制论系统化专题/04 实例剖解/E02 Agent 反馈振荡与 Repetition Loop 剖解.md",
+   "publish": true,
+   "links": 13
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0420 控制论系统化专题/04 实例剖解/E03 Multi-agent 治理作为 VSM 剖解.md",
+   "publish": true,
+   "links": 11
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0420 控制论系统化专题/05 复现指南/R01 给 Agent 加显式反馈回路与稳定性监控.md",
+   "publish": true,
+   "links": 9
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0420 控制论系统化专题/05 复现指南/R02 用 Requisite Variety 估 Orchestrator 容量.md",
+   "publish": true,
+   "links": 7
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0420 控制论系统化专题/05 复现指南/R03 VSM 风格多层 Agent 治理模板.md",
+   "publish": true,
+   "links": 15
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0420 控制论系统化专题/06 阅读指南/README·0420·多视图阅读指南.md",
+   "publish": true,
+   "links": 25
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0422 STS 系统化专题/_STS 系统化专题·总览.md",
+   "publish": true,
+   "links": 30
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0422 STS 系统化专题/01 概念辨析/A01 STS 概念谱系与语义.md",
+   "publish": true,
+   "links": 5
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0422 STS 系统化专题/01 概念辨析/A02 Script 理论·产品内嵌脚本.md",
+   "publish": true,
+   "links": 11
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0422 STS 系统化专题/01 概念辨析/A03 Actor-Network Theory·AI 作为非人行动者.md",
+   "publish": true,
+   "links": 14
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0422 STS 系统化专题/01 概念辨析/A04 Sociotechnical Imaginaries·跨文化.md",
+   "publish": true,
+   "links": 7
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0422 STS 系统化专题/01 概念辨析/A05 技术的社会建构 vs 技术决定论.md",
+   "publish": true,
+   "links": 11
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0422 STS 系统化专题/01 概念辨析/A06 基础设施研究·AI 作为隐形基础设施.md",
+   "publish": true,
+   "links": 9
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0422 STS 系统化专题/02 代际演化/G01 STS 思潮代际谱系总图.md",
+   "publish": true,
+   "links": 11
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0422 STS 系统化专题/02 代际演化/G02 STS 代际演化详解.md",
+   "publish": true,
+   "links": 9
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0422 STS 系统化专题/03 架构剖面/S01 AI 产品社会嵌入分析框架剖面.md",
+   "publish": true,
+   "links": 7
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0422 STS 系统化专题/03 架构剖面/S02 STS 分析工具对照矩阵.md",
+   "publish": true,
+   "links": 11
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0422 STS 系统化专题/03 架构剖面/S03 跨文化 AI 产品差异分析全景.md",
+   "publish": true,
+   "links": 6
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0422 STS 系统化专题/04 实例剖解/E01 ChatGPT 的 Script 与 ANT 剖解.md",
+   "publish": true,
+   "links": 5
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0422 STS 系统化专题/04 实例剖解/E02 AI 在中美拉美的 Imaginaries 差异剖解.md",
+   "publish": true,
+   "links": 10
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0422 STS 系统化专题/04 实例剖解/E03 AI 作为基础设施的隐形化剖解.md",
+   "publish": true,
+   "links": 6
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0422 STS 系统化专题/05 复现指南/R01 给一个 AI 产品做 Script 分析.md",
+   "publish": true,
+   "links": 5
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0422 STS 系统化专题/05 复现指南/R02 ANT 描摹一个 AI 工作流的行动者网络.md",
+   "publish": true,
+   "links": 9
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0422 STS 系统化专题/05 复现指南/R03 跨文化 Imaginaries 对比分析模板.md",
+   "publish": true,
+   "links": 10
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0422 STS 系统化专题/06 阅读指南/README·0422·多视图阅读指南.md",
+   "publish": true,
+   "links": 24
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0423 自我民族志系统化专题/_自我民族志系统化专题·总览.md",
+   "publish": true,
+   "links": 31
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0423 自我民族志系统化专题/01 概念辨析/A01 自我民族志方法论·作为方法非领域.md",
+   "publish": true,
+   "links": 10
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0423 自我民族志系统化专题/01 概念辨析/A02 使用即数据·什么算 observation.md",
+   "publish": true,
+   "links": 10
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0423 自我民族志系统化专题/01 概念辨析/A03 信任校准的自我观察.md",
+   "publish": true,
+   "links": 13
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0423 自我民族志系统化专题/01 概念辨析/A04 注意力分配的隐性算法.md",
+   "publish": true,
+   "links": 7
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0423 自我民族志系统化专题/01 概念辨析/A05 Skill 生态建设作为设计实践.md",
+   "publish": true,
+   "links": 10
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0423 自我民族志系统化专题/01 概念辨析/A06 自我民族志的认识论陷阱.md",
+   "publish": true,
+   "links": 8
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0423 自我民族志系统化专题/02 代际演化/G01 Rick 的 AI 使用代际演化总图.md",
+   "publish": true,
+   "links": 11
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0423 自我民族志系统化专题/02 代际演化/G02 使用代际演化详解.md",
+   "publish": true,
+   "links": 17
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0423 自我民族志系统化专题/03 架构剖面/S01 深度 AI 用户行为模型剖面.md",
+   "publish": true,
+   "links": 11
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0423 自我民族志系统化专题/03 架构剖面/S02 使用模式对照矩阵.md",
+   "publish": true,
+   "links": 14
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0423 自我民族志系统化专题/03 架构剖面/S03 个人 AI 工作流系统全景.md",
+   "publish": true,
+   "links": 12
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0423 自我民族志系统化专题/04 实例剖解/E01 Trip-planning Skill Workflow 剖解.md",
+   "publish": true,
+   "links": 11
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0423 自我民族志系统化专题/04 实例剖解/E02 知识生产 Workflow 剖解·deep-survey 与本 vault.md",
+   "publish": true,
+   "links": 9
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0423 自我民族志系统化专题/04 实例剖解/E03 专题工厂作为多 Agent 协作 Case 剖解.md",
+   "publish": true,
+   "links": 10
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0423 自我民族志系统化专题/05 复现指南/R01 建一个 AI 使用日志与编码方案.md",
+   "publish": true,
+   "links": 8
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0423 自我民族志系统化专题/05 复现指南/R02 从使用日志做模式识别.md",
+   "publish": true,
+   "links": 10
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0423 自我民族志系统化专题/05 复现指南/R03 把自我民族志写成作品集材料.md",
+   "publish": true,
+   "links": 10
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0423 自我民族志系统化专题/06 阅读指南/README·0423·多视图阅读指南.md",
+   "publish": true,
+   "links": 22
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0424 拟剧理论系统化专题/_拟剧理论系统化专题·总览.md",
+   "publish": true,
+   "links": 32
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0424 拟剧理论系统化专题/01 概念辨析/A01 拟剧理论概念谱系与语义.md",
+   "publish": true,
+   "links": 9
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0424 拟剧理论系统化专题/01 概念辨析/A02 前台 后台与 AI 推理可见性.md",
+   "publish": true,
+   "links": 10
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0424 拟剧理论系统化专题/01 概念辨析/A03 Face Work 与 AI 错误恢复.md",
+   "publish": true,
+   "links": 10
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0424 拟剧理论系统化专题/01 概念辨析/A04 Performativity·AI Persona 的表演性建构.md",
+   "publish": true,
+   "links": 9
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0424 拟剧理论系统化专题/01 概念辨析/A05 印象管理与 AI 人设设计.md",
+   "publish": true,
+   "links": 10
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0424 拟剧理论系统化专题/01 概念辨析/A06 拟人化的双刃.md",
+   "publish": true,
+   "links": 11
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0424 拟剧理论系统化专题/02 代际演化/G01 AI 人格设计代际谱系总图.md",
+   "publish": true,
+   "links": 10
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0424 拟剧理论系统化专题/02 代际演化/G02 AI 人格设计代际演化详解.md",
+   "publish": true,
+   "links": 13
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0424 拟剧理论系统化专题/03 架构剖面/S01 AI Persona 设计分层剖面.md",
+   "publish": true,
+   "links": 9
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0424 拟剧理论系统化专题/03 架构剖面/S02 AI 人设设计流派对照矩阵.md",
+   "publish": true,
+   "links": 14
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0424 拟剧理论系统化专题/03 架构剖面/S03 AI 表演性身份系统全景.md",
+   "publish": true,
+   "links": 16
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0424 拟剧理论系统化专题/04 实例剖解/E01 Claude Character 与 ChatGPT Persona 剖解.md",
+   "publish": true,
+   "links": 15
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0424 拟剧理论系统化专题/04 实例剖解/E02 Character.ai 情感型 Persona 剖解.md",
+   "publish": true,
+   "links": 9
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0424 拟剧理论系统化专题/04 实例剖解/E03 AI 道歉与错误恢复剖解.md",
+   "publish": true,
+   "links": 11
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0424 拟剧理论系统化专题/05 复现指南/R01 设计一个 AI Persona·前后台边界.md",
+   "publish": true,
+   "links": 19
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0424 拟剧理论系统化专题/05 复现指南/R02 错误恢复与道歉话术设计实验.md",
+   "publish": true,
+   "links": 9
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0424 拟剧理论系统化专题/05 复现指南/R03 Persona 一致性测试.md",
+   "publish": true,
+   "links": 12
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0424 拟剧理论系统化专题/06 阅读指南/README·0424·多视图阅读指南.md",
+   "publish": true,
+   "links": 32
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0425 信号理论系统化专题/_信号理论系统化专题·总览.md",
+   "publish": true,
+   "links": 26
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0425 信号理论系统化专题/01 概念辨析/A01 信号理论概念谱系与语义.md",
+   "publish": true,
+   "links": 7
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0425 信号理论系统化专题/01 概念辨析/A02 信号坍缩·AI 让信号成本趋零.md",
+   "publish": true,
+   "links": 10
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0425 信号理论系统化专题/01 概念辨析/A03 凭证经济学与 AI 时代的凭证贬值.md",
+   "publish": true,
+   "links": 9
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0425 信号理论系统化专题/01 概念辨析/A04 AI 不能伪造的信号.md",
+   "publish": true,
+   "links": 8
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0425 信号理论系统化专题/01 概念辨析/A05 依赖 UGC 信号的产品的设计挑战.md",
+   "publish": true,
+   "links": 9
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0425 信号理论系统化专题/01 概念辨析/A06 信号与验证的关系.md",
+   "publish": true,
+   "links": 8
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0425 信号理论系统化专题/02 代际演化/G01 信号-验证机制代际谱系总图.md",
+   "publish": true,
+   "links": 5
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0425 信号理论系统化专题/02 代际演化/G02 信号机制代际演化详解.md",
+   "publish": true,
+   "links": 8
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0425 信号理论系统化专题/03 架构剖面/S01 信号系统分层剖面.md",
+   "publish": true,
+   "links": 5
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0425 信号理论系统化专题/03 架构剖面/S02 信号类型对照矩阵.md",
+   "publish": true,
+   "links": 6
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0425 信号理论系统化专题/03 架构剖面/S03 AI 时代信号生态全景.md",
+   "publish": true,
+   "links": 10
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0425 信号理论系统化专题/04 实例剖解/E01 招聘与简历筛选信号坍缩剖解.md",
+   "publish": true,
+   "links": 6
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0425 信号理论系统化专题/04 实例剖解/E02 内容平台与学术评审信号坍缩剖解.md",
+   "publish": true,
+   "links": 9
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0425 信号理论系统化专题/04 实例剖解/E03 Rick 个人 AI-proof 求职信号设计剖解.md",
+   "publish": true,
+   "links": 11
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0425 信号理论系统化专题/05 复现指南/R01 评估一个信号的 AI-可伪造性.md",
+   "publish": true,
+   "links": 12
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0425 信号理论系统化专题/05 复现指南/R02 设计一个抗 AI 的产品信号机制.md",
+   "publish": true,
+   "links": 7
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0425 信号理论系统化专题/05 复现指南/R03 构建个人 AI-proof 求职信号组合.md",
+   "publish": true,
+   "links": 11
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0425 信号理论系统化专题/06 阅读指南/README·0425·多视图阅读指南.md",
+   "publish": true,
+   "links": 27
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0426 认知科学系统化专题/_认知科学系统化专题·总览.md",
+   "publish": true,
+   "links": 31
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0426 认知科学系统化专题/01 概念辨析/A01 认知科学与 AI 交互概念谱系.md",
+   "publish": true,
+   "links": 9
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0426 认知科学系统化专题/01 概念辨析/A02 双系统理论与 AI 接受.md",
+   "publish": true,
+   "links": 11
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0426 认知科学系统化专题/01 概念辨析/A03 认知负荷理论与 AI 信息呈现.md",
+   "publish": true,
+   "links": 9
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0426 认知科学系统化专题/01 概念辨析/A04 心智模型形成·概率系统 vs 确定系统.md",
+   "publish": true,
+   "links": 8
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0426 认知科学系统化专题/01 概念辨析/A05 锚定效应与 AI 输出.md",
+   "publish": true,
+   "links": 8
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0426 认知科学系统化专题/01 概念辨析/A06 自动化偏见与学习性无助.md",
+   "publish": true,
+   "links": 8
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0426 认知科学系统化专题/02 代际演化/G01 HCI 认知范式代际谱系总图.md",
+   "publish": true,
+   "links": 12
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0426 认知科学系统化专题/02 代际演化/G02 交互认知范式代际演化详解.md",
+   "publish": true,
+   "links": 9
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0426 认知科学系统化专题/03 架构剖面/S01 AI 交互的认知负荷分层剖面.md",
+   "publish": true,
+   "links": 8
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0426 认知科学系统化专题/03 架构剖面/S02 认知偏差 × AI 交互对照矩阵.md",
+   "publish": true,
+   "links": 13
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0426 认知科学系统化专题/03 架构剖面/S03 认知友好 AI 设计全景.md",
+   "publish": true,
+   "links": 16
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0426 认知科学系统化专题/04 实例剖解/E01 对话框交互的认知负荷剖解.md",
+   "publish": true,
+   "links": 8
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0426 认知科学系统化专题/04 实例剖解/E02 Generative UI 与 Artifact 的认知设计剖解.md",
+   "publish": true,
+   "links": 8
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0426 认知科学系统化专题/04 实例剖解/E03 AI 锚定与心智模型失配案例剖解.md",
+   "publish": true,
+   "links": 12
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0426 认知科学系统化专题/05 复现指南/R01 测一个 AI 界面的认知负荷.md",
+   "publish": true,
+   "links": 9
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0426 认知科学系统化专题/05 复现指南/R02 设计降认知负荷的 AI 呈现.md",
+   "publish": true,
+   "links": 8
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0426 认知科学系统化专题/05 复现指南/R03 心智模型校准实验.md",
+   "publish": true,
+   "links": 12
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0426 认知科学系统化专题/06 阅读指南/README·0426·多视图阅读指南.md",
+   "publish": true,
+   "links": 31
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0427 信息检索与知识系统系统化专题/_信息检索与知识系统系统化专题·总览.md",
+   "publish": true,
+   "links": 52
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0427 信息检索与知识系统系统化专题/01 概念辨析/A01 信息检索与知识系统概念谱系.md",
+   "publish": true,
+   "links": 17
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0427 信息检索与知识系统系统化专题/01 概念辨析/A02 检索去向决策·search KG parametric RAG.md",
+   "publish": true,
+   "links": 13
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0427 信息检索与知识系统系统化专题/01 概念辨析/A03 Citation 与 Attribution 产品设计.md",
+   "publish": true,
+   "links": 14
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0427 信息检索与知识系统系统化专题/01 概念辨析/A04 Grounding 与 Hallucination 产品策略.md",
+   "publish": true,
+   "links": 16
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0427 信息检索与知识系统系统化专题/01 概念辨析/A05 知识时效性与更新.md",
+   "publish": true,
+   "links": 13
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0427 信息检索与知识系统系统化专题/01 概念辨析/A06 企业知识管理的 AI 化.md",
+   "publish": true,
+   "links": 13
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0427 信息检索与知识系统系统化专题/02 代际演化/G01 信息检索代际谱系总图.md",
+   "publish": true,
+   "links": 15
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0427 信息检索与知识系统系统化专题/02 代际演化/G02 信息检索代际演化详解.md",
+   "publish": true,
+   "links": 14
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0427 信息检索与知识系统系统化专题/03 架构剖面/S01 知识系统分层剖面.md",
+   "publish": true,
+   "links": 16
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0427 信息检索与知识系统系统化专题/03 架构剖面/S02 检索范式对照矩阵.md",
+   "publish": true,
+   "links": 18
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0427 信息检索与知识系统系统化专题/03 架构剖面/S03 知识产品全景.md",
+   "publish": true,
+   "links": 13
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0427 信息检索与知识系统系统化专题/04 实例剖解/E01 Perplexity 剖解·引用前置模式.md",
+   "publish": true,
+   "links": 13
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0427 信息检索与知识系统系统化专题/04 实例剖解/E02 ChatGPT Search 与 Gemini 剖解.md",
+   "publish": true,
+   "links": 16
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0427 信息检索与知识系统系统化专题/04 实例剖解/E03 企业知识库 AI 化剖解.md",
+   "publish": true,
+   "links": 14
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0427 信息检索与知识系统系统化专题/05 复现指南/R01 建一个带 Citation 的检索问答.md",
+   "publish": true,
+   "links": 13
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0427 信息检索与知识系统系统化专题/05 复现指南/R02 知识时效性更新机制.md",
+   "publish": true,
+   "links": 14
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0427 信息检索与知识系统系统化专题/05 复现指南/R03 Grounding 评估.md",
+   "publish": true,
+   "links": 12
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0427 信息检索与知识系统系统化专题/06 阅读指南/README·0427·多视图阅读指南.md",
+   "publish": true,
+   "links": 34
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0429 计算语言学系统化专题/_计算语言学系统化专题·总览.md",
+   "publish": true,
+   "links": 27
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0429 计算语言学系统化专题/01 概念辨析/A01 计算语言学与 LLM 概念谱系.md",
+   "publish": true,
+   "links": 9
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0429 计算语言学系统化专题/01 概念辨析/A02 语用学与 Prompt 设计.md",
+   "publish": true,
+   "links": 9
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0429 计算语言学系统化专题/01 概念辨析/A03 多语言 Tokenization 效率差异.md",
+   "publish": true,
+   "links": 10
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0429 计算语言学系统化专题/01 概念辨析/A04 翻译≠本地化.md",
+   "publish": true,
+   "links": 9
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0429 计算语言学系统化专题/01 概念辨析/A05 理解与生成的不对称.md",
+   "publish": true,
+   "links": 11
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0429 计算语言学系统化专题/01 概念辨析/A06 语言相对性与 LLM 跨语言偏差.md",
+   "publish": true,
+   "links": 10
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0429 计算语言学系统化专题/02 代际演化/G01 计算语言学与 NLP 代际谱系总图.md",
+   "publish": true,
+   "links": 9
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0429 计算语言学系统化专题/02 代际演化/G02 NLP 代际演化详解.md",
+   "publish": true,
+   "links": 10
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0429 计算语言学系统化专题/03 架构剖面/S01 多语言 LLM 产品分层剖面.md",
+   "publish": true,
+   "links": 9
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0429 计算语言学系统化专题/03 架构剖面/S02 语言学视角 × LLM 现象对照矩阵.md",
+   "publish": true,
+   "links": 11
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0429 计算语言学系统化专题/03 架构剖面/S03 多语言 AI 产品全景.md",
+   "publish": true,
+   "links": 13
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0429 计算语言学系统化专题/04 实例剖解/E01 多语言 Tokenization 成本剖解.md",
+   "publish": true,
+   "links": 8
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0429 计算语言学系统化专题/04 实例剖解/E02 跨文化 Prompt 与本地化剖解.md",
+   "publish": true,
+   "links": 9
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0429 计算语言学系统化专题/04 实例剖解/E03 拉美多语言 AI 产品剖解.md",
+   "publish": true,
+   "links": 11
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0429 计算语言学系统化专题/05 复现指南/R01 测多语言 Tokenization 效率.md",
+   "publish": true,
+   "links": 9
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0429 计算语言学系统化专题/05 复现指南/R02 语用学增强 Prompt 设计.md",
+   "publish": true,
+   "links": 12
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0429 计算语言学系统化专题/05 复现指南/R03 多语言质量评估.md",
+   "publish": true,
+   "links": 10
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0429 计算语言学系统化专题/06 阅读指南/README·0429·多视图阅读指南.md",
+   "publish": true,
+   "links": 23
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0431 AI 认识论中介系统化专题/_AI 认识论中介系统化专题·总览.md",
+   "publish": true,
+   "links": 28
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0431 AI 认识论中介系统化专题/01 概念辨析/A01 AI 作为认识论中介概念谱系.md",
+   "publish": true,
+   "links": 6
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0431 AI 认识论中介系统化专题/01 概念辨析/A02 知识 vs 知识的模拟.md",
+   "publish": true,
+   "links": 9
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0431 AI 认识论中介系统化专题/01 概念辨析/A03 Verification vs Rubber-stamping.md",
+   "publish": true,
+   "links": 6
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0431 AI 认识论中介系统化专题/01 概念辨析/A04 校准与信任的认识论.md",
+   "publish": true,
+   "links": 6
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0431 AI 认识论中介系统化专题/01 概念辨析/A05 默会知识与 AI 的认识论张力.md",
+   "publish": true,
+   "links": 7
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0431 AI 认识论中介系统化专题/01 概念辨析/A06 认识论决定产品设计.md",
+   "publish": true,
+   "links": 6
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0431 AI 认识论中介系统化专题/02 代际演化/G01 知识中介技术代际谱系总图.md",
+   "publish": true,
+   "links": 8
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0431 AI 认识论中介系统化专题/02 代际演化/G02 知识中介代际演化详解.md",
+   "publish": true,
+   "links": 12
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0431 AI 认识论中介系统化专题/03 架构剖面/S01 AI 认识论中介分层剖面.md",
+   "publish": true,
+   "links": 7
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0431 AI 认识论中介系统化专题/03 架构剖面/S02 认识论立场对照矩阵.md",
+   "publish": true,
+   "links": 12
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0431 AI 认识论中介系统化专题/03 架构剖面/S03 认识论友好 AI 全景.md",
+   "publish": true,
+   "links": 7
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0431 AI 认识论中介系统化专题/04 实例剖解/E01 AI 研究助手的认识论剖解.md",
+   "publish": true,
+   "links": 5
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0431 AI 认识论中介系统化专题/04 实例剖解/E02 AI 报告审阅的认识论剖解.md",
+   "publish": true,
+   "links": 5
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0431 AI 认识论中介系统化专题/04 实例剖解/E03 教育与学习 AI 的认识论剖解.md",
+   "publish": true,
+   "links": 8
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0431 AI 认识论中介系统化专题/05 复现指南/R01 评估一个 AI 输出的认识论地位.md",
+   "publish": true,
+   "links": 11
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0431 AI 认识论中介系统化专题/05 复现指南/R02 设计 Verification 而非 Rubber-stamp 的审阅流.md",
+   "publish": true,
+   "links": 5
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0431 AI 认识论中介系统化专题/05 复现指南/R03 Confidence 与 Citation 的认识论设计.md",
+   "publish": true,
+   "links": 10
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0431 AI 认识论中介系统化专题/06 阅读指南/README·0431·多视图阅读指南.md",
+   "publish": true,
+   "links": 29
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0432 AI 产品的时间性系统化专题/_AI 产品的时间性系统化专题·总览.md",
+   "publish": true,
+   "links": 29
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0432 AI 产品的时间性系统化专题/01 概念辨析/A01 AI 产品时间性概念谱系.md",
+   "publish": true,
+   "links": 8
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0432 AI 产品的时间性系统化专题/01 概念辨析/A02 模型更新致行为突变.md",
+   "publish": true,
+   "links": 14
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0432 AI 产品的时间性系统化专题/01 概念辨析/A03 供应商依赖与控制权丧失.md",
+   "publish": true,
+   "links": 11
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0432 AI 产品的时间性系统化专题/01 概念辨析/A04 无 Changelog 的认识论.md",
+   "publish": true,
+   "links": 11
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0432 AI 产品的时间性系统化专题/01 概念辨析/A05 路径依赖与技术锁定.md",
+   "publish": true,
+   "links": 7
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0432 AI 产品的时间性系统化专题/01 概念辨析/A06 滴滴平台政策类比与 AI 的更极端性.md",
+   "publish": true,
+   "links": 10
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0432 AI 产品的时间性系统化专题/02 代际演化/G01 软件时间性代际谱系总图.md",
+   "publish": true,
+   "links": 11
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0432 AI 产品的时间性系统化专题/02 代际演化/G02 软件时间性代际演化详解.md",
+   "publish": true,
+   "links": 9
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0432 AI 产品的时间性系统化专题/03 架构剖面/S01 AI 时间性风险分层剖面.md",
+   "publish": true,
+   "links": 9
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0432 AI 产品的时间性系统化专题/03 架构剖面/S02 时间性风险应对策略对照矩阵.md",
+   "publish": true,
+   "links": 11
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0432 AI 产品的时间性系统化专题/03 架构剖面/S03 AI 供应链时间性全景.md",
+   "publish": true,
+   "links": 11
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0432 AI 产品的时间性系统化专题/04 实例剖解/E01 模型弃用与更新致产品突变案例剖解.md",
+   "publish": true,
+   "links": 9
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0432 AI 产品的时间性系统化专题/04 实例剖解/E02 套壳产品的时间性脆弱剖解.md",
+   "publish": true,
+   "links": 9
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0432 AI 产品的时间性系统化专题/04 实例剖解/E03 滴滴平台政策变更 vs AI 模型更新对比剖解.md",
+   "publish": true,
+   "links": 9
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0432 AI 产品的时间性系统化专题/05 复现指南/R01 模型更新回归测试机制.md",
+   "publish": true,
+   "links": 10
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0432 AI 产品的时间性系统化专题/05 复现指南/R02 多模型路由抗供应商锁定.md",
+   "publish": true,
+   "links": 9
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0432 AI 产品的时间性系统化专题/05 复现指南/R03 时间性风险评估.md",
+   "publish": true,
+   "links": 12
+  },
+  {
+   "path": "04T 专题库/F6 人文社科透镜/0432 AI 产品的时间性系统化专题/06 阅读指南/README·0432·多视图阅读指南.md",
+   "publish": true,
+   "links": 30
   }
  ]
 }

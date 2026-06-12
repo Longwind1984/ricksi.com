@@ -3,6 +3,7 @@ title: Claude Opus
 cluster: AI 公司与产品
 created: '2026-05-15'
 updated: '2026-05-16'
+provenance: co
 ---
 
 # [Claude](/kb/ai-公司与产品/claude/) Opus
@@ -18,7 +19,7 @@ updated: '2026-05-16'
 ## 版本与节奏
 - **Claude 3 Opus**（2024.3）：首次在多个学术基准超越 GPT-4，是 Anthropic 进入第一梯队的标志。
 - **Claude Opus 4**（2025）：把 Agentic 能力作为主升级方向，编码 SWE-bench 表现跃升。
-- **Claude Opus 4.5 / 4.6**：迭代 [Function Calling](/kb/ai-基础知识库/function-calling/)、parallel tool use、Memory Tool（[KV Cache](/kb/ai-基础知识库/kv-cache/) / prompt caching 默认开启）。
+- **Claude Opus 4.5 / 4.6**：迭代 [Function Calling](/kb/基础知识库/function-calling/)、parallel tool use、Memory Tool（[KV Cache](/kb/基础知识库/kv-cache/) / prompt caching 默认开启）。
 - **Claude Opus 4.7**（2026.5，当前）：知识截止 2026.1；显著加强对话内压缩（compaction）、agentic loop 中的自纠错与长任务持续运行。
 
 ## 与同档对手对比
@@ -30,7 +31,7 @@ updated: '2026-05-16'
 - **何时用 Opus**：任务一次性失败成本高（重要文档、跨文件重构、决策建议）、需要"模型自己规划多步"、需要安全 / 可解释行为（如带审计要求的输出）。
 - **何时用 Sonnet 而不是 Opus**：日常对话、批量任务、实时 IDE 自动补全、需要并行多 Agent 时（成本权衡）。
 - **何时用 Haiku 而不是 Opus**：分类、提取、路由、便宜的子任务派发。
-- **何时该跨家选型**：见 [m202 - 工程选型决策矩阵](/kb/ai-工程化与落地架构/m202-工程选型决策矩阵/)——单点能力极致时考虑 GPT/Gemini/DeepSeek 互补。
+- **何时该跨家选型**：见 [m202 - 工程选型决策矩阵](/kb/工程化与落地架构/m202-工程选型决策矩阵/)——单点能力极致时考虑 GPT/Gemini/DeepSeek 互补。
 
 ## 对 Rick 的价值
 - **当前 Claude Code 主体执行模型**：本日志即 Opus 4.7 写就。它的输出风格与 Rick 已建立长期默契：节制、不堆砌、能区分"该写"与"不该写"。
@@ -39,10 +40,9 @@ updated: '2026-05-16'
 ## 关联节点
 - 系列：[Claude](/kb/ai-公司与产品/claude/) [Claude Sonnet](/kb/ai-公司与产品/claude-sonnet/) [Claude Code](/kb/ai-公司与产品/claude-code/)
 - 公司：[Anthropic](/kb/ai-公司与产品/anthropic/)
-- 能力：[Agent](/kb/ai-基础知识库/agent/) [Function Calling](/kb/ai-基础知识库/function-calling/) [KV Cache](/kb/ai-基础知识库/kv-cache/) [c11 - System 2 思维与 Test-Time Compute](/kb/ai-基础知识库/c11-system-2-思维与-test-time-compute/)
-- 选型框架：[m202 - 工程选型决策矩阵](/kb/ai-工程化与落地架构/m202-工程选型决策矩阵/) [m209 - 推理成本控制手册](/kb/ai-工程化与落地架构/m209-推理成本控制手册/)
+- 能力：[Agent](/kb/基础知识库/agent/) [Function Calling](/kb/基础知识库/function-calling/) [KV Cache](/kb/基础知识库/kv-cache/) [c11 - System 2 思维与 Test-Time Compute](/kb/基础知识库/c11-system-2-思维与-test-time-compute/)
+- 选型框架：[m202 - 工程选型决策矩阵](/kb/工程化与落地架构/m202-工程选型决策矩阵/) [m209 - 推理成本控制手册](/kb/工程化与落地架构/m209-推理成本控制手册/)
 - 对照产品：[ChatGPT](/kb/ai-公司与产品/chatgpt/) [Gemini](/kb/ai-公司与产品/gemini/) [DeepSeek](/kb/ai-公司与产品/deepseek/)
 
 ## 来源 / 证据池
 - 公开来源：Anthropic Model Card、定价页、Claude Code release notes
-- （待补充：从 Cubox 反链汇集的具体证据）

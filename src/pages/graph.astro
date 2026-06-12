@@ -28,13 +28,17 @@ const updated = graph ? stamp(graph.generated_at) : null;
           </div>
         </div>
 
-        <!-- 缩放控件 -->
+        <!-- 缩放控件 + 2D/3D 切换 -->
         <div class="gx-zoom">
+          <button class="gx-zbtn gx-mode" id="gx-mode" aria-label="切换 2D / 3D 视图" aria-pressed="false">3D</button>
           <button class="gx-zbtn" id="gx-zoom-in" aria-label="放大">+</button>
           <button class="gx-zbtn" id="gx-zoom-out" aria-label="缩小">−</button>
           <button class="gx-zbtn" id="gx-fit" aria-label="适配视图">◌</button>
           <button class="gx-zbtn" id="gx-reset" aria-label="重置">↺</button>
         </div>
+
+        <!-- 3D 引擎加载提示（chunk ~1MB，慢网可感知） -->
+        <div class="gx-loading mono" id="gx-loading" hidden>正在加载 3D 引擎…</div>
 
         <!-- 节点信息面板（桌面右侧浮卡 / 移动端底部 sheet） -->
         <aside class="gx-panel" id="gx-panel" hidden>
@@ -42,13 +46,13 @@ const updated = graph ? stamp(graph.generated_at) : null;
           <div class="gx-panel-title" id="gx-p-title"></div>
           <div class="gx-panel-meta mono" id="gx-p-meta"></div>
           <div class="gx-panel-actions">
-            <a class="btn-accent gx-open" id="gx-p-open" href="#">打开笔记</a>
+            <a class="btn-accent gx-open" id="gx-p-open" href="/kb/">打开笔记</a>
             <button class="proj-expand" id="gx-p-focus">以此为中心</button>
             <button class="gx-close" id="gx-p-close" aria-label="关闭">✕</button>
           </div>
         </aside>
 
-        <div class="mono graph-stamp">{graph.stats.notes} 篇 · {graph.stats.links} 双链 · 更新于 {updated} · 拖拽节点 / 滚轮与双指缩放 / 点击节点看详情</div>
+        <div class="mono graph-stamp"><span id="gx-stamp">{graph.stats.notes} 篇 · {graph.stats.links} 双链 · 点击节点看详情</span> · 更新于 {updated}</div>
       </>
     ) : (
       <div class="container sub-main">

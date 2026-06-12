@@ -40,6 +40,14 @@ const clusterName = note.data.cluster;
 const clientData = subgraph
   ? JSON.stringify({ graph: subgraph, focus: note.id, mode: 'mini' }).replace(/</g, '\\u003c')
   : null;
+/* 来源三档徽章（sync-vault 写入 front-matter） */
+const PROV: Record<string, [string, string]> = {
+  ai: ['ai', 'AI 整理'],
+  co: ['co', '共创'],
+  dictated: ['co', '口述整理'],
+};
+const prov = PROV[(note.data as any).provenance as string] ?? null;
+const facet = (note.data as any).facet as string | undefined;
 ---
 
 <Glass
@@ -47,7 +55,9 @@ const clientData = subgraph
   description={`知识库笔记：${note.data.title}（${clusterName}）`}
   active="knowledge"
   ogImage={`/og/kb/${note.id}.png`}
+  reader
 >
+  <div class="read-progress" id="read-progress"></div>
   <main class="sub-main">
     <div class="container article-container">
       <article class="sec article">
@@ -61,6 +71,12 @@ const clientData = subgraph
           {note.data.created && <span>创建 {note.data.created.toISOString().slice(0, 10)}</span>}
           {note.data.updated && <span>更新 {note.data.updated.toISOString().slice(0, 10)}</span>}
           {me && <span>{me.deg} 条双链</span>}
+          {facet && <span>{facet} 专题</span>}
+          {prov && (
+            <a class:list={['prov-badge', prov[0]]} href="/blog/how-the-knowledge-base-is-built/" title="这个库是怎么来的 →">
+              {prov[1]}
+            </a>
+          )}
         </div>
         <div class="prose">
           <Content />

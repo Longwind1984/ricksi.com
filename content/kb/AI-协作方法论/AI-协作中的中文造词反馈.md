@@ -3,6 +3,7 @@ title: AI 协作中的中文造词反馈
 cluster: AI 协作方法论
 created: '2026-05-16'
 updated: '2026-05-18'
+provenance: co
 ---
 # AI 协作中的中文造词反馈
 
@@ -26,5 +27,3 @@ updated: '2026-05-18'
 - CLAUDE
 - [Claude Code](/kb/ai-公司与产品/claude-code/)
 
-## 衍生对话存档
-- 来源对话
