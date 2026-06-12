@@ -1,0 +1,25 @@
+<!-- @dsCard group="Brand" viewport="700x250" name="Hero · 雪山主视觉" subtitle="One photo carries the whole site — fixed, darkened, credited" -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; padding: 18px 22px; }
+  .frame { position: relative; border-radius: var(--r-card); overflow: hidden; border: 1px solid var(--glass-border-strong); }
+  .frame img { display: block; width: 100%; height: 178px; object-fit: cover; object-position: center 32%; }
+  .frame::after { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 76% -4%, rgba(255,216,150,0.20), transparent 40%), linear-gradient(180deg, rgba(10,16,40,0.10) 0%, rgba(10,18,48,0.32) 50%, rgba(5,9,28,0.62) 100%); }
+  .credit { position: absolute; right: 12px; bottom: 8px; z-index: 1; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.14em; color: rgba(255,255,255,0.6); }
+  .name { font-family: var(--font-mono); font-size: 10px; color: var(--text-faint); margin-top: 9px; line-height: 1.7; }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="frame">
+    <img src="../assets/hero-2200.jpg" alt="云海之上的雪山，无人机自摄" />
+    <span class="credit">云海之上 · 无人机自摄</span>
+  </div>
+  <div class="name">assets/hero-2200.jpg · body::before fixed, center 32% / cover · 压暗 v2：10%→32%→62%（提亮）+ 右上太阳金晕 radial · 全站唯一背景图 · 摄影必须署名</div>
+</div>
+</body>
+</html>

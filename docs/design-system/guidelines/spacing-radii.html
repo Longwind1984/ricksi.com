@@ -1,0 +1,27 @@
+<!-- @dsCard group="Spacing" viewport="700x200" name="Radii · 同心圆角" subtitle="HIG concentric: inner = parent − padding; capsules always 999px" -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; padding: 20px 24px; }
+  .row { display: flex; gap: 16px; align-items: flex-end; }
+  .r { background: rgba(255,255,255,0.09); border: 1px solid var(--glass-border-strong); display: flex; align-items: flex-end; padding: 8px 10px; }
+  .lab { font-family: var(--font-mono); font-size: 9.5px; color: rgba(255,255,255,0.85); }
+  .name { font-family: var(--font-mono); font-size: 10px; color: var(--text-faint); margin-top: 7px; }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="row">
+    <div><div class="r" style="width: 130px; height: 110px; border-radius: var(--r-sec);"><span class="lab">28</span></div><div class="name">--r-sec 区块</div></div>
+    <div><div class="r" style="width: 110px; height: 96px; border-radius: var(--r-hero);"><span class="lab">26</span></div><div class="name">--r-hero 目录卡</div></div>
+    <div><div class="r" style="width: 96px; height: 84px; border-radius: var(--r-panel);"><span class="lab">20</span></div><div class="name">--r-panel 浮层</div></div>
+    <div><div class="r" style="width: 84px; height: 72px; border-radius: var(--r-card);"><span class="lab">16</span></div><div class="name">--r-card 媒体卡</div></div>
+    <div><div class="r" style="width: 72px; height: 60px; border-radius: var(--r-input);"><span class="lab">12</span></div><div class="name">--r-input 小面</div></div>
+    <div><div class="r" style="width: 120px; height: 40px; border-radius: 999px; align-items: center;"><span class="lab">999 胶囊</span></div><div class="name">--r-pill 恒定</div></div>
+  </div>
+</div>
+</body>
+</html>

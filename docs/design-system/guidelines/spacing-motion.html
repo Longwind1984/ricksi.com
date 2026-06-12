@@ -1,0 +1,24 @@
+<!-- @dsCard group="Spacing" viewport="700x170" name="Motion · 液态弹簧" subtitle="cubic-bezier(.3,1.4,.4,1) — press to feel it; glass energizes with light" -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; padding: 22px 24px; }
+  .row { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+  .name { font-family: var(--font-mono); font-size: 10px; color: var(--text-faint); margin-top: 12px; line-height: 1.7; }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="row">
+    <a class="btn-accent" href="#" onclick="return false">按压充能 →</a>
+    <button class="proj-expand mono">scale 0.95 · 液态回弹</button>
+    <button class="hm-dim mono active">维度 chip</button>
+    <a class="kb-note-chip" href="#" onclick="return false"><span class="kb-note-title">悬停 + 按压</span><span class="mono kb-note-deg">7</span></a>
+  </div>
+  <div class="name">--ease-liquid cubic-bezier(.3, 1.4, .4, 1) · hover = 背景提亮/brightness ↑，never darken<br />press = scale 0.93–0.99 + 亮度充能 · 展开/收起 0.65s grid-rows 液态过渡 · reduced-motion 全部关闭</div>
+</div>
+</body>
+</html>

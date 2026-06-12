@@ -1,0 +1,58 @@
+/* ============================================================
+   字体加载 · 组合壹(自托管加固版)
+   策略:
+   - 拉丁 = 本地 MiSans Latin VF(全字重,瞬时加载)
+   - CJK  = CDN 按需子集(主力,快)+ 本地 MiSans L3 离线兜底
+   - Mono = 本地 Geist Mono VF(全字重)· JetBrains Mono 回退
+   - 阅读点缀 = 霞鹜文楷(CDN;体积大,不自托管)
+   ============================================================ */
+
+/* MiSans CJK · CDN 按需子集化,4 字重(主力) */
+@import url('https://cdn.jsdelivr.net/npm/misans@4.1.0/lib/Normal/MiSans-Regular.min.css');
+@import url('https://cdn.jsdelivr.net/npm/misans@4.1.0/lib/Normal/MiSans-Medium.min.css');
+@import url('https://cdn.jsdelivr.net/npm/misans@4.1.0/lib/Normal/MiSans-Semibold.min.css');
+@import url('https://cdn.jsdelivr.net/npm/misans@4.1.0/lib/Normal/MiSans-Bold.min.css');
+
+/* 霞鹜文楷 · 仅阅读场景(书摘/划线/引文) */
+@import url('https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/style.css');
+
+/* MiSans Latin VF · 本地,拉丁范围全字重 —— 声明在 @import 之后,
+   同 family 同区间时后声明者优先,拉丁字符走本地 */
+@font-face {
+  font-family: 'MiSans';
+  src: url('../assets/fonts/MiSansLatinVF.ttf') format('truetype-variations');
+  font-weight: 100 900;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+2000-206F, U+2070-209F, U+20A0-20CF, U+2100-218F, U+2190-21BB;
+}
+
+/* MiSans L3 · 本地完整 CJK 字库(60,340 字形,Regular 静态)——
+   离线/CDN 失效时的兜底,栈序排在 'MiSans' 之后 */
+@font-face {
+  font-family: 'MiSans L3';
+  src: url('../assets/fonts/MiSansL3-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-display: swap;
+}
+
+/* Geist Mono · 本地静态 4 字重(OFL,assets/fonts/OFL-Geist.txt) */
+@font-face { font-family: 'Geist Mono'; src: url('../assets/fonts/GeistMono-Regular.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Geist Mono'; src: url('../assets/fonts/GeistMono-Medium.woff2') format('woff2'); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Geist Mono'; src: url('../assets/fonts/GeistMono-SemiBold.woff2') format('woff2'); font-weight: 600; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Geist Mono'; src: url('../assets/fonts/GeistMono-Bold.woff2') format('woff2'); font-weight: 700; font-style: normal; font-display: swap; }
+
+/* JetBrains Mono 400/700 · 自托管回退 */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../assets/fonts/jetbrains-mono-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('../assets/fonts/jetbrains-mono-700.woff2') format('woff2');
+}

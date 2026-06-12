@@ -1,0 +1,48 @@
+<!-- @dsCard group="Components" viewport="700x300" name="Core · Button / Badge / Search" subtitle="Tinted & ghost capsules, honesty badges, glass search" -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="../../styles.css" />
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+  body { margin: 0; padding: 24px 28px; }
+  .specimen-grid { display: grid; gap: 18px; }
+  .specimen-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+</style>
+</head>
+<body>
+<div class="page" id="root"></div>
+<script type="text/babel">
+const { Button, Badge, SearchInput } = window.RickSiLiquidGlassDesignSystem_d0ba20;
+function Demo() {
+  const [q, setQ] = React.useState('');
+  return (
+    <div className="specimen-grid">
+      <div className="specimen-row">
+        <Button>下载简历</Button>
+        <Button size="big">下载简历 PDF</Button>
+        <Button variant="ghost">展开全部 5 个项目 ↓</Button>
+      </div>
+      <div className="specimen-row">
+        <Badge>多智能体</Badge>
+        <Badge>对抗审计</Badge>
+        <Badge>Case Study</Badge>
+        <Badge variant="sample" />
+        <Badge variant="prov-co">共创</Badge>
+        <Badge variant="prov-ai">AI 整理</Badge>
+        <Badge variant="wip" />
+      </div>
+      <div className="specimen-row" style={{ maxWidth: 360 }}>
+        <SearchInput placeholder="搜索 141 篇笔记…" hint="⌘K" value={q} onChange={(e) => setQ(e.target.value)} />
+      </div>
+    </div>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
+</script>
+</body>
+</html>

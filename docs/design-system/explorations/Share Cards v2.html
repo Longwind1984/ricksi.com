@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>分享卡片 v2 · 玻璃明信片家族 · 六变体</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/misans@4.1.0/lib/Normal/MiSans-Regular.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/misans@4.1.0/lib/Normal/MiSans-Medium.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/misans@4.1.0/lib/Normal/MiSans-Semibold.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/misans@4.1.0/lib/Normal/MiSans-Bold.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/style.css" />
+<style>
+  @font-face { font-family: 'Geist Mono'; src: url('../assets/fonts/GeistMono-Regular.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+  @font-face { font-family: 'Geist Mono'; src: url('../assets/fonts/GeistMono-Medium.woff2') format('woff2'); font-weight: 500; font-display: swap; }
+  @font-face { font-family: 'Geist Mono'; src: url('../assets/fonts/GeistMono-SemiBold.woff2') format('woff2'); font-weight: 600; font-display: swap; }
+
+  body { margin: 0; background: #0D1014; color: #E8EDF5; }
+  .canvas { padding: 44px 52px 90px; width: max-content; min-width: 100%; box-sizing: border-box; font-family: 'MiSans', -apple-system, 'PingFang SC', sans-serif; }
+  .mono { font-family: 'Geist Mono', 'JetBrains Mono', monospace; }
+  .head-kicker { font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.18em; color: oklch(0.72 0.15 263); margin-bottom: 10px; }
+  .sec-label { font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.14em; color: rgba(232,237,245,0.45); margin: 0 0 14px; }
+  .row { display: flex; gap: 30px; align-items: flex-start; margin-bottom: 60px; }
+  .col { display: flex; flex-direction: column; gap: 8px; width: 360px; flex-shrink: 0; }
+  .card-tag { font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.1em; color: rgba(232,237,245,0.4); }
+  .card-tag b { color: oklch(0.85 0.13 86); font-weight: 500; }
+
+  .card { width: 360px; height: 640px; border-radius: 26px; overflow: hidden; position: relative; flex-shrink: 0; box-shadow: 0 24px 70px rgba(0,0,0,0.5); display: flex; flex-direction: column; box-sizing: border-box; background-image: url('../assets/hero-2200.jpg'); background-size: cover; }
+
+  .verdict { font-size: 12px; line-height: 1.85; color: rgba(232,237,245,0.6); padding-top: 10px; }
+  .verdict b { color: #FFF; font-weight: 600; }
+
+  .pv { font-family: 'Geist Mono', monospace; font-size: 9.5px; letter-spacing: 0.06em; border-radius: 999px; padding: 3px 10px; white-space: nowrap; }
+  .pv.ai { color: oklch(0.78 0.11 295); border: 1px solid oklch(0.78 0.11 295 / 0.5); }
+  .pv.human { color: oklch(0.84 0.11 86); border: 1px solid oklch(0.84 0.11 86 / 0.5); }
+  .qr { width: 64px; height: 64px; background: #FFF; border-radius: 12px; padding: 7px; box-sizing: border-box; flex-shrink: 0; }
+  .qr-in { width: 100%; height: 100%; position: relative; background-image: repeating-linear-gradient(0deg, #0A1230 0 3px, transparent 3px 6px), repeating-linear-gradient(90deg, #0A1230 0 3px, transparent 3px 6px); opacity: 0.85; }
+  .qr-in::before, .qr-in::after, .qr-in i { content: ""; position: absolute; width: 13px; height: 13px; background: #FFF; border: 3.5px solid #0A1230; box-sizing: border-box; }
+  .qr-in::before { top: 0; left: 0; }
+  .qr-in::after { top: 0; right: 0; }
+  .qr-in i { bottom: 0; left: 0; display: block; }
+  .brand { font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.16em; color: rgba(255,255,255,0.85); text-shadow: 0 1px 8px rgba(4,10,32,0.6); }
+  .kick { font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.18em; color: oklch(0.85 0.13 86); }
+  .url-b { font-family: 'Geist Mono', monospace; font-size: 11.5px; color: #FFF; font-weight: 500; }
+  .url-s { font-family: 'Geist Mono', monospace; font-size: 10px; color: rgba(225,236,255,0.7); line-height: 1.7; }
+  .credit { font-family: 'Geist Mono', monospace; font-size: 8.5px; letter-spacing: 0.08em; color: rgba(255,255,255,0.4); text-shadow: 0 1px 6px rgba(4,10,32,0.6); }
+  .chip { font-family: 'Geist Mono', monospace; font-size: 9.5px; color: rgba(225,236,255,0.78); border: 1px solid rgba(190,210,255,0.22); background: rgba(190,210,255,0.09); backdrop-filter: blur(8px); border-radius: 999px; padding: 3px 10px; }
+  .dot { width: 7px; height: 7px; border-radius: 99px; display: inline-block; }
+
+  /* ========= V0 原案(对照) ========= */
+  .v0 { background-position: 30% 26%; }
+  .v0::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 78% -6%, rgba(255,216,150,0.22), transparent 38%), linear-gradient(180deg, rgba(10,16,40,0.14) 0%, rgba(10,18,48,0.34) 48%, rgba(5,9,28,0.68) 100%); }
+  .v0-body { position: relative; margin: auto 16px 16px; border-radius: 20px; background: linear-gradient(160deg, rgba(56,88,180,0.34), rgba(22,38,96,0.40)); backdrop-filter: blur(22px) saturate(185%); border: 1px solid rgba(180,204,255,0.26); box-shadow: inset 0 1px 0 rgba(220,232,255,0.30), 0 16px 44px rgba(2,8,28,0.42); padding: 20px 20px 16px; }
+
+  /* ========= V1 舷窗 PORTHOLE ========= */
+  .v1 { background-position: 42% 22%; }
+  .v1-frost { position: absolute; inset: 0; backdrop-filter: blur(26px) saturate(170%) brightness(0.82); -webkit-backdrop-filter: blur(26px) saturate(170%) brightness(0.82); background: linear-gradient(180deg, rgba(14,24,60,0.30), rgba(8,14,40,0.52)); -webkit-mask: radial-gradient(circle 124px at 50% 27%, transparent 99%, #000 100%); mask: radial-gradient(circle 124px at 50% 27%, transparent 99%, #000 100%); }
+  .v1-ring { position: absolute; left: 50%; top: 27%; width: 248px; height: 248px; transform: translate(-50%, -50%); border-radius: 999px; border: 1.5px solid rgba(255,222,160,0.55); box-shadow: 0 0 0 7px rgba(190,210,255,0.10), inset 0 1px 0 rgba(255,255,255,0.35), 0 14px 50px rgba(2,8,28,0.5), inset 0 -10px 24px rgba(255,216,150,0.12); }
+  .v1-ring::after { content: ""; position: absolute; inset: -16px; border-radius: 999px; border: 1px dashed rgba(190,210,255,0.22); }
+
+  /* ========= V2 明信片背面 POSTAL ========= */
+  .v2 { background: #EFEAE0; }
+  .v2 .stamp { position: absolute; top: 22px; right: 22px; width: 92px; padding: 6px; background: #FFF; background-image: radial-gradient(circle 4px at 0 50%, #EFEAE0 98%, transparent), radial-gradient(circle 4px at 100% 50%, #EFEAE0 98%, transparent), radial-gradient(circle 4px at 50% 0, #EFEAE0 98%, transparent), radial-gradient(circle 4px at 50% 100%, #EFEAE0 98%, transparent); background-size: 11px 11px, 11px 11px, 11px 11px, 11px 11px; background-position: left top, right top, top left, bottom left; background-repeat: repeat-y, repeat-y, repeat-x, repeat-x; box-shadow: 0 3px 12px rgba(20,28,60,0.18); transform: rotate(2.5deg); box-sizing: border-box; }
+  .v2 .stamp img { display: block; width: 100%; height: 104px; object-fit: cover; object-position: 40% 25%; }
+  .v2 .stamp .sv { font-family: 'Geist Mono', monospace; font-size: 7px; letter-spacing: 0.06em; color: #2A3658; text-align: center; padding-top: 4px; }
+  .v2 .postmark { position: absolute; top: 44px; right: 96px; width: 104px; height: 104px; border: 1.5px solid rgba(42,54,88,0.5); border-radius: 999px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; transform: rotate(-8deg); }
+  .v2 .postmark .pm1 { font-family: 'Geist Mono', monospace; font-size: 7.5px; letter-spacing: 0.14em; color: rgba(42,54,88,0.65); }
+  .v2 .postmark .pm2 { font-family: 'Geist Mono', monospace; font-size: 11px; font-weight: 600; color: rgba(42,54,88,0.75); }
+  .v2 .waves { position: absolute; top: 86px; right: 38px; width: 52px; transform: rotate(-8deg); }
+  .v2-ink { color: #1C2747; }
+
+  /* ========= V3 冰芯样本 CORE SAMPLE ========= */
+  .v3 { background: #0A1230; background-image: none; display: flex; flex-direction: row; }
+  .v3-strip { width: 124px; flex-shrink: 0; position: relative; background-image: url('../assets/hero-2200.jpg'); background-size: 520px auto; background-position: 38% 20%; }
+  .v3-strip::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(255,216,150,0.14), transparent 22%, transparent 55%, rgba(5,9,28,0.55)); }
+  .v3-depth { position: absolute; left: 10px; top: 0; bottom: 0; width: 1px; background: rgba(255,255,255,0.35); }
+  .v3-tick { position: absolute; left: 10px; width: 7px; height: 1px; background: rgba(255,255,255,0.5); }
+  .v3-tick span { position: absolute; left: 11px; top: -6px; font-family: 'Geist Mono', monospace; font-size: 7.5px; color: rgba(255,255,255,0.65); text-shadow: 0 1px 4px rgba(4,10,32,0.8); white-space: nowrap; }
+  .v3-main { flex: 1; display: flex; flex-direction: column; padding: 22px 20px 18px; box-sizing: border-box; border-left: 1px solid rgba(180,204,255,0.2); }
+  .v3-stratum { border-bottom: 1px solid rgba(190,210,255,0.10); padding: 11px 0; }
+  .v3-stratum .sk { font-family: 'Geist Mono', monospace; font-size: 8px; letter-spacing: 0.12em; color: rgba(210,226,255,0.45); margin-bottom: 4px; }
+  .v3-stratum .sv2 { font-size: 12px; line-height: 1.65; color: rgba(238,243,252,0.88); }
+
+  /* ========= V4 三折屏风 TRIPTYCH ========= */
+  .v4 { background-position: center 24%; }
+  .v4::before { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10,16,40,0.10), rgba(5,9,28,0.50) 88%); }
+  .v4-panes { position: absolute; inset: 18px 18px auto; height: 380px; display: flex; gap: 10px; }
+  .v4-pane { flex: 1; border-radius: 18px; border: 1px solid rgba(200,220,255,0.30); box-shadow: inset 0 1px 0 rgba(255,255,255,0.35), 0 14px 40px rgba(2,8,28,0.40); position: relative; overflow: hidden; }
+  .v4-pane.p1 { backdrop-filter: blur(2px) saturate(160%) brightness(1.06); margin-top: 26px; }
+  .v4-pane.p2 { backdrop-filter: blur(10px) saturate(175%); }
+  .v4-pane.p3 { backdrop-filter: blur(22px) saturate(185%) brightness(0.9); margin-top: 26px; background: linear-gradient(160deg, rgba(56,88,180,0.22), rgba(22,38,96,0.28)); }
+  .v4-pane .pl { position: absolute; left: 12px; bottom: 10px; font-family: 'Geist Mono', monospace; font-size: 8px; letter-spacing: 0.1em; color: rgba(255,255,255,0.75); text-shadow: 0 1px 6px rgba(4,10,32,0.7); }
+  .v4-glass { position: relative; margin: auto 16px 16px; border-radius: 20px; background: linear-gradient(160deg, rgba(56,88,180,0.34), rgba(22,38,96,0.42)); backdrop-filter: blur(22px) saturate(185%); border: 1px solid rgba(180,204,255,0.26); box-shadow: inset 0 1px 0 rgba(220,232,255,0.30), 0 16px 44px rgba(2,8,28,0.42); padding: 18px 20px 16px; }
+
+  /* ========= V5 光柱 LIGHT COLUMN ========= */
+  .v5 { background: radial-gradient(ellipse 140% 60% at 50% -10%, #16255A 0%, #0C1535 46%, #070D20 100%); background-image: none; }
+  .v5-col { position: absolute; left: 46px; top: 84px; bottom: 150px; width: 7px; border-radius: 99px; background: linear-gradient(180deg, oklch(0.85 0.13 86) 0%, oklch(0.76 0.13 250) 30%, oklch(0.60 0.18 262) 62%, oklch(0.45 0.14 262) 100%); box-shadow: 0 0 24px oklch(0.85 0.13 86 / 0.35); }
+  .v5-col::before { content: ""; position: absolute; top: -7px; left: 50%; transform: translateX(-50%); width: 17px; height: 17px; border-radius: 99px; background: oklch(0.88 0.12 88); box-shadow: 0 0 28px oklch(0.85 0.13 86 / 0.8), 0 0 70px oklch(0.85 0.13 86 / 0.4); }
+  .v5-stop { position: absolute; left: 72px; right: 24px; display: flex; align-items: baseline; justify-content: space-between; border-bottom: 1px solid rgba(190,210,255,0.10); padding-bottom: 9px; }
+  .v5-stop .n { font-family: 'Geist Mono', monospace; font-size: 19px; font-weight: 600; color: #FFF; font-variant-numeric: tabular-nums; }
+  .v5-stop .k2 { font-size: 11.5px; color: rgba(225,236,255,0.62); }
+  .v5-stop .tick2 { position: absolute; left: -23px; top: 7px; width: 11px; height: 1.5px; background: rgba(220,232,255,0.5); }
+</style>
+</head>
+<body>
+<div class="canvas">
+  <div style="margin-bottom: 40px;">
+    <div class="head-kicker">SHARE CARDS V2 · 玻璃明信片家族</div>
+    <h1 style="font-size: 28px; font-weight: 700; margin: 0 0 8px; letter-spacing: -0.02em; color: #FFF;">方向一深化:原案 + 五个更大胆的变体</h1>
+    <p style="font-size: 13.5px; color: rgba(232,237,245,0.55); margin: 0; max-width: 780px; line-height: 1.8;">同一内容(知识库节点「多智能体编排」)做公平对比,V5 用工作台数据展示数据类分享。全部共享 v2 钴蓝之夜 token。横向滚动。</p>
+  </div>
+
+  <div class="row" data-screen-label="玻璃明信片六变体">
+
+    <!-- ===== V0 原案 ===== -->
+    <div class="col">
+      <div class="card-tag">V0 · 原案(对照)</div>
+      <div class="card v0">
+        <div style="position: relative; padding: 22px 24px 0; display: flex; justify-content: space-between; align-items: center;">
+          <span class="brand">RICK SI · 知识库</span>
+          <span class="chip">NODE</span>
+        </div>
+        <div class="v0-body">
+          <div class="kick" style="margin-bottom: 10px;">节点 · 已沉淀 47 天</div>
+          <h2 style="font-size: 25px; font-weight: 700; line-height: 1.42; letter-spacing: -0.02em; color: #FFF; margin: 0 0 10px; text-shadow: 0 2px 20px rgba(4,10,32,0.5);">多智能体编排:<br />从玩具到工具的分界线</h2>
+          <p style="font-size: 12.5px; line-height: 1.8; color: rgba(230,240,255,0.84); margin: 0 0 14px;">真正的分界不在模型能力,而在「失败可被审计」。</p>
+          <div style="display: flex; gap: 6px; margin-bottom: 14px;">
+            <span class="pv ai">AI 整理</span>
+            <span class="chip"><span class="dot" style="background: oklch(0.78 0.11 240); margin-right: 5px;"></span>智能体系统</span>
+          </div>
+          <div style="display: flex; align-items: center; justify-content: space-between; gap: 14px; border-top: 1px solid rgba(190,210,255,0.16); padding-top: 14px;">
+            <div class="url-s"><span class="url-b">ricksi.com/k/agent-orchestration</span><br />扫码进入图谱 · 看它的 12 个邻居</div>
+            <div class="qr"><div class="qr-in"><i></i></div></div>
+          </div>
+        </div>
+        <div style="position: relative; text-align: right; padding: 0 24px 10px;"><span class="credit">云海之上 · 无人机自摄</span></div>
+      </div>
+      <div class="verdict"><b>对照组。</b>稳,但玻璃面板「压」在风景上,照片只是背景。</div>
+    </div>
+
+    <!-- ===== V1 舷窗 ===== -->
+    <div class="col">
+      <div class="card-tag">V1 · 舷窗 <b>PORTHOLE</b></div>
+      <div class="card v1">
+        <div class="v1-frost"></div>
+        <div class="v1-ring"></div>
+        <div style="position: relative; padding: 22px 24px 0; display: flex; justify-content: space-between; align-items: center;">
+          <span class="brand">RICK SI · 知识库</span>
+          <span class="chip">NODE K-0382</span>
+        </div>
+        <div style="position: relative; margin-top: auto; padding: 0 26px 20px;">
+          <div class="kick" style="margin-bottom: 10px;">透过这扇窗 · 沉淀 47 天</div>
+          <h2 style="font-size: 26px; font-weight: 700; line-height: 1.42; letter-spacing: -0.02em; color: #FFF; margin: 0 0 10px; text-shadow: 0 2px 20px rgba(4,10,32,0.55);">多智能体编排:<br />从玩具到工具的分界线</h2>
+          <p style="font-size: 12.5px; line-height: 1.8; color: rgba(225,238,255,0.82); margin: 0 0 16px;">真正的分界不在模型能力,而在「失败可被审计」——磨砂之外,只留一扇清晰的窗。</p>
+          <div style="display: flex; gap: 6px; margin-bottom: 16px;">
+            <span class="pv ai">AI 整理</span>
+            <span class="chip"><span class="dot" style="background: oklch(0.78 0.11 240); margin-right: 5px;"></span>智能体系统</span>
+          </div>
+          <div style="display: flex; align-items: center; justify-content: space-between; gap: 14px; border-top: 1px solid rgba(190,210,255,0.18); padding-top: 14px;">
+            <div class="url-s"><span class="url-b">ricksi.com/k/agent-orchestration</span><br />扫码 · 推开这扇窗</div>
+            <div class="qr"><div class="qr-in"><i></i></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="verdict"><b>磨砂全卡 + 一扇清晰的圆窗</b>:雪山只从舷窗里看,金圈是窗框,虚线是航迹。玻璃从「面板」升格为「整张卡的材质」,纵深感最强。微信缩略图里圆窗依然可读。</div>
+    </div>
+
+    <!-- ===== V2 明信片背面 ===== -->
+    <div class="col">
+      <div class="card-tag">V2 · 真·明信片 <b>POSTAL BACK</b></div>
+      <div class="card v2" style="background-image: none;">
+        <div class="stamp">
+          <img src="../assets/hero-2200.jpg" alt="雪山邮票" />
+          <div class="sv">RICKSI.COM · 2026</div>
+        </div>
+        <div class="postmark">
+          <span class="pm1">KNOWLEDGE</span>
+          <span class="pm2">06·13</span>
+          <span class="pm1">RICKSI.COM</span>
+        </div>
+        <svg class="waves" viewBox="0 0 52 18"><path d="M1 3 Q 9 0, 17 3 T 33 3 T 51 3 M1 9 Q 9 6, 17 9 T 33 9 T 51 9 M1 15 Q 9 12, 17 15 T 33 15 T 51 15" stroke="rgba(42,54,88,0.45)" fill="none" stroke-width="1.2"/></svg>
+        <div style="position: relative; padding: 150px 26px 0; flex: 1; display: flex; flex-direction: column;">
+          <div class="kick" style="color: oklch(0.55 0.13 70); margin-bottom: 10px;">寄给你一个节点 · 沉淀 47 天</div>
+          <h2 class="v2-ink" style="font-size: 25px; font-weight: 700; line-height: 1.45; letter-spacing: -0.01em; margin: 0 0 14px;">多智能体编排:从玩具到工具的分界线</h2>
+          <p style="font-family: 'LXGW WenKai', serif; font-size: 14.5px; line-height: 2.05; color: #33405F; margin: 0 0 4px;">真正的分界不在模型能力,而在「失败可被审计」——能回放每一步决策的编排,才配进生产环境。</p>
+          <div style="font-family: 'LXGW WenKai', serif; font-size: 13px; color: rgba(51,64,95,0.7); text-align: right; margin-bottom: 12px;">—— 豪杰,于工作台</div>
+          <div style="margin-top: auto; border-top: 1.5px solid rgba(42,54,88,0.25); padding-top: 14px; display: flex; align-items: center; justify-content: space-between; gap: 14px; padding-bottom: 20px;">
+            <div>
+              <div style="font-family: 'Geist Mono', monospace; font-size: 8.5px; letter-spacing: 0.14em; color: rgba(42,54,88,0.5); margin-bottom: 5px;">收件地址 TO</div>
+              <div style="font-family: 'Geist Mono', monospace; font-size: 11.5px; font-weight: 500; color: #1C2747;">ricksi.com/k/agent-orchestration</div>
+              <div style="display: flex; gap: 6px; margin-top: 8px;">
+                <span class="pv" style="color: oklch(0.50 0.13 295); border-color: oklch(0.50 0.13 295 / 0.5);">AI 整理</span>
+                <span class="pv" style="color: rgba(42,54,88,0.6); border: 1px solid rgba(42,54,88,0.3);">邻居 ×12</span>
+              </div>
+            </div>
+            <div class="qr" style="background: #1C2747;"><div class="qr-in" style="background-image: repeating-linear-gradient(0deg, #EFEAE0 0 3px, transparent 3px 6px), repeating-linear-gradient(90deg, #EFEAE0 0 3px, transparent 3px 6px);"></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="verdict"><b>整个家族里唯一的亮色卡</b>:照片缩成右上角的邮票,雪山成了「邮政发行物」;邮戳记日期,文楷手写体是寄语,URL 写在收件地址栏。在一排深色聊天气泡里它会非常显眼。「寄出去」的隐喻和明信片方向最自洽。</div>
+    </div>
+
+    <!-- ===== V3 冰芯样本 ===== -->
+    <div class="col">
+      <div class="card-tag">V3 · 冰芯样本 <b>CORE SAMPLE</b></div>
+      <div class="card v3">
+        <div class="v3-strip">
+          <div class="v3-depth"></div>
+          <div class="v3-tick" style="top: 9%;"><span>DAY 1 · 登记</span></div>
+          <div class="v3-tick" style="top: 34%;"><span>DAY 12 · 第一次引用</span></div>
+          <div class="v3-tick" style="top: 62%;"><span>DAY 33 · 重构</span></div>
+          <div class="v3-tick" style="top: 88%;"><span>DAY 47 · 今天</span></div>
+        </div>
+        <div class="v3-main">
+          <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 16px;">
+            <span class="brand" style="text-shadow: none;">知识切片</span>
+            <span style="font-family: 'Geist Mono', monospace; font-size: 8.5px; color: rgba(210,226,255,0.4);">K-1247-0382</span>
+          </div>
+          <div class="kick" style="margin-bottom: 8px;">钻取深度 · 47 天</div>
+          <h2 style="font-size: 22px; font-weight: 700; line-height: 1.48; letter-spacing: -0.01em; color: #FFF; margin: 0 0 6px;">多智能体编排:从玩具到工具的分界线</h2>
+          <div class="v3-stratum">
+            <div class="sk">表层 · 一句话</div>
+            <div class="sv2">分界不在模型能力,而在「失败可被审计」。</div>
+          </div>
+          <div class="v3-stratum">
+            <div class="sk">中层 · 关联 ×12</div>
+            <div class="sv2" style="display: flex; gap: 5px; flex-wrap: wrap;"><span class="chip" style="backdrop-filter: none;">上下文工程</span><span class="chip" style="backdrop-filter: none;">评测基建</span><span class="chip" style="backdrop-filter: none;">安全护栏</span></div>
+          </div>
+          <div class="v3-stratum" style="border-bottom: none;">
+            <div class="sk">深层 · 来源</div>
+            <div class="sv2"><span class="pv ai">AI 整理</span><span style="font-family: 'Geist Mono', monospace; font-size: 9px; color: rgba(210,226,255,0.45); margin-left: 8px;">3 次人工修订</span></div>
+          </div>
+          <div style="margin-top: auto; border-top: 1px solid rgba(190,210,255,0.16); padding-top: 13px; display: flex; align-items: center; justify-content: space-between; gap: 12px;">
+            <div class="url-s"><span class="url-b" style="font-size: 10.5px;">ricksi.com/k/agent-orchestration</span><br />扫码看完整地层</div>
+            <div class="qr" style="width: 58px; height: 58px;"><div class="qr-in"><i></i></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="verdict"><b>知识 = 沉积层</b>:左侧雪山竖条是「钻取出的冰芯」,深度刻度记录节点的生长史(登记→引用→重构→今天),右侧按表层/中层/深层分层展示。把「养知识库」的时间维度变成了可见的地质学。最适合长期沉淀的老节点。</div>
+    </div>
+
+    <!-- ===== V4 三折屏风 ===== -->
+    <div class="col">
+      <div class="card-tag">V4 · 三折屏风 <b>TRIPTYCH</b></div>
+      <div class="card v4">
+        <div class="v4-panes">
+          <div class="v4-pane p1"><span class="pl">CLEAR · 8</span></div>
+          <div class="v4-pane p2"><span class="pl">REGULAR · 22</span></div>
+          <div class="v4-pane p3"><span class="pl">TINTED</span></div>
+        </div>
+        <div style="position: relative; padding: 22px 24px 0; display: flex; justify-content: space-between; align-items: center; z-index: 2;">
+          <span class="brand">RICK SI · 知识库</span>
+        </div>
+        <div class="v4-glass">
+          <div class="kick" style="margin-bottom: 9px;">同一座山 · 三种看法</div>
+          <h2 style="font-size: 24px; font-weight: 700; line-height: 1.44; letter-spacing: -0.02em; color: #FFF; margin: 0 0 9px; text-shadow: 0 2px 20px rgba(4,10,32,0.5);">多智能体编排:<br />从玩具到工具的分界线</h2>
+          <p style="font-size: 12.5px; line-height: 1.8; color: rgba(230,240,255,0.84); margin: 0 0 12px;">原始论文、我的实测、AI 的整理——三块玻璃,三种透明度。</p>
+          <div style="display: flex; gap: 6px; margin-bottom: 13px;">
+            <span class="pv human">实测</span><span class="pv ai">AI 整理</span>
+          </div>
+          <div style="display: flex; align-items: center; justify-content: space-between; gap: 14px; border-top: 1px solid rgba(190,210,255,0.16); padding-top: 13px;">
+            <div class="url-s"><span class="url-b">ricksi.com/k/agent-orchestration</span><br />扫码看三层全文</div>
+            <div class="qr" style="width: 58px; height: 58px;"><div class="qr-in"><i></i></div></div>
+          </div>
+        </div>
+        <div style="position: relative; text-align: right; padding: 0 24px 10px;"><span class="credit">云海之上 · 无人机自摄</span></div>
+      </div>
+      <div class="verdict"><b>把材质系统变成叙事</b>:三块并立的玻璃 clear→regular→tinted,同一座山三种模糊度——隐喻「原文 / 实测 / AI 整理」三种知识状态。错落的顶端像屏风,也像玻璃样品架。设计系统自我引用最深的一张。</div>
+    </div>
+
+    <!-- ===== V5 光柱(数据卡) ===== -->
+    <div class="col">
+      <div class="card-tag">V5 · 光柱 <b>LIGHT COLUMN</b> · 工作台数据示例</div>
+      <div class="card v5">
+        <div style="position: relative; padding: 22px 24px 0; display: flex; justify-content: space-between; align-items: center;">
+          <span class="brand" style="text-shadow: none;">RICK SI · 工作台</span>
+          <span class="chip" style="backdrop-filter: none;">2026-06-13 · LIVE</span>
+        </div>
+        <div class="v5-col"></div>
+        <div class="v5-stop" style="top: 88px;">
+          <span class="tick2"></span>
+          <span class="n" style="color: oklch(0.88 0.09 88);">1,247,832</span><span class="k2">今日 token</span>
+        </div>
+        <div class="v5-stop" style="top: 162px;">
+          <span class="tick2"></span>
+          <span class="n">38</span><span class="k2">AI 会话</span>
+        </div>
+        <div class="v5-stop" style="top: 236px;">
+          <span class="tick2"></span>
+          <span class="n">17</span><span class="k2">代码提交</span>
+        </div>
+        <div class="v5-stop" style="top: 310px;">
+          <span class="tick2"></span>
+          <span class="n">6</span><span class="k2">新知识节点</span>
+        </div>
+        <div class="v5-stop" style="top: 384px; border-bottom: none;">
+          <span class="tick2"></span>
+          <span class="n" style="font-size: 15px; color: rgba(225,236,255,0.75);">连续 47 天</span><span class="k2">多源活跃</span>
+        </div>
+        <div style="position: absolute; left: 24px; right: 24px; bottom: 18px;">
+          <div class="kick" style="margin-bottom: 8px;">日照刻度 · 越亮越活跃</div>
+          <p style="font-size: 12px; line-height: 1.75; color: rgba(225,236,255,0.7); margin: 0 0 13px;">数据是光——顶端的金,是今天的太阳。口径 v2 公开,数字皆有出处。</p>
+          <div style="display: flex; align-items: center; justify-content: space-between; gap: 14px; border-top: 1px solid rgba(190,210,255,0.14); padding-top: 13px;">
+            <div class="url-s"><span class="url-b">ricksi.com/workbench</span><br />扫码看实时口径<span class="pv" style="margin-left: 6px; color: oklch(0.82 0.12 70); border: 1px dashed oklch(0.82 0.12 70 / 0.55);">样例数据</span></div>
+            <div class="qr" style="width: 58px; height: 58px;"><div class="qr-in"><i></i></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="verdict"><b>数据类分享的专属形态</b>:一根从太阳金渐变到深夜群青的光柱(就是热力图的「雪夜→日出」色谱竖过来),指标挂在刻度上,金色顶点 = 今天。没有照片也成立,纯 token 驱动,导出体积最小。适合工作台/周报型分享。</div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

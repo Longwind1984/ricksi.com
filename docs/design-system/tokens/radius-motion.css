@@ -1,0 +1,40 @@
+/* ============================================================
+   Rick Si · Liquid Glass — Radius, spacing & motion tokens
+   HIG concentric radii: nested radius = parent radius − padding.
+   Capsules are always 999px and never participate in derivation.
+   ============================================================ */
+:root {
+  /* Corner radii */
+  --r-sec: 28px;       /* content glass sections */
+  --r-hero: 26px;      /* hero index card */
+  --r-panel: 20px;     /* floating panels, cmdk */
+  --r-card: 16px;      /* media cards, covers, graph paper */
+  --r-row: 18px;       /* hoverable rows */
+  --r-input: 12px;     /* list items, small surfaces */
+  --r-cover: 8px;      /* book covers */
+  --r-pill: 999px;     /* capsules: nav, buttons, tags, chips */
+
+  /* Layout */
+  --container-max: 1240px;
+  --container-pad: 48px;
+  --sec-pad-y: 44px;
+  --sec-pad-x: 48px;
+  --sec-gap: 28px;          /* vertical rhythm between sections */
+  --nav-offset: 92px;       /* scroll-margin under fixed nav */
+
+  /* Motion — the "liquid" spring is the house easing */
+  --ease-liquid: cubic-bezier(0.3, 1.4, 0.4, 1); /* @kind other */
+  --dur-fast: 0.2s; /* @kind other */
+  --dur-liquid: 0.35s; /* @kind other */
+  --dur-expand: 0.65s; /* @kind other */
+
+  /* Press states: elements scale DOWN and glass brightens (never darkens) */
+  --press-scale: 0.95; /* @kind other */
+  --press-scale-row: 0.99; /* @kind other */
+
+  /* Blur tiers */
+  --blur-nav: 24px;
+  --blur-section: 20px;
+  --blur-panel: 28px;
+  --blur-tip: 12px;
+}

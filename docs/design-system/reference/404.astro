@@ -1,0 +1,28 @@
+---
+import Glass from '../layouts/Glass.astro';
+---
+
+<Glass title="404 · 司豪杰 Rick Si" description="页面不存在" noFooter>
+  <main class="sub-main">
+    <div class="container">
+      <section class="sec err-sec">
+        <div class="mono err-code">404</div>
+        <h1 class="err-title">这条路不通向任何笔记。</h1>
+        <p class="err-sub">链接可能已移动——知识库每天都在重组。试试 <span class="mono">⌘K</span> 搜索，或回到首页。</p>
+        <div class="err-actions">
+          <a href="/" class="btn-accent big">回到首页</a>
+          <a href="/kb/" class="proj-expand mono err-kb">浏览知识库 →</a>
+        </div>
+      </section>
+    </div>
+  </main>
+</Glass>
+
+<style>
+  .err-sec { text-align: center; padding: 90px 48px; }
+  .err-code { font-size: 15px; letter-spacing: 0.4em; color: var(--accent); margin-bottom: 18px; }
+  .err-title { font-size: 38px; font-weight: 700; color: #fff; margin: 0 0 14px; letter-spacing: -0.02em; }
+  .err-sub { color: var(--sub); font-size: 15px; line-height: 1.9; margin: 0 0 34px; }
+  .err-actions { display: flex; gap: 14px; justify-content: center; align-items: center; flex-wrap: wrap; }
+  .err-kb { display: inline-flex; align-items: center; }
+</style>

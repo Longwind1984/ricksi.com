@@ -1,0 +1,524 @@
+---
+import Glass from '../layouts/Glass.astro';
+import { getCollection } from 'astro:content';
+import { PROJECTS } from '../data/projects';
+import ProjRow from '../components/ProjRow.astro';
+import { loadSiteData, stamp } from '../lib/site-data.mjs';
+import { sampleHeatmap, SAMPLE_USAGE, SAMPLE_CODING, SAMPLE_KB_STATS, SAMPLE_POSTS, SAMPLE_DAYS14, SAMPLE_READING } from '../lib/sample.js';
+import TrendChart from '../components/TrendChart.astro';
+
+const { activity, usage, graph, reading: readingData } = loadSiteData();
+
+/* ---- 阅读（微信读书；无数据回退样例） ---- */
+const reading = readingData ?? SAMPLE_READING;
+const readingStamp = readingData ? stamp(readingData.generated_at) : null;
+const aiTopics = (reading as any).aiTopics ?? [];
+const highlights = (reading as any).highlights ?? [];
+/* AI 共创书字排封面的话题色 */
+const TOPIC_GRADS: Record<string, string> = {
+  memory: 'linear-gradient(155deg,#3D2E6B 0%,#1A1238 100%)',
+  evals: 'linear-gradient(155deg,#1F5B52 0%,#0C2522 100%)',
+  prompt: 'linear-gradient(155deg,#6B4A1F 0%,#2A1C0C 100%)',
+  agency: 'linear-gradient(155deg,#1F3F6B 0%,#0C1A2E 100%)',
+};
+const RD_GRADS = [
+  'linear-gradient(160deg,#27416B,#0F1D38)',
+  'linear-gradient(160deg,#2E5C50,#10241F)',
+  'linear-gradient(160deg,#6B4A27,#2A1B0E)',
+  'linear-gradient(160deg,#54306B,#1E1030)',
+  'linear-gradient(160deg,#6B2738,#280E15)',
+  'linear-gradient(160deg,#2A5A6B,#0E2228)',
+];
+
+/* ---- 工作台 · token 用量（真实 usage.json 或样例） ---- */
+const u = usage ?? SAMPLE_USAGE;
+const usageStamp = usage ? stamp(usage.generated_at) : null;
+const compact = (n: number) =>
+  n >= 1e9 ? (n / 1e9).toFixed(1) + 'B' : n >= 1e6 ? (n / 1e6).toFixed(1) + 'M' : n >= 1e3 ? Math.round(n / 1e3) + 'K' : String(n);
+
+/* 近 14 日趋势：从 usage.series 派生（实测/估算逐日标记） */
+function days14From(series: Record<string, { total?: number; estimated?: boolean }>) {
+  const out = [];
+  for (let i = 13; i >= 0; i--) {
+    const dt = new Date();
+    dt.setDate(dt.getDate() - i);
+    const k = `${dt.getFullYear()}-${String(dt.getMonth() + 1).padStart(2, '0')}-${String(dt.getDate()).padStart(2, '0')}`;
+    const rec = series[k];
+    out.push({
+      label: i === 0 ? '今天' : `${dt.getMonth() + 1}/${dt.getDate()}`,
+      v: Math.round(((rec?.total || 0) / 1e6) * 100) / 100,
+      estimated: !!rec?.estimated,
+    });
+  }
+  return out;
+}
+const days14 = usage?.series ? days14From(usage.series) : SAMPLE_DAYS14;
+
+/* ---- 工作台 · 活动热力图（真实 activity.json 或 seed 5 样例） ---- */
+type Cell = { l: number; d?: string; n?: number; b?: Record<string, number> };
+let heatmapCols: Cell[][];
+if (activity?.weeks) {
+  heatmapCols = activity.weeks;
+} else {
+  heatmapCols = sampleHeatmap(22).map((col) => col.map((l) => ({ l })));
+}
+const coding = activity?.coding ?? SAMPLE_CODING;
+const activityStamp = activity ? stamp(activity.generated_at) : null;
+
+/* ---- 知识图谱统计 ---- */
+const kbStats = graph?.stats
+  ? [
+      [graph.stats.notes.toLocaleString(), '篇笔记'],
+      [graph.stats.links.toLocaleString(), '条双链'],
+      [String(graph.stats.domains), '个主题域'],
+    ]
+  : SAMPLE_KB_STATS;
+
+/* ---- Blog（内容集合，空则回退样例标题） ---- */
+const allPosts = (await getCollection('posts', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+const posts = allPosts.length
+  ? allPosts.slice(0, 3).map((p) => ({
+      date: `${p.data.date.getFullYear()}.${String(p.data.date.getMonth() + 1).padStart(2, '0')}`,
+      title: p.data.title,
+      tag: p.data.tag,
+      href: `/blog/${p.id}/`,
+    }))
+  : SAMPLE_POSTS;
+const postsTotal = allPosts.length;
+
+/* ---- 主页图谱卡：构建期降采样（全图 ~600 节点会拖垮首页 SVG 与内联 JSON）----
+   规则：每域 hub（度数第一）+ deg≥2 的节点，按度数截断到 ~160；边过滤后重算各域 count */
+function downsampleGraph(g: any, cap = 160) {
+  if (!g || g.nodes.length <= cap) return g;
+  const byCluster = new Map<number, any[]>();
+  for (const n of g.nodes) {
+    if (!byCluster.has(n.cluster)) byCluster.set(n.cluster, []);
+    byCluster.get(n.cluster)!.push(n);
+  }
+  const keep = new Set<number>();
+  for (const list of byCluster.values()) {
+    list.sort((a, b) => b.deg - a.deg);
+    keep.add(list[0].id); // 每域至少保留 hub
+  }
+  for (const n of [...g.nodes].sort((a, b) => b.deg - a.deg)) {
+    if (keep.size >= cap) break;
+    if (n.deg >= 2) keep.add(n.id);
+  }
+  const idMap = new Map<number, number>();
+  const nodes = g.nodes
+    .filter((n: any) => keep.has(n.id))
+    .map((n: any, i: number) => {
+      idMap.set(n.id, i);
+      return { ...n, id: i };
+    });
+  const edges = g.edges
+    .filter(([a, b]: number[]) => idMap.has(a) && idMap.has(b))
+    .map(([a, b]: number[]) => [idMap.get(a), idMap.get(b)]);
+  const counts = new Map<number, number>();
+  for (const n of nodes) counts.set(n.cluster, (counts.get(n.cluster) || 0) + 1);
+  return {
+    ...g,
+    nodes,
+    edges,
+    clusters: g.clusters.map((c: any) => ({ ...c, count: counts.get(c.id) || 0 })).filter((c: any) => c.count > 0),
+    downsampled: { from: g.nodes.length, to: nodes.length },
+  };
+}
+const homeGraph = downsampleGraph(graph);
+
+/* ---- 注入客户端的数据（ticker 锚点 / 热力图明细 / 图谱数据） ---- */
+const clientData = JSON.stringify({
+  weeks: activity?.weeks ?? null,
+  graph: homeGraph ?? null,
+}).replace(/</g, '\\u003c');
+
+/* 热力图维度（真实数据才有切换） */
+const hmDims = [
+  ['all', '全部'],
+  ['git', '代码提交'],
+  ['notes', '笔记'],
+  ['ai', 'AI 会话'],
+  ['gh', 'GitHub'],
+];
+
+/* 项目：featured 默认展示，其余收进「展开全部」（src/data/projects.ts 配置） */
+const featured = PROJECTS.filter((p) => p.featured);
+const moreProjects = PROJECTS.filter((p) => !p.featured);
+const numbered = (list: typeof PROJECTS, offset = 0) =>
+  list.map((p, i) => ({ ...p, no: String(i + 1 + offset).padStart(2, '0') }));
+---
+
+<Glass
+  title="司豪杰 Rick Si · AI 产品经理"
+  description="司豪杰 Rick Si — 3 年滴滴国际化治理 PM 转型 AI 产品经理的活数据工作台：项目、实时用量、知识库图谱与写作。"
+  isHome
+  ogImage="/og/home.png"
+  jsonLd={{
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: '司豪杰 Rick Si',
+    url: 'https://ricksi.com',
+    jobTitle: 'AI 产品经理',
+    email: 'rick.si@outlook.com',
+    sameAs: ['https://github.com/Longwind1984'],
+  }}
+>
+  <main id="top">
+    <!-- Hero · 全屏主视觉 -->
+    <section class="hero-photo">
+      <div class="container hero-grid">
+        <div class="hero-text">
+          <div class="mono kicker">AI 时代的思考与足迹</div>
+          <h1 class="hero-title">把产品判断，<br />变成能跑起来的东西。</h1>
+          <p class="hero-sub">
+            我是司豪杰 Rick Si——3 年滴滴出行国际化安全与体验治理产品经理，主导的司机安全产品让安全感知指数提升
+            19pp、历史首次反超 Uber。背包拉美半年后，转型 AI 产品经理：读源码、建工具、写思考、养知识库——这个工作台就是转型的证据。
+          </p>
+        </div>
+        <aside class="hero-index glass">
+          <div class="mono index-label">INDEX · 目录</div>
+          <div class="index-list">
+            <a href="#projects" class="index-item">
+              <span class="index-no">01</span><span class="index-t">项目</span><span class="index-s">What I've built · {PROJECTS.length}</span>
+            </a>
+            <a href="#workbench" class="index-item">
+              <span class="index-no">02</span><span class="index-t">工作台数据</span><span class="index-s">Tokens &amp; activity</span>
+            </a>
+            <a href="#knowledge" class="index-item">
+              <span class="index-no">03</span><span class="index-t">知识库图谱</span><span class="index-s">What I've learned</span>
+            </a>
+            <a href="#blog" class="index-item">
+              <span class="index-no">04</span><span class="index-t">思考与写作</span><span class="index-s">What I've been thinking</span>
+            </a>
+            <a href="#reading" class="index-item">
+              <span class="index-no">05</span><span class="index-t">阅读</span><span class="index-s">What I've been reading</span>
+            </a>
+          </div>
+        </aside>
+      </div>
+      <div class="mono hero-credit">云海之上 · 无人机自摄</div>
+    </section>
+
+    <div class="container">
+      <!-- 01 项目 -->
+      <div class="reveal">
+        <section class="sec" id="projects">
+          <div class="sec-head">
+            <span class="mono sec-no">01</span>
+            <div class="sec-title-row">
+              <h2 class="sec-title">项目</h2>
+              <span class="mono sec-en">PROJECTS · {PROJECTS.length}</span>
+            </div>
+            <span class="sec-desc">每个项目都交代：我的角色、关键决策与结果</span>
+          </div>
+          {numbered(featured).map((p) => <ProjRow {...p} />)}
+          {moreProjects.length > 0 && (
+            <>
+              <div class="proj-extra" id="proj-extra">
+                <div class="proj-extra-inner">
+                  {numbered(moreProjects, featured.length).map((p) => <ProjRow {...p} />)}
+                </div>
+              </div>
+              <div class="proj-expand-row">
+                <button class="proj-expand mono" id="proj-expand" aria-expanded="false" aria-controls="proj-extra" data-total={PROJECTS.length}>
+                  展开全部 {PROJECTS.length} 个项目 ↓
+                </button>
+              </div>
+            </>
+          )}
+        </section>
+      </div>
+
+      <!-- 02 工作台数据 -->
+      <div class="reveal">
+        <section class="sec" id="workbench">
+          <div class="sec-head">
+            <span class="mono sec-no">02</span>
+            <div class="sec-title-row">
+              <h2 class="sec-title">工作台数据</h2>
+              <span class="mono sec-en">WORKBENCH · DAILY</span>
+            </div>
+            <span class="sec-desc">5 月底以来逐日实测；更早部分按公开口径估算并标明</span>
+          </div>
+          <div class="wb-grid">
+            <div class="wb-col">
+              <div class="mono wb-label">今日 TOKEN 用量{!usage && <em class="sample-badge">样例数据</em>}</div>
+              <span class="wb-static-num">{u.today.toLocaleString()}</span>
+              {u.today_out != null && (
+                <div class="mono wb-sub">全口径（含缓存读写 {u.today_cache_share}%）· 其中模型输出 {compact(u.today_out)}</div>
+              )}
+              <div class="wb-stat-row">
+                <div>
+                  <div class="mono stat-k">本周</div>
+                  <div class="stat-v">{u.week}<span class="stat-unit">tokens</span></div>
+                </div>
+                <div>
+                  <div class="mono stat-k">累计</div>
+                  <div class="stat-v">{u.cumulative}<span class="stat-unit">tokens</span></div>
+                  {u.cumulative_code && (
+                    <div class="mono wb-sub">Code 实测+估算 {u.cumulative_code} · 网页端粗估 {u.cumulative_web}</div>
+                  )}
+                </div>
+              </div>
+              <div class="wb-models">
+                {u.models.map(([m, p]) => (
+                  <span class="mono wb-model">{m} <b>{p}%</b></span>
+                ))}
+              </div>
+              {usageStamp && (
+                <div class="mono wb-stamp">
+                  数据更新于 {usageStamp} · 口径 v2：实测 {usage?.method?.real_days ?? '—'} 天
+                  {usage?.method?.estimated_days ? ` + 起用期估算 ${usage.method.estimated_days} 天` : ''}
+                  {' · '}
+                  <a href="https://github.com/Longwind1984/ricksi.com/blob/main/docs/token-estimation.md" target="_blank" rel="noreferrer" class="wb-method-link">估算方法 ↗</a>
+                </div>
+              )}
+            </div>
+            <div class="wb-col">
+              <div class="mono wb-label">近 14 日用量趋势（M TOKENS）{!usage && <em class="sample-badge">样例数据</em>}</div>
+              <TrendChart days={days14} />
+            </div>
+            <div class="wb-col no-border">
+              <div class="mono wb-label">{activity ? '多源活跃 · 近 22 周' : 'CODING 活跃 · 近 22 周'}{!activity && <em class="sample-badge">样例数据</em>}</div>
+              <div class="hm" id="heatmap">
+                {heatmapCols.map((col, w) => (
+                  <div class="hm-col">
+                    {col.map((cell, d) => (
+                      <span
+                        class:list={['hm-cell', `l${cell.l}`, { future: cell.future }]}
+                        data-w={activity ? w : undefined}
+                        data-d={activity ? d : undefined}
+                      ></span>
+                    ))}
+                  </div>
+                ))}
+              </div>
+              {activity && (
+                <div class="hm-dims mono" id="hm-dims">
+                  {hmDims.map(([key, label]) => (
+                    <button class:list={['hm-dim', { active: key === 'all' }]} data-dim={key}>{label}</button>
+                  ))}
+                </div>
+              )}
+              <div class="wb-stat-row">
+                <div>
+                  <div class="mono stat-k">提交</div>
+                  <div class="stat-v">{coding.commits.toLocaleString()}<span class="stat-unit">commits</span></div>
+                </div>
+                <div>
+                  <div class="mono stat-k">连续</div>
+                  <div class="stat-v">{coding.streak}<span class="stat-unit">天</span></div>
+                </div>
+                <div>
+                  <div class="mono stat-k">仓库</div>
+                  <div class="stat-v">{coding.repos}<span class="stat-unit">个</span></div>
+                </div>
+              </div>
+              {activityStamp && <div class="mono wb-stamp">数据更新于 {activityStamp}</div>}
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- 03 知识库图谱 -->
+      <div class="reveal">
+        <section class="sec" id="knowledge">
+          <div class="sec-head">
+            <span class="mono sec-no">03</span>
+            <div class="sec-title-row">
+              <h2 class="sec-title">知识库图谱</h2>
+              <span class="mono sec-en">KNOWLEDGE GRAPH</span>
+            </div>
+            <span class="sec-desc">与 Claude 共建的系统化知识工程——方法公开、来源标注</span>
+          </div>
+          <div class="kg-grid">
+            <div class="kg-paper" id="kg-paper"></div>
+            <div class="kg-side">
+              <div class="kg-stats">
+                {kbStats.map(([v, k]) => (
+                  <div class="kg-stat"><span class="kg-stat-v">{v}</span><span class="kg-stat-k">{k}</span></div>
+                ))}
+              </div>
+              {graph && (
+                <div class="kg-search-row">
+                  <input id="kg-search" class="kg-search mono" type="search" placeholder={`搜索 ${graph.stats.notes} 篇笔记…`} />
+                  <span id="kg-search-hint" class="mono kg-search-hint"></span>
+                </div>
+              )}
+              <div class="kg-legend" id="kg-legend"></div>
+              <p class="kg-note" id="kg-note">
+                {graph
+                  ? '拖拽节点 · 滚轮缩放 · 悬停看邻域 · 点击节点打开笔记。数据来自 Obsidian 库真实双链结构。'
+                  : '悬停主题域可高亮对应节点。样例数据——完整 Obsidian 库较大，部署版按需接入。'}
+              </p>
+              {graph && (
+                <div class="kg-links">
+                  <a class="kg-browse mono" href="/graph">全屏探索图谱 →</a>
+                  <a class="kg-browse mono" href="/kb/">浏览全部笔记 →</a>
+                </div>
+              )}
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- 04 思考与写作 -->
+      <div class="reveal">
+        <section class="sec" id="blog">
+          <div class="sec-head">
+            <span class="mono sec-no">04</span>
+            <div class="sec-title-row">
+              <h2 class="sec-title"><a href="/blog/" class="sec-title-link">思考与写作</a></h2>
+              <span class="mono sec-en">WRITING</span>
+            </div>
+            <span class="sec-desc">做的时候想清楚，写下来才算数</span>
+          </div>
+          <div>
+            {posts.map((p) => (
+              <a href={p.href} class:list={['blog-row', { noop: p.href === '#' }]}>
+                <span class="mono blog-date">{p.date}</span>
+                <span class="blog-title">{p.title}</span>
+                <span class="tag mono">{p.tag}</span>
+                <span class="arrow">→</span>
+              </a>
+            ))}
+          </div>
+          {postsTotal > 0 && (
+            <div class="proj-expand-row">
+              <a class="proj-expand mono blog-all" href="/blog/">查看全部 {postsTotal} 篇 →</a>
+            </div>
+          )}
+        </section>
+      </div>
+
+      <!-- 05 阅读（微信读书） -->
+      <div class="reveal">
+        <section class="sec" id="reading">
+          <div class="sec-head">
+            <span class="mono sec-no">05</span>
+            <div class="sec-title-row">
+              <h2 class="sec-title">阅读</h2>
+              <span class="mono sec-en">READING · WEREAD</span>
+            </div>
+            <span class="sec-desc">真实书架与 AI 共创分区展示，统计来自微信读书官方接口</span>
+          </div>
+
+          <div class="rd-stats">
+            {[
+              ['藏书', reading.stats.total, '本'],
+              ['读完', reading.stats.finished, '本'],
+              ...(reading.stats.readDays ? [['阅读天数', reading.stats.readDays, '天']] : [['在读', reading.stats.reading, '本']]),
+              ...(reading.stats.hours ? [['累计时长', reading.stats.hours, '小时']] : []),
+              ['划线与想法', reading.stats.notes.toLocaleString(), '条'],
+            ].map(([k, v, unit]) => (
+              <div><div class="mono stat-k">{k}</div><div class="stat-v">{v}<span class="stat-unit">{unit}</span></div></div>
+            ))}
+          </div>
+
+          {aiTopics.length > 0 && (
+            <div class="rd-ai">
+              <div class="rd-ai-head">
+                <span class="mono wb-label">AI 共创阅读 · 方法论展示</span>
+                <span class="rd-ai-note">
+                  与 Claude 共写长文 → 转 ePub 导入微信读书 → 在通勤路上精读划线。以下为非出版物的自制书，不计入上方阅读统计。
+                </span>
+              </div>
+              <div class="rd-ai-grid">
+                {aiTopics.map((t: any) => (
+                  <div class="rd-topic">
+                    <div class="rd-topic-head">
+                      <b>{t.topic}</b>
+                      {t.graphFocus && (
+                        <a class="mono rd-topic-link" href={`/graph?focus=${encodeURIComponent(t.graphFocus)}`}>知识图谱 ↗</a>
+                      )}
+                    </div>
+                    <p class="rd-topic-blurb">{t.blurb}</p>
+                    <div class="rd-topic-books">
+                      {t.books.map((b: any) => (
+                        <div class="rd-aibook" title={`《${b.title}》${b.notes ? ` · ${b.notes} 条划线与想法` : ''}`}>
+                          <div class="rd-aibook-cover" style={`background:${TOPIC_GRADS[t.id] ?? TOPIC_GRADS.agency}`}>
+                            <span class="mono rd-aibook-badge">AI 共创</span>
+                            <span class="rd-aibook-title">{b.title}</span>
+                            <span class="mono rd-aibook-author">{b.author || 'with Claude'}</span>
+                          </div>
+                          {b.notes > 0 && <div class="mono rd-aibook-notes">{b.notes} 条划线</div>}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+              {highlights.length > 0 && (
+                <div class="rd-quotes">
+                  <div class="mono wb-label">共创书里的划线</div>
+                  {highlights.map((h: any) => (
+                    <blockquote class="rd-quote">
+                      {h.text}
+                      <cite class="mono rd-quote-from">《{h.from}》</cite>
+                    </blockquote>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+
+          <div class="rd-grid">
+            {reading.current && (
+              <div class="rd-current">
+                <div class="mono wb-label">最近在读</div>
+                <div class="rd-current-card">
+                  {reading.current.cover ? (
+                    <img class="rd-cover rd-cover-lg" src={reading.current.cover} alt={`《${reading.current.title}》封面`} loading="lazy" />
+                  ) : (
+                    <div class="rd-cover rd-cover-lg rd-cover-ph" style={`background:${RD_GRADS[0]}`}>
+                      <span>{reading.current.title.slice(0, 1)}</span>
+                    </div>
+                  )}
+                  <div class="rd-current-info">
+                    <div class="rd-book-title">{reading.current.title}</div>
+                    <div class="rd-book-author mono">{reading.current.author}</div>
+                    <div class="rd-progress">
+                      <div class="rd-progress-bar"><span style={`width:${reading.current.progress}%`}></span></div>
+                      <span class="mono rd-progress-num">{reading.current.progress}%</span>
+                    </div>
+                    {reading.current.notes > 0 && (
+                      <div class="mono rd-book-notes">{reading.current.notes} 条划线与想法</div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            )}
+            <div class="rd-shelf-col">
+              <div class="mono wb-label">书架 · 按最近阅读排序</div>
+              <div class="rd-shelf">
+                {reading.shelf.map((b, i) => (
+                  <div class="rd-book" title={`《${b.title}》${b.author ? ' · ' + b.author : ''}${b.finished ? ' · 已读完' : b.progress ? ` · ${b.progress}%` : ''}`}>
+                    {b.cover ? (
+                      <img class="rd-cover" src={b.cover} alt={`《${b.title}》封面`} loading="lazy" />
+                    ) : (
+                      <div class="rd-cover rd-cover-ph" style={`background:${RD_GRADS[i % RD_GRADS.length]}`}>
+                        <span>{b.title.slice(0, 1)}</span>
+                      </div>
+                    )}
+                    {!b.finished && b.progress > 0 && <div class="rd-mini-bar"><span style={`width:${b.progress}%`}></span></div>}
+                    <div class="rd-book-name">{b.title}</div>
+                  </div>
+                ))}
+              </div>
+              <div class="mono wb-stamp">
+                {readingStamp ? `数据来自微信读书 · 更新于 ${readingStamp}` : '样例书架——接入微信读书后展示真实在读与划线'}
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <script type="application/json" id="site-data" set:html={clientData} />
+  <script>
+    import '../scripts/home.js';
+  </script>
+</Glass>

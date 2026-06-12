@@ -1,0 +1,95 @@
+---
+import Glass from '../layouts/Glass.astro';
+import { loadSiteData, stamp } from '../lib/site-data.mjs';
+
+const { graph } = loadSiteData();
+const clientData = graph ? JSON.stringify({ graph }).replace(/</g, '\\u003c') : null;
+const updated = graph ? stamp(graph.generated_at) : null;
+---
+
+<Glass
+  title="知识图谱 · 司豪杰 Rick Si"
+  description={`全屏知识图谱：${graph?.stats.notes ?? 0} 篇笔记、${graph?.stats.links ?? 0} 条双链、${graph?.stats.domains ?? 0} 个主题域，可缩放探索、点击直达笔记。`}
+  active="knowledge"
+  noFooter
+>
+  <main class="graph-full">
+    {graph ? (
+      <>
+        <div class="graph-stage" id="graph-stage"></div>
+
+        <!-- 顶部控制条 -->
+        <div class="graph-bar">
+          <input id="gx-search" class="kg-search mono" type="search" placeholder={`搜索 ${graph.stats.notes} 篇笔记…`} />
+          <div class="gx-clusters" id="gx-clusters">
+            {graph.clusters.map((c) => (
+              <button class="hm-dim gx-cluster" data-cluster={c.id}>{c.name} · {c.count}</button>
+            ))}
+          </div>
+        </div>
+
+        <!-- 缩放控件 + 2D/3D 切换 + 力学参数 -->
+        <div class="gx-zoom">
+          <button class="gx-zbtn gx-mode" id="gx-mode" aria-label="切换 2D / 3D 视图" aria-pressed="false">3D</button>
+          <button class="gx-zbtn gx-tune" id="gx-tune" aria-label="力学参数" aria-pressed="false" title="力学参数">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="7" x2="20" y2="7"/><circle cx="9" cy="7" r="2.4" fill="rgba(10,20,38,0.9)"/><line x1="4" y1="17" x2="20" y2="17"/><circle cx="15" cy="17" r="2.4" fill="rgba(10,20,38,0.9)"/></svg>
+          </button>
+          <button class="gx-zbtn" id="gx-zoom-in" aria-label="放大">+</button>
+          <button class="gx-zbtn" id="gx-zoom-out" aria-label="缩小">−</button>
+          <button class="gx-zbtn" id="gx-fit" aria-label="适配视图">◌</button>
+          <button class="gx-zbtn" id="gx-reset" aria-label="重置">↺</button>
+        </div>
+
+        <!-- 力学参数面板（Obsidian 式可玩调参；仅 3D 视图） -->
+        <aside class="gx-params" id="gx-params" hidden>
+          <div class="gx-params-head">
+            <span class="mono gx-params-title">力学参数</span>
+            <button class="gx-params-reset mono" id="gx-params-reset" type="button">重置</button>
+            <button class="gx-close" id="gx-params-close" aria-label="关闭" type="button">✕</button>
+          </div>
+          {[
+            ['charge', '斥力', 5, 150, 1, 42, '节点互相推开的力度'],
+            ['linkDistance', '链接距离', 10, 100, 1, 34, '相连笔记的目标间距'],
+            ['linkStrength', '链接拉力', 0, 200, 5, 100, '双链把笔记拉到一起的强度 %'],
+            ['anchor', '聚类引力', 0, 40, 1, 13, '笔记被拉回所属主题域的强度'],
+            ['nodeScale', '节点大小', 40, 220, 5, 100, '%'],
+            ['labelDensity', '标签密度', 0, 200, 10, 100, '同屏标题数量 %'],
+          ].map(([key, label, min, max, step, val, tip]) => (
+            <label class="gx-prow" title={String(tip)}>
+              <span class="gx-prow-label">{label}</span>
+              <input type="range" id={`gp-${key}`} min={min} max={max} step={step} value={val} data-key={key} />
+              <b class="mono gx-prow-val" id={`gpv-${key}`}>{val}</b>
+            </label>
+          ))}
+          <p class="mono gx-params-note">实时生效 · 自动保存 · 仅 3D 视图</p>
+        </aside>
+
+        <!-- 3D 引擎加载提示（chunk ~1MB，慢网可感知） -->
+        <div class="gx-loading mono" id="gx-loading" hidden>正在加载 3D 引擎…</div>
+
+        <!-- 节点信息面板（桌面右侧浮卡 / 移动端底部 sheet） -->
+        <aside class="gx-panel" id="gx-panel" hidden>
+          <div class="gx-panel-cluster mono" id="gx-p-cluster"></div>
+          <div class="gx-panel-title" id="gx-p-title"></div>
+          <div class="gx-panel-meta mono" id="gx-p-meta"></div>
+          <div class="gx-panel-actions">
+            <a class="btn-accent gx-open" id="gx-p-open" href="/kb/">打开笔记</a>
+            <button class="proj-expand" id="gx-p-focus">以此为中心</button>
+            <button class="gx-close" id="gx-p-close" aria-label="关闭">✕</button>
+          </div>
+        </aside>
+
+        <div class="mono graph-stamp"><span id="gx-stamp">{graph.stats.notes} 篇 · {graph.stats.links} 双链 · 点击节点看详情</span> · 更新于 {updated}</div>
+      </>
+    ) : (
+      <div class="container sub-main">
+        <section class="sec"><p class="kg-note">本地运行 `npm run sync` 后这里会出现完整图谱。</p></section>
+      </div>
+    )}
+  </main>
+
+  {clientData && <script type="application/json" id="gx-data" set:html={clientData} />}
+  <script>
+    import '../scripts/graph-explore.js';
+  </script>
+</Glass>

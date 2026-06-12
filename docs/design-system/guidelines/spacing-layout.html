@@ -1,0 +1,27 @@
+<!-- @dsCard group="Spacing" viewport="700x190" name="Layout · 容器与节奏" subtitle="1240px container, 48px gutters, 28px section gaps" -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; padding: 20px 24px; }
+  .diagram { position: relative; border: 1px dashed rgba(255,255,255,0.3); border-radius: 10px; padding: 14px 44px; }
+  .secd { border-radius: 14px; background: rgba(20,32,56,0.6); border: 1px solid var(--glass-border); padding: 12px 16px; font-family: var(--font-mono); font-size: 10px; color: var(--text-sub); }
+  .gap { text-align: center; font-family: var(--font-mono); font-size: 9px; color: var(--accent); padding: 5px 0; }
+  .name { font-family: var(--font-mono); font-size: 10px; color: var(--text-faint); margin-top: 10px; }
+  .gut { position: absolute; top: 8px; bottom: 8px; width: 30px; border-left: 1px dotted var(--accent); border-right: 1px dotted var(--accent); opacity: 0.6; }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="diagram">
+    <span class="gut" style="left: 7px;"></span><span class="gut" style="right: 7px;"></span>
+    <div class="secd">.sec · padding 44px 48px · scroll-margin-top 92px</div>
+    <div class="gap">↕ 28px (--sec-gap)</div>
+    <div class="secd">.sec</div>
+  </div>
+  <div class="name">--container-max 1240px · 两侧 48px gutters · 导航悬浮 top 14px · 触达目标 ≥ 44px</div>
+</div>
+</body>
+</html>

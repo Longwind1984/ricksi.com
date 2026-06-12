@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>字体探索 · 中文主字体 + Mono 全面对比</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&family=JetBrains+Mono:wght@400;700&family=IBM+Plex+Mono:wght@400;600&family=Geist+Mono:wght@400;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/misans@4.1.0/lib/Normal/MiSans-Regular.min.css" />
+<link rel="stylesheet" crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/misans@4.1.0/lib/Normal/MiSans-Medium.min.css" />
+<link rel="stylesheet" crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/misans@4.1.0/lib/Normal/MiSans-Semibold.min.css" />
+<link rel="stylesheet" crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/misans@4.1.0/lib/Normal/MiSans-Bold.min.css" />
+<link rel="stylesheet" crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/style.css" />
+<link rel="stylesheet" crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/cn-fontsource-smiley-sans-oblique-regular/font.css" />
+<style>
+  body { margin: 0; background: #0D1014; color: #E8EDF5; }
+  .canvas { padding: 44px 52px 90px; width: max-content; min-width: 100%; box-sizing: border-box; font-family: 'MiSans', -apple-system, 'PingFang SC', sans-serif; }
+  .head-kicker { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.18em; color: oklch(0.72 0.15 263); margin-bottom: 10px; }
+  .sec-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.14em; color: rgba(232,237,245,0.45); margin: 0 0 12px; }
+  .row { display: flex; gap: 26px; align-items: stretch; margin-bottom: 48px; }
+  /* 玻璃样张卡:每个候选同样的内容 */
+  .spec {
+    width: 470px; flex-shrink: 0; border-radius: 24px; overflow: hidden; position: relative;
+    background-image: url('../assets/hero-2200.jpg'); background-size: cover; background-position: center 30%;
+  }
+  .spec::before { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10,16,40,0.30), rgba(5,9,28,0.55)); }
+  .spec-in {
+    position: relative; margin: 18px; border-radius: 18px; padding: 20px 22px 18px;
+    background: linear-gradient(160deg, rgba(56,88,180,0.32), rgba(22,38,96,0.38));
+    backdrop-filter: blur(22px) saturate(185%); -webkit-backdrop-filter: blur(22px) saturate(185%);
+    border: 1px solid rgba(180,204,255,0.24); box-shadow: inset 0 1px 0 rgba(220,232,255,0.28), 0 16px 44px rgba(2,8,28,0.4);
+  }
+  .spec-name { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: 0.1em; color: oklch(0.85 0.13 86); margin-bottom: 12px; display: flex; justify-content: space-between; }
+  .spec-name em { font-style: normal; color: rgba(210,226,255,0.5); }
+  .spec-kicker { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: 0.18em; color: oklch(0.85 0.13 86); margin-bottom: 10px; }
+  .spec-title { font-size: 27px; font-weight: 700; line-height: 1.4; letter-spacing: -0.02em; color: #FFF; margin: 0 0 12px; text-shadow: 0 2px 20px rgba(4,10,32,0.5); }
+  .spec-body { font-size: 14px; line-height: 1.85; color: rgba(230,240,255,0.86); margin: 0 0 14px; }
+  .spec-data { display: flex; align-items: baseline; gap: 12px; border-top: 1px solid rgba(190,210,255,0.16); padding-top: 12px; }
+  .spec-num { font-size: 24px; font-weight: 700; color: #FFF; font-variant-numeric: tabular-nums; }
+  .spec-meta { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: rgba(210,226,255,0.5); }
+  .verdict { font-size: 12px; line-height: 1.8; color: rgba(232,237,245,0.6); margin: 10px 2px 0; width: 470px; }
+  .verdict b { color: rgba(232,237,245,0.9); font-weight: 600; }
+  /* mono 行 */
+  .mono-table { width: 1480px; background: #161B23; border: 1px solid rgba(255,255,255,0.08); border-radius: 18px; padding: 24px 28px; }
+  .mono-row { display: grid; grid-template-columns: 180px 1fr 330px; gap: 18px; align-items: baseline; padding: 13px 0; border-bottom: 1px solid rgba(255,255,255,0.07); }
+  .mono-row:last-of-type { border-bottom: none; }
+  .mono-key { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: rgba(232,237,245,0.45); }
+  .mono-note { font-size: 11.5px; line-height: 1.7; color: rgba(232,237,245,0.5); }
+  /* 推荐组合 */
+  .pair { width: 470px; background: #161B23; border: 1px solid rgba(255,255,255,0.08); border-radius: 18px; padding: 22px 26px; }
+  .pair.reco { border-color: oklch(0.58 0.20 263 / 0.7); box-shadow: 0 0 0 1px oklch(0.58 0.20 263 / 0.35), 0 14px 40px rgba(2,8,28,0.4); }
+  .pair h3 { margin: 0 0 4px; font-size: 17px; color: #FFF; }
+  .pair .tagline { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.1em; color: oklch(0.72 0.15 263); margin-bottom: 14px; }
+  .pair dl { margin: 0 0 12px; display: grid; grid-template-columns: 84px 1fr; gap: 7px 12px; font-size: 12.5px; }
+  .pair dt { color: rgba(232,237,245,0.45); font-family: 'JetBrains Mono', monospace; font-size: 10.5px; padding-top: 2px; }
+  .pair dd { margin: 0; color: rgba(232,237,245,0.85); }
+  .pair p { font-size: 12px; line-height: 1.8; color: rgba(232,237,245,0.55); margin: 0; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 12px; }
+</style>
+</head>
+<body>
+<div class="canvas">
+  <div style="margin-bottom: 38px;">
+    <div class="head-kicker">FONT EXPLORATION · 字体全面检索</div>
+    <h1 style="font-size: 28px; font-weight: 700; margin: 0 0 8px; letter-spacing: -0.02em; color: #FFF;">中文主字体 × 等宽字体 · 真字渲染对比</h1>
+    <p style="font-size: 13.5px; color: rgba(232,237,245,0.55); margin: 0; max-width: 760px; line-height: 1.8;">检索范围:全部主流开源/免费 CJK 字体(思源系、MiSans、HarmonyOS Sans、普惠体、得意黑、霞鹜系、更纱系)+ 主流开源 mono。下面每张玻璃卡是同一段真实内容,字体不同——非商用项目,版权你来搞定,我只按审美选。横向滚动。</p>
+  </div>
+
+  <!-- ============ 1 · 中文主字体 ============ -->
+  <div class="sec-label">1 · 中文主字体(标题 + 正文 + 数字,玻璃上实测)</div>
+  <div class="row" data-screen-label="中文主字体对比">
+    <div>
+      <div class="spec"><div class="spec-in">
+        <div class="spec-name">0 · 系统栈(现状)<em>PingFang / 各平台不一</em></div>
+        <div class="spec-kicker" style="font-family: 'JetBrains Mono', monospace;">AI 时代的思考与足迹</div>
+        <h2 class="spec-title" style="font-family: -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;">把产品判断,变成能跑起来的东西。</h2>
+        <p class="spec-body" style="font-family: -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;">3 年滴滴国际化安全产品经理,转型 AI 产品:读源码、建工具、写思考、养知识库——这个工作台就是转型的证据。</p>
+        <div class="spec-data"><span class="spec-num" style="font-family: -apple-system, 'PingFang SC', sans-serif;">1,247,832</span><span class="spec-meta">今日 token · 口径 v2</span></div>
+      </div></div>
+      <div class="verdict"><b>现状问题:</b>Mac 上是 PingFang(好),Windows 上掉到雅黑(平庸),Linux 看运气。品牌字形不可控,这是「免费」的真实代价。</div>
+    </div>
+
+    <div>
+      <div class="spec"><div class="spec-in">
+        <div class="spec-name">1 · MiSans<em>小米 · 免费商用 · 10 字重</em></div>
+        <div class="spec-kicker">AI 时代的思考与足迹</div>
+        <h2 class="spec-title" style="font-family: 'MiSans', sans-serif;">把产品判断,变成能跑起来的东西。</h2>
+        <p class="spec-body" style="font-family: 'MiSans', sans-serif; font-weight: 400;">3 年滴滴国际化安全产品经理,转型 AI 产品:读源码、建工具、写思考、养知识库——这个工作台就是转型的证据。</p>
+        <div class="spec-data"><span class="spec-num" style="font-family: 'MiSans', sans-serif;">1,247,832</span><span class="spec-meta">今日 token · 口径 v2</span></div>
+      </div></div>
+      <div class="verdict"><b>气质最接近 SF Pro 的 CJK</b>:几何骨架、大中宫、克制的笔形,HyperOS 系统级品质。与液态玻璃的「材质感」同构,数字本身就漂亮。全平台一致。<b>← 我的首选</b></div>
+    </div>
+
+    <div>
+      <div class="spec"><div class="spec-in">
+        <div class="spec-name">2 · 思源黑体 Noto Sans SC<em>Adobe×Google · OFL 开源</em></div>
+        <div class="spec-kicker">AI 时代的思考与足迹</div>
+        <h2 class="spec-title" style="font-family: 'Noto Sans SC', sans-serif;">把产品判断,变成能跑起来的东西。</h2>
+        <p class="spec-body" style="font-family: 'Noto Sans SC', sans-serif; font-weight: 400;">3 年滴滴国际化安全产品经理,转型 AI 产品:读源码、建工具、写思考、养知识库——这个工作台就是转型的证据。</p>
+        <div class="spec-data"><span class="spec-num" style="font-family: 'Noto Sans SC', sans-serif;">1,247,832</span><span class="spec-meta">今日 token · 口径 v2</span></div>
+      </div></div>
+      <div class="verdict"><b>最稳的备胎</b>:7 字重、真开源(OFL,连改造都允许)、Google Fonts 直接可用。但人文笔意略重、字面偏满,玻璃上比 MiSans 显「挤」,而且太常见——没有记忆点。</div>
+    </div>
+
+    <div>
+      <div class="spec"><div class="spec-in">
+        <div class="spec-name">3 · 霞鹜文楷 LXGW WenKai<em>OFL 开源 · 楷体/仿宋骨</em></div>
+        <div class="spec-kicker">AI 时代的思考与足迹</div>
+        <h2 class="spec-title" style="font-family: 'LXGW WenKai', serif; letter-spacing: 0;">把产品判断,变成能跑起来的东西。</h2>
+        <p class="spec-body" style="font-family: 'LXGW WenKai', serif;">3 年滴滴国际化安全产品经理,转型 AI 产品:读源码、建工具、写思考、养知识库——这个工作台就是转型的证据。</p>
+        <div class="spec-data"><span class="spec-num" style="font-family: 'LXGW WenKai', serif;">1,247,832</span><span class="spec-meta">今日 token · 口径 v2</span></div>
+      </div></div>
+      <div class="verdict"><b>不做 UI 主字体,但值得要</b>:教科书楷体的温度,放在阅读页正文、博客引文、书摘划线处是「人的声音」——和「AI 整理」的机器声形成质感对位。仅限 04 写作 / 05 阅读场景。</div>
+    </div>
+
+    <div>
+      <div class="spec"><div class="spec-in">
+        <div class="spec-name">4 · 得意黑 Smiley Sans<em>OFL 开源 · 窄斜显示体</em></div>
+        <div class="spec-kicker">AI 时代的思考与足迹</div>
+        <h2 class="spec-title" style="font-family: 'Smiley Sans Oblique', 'Smiley Sans', sans-serif; font-weight: 400; font-size: 30px;">把产品判断,变成能跑起来的东西。</h2>
+        <p class="spec-body" style="font-family: 'MiSans', sans-serif;">(正文仍用 MiSans——得意黑只配标题)3 年滴滴国际化安全产品经理,转型 AI 产品:读源码、建工具、写思考。</p>
+        <div class="spec-data"><span class="spec-num" style="font-family: 'Smiley Sans Oblique', 'Smiley Sans', sans-serif; font-weight: 400;">1,247,832</span><span class="spec-meta">今日 token · 口径 v2</span></div>
+      </div></div>
+      <div class="verdict"><b>最大胆的显示体选项</b>:窄斜、有速度感,hero 一行字就能让站点和所有「苹果风作品集」拉开距离。风险:斜体的「冲」和玻璃的「静」气质相悖,且数字斜体不利于数据可信感。只建议做 hero 单点试验。</div>
+    </div>
+  </div>
+
+  <!-- ============ 2 · 等宽字体 ============ -->
+  <div class="sec-label">2 · 等宽字体(标签 / 数据 / 落款的声音)</div>
+  <div class="row" data-screen-label="Mono 对比">
+    <div class="mono-table">
+      <div class="mono-row">
+        <span class="mono-key">JetBrains Mono(现状)</span>
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 17px;">WORKBENCH · DAILY — 1,247,832 tokens · 数据更新于 2026-06-12 · 口径 v2</span>
+        <span class="mono-note">数字与字母最佳,但已是 AI 开发者站「默认音色」;CJK 落回系统黑体,落款里中英质感断裂</span>
+      </div>
+      <div class="mono-row">
+        <span class="mono-key">IBM Plex Mono</span>
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 17px;">WORKBENCH · DAILY — 1,247,832 tokens · 数据更新于 2026-06-12 · 口径 v2</span>
+        <span class="mono-note">打字机尾巴的档案气质,和「假设登记册 / 审计留档」的品牌叙事最配;OFL 开源</span>
+      </div>
+      <div class="mono-row">
+        <span class="mono-key">Geist Mono</span>
+        <span style="font-family: 'Geist Mono', monospace; font-size: 17px;">WORKBENCH · DAILY — 1,247,832 tokens · 数据更新于 2026-06-12 · 口径 v2</span>
+        <span class="mono-note">最冷静中性、最「材质感」,与液态玻璃气质统一;OFL 开源;辨识度中等</span>
+      </div>
+      <div class="mono-row">
+        <span class="mono-key">Maple Mono CN(未加载)</span>
+        <span style="font-size: 14.5px; color: rgba(232,237,245,0.6); font-style: italic;">需自托管 woff2(~中文全集较大)。唯一提供 CJK 严格 2:1 等宽 + 圆角字形的候选——「数据更新于 2026-06-12 · 口径 v2」这类中英混排落款能真正网格对齐。</span>
+        <span class="mono-note">圆角与液态玻璃同构;若你接受自托管体积,它是混排落款的终极解;OFL 开源</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 3 · 推荐组合 ============ -->
+  <div class="sec-label">3 · 三套完整组合(我的排序:壹 > 贰 > 叁)</div>
+  <div class="row" data-screen-label="推荐组合" style="margin-bottom: 0;">
+    <div class="pair reco">
+      <h3>组合壹 · 「系统感,但全平台一致」</h3>
+      <div class="tagline">RECOMMENDED · 与液态玻璃最同构</div>
+      <dl>
+        <dt>标题/正文</dt><dd>MiSans(700 标题 / 400 正文 / 330 大数字可试 Light)</dd>
+        <dt>Mono</dt><dd>Geist Mono(标签/落款/数据)</dd>
+        <dt>点缀</dt><dd>霞鹜文楷——仅书摘与博客引文</dd>
+      </dl>
+      <p>几何 CJK + 冷静 mono,把「苹果味」从依赖平台变成自带;文楷在阅读场景给一点人味。三款全部可自托管,Windows/Linux 不再降级。</p>
+    </div>
+    <div class="pair">
+      <h3>组合贰 · 「档案馆」</h3>
+      <div class="tagline">ARCHIVE · 诚实数据的纸感</div>
+      <dl>
+        <dt>标题/正文</dt><dd>MiSans(同壹)</dd>
+        <dt>Mono</dt><dd>IBM Plex Mono(打字机尾巴 = 审计留档感)</dd>
+        <dt>点缀</dt><dd>霞鹜文楷,用量比壹略增(划线/想法均可)</dd>
+      </dl>
+      <p>把「样例数据徽章 / 口径落款 / 假设登记册」的档案叙事推到字体层。比壹更有性格,代价是 mono 在小字号略宽。</p>
+    </div>
+    <div class="pair">
+      <h3>组合叁 · 「锋利一刀」</h3>
+      <div class="tagline">BOLD · 只在 hero 出鞘</div>
+      <dl>
+        <dt>Hero 标题</dt><dd>得意黑(仅此一处,斜势 = 把判断跑起来)</dd>
+        <dt>其余全部</dt><dd>同组合壹(MiSans + Geist Mono)</dd>
+        <dt>风险</dt><dd>斜体动势 vs 玻璃静谧,需实景再验</dd>
+      </dl>
+      <p>最有记忆点的方案:首屏一行得意黑让站点瞬间可识别。如果实景违和,退回组合壹零成本。</p>
+    </div>
+  </div>
+</div>
+</body>
+</html>

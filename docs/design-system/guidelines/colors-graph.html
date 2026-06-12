@@ -1,0 +1,27 @@
+<!-- @dsCard group="Colors" viewport="700x150" name="Graph · OKLCH 等明度 12 色" subtitle="oklch(0.78 0.11 h), one stop every 30°" -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; padding: 22px 24px; }
+  .dots { display: grid; grid-template-columns: repeat(12, 1fr); gap: 14px 10px; max-width: 560px; }
+  .dot { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .dot span { width: 26px; height: 26px; border-radius: 99px; }
+  .dot i { font-style: normal; font-family: var(--font-mono); font-size: 8.5px; color: var(--text-faint); }
+  .note { font-family: var(--font-mono); font-size: 10px; color: var(--text-faint); margin-top: 14px; line-height: 1.7; }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="dots" id="dots"></div>
+  <div class="note">--graph-1…12 · 等明度等彩度色环,h 每 30° 一档 —— 任意两色并置和谐,无伪色<br />5 个主题域非邻接取档(240/180/90/300/30),留 7 档扩展;hub 节点更大、描边辉光</div>
+  <script>
+    document.getElementById('dots').innerHTML = Array.from({ length: 12 }, (_, i) =>
+      `<div class="dot"><span style="background: oklch(0.78 0.11 ${i * 30})"></span><i>${i * 30}°</i></div>`
+    ).join('');
+  </script>
+</div>
+</body>
+</html>

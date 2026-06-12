@@ -1,0 +1,39 @@
+/* ============================================================
+   Rick Si · Liquid Glass — Typography tokens · v2「组合壹」
+   MiSans(品牌 CJK,全平台一致)+ Geist Mono(数据/标签)
+   + 霞鹜文楷(仅阅读场景点缀)。SF Pro 退役——只以
+   -apple-system 回退保险的身份存在于栈尾。
+   ============================================================ */
+:root {
+  --font-display: 'MiSans', 'MiSans L3', -apple-system, 'PingFang SC', 'HarmonyOS Sans SC', 'Microsoft YaHei', sans-serif;
+  --font-body: 'MiSans', 'MiSans L3', -apple-system, 'PingFang SC', 'HarmonyOS Sans SC', 'Microsoft YaHei', sans-serif;
+  --font-mono: 'Geist Mono', 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --font-reading: 'LXGW WenKai', 'Kaiti SC', 'STKaiti', serif; /* 仅书摘/划线/引文 */
+
+  /* Scale (desktop) */
+  --text-hero: 60px;        /* hero title · 700 · lh 1.28 · ls -0.02em */
+  --text-art-title: 36px;   /* article title · 700 · lh 1.35 */
+  --text-section: 32px;     /* section title · 700 · ls -0.02em */
+  --text-foot-title: 30px;  /* footer headline */
+  --text-proj-title: 23px;  /* project row title · 650 */
+  --text-blog-title: 19px;  /* blog row / card titles · 600 */
+  --text-index: 18px;       /* hero index items · 600 */
+  --text-hero-sub: 17px;    /* hero standfirst · lh 1.95 */
+  --text-body: 15.5px;      /* prose body · lh 1.95 */
+  --text-desc: 14.5px;      /* project descriptions · lh 1.85 */
+  --text-ui: 14px;          /* nav links, legends */
+  --text-small: 12.5px;     /* dates, notes */
+  --text-label: 11.5px;     /* mono labels · ls 0.12em */
+  --text-micro: 10.5px;     /* stamps, badges */
+
+  /* Letter-spacing — mono 字距只对 latin 标签;中英混排降到 0.06em */
+  --ls-tight: -0.02em;      /* large display */
+  --ls-kicker: 0.18em;      /* hero kicker (latin/少量汉字) */
+  --ls-label: 0.12em;       /* mono section labels (latin) */
+  --ls-label-cjk: 0.06em;   /* mono 标签含中文时 */
+  --ls-wide: 0.15em;        /* section numbers, index label */
+
+  /* Numerals in stats are tabular */
+  --lh-prose: 1.95; /* @kind other */
+  --lh-display: 1.28; /* @kind other */
+}

@@ -1,0 +1,35 @@
+<!-- @dsCard group="Colors" viewport="700x130" name="Heatmap · 雪夜→日出" subtitle="5 levels: ultramarine night climbs to gold sunrise" -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; padding: 22px 24px; }
+  .row { display: flex; align-items: center; gap: 28px; }
+  .cells { display: flex; gap: 6px; align-items: center; }
+  .cell { width: 22px; height: 22px; border-radius: 5px; }
+  .name { font-family: var(--font-mono); font-size: 10px; color: var(--text-faint); line-height: 1.7; }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="row">
+    <div class="cells">
+      <span class="cell" style="background: var(--hm-l0)"></span>
+      <span class="cell" style="background: var(--hm-l1)"></span>
+      <span class="cell" style="background: var(--hm-l2)"></span>
+      <span class="cell" style="background: var(--hm-l3)"></span>
+      <span class="cell" style="background: var(--hm-l4); box-shadow: 0 0 10px oklch(0.85 0.13 86 / 0.5);"></span>
+    </div>
+    <span class="name">--hm-l0…l4 · 雪夜的群青逐档攀升,最活跃的一天是日出的金<br />活跃度 = 日照 —— 与品牌叙事同构;金顶档自带微辉光</span>
+    <div class="hm" aria-hidden="true">
+      <div class="hm-col"><span class="hm-cell l0"></span><span class="hm-cell l1"></span><span class="hm-cell l2"></span></div>
+      <div class="hm-col"><span class="hm-cell l1"></span><span class="hm-cell l3"></span><span class="hm-cell l0"></span></div>
+      <div class="hm-col"><span class="hm-cell l2"></span><span class="hm-cell l4"></span><span class="hm-cell l1"></span></div>
+      <div class="hm-col"><span class="hm-cell l3"></span><span class="hm-cell l2"></span><span class="hm-cell l4"></span></div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

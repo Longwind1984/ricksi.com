@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="300" viewBox="0 0 640 300" font-family="-apple-system,PingFang SC,sans-serif">
+  <defs>
+    <linearGradient id="mbg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#10203E"></stop><stop offset="1" stop-color="#091223"></stop>
+    </linearGradient>
+    <linearGradient id="mcard" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="rgba(255,255,255,0.12)"></stop><stop offset="1" stop-color="rgba(255,255,255,0.05)"></stop>
+    </linearGradient>
+    <filter id="mglow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="7" result="b"></feGaussianBlur><feMerge><feMergeNode in="b"></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge>
+    </filter>
+  </defs>
+  <rect width="640" height="300" fill="url(#mbg)"></rect>
+  <path d="M0 268 L100 222 L190 254 L290 206 L400 250 L520 202 L640 240 L640 300 L0 300 Z" fill="#0B1730" opacity="0.85"></path>
+  
+  <rect x="36" y="30" width="300" height="240" rx="18" fill="url(#mcard)" stroke="rgba(255,255,255,0.26)" stroke-width="1.1"></rect>
+  <text x="56" y="58" font-size="9.5" letter-spacing="3" fill="#4D9FEC">策展批判型导览 · DEMO</text>
+  <text x="55" y="92" font-size="25" font-weight="700" fill="#FFFFFF">山西博物院</text>
+  <text x="56" y="113" font-size="10" fill="rgba(235,242,250,0.6)">不做覆盖型百科，只答&#34;它为什么在这里&#34;</text>
+  <g font-size="10" fill="rgba(240,245,252,0.85)">
+    <rect x="56" y="128" width="62" height="22" rx="11" fill="rgba(255,255,255,0.07)" stroke="rgba(255,255,255,0.18)"></rect>
+    <text x="87" y="143" text-anchor="middle">北朝政治史</text>
+    <rect x="126" y="128" width="56" height="22" rx="11" fill="rgba(77,159,236,0.32)" stroke="rgba(77,159,236,0.6)"></rect>
+    <text x="154" y="143" text-anchor="middle" fill="#FFFFFF">图像程序</text>
+    <rect x="190" y="128" width="56" height="22" rx="11" fill="rgba(240,176,112,0.28)" stroke="rgba(240,176,112,0.55)"></rect>
+    <text x="218" y="143" text-anchor="middle" fill="#FFFFFF">佛教艺术</text>
+    <rect x="254" y="128" width="56" height="22" rx="11" fill="rgba(255,255,255,0.07)" stroke="rgba(255,255,255,0.18)"></rect>
+    <text x="282" y="143" text-anchor="middle">本地传统</text>
+  </g>
+  <text x="56" y="178" font-size="10.5" fill="rgba(255,255,255,0.55)">优先级路线 · 预算</text>
+  <g font-size="10">
+    <rect x="56" y="188" width="54" height="22" rx="11" fill="rgba(255,255,255,0.07)" stroke="rgba(255,255,255,0.18)"></rect>
+    <text x="83" y="203" text-anchor="middle" fill="rgba(240,245,252,0.85)">30 分钟</text>
+    <rect x="118" y="188" width="54" height="22" rx="11" fill="rgba(77,159,236,0.4)" stroke="rgba(77,159,236,0.7)" filter="url(#mglow)"></rect>
+    <text x="145" y="203" text-anchor="middle" fill="#FFFFFF" font-weight="600">60 分钟</text>
+    <rect x="180" y="188" width="60" height="22" rx="11" fill="rgba(255,255,255,0.07)" stroke="rgba(255,255,255,0.18)"></rect>
+    <text x="210" y="203" text-anchor="middle" fill="rgba(240,245,252,0.85)">120 分钟</text>
+  </g>
+  <text x="56" y="240" font-size="10" fill="#F0B070">建议下一件：<tspan font-weight="700" fill="#FFFFFF">涅槃变碑</tspan> · 先用「图像学」镜头打开</text>
+  
+  <rect x="358" y="56" width="246" height="190" rx="16" fill="url(#mcard)" stroke="rgba(255,255,255,0.2)" stroke-width="1"></rect>
+  <g>
+    <text x="378" y="92" font-size="10" fill="#4D9FEC">01</text>
+    <text x="402" y="93" font-size="13" font-weight="600" fill="#FFFFFF">涅槃变碑</text>
+    <text x="402" y="110" font-size="9" fill="rgba(255,255,255,0.5)">北朝政治史 · 图像程序 · 约 25 分钟</text>
+    <line x1="378" y1="124" x2="584" y2="124" stroke="rgba(255,255,255,0.12)"></line>
+    <text x="378" y="148" font-size="10" fill="#4D9FEC">02</text>
+    <text x="402" y="149" font-size="13" font-weight="600" fill="#FFFFFF">韦驮造像</text>
+    <text x="402" y="166" font-size="9" fill="rgba(255,255,255,0.5)">佛教艺术 · 断代方法 · 约 15 分钟</text>
+    <line x1="378" y1="180" x2="584" y2="180" stroke="rgba(255,255,255,0.12)"></line>
+    <text x="378" y="204" font-size="10" fill="#4D9FEC">03</text>
+    <text x="402" y="205" font-size="13" fill="rgba(255,255,255,0.45)">（第三件，自填）</text>
+    <text x="402" y="228" font-size="9" fill="rgba(255,255,255,0.35)">记忆会记住你的兴趣</text>
+  </g>
+</svg>

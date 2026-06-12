@@ -1,0 +1,30 @@
+<!-- @dsCard group="Colors" viewport="700x140" name="Semantic · 人机光谱" subtitle="色温 = 人↔机 (暖→冷) · 虚线 = 未验证" -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; padding: 22px 24px; }
+  .row { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  .name { font-family: var(--font-mono); font-size: 10px; color: var(--text-faint); margin-top: 8px; }
+  .sep { color: var(--text-faint); font-family: var(--font-mono); }
+  .note { font-family: var(--font-mono); font-size: 10px; color: var(--text-faint); margin-top: 16px; line-height: 1.7; }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="row">
+    <div><span class="prov-badge human">实测 · 人</span></div>
+    <span class="sep">→</span>
+    <div><span class="prov-badge co">共创 · 人机</span></div>
+    <span class="sep">→</span>
+    <div><span class="prov-badge ai">AI 整理 · 机</span></div>
+    <span class="sep">‖</span>
+    <div><em class="sample-badge" style="margin-left: 0;">样例数据</em></div>
+    <div><span class="tag mono wip-tag">仓库整理中</span></div>
+  </div>
+  <div class="note">规则一:来源沿色环 暖金→青→冷紫,色温随人的参与度降低而变冷 —— 与「太阳=人的真实足迹」同构<br />规则二:虚线边框 = 未验证/占位(样例数据、仓库整理中);实线 = 已验证。四枚徽章同 L/C,视觉重量一致</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!-- @dsCard group="Components" viewport="1240x720" name="ShareCard · 分享卡片" subtitle="方向一玻璃明信片 · node / article / site 三形态" -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="../../styles.css" />
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+  body { margin: 0; padding: 22px 24px; }
+  .demo-row { display: flex; gap: 28px; align-items: flex-start; }
+  .demo-row > div { transform: scale(1); }
+</style>
+</head>
+<body>
+<div class="page" id="root"></div>
+<script type="text/babel">
+const { ShareCard, Badge } = window.RickSiLiquidGlassDesignSystem_d0ba20;
+function Demo() {
+  return (
+    <div className="demo-row">
+      <ShareCard
+        variant="node"
+        brand="RICK SI · 知识库"
+        module="KNOWLEDGE · NODE"
+        kicker="节点 · 已沉淀 47 天"
+        title={<span>多智能体编排:<br />从玩具到工具的分界线</span>}
+        excerpt="真正的分界不在模型能力,而在「失败可被审计」——能回放每一步决策的编排,才配进生产环境。"
+        badges={<Badge variant="prov-ai">AI 整理</Badge>}
+        chips={[{ label: '智能体系统', color: 'var(--graph-9)' }, '↳ 上下文工程', '↳ 评测基建']}
+        url="ricksi.com/k/agent-orchestration"
+        hook="扫码进入图谱 · 看它的 12 个邻居"
+      />
+      <ShareCard
+        variant="article"
+        brand="RICK SI · 思考与写作"
+        module="ESSAY · 08"
+        kicker="AI 时代的思考与足迹"
+        title="把判断写成提示词:一个安全 PM 的转型实验"
+        quote="“判断不值钱,值钱的是能复现判断的系统。”"
+        badges={<Badge variant="prov-human">实测</Badge>}
+        chips={['4,200 字 · 12 分钟 · 2026-05-28']}
+        url="ricksi.com/blog/judgment-as-prompt"
+        hook="含 3 个可运行的提示词样例"
+      />
+      <ShareCard
+        variant="site"
+        brand="RICKSI.COM"
+        module="PORTFOLIO · LIVE"
+        kicker="AI 时代的思考与足迹"
+        title={<span>把产品判断,<br />变成能跑起来的东西。</span>}
+        excerpt="司豪杰 Rick Si · 3 年滴滴国际化安全 PM,转型 AI 产品:读源码、建工具、写思考、养知识库。"
+        stats={[{ value: '5', label: '项目' }, { value: '1,247', label: '知识节点' }, { value: 'live', label: '工作台数据', gold: true }]}
+        url="ricksi.com"
+        hook="工作台数据每日更新 · 口径公开"
+      />
+    </div>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
+</script>
+</body>
+</html>

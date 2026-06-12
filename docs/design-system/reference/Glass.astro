@@ -1,0 +1,173 @@
+---
+// 玻璃视觉系统共享布局：head / 悬浮导航 / 页脚
+// isHome: 首页启用 scrollspy + 首屏透明导航；子页固定高亮 active 栏目
+import { ClientRouter } from 'astro:transitions';
+import LQIP_RAW from '../lib/hero-lqip.txt?raw';
+import '../styles/glass.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  active?: string | null;
+  isHome?: boolean;
+  noFooter?: boolean;
+  ogImage?: string;
+  jsonLd?: Record<string, unknown> | null;
+  /* 阅读页 chrome：完整导航换成「左上 R monogram + 右上 分享/搜索」浮动件，滚读时自动隐藏 */
+  reader?: boolean;
+}
+const {
+  title,
+  description = '',
+  active = null,
+  isHome = false,
+  noFooter = false,
+  ogImage = '/assets/og.jpg',
+  jsonLd = null,
+  reader = false,
+} = Astro.props;
+
+/* hero LQIP：超小内联占位铺在 body 上，大图（body::before）加载完成前先有形 */
+const LQIP = LQIP_RAW.trim();
+const ogAbs = new URL(ogImage, Astro.site ?? 'https://ricksi.com').href;
+
+const navItems = [
+  ['projects', '项目'],
+  ['workbench', '工作台'],
+  ['knowledge', '知识库'],
+  ['blog', '写作'],
+  ['reading', '阅读'],
+];
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta property="og:title" content={title} />
+    {description && <meta property="og:description" content={description} />}
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content={ogAbs} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="alternate" type="application/rss+xml" title="Rick Si · 思考与写作" href="/rss.xml" />
+    {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+    <style set:html={`body{background-image:url(${LQIP});background-size:cover;background-position:center 32%;}`}></style>
+    <ClientRouter />
+  </head>
+  <body>
+    <!-- Liquid Glass 折射滤镜：凸透镜位移贴图（R → x 位移，G → y 位移，中心 128 为零位移） -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+      <defs>
+        <filter id="lg-lens" x="-20%" y="-40%" width="140%" height="180%" color-interpolation-filters="sRGB">
+          <feImage
+            href="data:image/svg+xml;utf8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='120'%20height='44'%3E%3Cdefs%3E%3ClinearGradient%20id='gx'%20x1='0'%20y1='0'%20x2='1'%20y2='0'%3E%3Cstop%20offset='0'%20stop-color='%23ff0000'/%3E%3Cstop%20offset='0.28'%20stop-color='%23800000'/%3E%3Cstop%20offset='0.72'%20stop-color='%23800000'/%3E%3Cstop%20offset='1'%20stop-color='%23000000'/%3E%3C/linearGradient%3E%3ClinearGradient%20id='gy'%20x1='0'%20y1='0'%20x2='0'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%2300ff00'/%3E%3Cstop%20offset='0.3'%20stop-color='%23008000'/%3E%3Cstop%20offset='0.7'%20stop-color='%23008000'/%3E%3Cstop%20offset='1'%20stop-color='%23000000'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width='120'%20height='44'%20fill='url(%23gx)'/%3E%3Crect%20width='120'%20height='44'%20fill='url(%23gy)'%20style='mix-blend-mode:screen'/%3E%3C/svg%3E"
+            preserveAspectRatio="none"
+            result="lgmap"
+          ></feImage>
+          <feDisplacementMap id="lg-disp" in="SourceGraphic" in2="lgmap" scale="26" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap>
+        </filter>
+      </defs>
+    </svg>
+
+    <div class:list={['page', { 'reader-page': reader }]}>
+      {reader ? (
+        <header class="reader-chrome" id="reader-chrome" style="view-transition-name: site-head">
+          <a href="/" class="reader-home" aria-label="回到首页 · 司豪杰 Rick Si">R</a>
+          <div class="reader-actions">
+            <button class="reader-btn" id="share-open" aria-label="分享本页" data-og={ogImage} data-title={title}>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 8 5-5 5 5"/><path d="M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></svg>
+            </button>
+            <button class="reader-btn nav-search" aria-label="搜索（⌘K 或 /）">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.5" y2="16.5"></line></svg>
+            </button>
+          </div>
+        </header>
+      ) : (
+      <header class:list={['site-head', { 'over-hero': isHome }]} id="site-head" data-hero={isHome ? 'true' : undefined} style="view-transition-name: site-head">
+        <div class="site-head-inner">
+          <a href={isHome ? '#top' : '/'} class="brand" id="brand">司豪杰 Rick Si</a>
+          <nav
+            class="nav"
+            id="nav"
+            data-scrollspy={isHome ? 'projects,workbench,knowledge,blog,reading' : undefined}
+            data-active={!isHome && active ? active : undefined}
+          >
+            <span class="nav-pill" id="nav-pill"></span>
+            {navItems.map(([id, label]) => (
+              <a href={isHome ? `#${id}` : `/#${id}`} class="nav-link" data-tab={id}>{label}</a>
+            ))}
+            <button class="nav-search mono" type="button" aria-label="搜索（⌘K 或 /）" title="搜索（⌘K 或 /）">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.5" y2="16.5"></line></svg>
+              <span class="nav-search-k">⌘K</span>
+            </button>
+            <a href="/assets/rick-si-resume.pdf" class="btn-accent" target="_blank" rel="noreferrer">下载简历</a>
+          </nav>
+        </div>
+      </header>
+      )}
+
+      <slot />
+
+      {noFooter ? null : (
+      <footer class="site-foot" id="contact">
+        <div class="container foot-inner">
+          <div>
+            <div class="foot-title">聊聊 AI 产品。</div>
+            <div class="mono foot-links">
+              <a href="mailto:rick.si@outlook.com">rick.si@outlook.com</a>
+              <span> · </span>
+              <a href="https://github.com/Longwind1984" target="_blank" rel="noreferrer">github.com/Longwind1984</a>
+              <span> · </span>
+              <details class="foot-wechat">
+                <summary>微信</summary>
+                <span class="foot-qr glass" role="img" aria-label="微信二维码">
+                  <img src="/assets/wechat-qr.jpg" alt="扫码添加微信" loading="lazy" width="200" height="252" />
+                </span>
+              </details>
+            </div>
+          </div>
+          <div class="foot-right">
+            <a href="/assets/rick-si-resume.pdf" class="btn-accent big" target="_blank" rel="noreferrer">下载简历 PDF</a>
+            <div class="mono foot-copy">© 2026 司豪杰 Rick Si · 本页本身就是作品</div>
+          </div>
+        </div>
+      </footer>
+      )}
+    </div>
+
+    {/* 分享卡片弹层：直接复用构建期生成的 OG 卡 */}
+    {reader && (
+      <div class="share-modal" id="share-modal" hidden>
+        <div class="share-panel" role="dialog" aria-label="分享本页">
+          <img class="share-card-img" id="share-card-img" alt="本页分享卡片预览" width="600" height="315" />
+          <div class="share-actions">
+            <button class="proj-expand" id="share-copy" type="button">复制链接</button>
+            <a class="proj-expand share-dl" id="share-download" download>下载卡片</a>
+            <button class="btn-accent share-native" id="share-native" type="button" hidden>分享…</button>
+          </div>
+          <button class="gx-close share-close" id="share-close" aria-label="关闭" type="button">✕</button>
+        </div>
+      </div>
+    )}
+
+    <!-- ⌘K 命令面板 -->
+    <div class="cmdk" id="cmdk" hidden>
+      <div class="cmdk-panel" role="dialog" aria-label="站内搜索">
+        <input id="cmdk-input" class="cmdk-input" type="text" placeholder="搜索笔记、文章、项目… 试试 /kb 或 /blog" autocomplete="off" spellcheck="false" />
+        <div class="cmdk-list" id="cmdk-list"></div>
+        <div class="cmdk-foot mono">↑↓ 选择 · Enter 打开 · Esc 关闭</div>
+      </div>
+    </div>
+
+    <script>
+      import '../scripts/nav.js';
+      import '../scripts/cmdk.js';
+      import '../scripts/reader.js';
+    </script>
+  </body>
+</html>

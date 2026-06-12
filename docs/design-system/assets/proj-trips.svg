@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="300" viewBox="0 0 640 300" font-family="-apple-system,PingFang SC,sans-serif">
+  <defs>
+    <linearGradient id="bg2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0F1F3C"></stop><stop offset="1" stop-color="#091223"></stop>
+    </linearGradient>
+    <linearGradient id="card" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="rgba(255,255,255,0.12)"></stop><stop offset="1" stop-color="rgba(255,255,255,0.05)"></stop>
+    </linearGradient>
+    <filter id="glow2" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="6" result="b"></feGaussianBlur><feMerge><feMergeNode in="b"></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge>
+    </filter>
+  </defs>
+  <rect width="640" height="300" fill="url(#bg2)"></rect>
+  <path d="M0 262 L110 206 L210 246 L330 192 L460 244 L570 204 L640 232 L640 300 L0 300 Z" fill="#0B1730" opacity="0.85"></path>
+  
+  <rect x="58" y="44" width="280" height="212" rx="18" fill="url(#card)" stroke="rgba(255,255,255,0.26)" stroke-width="1.2"></rect>
+  <g opacity="0.22" stroke="rgba(255,255,255,0.5)" stroke-width="0.7">
+    <path d="M80 90 Q150 70 200 96 T320 88" fill="none"></path>
+    <path d="M70 140 Q160 120 230 150 T330 138" fill="none"></path>
+    <path d="M84 196 Q170 176 240 206 T326 192" fill="none"></path>
+    <path d="M120 60 Q140 140 116 240"></path><path d="M200 56 Q220 150 198 248"></path><path d="M270 60 Q286 160 264 244"></path>
+  </g>
+  <path d="M92 210 Q150 150 196 162 Q260 178 306 92" fill="none" stroke="#4D9FEC" stroke-width="2.6" stroke-dasharray="7 6" filter="url(#glow2)"></path>
+  <circle cx="92" cy="210" r="7" fill="#4D9FEC" filter="url(#glow2)"></circle>
+  <circle cx="196" cy="162" r="5.5" fill="#6FD3C0" filter="url(#glow2)"></circle>
+  <circle cx="306" cy="92" r="7" fill="#F0B070" filter="url(#glow2)"></circle>
+  <text x="104" y="226" font-size="10.5" fill="rgba(255,255,255,0.78)">出发 · D1</text>
+  <text x="208" y="158" font-size="10.5" fill="rgba(255,255,255,0.78)">徒步 · D3</text>
+  <text x="316" y="86" font-size="10.5" fill="rgba(255,255,255,0.78)">垭口 · D5</text>
+  
+  <g>
+    <rect x="362" y="44" width="220" height="56" rx="14" fill="url(#card)" stroke="rgba(77,159,236,0.5)" stroke-width="1.2"></rect>
+    <rect x="374" y="58" width="34" height="18" rx="9" fill="rgba(77,159,236,0.4)"></rect>
+    <text x="382" y="71" font-size="10.5" fill="#FFFFFF">D1</text>
+    <text x="418" y="66" font-size="12" fill="#FFFFFF" font-weight="600">抵达 · 适应海拔</text>
+    <text x="418" y="86" font-size="10" fill="rgba(255,255,255,0.55)">酒店 → 古城 · 步行 2.1km</text>
+  </g>
+  <g opacity="0.9">
+    <rect x="362" y="112" width="220" height="56" rx="14" fill="url(#card)" stroke="rgba(255,255,255,0.2)" stroke-width="1"></rect>
+    <rect x="374" y="126" width="34" height="18" rx="9" fill="rgba(111,211,192,0.35)"></rect>
+    <text x="382" y="139" font-size="10.5" fill="#FFFFFF">D3</text>
+    <text x="418" y="134" font-size="12" fill="#FFFFFF" font-weight="600">雪线徒步</text>
+    <text x="418" y="154" font-size="10" fill="rgba(255,255,255,0.55)">8.4km · 爬升 620m · 6h</text>
+  </g>
+  <g opacity="0.8">
+    <rect x="362" y="180" width="220" height="56" rx="14" fill="url(#card)" stroke="rgba(255,255,255,0.2)" stroke-width="1"></rect>
+    <rect x="374" y="194" width="34" height="18" rx="9" fill="rgba(240,176,112,0.35)"></rect>
+    <text x="382" y="207" font-size="10.5" fill="#FFFFFF">D5</text>
+    <text x="418" y="202" font-size="12" fill="#FFFFFF" font-weight="600">垭口日出 · 云海</text>
+    <text x="418" y="222" font-size="10" fill="rgba(255,255,255,0.55)">04:30 出发 · 无人机航拍</text>
+  </g>
+</svg>

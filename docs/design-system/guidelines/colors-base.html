@@ -1,0 +1,26 @@
+<!-- @dsCard group="Colors" viewport="700x160" name="Base · 墨色与基底" subtitle="Deep-cobalt base, cool-white ink ladder, blue-white hairlines" -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; padding: 20px 24px; }
+  .grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+  .sw { height: 76px; border-radius: 12px; border: 1px solid var(--glass-border); display: flex; align-items: flex-end; padding: 8px 10px; }
+  .lab { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.04em; color: rgba(255,255,255,0.85); }
+  .name { font-family: var(--font-mono); font-size: 10px; color: var(--text-faint); margin-top: 6px; }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="grid">
+    <div><div class="sw" style="background: var(--bg-base);"><span class="lab">#070D20</span></div><div class="name">--bg-base</div></div>
+    <div><div class="sw" style="background: var(--ink-2);"><span class="lab" style="color:#0A1426">#FFFFFF</span></div><div class="name">--ink-2 标题/大数字</div></div>
+    <div><div class="sw" style="background: var(--ink-1);"><span class="lab" style="color:#0A1426">#F2F5FA</span></div><div class="name">--ink-1 正文</div></div>
+    <div><div class="sw" style="background: var(--text-sub);"><span class="lab" style="color:#0A1426">冷白 65%</span></div><div class="name">--text-sub 次级</div></div>
+    <div><div class="sw" style="background: rgba(13,22,48,0.96); position: relative;"><span style="position:absolute; inset: 36px 12px auto; border-top: 1px solid var(--line);"></span><span class="lab">蓝白 16%</span></div><div class="name">--line 发丝线</div></div>
+  </div>
+</div>
+</body>
+</html>
