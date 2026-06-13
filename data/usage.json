@@ -1,20 +1,20 @@
 {
- "generated_at": "2026-06-12T13:30:15.303Z",
- "today": 550762396,
- "today_out": 1471612,
- "today_cache_share": 95,
+ "generated_at": "2026-06-13T13:30:06.488Z",
+ "today": 94540337,
+ "today_out": 233862,
+ "today_cache_share": 98,
  "week": "2.0B",
- "cumulative": "2.5B",
- "cumulative_code": "2.4B",
+ "cumulative": "2.7B",
+ "cumulative_code": "2.6B",
  "cumulative_web": "100M",
  "models": [
   [
    "Opus",
-   70
+   66
   ],
   [
    "Fable",
-   25
+   29
   ],
   [
    "Sonnet",
@@ -26,10 +26,6 @@
   ]
  ],
  "days7": [
-  {
-   "d": "周六",
-   "v": 169.64
-  },
   {
    "d": "周日",
    "v": 809.68
@@ -51,8 +47,12 @@
    "v": 308.46
   },
   {
+   "d": "周五",
+   "v": 581.74
+  },
+  {
    "d": "今天",
-   "v": 550.76
+   "v": 94.54
   }
  ],
  "series": {
@@ -445,14 +445,14 @@
    }
   },
   "2026-06-12": {
-   "total": 550762396,
+   "total": 581739073,
    "models": {
     "fable-5": {
-     "in": 533940,
-     "out": 1039538,
-     "cw": 10439708,
-     "cr": 298491682,
-     "total": 310504868
+     "in": 586514,
+     "out": 1117965,
+     "cw": 11670372,
+     "cr": 326680857,
+     "total": 340055708
     },
     "<synthetic>": {
      "in": 0,
@@ -461,77 +461,96 @@
      "cr": 0,
      "total": 0
     },
+    "opus-4-8": {
+     "in": 1237334,
+     "out": 395689,
+     "cw": 12178037,
+     "cr": 218380637,
+     "total": 232191697
+    },
     "haiku-4-5-20251001": {
      "in": 11906,
      "out": 39460,
      "cw": 677573,
      "cr": 8762729,
      "total": 9491668
+    }
+   }
+  },
+  "2026-06-13": {
+   "total": 94540337,
+   "models": {
+    "fable-5": {
+     "in": 94376,
+     "out": 233862,
+     "cw": 1703218,
+     "cr": 92508881,
+     "total": 94540337
     },
-    "opus-4-8": {
-     "in": 1236108,
-     "out": 392614,
-     "cw": 11759136,
-     "cr": 217378002,
-     "total": 230765860
+    "<synthetic>": {
+     "in": 0,
+     "out": 0,
+     "cw": 0,
+     "cr": 0,
+     "total": 0
     }
    }
   },
   "2026-05-13": {
-   "total": 9520901,
+   "total": 15640701,
    "estimated": true
   },
   "2026-05-14": {
-   "total": 25252358,
+   "total": 41483951,
    "estimated": true
   },
   "2026-05-15": {
-   "total": 4150136,
+   "total": 6817741,
    "estimated": true
   },
   "2026-05-16": {
-   "total": 25252358,
+   "total": 41483951,
    "estimated": true
   },
   "2026-05-17": {
-   "total": 3417759,
+   "total": 5614611,
    "estimated": true
   },
   "2026-05-18": {
-   "total": 10253278,
+   "total": 16843832,
    "estimated": true
   },
   "2026-05-19": {
-   "total": 2441257,
+   "total": 4010436,
    "estimated": true
   },
   "2026-05-20": {
-   "total": 19285927,
+   "total": 31682445,
    "estimated": true
   },
   "2026-05-21": {
-   "total": 25252358,
+   "total": 41483951,
    "estimated": true
   },
   "2026-05-22": {
-   "total": 15868168,
+   "total": 26067835,
    "estimated": true
   },
   "2026-05-23": {
-   "total": 1464754,
+   "total": 2406262,
    "estimated": true
   },
   "2026-05-26": {
-   "total": 732377,
+   "total": 1203131,
    "estimated": true
   }
  },
  "method": {
   "version": 2,
   "real_window": "2026-05-27 起（Claude Code 本地日志，按消息去重，含输入/输出/缓存读写全口径）",
-  "real_days": 17,
+  "real_days": 18,
   "estimated_days": 12,
-  "estimated_share": "6%",
+  "estimated_share": "9%",
   "web_estimate": {
    "total": "100M",
    "since": "2025-07-01",
@@ -545,9 +564,9 @@
     },
     {
      "from": "2026-01-01",
-     "to": "2026-06-12",
-     "days": 164,
-     "tokens": 77548571
+     "to": "2026-06-13",
+     "days": 165,
+     "tokens": 78021429
     }
    ]
   },
