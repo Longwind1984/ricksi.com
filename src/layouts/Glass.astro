@@ -178,7 +178,20 @@ const scrollspyIds = navItems.map(([id]) => id).join(',');
     {(reader || !noFooter) && (
       <div class="share-modal" id="share-modal" hidden>
         <div class="share-panel" role="dialog" aria-label="分享卡片">
-          <img class="share-card-img" id="share-card-img" alt="分享卡片预览" width="320" height="569" />
+          <div class="share-stage is-loading" id="share-stage">
+            <img class="share-card-img" id="share-card-img" alt="分享卡片预览" />
+            <div class="share-skel" aria-hidden="true">
+              <div class="share-skel-panel">
+                <span class="ssk ssk-k"></span>
+                <span class="ssk ssk-t1"></span>
+                <span class="ssk ssk-t2"></span>
+                <span class="ssk ssk-ex"></span>
+                <span class="ssk ssk-url"></span>
+                <span class="ssk ssk-qr"></span>
+              </div>
+              <span class="share-skel-shine"></span>
+            </div>
+          </div>
           <div class="share-actions">
             <button class="proj-expand" id="share-copy" type="button">复制链接</button>
             <a class="proj-expand share-dl" id="share-download" download>下载卡片</a>

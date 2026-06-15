@@ -39,6 +39,7 @@ function init(sig) {
   const modal = document.getElementById('share-modal');
   const triggers = document.querySelectorAll('[data-share-trigger]');
   if (modal && triggers.length) {
+    const stage = document.getElementById('share-stage');
     const img = document.getElementById('share-card-img');
     const copyBtn = document.getElementById('share-copy');
     const dlLink = document.getElementById('share-download');
@@ -51,9 +52,13 @@ function init(sig) {
       const title = btn.dataset.title || document.title;
       const url = btn.dataset.url || location.origin + location.pathname;
       cur = { card, ext, title, url };
+      // 加载动效 A：先亮玻璃骨架，img 解码完成后淡入替换（消除 pop-in）
+      stage?.classList.add('is-loading');
+      img.removeAttribute('src');
       img.src = card;
-      // 竖卡（玻璃明信片 .jpg）9/16 自适应；旧横版 OG（.png）走宽幅样式
-      img.classList.toggle('shc-vert', ext === '.jpg');
+      const done = () => stage?.classList.remove('is-loading');
+      if (img.decode) img.decode().then(done).catch(done);
+      else { img.onload = done; img.onerror = done; }
       dlLink.href = card;
       dlLink.setAttribute('download', (title.split('·')[0] || 'card').trim() + ext);
       modal.hidden = false;

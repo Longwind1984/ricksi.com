@@ -182,9 +182,15 @@ if (kgPaper && siteData.graph) {
   const use3d = webglOK() && window.matchMedia('(prefers-reduced-motion: no-preference)').matches;
   if (use3d) {
     kgPaper.classList.add('kg-3d');
-    const hintEl = document.createElement('span');
-    hintEl.className = 'kg-3d-hint mono';
-    hintEl.textContent = '3D 预览加载中…';
+    const hintEl = document.createElement('div');
+    hintEl.className = 'kg-3d-hint';
+    // 加载动效 B：星点成形（与 /graph、全屏图谱同源）
+    hintEl.innerHTML =
+      '<svg class="gx-constell" viewBox="0 0 132 92" aria-hidden="true">' +
+      '<circle class="gxs" cx="16" cy="20" r="1"></circle><circle class="gxs s2" cx="48" cy="12" r="1.2"></circle><circle class="gxs s3" cx="92" cy="22" r="1"></circle><circle class="gxs" cx="118" cy="16" r="1.3"></circle><circle class="gxs s2" cx="28" cy="58" r="1"></circle><circle class="gxs s3" cx="108" cy="68" r="1.2"></circle><circle class="gxs" cx="14" cy="80" r="1"></circle>' +
+      '<line class="gxl" x1="46" y1="44" x2="78" y2="36"></line><line class="gxl l2" x1="78" y1="36" x2="100" y2="60"></line><line class="gxl l3" x1="46" y1="44" x2="40" y2="74"></line><line class="gxl l4" x1="100" y1="60" x2="74" y2="76"></line>' +
+      '<circle class="gxs big" cx="46" cy="44" r="2.4"></circle><circle class="gxs gold" cx="78" cy="36" r="2.6"></circle><circle class="gxs big" cx="100" cy="60" r="2.2"></circle><circle class="gxs big" cx="40" cy="74" r="2"></circle><circle class="gxs big" cx="74" cy="76" r="2.2"></circle>' +
+      '</svg><span class="mono">点亮知识星系…</span>';
     kgPaper.appendChild(hintEl);
     let mounted = false;
     async function mount3d() {

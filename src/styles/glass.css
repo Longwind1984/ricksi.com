@@ -346,9 +346,9 @@ main { position: relative; z-index: 1; }
 .hm-dim.active { background: color-mix(in srgb, var(--accent) 30%, transparent); border-color: color-mix(in srgb, var(--accent) 55%, transparent); color: #FFFFFF; box-shadow: inset 0 1px 0 rgba(255,255,255,0.25); }
 
 /* 知识图谱 */
-.kg-grid { display: grid; grid-template-columns: 1fr 320px; gap: 48px; }
+.kg-grid { display: grid; grid-template-columns: 1fr 320px; gap: 48px; align-items: start; }
 .kg-paper { border: 1px solid rgba(255,255,255,0.12); border-radius: 20px; padding: 16px; background: rgba(6,12,26,0.5); box-shadow: inset 0 1px 0 rgba(255,255,255,0.08); }
-.kg-side { align-self: center; }
+.kg-side { align-self: start; }
 .kg-stats { display: grid; gap: 24px; margin-bottom: 32px; }
 .kg-stat { display: flex; align-items: baseline; gap: 14px; border-bottom: 1px solid var(--line); padding-bottom: 14px; }
 .kg-stat-v { font-family: var(--head); font-size: 32px; font-weight: 700; letter-spacing: -0.01em; color: #FFFFFF; }
@@ -419,8 +419,9 @@ main { position: relative; z-index: 1; }
 .kg-expand:hover { background: rgba(30,46,76,0.75); color: #FFFFFF; }
 .kg-expand:active { transform: scale(0.94); }
 .kg-expand:focus-visible { outline: 2px solid rgba(255,255,255,0.7); outline-offset: 2px; }
-/* 高度跟随 kg-stage（图例展开拉高整行时窗口同步变高，右下角全屏按钮始终贴窗） */
-.kg-paper.kg-3d { padding: 0; height: 100%; min-height: 460px; overflow: hidden; position: relative; cursor: grab; }
+/* 卡片高度解耦图例：固定 380px teaser 窗（桌面别撑满首屏），不再随 .kg-side 图例展开被拉高
+   （配 .kg-grid align-items:start）；全屏按钮 absolute bottom 仍贴窗 */
+.kg-paper.kg-3d { padding: 0; height: 380px; overflow: hidden; position: relative; cursor: grab; }
 .kg-paper.kg-3d canvas { display: block; border-radius: inherit; }
 /* 图例折叠：超过 6 个主题域默认收起 */
 .kg-leg-toggle {
@@ -433,11 +434,15 @@ main { position: relative; z-index: 1; }
 .kg-leg-toggle:hover { background: rgba(255,255,255,0.08); color: #FFFFFF; }
 .kg-leg-toggle:focus-visible { outline: 2px solid rgba(255,255,255,0.7); outline-offset: 2px; }
 .kg-3d-hint {
-  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
-  font-size: 11.5px; letter-spacing: 0.1em; color: rgba(240,245,252,0.45); pointer-events: none;
+  position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+  font-size: 11.5px; letter-spacing: 0.1em; color: rgba(240,245,252,0.55); pointer-events: none;
 }
+.kg-3d-hint .gx-constell { width: 108px; height: 76px; }
 @media (max-width: 700px) {
-  .kg-paper.kg-3d { height: 350px; }
+  .kg-paper.kg-3d { height: 300px; }
+}
+@media (max-width: 430px) {
+  .kg-paper.kg-3d { height: 260px; }
 }
 
 /* 触屏点选节点的浮层卡 */
@@ -759,10 +764,30 @@ a.rd-book, a.rd-aibook { display: block; -webkit-tap-highlight-color: transparen
   border: 1px solid rgba(255,255,255,0.26);
   box-shadow: inset 0 1px 0 rgba(255,255,255,0.28), 0 28px 80px rgba(2,8,28,0.7);
 }
-.share-card-img { display: block; width: 100%; height: auto; border-radius: 12px; border: 1px solid rgba(180,204,255,0.22); }
-/* 竖版玻璃明信片（360×640）：限高让弹层在笔记本高度也完整可见 */
-.share-panel:has(.shc-vert) { width: auto; }
-.share-card-img.shc-vert { width: auto; max-height: min(72vh, 600px); aspect-ratio: 9 / 16; margin: 0 auto; }
+/* 竖版玻璃明信片（9/16）：stage 持版面比，img 与骨架在其内叠放；弹层宽度跟随 stage */
+.share-panel:has(.share-stage) { width: auto; }
+.share-stage { position: relative; height: min(72vh, 600px); aspect-ratio: 9 / 16; margin: 0 auto; border-radius: 16px; overflow: hidden; }
+.share-card-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; border-radius: 16px; display: block; opacity: 1; transition: opacity .4s var(--ease-liquid); }
+.share-stage.is-loading .share-card-img { opacity: 0; }
+/* ── 加载动效 A · 玻璃骨架屏（钴蓝玻璃画出分享卡真实版式 + 群青扫光；img 解码后淡入替换） ── */
+.share-skel { position: absolute; inset: 0; border-radius: 16px; overflow: hidden; background: #070D20; opacity: 0; pointer-events: none; transition: opacity .4s var(--ease-liquid); }
+.share-stage.is-loading .share-skel { opacity: 1; }
+.share-skel::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 78% -6%, rgba(255,216,150,0.22), transparent 40%), linear-gradient(180deg, rgba(10,16,40,0.14), rgba(5,9,28,0.6)); }
+.share-skel-panel { position: absolute; left: 6%; right: 6%; top: 42%; bottom: 5%; border-radius: 13px; border: 1px solid rgba(180,204,255,0.26); background: linear-gradient(160deg, rgba(56,88,180,0.34), rgba(22,38,96,0.42)); }
+.ssk { position: absolute; border-radius: 4px; animation: lg-skel-pulse 1.5s var(--ease-liquid) infinite; }
+.ssk-k { top: 9%; left: 8%; width: 46%; height: 6px; background: var(--gold); opacity: 0.8; }
+.ssk-t1 { top: 18%; left: 8%; width: 78%; height: 13px; background: rgba(235,241,250,0.5); }
+.ssk-t2 { top: 30%; left: 8%; width: 55%; height: 13px; background: rgba(235,241,250,0.5); }
+.ssk-ex { top: 46%; left: 8%; width: 84%; height: 7px; background: rgba(190,210,255,0.32); }
+.ssk-url { bottom: 9%; left: 8%; width: 40%; height: 9px; background: rgba(235,241,250,0.55); }
+.ssk-qr { bottom: 8%; right: 8%; width: 22%; aspect-ratio: 1; background: rgba(235,241,250,0.5); border-radius: 6px; }
+.share-skel-shine { position: absolute; inset: 0; background: linear-gradient(105deg, transparent 38%, rgba(120,168,255,0.5) 50%, transparent 62%); transform: translateX(-120%); animation: lg-shine 1.9s var(--ease-liquid) infinite; }
+@keyframes lg-skel-pulse { 0%, 100% { opacity: 0.45; } 50% { opacity: 0.85; } }
+@keyframes lg-shine { 0% { transform: translateX(-120%); } 100% { transform: translateX(120%); } }
+@media (prefers-reduced-motion: reduce) {
+  .ssk, .share-skel-shine { animation: none; }
+  .share-skel-shine { display: none; }
+}
 .share-actions { display: flex; gap: 10px; margin-top: 14px; flex-wrap: wrap; align-items: center; }
 .share-actions .btn-accent { height: 38px; padding: 0 20px; font-size: 13.5px; margin-left: auto; }
 .share-dl { display: inline-flex; align-items: center; height: 38px; }
@@ -854,12 +879,26 @@ a.rd-book, a.rd-aibook { display: block; -webkit-tap-highlight-color: transparen
 }
 /* 3D canvas 尺寸防溢出（3d-force-graph 自管 width/height） */
 .graph-stage canvas { display: block; }
+/* ── 加载动效 B · 星点成形（图谱页 loading：星点点亮 + 蓝白连线画出星座，与全屏图谱同源） ── */
 .gx-loading {
   position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 8;
-  padding: 12px 22px; border-radius: 999px; font-size: 12px; letter-spacing: 0.08em;
-  color: rgba(240,245,252,0.85); background: rgba(12,22,42,0.8);
-  border: 1px solid rgba(255,255,255,0.2);
-  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  display: flex; flex-direction: column; align-items: center; gap: 14px;
+  color: rgba(240,245,252,0.78); font-size: 12px; letter-spacing: 0.1em;
+}
+.gx-constell { width: 132px; height: 92px; display: block; }
+.gx-constell .gxs { fill: #cdd9ea; animation: gx-tw 3s ease-in-out infinite; }
+.gx-constell .gxs.big { fill: #9cb4fe; }
+.gx-constell .gxs.gold { fill: var(--gold); }
+.gx-constell .gxs.s2 { animation-delay: .6s; }
+.gx-constell .gxs.s3 { animation-delay: 1.2s; }
+.gx-constell .gxl { stroke: #5b7fe6; stroke-width: 1; stroke-dasharray: 70; stroke-dashoffset: 70; animation: gx-draw 3.4s var(--ease-liquid) infinite; }
+.gx-constell .gxl.l2 { animation-delay: .45s; }
+.gx-constell .gxl.l3 { animation-delay: .9s; }
+.gx-constell .gxl.l4 { animation-delay: 1.3s; }
+@keyframes gx-tw { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+@keyframes gx-draw { 0%, 10% { stroke-dashoffset: 70; } 48%, 100% { stroke-dashoffset: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .gx-constell .gxs, .gx-constell .gxl { animation: none; opacity: 1; stroke-dashoffset: 0; }
 }
 /* 节点信息面板：桌面右侧浮卡 */
 .gx-panel {
