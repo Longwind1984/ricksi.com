@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-06-14T13:30:30.649Z",
+ "generated_at": "2026-06-15T13:38:21.434Z",
  "rollingDays": 90,
  "domains": {
   "lab": "前沿实验室",
@@ -107,21 +107,297 @@
   }
  ],
  "stats": {
-  "totalEntries": 27,
-  "totalAllTime": 27,
+  "totalEntries": 36,
+  "totalAllTime": 36,
   "lastRun": {
-   "at": "2026-06-14T13:30:30.649Z",
-   "fetched": 12,
-   "processed": 8,
-   "added": 0,
+   "at": "2026-06-15T13:38:21.435Z",
+   "fetched": 11,
+   "processed": 11,
+   "added": 9,
    "llmFailed": 0,
-   "rateLimited": true,
+   "rateLimited": false,
    "skippedSources": [
     "x:yann-lecun@ylecun"
    ]
   }
  },
  "entries": [
+  {
+   "id": "ecce5c2ee49155e5",
+   "date": "2026-06-15",
+   "person": "simon-willison",
+   "topicSource": null,
+   "sourceName": "simonwillison.net",
+   "sourceType": "rss",
+   "contentType": "authored",
+   "titleZh": "AI为何没有取代软件工程师，且不会取代",
+   "titleOriginal": "Why AI hasn’t replaced software engineers, and won’t",
+   "verdict": "以WARN法案真实数据与三大自动化瓶颈为据，系统反驳\"AI能力越过某阈值便引发大裁员\"叙事，核心论点：深度人类理解不可替代。",
+   "summaryZh": "Simon Willison 评介 Arvind Narayanan 与 Sayash Kappor 的同名文章，从\"最易被AI颠覆\"的软件工程职业切入，论证AI短期内不会造成大规模失业。关键数据：纽约州2025年3月起在WARN法案申报中增设AI披露选项，全年逾160家公司提交申报，无一勾选\"AI致裁员\"。文章指出，AI加速的仅是\"键入代码\"环节，而软件工程真正的瓶颈集中在三处：①决定并明确要构建什么；②验证交付物并承担责任；③对代码库、业务与外部环境的深度人类理解。Willison 在评介中补充个人体会：AI辅助虽已延伸至决策与验证步骤，但\"深度人类理解\"仍是其价值核心——无论AI工具多强大，产出质量仍依赖于对问题与解决方案的深刻认知。文章并指出，若此结论在监管壁垒极低的软件行业成立，其他大多数职业受到的冲击应更为有限。",
+   "tags": [
+    "coding agent",
+    "企业AI",
+    "AI治理",
+    "AI自主性",
+    "AI政策"
+   ],
+   "url": "https://simonwillison.net/2026/Jun/14/why-ai-hasnt-replaced-software-engineers",
+   "excerpt": "Why AI hasn’t replaced software engineers, and won’t\nArvind Narayanan and Sayash Kappor take on the question of AI job losses through the lens of a profession that is uniquely suited to AI disruption - software engineering.\nIn this essay, we argue that there is enough evidence to reject the narrative that once AI capabilities reach a certain threshold, it will cause mass layoffs. Given that this is true even in a sector with very few regulatory barriers, most other professions are likely to be e",
+   "apparent": 3,
+   "absolute": 3,
+   "importance": 3,
+   "gravity": false,
+   "periodic": true,
+   "canon": false,
+   "rationale": "有WARN法案真实申报数据支撑，三瓶颈框架有洞见且可复用，但属综合评述而非原创实证研究；\"AI会否取代开发者\"是典型周期性回归话题，periodic=true；absolute按实质取3而非随热度拔高。",
+   "insufficientContext": false,
+   "addedAt": "2026-06-15"
+  },
+  {
+   "id": "4ed3b26a088fa6f4",
+   "date": "2026-06-15",
+   "person": "francois-chollet",
+   "topicSource": null,
+   "sourceName": "X @fchollet",
+   "sourceType": "x",
+   "contentType": "statement",
+   "titleZh": "Chollet：近期AI只是数字杠杆，无方向的力量只是噪声",
+   "titleOriginal": "Near-term AI isn't fundamentally different from past tech waves. It's the newest form of digital leverage. It's a force multiplier, and force without direction is just noise. It still requires a human in the loop at every level in order to be useful.",
+   "verdict": "Keras创始人认为近期AI与历史技术浪潮无本质区别，仍是力量倍增器，各层级都依赖人类介入才能有效。",
+   "summaryZh": "Keras创始人、ARC基准提出者François Chollet在X上发表简短观点：近期AI与过去的技术浪潮没有本质区别，是\"数字杠杆\"的最新形态——力量倍增器，而没有方向的力量只是噪声。他强调AI在每一个层级都仍需要人类介入才能真正发挥作用。该观点直接反驳了\"AI将自主取代人类决策\"的主流叙事，来自顶级AI研究者，具有一定的信号价值，但属于立场声明而非新数据或新结果，缺乏论证展开。材料仅为一条推文，背景与触发时机不明。",
+   "tags": [
+    "AI自主性",
+    "人机协作",
+    "AI治理"
+   ],
+   "url": "https://x.com/fchollet/status/2066232539820208212",
+   "excerpt": "Near-term AI isn't fundamentally different from past tech waves. It's the newest form of digital leverage. It's a force multiplier, and force without direction is just noise. It still requires a human in the loop at every level in order to be useful.",
+   "apparent": 3,
+   "absolute": 2,
+   "importance": 2,
+   "gravity": false,
+   "periodic": true,
+   "canon": false,
+   "rationale": "来自有分量的研究者（ARC作者），但内容是无新数据支撑的立场推文；\"AI只是工具/杠杆\"vs\"AI是范式颠覆\"是圈内周期性回归的争论，periodic=true；absolute按实质不按声量取2。",
+   "insufficientContext": false,
+   "addedAt": "2026-06-15"
+  },
+  {
+   "id": "116d0b188a7742cc",
+   "date": "2026-06-15",
+   "person": "nathan-lambert",
+   "topicSource": null,
+   "sourceName": "interconnects.ai",
+   "sourceType": "rss",
+   "contentType": "authored",
+   "titleZh": "美国政府强制暂停 Anthropic Claude 5 Fable 海外访问，AI 治理进入 AGI 新纪元",
+   "titleOriginal": "Welcome to the AGI era of AI governance",
+   "verdict": "美国行政当局以越狱安全漏洞为由强制 Anthropic 暂停 Claude 5 Fable 境外访问，Lambert 将其定性为 AI 治理从「问答时代」跨入「AGI 时代」的历史起点。",
+   "summaryZh": "Nathan Lambert 在 interconnects.ai 撰文指出，美国行政当局在市场收盘后要求 Anthropic 暂停 Claude 5 Mythos/Fable 模型对境外用户的全部访问，导火索是 Anthropic 最大金融与技术合作方 Amazon 向白宫通报了一个针对 Fable 模型的越狱安全漏洞。Lambert 就此事件提出五个核心判断：① 对模型权重实施出口禁令是对美国长期不利的政策；② 越狱漏洞虽属真实安全隐患，但不足以引发如此激烈的政策反应；③ Anthropic 多年将 AI 类比核武器的「恐慌式」叙事客观上加速了此刻的到来，有「自食其果」之嫌；④ 白宫行动带有强烈的针对 Anthropic 的政治色彩，其禁令与「发展美国 AI 产业」目标存在深层矛盾——外籍人士若无法在美使用前沿 AI，国内 AI 产业将无从建立；⑤ Amazon 选择直接向白宫告发而非内部协商的动机不明，指向大科技公司与政府之间的复杂博弈。Lambert 将此事定性为 AI 治理从「ChatGPT 时代」（模型仅回答问题）进入「AGI 时代」（AI Agent 深度融入工作流、各国主权力量全面介入监管）的发令枪，并警告开源社区不应为此庆祝——类似激进政策行动极可能在 3 个月至 2 年内转向开源模型。文末表达对局势的强烈忧虑，认为这只是新常态的开始。",
+   "tags": [
+    "AI治理",
+    "Anthropic",
+    "Claude Fable 5",
+    "安全风险",
+    "Dario Amodei",
+    "开源模型"
+   ],
+   "url": "https://www.interconnects.ai/p/welcome-to-the-agi-era-of-ai-governance",
+   "excerpt": "The executive branch of the United States forcing Anthropic to turn off access — both internally and externally — to their latest Claude 5 Mythos/Fable models is the starting gun of a new era in AI governance. This is the era defining AI agents that effectively complement human workers, unlocking new ways of working and new domains of applying existing tools. The models will keep getter better at a rapid pace, forcing more governance challenges.\nShare\nAn unstable equilibrium at the frontier On F",
+   "apparent": 4,
+   "absolute": 4,
+   "importance": 4,
+   "gravity": false,
+   "periodic": false,
+   "canon": false,
+   "rationale": "事件本身（美国政府强制暂停业界顶级前沿模型境外访问）是 AI 治理史上里程碑级别节点，圈内讨论极热；文章提供了政治、经济、技术三维分析框架，具实质参考价值，但属评论性解读而非新数据或新方法，absolute 不升至 5。",
+   "insufficientContext": false,
+   "addedAt": "2026-06-15"
+  },
+  {
+   "id": "888bd1de6f406f7a",
+   "date": "2026-06-15",
+   "person": null,
+   "topicSource": "openai",
+   "sourceName": "openai.com",
+   "sourceType": "rss",
+   "contentType": "action",
+   "titleZh": "OpenAI 推出合作伙伴网络，投入 1.5 亿美元加速企业 AI 普及",
+   "titleOriginal": "Introducing the OpenAI Partner Network",
+   "verdict": "OpenAI 以 1.5 亿美元构建全球合作伙伴生态，标志其企业市场策略从直销转向渠道扩张。",
+   "summaryZh": "OpenAI 正式宣布推出「合作伙伴网络」（Partner Network），承诺投入 1.5 亿美元，通过全球合作伙伴体系加速企业 AI 的采购、部署与业务转型落地。此举是 OpenAI 在 B2B 市场的渠道建设动作——从此前以自有 API 和直销为主，向借助系统集成商、咨询公司等生态伙伴做规模化渗透转型，与 Microsoft、Google Cloud 等已成熟的企业 AI 合作伙伴体系形成直接竞争。原始材料仅为一句话公告，具体合作伙伴名单、资金分配规则、合作准入条件及变现机制均未披露，信息量有限。",
+   "tags": [
+    "OpenAI",
+    "企业AI",
+    "合作动态"
+   ],
+   "url": "https://openai.com/index/introducing-openai-partner-network",
+   "excerpt": "OpenAI launches the Partner Network, investing $150M to help global partners accelerate enterprise AI adoption, deployment, and transformation.",
+   "apparent": 4,
+   "absolute": 3,
+   "importance": 3,
+   "gravity": false,
+   "periodic": false,
+   "canon": false,
+   "rationale": "官方发布 + 亿级投入，圈内关注度高（apparent=4）；属商业渠道布局而非技术突破，实质影响待观察（absolute=3）。",
+   "insufficientContext": true,
+   "addedAt": "2026-06-15"
+  },
+  {
+   "id": "1d3a51c3a90a26c0",
+   "date": "2026-06-14",
+   "person": "simon-willison",
+   "topicSource": null,
+   "sourceName": "simonwillison.net",
+   "sourceType": "rss",
+   "contentType": "authored",
+   "titleZh": "Pyodide 开放 WASM wheel 直发 PyPI，Willison 用 Codex 完成首个示范包",
+   "titleOriginal": "Publishing WASM wheels to PyPI for use with Pyodide",
+   "verdict": "Python 生态基础设施突破：Pyodide 包发布瓶颈解除；Codex 被用于完成真实打包工程任务，是 coding agent 落地的侧面佐证。",
+   "summaryZh": "Pyodide 314.0 实现重要生态跃升：Python 包维护者现可将为 Pyodide（及兼容 PEP 783 定义的 PyEmscripten 平台的运行时）构建的 wheel 文件直接发布至 PyPI，彻底打破此前 Pyodide 团队须手动维护 300+ 个包的瓶颈。Simon Willison 为庆祝这一变化，将自己此前的 Luau WebAssembly 实验（Roblox 开发的嵌入式脚本语言，MIT 协议）封装为 PyPI 包，并将打包配置与 GitHub Actions CI/CD 流程的编写任务委托给 Codex + GPT-5.5 完成——经过若干轮迭代后成功发布，产物为 276KB 的 WASM wheel。他随后用 BigQuery 查询 PyPI 公开数据集，确认目前已有 28 个包使用新 pyemscripten_202*_wasm32 标签，涵盖 pydantic_core、onnx 等知名库。文章的 AI 相关性集中于工具使用侧：将具有一定工程复杂度（跨平台 WASM 编译、CI/CD 配置）的打包任务完整交给 coding agent 执行，是 Codex 类工具在实际开发工作流中落地价值的具体案例；查询数据探索部分则借助 ChatGPT 生成 BigQuery SQL 并用 Datasette Lite 可视化，展示了 AI 辅助数据分析的日常形态。",
+   "tags": [
+    "Codex",
+    "coding agent",
+    "Datasette",
+    "开源模型"
+   ],
+   "url": "https://simonwillison.net/2026/Jun/13/publishing-wasm-wheels",
+   "excerpt": "The Pyodide 314.0 release announcement (via Hacker News ) includes news I've been looking forward to for a long time:\nYou can now publish Python packages built for Pyodide (or any Python runtime compatible with the PyEmscripten platform defined in PEP 783 ) directly to PyPI and install them at runtime.\nPreviously, the Pyodide maintainers had to maintain, build, and host over 300 packages ourselves. This created a significant burden on our maintainers and became a major bottleneck for the communi",
+   "apparent": 2,
+   "absolute": 2,
+   "importance": 2,
+   "gravity": false,
+   "periodic": false,
+   "canon": false,
+   "rationale": "核心内容是 Python 包生态基础设施，AI 仅作为辅助工具出现（Codex 完成打包脚本），声量与分量均低；对 AI PM 的参考价值在于\"coding agent 能做哪些真实工程任务\"，属边角增量。",
+   "insufficientContext": false,
+   "addedAt": "2026-06-15"
+  },
+  {
+   "id": "2606b2fef0826b27",
+   "date": "2026-06-14",
+   "person": "simon-willison",
+   "topicSource": null,
+   "sourceName": "simonwillison.net",
+   "sourceType": "rss",
+   "contentType": "action",
+   "titleZh": "luau-wasm 0.1a0：Luau 打包为 Pyodide WebAssembly wheel 首个 alpha 版",
+   "titleOriginal": "luau-wasm 0.1a0",
+   "verdict": "Simon Willison 发布 Luau 的 Pyodide WebAssembly 打包工具 alpha 版，属小众开发者工具，与 AI 前沿关联极弱。",
+   "summaryZh": "Simon Willison 在其博客发布了 luau-wasm 0.1a0，将 Luau（Roblox 维护的 Lua 方言）打包为 Pyodide 兼容的 WebAssembly wheel 并推送至 PyPI，使浏览器端 Python 环境（Pyodide）可直接调用 Lua 运行时。配套有技术博文《Publishing WASM wheels to PyPI for use with Pyodide》说明打包与发布流程。本材料正文极为精简，仅为发布公告，实质内容需参阅关联博文。版本号 0.1a0 表明仍处早期 alpha 阶段。本次发布与 AI 领域前沿无直接关联，属通用 WebAssembly 开发工具范畴。",
+   "tags": [
+    "WebAssembly",
+    "Pyodide",
+    "开发工具",
+    "Lua"
+   ],
+   "url": "https://simonwillison.net/2026/Jun/13/luau-wasm",
+   "excerpt": "Simon Willison’s Weblog\nSubscribe\nSponsored by: Teleport &mdash; Prevent access bottlenecks. Unify identity. Teleport replaces fragmented identity and access tooling with a single identity layer that security teams trust, and engineers want to use.\n13th June 2026\nRelease\nluau-wasm 0.1a0\n&mdash; Luau packaged as a Pyodide WebAssembly wheel\nSee Publishing WASM wheels to PyPI for use with Pyodide for details.\nPosted 13th June 2026 at 11:14 pm\nRecent articles\nPublishing WASM wheels to PyPI for use w",
+   "apparent": 1,
+   "absolute": 2,
+   "importance": 2,
+   "gravity": false,
+   "periodic": false,
+   "canon": false,
+   "rationale": "小众工具首个 alpha 版，正文信息量极少，声量极低；分量属有用的基础设施增量，但受众局限于 Pyodide×Lua 交叉用户群，与 AI 前沿无直接关联。",
+   "insufficientContext": true,
+   "addedAt": "2026-06-15"
+  },
+  {
+   "id": "8a212c1ad5b70328",
+   "date": "2026-06-14",
+   "person": "simon-willison",
+   "topicSource": null,
+   "sourceName": "simonwillison.net",
+   "sourceType": "rss",
+   "contentType": "authored",
+   "titleZh": "Simon Willison 用 Claude Code 解决 SQLite 列来源追踪问题，顺带披露 Fable 5 被美国政府禁用",
+   "titleOriginal": "Mapping SQLite result columns back to their source `table.column`",
+   "verdict": "技术向博客：用 Claude Code（Opus 4.8）为 Datasette 探索 SQL 结果列溯源方案，文中以括号形式透露 Claude Fable 5 目前被美国政府禁用，是难得的 AI 政策信号。",
+   "summaryZh": "Simon Willison 在其博客记录了一次 AI 辅助编程实验：为了让 Datasette 能在渲染任意 SQL 查询结果时附加列来源信息（即识别每列对应的 `table.column`），他将 Claude Code（使用 Opus 4.8）作为研究工具。Claude Code 找到了三种可行方案：一是借助 apsw 库；二是通过 ctypes 调用 SQLite 原生 C 函数 `sqlite3_column_table_name()`（该函数未被 Python 标准接口暴露）；三是通过分析 `EXPLAIN` 输出进行推断。技术层面属于扎实的工程探索，覆盖了 JOIN、CTE 等复杂语法场景。值得关注的是文中一处括号说明：\"由于 Fable 目前被美国政府禁用（Fable is currently banned by the US government）\"，这是本文材料中唯一提及该限制的来源，未有展开说明，但作为一手观察者的直接陈述，具有一定政策信号价值。整体而言，这是一篇面向开发者社区的技术笔记，主要受众为 Datasette 和 SQLite 用户群体。",
+   "tags": [
+    "Datasette",
+    "coding agent",
+    "Claude Fable 5",
+    "Anthropic",
+    "AI政策",
+    "工具调用"
+   ],
+   "url": "https://simonwillison.net/2026/Jun/13/sqlite-column-provenance",
+   "excerpt": "Research: Mapping SQLite result columns back to their source `table.column`\nIt would be neat if arbitrary SQL queries in Datasette could be rendered with additional information based on which columns from which tables were included in the results.\nTo build that, we would need to be able to look at a SQL query like select users.name, orders.total from users join orders on orders.user_id = users.id and programmatically identify the table.column for each result - navigating not just joins but also ",
+   "apparent": 2,
+   "absolute": 2,
+   "importance": 2,
+   "gravity": false,
+   "periodic": false,
+   "canon": false,
+   "rationale": "技术增量扎实但受众窄；absolute 定 2 因核心价值是工程笔记，Fable 禁用属一笔带过未展开；apparent 定 2 因 Simon 在开发者圈有影响力但本文话题偏垂直。",
+   "insufficientContext": false,
+   "addedAt": "2026-06-15"
+  },
+  {
+   "id": "aa5e6f814e180f86",
+   "date": "2026-06-13",
+   "person": null,
+   "topicSource": "anthropic",
+   "sourceName": "X @AnthropicAI",
+   "sourceType": "x",
+   "contentType": "statement",
+   "titleZh": "美国政府援引国家安全权限发布出口管制令，强制暂停 Fable 5 与 Mythos 5 全球访问",
+   "titleOriginal": "The US government, citing national security authorities, has issued an export control directive to suspend all access to Fable 5 and Mythos 5 by any foreign national, whether inside or outside the United States, including foreign national Anthropic employees.\nThe net effect of this order is that we must abruptly disable Fable 5 and Mythos 5 for all our customers to ensure compliance.\nAccess to all other Claude models is not affected.\nWe apologize for this disruption to our customers. We believe this is a misunderstanding and are working to restore access as soon as possible.\nRead our full statement: https://www.anthropic.com/news/fable-mythos-access",
+   "verdict": "美国政府首次以国家安全为由对特定前沿 AI 模型发布出口管制指令，Anthropic 被迫对所有客户即时关停 Fable 5 与 Mythos 5，AI 监管进入新阶段。",
+   "summaryZh": "2026 年 6 月 13 日，Anthropic 官方发布声明：美国政府援引国家安全主管权限，向 Anthropic 发出出口管制指令，要求暂停所有外籍人士对 Fable 5 和 Mythos 5 的访问权限——涵盖身处美国境内外的所有外籍人士，以及 Anthropic 自身的外籍员工。为确保合规，Anthropic 被迫立即对全体客户禁用上述两款模型，其他 Claude 系列模型访问不受影响。Anthropic 在声明中表示认为此次管制存在误解，正全力争取尽快恢复访问。这是迄今已知首例美国政府以国家安全为由、通过出口管制手段强制关停特定已发布前沿 AI 模型的案例，不仅直接影响全球企业客户的 AI 服务连续性，也将成为 AI 治理政策演进的重要参照节点。",
+   "tags": [
+    "Anthropic",
+    "Claude Fable 5",
+    "AI治理",
+    "AI政策",
+    "出口管制",
+    "安全风险"
+   ],
+   "url": "https://x.com/AnthropicAI/status/2065597531644743999",
+   "excerpt": "The US government, citing national security authorities, has issued an export control directive to suspend all access to Fable 5 and Mythos 5 by any foreign national, whether inside or outside the United States, including foreign national Anthropic employees.\nThe net effect of this order is that we must abruptly disable Fable 5 and Mythos 5 for all our customers to ensure compliance.\nAccess to all other Claude models is not affected.\nWe apologize for this disruption to our customers. We believe ",
+   "apparent": 5,
+   "absolute": 5,
+   "importance": 5,
+   "gravity": false,
+   "periodic": false,
+   "canon": false,
+   "rationale": "政府首次对已公开发布的前沿 AI 模型动用国家安全出口管制权限并强制下架，属于 AI 监管史上里程碑事件，声量与分量均达顶级；非黑洞（Anthropic 已公开全文声明），非周期性话题，尚未沉淀为正典但长期必引。",
+   "insufficientContext": false,
+   "addedAt": "2026-06-15"
+  },
+  {
+   "id": "6333da371b623aab",
+   "date": "2026-06-13",
+   "person": null,
+   "topicSource": "arxiv-agents",
+   "sourceName": "arXiv",
+   "sourceType": "arxiv",
+   "contentType": "authored",
+   "titleZh": "AgentSpec：通过受控模块组合解析具身智能体脚手架行为",
+   "titleOriginal": "AgentSpec: Understanding Embodied Agent Scaffolds Through Controlled Composition",
+   "verdict": "提出AgentSpec模块化规范框架，首次将智能体脚手架拆解为可受控替换的标准接口组件，揭示性能由组件交互效应而非单一模块强度决定。",
+   "summaryZh": "论文提出 AgentSpec，一个将具身智能体表示为可复用策略组件类型化组合的模块化规范框架。框架标准化了感知、记忆、推理、反思、行动与学习六类模块之间的接口，使组件可在受控条件下逐一替换与重组，从而隔离各模块的贡献并比较不同设计方案。\n\n研究在 DeliveryBench、ALFRED、MiniGrid、RoboTHOR 四个具身环境中实例化框架，跨多种模型骨干分析推理、记忆、反思和强化学习模块的表现。主要发现：（1）智能体性能由脚手架兼容性和组件间交互效应主导，而非单一模块的孤立能力；（2）结构化多粒度记忆显著改善长时序状态追踪；（3）推理与记忆模块的交互在不同环境中表现不均匀；（4）反思机制在纠错增益与计算成本之间存在明确权衡；（5）经 RL 训练的策略，若在训练阶段即与部署脚手架结构协同优化，组合效果最佳。代码、基线及交互式实验平台已公开。\n\n该工作填补了当前智能体研究中缺乏受控消融基础设施的方法论空白，对从事多模块智能体工程设计的从业者有实践参考价值。",
+   "tags": [
+    "LLM Agent",
+    "记忆机制",
+    "基准测试",
+    "动态环境评测",
+    "AI自主性"
+   ],
+   "url": "https://arxiv.org/abs/2606.14674v1",
+   "excerpt": "LLM agents are increasingly built not as single model calls, but as scaffolded systems that combine reasoning, memory, reflection, action execution, and learning. While such scaffolds often improve performance, they are often embedded in tightly coupled pipelines, making it difficult to isolate component contributions, compare alternative designs, or understand how module interactions shape agent behavior. We introduce AgentSpec, a modular specification framework that represents embodied agents ",
+   "apparent": 2,
+   "absolute": 3,
+   "importance": 3,
+   "gravity": false,
+   "periodic": false,
+   "canon": false,
+   "rationale": "扎实的方法论贡献——受控组合框架有实用价值，跨四个基准的交互效应发现具有增量意义；但属工程基础设施层面的渐进推进，圈外声量极低。",
+   "insufficientContext": false,
+   "addedAt": "2026-06-15"
+  },
   {
    "id": "dcc2fd07a9e82426",
    "date": "2026-06-12",
@@ -140,9 +416,15 @@
    ],
    "url": "https://openai.com/index/preply",
    "excerpt": "Preply uses OpenAI to launch AI-generated lesson summaries, providing personalised feedback and language learning exercises.",
-   "importance": 2,
+   "importance": 1,
    "insufficientContext": true,
-   "addedAt": "2026-06-12"
+   "addedAt": "2026-06-12",
+   "apparent": 2,
+   "absolute": 1,
+   "gravity": false,
+   "periodic": false,
+   "canon": false,
+   "rationale": "常规企业落地展示，无模型版本、接入方式或效果数据披露，属 OpenAI 官网营销内容，无可建立其上的技术实质。"
   },
   {
    "id": "966ef2c7a152a307",
@@ -166,8 +448,14 @@
    ],
    "url": "https://simonwillison.net/2026/Jun/11/fable-is-relentlessly-proactive",
    "excerpt": "After two days of experience with Claude Fable 5 I think the best way to describe it is relentlessly proactive . It knows a whole lot of tricks and it will deploy pretty much any of them to get to its goal.\nI'll illustrate this with an example. I was hacking on Datasette Agent today when I noticed a glitch: a horizontal scrollbar that shouldn't be there in the jump menu chat prompt. I snapped this screenshot:\nThen I started a fresh claude session in my datasette-agent checkout, dragged in the sc",
-   "importance": 5,
-   "insufficientContext": false
+   "importance": 3,
+   "insufficientContext": false,
+   "apparent": 4,
+   "absolute": 3,
+   "gravity": false,
+   "periodic": false,
+   "canon": false,
+   "rationale": "Simon Willison 的实战记录以可复现的操作轨迹具象化了 Fable 5 的极端自主性，并将「不受控 agency 即攻击面」这一安全命题落实到真实案例，属于圈内高信噪比一手观察；但本质仍是个案博客，非可控实验或新方法，absolute 止于扎实增量。"
   },
   {
    "id": "71086403f38d3a5b",
@@ -189,8 +477,14 @@
    ],
    "url": "https://x.com/sama/status/2065160791205310565",
    "excerpt": "really looking forward to working together!\nJohannes Landgraf (@jolandgraf)\nx.com/i/article/206495249936…\n— https://nitter.net/jolandgraf/status/2065089676122235376#m",
-   "importance": 2,
-   "insufficientContext": true
+   "importance": 1,
+   "insufficientContext": true,
+   "apparent": 2,
+   "absolute": 1,
+   "gravity": false,
+   "periodic": false,
+   "canon": false,
+   "rationale": "Sam Altman 名人效应带来少量关注，但帖子本身信息量为零——一句期待语无任何可评估的技术或战略内容。"
   },
   {
    "id": "4c42d0c2e7945f0d",
@@ -214,8 +508,14 @@
    ],
    "url": "https://arxiv.org/abs/2606.13681v1",
    "excerpt": "Large language model (LLM) agents have achieved strong performance on a wide range of benchmarks, yet most evaluations assume static environments. In contrast, real-world deployment is inherently dynamic, requiring agents to continually align their knowledge, skills, and behavior with changing environments and updated task conditions. To address this gap, we introduce EvoArena, a benchmark suite that models environment changes as sequences of progressive updates across terminal, software, and so",
-   "importance": 4,
-   "insufficientContext": false
+   "importance": 3,
+   "insufficientContext": false,
+   "apparent": 2,
+   "absolute": 3,
+   "gravity": false,
+   "periodic": false,
+   "canon": false,
+   "rationale": "揭示 LLM Agent 静态评测盲区的问题意识扎实、方向正确，但 EvoMem 在 EvoArena 上仅带来 +1.5% 提升，主基准改善有限，整体属于有效增量而非方法突破。"
   },
   {
    "id": "4112f5fa625501eb",
@@ -239,8 +539,14 @@
    ],
    "url": "https://arxiv.org/abs/2606.13663v1",
    "excerpt": "Tool-augmented LLM agents commonly rely on step-wise atomic tool calls, where each invocation, observation, and value transfer is exposed in the main reasoning trace. This creates an \\emph{execution-granularity mismatch}: locally deterministic tool workflows are unfolded into repeated model-visible decisions, consuming context and forcing the model to manage low-level dataflow in the trace. We introduce \\textbf{HyperTool}, a unified executable MCP-style tool interface that changes the model-visi",
-   "importance": 4,
-   "insufficientContext": false
+   "importance": 3,
+   "insufficientContext": false,
+   "apparent": 3,
+   "absolute": 3,
+   "gravity": false,
+   "periodic": false,
+   "canon": false,
+   "rationale": "「代码块折叠」架构思路对 MCP Agent 设计有直接参考价值，准确率翻倍结果扎实，但基线偏低（15.69%）且仅在单一基准上验证，属有效增量而非范式突破。"
   },
   {
    "id": "466e1bbb401ce538",
@@ -264,8 +570,14 @@
    ],
    "url": "https://x.com/fchollet/status/2064740102463725853",
    "excerpt": "Some considerations that many folks seem not to get:\n1. It can be a bubble even if the tech works. (For instance, if the tech doesn't have a high-demand use case.)\n2. It can be a bubble even if the tech works and has strong product-market fit. (For instance, if the tech cannot be economically viable.)\n3. It can be a bubble even if the tech works, has strong product-market fit, and has a path to eventual economic viability. (For instance, if profitability takes too long to achieve or makes margin",
-   "importance": 4,
-   "insufficientContext": false
+   "importance": 2,
+   "insufficientContext": false,
+   "apparent": 3,
+   "absolute": 2,
+   "gravity": false,
+   "periodic": false,
+   "canon": false,
+   "rationale": "Chollet对\"泡沫\"概念的逻辑解构清晰且有方法论价值，但本质是将经济学既有认知（铁路/互联网泡沫先例）重新应用于AI语境，无新数据或实证支撑，属有效的公开观点而非实质性知识增量。"
   },
   {
    "id": "f713debf04d5e314",
@@ -289,8 +601,14 @@
    ],
    "url": "https://simonwillison.net/2026/Jun/11/datasette",
    "excerpt": "Release: datasette 1.0a33\nThis alpha is a significant step on the road to a stable 1.0, finally extending the ?_extra= pattern I introduced in Datasette 1.0a3 to cover queries and rows in addition to tables. That pattern is also now documented !\nI wrote a whole lot more about the new release on the Datasette project blog: Datasette 1.0a33 with JSON extras in the API .\nBecause API explorer tools are almost free to build now I had Claude Fable 5 in Claude Code (for the plan ) and GPT-5.5 xhigh in ",
-   "importance": 3,
-   "insufficientContext": false
+   "importance": 2,
+   "insufficientContext": false,
+   "apparent": 2,
+   "absolute": 2,
+   "gravity": false,
+   "periodic": false,
+   "canon": false,
+   "rationale": "Datasette alpha 的 ?_extra= 扩展是范围有限的工具进展，AI 分工协作演示（Claude 规划 / GPT 实现）有实践参考价值但属个人案例记录，整体是有用增量而非前沿突破。"
   },
   {
    "id": "aed26ba38eef9fe7",
@@ -314,8 +632,14 @@
    ],
    "url": "https://arxiv.org/abs/2606.13317v1",
    "excerpt": "Skill self-evolution methods for LLM agents aim to turn execution trajectories into reusable skill documents, but current pipelines typically learn from one trajectory per task, merge candidate skill patches before checking them, and load the full skill corpus before inference. We propose SkillCAT, a training-free framework that separates this process into three stages. Contrastive Causal Extraction (CCE) samples multiple trajectories for each task and compares same-task success/failure pairs to",
-   "importance": 4,
-   "insufficientContext": false
+   "importance": 3,
+   "insufficientContext": false,
+   "apparent": 3,
+   "absolute": 3,
+   "gravity": false,
+   "periodic": false,
+   "canon": false,
+   "rationale": "针对现有技能自演化流水线三处工程痛点的系统性改进，多基准验证扎实、提升幅度有说服力，但核心洞见（对比采样 + 沙盒验证 + 稀疏检索）均为已知思路的组合应用，属有效增量而非范式突破；声量局限于 agent 研究子社区。"
   },
   {
    "id": "5c29b9f053a10bcf",
@@ -340,7 +664,13 @@
    "url": "https://arxiv.org/abs/2606.13177v1",
    "excerpt": "Large language model (LLM) agents are increasingly expected to operate over long-term interactions, where information from past dialogues must be preserved and recalled to support future tasks. However, as interactions accumulate, the memory store grows without bound and fills with redundant entries that inflate storage cost and degrade retrieval by crowding out the most useful evidence. Furthermore, this is especially limiting on resource-constrained platforms with hard memory budgets, motivati",
    "importance": 3,
-   "insufficientContext": false
+   "insufficientContext": false,
+   "apparent": 2,
+   "absolute": 3,
+   "gravity": false,
+   "periodic": false,
+   "canon": false,
+   "rationale": "扎实的工程增量——将 LLM-as-judge 引入记忆预算压缩切中 agent 长期部署的真实痛点，多基准验证有说服力，但属于记忆管理细分方向的改进而非范式级突破，圈外几乎不可见。"
   },
   {
    "id": "453671f1b69b7e8a",
@@ -364,8 +694,14 @@
    ],
    "url": "https://arxiv.org/abs/2606.13174v1",
    "excerpt": "Interactive LLM agents are becoming part of daily work, but they do not reliably become easier to work with over time: a correction remembered in one session may still be violated in the next. We study this gap between preference access and preference compliance. In tasks derived from anonymized real-user friction cases, Mem0 memory still leaves 57.5% of applicable preference checks violated. We introduce Test-time Rule Acquisition and Compiled Enforcement (TRACE), a drop-in skill-layer pipeline",
-   "importance": 4,
-   "insufficientContext": false
+   "importance": 3,
+   "insufficientContext": false,
+   "apparent": 2,
+   "absolute": 3,
+   "gravity": false,
+   "periodic": false,
+   "canon": false,
+   "rationale": "将纠错编译为运行时硬约束是解决偏好合规问题的有效工程路径，实验数据扎实（OOD 降至 2%），但核心洞察属于\"检索记忆不够、需强制执行\"的务实增量，尚未改写 Agent 记忆范式；代码已开源，后续工作可建立其上。"
   },
   {
    "id": "c41162839297ff34",
@@ -390,7 +726,13 @@
    "url": "https://simonwillison.net/2026/Jun/11/asyncinject",
    "excerpt": "Simon Willison’s Weblog\nSubscribe\nSponsored by: Teleport &mdash; Prevent access bottlenecks. Unify identity. Teleport replaces fragmented identity and access tooling with a single identity layer that security teams trust, and engineers want to use.\n11th June 2026\nRelease\nasyncinject 0.7\n&mdash; Run async workflows using pytest-fixtures-style dependency injection\nI built this utility library to support an asyncio dependency injection pattern a few years ago. I was using it with Datasette and Clau",
    "importance": 2,
-   "insufficientContext": false
+   "insufficientContext": false,
+   "apparent": 2,
+   "absolute": 2,
+   "gravity": false,
+   "periodic": false,
+   "canon": false,
+   "rationale": "小版本库发布附带的单条轶事性观察，无技术细节、无可复现方法，只是 Fable 5 主动性的一个侧面印证，不构成独立的实质性贡献。"
   },
   {
    "id": "a61fe844d7a9c3a7",
@@ -414,8 +756,14 @@
    ],
    "url": "https://simonwillison.net/2026/Jun/11/anthropic-walks-back-policy",
    "excerpt": "Anthropic Walks Back Policy That Could Have ‘Sabotaged’ AI Researchers Using Claude\nBig scoop for Maxwell Zeff at Wired:\n“We’re changing Fable 5’s safeguards for frontier LLM development to make them visible.” Anthropic said in a statement to WIRED. “We made the wrong tradeoff and we apologize for not getting the balance right.”\nThere's been a huge outcry about Anthropic's policy, tucked away in their system card , that Claude Fable/Mythos would identify \"requests targeting frontier LLM developm",
-   "importance": 4,
-   "insufficientContext": false
+   "importance": 3,
+   "insufficientContext": false,
+   "apparent": 4,
+   "absolute": 3,
+   "gravity": false,
+   "periodic": false,
+   "canon": false,
+   "rationale": "Anthropic 因在 Fable 5 中内嵌隐性安全策略遭研究者强烈反弹后公开道歉并改为可见回退机制，属 AI 透明度治理层面的实质政策事件（Wired 报道、圈内沸腾），但本质是 PR/治理修正而非技术突破，圈内声量高而破圈有限，重要性取中位。"
   },
   {
    "id": "2c70c883782855e9",
@@ -439,8 +787,14 @@
    ],
    "url": "https://x.com/demishassabis/status/2064873362799600042",
    "excerpt": "Awesome to see this innovation in text diffusion. DiffusionGemma is lightning fast, 4x faster than other Gemma 4 models! Congrats to @bodonoghue85 and the team who worked so hard on this - excited to see what people build with it!\nGoogle Gemma (@googlegemma)\nMeet DiffusionGemma!\nAn experimental open model that explores a fast approach to text generation, released under an Apache 2.0 license.\nMoving beyond sequential, token-by-token processes to generate entire blocks of text simultaneously. Here",
-   "importance": 4,
-   "insufficientContext": false
+   "importance": 3,
+   "insufficientContext": false,
+   "apparent": 3,
+   "absolute": 3,
+   "gravity": false,
+   "periodic": false,
+   "canon": false,
+   "rationale": "Google 开源实验性文本扩散模型，CEO 背书带动圈内关注，4× 速度声称有价值，但定位\"实验性\"、无基准数据披露、文本扩散路线学术上已有积累，属于主流资源背书的实质增量，尚不构成范式确立。"
   },
   {
    "id": "436a674e3bf2eef7",
@@ -464,8 +818,14 @@
    ],
    "url": "https://openai.com/index/using-codex-to-simulate-black-holes",
    "excerpt": "Discover how astrophysicist Chi-kwan Chan uses Codex to build black hole simulations, helping scientists study extreme physics and test Einstein’s theory of general relativity.",
-   "importance": 3,
-   "insufficientContext": true
+   "importance": 2,
+   "insufficientContext": true,
+   "apparent": 3,
+   "absolute": 2,
+   "gravity": false,
+   "periodic": false,
+   "canon": false,
+   "rationale": "OpenAI 官方用例文章，Codex 进入天体物理数值模拟场景具备一定扩圈示范意义，但无新方法、无可验证科研成果披露，内容停留在摘要级别，属轻量落地故事而非实质技术推进。"
   },
   {
    "id": "a9f0898c4190e001",
@@ -489,8 +849,14 @@
    ],
    "url": "https://openai.com/index/bbva",
    "excerpt": "Learn how BBVA scaled ChatGPT Enterprise to 100,000 employees and partnered with OpenAI to accelerate AI-powered banking transformation worldwide.",
-   "importance": 3,
-   "insufficientContext": true
+   "importance": 2,
+   "insufficientContext": true,
+   "apparent": 3,
+   "absolute": 2,
+   "gravity": false,
+   "periodic": false,
+   "canon": false,
+   "rationale": "头部银行全员级部署具有商业背书价值，但本质是 PR 案例研究，无技术实质、无数据披露、无可建立其上的新方法，分量归边角衍生。"
   },
   {
    "id": "8875a0080daca525",
@@ -514,8 +880,14 @@
    ],
    "url": "https://openai.com/index/supporting-eu-trustworthy-ai-ecosystem",
    "excerpt": "OpenAI supports the EU Code of Practice on AI content transparency, advancing provenance standards and tools to help people understand AI-generated content.",
-   "importance": 3,
-   "insufficientContext": true
+   "importance": 2,
+   "insufficientContext": true,
+   "apparent": 3,
+   "absolute": 2,
+   "gravity": false,
+   "periodic": false,
+   "canon": false,
+   "rationale": "OpenAI配合欧盟监管的政策表态，无技术细节、无时间表、无具体工具披露，属合规战略信号而非实质性技术或研究推进。"
   },
   {
    "id": "6600f3e4b9646c4b",
@@ -539,8 +911,14 @@
    ],
    "url": "https://openai.com/index/openai-to-acquire-ona",
    "excerpt": "OpenAI plans to acquire Ona to expand Codex with secure, persistent cloud environments, enabling long-running AI agents across enterprise workflows.",
-   "importance": 5,
-   "insufficientContext": false
+   "importance": 3,
+   "insufficientContext": false,
+   "apparent": 3,
+   "absolute": 3,
+   "gravity": false,
+   "periodic": false,
+   "canon": false,
+   "rationale": "OpenAI以收购动作将Codex的基础设施短板（持久化云端沙箱）纳入版图，是agentic路线的战略卡位，但无技术细节披露，属路线确认而非能力突破，圈内关注但不出圈。"
   },
   {
    "id": "e45e28cee954100d",
@@ -565,7 +943,13 @@
    "url": "https://simonwillison.net/2026/Jun/10/datasette-agent",
    "excerpt": "Release: datasette-agent 0.2a0\nHighlights from the release notes:\nTools can now ask the user questions mid-execution. Tools that declare a context parameter receive a ToolContext object, and await context.ask_user(...) can ask a yes/no, multiple-choice ( options=[...] ) or free-text ( free_text=True ) question. While a question is unanswered the agent turn suspends: the question renders as a form in the chat UI and persists to the internal database, so suspended conversations survive a server re",
    "importance": 3,
-   "insufficientContext": false
+   "insufficientContext": false,
+   "apparent": 3,
+   "absolute": 3,
+   "gravity": false,
+   "periodic": false,
+   "canon": false,
+   "rationale": "公开可读的 alpha 工具发布，将 HITL agent 设计（持久化挂起 + 强制审批）落地为可运行参考实现，属扎实增量贡献，但模式本身并不新颖，影响范围限于 Datasette 生态圈内开发者。"
   },
   {
    "id": "4600462b11c1a928",
@@ -589,8 +973,14 @@
    ],
    "url": "https://openai.com/index/openai-on-oracle-cloud",
    "excerpt": "Access OpenAI models and Codex through Oracle Cloud, using existing commitments to build and deploy AI with enterprise security and governance.",
-   "importance": 4,
-   "insufficientContext": false
+   "importance": 2,
+   "insufficientContext": false,
+   "apparent": 3,
+   "absolute": 2,
+   "gravity": false,
+   "periodic": false,
+   "canon": false,
+   "rationale": "纯企业渠道扩张动作，降低 Oracle 存量客户采购摩擦，无技术增量，定价与区域细节缺失，圈内有限关注但不影响研究走向。"
   },
   {
    "id": "2ea53e033ca33553",
@@ -614,8 +1004,14 @@
    ],
    "url": "https://x.com/AnthropicAI/status/2064783418844762489",
    "excerpt": "AI is advancing at a pace our policymaking institutions were never built for—and the gap between the two is becoming the central challenge of the technology. In his latest essay, our CEO Dario Amodei lays out how to close it.\nWe're launching three new initiatives to support the efforts he outlines.\nDario Amodei (@DarioAmodei)\nToday I'm publishing a new essay, Policy on the AI Exponential. AI is progressing extremely fast—much faster than the policy process was built to handle. The essay lays out",
-   "importance": 4,
-   "insufficientContext": false
+   "importance": 3,
+   "insufficientContext": false,
+   "apparent": 4,
+   "absolute": 3,
+   "gravity": false,
+   "periodic": true,
+   "canon": false,
+   "rationale": "顶级实验室 CEO 亲署的治理框架文章配套机构行动，圈内声量显著，但\"AI 演进速度超越政策机构设计能力\"是可识别的周期性回归叙事，本文属倡议性框架贡献而非实质技术或实证突破，配套三项举措因原材料未披露细节无法加分，分量取扎实增量。"
   },
   {
    "id": "3b765fc5a7a882f8",
@@ -639,8 +1035,14 @@
    ],
    "url": "https://x.com/DarioAmodei/status/2064781775247950326",
    "excerpt": "Today I'm publishing a new essay, Policy on the AI Exponential. AI is progressing extremely fast—much faster than the policy process was built to handle. The essay lays out where I think the technology is now, and the action needed to close the gap: darioamodei.com/post/policy-…",
-   "importance": 5,
-   "insufficientContext": false
+   "importance": 2,
+   "insufficientContext": false,
+   "apparent": 4,
+   "absolute": 2,
+   "gravity": false,
+   "periodic": true,
+   "canon": false,
+   "rationale": "Anthropic CEO 置顶博文具有明确行业风向标声量，但内容属政策倡导性意见文章，无新技术结果/数据/方法，\"AI 发展超出政策响应速度\"本身是每轮技术跃进后可识别的周期性话题潮，分量按实质从轻。"
   },
   {
    "id": "654ba11c9faceaf3",
@@ -665,7 +1067,13 @@
    "url": "https://deepmind.google/blog/diffusiongemma-4x-faster-text-generation",
    "excerpt": "Skip to main content\nThe Keyword\nDiffusionGemma: 4x faster text generation\nShare\nx.com\nFacebook\nLinkedIn\nMail\nCopy link\nHome\nInnovation & AI\nInnovation & AI\nModels & Research\nGoogle DeepMind\nGoogle Research\nGoogle Labs\nGemini models\nQuantum computing\nSee all\nProducts\nDeveloper tools\nGemini app\nNotebookLM\nSee all\nInfrastructure & cloud\nGlobal network\nGoogle Cloud\nSee all\nTechnology\nSafety & Security\nHealth\nSee all\nLearn more:\nGoogle DeepMind blog\nGoogle Research blog\nGoogle Developers blog\nGoogle",
    "importance": 4,
-   "insufficientContext": false
+   "insufficientContext": false,
+   "apparent": 4,
+   "absolute": 4,
+   "gravity": false,
+   "periodic": false,
+   "canon": false,
+   "rationale": "DeepMind 首次将文本扩散推进至可实际部署的规模并以 Apache 2.0 开源，1000+ token/s 的推理速度与双向注意力对非线性任务的天然优势是可验证的实质进展，后续研究将在其上建立；但官方明确定位为实验性且输出质量低于 Gemma 4，属里程碑式推进而非范式替换，圈内沸腾但未出圈至主流科技头条。"
   },
   {
    "id": "ac6a14e8955762e2",
@@ -689,8 +1097,14 @@
    ],
    "url": "https://deepmind.google/blog/investing-in-multi-agent-ai-safety-research",
    "excerpt": "Skip to main content Explore our next generation AI systems Explore models Gemini Gemini Build intelligent agents Gemini Omni Create anything from anything Nano Banana Create and edit detailed images Gemini Audio Talk, create and control audio Specialized models Veo Generate cinematic video with audio Imagen Generate high-quality images from text Lyria Generate high fidelity music and audio World models & embodied AI Genie 3 Generate and explore interactive worlds Gemini Robotics Perceive, reaso",
-   "importance": 5,
-   "insufficientContext": false
+   "importance": 3,
+   "insufficientContext": false,
+   "apparent": 3,
+   "absolute": 3,
+   "gravity": false,
+   "periodic": false,
+   "canon": false,
+   "rationale": "多机构联合资助是多 Agent 安全方向的有效结构性信号，但本质是资金公告而非研究结果，实质推进需等后续论文落地；圈内可见度中等，不及技术突破出圈。"
   },
   {
    "id": "3c7730e843fd3376",
@@ -714,8 +1128,14 @@
    ],
    "url": "https://x.com/karpathy/status/2064409694761054332",
    "excerpt": "This is a super exciting release - Claude Fable 5 is the same underlying model as Mythos but with added safeguards. The benchmarks are great and it's SOTA on everything by a margin but I'll add that *qualitatively* also, this is a major-version-bump-deserving step change forward (imo of the same order as Claude 4.5 was in November), peaking especially for long problem-solving sessions on very difficult problems. You can give it a lot more ambitious tasks than what you're used to, the model \"gets",
-   "importance": 5,
-   "insufficientContext": false
+   "importance": 2,
+   "insufficientContext": false,
+   "apparent": 4,
+   "absolute": 2,
+   "gravity": false,
+   "periodic": false,
+   "canon": false,
+   "rationale": "Karpathy 的背书带来高圈内声量，\"Fable 5 与 Mythos 同底层\"属有效信息增量，但本质是定性评价与个人观感，无新方法/新数据/可复现结论，绝对分量按实质取低。"
   },
   {
    "id": "5cf88629509e3eaf",
@@ -739,8 +1159,14 @@
    ],
    "url": "https://deepmind.google/blog/fluid-natural-voice-translation-with-gemini-35-live-translate",
    "excerpt": "Skip to main content\nThe Keyword\nFluid, natural voice translation with Gemini 3.5 Live Translate\nShare\nx.com\nFacebook\nLinkedIn\nMail\nCopy link\nHome\nInnovation & AI\nInnovation & AI\nModels & Research\nGoogle DeepMind\nGoogle Research\nGoogle Labs\nGemini models\nQuantum computing\nSee all\nProducts\nDeveloper tools\nGemini app\nNotebookLM\nSee all\nInfrastructure & cloud\nGlobal network\nGoogle Cloud\nSee all\nTechnology\nSafety & Security\nHealth\nSee all\nLearn more:\nGoogle DeepMind blog\nGoogle Research blog\nGoogle ",
-   "importance": 4,
-   "insufficientContext": false
+   "importance": 3,
+   "insufficientContext": false,
+   "apparent": 4,
+   "absolute": 3,
+   "gravity": false,
+   "periodic": false,
+   "canon": false,
+   "rationale": "Google 规模落地的实用里程碑——连续流式替代逐句等待是真实体验提升，2000+ 语言组合覆盖度可观，但核心算法属工程集成与产品化优化而非范式级研究突破，absolute 取 3。"
   },
   {
    "id": "644db884346b8e03",
@@ -765,7 +1191,13 @@
    "url": "https://deepmind.google/blog/introducing-gemma-4-12b-a-unified-encoder-free-multimodal-model",
    "excerpt": "Skip to main content\nThe Keyword\nIntroducing Gemma 4 12B: a unified, encoder-free multimodal model\nShare\nx.com\nFacebook\nLinkedIn\nMail\nCopy link\nHome\nInnovation & AI\nInnovation & AI\nModels & Research\nGoogle DeepMind\nGoogle Research\nGoogle Labs\nGemini models\nQuantum computing\nSee all\nProducts\nDeveloper tools\nGemini app\nNotebookLM\nSee all\nInfrastructure & cloud\nGlobal network\nGoogle Cloud\nSee all\nTechnology\nSafety & Security\nHealth\nSee all\nLearn more:\nGoogle DeepMind blog\nGoogle Research blog\nGoogl",
    "importance": 4,
-   "insufficientContext": false
+   "insufficientContext": false,
+   "apparent": 4,
+   "absolute": 4,
+   "gravity": false,
+   "periodic": false,
+   "canon": false,
+   "rationale": "无编码器统一多模态架构是可验证的架构创新（非炒概念），Apache 2.0开源+16GB消费级运行门槛使其具备真实落地价值，后续工作可直接建立其上，属实质推进；Gemma系列1.5亿下载的社区基础保证圈内广泛传播，但不足以出圈刷屏主流媒体头条。"
   },
   {
    "id": "f4a6f6d2b3925084",
@@ -789,8 +1221,14 @@
    ],
    "url": "https://deepmind.google/blog/powering-the-future-of-robotics-in-europe",
    "excerpt": "Skip to main content\nThe Keyword\nPowering the future of robotics in Europe\nShare\nx.com\nFacebook\nLinkedIn\nMail\nCopy link\nHome\nInnovation & AI\nInnovation & AI\nModels & Research\nGoogle DeepMind\nGoogle Research\nGoogle Labs\nGemini models\nQuantum computing\nSee all\nProducts\nDeveloper tools\nGemini app\nNotebookLM\nSee all\nInfrastructure & cloud\nGlobal network\nGoogle Cloud\nSee all\nTechnology\nSafety & Security\nHealth\nSee all\nLearn more:\nGoogle DeepMind blog\nGoogle Research blog\nGoogle Developers blog\nGoogle",
-   "importance": 4,
-   "insufficientContext": false
+   "importance": 3,
+   "insufficientContext": false,
+   "apparent": 3,
+   "absolute": 3,
+   "gravity": false,
+   "periodic": false,
+   "canon": false,
+   "rationale": "DeepMind以加速器形式向欧洲机器人生态系统性输出Gemini技术栈，是Physical AI从实验室走向规模商业落地的典型战略布局，但本质属业务扩张动作而非技术突破，重要性在于生态信号与商业路径验证。"
   }
  ]
 }
