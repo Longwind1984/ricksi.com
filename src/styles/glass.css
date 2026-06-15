@@ -593,6 +593,17 @@ a.rd-book, a.rd-aibook { display: block; -webkit-tap-highlight-color: transparen
 .foot-title { font-family: var(--head); font-size: 30px; font-weight: 700; letter-spacing: -0.02em; color: #FFFFFF; margin-bottom: 16px; }
 .foot-links { font-size: 13.5px; color: var(--sub); }
 .foot-links a:hover { color: #FFFFFF; }
+/* 页脚「分享名片」按钮：融入链接排，群青描边 glyph + 文字，hover 提亮 */
+.foot-share {
+  font: inherit; font-size: 13.5px; color: var(--sub);
+  background: none; border: none; padding: 0; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 6px; vertical-align: baseline;
+  transition: color .2s; -webkit-tap-highlight-color: transparent;
+}
+.foot-share svg { color: var(--accent-text, var(--accent)); transition: color .2s; }
+.foot-share:hover { color: #FFFFFF; }
+.foot-share:hover svg { color: #FFFFFF; }
+.foot-share:focus-visible { outline: 2px solid rgba(255,255,255,0.7); outline-offset: 3px; border-radius: 6px; }
 /* 页脚微信二维码（details 原生开合，零 JS） */
 .foot-wechat { display: inline-block; position: relative; }
 .foot-wechat summary { cursor: pointer; list-style: none; display: inline; transition: color .2s; }

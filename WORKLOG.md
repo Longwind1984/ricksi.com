@@ -1,5 +1,23 @@
 # WORKLOG（append-only，倒金字塔：结论在前、清单沉底）
 
+## 2026-06-14 · v4 续：合并 Trae 首屏重构 + 页脚分享按钮 + 推送上线
+
+### 做了什么
+
+1. **合并并行 Trae 迭代**：origin/main 已被 Trae（worktree）会话推进「重构首页第一屏设计」——把原 INDEX 目录侧栏换成 `hero-wb` 工作台数据卡（今日 token/趋势/热力图上提首屏）+ 横向目录条。把 origin/main 合入 v4，唯一冲突在 `glass.css` 的 6 行 hero 头：**取 Trae 的 100vh 居中布局 + v4 的太阳金 kicker**（Trae 保留的是旧白 kicker，设计系统规定 kicker 用金）。其余 Trae 新类（hero-wb/hero-index-strip/wb-detail + 降级三档登记）全用 v4 token，3-way 干净合入；index.astro 取 Trae 版（v4 未碰）。结果 = Trae 的 IA（工作台进首屏）+ v4 的视觉语言，两者正交兼容。
+2. **页脚融合分享按钮**：页脚链接排加「分享名片」按钮，开整站名片卡弹层（`/share/site.jpg`）。分享弹层从 reader-only 改为「reader 或有页脚」都渲染；`reader.js` 分享逻辑泛化为多触发器（`[data-share-trigger]` 各自带 card/title/url），reader chrome 钮与页脚钮共用一套。解决了上一条 WORKLOG「site 卡已生成但无入口」的遗留。
+3. **推送上线**：v4（含本次合并）合并进 main 并 push，EdgeOne 自动重建。
+
+### 验证
+
+- build 全量绿；首页 hero-wb 卡在 v4 玻璃质感下渲染、kicker 金/目录条编号群青/MiSans 字体；页脚「分享名片」→ 整站名片卡（2.7B token/598 节点/19 天）720×1280 加载、复制/下载/系统分享通；reader 页双触发器（博文卡 + 整站卡）各开各的、互不干扰；移动端页脚按钮在链接排内不破版；控制台零错。
+
+### 文件级变更
+
+- 修改：`src/layouts/Glass.astro`（页脚分享按钮 + 弹层渲染条件 reader→reader||footer + reader chrome 钮加 data-share-trigger）、`src/scripts/reader.js`（分享逻辑多触发器化）、`src/styles/glass.css`（合并 Trae hero-wb 等 + `.foot-share` 样式 + hero 冲突解决）、`src/pages/index.astro`（采用 Trae 首屏重构）、`package-lock.json`
+
+---
+
 ## 2026-06-13 · v4：设计系统入库 + v2「钴蓝之夜」全站落地 + 玻璃明信片分享卡
 
 ### ⚠ 体验影响（置顶，全部为用户可见层变更，未经确认不算定稿）

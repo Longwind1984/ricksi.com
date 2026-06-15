@@ -33,22 +33,27 @@ function init(sig) {
     }, { passive: true, signal: sig });
   }
 
-  /* ---------- 分享卡片弹层 ---------- */
+  /* ---------- 分享卡片弹层（多触发器：reader chrome 钮 + 页脚「分享名片」） ----------
+     每个 [data-share-trigger] 自带 data-share（竖卡）/ data-og（横卡回退）/ data-title /
+     data-url（缺省取当前页）。点击时按该触发器的数据填充弹层，因此同页可有多个入口。 */
   const modal = document.getElementById('share-modal');
-  const openBtn = document.getElementById('share-open');
-  if (modal && openBtn) {
+  const triggers = document.querySelectorAll('[data-share-trigger]');
+  if (modal && triggers.length) {
     const img = document.getElementById('share-card-img');
     const copyBtn = document.getElementById('share-copy');
     const dlLink = document.getElementById('share-download');
     const nativeBtn = document.getElementById('share-native');
-    /* 竖版玻璃明信片优先（data-share），无则回退横版 OG 卡 */
-    const card = openBtn.dataset.share || openBtn.dataset.og || '';
-    const ext = card.endsWith('.jpg') ? '.jpg' : '.png';
-    const title = openBtn.dataset.title || document.title;
-    const url = location.origin + location.pathname;
+    let cur = { card: '', ext: '.jpg', title: document.title, url: location.href };
 
-    const open = () => {
+    const open = (btn) => {
+      const card = btn.dataset.share || btn.dataset.og || '';
+      const ext = card.endsWith('.png') ? '.png' : '.jpg';
+      const title = btn.dataset.title || document.title;
+      const url = btn.dataset.url || location.origin + location.pathname;
+      cur = { card, ext, title, url };
       img.src = card;
+      // 竖卡（玻璃明信片 .jpg）9/16 自适应；旧横版 OG（.png）走宽幅样式
+      img.classList.toggle('shc-vert', ext === '.jpg');
       dlLink.href = card;
       dlLink.setAttribute('download', (title.split('·')[0] || 'card').trim() + ext);
       modal.hidden = false;
@@ -57,30 +62,30 @@ function init(sig) {
     };
     const close = () => { modal.hidden = true; };
 
-    openBtn.addEventListener('click', open, { signal: sig });
+    triggers.forEach((btn) => btn.addEventListener('click', () => open(btn), { signal: sig }));
     document.getElementById('share-close').addEventListener('click', close, { signal: sig });
     modal.addEventListener('pointerdown', (e) => { if (e.target === modal) close(); }, { signal: sig });
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !modal.hidden) close(); }, { signal: sig });
 
     copyBtn.addEventListener('click', async () => {
       try {
-        await navigator.clipboard.writeText(url);
+        await navigator.clipboard.writeText(cur.url);
         copyBtn.textContent = '已复制 ✓';
         setTimeout(() => (copyBtn.textContent = '复制链接'), 1600);
       } catch {
-        copyBtn.textContent = url; // 剪贴板被拒时直接亮出链接
+        copyBtn.textContent = cur.url; // 剪贴板被拒时直接亮出链接
       }
     }, { signal: sig });
 
     if (navigator.share) {
       nativeBtn.hidden = false;
       nativeBtn.addEventListener('click', async () => {
-        const payload = { title, url };
+        const payload = { title: cur.title, url: cur.url };
         try {
           // 能带图就带图（iOS/Android 分享面板出卡片）
-          const blob = await fetch(card).then((r) => (r.ok ? r.blob() : null));
+          const blob = await fetch(cur.card).then((r) => (r.ok ? r.blob() : null));
           if (blob) {
-            const file = new File([blob], 'card' + ext, { type: blob.type || 'image/jpeg' });
+            const file = new File([blob], 'card' + cur.ext, { type: blob.type || 'image/jpeg' });
             if (navigator.canShare?.({ files: [file] })) payload.files = [file];
           }
         } catch { /* 取不到图就纯链接分享 */ }

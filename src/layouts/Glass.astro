@@ -98,7 +98,7 @@ const scrollspyIds = navItems.map(([id]) => id).join(',');
         <header class="reader-chrome" id="reader-chrome" style="view-transition-name: site-head">
           <a href="/" class="reader-home" aria-label="回到首页 · 司豪杰 Rick Si">R</a>
           <div class="reader-actions">
-            <button class="reader-btn" id="share-open" aria-label="分享本页" data-og={ogImage} data-share={shareImage} data-title={title}>
+            <button class="reader-btn" id="share-open" aria-label="分享本页" data-share-trigger data-og={ogImage} data-share={shareImage} data-title={title}>
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 8 5-5 5 5"/><path d="M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></svg>
             </button>
             <button class="reader-btn nav-search" aria-label="搜索（⌘K 或 /）">
@@ -148,6 +148,19 @@ const scrollspyIds = navItems.map(([id]) => id).join(',');
                   <img src="/assets/wechat-qr.jpg" alt="扫码添加微信" loading="lazy" width="200" height="252" />
                 </span>
               </details>
+              <span> · </span>
+              <button
+                class="foot-share"
+                type="button"
+                data-share-trigger
+                data-share="/share/site.jpg"
+                data-title="司豪杰 Rick Si · 工作台"
+                data-url="https://ricksi.com/"
+                aria-label="分享工作台名片卡"
+              >
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 8 5-5 5 5"/><path d="M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></svg>
+                分享名片
+              </button>
             </div>
           </div>
           <div class="foot-right">
@@ -159,13 +172,13 @@ const scrollspyIds = navItems.map(([id]) => id).join(',');
       )}
     </div>
 
-    {/* 分享卡片弹层：竖版玻璃明信片（构建期生成；无 shareImage 的页面回退横版 OG 卡） */}
-    {reader && (
+    {/* 分享卡片弹层：竖版玻璃明信片（构建期生成）。reader 页或带页脚的页面都渲染——
+        多触发器共用一套逻辑（reader chrome 分享钮 + 页脚「分享名片」），各触发器自带卡片地址。
+        竖卡按 9/16 自适应，无 shareImage 的旧触发器回退横版 OG 卡（CSS 探测 src 后缀切样式）。 */}
+    {(reader || !noFooter) && (
       <div class="share-modal" id="share-modal" hidden>
-        <div class="share-panel" role="dialog" aria-label="分享本页">
-          {shareImage
-            ? <img class="share-card-img shc-vert" id="share-card-img" alt="本页分享卡片预览" width="320" height="569" />
-            : <img class="share-card-img" id="share-card-img" alt="本页分享卡片预览" width="600" height="315" />}
+        <div class="share-panel" role="dialog" aria-label="分享卡片">
+          <img class="share-card-img" id="share-card-img" alt="分享卡片预览" width="320" height="569" />
           <div class="share-actions">
             <button class="proj-expand" id="share-copy" type="button">复制链接</button>
             <a class="proj-expand share-dl" id="share-download" download>下载卡片</a>
