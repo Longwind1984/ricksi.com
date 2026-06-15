@@ -181,9 +181,10 @@ const numbered = (list: typeof PROJECTS, offset = 0) =>
   }}
 >
   <main id="top">
-    <!-- Hero · 全屏主视觉 -->
+    <!-- Hero · 全屏主视觉 + 工作台数据卡片 -->
     <section class="hero-photo">
-      <div class="container hero-grid">
+      <div class="container hero-layout">
+        <!-- 左侧：个人介绍 -->
         <div class="hero-text">
           <div class="mono kicker">AI 时代的思考与足迹</div>
           <h1 class="hero-title">把产品判断，<br />变成能跑起来的东西。</h1>
@@ -191,29 +192,93 @@ const numbered = (list: typeof PROJECTS, offset = 0) =>
             我是司豪杰 Rick Si——3 年滴滴出行国际化安全与体验治理产品经理，主导的司机安全产品让安全感知指数提升
             19pp、历史首次反超 Uber。背包拉美半年后，转型 AI 产品经理：读源码、建工具、写思考、养知识库——这个工作台就是转型的证据。
           </p>
+          <!-- 紧凑目录条 -->
+          <nav class="hero-index-strip" aria-label="页面目录">
+            <a href="#projects" class="index-strip-item"><span class="mono">01</span> 项目</a>
+            <a href="#workbench" class="index-strip-item"><span class="mono">02</span> 工作台</a>
+            <a href="#knowledge" class="index-strip-item"><span class="mono">03</span> 知识库</a>
+            <a href="#frontier" class="index-strip-item"><span class="mono">04</span> 前沿</a>
+            <a href="#blog" class="index-strip-item"><span class="mono">05</span> 写作</a>
+            <a href="#reading" class="index-strip-item"><span class="mono">06</span> 阅读</a>
+          </nav>
         </div>
-        <aside class="hero-index glass">
-          <div class="mono index-label">INDEX · 目录</div>
-          <div class="index-list">
-            <a href="#projects" class="index-item">
-              <span class="index-no">01</span><span class="index-t">项目</span><span class="index-s">What I've built · {PROJECTS.length}</span>
-            </a>
-            <a href="#workbench" class="index-item">
-              <span class="index-no">02</span><span class="index-t">工作台数据</span><span class="index-s">Tokens &amp; activity</span>
-            </a>
-            <a href="#knowledge" class="index-item">
-              <span class="index-no">03</span><span class="index-t">知识库图谱</span><span class="index-s">What I've learned</span>
-            </a>
-            <a href="#frontier" class="index-item">
-              <span class="index-no">04</span><span class="index-t">前沿追踪</span><span class="index-s">Who I'm tracking</span>
-            </a>
-            <a href="#blog" class="index-item">
-              <span class="index-no">05</span><span class="index-t">思考与写作</span><span class="index-s">What I've been thinking</span>
-            </a>
-            <a href="#reading" class="index-item">
-              <span class="index-no">06</span><span class="index-t">阅读</span><span class="index-s">What I've been reading</span>
-            </a>
+        <!-- 右侧：工作台数据卡片 -->
+        <aside class="hero-wb glass">
+          <div class="mono hero-wb-label">WORKBENCH · 工作台{!usage && <em class="sample-badge">样例数据</em>}</div>
+          <!-- 核心指标行 -->
+          <div class="hero-wb-metrics">
+            <div class="hero-wb-metric hero-wb-main">
+              <div class="mono stat-k">今日 TOKEN</div>
+              <span class="wb-static-num">{u.today.toLocaleString()}</span>
+              {u.today_out != null && (
+                <div class="mono wb-sub">含缓存读写 {u.today_cache_share}% · 输出 {compact(u.today_out)}</div>
+              )}
+            </div>
+            <div class="hero-wb-metric">
+              <div class="mono stat-k">本周</div>
+              <div class="stat-v">{u.week}<span class="stat-unit">tokens</span></div>
+            </div>
+            <div class="hero-wb-metric">
+              <div class="mono stat-k">累计</div>
+              <div class="stat-v">{u.cumulative}<span class="stat-unit">tokens</span></div>
+            </div>
+            <div class="hero-wb-metric">
+              <div class="mono stat-k">连续活跃</div>
+              <div class="stat-v">{coding.streak}<span class="stat-unit">天</span></div>
+            </div>
           </div>
+          <!-- 模型分布 -->
+          <div class="wb-models">
+            {u.models.map(([m, p]) => (
+              <span class="mono wb-model">{m} <b>{p}%</b></span>
+            ))}
+          </div>
+          <!-- 14 日趋势 -->
+          <div class="hero-wb-trend">
+            <div class="mono wb-label">近 14 日用量趋势（M TOKENS）</div>
+            <TrendChart days={days14} />
+          </div>
+          <!-- 热力图 -->
+          <div class="hero-wb-heat">
+            <div class="mono wb-label">{activity ? '多源活跃 · 近 22 周' : 'CODING 活跃 · 近 22 周'}</div>
+            <div class="hm" id="heatmap">
+              {heatmapCols.map((col, w) => (
+                <div class="hm-col">
+                  {col.map((cell, d) => (
+                    <span
+                      class:list={['hm-cell', `l${cell.l}`, { future: cell.future }]}
+                      data-w={activity ? w : undefined}
+                      data-d={activity ? d : undefined}
+                    ></span>
+                  ))}
+                </div>
+              ))}
+            </div>
+            {activity && (
+              <div class="hm-dims mono" id="hm-dims">
+                {hmDims.map(([key, label]) => (
+                  <button class:list={['hm-dim', { active: key === 'all' }]} data-dim={key}>{label}</button>
+                ))}
+              </div>
+            )}
+            <div class="wb-stat-row" style="margin-top:14px">
+              <div>
+                <div class="mono stat-k">提交</div>
+                <div class="stat-v">{coding.commits.toLocaleString()}<span class="stat-unit">commits</span></div>
+              </div>
+              <div>
+                <div class="mono stat-k">仓库</div>
+                <div class="stat-v">{coding.repos}<span class="stat-unit">个</span></div>
+              </div>
+            </div>
+          </div>
+          {(usageStamp || activityStamp) && (
+            <div class="mono wb-stamp">
+              {usageStamp && `用量更新于 ${usageStamp}`}
+              {usageStamp && activityStamp && ' · '}
+              {activityStamp && `活跃更新于 ${activityStamp}`}
+            </div>
+          )}
         </aside>
       </div>
       <div class="mono hero-credit">云海之上 · 无人机自摄</div>
@@ -249,42 +314,27 @@ const numbered = (list: typeof PROJECTS, offset = 0) =>
         </section>
       </div>
 
-      <!-- 02 工作台数据 -->
+      <!-- 02 工作台数据 · 补充口径说明（核心数据已在首屏卡片展示） -->
       <div class="reveal">
         <section class="sec" id="workbench">
           <div class="sec-head">
             <span class="mono sec-no">02</span>
             <div class="sec-title-row">
               <h2 class="sec-title">工作台数据</h2>
-              <span class="mono sec-en">WORKBENCH · DAILY</span>
+              <span class="mono sec-en">WORKBENCH · METHODOLOGY</span>
             </div>
-            <span class="sec-desc">5 月底以来逐日实测；更早部分按公开口径估算并标明</span>
+            <span class="sec-desc">核心指标见首屏卡片 · 此处补充口径与估算方法</span>
           </div>
-          <div class="wb-grid">
-            <div class="wb-col">
-              <div class="mono wb-label">今日 TOKEN 用量{!usage && <em class="sample-badge">样例数据</em>}</div>
-              <span class="wb-static-num">{u.today.toLocaleString()}</span>
-              {u.today_out != null && (
-                <div class="mono wb-sub">全口径（含缓存读写 {u.today_cache_share}%）· 其中模型输出 {compact(u.today_out)}</div>
-              )}
-              <div class="wb-stat-row">
-                <div>
-                  <div class="mono stat-k">本周</div>
-                  <div class="stat-v">{u.week}<span class="stat-unit">tokens</span></div>
-                </div>
-                <div>
-                  <div class="mono stat-k">累计</div>
-                  <div class="stat-v">{u.cumulative}<span class="stat-unit">tokens</span></div>
-                  {u.cumulative_code && (
-                    <div class="mono wb-sub">Code 实测+估算 {u.cumulative_code} · 网页端粗估 {u.cumulative_web}</div>
-                  )}
-                </div>
-              </div>
-              <div class="wb-models">
-                {u.models.map(([m, p]) => (
-                  <span class="mono wb-model">{m} <b>{p}%</b></span>
-                ))}
-              </div>
+          <div class="wb-detail-grid">
+            <div class="wb-detail-col">
+              <div class="mono wb-label">TOKEN 用量口径{!usage && <em class="sample-badge">样例数据</em>}</div>
+              <p class="wb-detail-text">
+                5 月底以来逐日实测；更早部分按公开口径估算并标明。
+                {u.cumulative_code && (
+                  <>Code 实测+估算 {u.cumulative_code} · 网页端粗估 {u.cumulative_web}。</>
+                )}
+                全口径含缓存读写 {u.today_cache_share}%，其中模型输出 {compact(u.today_out)}。
+              </p>
               {usageStamp && (
                 <div class="mono wb-stamp">
                   数据更新于 {usageStamp} · 口径 v2：实测 {usage?.method?.real_days ?? '—'} 天
@@ -294,46 +344,12 @@ const numbered = (list: typeof PROJECTS, offset = 0) =>
                 </div>
               )}
             </div>
-            <div class="wb-col">
-              <div class="mono wb-label">近 14 日用量趋势（M TOKENS）{!usage && <em class="sample-badge">样例数据</em>}</div>
-              <TrendChart days={days14} />
-            </div>
-            <div class="wb-col no-border">
-              <div class="mono wb-label">{activity ? '多源活跃 · 近 22 周' : 'CODING 活跃 · 近 22 周'}{!activity && <em class="sample-badge">样例数据</em>}</div>
-              <div class="hm" id="heatmap">
-                {heatmapCols.map((col, w) => (
-                  <div class="hm-col">
-                    {col.map((cell, d) => (
-                      <span
-                        class:list={['hm-cell', `l${cell.l}`, { future: cell.future }]}
-                        data-w={activity ? w : undefined}
-                        data-d={activity ? d : undefined}
-                      ></span>
-                    ))}
-                  </div>
-                ))}
-              </div>
-              {activity && (
-                <div class="hm-dims mono" id="hm-dims">
-                  {hmDims.map(([key, label]) => (
-                    <button class:list={['hm-dim', { active: key === 'all' }]} data-dim={key}>{label}</button>
-                  ))}
-                </div>
-              )}
-              <div class="wb-stat-row">
-                <div>
-                  <div class="mono stat-k">提交</div>
-                  <div class="stat-v">{coding.commits.toLocaleString()}<span class="stat-unit">commits</span></div>
-                </div>
-                <div>
-                  <div class="mono stat-k">连续</div>
-                  <div class="stat-v">{coding.streak}<span class="stat-unit">天</span></div>
-                </div>
-                <div>
-                  <div class="mono stat-k">仓库</div>
-                  <div class="stat-v">{coding.repos}<span class="stat-unit">个</span></div>
-                </div>
-              </div>
+            <div class="wb-detail-col">
+              <div class="mono wb-label">活跃度口径{!activity && <em class="sample-badge">样例数据</em>}</div>
+              <p class="wb-detail-text">
+                多源活跃统计涵盖代码提交（git）、笔记更新（Obsidian）、AI 会话与 GitHub 贡献。
+                热力图支持按维度切换查看各来源独立分布。
+              </p>
               {activityStamp && <div class="mono wb-stamp">数据更新于 {activityStamp}</div>}
             </div>
           </div>

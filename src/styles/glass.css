@@ -130,13 +130,53 @@ html.lg-refract .nav-pill { backdrop-filter: url("#lg-lens") saturate(185%) brig
 .btn-accent:focus-visible { outline: 2px solid rgba(255,255,255,0.7); outline-offset: 2px; }
 .btn-accent.big { height: 50px; padding: 0 32px; font-size: 16px; margin-left: 0; }
 
-/* Hero */
-.hero-photo { position: relative; min-height: 94vh; display: flex; align-items: flex-end; }
-.hero-grid { position: relative; z-index: 1; width: 100%; display: grid; grid-template-columns: 1fr 380px; gap: 64px; align-items: end; padding-top: 130px; padding-bottom: 84px; }
+/* Hero（v4 合并 Trae 首屏重构：Trae 的 100vh 居中布局 + v4 的太阳金 kicker） */
+.hero-photo { position: relative; min-height: 100vh; display: flex; align-items: center; }
+.hero-layout { position: relative; z-index: 1; width: 100%; display: grid; grid-template-columns: 1fr 480px; gap: 48px; align-items: center; padding-top: 110px; padding-bottom: 60px; }
 .kicker { font-size: 13px; color: var(--gold); letter-spacing: 0.18em; margin-bottom: 26px; }
-.hero-title { margin: 0; font-size: 60px; line-height: 1.28; font-weight: 700; letter-spacing: -0.02em; color: #FFFFFF; text-shadow: 0 2px 28px rgba(4,12,30,0.45); text-wrap: pretty; }
+.hero-title { margin: 0; font-size: 56px; line-height: 1.28; font-weight: 700; letter-spacing: -0.02em; color: #FFFFFF; text-shadow: 0 2px 28px rgba(4,12,30,0.45); text-wrap: pretty; }
 .hero-sub { margin-top: 28px; font-size: 17px; line-height: 1.95; color: rgba(238,243,250,0.85); max-width: 560px; text-shadow: 0 1px 16px rgba(4,12,30,0.5); text-wrap: pretty; }
 .hero-credit { position: absolute; right: 28px; bottom: 20px; z-index: 1; font-size: 11px; letter-spacing: 0.14em; color: rgba(255,255,255,0.5); }
+
+/* 紧凑目录条（替代原 INDEX 玻璃卡） */
+.hero-index-strip { display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: 32px; }
+.index-strip-item { font-family: var(--head); font-size: 13.5px; font-weight: 500; color: rgba(255,255,255,0.65); letter-spacing: 0.02em; transition: color .2s; -webkit-tap-highlight-color: transparent; }
+.index-strip-item span { color: var(--accent); margin-right: 5px; font-size: 11px; letter-spacing: 0.08em; }
+.index-strip-item:hover { color: #FFFFFF; }
+
+/* Hero 工作台玻璃卡 */
+.hero-wb.glass {
+  background: linear-gradient(180deg, rgba(255,255,255,0.11), rgba(255,255,255,0.05));
+  backdrop-filter: blur(28px) saturate(170%);
+  -webkit-backdrop-filter: blur(28px) saturate(170%);
+  border: 1px solid rgba(255,255,255,0.20);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.28),
+    inset 1px 0 0 rgba(255,255,255,0.08),
+    inset -1px -1px 0 rgba(255,255,255,0.04),
+    0 20px 56px rgba(2,8,20,0.38);
+  border-radius: var(--r-sec);
+  padding: 28px 30px;
+  max-height: calc(100vh - 140px);
+  overflow-y: auto;
+}
+.hero-wb-label { font-size: 11.5px; color: rgba(255,255,255,0.55); letter-spacing: 0.14em; margin-bottom: 20px; }
+
+/* Hero 工作台指标网格 */
+.hero-wb-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 18px 28px; }
+.hero-wb-metric { padding-bottom: 16px; border-bottom: 1px solid var(--line); }
+.hero-wb-metric:last-child { border-bottom: none; }
+.hero-wb-main { grid-column: 1 / -1; border-bottom: 1px solid var(--line); padding-bottom: 20px; margin-bottom: 2px; }
+.hero-wb-main .wb-static-num { font-size: 38px; }
+.hero-wb-metric .stat-v { font-size: 24px; }
+
+/* Hero 趋势 & 热力图 */
+.hero-wb-trend { margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--line); }
+.hero-wb-heat { margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--line); }
+.hero-wb-heat .hm { gap: 2.5px; }
+.hero-wb-heat .hm-cell { width: 10px; height: 10px; border-radius: 2px; }
+.hero-wb-heat .wb-stat-row { gap: 28px; }
+.hero-wb-heat .stat-v { font-size: 22px; }
 
 /* 目录玻璃卡 */
 .hero-index.glass {
@@ -244,6 +284,10 @@ main { position: relative; z-index: 1; }
 .wb-grid { display: grid; grid-template-columns: 1.1fr 1fr 1.2fr; gap: 0; }
 .wb-col { border-right: 1px solid var(--line); padding-right: 44px; margin-right: 44px; min-width: 0; }
 .wb-col.no-border { border-right: none; padding-right: 0; margin-right: 0; }
+/* 工作台口径说明（精简版 section 02） */
+.wb-detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 36px; }
+.wb-detail-col { min-width: 0; }
+.wb-detail-text { margin: 10px 0 0; font-size: 14px; line-height: 1.85; color: var(--sub); }
 .wb-label { font-size: 11.5px; color: var(--sub); letter-spacing: 0.12em; margin-bottom: 16px; }
 .wb-static-num { font-family: var(--head); font-size: 42px; font-weight: 700; color: #FFFFFF; font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
 .wb-stat-row { display: flex; gap: 36px; margin-top: 26px; }
@@ -981,7 +1025,7 @@ a.rd-book, a.rd-aibook { display: block; -webkit-tap-highlight-color: transparen
 /* ============ 降级三档（HIG 无障碍降级体系；自定义玻璃必须自带） ============ */
 /* 档1：用户主动降低透明度（Chrome/Edge 118+；Safari 未实现 → 档2 兜底） */
 @media (prefers-reduced-transparency: reduce) {
-  .site-head, .site-head.over-hero, .sec, .hero-index.glass, .glassy,
+  .site-head, .site-head.over-hero, .sec, .hero-index.glass, .hero-wb.glass, .glassy,
   .site-foot, .hm-tip, .kg-node-card, .brand, .nav, .nav-pill {
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
@@ -994,7 +1038,7 @@ a.rd-book, a.rd-aibook { display: block; -webkit-tap-highlight-color: transparen
 }
 /* 档2：环境完全不支持 backdrop-filter —— 同组实色，保证文字对比度 */
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  .site-head, .site-head.over-hero, .sec, .hero-index.glass, .glassy,
+  .site-head, .site-head.over-hero, .sec, .hero-index.glass, .hero-wb.glass, .glassy,
   .site-foot, .hm-tip, .kg-node-card, .brand, .nav {
     background: rgba(13, 22, 40, 0.96);
   }
@@ -1005,7 +1049,7 @@ a.rd-book, a.rd-aibook { display: block; -webkit-tap-highlight-color: transparen
 }
 /* 档3：高对比 —— 强化玻璃边界与文字 */
 @media (prefers-contrast: more) {
-  .site-head, .sec, .hero-index.glass, .nav, .brand, .site-foot, .kg-node-card { border-color: rgba(255,255,255,0.5); }
+  .site-head, .sec, .hero-index.glass, .hero-wb.glass, .nav, .brand, .site-foot, .kg-node-card { border-color: rgba(255,255,255,0.5); }
   .page { --sub: rgba(240,245,252,0.82); --line: rgba(255,255,255,0.3); }
   .nav-link { color: rgba(255,255,255,0.92); }
 }
@@ -1018,7 +1062,7 @@ a.rd-book, a.rd-aibook { display: block; -webkit-tap-highlight-color: transparen
 }
 /* 平板步进（1000~1180 之间原是空洞：三列项目行/图谱在窄桌面挤压） */
 @media (max-width: 1120px) {
-  .hero-grid { grid-template-columns: 1fr 340px; gap: 44px; }
+  .hero-layout { grid-template-columns: 1fr 420px; gap: 36px; }
   .proj-row { grid-template-columns: 56px 1fr 260px; gap: 28px; }
   .ph { height: 122px; }
   .kg-grid { grid-template-columns: 1fr 280px; gap: 34px; }
@@ -1027,7 +1071,8 @@ a.rd-book, a.rd-aibook { display: block; -webkit-tap-highlight-color: transparen
 @media (max-width: 1000px) {
   .container { padding: 0 28px; }
   .site-head { top: 10px; left: 12px; right: 12px; }
-  .hero-grid { grid-template-columns: 1fr; gap: 40px; padding-top: 110px; padding-bottom: 64px; }
+  .hero-layout { grid-template-columns: 1fr; gap: 36px; padding-top: 110px; padding-bottom: 56px; }
+  .hero-wb.glass { max-height: none; }
   .hero-title { font-size: 42px; }
   .sec { padding: 32px 28px; border-radius: 22px; }
   .sec-head { grid-template-columns: 44px 1fr; }
@@ -1084,10 +1129,12 @@ a.rd-book, a.rd-aibook { display: block; -webkit-tap-highlight-color: transparen
 
   /* 版式 */
   .container { padding: 0 20px; }
-  .hero-grid { padding-top: 96px; padding-bottom: 56px; gap: 32px; }
+  .hero-layout { padding-top: 96px; padding-bottom: 48px; gap: 28px; }
   .hero-title { font-size: 38px; line-height: 1.32; }
   .hero-sub { font-size: 15.5px; line-height: 1.85; }
-  .hero-index.glass { padding: 22px 22px; border-radius: 22px; }
+  .hero-wb.glass { padding: 22px 20px; border-radius: 22px; }
+  .hero-wb-main .wb-static-num { font-size: 32px; }
+  .hero-wb-metric .stat-v { font-size: 20px; }
   .hero-credit { bottom: 12px; right: 16px; font-size: 10px; }
   .sec { padding: 26px 18px; border-radius: 20px; margin: 18px 0; }
   .sec-title { font-size: 23px; white-space: nowrap; }
@@ -1112,6 +1159,7 @@ a.rd-book, a.rd-aibook { display: block; -webkit-tap-highlight-color: transparen
   .reader-page .sub-main { padding-top: 76px; }
   .wb-static-num { font-size: 34px; }
   .stat-v { font-size: 24px; }
+  .wb-detail-grid { grid-template-columns: 1fr; gap: 24px; }
   /* 图谱：触屏可玩的高度 */
   .kg-paper { min-height: 320px; display: flex; }
   .kg-paper svg { flex: 1; }
