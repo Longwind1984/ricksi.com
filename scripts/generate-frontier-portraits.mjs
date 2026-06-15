@@ -135,7 +135,7 @@ async function generate(p) {
         {
           text:
             `The attached photograph shows the real appearance of ${p.name}. ` +
-            'Accurately capture this exact person\'s recognizable facial structure, hairstyle, ' +
+            "Accurately capture this exact person's recognizable facial structure, hairstyle, " +
             'eyebrows, eye shape, nose, jawline, facial hair and glasses (if any) so the portrait ' +
             'is clearly identifiable as the same person, then render it in the following style: ' +
             promptOf(p),

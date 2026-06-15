@@ -1,0 +1,646 @@
+---
+// Writer Pipeline 项目落地页：AI 味 X 光扫描器 hero + 案例长文（Rick 第一人称口吻）
+// 数据口径全部出自 /Users/rick/code/Writer（已核：仓库实测 / git 记录 / critic-v4 报告 / PM 审计）
+// 仓库 writing_pipeline 为 Private，含未发表写作与自审——本页即交付物，不放 GitHub 出口。
+import Glass from '../../layouts/Glass.astro';
+
+/* v0 的 13 组件（审计口径 = 8 skill + 5 sub-agent）；thesis-gate 是唯一活下来的设计 */
+const v0comps = [
+  { k: '主编排 orchestrator' }, { k: 'intake 读输入' }, { k: 'genre-router 判体裁' },
+  { k: 'thesis-gate', keep: true }, { k: 'splitter 分流' }, { k: 'expand 反问补料' },
+  { k: 'polish 终修' }, { k: 'synthesizer 汇判' }, { k: 'writer 生成' },
+  { k: 'critic-literary' }, { k: 'critic-essay' }, { k: 'critic-tech' }, { k: 'style-auditor' },
+];
+const mvpComps = [
+  { k: 'writer skill', d: 'intake + thesis gate + 写作 三合一' },
+  { k: 'critic subagent', d: '单 persona · 独立 context · 3 hard floor + 金句扫描' },
+  { k: 'voice memo', d: '我手写的 markdown，替掉 5 维 voice DNA JSON' },
+];
+
+/* 中文 AI 味 tell 清单（逐字抄自 plugin-mvp/agents/critic.md） */
+const tells = [
+  { t: '导览腔 signposting', e: '接下来 / 下面我把 / 值得一提的是' },
+  { t: '强行升华结尾', e: '站在历史的… / 这标志着… / 未来可期' },
+  { t: '总分总骨架', e: '首先 · 其次 · 最后 的作文结构' },
+  { t: '套路连接词', e: '不仅…而且 / 在…的背景下 / 与此同时' },
+  { t: '排比 / 破折号堆砌', e: '四字成语强行收尾' },
+  { t: '大词 / 抽象名词', e: '赋能 / 生态 / 抓手 / 意义重大' },
+  { t: 'hedging 护栏', e: '也许 / 可能 / 某种程度上 / 我觉得' },
+];
+
+/* worked example：draft-v4 → draft-v5 的四处纯减法（抄自 v5 文末「版本说明」） */
+const diffs = [
+  {
+    no: '§8', t: '砍电锯补刀', grade: 'C',
+    before: '米莱举着电锯竞选，那电锯是用来锯国家的。',
+    after: '米莱举着电锯竞选。',
+    why: '藤森 / 布克莱 / 米莱三例都是具体事实，留；删掉的是为俏皮去补的那记甩尾。',
+  },
+  {
+    no: '§5', t: '收冗余对仗', grade: 'B',
+    before: '一个被对方从头到脚骂过一轮的人，把这口气咽下去，去给骂她的人抬轿。',
+    after: '（整句删除）',
+    why: '瓦伦西亚倒戈的事实前一句已说清，这记是为反讽上的一道修辞。',
+  },
+  {
+    no: '§10', t: 'thesis 去重', grade: 'B',
+    before: '问了一个好问题——也许是这整个国家里最该问的那个。',
+    after: '问了一个好问题。',
+    why: '「最该问的那个」是自抬的小 flourish；§7「投了错的答案」已是承重落点。',
+  },
+  {
+    no: '§10', t: '结尾按我的决定保留', grade: 'A',
+    before: '我没有答案。硬凑一个，是又一种偷懒。',
+    after: '原样保留。',
+    why: '诚实的不收口，不是提前认怂。这记 critic 没动，我也不动。',
+  },
+];
+
+/* 决策时间线：17 commits，5/21 → 6/06。story 有值则可展开 */
+const miles = [
+  { id: 'v0', date: '05-21', t: '我先把它做大了',
+    d: '「个人长文写作系统」v0：Claude Code plugin，三层架构，按三体裁差异化，Critic Council 同 persona 跑三遍，外加学习飞轮、MCP 向量库。审计后来按「13 组件」算这笔账。' },
+  { id: '压测', date: '05-22 ~ 23', t: '跑通全链路，也跑出第一个警讯',
+    d: '用最严苛的档，写一篇训练集没直接覆盖的题材，验过拟合。链路跑通了。',
+    story: 'writer 自报招牌句式用了 6 次，critic 一数实际 10 次。作者自审不可靠——频次这种东西得让 critic 来数、加硬约束，不能信生成器自己报的数。' },
+  { id: '砸 v0', date: '05-23', t: '换个身份，把自己的设计判了 C',
+    d: '让 AI 扮一个严苛的 AI PM 面试官，只评产品判断、不评写作，审 spec / 流程 / 计划 / 三轮 critic / 终稿。判 severity 4/5，13 组件砍到 3，只留 Thesis Gate。',
+    story: '审计还翻出两件事：writer 曾给一篇稿编造 5 处私人家族细节；给 critic 成句的替换模板，会让 writer 机械套句式绕过 voice。从此 critic 只给改写方向，不给可以照抄的句子。' },
+  { id: 'MVP', date: '06-03 ~ 04', t: '重启，严格照计划落地不加料',
+    d: '单 writer skill + 单 critic subagent + 我手写的 voice memo + 5 篇真行记 few-shot（每次随机抽 2 篇）。计划里写了一条守则：不要因为「想做点新东西」就加组件。' },
+  { id: '真稿', date: '06-04 ~ 06', t: '第一篇真文章，暴露真症状',
+    d: '哥伦比亚大选《巴耶杜帕尔的回响》v1 跑到 v5。三个 hard floor 全干净，真毛病是另一个——太像我自己。',
+    story: 'critic-v3 给了一句我后来一直记着的话：这不是 voice，这是 voice 的肌肉记忆。招牌对仗用顺了手，就成了口癖。' },
+  { id: '降AI味', date: '06-06', t: '把 AI 味做成可逐句扫描的东西',
+    d: 'critic 升级：抽象的「AI 味」拆成可扫描的中文 tell 清单 + 金句 earned-vs-cosplay 逐句分档 + 配额。writer 端同步加 burstiness、挖深单例、物象收尾。' },
+  { id: '定案', date: '06-06', t: '跑一组 A/B，把自己的推荐推翻',
+    d: '我在计划里写过「critic 改用 DeepSeek 是最高杠杆」。在 draft-v4 上跑 Opus vs DeepSeek-v4-pro 两版 critic 一比——DeepSeek 误砍承重句。critic 定回 Opus，我撤回自己写下的那条推荐。' },
+];
+
+/* 刻意不做的（N=1 的克制） */
+const notBuilt = [
+  '学习飞轮（自动 diff 回流）', 'MCP 向量金句库', '四人 critic council',
+  'md2wechat 渲染', '超长禁用词清单', '8 阶段 state machine',
+];
+---
+
+<Glass
+  title="Writer Pipeline · 让 AI 写出我宁愿发的那一版 · Rick Si"
+  description="一个 AI 产品经理给自己做的中文长文写作系统：设计 13 组件、被 PM 审计砸成 3 组件、再用跨模型 A/B 实测推翻自己的推荐。AI 味做成可逐句扫描的清单，金句按 earned-vs-cosplay 配额。"
+  active="projects"
+>
+  <main class="wp-main">
+    <!-- ============ Hero · AI 味 X 光扫描器 ============ -->
+    <section class="wp-hero">
+      <div class="container wp-hero-inner">
+        <nav class="mono wp-crumb"><a href="/#projects">← 项目</a></nav>
+        <div class="mono kicker wp-kicker">个人长文写作系统 · CLAUDE CODE · MVP</div>
+        <h1 class="wp-h1">让 AI 写出，<br />我宁愿发的那一版。</h1>
+        <p class="wp-sub">
+          一个产品经理给自己（只有自己）做的中文长文写作工具。难的不是让 AI 写，是压住它的 AI 味、保住我的判断。
+          下面是一段真实草稿——开「X 光」，看 critic 怎么逐句判它。
+        </p>
+
+        <div class="wp-scanner" id="wp-scanner">
+          <div class="wp-scan-bar">
+            <div class="wp-scan-toggles">
+              <button class="wp-tg mono" id="wp-xray" type="button" aria-pressed="false">
+                <span class="wp-tg-dot"></span>X 光扫描
+              </button>
+              <button class="wp-tg mono" id="wp-clean" type="button" aria-pressed="false">
+                净化 · v4→v5
+              </button>
+            </div>
+            <div class="wp-legend mono" aria-hidden="true">
+              <span class="wp-lg a">A 留</span><span class="wp-lg b">B 标</span><span class="wp-lg c">C 砍</span>
+            </div>
+          </div>
+
+          <div class="wp-scan-doc" id="wp-doc">
+            <p>
+              没几个选民有这功夫，也没几个选民拿得到这些底。验不了实质，就只能挑行头。<span
+                class="wp-s" data-grade="A"
+                data-note="A · 留（配额第一记）。承重对仗，行头主线收束——判断从场景挤出来，对仗是结果，不是目的。"
+              >最挺的那身西装赢。那件从没穿过的军装赢。</span>
+            </p>
+            <p class="wp-doc-gap">⋯⋯</p>
+            <p>
+              看看他的偶像们：藤森一九九二年直接解散了秘鲁国会；布克莱带着兵走进萨尔瓦多立法会，坐上议长的椅子，低头祈祷，说这是上帝的意思；米莱举着电锯竞选<span
+                class="wp-s wp-cut" data-grade="C"
+                data-note="C · 砍后半句。藤森 / 布克莱已说够「招式土却好使」，这记是为俏皮补的甩尾。开「净化」看 v5 怎么删。"
+              >，那电锯是用来锯国家的</span>。这些招式土得掉渣，可你不得不承认，它们好使。
+            </p>
+            <p class="wp-doc-gap">⋯⋯</p>
+            <p>
+              他会不会去搬，<span
+                class="wp-s" data-grade="A"
+                data-note="A · 留（配额第二记）。反认识论投降的硬话——不因怕越界就提前认怂。"
+              >我不画问号</span>。这套东西扛不扛得住，<span
+                class="wp-s" data-grade="A"
+                data-note="A · 留（配额第二记）。反认识论投降的硬话——不因怕越界就提前认怂。"
+              >我才画问号</span>。
+            </p>
+          </div>
+
+          <div class="wp-scan-note mono" id="wp-note" data-empty="true">点高亮的句子，看 critic 怎么判它。</div>
+          <div class="mono wp-scan-cap">真实草稿节选 · 哥伦比亚大选《巴耶杜帕尔的回响》§8 · 颜色是 critic 的逐句判档</div>
+        </div>
+
+        <a class="wp-ghost mono" href="#why">往下看怎么做的 ↓</a>
+      </div>
+    </section>
+
+    <div class="container">
+      <!-- ============ 命题 ============ -->
+      <section class="sec wp-reveal" id="why">
+        <div class="mono kicker">为什么做</div>
+        <p class="wp-lead">目标不是模仿我，是写出<em>比我更好</em>、我会真心欣赏的那一版。</p>
+        <p class="wp-body">
+          我写不顺。成篇的原创长文产能一直低，稳定出稿的只有拉美旅行写作这一条线。找 AI 搭手，新麻烦又来了——
+          它写出来的东西 AI 味太重：导览腔、升华结尾、套路连接词、用力过猛的金句。
+        </p>
+        <p class="wp-body">
+          这些稿子要上我的公众号，要让真朋友愿意读完。AI 味，或者编造一个我没亲见的事实，会直接把可信度和我自己的声音一起毁掉。
+          所以这个工具的北极星很简单：同一个题材，它的版本能不能让我宁愿发它，而不是我自己写的那篇。不是骗过某个 AI 检测器。
+        </p>
+      </section>
+
+      <!-- ============ 01 砸掉自己的作品 ============ -->
+      <section class="sec wp-reveal wp-break">
+        <div class="sec-head">
+          <span class="mono sec-no">01</span>
+          <div class="sec-title-row"><h2 class="sec-title">砸掉自己设计的系统</h2><span class="mono sec-en">THE DEMOLITION</span></div>
+          <span class="sec-desc">用 PM 的严谨，先把自己判一遍</span>
+        </div>
+        <p class="wp-body">
+          第一版我做大了。三层架构、8 个 skill 加 5 个 sub-agent、还有 hook 和向量库——审计里按「13 组件」算这笔账。
+          做完我换了个身份：让 AI 扮一个严苛的 AI PM 面试官，<strong>只评产品判断、不评写作</strong>，把设计、流程、计划、三轮 critic、终稿全审一遍。
+        </p>
+
+        <div class="wp-demo" id="wp-demo">
+          <div class="wp-demo-side">
+            <div class="mono wp-demo-cap">v0 · 13 组件</div>
+            <div class="wp-chips">
+              {v0comps.map((c) => (
+                <span class:list={['wp-chip', { keep: c.keep, dead: !c.keep }]}>{c.k}</span>
+              ))}
+            </div>
+          </div>
+          <div class="wp-demo-mid">
+            <span class="wp-num wp-demo-n" data-count="13">13</span>
+            <span class="wp-demo-arrow">→</span>
+            <span class="wp-num wp-demo-n after" data-count="3">3</span>
+          </div>
+          <div class="wp-demo-side">
+            <div class="mono wp-demo-cap">MVP · 3 组件</div>
+            <div class="wp-mvp">
+              {mvpComps.map((c) => (
+                <div class="wp-mvp-card">
+                  <div class="wp-mvp-k">{c.k}</div>
+                  <div class="wp-mvp-d">{c.d}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <blockquote class="wp-verdict">
+          <p>写作品味 A，产品架构判断 C——用 multi-agent 复杂度，掩盖一篇文章都没做出版本的事实。</p>
+          <footer class="mono">— 我让 AI 给自己出的审计报告 · severity 4/5 · 25k 字符</footer>
+        </blockquote>
+
+        <p class="wp-body">
+          最戳人的一条：critic 抓到的 4 个问题（招牌句式频次、概念边界、对比方向、反例深度），和我自己抓的 5 个
+          （编造事实、自夸、AI 味、导览句、概念失败），两张单子几乎不重叠。审计一句话戳穿了原因——
+          <span class="wp-quote">LLM 模仿者天然抓不到 AI 味，因为它自己就是 AI 味的来源。</span>
+        </p>
+        <p class="wp-note">
+          我没 git reset，也没 force push。v0 留在仓库里，顶上加一个 ARCHIVED 框，当反面教材。
+          13 个组件里只活下来一个设计：<strong>Thesis Gate</strong>——说什么还没定就开始风格化，是本末倒置。
+        </p>
+      </section>
+
+      <!-- ============ 02 examples >> rules ============ -->
+      <section class="sec wp-reveal">
+        <div class="sec-head">
+          <span class="mono sec-no">02</span>
+          <div class="sec-title-row"><h2 class="sec-title">用例子，不用 schema</h2><span class="mono sec-en">EXAMPLES ≫ RULES</span></div>
+          <span class="sec-desc">为什么砍掉 5 维 voice DNA</span>
+        </div>
+        <p class="wp-body">
+          v0 我想把风格写成一份 5 维 JSON schema——词汇、句法、修辞、人格、格式，逐项填满。补到后面才看清这是打地鼠：
+          堵一个洞，漏出三个。风格的核心是没法拆成字段的判断，schema 永远补不完。
+        </p>
+        <p class="wp-body">
+          MVP 换了个法子：一份我手写的 markdown 备忘录，加 5 篇我真写过的拉美行记当 few-shot，每次随机抽 2 篇喂给 writer。
+          LLM 是模式学习者，不是符号推理器——给它看我怎么写，比给它一串规则管用，实测大概差三四倍。
+        </p>
+        <blockquote class="wp-verdict soft">
+          <p>不要止步于模仿我，也不要极尽贴近这份备忘录。在我的判断与品味之上，写出比我自己更好、我会真心欣赏的版本。</p>
+          <footer class="mono">— 我手写的 voice memo，给 AI 协作的那一节</footer>
+        </blockquote>
+        <p class="wp-note">
+          这份备忘录不是一面静态的镜子，是个正在校准的品味目标。每写一篇我手动加一两条，不靠 AI 自动 diff 学习——
+          一篇满意的成品都还没有，飞轮没有可转的东西。
+        </p>
+      </section>
+
+      <!-- ============ 03 AI 味怎么治 ============ -->
+      <section class="sec wp-reveal">
+        <div class="sec-head">
+          <span class="mono sec-no">03</span>
+          <div class="sec-title-row"><h2 class="sec-title">把 AI 味做成可扫描的清单</h2><span class="mono sec-en">THE SCAN</span></div>
+          <span class="sec-desc">从抽象口号到逐句可查</span>
+        </div>
+        <p class="wp-body">
+          一开始我只会说「这段 AI 味太强」，落不了地。做了一轮调研（三个并行 agent，覆盖中英文的机制、检测、实践、和怀疑的视角）之后，
+          我把它拆成两层。第一层是通用的中文 AI 腔，critic 现在逐类扫、命中即标原句：
+        </p>
+        <div class="wp-tells">
+          {tells.map((x) => (
+            <div class="wp-tell">
+              <div class="wp-tell-t">{x.t}</div>
+              <div class="mono wp-tell-e">{x.e}</div>
+            </div>
+          ))}
+        </div>
+        <p class="wp-body">
+          但更对症的是第二层。我真正的毛病不是通用套话，是<strong>金句口癖</strong>——为了对仗，去找个判断填进去。
+          所以 critic 逐句扫所有对仗，分三档：
+        </p>
+        <div class="wp-abc">
+          <div class="wp-abc-card a"><span class="wp-abc-k mono">A</span><p>判断从场景挤出来，对仗是顺带的结果。<strong>留。</strong></p></div>
+          <div class="wp-abc-card b"><span class="wp-abc-k mono">B</span><p>可疑，像在「做 Rick」，修辞自觉偏高。<strong>标出。</strong></p></div>
+          <div class="wp-abc-card c"><span class="wp-abc-k mono">C</span><p>为风格而风格，贴到哪篇都行的普适格言。<strong>砍。</strong></p></div>
+        </div>
+        <p class="wp-note">
+          再加一条配额：一篇只够 1–2 记真甩尾，押给 A 类，C 类狠删。还有一条反直觉的——正向约束比负向有效：
+          「用确定的陈述」比「别 hedging」管用得多。
+        </p>
+      </section>
+
+      <!-- ============ 04 worked example ============ -->
+      <section class="sec wp-reveal">
+        <div class="sec-head">
+          <span class="mono sec-no">04</span>
+          <div class="sec-title-row"><h2 class="sec-title">一篇真稿，v4 到 v5 只做减法</h2><span class="mono sec-en">WORKED EXAMPLE</span></div>
+          <span class="sec-desc">哥伦比亚大选《巴耶杜帕尔的回响》</span>
+        </div>
+        <p class="wp-body">
+          这套东西第一次用在真稿上。升级后的 critic 扫 draft-v4，诊断挺意外：三个 hard floor 全干净——没编造、没自夸、没通用 AI 味，
+          结尾落在「军装」这个物象上，节奏也健康。真症状是另一个，太像我自己。于是 v5 一个字没加，只做减法，四处：
+        </p>
+        <div class="wp-diffs">
+          {diffs.map((d) => (
+            <div class:list={['wp-diff', `g-${d.grade.toLowerCase()}`]}>
+              <div class="wp-diff-head">
+                <span class="mono wp-diff-no">{d.no}</span>
+                <span class:list={['wp-diff-grade mono', d.grade.toLowerCase()]}>{d.grade}</span>
+                <span class="wp-diff-t">{d.t}</span>
+              </div>
+              <p class="wp-diff-before">{d.before}</p>
+              <p class="wp-diff-after"><span class="mono wp-diff-tag">v5</span>{d.after}</p>
+              <p class="wp-diff-why">{d.why}</p>
+            </div>
+          ))}
+        </div>
+        <blockquote class="wp-verdict">
+          <p>判断都立住了；砍掉电锯补刀，同一道缝别在三段各甩一记漂亮话。</p>
+          <footer class="mono">— critic-v4 给我的一句话</footer>
+        </blockquote>
+      </section>
+
+      <!-- ============ 05 诚实的自我纠错 ============ -->
+      <section class="sec wp-reveal wp-break">
+        <div class="sec-head">
+          <span class="mono sec-no">05</span>
+          <div class="sec-title-row"><h2 class="sec-title">我推翻了自己写进计划的推荐</h2><span class="mono sec-en">THE RETRACTION</span></div>
+          <span class="sec-desc">跨模型 A/B 实测</span>
+        </div>
+        <p class="wp-body">
+          调研里有一条很硬的结论：LLM 给自己的输出挑风格毛病，有约 <span class="wp-num" data-count="64.5" data-decimals="1">64.5</span>% 的盲区——
+          它自己就是 AI 味的源头，自评约等于演戏。破法是换一个模型来批评。我在计划里白纸黑字写下：
+          跨模型是最高杠杆，critic 改用 DeepSeek，证据最强、还省钱。
+        </p>
+        <p class="wp-body">
+          然后我没直接信自己。在同一篇 draft-v4 上跑了一组 A/B：Opus 一版 critic，DeepSeek-v4-pro 一版 critic。
+          DeepSeek 确实加了新角度，但它在中文文学校准上误判——把<strong>承重句</strong>判成该砍：
+          「最挺的西装赢／没穿过的军装赢」「我不画问号／我才画问号」，正是全篇最该留的两记。
+        </p>
+        <p class="wp-body">
+          所以 critic 定回 Opus，DeepSeek 降成偶尔的第二意见。<strong>我撤回了自己在计划里写下的那条推荐。</strong>
+          跨模型破自盲的理论收益，被它在中文文学批评上误砍承重句的实测代价抵消了。证据打败了直觉——包括我自己的直觉。
+        </p>
+      </section>
+
+      <!-- ============ 06 时间线 ============ -->
+      <section class="sec wp-reveal">
+        <div class="sec-head">
+          <span class="mono sec-no">06</span>
+          <div class="sec-title-row"><h2 class="sec-title">一条把自己否掉两次的时间线</h2><span class="mono sec-en">TIMELINE</span></div>
+          <span class="sec-desc">17 commits · 5/21 → 6/06</span>
+        </div>
+        <ol class="wp-time">
+          {miles.map((m) => (
+            <li class="wp-mile">
+              <div class="wp-mile-head">
+                <span class="mono wp-mile-id">{m.id}</span>
+                <span class="mono wp-mile-date">{m.date}</span>
+                <h3 class="wp-mile-t">{m.t}</h3>
+              </div>
+              <p class="wp-mile-d">{m.d}</p>
+              {m.story && (
+                <details class="wp-story">
+                  <summary class="mono">战争故事 ↘</summary>
+                  <p>{m.story}</p>
+                </details>
+              )}
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      <!-- ============ 07 怎么算它成了 ============ -->
+      <section class="sec wp-reveal">
+        <div class="sec-head">
+          <span class="mono sec-no">07</span>
+          <div class="sec-title-row"><h2 class="sec-title">怎么算它成了</h2><span class="mono sec-en">THE BAR</span></div>
+          <span class="sec-desc">克制，加一个真判据</span>
+        </div>
+        <p class="wp-body">
+          我给它定了一个唯一判据——不是 voice_score，不是 severity，不是「pipeline 跑通」这些好算的代理指标。
+          是 <strong>critic 的反馈，和人评（我自评 + 一个真朋友评）的重合度</strong>。
+        </p>
+        <div class="wp-bars">
+          <div class="wp-bar"><span class="wp-num wp-bar-n" data-count="50">50</span><span class="wp-bar-u">%</span><div class="mono wp-bar-k">critic / 人评 重合度 ≥</div></div>
+          <div class="wp-bar"><span class="wp-num wp-bar-n" data-count="3">3</span><span class="wp-bar-u">/5</span><div class="mono wp-bar-k">我愿意贴公众号 ≥</div></div>
+          <div class="wp-bar"><span class="wp-num wp-bar-n" data-count="4">4</span><span class="wp-bar-u">/5</span><div class="mono wp-bar-k">真朋友想读完 ≥</div></div>
+        </div>
+        <p class="wp-body">
+          达标，才考虑加组件；不达标，回去重做 critic，或者干脆停。下面这些我都<strong>刻意没做</strong>——
+          每一个都能讲通，但对一个只有我自己用的工具（N=1），它们是工程上的过度反应：
+        </p>
+        <div class="wp-chips wp-notbuilt">
+          {notBuilt.map((x) => <span class="wp-chip dead static">{x}</span>)}
+        </div>
+      </section>
+
+      <!-- ============ 状态 + 收束 ============ -->
+      <section class="sec wp-reveal wp-end">
+        <div class="sec-head">
+          <span class="mono sec-no">08</span>
+          <div class="sec-title-row"><h2 class="sec-title">现在的状态</h2><span class="mono sec-en">STATUS</span></div>
+          <span class="sec-desc">验证窗口里</span>
+        </div>
+        <div class="wp-status-chips">
+          <span class="tag mono">MVP 三组件已落地</span>
+          <span class="tag mono">第一篇 v1→v5 跑通</span>
+          <span class="tag mono">5 篇 + 三个月验证窗口中</span>
+          <span class="tag mono">未进 v2</span>
+        </div>
+        <p class="wp-body wp-stack">
+          这个项目最值钱的不是代码。是一条把自己否掉两次的记录——一次砸掉自己设计的系统，一次推翻自己写下的推荐。
+          对一个 AI 产品经理，这两下比多做几个组件更说明问题。
+        </p>
+        <div class="wp-cta-row">
+          <a class="wp-ghost back" href="/#projects">← 回到全部项目</a>
+        </div>
+        <p class="wp-note wp-end-note">仓库 writing_pipeline 含未发表的个人写作，和这份对自己的审计，暂不公开。</p>
+      </section>
+    </div>
+  </main>
+</Glass>
+
+<style>
+  .wp-main { position: relative; z-index: 1; overflow-x: clip; }
+
+  /* ===== Hero ===== */
+  .wp-hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    background:
+      radial-gradient(120% 90% at 78% 16%, rgba(40,70,150,0.34) 0%, rgba(10,18,40,0) 56%),
+      radial-gradient(90% 70% at 12% 92%, rgba(8,14,34,0.85) 0%, rgba(8,14,34,0) 60%),
+      #070D20;
+  }
+  .wp-hero::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 200px; z-index: 1;
+    background: linear-gradient(180deg, rgba(10,20,38,0) 0%, rgba(10,20,38,0.5) 60%, #0A1426 100%);
+    pointer-events: none;
+  }
+  .wp-hero-inner { position: relative; z-index: 2; padding: 116px 0 96px; max-width: 760px; }
+  .wp-crumb { margin-bottom: 22px; font-size: 12px; color: rgba(220,230,255,0.6); letter-spacing: 0.08em; }
+  .wp-crumb a:hover { color: #fff; }
+  .wp-kicker { margin-bottom: 18px; }
+  .wp-h1 {
+    margin: 0; font-family: var(--head); font-weight: 700; font-size: 54px; line-height: 1.2;
+    letter-spacing: -0.02em; color: #fff; text-wrap: pretty;
+  }
+  .wp-sub { margin: 22px 0 0; font-size: 16.5px; line-height: 1.85; color: rgba(232,240,255,0.82); max-width: 600px; }
+
+  /* ===== 扫描器 ===== */
+  .wp-scanner {
+    margin-top: 34px;
+    border-radius: var(--r-sec, 28px);
+    background: linear-gradient(160deg, rgba(20,34,74,0.5), rgba(12,22,52,0.55));
+    backdrop-filter: blur(22px) saturate(170%); -webkit-backdrop-filter: blur(22px) saturate(170%);
+    border: 1px solid rgba(190,210,255,0.18);
+    box-shadow: inset 0 1px 0 rgba(200,220,255,0.22), 0 24px 60px rgba(2,8,28,0.5);
+    padding: 22px 26px 20px;
+    position: relative; overflow: hidden;
+  }
+  .wp-scan-bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 4px; }
+  .wp-scan-toggles { display: flex; gap: 10px; }
+  .wp-tg {
+    display: inline-flex; align-items: center; gap: 8px; height: 34px; padding: 0 14px;
+    border-radius: 999px; cursor: pointer; font-size: 12px; letter-spacing: 0.03em; color: rgba(232,240,255,0.82);
+    background: rgba(190,210,255,0.07); border: 1px solid rgba(190,210,255,0.2);
+    transition: filter .2s, transform .35s var(--ease-liquid), background-color .2s, color .2s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .wp-tg:hover { background: rgba(190,210,255,0.13); color: #fff; }
+  .wp-tg:active { transform: scale(0.96); }
+  .wp-tg:focus-visible { outline: 2px solid rgba(120,170,255,0.8); outline-offset: 2px; }
+  .wp-tg[aria-pressed='true'] {
+    background: color-mix(in srgb, var(--accent) 40%, transparent);
+    border-color: rgba(170,200,255,0.5); color: #fff;
+  }
+  .wp-tg-dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(190,210,255,0.4); transition: background .2s, box-shadow .2s; }
+  .wp-tg[aria-pressed='true'] .wp-tg-dot { background: #9fc0ff; box-shadow: 0 0 8px rgba(120,170,255,0.9); }
+  .wp-legend { display: flex; gap: 12px; font-size: 11px; }
+  .wp-lg { position: relative; padding-left: 14px; color: var(--sub); }
+  .wp-lg::before { content: ""; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 8px; height: 8px; border-radius: 2px; }
+  .wp-lg.a::before { background: var(--wp-a); } .wp-lg.b::before { background: var(--wp-b); } .wp-lg.c::before { background: var(--wp-c); }
+
+  .wp-scan-doc {
+    --wp-a: #54C39A; --wp-b: #E0B252; --wp-c: #E0786A;
+    margin: 14px 0 0; padding: 16px 18px;
+    font-family: var(--font-reading, 'LXGW WenKai', 'Kaiti SC', STKaiti, serif);
+    font-size: 16px; line-height: 2.0; color: rgba(238,244,255,0.9);
+    border-radius: var(--r-card, 16px); background: rgba(4,8,20,0.34); border: 1px solid rgba(190,210,255,0.1);
+  }
+  .wp-scan-doc p { margin: 0; }
+  .wp-doc-gap { text-align: center; color: rgba(190,210,255,0.32); letter-spacing: 0.3em; line-height: 1.4; margin: 2px 0; font-size: 13px; }
+
+  /* 句子默认不可见标注（干净阅读态） */
+  .wp-s { transition: background-color .3s var(--ease-liquid), box-shadow .3s, color .2s; border-radius: 4px; padding: 0 1px; }
+  /* X 光模式：按判档显色 */
+  .wp-scan-doc.wp-xray .wp-s { cursor: pointer; }
+  .wp-scan-doc.wp-xray .wp-s[data-grade='A'] { background: color-mix(in srgb, var(--wp-a) 22%, transparent); box-shadow: inset 0 -2px 0 var(--wp-a); }
+  .wp-scan-doc.wp-xray .wp-s[data-grade='B'] { background: color-mix(in srgb, var(--wp-b) 22%, transparent); box-shadow: inset 0 -2px 0 var(--wp-b); }
+  .wp-scan-doc.wp-xray .wp-s[data-grade='C'] { background: color-mix(in srgb, var(--wp-c) 20%, transparent); box-shadow: inset 0 -2px 0 var(--wp-c); }
+  .wp-scan-doc.wp-xray .wp-s.active { filter: brightness(1.18); box-shadow: inset 0 -2px 0 currentColor, 0 0 0 1px rgba(255,255,255,0.25); }
+  /* 净化模式：被砍的片段坍缩（inline-block + max-width 裁剪，确保真收起） */
+  .wp-cut { display: inline-block; white-space: nowrap; overflow: hidden; vertical-align: bottom; max-width: 30em; transition: max-width .45s var(--ease-liquid), opacity .35s; }
+  .wp-scan-doc.wp-clean .wp-cut { max-width: 0; opacity: 0; color: var(--wp-c); }
+
+  .wp-scan-note {
+    margin-top: 12px; min-height: 2.6em; padding: 10px 14px; border-radius: 10px;
+    font-size: 12.5px; line-height: 1.7; color: rgba(232,240,255,0.86);
+    background: rgba(6,12,28,0.5); border-left: 2px solid var(--accent);
+    transition: color .2s, border-color .2s;
+  }
+  .wp-scan-note[data-empty='true'] { color: rgba(200,216,255,0.45); border-left-color: rgba(190,210,255,0.25); }
+  .wp-scan-cap { margin-top: 12px; font-size: 10.5px; letter-spacing: 0.03em; color: rgba(200,216,255,0.42); }
+
+  .wp-ghost { display: inline-block; margin-top: 30px; font-size: 13px; color: rgba(232,240,255,0.7); letter-spacing: 0.04em; transition: color .2s; }
+  .wp-ghost:hover { color: #fff; }
+
+  /* ===== 通用正文（沿用 galaxy 排版口径） ===== */
+  .wp-body { margin: 14px 0 0; font-size: 15.5px; line-height: 1.95; color: rgba(232,240,255,0.82); max-width: 760px; text-wrap: pretty; }
+  .wp-body strong { color: #fff; font-weight: 650; }
+  .wp-note { margin: 18px 0 0; font-size: 13px; line-height: 1.85; color: rgba(220,230,255,0.56); max-width: 760px; }
+  .wp-note strong { color: rgba(235,242,255,0.85); }
+  .wp-quote { color: var(--gold); }
+  .wp-lead { margin: 16px 0 0; font-family: var(--head); font-size: 32px; line-height: 1.42; font-weight: 700; letter-spacing: -0.02em; color: #fff; text-wrap: pretty; }
+  .wp-lead em { font-style: normal; color: var(--gold); }
+
+  /* ===== 大数字 count-up ===== */
+  .wp-num { font-variant-numeric: tabular-nums; }
+
+  /* ===== 拆除区块 ===== */
+  .wp-demo { display: grid; grid-template-columns: 1fr auto 1fr; gap: 22px; align-items: center; margin: 30px 0 6px; }
+  .wp-demo-cap { font-size: 11px; letter-spacing: 0.08em; color: var(--sub); margin-bottom: 12px; }
+  .wp-chips { display: flex; flex-wrap: wrap; gap: 7px; }
+  .wp-chip {
+    font-family: var(--font-mono, ui-monospace, monospace); font-size: 11px; padding: 5px 9px; border-radius: 8px;
+    background: rgba(190,210,255,0.06); border: 1px solid rgba(190,210,255,0.16); color: rgba(225,236,255,0.66);
+    transition: opacity .5s var(--ease-liquid), color .5s, text-decoration-color .5s;
+  }
+  .wp-chip.keep { color: var(--gold); border-color: color-mix(in srgb, var(--gold) 45%, transparent); background: color-mix(in srgb, var(--gold) 12%, transparent); }
+  /* 进场后「拆掉」非保留组件 */
+  .wp-reveal .wp-chip.dead:not(.static) { opacity: 1; }
+  .wp-reveal.wp-in .wp-chip.dead:not(.static) { opacity: 0.34; color: rgba(225,236,255,0.4); text-decoration: line-through; text-decoration-color: rgba(224,120,106,0.6); }
+  .wp-chip.dead.static { opacity: 0.5; text-decoration: line-through; text-decoration-color: rgba(190,210,255,0.3); }
+  .wp-demo-mid { display: flex; flex-direction: column; align-items: center; gap: 4px; font-family: var(--head); }
+  .wp-demo-n { font-size: 40px; font-weight: 700; letter-spacing: -0.03em; color: rgba(225,236,255,0.5); }
+  .wp-demo-n.after { color: #fff; }
+  .wp-demo-arrow { font-size: 22px; color: var(--accent); }
+  .wp-mvp { display: flex; flex-direction: column; gap: 8px; }
+  .wp-mvp-card { padding: 12px 14px; border-radius: 12px; background: rgba(8,16,32,0.42); border: 1px solid rgba(190,210,255,0.16); }
+  .wp-mvp-k { font-family: var(--head); font-size: 14px; font-weight: 650; color: #fff; }
+  .wp-mvp-d { margin-top: 3px; font-size: 11.5px; line-height: 1.55; color: rgba(225,236,255,0.62); }
+
+  /* ===== 引文块 ===== */
+  .wp-verdict { margin: 28px 0 0; padding: 20px 24px; border-radius: var(--r-card); background: rgba(8,16,32,0.46); border: 1px solid rgba(190,210,255,0.14); border-left: 3px solid var(--accent); }
+  .wp-verdict.soft { border-left-color: var(--gold); }
+  .wp-verdict p { margin: 0; font-family: var(--head); font-size: 19px; line-height: 1.6; font-weight: 600; color: #fff; text-wrap: pretty; }
+  .wp-verdict.soft p { font-size: 17px; font-weight: 550; color: rgba(240,245,255,0.92); }
+  .wp-verdict footer { margin-top: 12px; font-size: 11.5px; color: var(--sub); }
+
+  /* ===== AI 味 tell 卡片 ===== */
+  .wp-tells { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 22px; }
+  .wp-tell { padding: 13px 16px; border-radius: 12px; background: rgba(8,16,32,0.4); border: 1px solid rgba(190,210,255,0.12); }
+  .wp-tell-t { font-family: var(--head); font-size: 14px; font-weight: 600; color: rgba(240,245,255,0.9); }
+  .wp-tell-e { margin-top: 5px; font-size: 11px; color: color-mix(in srgb, var(--wp-c, #E0786A) 70%, #b8b0a0); }
+
+  /* ===== A/B/C 卡 ===== */
+  .wp-abc { --wp-a: #54C39A; --wp-b: #E0B252; --wp-c: #E0786A; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 22px; }
+  .wp-abc-card { padding: 16px 18px; border-radius: var(--r-card); background: rgba(8,16,32,0.4); border: 1px solid rgba(190,210,255,0.14); }
+  .wp-abc-card.a { border-top: 2px solid var(--wp-a); } .wp-abc-card.b { border-top: 2px solid var(--wp-b); } .wp-abc-card.c { border-top: 2px solid var(--wp-c); }
+  .wp-abc-k { font-size: 22px; font-weight: 700; }
+  .wp-abc-card.a .wp-abc-k { color: var(--wp-a); } .wp-abc-card.b .wp-abc-k { color: var(--wp-b); } .wp-abc-card.c .wp-abc-k { color: var(--wp-c); }
+  .wp-abc-card p { margin: 6px 0 0; font-size: 13.5px; line-height: 1.7; color: rgba(232,240,255,0.8); }
+  .wp-abc-card strong { color: #fff; }
+
+  /* ===== diff 卡 ===== */
+  .wp-diffs { --wp-a: #54C39A; --wp-b: #E0B252; --wp-c: #E0786A; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 8px; }
+  .wp-diff { padding: 18px 20px; border-radius: var(--r-card); background: rgba(8,16,32,0.4); border: 1px solid rgba(190,210,255,0.14); }
+  .wp-diff-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .wp-diff-no { font-size: 11px; color: var(--sub); }
+  .wp-diff-grade { font-size: 11px; font-weight: 700; width: 18px; height: 18px; display: inline-flex; align-items: center; justify-content: center; border-radius: 5px; }
+  .wp-diff-grade.a { color: var(--wp-a); background: color-mix(in srgb, var(--wp-a) 16%, transparent); }
+  .wp-diff-grade.b { color: var(--wp-b); background: color-mix(in srgb, var(--wp-b) 16%, transparent); }
+  .wp-diff-grade.c { color: var(--wp-c); background: color-mix(in srgb, var(--wp-c) 16%, transparent); }
+  .wp-diff-t { font-family: var(--head); font-size: 14.5px; font-weight: 650; color: #fff; }
+  .wp-diff-before { margin: 12px 0 0; font-size: 13.5px; line-height: 1.7; color: rgba(225,236,255,0.5); text-decoration: line-through; text-decoration-color: rgba(224,120,106,0.45); font-family: var(--font-reading, 'LXGW WenKai', 'Kaiti SC', serif); }
+  .wp-diff-after { margin: 8px 0 0; font-size: 13.5px; line-height: 1.7; color: rgba(238,244,255,0.92); font-family: var(--font-reading, 'LXGW WenKai', 'Kaiti SC', serif); }
+  .wp-diff-tag { display: inline-block; font-size: 9.5px; color: var(--accent-text, var(--accent)); border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent); border-radius: 4px; padding: 0 4px; margin-right: 7px; vertical-align: 2px; font-family: var(--font-mono, monospace); }
+  .wp-diff-why { margin: 11px 0 0; font-size: 12px; line-height: 1.65; color: rgba(220,230,255,0.6); }
+
+  /* ===== 数值条 ===== */
+  .wp-bars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 24px; }
+  .wp-bar { padding: 18px 20px; border-radius: var(--r-card); background: rgba(8,16,32,0.42); border: 1px solid rgba(190,210,255,0.14); }
+  .wp-bar-n { font-family: var(--head); font-size: 34px; font-weight: 700; letter-spacing: -0.02em; color: #fff; }
+  .wp-bar-u { font-family: var(--head); font-size: 16px; color: var(--sub); margin-left: 2px; }
+  .wp-bar-k { margin-top: 8px; font-size: 11px; letter-spacing: 0.04em; color: var(--sub); }
+
+  /* ===== 时间线（沿用 gv-time 口径） ===== */
+  .wp-time { margin: 6px 0 0; padding: 0; list-style: none; }
+  .wp-mile { position: relative; padding: 0 0 26px 30px; border-left: 1.5px solid var(--line); }
+  .wp-mile:last-child { border-left-color: transparent; padding-bottom: 0; }
+  .wp-mile::before { content: ""; position: absolute; left: -7px; top: 4px; width: 12px; height: 12px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px rgba(8,16,40,0.6), 0 0 12px color-mix(in srgb, var(--accent) 70%, transparent); }
+  .wp-mile-head { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
+  .wp-mile-id { font-size: 12px; font-weight: 700; color: var(--accent); letter-spacing: 0.04em; }
+  .wp-mile-date { font-size: 11px; color: var(--sub); }
+  .wp-mile-t { margin: 0; font-family: var(--head); font-size: 17.5px; font-weight: 650; color: #fff; }
+  .wp-mile-d { margin: 8px 0 0; font-size: 14px; line-height: 1.85; color: rgba(232,240,255,0.78); max-width: 720px; }
+  .wp-story { margin-top: 12px; max-width: 720px; }
+  .wp-story summary { cursor: pointer; font-size: 11px; letter-spacing: 0.06em; color: var(--gold); list-style: none; display: inline-block; padding: 4px 0; transition: color .2s; }
+  .wp-story summary::-webkit-details-marker { display: none; }
+  .wp-story[open] summary { color: #fff; }
+  .wp-story p { margin: 6px 0 0; font-size: 13px; line-height: 1.8; color: rgba(220,230,255,0.72); padding: 12px 16px; background: rgba(6,10,22,0.4); border-left: 2px solid color-mix(in srgb, var(--gold) 50%, transparent); border-radius: 0 10px 10px 0; }
+
+  /* ===== 收束 ===== */
+  .wp-status-chips, .wp-notbuilt { display: flex; flex-wrap: wrap; gap: 9px; }
+  .wp-notbuilt { margin-top: 18px; }
+  .wp-stack { margin-top: 22px; }
+  .wp-cta-row { margin-top: 26px; }
+  .wp-ghost.back { margin-top: 0; }
+  .wp-end-note { margin-top: 20px; font-size: 12px; color: rgba(200,216,255,0.42); }
+
+  /* ===== 滚动揭示 ===== */
+  .wp-reveal { opacity: 0; transform: translateY(22px); transition: opacity .6s var(--ease-liquid), transform .6s var(--ease-liquid); }
+  .wp-reveal.wp-in { opacity: 1; transform: none; }
+
+  /* ===== 响应式 ===== */
+  @media (max-width: 900px) {
+    .wp-h1 { font-size: 40px; }
+    .wp-lead { font-size: 25px; }
+    .wp-demo { grid-template-columns: 1fr; gap: 16px; }
+    .wp-demo-mid { flex-direction: row; }
+    .wp-tells, .wp-abc, .wp-diffs, .wp-bars { grid-template-columns: 1fr; }
+    .wp-abc { grid-template-columns: 1fr 1fr 1fr; }
+  }
+  @media (max-width: 560px) {
+    .wp-hero-inner { padding: 100px 0 80px; }
+    .wp-h1 { font-size: 32px; }
+    .wp-sub { font-size: 15px; }
+    .wp-scanner { padding: 18px 16px 16px; }
+    .wp-scan-doc { font-size: 15px; }
+    .wp-abc { grid-template-columns: 1fr; }
+    .wp-scan-bar { gap: 10px; }
+    .sec-title-row { flex-wrap: wrap; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .wp-reveal { transition: none; opacity: 1; transform: none; }
+    .wp-s, .wp-cut, .wp-chip { transition: none; }
+  }
+</style>
+
+<script>
+  import '../../scripts/writer-page.js';
+</script>

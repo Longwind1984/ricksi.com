@@ -11,14 +11,21 @@ run('node', ['scripts/collect-activity.mjs']);
 console.log('── 2/5 Token 用量');
 run('node', ['scripts/collect-usage.mjs']);
 
-console.log('── 3/5 知识库图谱 + 笔记导出');
-run('node', ['scripts/sync-vault.mjs']);
+console.log('── 3/5 知识库图谱 + 笔记导出（三态：04AI full + 白名单域 stub）');
+run('node', ['scripts/sync-vault.mjs', '--migrate']);
 
 console.log('── 4/5 微信读书（无 cookie 自动跳过）');
 try {
   run('node', ['scripts/collect-weread.mjs']);
 } catch {
   console.warn('   微信读书采集失败，沿用上次数据');
+}
+
+console.log('── 4.5/5 本地自上传 ePub 书 + 导言合入（独立幂等，无 key 也跑）');
+try {
+  run('node', ['scripts/merge-local-books.mjs']);
+} catch {
+  console.warn('   本地书合入失败，沿用上次 reading.json');
 }
 
 console.log('── 5/5 前沿追踪（抓取 + claude 梳理，单源失败不阻塞）');

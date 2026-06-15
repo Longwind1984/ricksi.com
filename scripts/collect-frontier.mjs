@@ -16,9 +16,13 @@ const SEEN = path.join(CONFIG.dataDir, 'frontier-seen.json');
 const ARCHIVE_DIR = path.join(CONFIG.dataDir, 'frontier');
 const UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36';
 
+/* 云端 Routine 兜底模式（--remote / FRONTIER_REMOTE=1）：直连不走代理、跳过被墙的 X 源、claude 走 PATH。
+   详见 docs/frontier-routine.md。本地 LaunchAgent 不传此标志，走完整管线（含 X 镜像 + 本机代理）。 */
+const REMOTE = process.argv.includes('--remote') || process.env.FRONTIER_REMOTE === '1';
+
 /* ── 代理：Node 的内置 fetch 不读 http_proxy，需 NODE_USE_ENV_PROXY=1；
-   配置了代理且未生效时，注入 env 自我重执行（LaunchAgent 环境下也成立） ── */
-if (F.proxy && process.env.NODE_USE_ENV_PROXY !== '1') {
+   配置了代理且未生效时，注入 env 自我重执行（LaunchAgent 环境下也成立）。REMOTE 直连，跳过 ── */
+if (F.proxy && !REMOTE && process.env.NODE_USE_ENV_PROXY !== '1') {
   const r = spawnSync(process.execPath, [process.argv[1], ...process.argv.slice(2)], {
     stdio: 'inherit',
     env: {
@@ -170,7 +174,8 @@ const idOf = (url) => crypto.createHash('sha1').update(url).digest('hex').slice(
 
 /* ── 正文增强：RSS 摘要过短时抓原文页剥标签（X 条目天然全文，不增强） ── */
 async function enhanceText(item) {
-  if (item.sourceType === 'x' || item.text.length >= F.fullText.minChars) return;
+  // REMOTE：原文页可能也在墙外，跳过增强避免逐条 fetch 空等超时（回退 RSS 摘要）
+  if (REMOTE || item.sourceType === 'x' || item.text.length >= F.fullText.minChars) return;
   try {
     const html = await fetchText(item.url);
     const body = stripTags(html.replace(/^[\s\S]*?<body/i, '<body'));
@@ -184,14 +189,20 @@ async function enhanceText(item) {
 const OUTPUT_SCHEMA = {
   type: 'object',
   additionalProperties: false,
-  required: ['titleZh', 'verdict', 'summaryZh', 'tags', 'contentType', 'importance', 'relevant', 'insufficientContext'],
+  required: ['titleZh', 'verdict', 'summaryZh', 'tags', 'contentType', 'apparent', 'absolute', 'gravity', 'periodic', 'canon', 'rationale', 'relevant', 'insufficientContext'],
   properties: {
     titleZh: { type: 'string', description: '中文标题，≤40 字' },
     verdict: { type: 'string', description: '一句话判断：这条为什么重要，≤60 字' },
     summaryZh: { type: 'string', description: '中文摘要 200-400 字；信息不足时可短' },
     tags: { type: 'array', items: { type: 'string' }, minItems: 1, maxItems: 6 },
-    contentType: { type: 'string', enum: ['authored', 'statement', 'action', 'cited'] },
-    importance: { type: 'integer', minimum: 1, maximum: 5 },
+    contentType: { type: 'string', enum: ['authored', 'statement', 'action', 'cited', 'business'] },
+    // 星图评级三维（星类由前端 frontier-ui.starOf 确定性映射，此处只打分；详见 docs/star-rating.md）
+    apparent: { type: 'integer', minimum: 1, maximum: 5, description: '声量/视亮度：当下动静多大' },
+    absolute: { type: 'integer', minimum: 1, maximum: 5, description: '分量/绝对亮度：真实重要性，与热度无关' },
+    gravity: { type: 'boolean', description: '隐体：本体不可观测但可由其对周围影响反推高分量（罕见）' },
+    periodic: { type: 'boolean', description: '周期性回归的话题潮（少见）' },
+    canon: { type: 'boolean', description: '已是领域公认的奠基正典/必读参照（日常抓取极罕见）' },
+    rationale: { type: 'string', description: '一句话评级理由' },
     relevant: { type: 'boolean' },
     insufficientContext: { type: 'boolean' },
   },
@@ -211,8 +222,14 @@ function buildPrompt(item) {
 1. 摘要与判断只能基于提供的材料，禁止补充材料之外的事实、数字、引语；材料信息不足时置 insufficientContext=true 并把摘要收短。
 2. 与 AI/科技前沿无关（生活闲谈、转发抽奖、纯社交寒暄）→ relevant=false。
 3. 涉及中国政治、地缘政治争议、选举政治的内容 → relevant=false（站点部署在备案域名，这是硬性合规线）。
-4. contentType 分类：authored=本人署名作品（论文/博客/视频），statement=本人公开发言（推文观点/访谈/演讲），action=个人行动（联署/发布产品/创办组织），cited=他人引用或报道该人物。
-5. importance：5=路线级判断或重要发布，3=有信息量的日常观点，1=轻微动态。
+4. contentType 分类：authored=本人署名作品（论文/博客/视频），statement=本人公开发言（推文观点/访谈/演讲），action=个人行动（联署/发布产品/创办组织），cited=他人引用或报道该人物，business=资本/商业事件（融资/IPO/估值/并购/上市）。
+   ⚠ business 事件的 absolute 只按其对 AI 能力或行业格局的真实影响打分，不因金额大就给高分——融资/IPO 本身通常 absolute≤3（声量可高，但不改写能力边界）。
+5. 星图评级（多维，替代单一分数）——独立打两个分，绝不用声量给分量充值：
+   · apparent 声量 1-5：当下动静。5=出圈刷屏/主流科技媒体头条；4=圈内沸腾几乎人人转；3=子社区有明显讨论；2=零星少数人注意；1=几乎无声或本体刻意未公开。
+   · absolute 分量 1-5：真实重要性，与热度无关。5=改写范式（6-12 月后仍必引参照）；4=实质推进（可靠新方法/新结果/重要数据，后续会建立其上）；3=有效增量（扎实改进/复现/有用工具/综述）；2=边角衍生/轻量观点；1=无实质/噪声/纯情绪。
+   · 三个布尔（默认 false，极少为 true，置 true 须在 rationale 说明依据）：gravity=隐体黑洞，仅当「本体完全未公开、无法直接读到」（保密项目/未发布模型，其重量只能从第三方连锁反应反推）才 true——任何已公开可读的论文/帖子/发布/报道一律不是黑洞，gravity=false；periodic=可识别的周期性回归话题潮（每隔一阵就回来）；canon=已被领域确立为奠基正典/必读参照（当下新发布几乎都不是）。
+   · 法则：亮≠重，两个分相互独立；absolute 拿不准向下取整；在「炒作」与「实质」之间犹豫，按实质打 absolute、把热度交给 apparent。
+   · rationale：一句话说明为何这样打分。
 6. 全部输出用简体中文（专有名词保留英文）。${vocabLine}
 
 【材料】
@@ -226,9 +243,9 @@ ${item.text || '（仅有标题）'}`;
 
 function runClaude(prompt) {
   const env = { ...process.env };
-  if (F.proxy) Object.assign(env, { HTTPS_PROXY: F.proxy, HTTP_PROXY: F.proxy, https_proxy: F.proxy, http_proxy: F.proxy });
+  if (F.proxy && !REMOTE) Object.assign(env, { HTTPS_PROXY: F.proxy, HTTP_PROXY: F.proxy, https_proxy: F.proxy, http_proxy: F.proxy });
   const r = spawnSync(
-    F.claude.bin,
+    REMOTE ? 'claude' : F.claude.bin,
     ['-p', '--output-format', 'json', '--json-schema', JSON.stringify(OUTPUT_SCHEMA),
      '--no-session-persistence', '--model', F.claude.model,
      '--disallowedTools', 'Bash', 'Edit', 'Write', 'WebFetch', 'WebSearch', 'Task', 'NotebookEdit'],
@@ -319,8 +336,10 @@ const cutoff = now - F.lookbackDays * 86400 * 1000;
 
 /* 展开 源×归属 任务表 */
 const jobs = [];
-for (const p of F.people) for (const s of p.sources) jobs.push({ src: s, owner: p, person: p.slug, topicSource: null });
-for (const t of F.topics) for (const s of t.sources) jobs.push({ src: s, owner: t, person: null, topicSource: t.slug });
+const srcOk = (s) => !REMOTE || s.type !== 'x'; // REMOTE：X 镜像被墙，云端跳过（详见 docs/frontier-routine.md）
+for (const p of F.people) for (const s of p.sources) if (srcOk(s)) jobs.push({ src: s, owner: p, person: p.slug, topicSource: null });
+for (const t of F.topics) for (const s of t.sources) if (srcOk(s)) jobs.push({ src: s, owner: t, person: null, topicSource: t.slug });
+if (REMOTE) console.log(`[frontier] REMOTE 模式：直连、claude 走 PATH，已过滤 X 源 job（剩 ${jobs.length} 个公网源待抓）`);
 
 console.log(`[frontier] ${F.people.length} 人 + ${F.topics.length} 话题，共 ${jobs.length} 个源`);
 
@@ -432,7 +451,14 @@ for (const [idx, item] of queue.entries()) {
       tags: out.tags.map((t) => t.replaceAll('|', '/')), // 前端 data-tags 以 | 分隔，标签内不允许出现
       url: item.url,
       excerpt: item.text.slice(0, 500),
-      importance: out.importance,
+      // 星图评级三维（星类前端算）；保留 importance=absolute 向后兼容旧前端选条逻辑
+      apparent: out.apparent,
+      absolute: out.absolute,
+      importance: out.absolute,
+      gravity: out.gravity,
+      periodic: out.periodic,
+      canon: out.canon,
+      rationale: out.rationale,
       insufficientContext: out.insufficientContext,
       addedAt: today, // 入库日（≠发布日）：前端用来标 NEW
     });

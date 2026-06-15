@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="300" viewBox="0 0 640 300" fill="none" role="img" aria-label="Galaxy View：笔记库渲染成发光的 3D 星系（深空预览）">
+  <defs>
+    <radialGradient id="gvBg" cx="46%" cy="42%" r="75%">
+      <stop offset="0" stop-color="#0d1838"/>
+      <stop offset="48%" stop-color="#070d20"/>
+      <stop offset="100%" stop-color="#03060f"/>
+    </radialGradient>
+    <radialGradient id="gvNebA" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#3b5bd9" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#3b5bd9" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="gvNebB" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#e7c46a" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#e7c46a" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="gvNebC" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#46d7e0" stop-opacity="0.32"/>
+      <stop offset="100%" stop-color="#46d7e0" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glBlue" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#9db4ff" stop-opacity="0.95"/><stop offset="28%" stop-color="#4b6bf0" stop-opacity="0.7"/><stop offset="100%" stop-color="#4b6bf0" stop-opacity="0"/></radialGradient>
+    <radialGradient id="glGold" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#fff0c4" stop-opacity="0.95"/><stop offset="30%" stop-color="#e7c46a" stop-opacity="0.7"/><stop offset="100%" stop-color="#e7c46a" stop-opacity="0"/></radialGradient>
+    <radialGradient id="glCyan" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#c4f6fb" stop-opacity="0.95"/><stop offset="30%" stop-color="#46d7e0" stop-opacity="0.65"/><stop offset="100%" stop-color="#46d7e0" stop-opacity="0"/></radialGradient>
+    <radialGradient id="glViolet" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#e3cdfb" stop-opacity="0.95"/><stop offset="30%" stop-color="#a06bf0" stop-opacity="0.65"/><stop offset="100%" stop-color="#a06bf0" stop-opacity="0"/></radialGradient>
+    <radialGradient id="glTeal" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#bdf5e4" stop-opacity="0.92"/><stop offset="30%" stop-color="#3fcf9e" stop-opacity="0.6"/><stop offset="100%" stop-color="#3fcf9e" stop-opacity="0"/></radialGradient>
+    <radialGradient id="glRose" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#ffd2e4" stop-opacity="0.92"/><stop offset="30%" stop-color="#ef6f9e" stop-opacity="0.6"/><stop offset="100%" stop-color="#ef6f9e" stop-opacity="0"/></radialGradient>
+  </defs>
+
+  <rect width="640" height="300" fill="url(#gvBg)"/>
+  <!-- 星云辉光 -->
+  <ellipse cx="300" cy="150" rx="230" ry="150" fill="url(#gvNebA)"/>
+  <ellipse cx="468" cy="96" rx="120" ry="92" fill="url(#gvNebB)"/>
+  <ellipse cx="150" cy="214" rx="130" ry="96" fill="url(#gvNebC)"/>
+
+  <!-- 远景星点 -->
+  <g fill="#cdd9f2">
+    <circle cx="38" cy="40" r="0.8" opacity="0.7"/><circle cx="92" cy="74" r="1" opacity="0.5"/><circle cx="138" cy="34" r="0.7" opacity="0.6"/>
+    <circle cx="196" cy="58" r="0.9" opacity="0.45"/><circle cx="250" cy="30" r="0.7" opacity="0.7"/><circle cx="318" cy="52" r="1.1" opacity="0.55"/>
+    <circle cx="384" cy="28" r="0.8" opacity="0.5"/><circle cx="442" cy="48" r="0.7" opacity="0.65"/><circle cx="512" cy="36" r="1" opacity="0.5"/>
+    <circle cx="572" cy="66" r="0.8" opacity="0.6"/><circle cx="604" cy="120" r="0.9" opacity="0.45"/><circle cx="56" cy="120" r="0.8" opacity="0.55"/>
+    <circle cx="24" cy="186" r="0.9" opacity="0.5"/><circle cx="86" cy="232" r="0.7" opacity="0.6"/><circle cx="150" cy="270" r="1" opacity="0.5"/>
+    <circle cx="226" cy="248" r="0.8" opacity="0.55"/><circle cx="300" cy="276" r="0.7" opacity="0.5"/><circle cx="372" cy="256" r="0.9" opacity="0.6"/>
+    <circle cx="446" cy="280" r="0.8" opacity="0.45"/><circle cx="520" cy="246" r="1" opacity="0.55"/><circle cx="588" cy="220" r="0.8" opacity="0.5"/>
+    <circle cx="616" cy="172" r="0.7" opacity="0.6"/><circle cx="120" cy="160" r="0.7" opacity="0.4"/><circle cx="540" cy="150" r="0.8" opacity="0.45"/>
+    <circle cx="270" cy="112" r="0.7" opacity="0.5"/><circle cx="408" cy="190" r="0.8" opacity="0.45"/><circle cx="350" cy="210" r="0.7" opacity="0.5"/>
+  </g>
+
+  <!-- 双链结构 -->
+  <g stroke="#8fa8e8" stroke-width="1" opacity="0.22">
+    <line x1="300" y1="150" x2="208" y2="108"/><line x1="300" y1="150" x2="392" y2="120"/><line x1="300" y1="150" x2="356" y2="206"/>
+    <line x1="300" y1="150" x2="232" y2="196"/><line x1="392" y1="120" x2="462" y2="92"/><line x1="392" y1="120" x2="440" y2="178"/>
+    <line x1="208" y1="108" x2="150" y2="150"/><line x1="208" y1="108" x2="246" y2="60"/><line x1="232" y1="196" x2="170" y2="226"/>
+    <line x1="356" y1="206" x2="430" y2="232"/><line x1="462" y1="92" x2="520" y2="120"/><line x1="150" y1="150" x2="110" y2="200"/>
+  </g>
+
+  <!-- 节点辉光（聚合点精灵观感）-->
+  <g>
+    <circle cx="300" cy="150" r="34" fill="url(#glGold)"/><circle cx="300" cy="150" r="4.4" fill="#fff3d0"/>
+    <circle cx="392" cy="120" r="26" fill="url(#glBlue)"/><circle cx="392" cy="120" r="3.4" fill="#eaf0ff"/>
+    <circle cx="208" cy="108" r="24" fill="url(#glCyan)"/><circle cx="208" cy="108" r="3.2" fill="#e8feff"/>
+    <circle cx="356" cy="206" r="22" fill="url(#glViolet)"/><circle cx="356" cy="206" r="3" fill="#f4ecff"/>
+    <circle cx="232" cy="196" r="20" fill="url(#glTeal)"/><circle cx="232" cy="196" r="2.8" fill="#ecfff7"/>
+    <circle cx="462" cy="92" r="18" fill="url(#glBlue)"/><circle cx="462" cy="92" r="2.6" fill="#eaf0ff"/>
+    <circle cx="150" cy="150" r="17" fill="url(#glRose)"/><circle cx="150" cy="150" r="2.4" fill="#ffeef5"/>
+    <circle cx="440" cy="178" r="15" fill="url(#glCyan)"/><circle cx="440" cy="178" r="2.2" fill="#e8feff"/>
+    <circle cx="246" cy="60" r="14" fill="url(#glGold)"/><circle cx="246" cy="60" r="2.2" fill="#fff3d0"/>
+    <circle cx="170" cy="226" r="13" fill="url(#glViolet)"/><circle cx="170" cy="226" r="2" fill="#f4ecff"/>
+    <circle cx="430" cy="232" r="13" fill="url(#glTeal)"/><circle cx="430" cy="232" r="2" fill="#ecfff7"/>
+    <circle cx="520" cy="120" r="12" fill="url(#glBlue)"/><circle cx="520" cy="120" r="1.9" fill="#eaf0ff"/>
+    <circle cx="110" cy="200" r="11" fill="url(#glRose)"/><circle cx="110" cy="200" r="1.8" fill="#ffeef5"/>
+  </g>
+</svg>

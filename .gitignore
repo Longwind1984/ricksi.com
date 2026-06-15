@@ -11,3 +11,5 @@ scripts/.frontier-refs/
 # 隐私迁移审阅产物：含全库 hidden 笔记明文标题/路径，绝不入库（即便误 git add data/ 也带不上）
 .private/
 data/title-review.json
+
+.claude/

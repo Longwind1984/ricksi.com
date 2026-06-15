@@ -22,6 +22,8 @@ interface Props {
   reader?: boolean;
   /* 竖版玻璃明信片分享卡（设计系统 ShareCard，360×640 @2x）；缺省回退横版 OG 卡 */
   shareImage?: string;
+  /* 落地页：整页深空背景（盖掉雪山主视觉，配星系画布 + 玻璃）；样式由页面 is:global 提供 */
+  space?: boolean;
 }
 const {
   title,
@@ -33,11 +35,14 @@ const {
   jsonLd = null,
   reader = false,
   shareImage = null,
+  space = false,
 } = Astro.props;
 
 /* hero LQIP：超小内联占位铺在 body 上，大图（body::before）加载完成前先有形 */
 const LQIP = LQIP_RAW.trim();
 const ogAbs = new URL(ogImage, Astro.site ?? 'https://ricksi.com').href;
+/* 自指 canonical：按部署 trailingSlash 习惯取 pathname（去掉查询串/锚点） */
+const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://ricksi.com').href;
 
 const navItems = [
   ['projects', '项目'],
@@ -67,6 +72,8 @@ const scrollspyIds = navItems.map(([id]) => id).join(',');
     <link rel="stylesheet" href="https://registry.npmmirror.com/lxgw-wenkai-webfont/1.7.0/files/lxgwwenkai-regular.css" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:url" content={canonical} />
     <meta property="og:title" content={title} />
     {description && <meta property="og:description" content={description} />}
     <meta property="og:type" content="website" />
@@ -78,7 +85,7 @@ const scrollspyIds = navItems.map(([id]) => id).join(',');
     <style set:html={`body{background-image:url(${LQIP});background-size:cover;background-position:center 32%;}`}></style>
     <ClientRouter />
   </head>
-  <body>
+  <body class:list={[{ 'gv-space': space }]}>
     <!-- Liquid Glass 折射滤镜：凸透镜位移贴图（R → x 位移，G → y 位移，中心 128 为零位移） -->
     <svg width="0" height="0" style="position:absolute" aria-hidden="true">
       <defs>
@@ -124,7 +131,7 @@ const scrollspyIds = navItems.map(([id]) => id).join(',');
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.5" y2="16.5"></line></svg>
               <span class="nav-search-k">⌘K</span>
             </button>
-            <a href="/assets/rick-si-resume.pdf" class="btn-accent" target="_blank" rel="noreferrer">下载简历</a>
+            <a href="/assets/rick-si-resume.pdf" class="btn-accent" target="_blank" rel="noreferrer" data-resume>下载简历</a>
           </nav>
         </div>
       </header>
@@ -164,7 +171,7 @@ const scrollspyIds = navItems.map(([id]) => id).join(',');
             </div>
           </div>
           <div class="foot-right">
-            <a href="/assets/rick-si-resume.pdf" class="btn-accent big" target="_blank" rel="noreferrer">下载简历 PDF</a>
+            <a href="/assets/rick-si-resume.pdf" class="btn-accent big" target="_blank" rel="noreferrer" data-resume>下载简历 PDF</a>
             <div class="mono foot-copy">© 2026 司豪杰 Rick Si · 本页本身就是作品</div>
           </div>
         </div>
@@ -211,10 +218,29 @@ const scrollspyIds = navItems.map(([id]) => id).join(',');
       </div>
     </div>
 
+    {/* 简历下载人机校验（滑动验证）：resume-gate.js 接管 [data-resume] 链接；无 JS 时链接仍可直接下载 */}
+    <div class="resume-modal" id="resume-modal" hidden>
+      <div class="resume-panel glass" role="dialog" aria-modal="true" aria-label="下载简历验证">
+        <button class="gx-close resume-close" id="resume-close" aria-label="关闭" type="button">✕</button>
+        <div class="resume-head">
+          <span class="resume-title">下载简历 · PDF</span>
+          <span class="mono resume-sub">轻量人机校验，确认你是真人</span>
+        </div>
+        <div class="resume-slider" id="resume-slider">
+          <span class="resume-fill" id="resume-fill"></span>
+          <span class="resume-text mono" id="resume-text">向右拖动滑块完成验证</span>
+          <button class="resume-handle" id="resume-handle" type="button" aria-label="拖动滑块以验证下载">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
     <script>
       import '../scripts/nav.js';
       import '../scripts/cmdk.js';
       import '../scripts/reader.js';
+      import '../scripts/resume-gate.js';
     </script>
   </body>
 </html>

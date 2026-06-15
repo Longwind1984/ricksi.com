@@ -22,6 +22,9 @@ export async function getStaticPaths() {
 const { book } = Astro.props;
 const highlights = (book as any).highlights ?? [];
 const cover = (book as any).cover ?? null;
+const subtitle = (book as any).subtitle ?? null;
+const intro = ((book as any).intro ?? '').trim();
+const epub = (book as any).epub ?? null;
 const grad = (book as any).ai ? (TOPIC_GRADS as any)[(book as any).topicId] ?? TOPIC_GRADS.agency : gradOf(book.id);
 ---
 
@@ -58,6 +61,7 @@ const grad = (book as any).ai ? (TOPIC_GRADS as any)[(book as any).topicId] ?? T
           )}
           <div class="bk-info">
             <h1 class="art-title bk-title">{book.title}</h1>
+            {subtitle && <p class="bk-subtitle">{subtitle}</p>}
             <div class="mono art-meta bk-meta">
               {book.author && <span>{book.author}</span>}
               {(book as any).ai && <span class="prov-badge ai">与 Claude 共创 · 自制 ePub</span>}
@@ -69,8 +73,24 @@ const grad = (book as any).ai ? (TOPIC_GRADS as any)[(book as any).topicId] ?? T
                 「{(book as any).topic}」话题在知识图谱中的对应专题 ↗
               </a>
             )}
+            {epub && (
+              <a class="btn-accent bk-read-btn" href={`/reading/${book.id}/read/`}>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M2 5.5A2.5 2.5 0 0 1 4.5 3H10a2 2 0 0 1 2 2v15a1.5 1.5 0 0 0-1.5-1.5H4.5A2.5 2.5 0 0 1 2 16Z"/>
+                  <path d="M22 5.5A2.5 2.5 0 0 0 19.5 3H14a2 2 0 0 0-2 2v15a1.5 1.5 0 0 1 1.5-1.5h6A2.5 2.5 0 0 0 22 16Z"/>
+                </svg>
+                开始阅读
+              </a>
+            )}
           </div>
         </div>
+
+        {intro && (
+          <section class="bk-intro">
+            <div class="mono wb-label">导言</div>
+            <p class="bk-intro-text">{intro}</p>
+          </section>
+        )}
 
         {highlights.length > 0 ? (
           <div class="bk-quotes">

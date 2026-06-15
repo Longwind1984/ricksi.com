@@ -8,7 +8,7 @@ export default defineConfig({
   integrations: [sitemap({ filter: (page) => !page.includes('/og/') })],
   prefetch: {
     prefetchAll: true,
-    defaultStrategy: 'hover',
+    defaultStrategy: 'tap',
   },
   build: {
     format: 'directory',

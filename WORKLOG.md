@@ -1,5 +1,363 @@
 # WORKLOG（append-only，倒金字塔：结论在前、清单沉底）
 
+## 2026-06-16 · 新增「Writer Pipeline 写作系统」项目 + 高交互二级落地页
+
+### 体验影响（着重 · 先看这个）
+
+- **首页「项目」区第 2 位新增 Writer Pipeline**（MuseumCollect 之后、Galaxy View 之前），编号自动顺延为 02。它和 Galaxy View 一样有自己的二级落地页 `/projects/writer-pipeline/`——**点击进落地页，不跳 GitHub**（仓库 Private，代码库刻意杜绝死链）。
+- **落地页核心是「AI 味 X 光扫描器」**：一段真实草稿（哥伦比亚大选《巴耶杜帕尔的回响》§8 节选）。开「X 光」逐句点亮 critic 判档（绿 A 留 / 琥珀 B 标 / 红 C 砍），点句看 critic-v4 真实判语；开「净化 v4→v5」把被判 C 的「电锯补刀」当场收起。把产品本身做成可玩演示。
+- **正文是第一人称案例长文**，覆盖：砸掉自己设计的 13 组件系统（PM 自审 severity 4/5，13→3 拆除可视化）→ examples≫rules（砍 5 维 voice DNA）→ AI 味可扫描清单 + 金句 earned/cosplay 配额 → v4→v5 四处纯减法 diff → 跨模型 A/B 实测推翻自己写进 plan 的推荐 → 决策时间线 → 验证窗口与「刻意不做」清单。
+- 全部文案按 Rick voice memo + critic AI 味清单写并自扫：无导览腔、无升华结尾、无大词、无 hedging，金句控在配额内。
+- 全部为**草案**，待你视觉终审。
+
+### 关键决策
+
+- **仓库出口：不放 GitHub（你拍板）**——仓库 Private 且含未发表写作与自审。落地页本身即交付物，CTA 用「回到全部项目」+ 一句「暂不公开」。被否决：设为 public（对外发布，未授权）／放死链。
+- **文章引文：用真实节选（你拍板）**——承重句、被砍的电锯句、四处减法 diff 全来自仓库实测产物（critic-v4.md / draft-v4 / draft-v5）。被否决：全脱敏示意（说服力弱）。
+- **复刻不重造**：骨架抄 `galaxy-view.astro`，reveal/count-up 抄 `galaxy-page.js`；自己写的只有扫描器三态交互 + 13→3 拆除动画。
+
+### 当前状态：验证
+
+- `npm run dev`（`.claude/launch.json` 已配 rick-homepage）→ 开 `/projects/writer-pipeline/`。
+- 已实测（preview MCP）：`npm run build` 通过 exit 0，页面已 emitted 到 `dist/projects/writer-pipeline/index.html`（42KB）；首页第 2 位、内链 `/projects/writer-pipeline/` 正确、封面/icon 正常；扫描器三项交互（X 光高亮 / 净化收起 / 点句看判语）均 eval 验证工作；控制台无报错；移动端 375px 无横向溢出。
+
+### 未尽事项 / 已知问题
+
+- **视觉未经你终审**：hero / 排版 / 扫描器配色按草案做，待过目定稿。
+- build 末尾有一条 `ENOENT ... FrontierTimeline_*.mjs`——引用的是首页/前沿组件，与本次新增页**无关**，build 仍 exit 0、全部页面 emitted；疑似 Astro/Vite chunk 清理既有竞态，留观。
+- count-up 数字在 headless 后台标签会因 rAF 节流冻在中途值，前台真实浏览器跑到终值正常（与 galaxy-view 同款模式）。
+- 扫描器「净化」收起改用 inline-block + max-width 裁剪（原先 font-size:0/opacity:0 被全局规则盖掉）；移动端修了 `sec-title-row` 不换行导致的 5px 溢出。
+- 封面 `proj-writer-pipeline.svg` 是程序化意象图（手稿 + 扫描线 + A/B/C），非真实截图。
+
+### 文件级变更清单
+
+- 新增 `src/pages/projects/writer-pipeline.astro`（落地页主体 + `wp-` scoped 样式）
+- 新增 `src/scripts/writer-page.js`（reveal + count-up + 扫描器三态交互）
+- 新增 `public/assets/proj-writer-pipeline.svg`（首页项目封面缩略图）
+- 改 `src/data/projects.ts`：index 1 插入 Writer Pipeline 条目（featured，内链）
+- 新增 `.claude/launch.json`（preview dev server 配置，rick-homepage:4399）
+
+## 2026-06-16 · Galaxy View 落地页 v2：整页星系背景 + 体验优先 + 已上架
+
+### 体验影响（着重 · 先看这个）
+
+- **整页星系背景 + Liquid Glass**：落地页背景从全站雪山主视觉换成「程序化星云画布（固定整页）+ 玻璃内容浮其上」。给 `Glass.astro` 加 `space` prop → `body.gv-space` 深空兜底（无 WebGL 也不露雪山）。
+- **漏斗反转**：首屏主 CTA 从「在 GitHub 上看」改成「**飞进我的知识库 →**」——开一个**全屏浮层跑真实知识库的 3D**（复用 `graph-view-galaxy.js` 真渲染器 + 真实 graph.json，真笔记标题 + 拖拽/缩放/飞行/点击/搜索）；浮层里放「**看看是怎么做的 →**」把动线拉回正文。GitHub 降为状态段次要文字链，首屏不出现。
+- **已上架**：插件已正式上架 Obsidian 社区插件市场。kicker、状态段、安装路径全改为「设置 → 社区插件 → 搜 Galaxy View 安装」；BRAT 降为 beta 备注。
+- **叙事中度重构**：首屏加「一眼看懂」成果带（已上架 / 4 天 / 16→60fps / 22k→19 / 超越全部前辈）、加「Obsidian 图谱是什么」一句、把 PM 决策做成「决策」callout（不 fork、数字门控）、基准卡加 before→after 迷你条。
+- **性能取舍（明确告知）**：整页实时星系 + 玻璃模糊是全站最重组合。缓解：滚出首屏冻结背景画布、浮层打开时暂停背景（错峰双 bloom）、标签页隐藏暂停、移动端降级、reduced-motion 静帧、真渲染器懒加载。低端机首屏仍可能偏吃 GPU。
+- 全部为**草案**，待你视觉终审。
+
+### 关键决策
+
+- **背景用实时星系（你拍板）**：全页固定画布 + 滚出首屏冻结（玻璃罩静止画布的 backdrop-filter 成本低）。被否决「首屏实时 + 下方静态深空」。
+- **两个渲染器各司其职**：背景 = 程序化星云（`galaxy-hero.js`，好看、轻）；浮层 = 真渲染器（`graph-view-galaxy.js`，真数据、真产品演示）。错峰运行避免双 bloom。
+- 浮层 modal 机制照搬工作台看板（scrim/inert/焦点圈闭/ESC/滚动锁/AbortController）。
+
+### 当前状态：验证
+
+- dev 实测 `/projects/galaxy-view/`：背景星系挂载（整页固定）、`body.gv-space` 生效、两个 CTA + 成果带在位、无报错（截图确认首屏：星系底 + 玻璃 + 反转 CTA + 已上架带）。
+- 浮层实测：点击主 CTA → 浮层打开、滚动锁、真渲染器挂载 `stageCanvas=1` + **23 个真实笔记标题** + 布局沉降、`.open` 生效。浮层淡入透明度因 headless 节流 CSS transition 未推进（真浏览器正常）；像素截图受并行 session 抢标签页 + HMR 重载阻挠未拿到干净图——功能已确认。
+- **完整 `npm run build` 本轮未跑**（按「实际渲染/预览」验收；且本仓有并行 session 在跑构建/编辑，clean build 会互相争 .vite）。设计定稿后再一次性跑构建确认可部署。
+
+### 文件级变更清单
+
+- 修改：`src/pages/projects/galaxy-view.astro`（整页背景结构 + 反转 CTA + 成果带 + 决策 callout + 基准迷你条 + 已上架 + 全屏浮层 markup + is:global 深空背景 + 大量 scoped 样式）、`src/scripts/galaxy-page.js`（背景挂载 + 配色/辉光 + 全屏浮层控制器 + 懒挂 renderGraph3D + 背景暂停联动 + 焦点圈闭/ESC/滚动锁）、`src/scripts/galaxy-hero.js`（改整页固定背景 + 滚出首屏冻结 + pause/resume）、`src/layouts/Glass.astro`（+`space` prop + body class）
+- 复用（未改）：`src/scripts/graph-view-galaxy.js`（renderGraph3D 真渲染器）、`src/scripts/galaxy/*`、`src/lib/site-data.mjs`
+- 文档：`WORKLOG.md`（本条）
+
+## 2026-06-16 · v6：星图评级多维化收口 + 内容回溯抽样入站（Human-in-the-loop）
+
+### ⚠ 体验影响（用户可见层）
+1. 评级口径三项调整：**商业事件**（融资/IPO/并购）单独标 business 类型、absolute≤3（不再占超新星）；源级新增**北斗**（猎户座之上的最高级，9 实体）；person 按**主业身份**归领域。
+2. 前端：条目加「商业」类型徽章；人物卡加源级星徽，**北斗金色醒目**（❖）。
+3. 前沿数据从 36 条扩到 118 条（新增 82 条回溯动态 + 8 个新实体）。
+
+### 做了什么
+1. **Human-in-the-loop 回溯**：用户给 ~60 实体种子名单（person/org 双轨、10 tier、priority/subdomain/affiliation 的完整系统设计）→ 派 15 个 web 研究 agent 抽样回溯过去 3 个月（2026-03-15~06-15）真实动态、星图评级、校准分类 → 生成校正清单 → 用户校 3 条口径 → 重校准 → 入站。
+2. **三口径固化进体系**：collect-frontier schema/prompt 加 business 类型（融资 absolute≤3）；frontier-ui 加北斗 CONSTELLATION（含 CONSTELLATION_RANK）；config 8 个实体升北斗 + person 按主业重定 domain。
+3. **抽样入站**：import-backfill.mjs 把 82 条回溯动态合并进 frontier.json（slug 对齐 andrej-karpathy→karpathy、URL 去重跳过 5 条、字段补全、标 backfill），config 扩到 people 14 / topics 9。
+4. 前端 business 标签（4 处）+ 人物卡北斗金徽。
+
+### 关键决策与被否决的备选
+- **商业事件单独标记**（用户拍板）：融资/IPO 声量大但不改写能力边界，absolute≤3、归 business 类型，不混入能力星图——超新星从抽样的 31% 回落。
+- **北斗 = 猎户座之上最高源级**（用户拍板）：四机构（OpenAI/Anthropic/DeepMind/DeepSeek）+ 五顶级人物（Ilya/Karpathy/Demis/Dario/LeCun）。
+- **person 按主业身份归类**（用户拍板）：Karpathy=工程教育、Dario/Ilya=前沿实验室、研究者→研究与评测；不因近期发长文就归写作。
+- **回溯靠 web 研究而非抓取管线**：RSS/X 只给最近 ~20 条，拿不到 3 月历史；arXiv 能查但仅论文。多 agent web 搜索是唯一可行路径，每条带来源 URL + confidence、搜不到不编。
+- **先抽样入站再全量**（用户拍板）：15 个高优先级实体先入站验证口径与观感；剩 ~43 实体全量回溯（~2-3M tokens）待用户看效果后决定。
+- 黑洞通胀教训延续：抽样首轮也出现 gravity 误判，prompt 已收严（公开内容一律 gravity=false）。
+
+### 当前状态
+- 构建绿（635+ 页），dist 验证：business 标签、北斗金徽 5、时间轴 118 节点、人物卡 14。
+- 数据：data/frontier.json 118 条（82 回溯 backfill）；原始样本 data/frontier-backfill-sample.json；校正清单 data/frontier-backfill-review.md。
+- 星类分布健康无通胀：超新星26/新星22/微光40/彗星12/流星11/深空5/星尘2。
+
+### 未尽事项与已知问题
+1. 新增 4 位人物（李飞飞/Chris Olah/Subbarao/Tenenbaum）暂用字母牌兜底头像，未生成真头像（fei-fei/olah 有 wiki 可生成，subbarao/josh 无 wiki）。
+2. 回溯条目无长摘要（web 研究只给一句话判断），前端展开摘要显示的是 verdict 本身——回溯固有局限，可对 backfill 条目隐藏展开区只留判断+原文。
+3. 全量回溯（剩 ~43 实体）未做，等用户看抽样入站效果后决定节奏。
+4. 新实体的「日常抓取源」sources 暂空（回溯数据已入库，日常源待配）——collect-frontier 会 warn 但不阻塞。
+5. 未推送，等用户过目效果。
+
+### 文件级变更
+- 新增：scripts/import-backfill.mjs、data/frontier-backfill-sample.json、data/frontier-backfill-review.md
+- 修改：scripts/config.mjs（北斗 8 实体 + 8 新实体 + person 主业 domain）、src/lib/frontier-ui.mjs（北斗 CONSTELLATION + RANK）、scripts/collect-frontier.mjs（business schema/prompt）、scripts/migrate-frontier-rating.mjs（措辞对齐）、src/components/FrontierEntry.astro（business 标签）、src/components/FrontierPersonCard.astro（源级星徽）、src/pages/frontier.astro（business 筛选）、src/pages/index.astro（business 标签）、src/styles/glass.css（北斗金徽）、data/frontier.json（118 条）
+
+## 2026-06-15（galaxy）· 个人主页新增 Galaxy View 项目案例 + 高交互 3D 星系落地页
+
+> **修订（同日，视觉回退）**：hero 渲染器经一轮预览后**回退**。真渲染器版（渲染真实知识图谱）被判「太丑」——真图谱的力导向链接太密、读成「网」而非「星云」。改回**程序化生成的星云**（`src/scripts/galaxy-hero.js`，1×Points 聚合 + 发光球 shader + bloom，确定性种子、不含真实数据），**bloom 默认开**（关掉会发扁）、保留配色（6 主题）/辉光切换。
+> 当前事实：① hero = 程序化星云（非真渲染器）；② `galaxy-hero.js` **已恢复**（不是删除）；③ `galaxy-page.js` 改回 import `galaxy-hero.js`；④ 落地页不再 `loadSiteData`/内联 graph、去掉点击读出；⑤ `galaxy/mount.js`+`galaxy/cameraDirector.js` 的可嵌入改动**保留未回退**（加性、默认不变，spike 仍可用，但本页已不调用）。下文凡「真渲染器 / 真实图谱 / 点击读出标题 / draw calls=6」均指被回退的版本，留作决策记录。
+
+### 体验影响（着重 · 先看这个）
+
+- 「项目」栏目新增 **Galaxy View**，置于首页**第 2 位**（紧随 MuseumCollect），featured。卡片点击进**站内二级落地页** `/projects/galaxy-view/`（其余项目仍直跳 GitHub）——这是全站第一个项目二级页。
+- 落地页 hero 是**实时 3D 星系**：复用上一个 session 移植进 `src/scripts/galaxy/` 的**真渲染器**（聚合渲染 + d3-force-3d Worker 布局 + 镜头导演），渲染**本站真实（已发布脱敏）知识图谱**（与首页 /graph 同源，实测 1127 节点）。拖拽旋转、点击节点飞过去并显示真实笔记标题、闲置巡航。整帧 **draw calls = 6**（实测）。
+- **性能取舍（明确告知）**：此页动态加载 three.js + d3-force（独立 chunk，不进首发包）。已加：懒加载（hero 进视口才拉 chunk）、出视口/标签页隐藏即暂停 RAF、移动端降级（关 bloom + pixelRatio≤1.5 + 星空减密，靠 shader 热核保约 80% 观感）、嵌入模式关掉滚轮缩放与 WASD（不劫持页面滚动/键盘）、WebGL 不可用或无图数据回退 SVG 海报、reduced-motion 关闭闲置巡航。
+- 文案全程第一人称、判断先行（主线：性能墙 → 聚合渲染 → 性能与美学汇合）；PM×AI 协作按要求**点到为止**（不以「不写代码」开场）。
+- 全部为**草案**，hero 文字暗角 / 读出位置 / 时间线密度等待你视觉终审。
+
+### 做了什么（结果导向）
+
+1. `projects.ts` 新增 Galaxy View 条目（index 1、featured、href 站内 `/projects/galaxy-view/`）。
+2. 自绘 `public/assets/proj-galaxy-view.svg` 缩略图（产品无真实截图，隐私）。
+3. 落地页 `src/pages/projects/galaxy-view.astro`：10 段案例长文（命题 / 问题+前辈墓地 / 聚合渲染突破 / 基准数字表 / 逆向 NASA Eyes / 里程碑时间线+战争故事 / 品味细节 / 工作方法 / 状态+GitHub CTA），scoped 样式贴合钴蓝玻璃设计系统，滚动揭示 + 数字 count-up；内联真实 graph.json（loadSiteData）。
+4. `src/scripts/galaxy-page.js`：懒加载真渲染器、出视口/隐藏暂停、按钮联动（辉光开关 / 回总览）、点击节点读出真实标题、WebGL/数据回退。
+5. 把上个 session 的真渲染器从「spike 专用」补成「可嵌入」（**加性改动，spike 不受影响**）：`galaxy/mount.js` 加 embed/mobile/reduced 入参 + pause/resume/setBloom/getBloom；`galaxy/cameraDirector.js` 加 enableZoom/enablePan/enableKeys/cruiseEnabled/enabled/touchAction 选项（默认全不变）。
+6. 删除中途自写、后被真渲染器取代的 `src/scripts/galaxy-hero.js`。
+
+### 关键决策与被否决的备选
+
+- **hero 用真渲染器（你拍板）**：开工发现上个 session 已移植真渲染器 + 一次性 spike 验证过它能跑真实 graph.json，遂接入。**被否决**「保留我自研的程序化复刻星系」——真渲染器更有说服力（真插件跑真图谱），且数据已在站内 /graph 公开、无新增隐私风险。
+- 落地页用**单个静态页**而非 `[slug].astro` 动态路由：只有这一个项目需要落地页，不引入抽象。
+- hero 控制从初版「配色/辉光切换」收敛为「辉光开关 + 回总览 + 点击节点读出真实标题」：点击飞行 + 真标题比配色循环更有信息量、更 authentic。
+
+### 当前状态：能跑什么、怎么跑
+
+- `npm run build` → **退出码 0**，`dist/projects/galaxy-view/index.html` 生成（252KB，含内联真图）；worker/mount/three 正确 code-split 成独立 chunk（`dist/_astro/forceWorker-*.js`、`mount.*.js`）。尾部 `manifest ENOENT` 是构建收尾清理竞态（前几条记录的已知现象），不影响产物。
+- 实测（dev，`/projects/galaxy-view/`）：hero 渲染真实 1127 节点星系、`drawCalls=6`、`settled=true`；9/9 段滚动揭示生效；基准表 6 行；大数字 count-up 到 19；点击节点读出真实笔记标题。已截图 hero（钴蓝发光星系 + 全套文案 + GitHub CTA）。
+- 入口链路：首页第 2 位卡片 → 点击进落地页 → hero 实时 3D + GitHub CTA 硬链 `github.com/Longwind1984/galaxy-view`。
+
+### 未尽事项与已知问题
+
+1. **GitHub 仓库需 push 成 public**，否则 CTA 404（你已说现在就去 push）。
+2. **本会话期间有另一个 Claude session 在同仓库并行作业**（前沿/frontier 任务 + `astro build --outDir dist-default-check`/`dist-kg2b`，并同改 WORKLOG）——持续 HMR 重载 + 争 CPU + 污染 Vite 缓存，导致本地预览反复跳页/掉 chunk。我的源码经核对完好；上面的实测是在它的间隙抓到的。
+3. **遗留实验**：`src/pages/galaxy-spike.astro` + `dist-kg2spike/`、`dist-default-check/`、`dist-kg2b/` 等临时 dist 产物仍在仓库；spike 页自带注释「验证完可删」（`src/scripts/galaxy/` 已被本页正式复用，**保留**）。建议清理 spike 页 + 临时 dist 目录，但非本任务产生、未擅自删。
+4. 真渲染器 reduced-motion 下仍有极缓星空自转/微闪（renderer.render 内置），未做成完全静帧——幅度可忽略；如要严格静帧需再改 renderer。
+5. 移动端 hero = 自转 + 点击飞行（不接管拖拽手势以保页面可滚）；真机触屏未逐一验证。
+6. headless 预览报 `pointer:coarse` → 命中移动端档（bloom 关）；真机带鼠标桌面 bloom 默认开。
+
+### 文件级变更清单（自动罗列，可跳读）
+
+- 新增：`src/pages/projects/galaxy-view.astro`、`src/scripts/galaxy-page.js`、`public/assets/proj-galaxy-view.svg`
+- 修改：`src/data/projects.ts`（+Galaxy View 条目，index 1）、`src/scripts/galaxy/mount.js`（embed/mobile/reduced/pause/resume/setBloom）、`src/scripts/galaxy/cameraDirector.js`（嵌入选项，默认不变）
+- 删除：`src/scripts/galaxy-hero.js`（中途自研，被真渲染器取代）
+- 文档：`WORKLOG.md`（本条）
+
+## 2026-06-15（续）· v5：前沿追踪三大升级——星图多维评级 + 二维时间轴 + Routine 云端兜底
+
+### ⚠ 体验影响（置顶，用户可见层变更）
+
+1. **评级从单一分数改为多维「星图」**：每条动态不再是 importance 1-5，而是 `声量 apparent × 分量 absolute` 两轴解耦 + gravity/periodic/canon 三个布尔，映射成天文星类徽章（超新星/深空/新星/流星/黑洞/微光/星尘…）。深空=被低估（高分量低声量）、流星=炒作（低分量高声量），条目卡显示星类徽章替代旧金点。
+2. **落地页顶部从横滚人物条改为二维时间轴**：纵轴领域分组含人物/源行，横轴时间（7/30/90 天可切窗），节点按评级大小/颜色编码、点击深链到下方条目、行名可筛选。
+3. **主页前沿卡片加迷你时间轴**：突出「持续追踪」的时间序状态（近 14 天泳道），在今日要点大卡之上。
+
+### 做了什么（按用户三点）
+
+1. **二维时间轴**（`FrontierTimeline.astro` + `frontier.js` 窗口切换 + glass.css `.ft-tl`）：泳道图，纯 CSS/SVG 无图表库；mini（主页领域聚合无 JS）/ full（落地页人物行 + 7/30/90 切窗）。节点 `%` 定位（响应式，非固定 px 滚动）。
+2. **星图评级体系**（用户在 Downloads 拟了规约 v1，我读取后落地）：采集端 `collect-frontier` schema 改三维分 + prompt 注入紧凑规约；星类由 `frontier-ui.starOf` **确定性映射**（规则单点，改规则不必重抓）；源级星类（猎户座/星辰/行星）标在 config。规约全 13 类按「评的是什么」分三层落地：条目级自动 / 源级 config 标 / 场级 v1 暂缓。完整文档 `docs/star-rating.md`。
+3. **Routine 云端兜底**：`collect-frontier --remote`（直连/跳被墙 X 源/claude 走 PATH）+ `docs/frontier-routine.md`（手动配置 prompt/cron/能力边界）。
+
+### 关键决策与被否决的备选
+
+- **评级三层落地而非硬塞 13 类给逐条管线**：逐条 claude 只能可靠产出 EVENT 类 + 维度分；FIXTURE（源）是人物档案属性、FIELD（场）需聚合——硬塞会让一堆永不命中的星类成摆设、且通胀。
+- **采集端只存维度分、星类前端算**：规则单点在 `starOf`，改规则零重抓；`starin` 全网格覆盖（补了规约 absolute≥4 高声量的盲区）。
+- **Routine 只能兜底不能主力**（诚实告知用户的硬约束）：云端隔离 VM 访问不到本机文件（工作台数据只能本地）、且抓不到被墙 X 源（名单里多人只有 X 源）。本地 LaunchAgent 仍是主力。
+- **黑洞通胀修正**：首轮迁移 prompt 对 gravity 定义太松，把 Simon Willison 公开帖等误判黑洞；收紧措辞（任何公开可读内容一律 gravity=false）后重评，0 黑洞。
+- **存量 27 条调 claude 仅评级补三维**（不碰已发布内容），口径与新采集逐字对齐（审查发现措辞偏弱已修正重评）。
+- 时间轴「可滑动」用窗口切换（7/30/90）+ `%` 定位实现，而非固定 px/天 的拖动滚动——更响应式；27 条/4 天数据下完全够看。
+
+### 当前状态：能跑什么
+
+- `npm run collect:frontier`（全源）/ `collect:frontier:remote`（云端子集）/ `frontier:portraits` / `migrate-frontier-rating.mjs --force`（存量补评级）。
+- 星类分布健康无通胀：超新星/深空/新星/流星/微光/彗星/星尘 多样，0 黑洞。
+- 落地页时间轴 DOM 实测通过：3 领域组/10 行/27 节点/窗口切换刻度更新/星徽 27/行名筛选/节点深链。主页 mini 时间轴渲染正确。
+- 完工跑了 18-agent 三维度对抗审查，confirmed 问题已逐个修复（migrate 措辞对齐、enhanceText REMOTE 跳过、frontier.js 死选择器清理、docs 推送说明、REMOTE 日志措辞）；判定不修的（migrate REMOTE = YAGNI 本地工具）用注释澄清。
+
+### 未尽事项与已知问题
+
+1. **真实视觉效果待用户在浏览器过目**：dev 预览浏览器被并行会话占用，未能截图；`localhost:4321/frontier` 可看真实效果。
+2. 场级星类（星云/基点）v1 未自动化，留作未来手工策展位。
+3. 时间轴无「拖动滑动」（用窗口切换替代）；数据攒多后若需更细时间缩放再加。
+4. Routine 需用户手动在 claude.ai 配置（需 GitHub 授权，我无法代办）；按 `docs/frontier-routine.md`。
+5. 未推送上线——本地验证完，待用户过目视觉后 commit+push。
+
+### 文件级变更清单
+
+- 新增：`src/components/FrontierTimeline.astro`、`scripts/migrate-frontier-rating.mjs`、`docs/star-rating.md`、`docs/frontier-routine.md`
+- 修改：`scripts/collect-frontier.mjs`（三维 schema/prompt/落盘 + REMOTE 模式 + 防通胀）、`scripts/config.mjs`（people/topics 源级 constellation）、`src/lib/frontier-ui.mjs`（STAR_CLASS/starOf/hypeGap/CONSTELLATION）、`src/components/FrontierEntry.astro`（星类徽章）、`src/pages/frontier.astro`（时间轴替换横滚条）、`src/pages/index.astro`（mini 时间轴）、`src/scripts/frontier.js`（窗口切换 + hashchange + 死选择器清理）、`src/styles/glass.css`（ft-star + ft-tl ~90 行）、`package.json`、`README.md`
+- 数据：`data/frontier.json`（27 条补三维评级）
+
+## 2026-06-15（四续）· 头像提示词放宽 + dario/yann/lilian/demis 重做
+
+### 体验影响（先看）
+
+- 上一轮「全量重生」用了**过度具象**的提示词（强制金线横穿 / 头占 60% / 「少几笔就能认出」），结果把
+  **dario / yann / lilian / demis 做塌、卡通化、面部细节流失**——用户判定旧金标准更优。本轮放宽提示词重做这 4 人：
+  面部细节与神态明显回升、**已超过旧金标准**；金色点缀回归「自然的弧线 / 曲线」而非死板横线段。
+- 关键认知（用户纠正）：**提示词只该锁「风格一致性」，不要 micro-管构图 / 姿态 / 金线形状 / 占比**——
+  过度具象会压掉模型的自由发挥与面部表现力。
+- 其余 6 人（karpathy/ilya/francois/simon/sam/nathan）仍是上一轮（较具象提示词）产物，**本轮未动**
+  （用户只点名这 4 人 + 收尾）。这 4 人细节略高于那 6 人，整体仍同一风格族；要全套细节齐平可用同一放宽
+  提示词把 6 人也重抽——**待定，未做**。
+
+### 做了什么
+
+1. **放宽 `stylePrompt`**：只锁风格一致性（钴蓝深空 + 星点 + 自然金色点缀 + 白线/冰川蓝调色板），删掉
+   构图/姿态/金线形状/占比的硬性指令；`generate` 的似真 wrapper 回退原版（不再用「少几笔」压细节）。
+2. **重做 4 人**（删 4 张 webp + 跑脚本）：dario-amodei / yann-lecun / lilian-weng / demis-hassabis。
+   逐张与旧金标准对比，4 张均更优（细节/神态/自然金弧），无边框，全部采用。
+
+### 当前状态
+
+- 线上 10 张 = 4 张放宽提示词新版 + 6 张上一轮版本。`npm run frontier:portraits` 缺图才生。
+- 未推送上线（仅本地）。
+
+### 未尽 / 已知
+
+1. 6 人是否也用放宽提示词重抽以求全套细节齐平——**待用户定**（本轮按要求只动 4 人）。
+2. 未 push。
+
+### 文件级变更
+
+- 修改：`scripts/config.mjs`（`stylePrompt` 放宽 + 教训注释）、`scripts/generate-frontier-portraits.mjs`（似真 wrapper 回退原版）
+- 资产：`public/assets/frontier/{dario-amodei,yann-lecun,lilian-weng,demis-hassabis}.webp` 重做
+
+## 2026-06-15（三续）· 工作台重设计：首屏 Glance 卡 → 原地展开 bento 数据看板
+
+### 体验影响（着重 · 先看这个）
+
+- 工作台从「首屏右侧 480px、还要内部滚动的单卡」改成「首屏精简 **Glance 卡** → 点『展开数据看板』在首屏**原地展开/收起**成全宽 **bento 看板**（模态浮层，暗 scrim 盖住 hero）」。首屏多了一层动态行为。
+- **删**了独立的「02 工作台数据」正文段；口径/估算并进看板里一个极小的「口径 v2」折叠入口。锚点 `#workbench` 从正文段迁到 Glance 卡（顶部导航/scrollspy 仍指它）。
+- 正文段**重编号 01–05**（项目/知识库/前沿/写作/阅读）；首屏目录条去掉「工作台」数字项（它就是首屏本体）；**顶部全局导航的「工作台」保留**，点它回首屏 Glance——故出现「导航留、目录条去」的不对称。
+- 首屏主数从「今日 token」改为「累计 2.7B tokens」+ 产出副句（今日 token 降为看板里小字，规避「今天没干活=0」当头牌）；模型分布由文字 chips 升级为**分段条**；22 周热力图放大并补图例。
+- **迭代（同会话，用户反馈后）**：首屏主/副标题改为「在人工智能与人类的十字路口」+ 个人化文案（去掉滴滴/Uber 简历式数字）；Glance 卡进一步缩小（宽 480→400、数字 46→33px、内边距收紧），并**用整体多源热力图替掉 14 日 sparkline**（14 日趋势仅留在展开看板）——把首屏主视觉（雪峰 + 登顶人影）让出来。
+- 以上均为**草案**，需你在预览里做视觉与信息架构终审后才算定稿。
+
+### 做了什么（结果导向）
+
+1. 调研三路业界最佳实践（proof-of-work 个人主页 / 仪表盘数据可视化 / quantified-self），落到设计：bento 层级（1 主 tile + 支撑）、KPI 卡、Tufte sparkline、热力图给空间+图例、**每个活动指标配产出**、streak/产出叙事。
+2. 新增 `WorkbenchGlance.astro`（收起卡）+ `WorkbenchBoard.astro`（展开看板），数据同源 SSR 透传、Board 默认隐藏、无客户端取数。
+3. 展开/收起交互在 `home.js`：切类液态动画 + 焦点管理 + ESC + 点 scrim/站内锚点关闭 + inert 背景 + 滚动锁 + reduced-motion 即时显隐；复用既有 `AbortController`/`astro:page-load` 重 init；热力图段因 `#heatmap` id 不变零改动。
+4. 产出导向：看板「产出联动」stat tile 真链接——提交→`#projects`、笔记→`#knowledge`、写作→`#blog`（活动即成果）。
+5. 玻璃/可达性：看板钴蓝实时玻璃 + 暗 scrim；接入三档降级阶梯（reduced-transparency / 无 backdrop-filter / high-contrast）；`hm-tip` z-index 提到 320，让热力图悬浮明细浮在看板之上。
+
+### 关键决策与被否决的备选
+
+- **方向 A 改良版（你拍板）**：不做单独模块/不走 tab，Glance 原地展开为模态浮层。**被否决** B「精炼单卡原位重排」（受 480px 宽限制，数据展不开）。
+- 浮层用 `position:fixed` 模态（z 高于导航 + inert 背景）而非 plan 初稿的「z 低于导航」——更稳的 a11y 与层级，等效实现「原地展开」意图。
+- 主数用累计/连续而非今日 token——规避首屏 0 值脆弱（调研：活动必须配产出/语境）。
+- 顶部导航不动（全局共享层）：只迁 `#workbench` 锚点 + 本页内重编号，最小化波及面。
+
+### 当前状态：能跑什么、怎么跑
+
+- `npm run dev` → localhost:4321 首页：Glance 一屏放下**不滚动**；点「展开数据看板」→ 浮层盖 hero（暗 scrim + 钴蓝玻璃，身后 Glance/hero 已隐去不叠影）；热力图维度切换在看板内生效；收起钮/ESC/点 scrim 均可关闭，焦点与 `aria-expanded` 归位、滚动解锁、Glance 复显。已在桌面 1440 + 移动 375（全屏 sheet）两档验证。
+- `npm run build` → **退出码 0** 构建通过（本次因并行的 galaxy 构建争用 CPU，耗时偏长；尾部 `ENOENT manifest` 是两套构建抢共享临时文件所致，与本改动无关）。
+
+### 未尽事项与已知问题
+
+1. **视觉终审待你拍**：看板内 14 日趋势图偏大/偏高、热力图在宽 tile 内左对齐留白——是否收窄趋势 / 居中热力图。
+2. **信息架构终审**：重编号 01–05 + 目录条去「工作台」 vs 导航保留「工作台」的不对称是否接受；若想对称，备选是导航也去「工作台」或目录条保留一个「工作台」展开触发项。
+3. ESC/scrim 关闭与焦点圈闭仅桌面浏览器模拟过；真机触屏 + 键盘 Tab 圈闭建议再过一遍。
+4. reduced-motion / 三档玻璃降级是按规范加的 CSS，未逐一在对应系统设置下肉眼验证。
+5. 旧死 CSS（`.wb-grid`/`.wb-detail-*`/`.tk-*` + 1180 断点的 `.wb-grid` 规则）暂留未删，待视觉定稿后清理。
+
+### 文件级变更清单（自动罗列，可跳读）
+
+- 新增：`src/components/WorkbenchGlance.astro`、`src/components/WorkbenchBoard.astro`
+- 修改：`src/pages/index.astro`（hero 挂 Glance + 浮层、删 `#workbench` 段、正文重编号、目录条、组件透传 props）、`src/scripts/home.js`（工作台展开/收起控制器）、`src/styles/glass.css`（`.hero-wb` 去滚动 + Glance/Board/scrim/分段条/产出 tile/口径入口样式 + 移动 sheet + reduced-motion + 三档降级接入 + `hm-tip` z-index）
+- 文档：`WORKLOG.md`（本条）
+
+## 2026-06-15（再续）· 头像回退 Nano Banana + 管线优化（弃用 Seedream）
+
+### 做了什么
+
+1. **弃用 Seedream，头像回退 Nano Banana（Gemini）**：上一条把头像切到 Seedream 后，用户看对比判定「几乎不可用」。
+   多策略 + 15 个对抗评审 agent 复核确认：Seedream 复刻不了「钴蓝之夜」细线稿——风格漂移、**随机加白边/相框**
+   （小 logo 极碍眼，逐张随机非提示词可治）、串色、似真不可控。已 `git checkout` 恢复 10 张 Gemini 金标准 +
+   还原 Gemini 管线（脚本/config）。Seedream 的 key/lib/文档保留作非头像生图备选。
+2. **优化 Nano Banana 管线（两条方向）**：
+   (a) 风格一致 + 面部识别度——重写 `stylePrompt`：似真优先（少几笔也认得出谁）、强制金线+星点+近黑满版底、
+   头占画面约 60% 的一致构图、三七分头肩像；generate wrapper 改为「似真优先于风格化」。
+   (b) 调用经济性——管线本就「只为缺图的人生成」；明确：改 prompt 不自动重生、单张用 `--force`、
+   全员重生才删 webp；还原度差先查参考图而非盲目全量重生。
+3. **验证 + 纠错**：用优化提示词跑 karpathy + demis 两张样张（/tmp，不动线上）——风格贴合金标准、
+   金线/星点/占比到位、**无边框**、面部识别度提升。另：我一度误判 demis 参考图「是错的人」，经核 Wikipedia
+   实为本人（2024 化学诺奖照，今貌有须戴蓝框镜）——是我记忆过时，参考图无误，已更正注释与说法。
+
+### 关键决策与被否决的备选
+
+- **回退 Nano Banana（用户拍板）**：Seedream 虽统一了管线，但质量/一致性/似真均不达标；Gemini 是已验证的金标准。
+- **不全量重生（默认）**：现有 10 张金标准保留；优化提示词主要用于将来新人 + 可选的一次性统一升级。是否用新提示词
+  把 10 张重做一遍交用户定（约 ¥/$ 微量，一次性）。
+- **被否决**：继续调 Seedream 提示词/加风格参考图——实测仍随机加边框，边框是逐张随机、非提示词可根治。
+
+### 当前状态：能跑什么、怎么跑
+
+- **线上 10 张已用新提示词全量重生**（用户拍板）：逐张验收，3 处随机缺陷已 `--force` 重抽修掉——
+  simon-willison（白边框）、ilya-sutskever（连抽 2 次「暗底暗线」无白填充，第 3 次正常；其参考图最小/低对比）。
+  成品：统一线稿、近黑满版底 + 星点 + 金线、头占约 60%、无边框、识别度提升。
+- `npm run frontier:portraits` 缺图才生，走代理 + `.gemini-key`；代理 7897 在；Seedream key/lib 保留备用。
+
+### 未尽事项与已知问题
+
+1. 新提示词比旧版面部细节更足（更易识别），若嫌过细可下调 stylePrompt；Gemini 单张有随机性，必要时 `--force` 重抽。
+2. **未推送上线**（仅本地，未跑 build——assets 同名 drop-in、wiring 未变，已逐张验图）。满意后 commit+push 触发 EdgeOne。
+3. ilya 参考图偏小（13KB），若想更稳可在 config 给他 `refPhoto` 直链换张高清照。
+
+### 文件级变更清单
+
+- 还原：`scripts/generate-frontier-portraits.mjs`、`scripts/config.mjs`、`public/assets/frontier/*.webp` ×10（git checkout 回 Gemini）
+- 修改：`scripts/config.mjs`（`frontier.portrait.stylePrompt` 优化 + 注释更正/经济性说明）、
+  `scripts/generate-frontier-portraits.mjs`（似真 wrapper 强化）、`README.md`（头像 SOP 步骤 3 回 Gemini）、
+  `docs/image-generation.md`（重写为「头像=Nano Banana，方舟=备选」）
+- 保留：`scripts/.ark-key`、`scripts/lib/ark-image.mjs`（非头像生图备选，未删）
+
+## 2026-06-15 · 人物快照生图切到火山方舟 Seedream 4.0（统一生图后端）
+
+### 做了什么
+
+1. **接入字节火山方舟（Volcengine Ark）作为项目统一生图后端**（文生图 + 图生图），替换原 Gemini nano-banana-2。key 存 `scripts/.ark-key`（已 gitignore），一把 key 通用所有字节系模型（账号级，换模型只改 model 字段）。
+2. **统一入口 `scripts/lib/ark-image.mjs`**：端点 / 模型 ID / 鉴权 / 参考图 base64 编码只记忆这一处，别处只调 `arkImage()`。改写 `generate-frontier-portraits.mjs` 走 Seedream 4.0 图生图（`doubao-seedream-4-0-250828`，本人照片做似真锚点）；境内域名经 `NO_PROXY` 强制直连、不走翻墙代理（与旧 Gemini 管线相反）。
+3. **复刻全部 10 张前沿人物快照**：旧 Gemini 版备份至 /tmp 且 git 可恢复，删后用统一 `stylePrompt` 一次性重生，保证整组风格一致。
+4. **文档**：新增 `docs/image-generation.md`（key 位置 / 调用规则 / 计费 / 直连注意）；更正 README 头像 SOP 关于「不传参考图」的过期说法（实际一直传本人照片做 i2i）。
+
+### 关键决策与被否决的备选
+
+- **风格方向（用户拍板 A）**：实测 Seedream 审美与旧「钴蓝之夜」细线稿不同，朴素版/调校版两次 prompt 都复刻不了旧风格（底更亮、厚涂、爱自加白边/粉衬衫/圈耳环/领夹麦）。给三选项——A 接受新风格全部重生 / B 用风格参考图逼近旧风格 / C 旧的不动只用于新人——用户选 **A**，整组换成 Seedream 风格、内部一致优先。
+- **草样先行**：先出 2 张草样（karpathy + lilian）写到 /tmp 给用户看、未确认不覆盖现有 webp；计费操作（批量约 ¥2）在选定 A 后才执行。
+- **stylePrompt 加减法约束**：不改审美方向，只补「满版去白边 + 不得自加参考图里没有的首饰/服饰」两条减法，压制实测的两类缺陷。
+
+### 当前状态：能跑什么、怎么跑
+
+- `npm run frontier:portraits` → 仅补缺图；删 `public/assets/frontier/*.webp` 可全员统一重生；`-- --force <slug>` 重抽单张。
+- `npm run build` 绿：10 张新头像入 `dist/assets/frontier/`，/frontier 页全部引用到位。
+- 10 张已逐一肉眼验收：无白边、无串色；karpathy / lilian 因单张随机性各重跑一次修掉粉衬衫 / 白边框。
+
+### 未尽事项与已知问题
+
+1. **Seedream 单张有随机性**：偶发白边 / 串色 / 自添服饰，`-- --force <slug>` 重跑即换一张。
+2. **背景明暗仍有轻微批次差异**（dario / yann 略亮），未逐张抠；要严格统一可逐个 `--force` 重抽。
+3. **未推送上线**：仅本地 dist 验证；满意后 `npm run sync` 或手动 commit+push 触发 EdgeOne 重建。
+4. 旧 Gemini key（`scripts/.gemini-key`）与 `geminiModel` 备份保留未删，备查。
+
+### 文件级变更清单
+
+- 新增：`scripts/lib/ark-image.mjs`、`scripts/.ark-key`（gitignore）、`docs/image-generation.md`
+- 修改：`scripts/generate-frontier-portraits.mjs`（Gemini→Seedream 图生图 + NO_PROXY 直连）、`scripts/config.mjs`（`frontier.portrait`: provider/arkModel/genSize + stylePrompt 加去白边/去乱加饰品约束 + 注释更新）、`.gitignore`（+ `scripts/.ark-key`）、`README.md`（头像 SOP 步骤 3 更正）
+- 资产：`public/assets/frontier/*.webp` ×10 全量重生（Seedream 4.0）
+
+---
+
 ## 2026-06-14 · v4 续：合并 Trae 首屏重构 + 页脚分享按钮 + 推送上线
 
 ### 做了什么

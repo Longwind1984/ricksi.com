@@ -4,21 +4,27 @@ import path from 'node:path';
 import Glass from '../layouts/Glass.astro';
 import { getCollection } from 'astro:content';
 import { portraitFallbackSvg as ftFallbackSvg, DOMAIN_ACCENT as FT_ACCENT } from '../lib/frontier-ui.mjs';
+import FrontierTimeline from '../components/FrontierTimeline.astro';
 import { PROJECTS } from '../data/projects';
 import ProjRow from '../components/ProjRow.astro';
 import { loadSiteData, stamp } from '../lib/site-data.mjs';
+import { scopedGraph } from '../lib/graph-scope.mjs';
 import { gradOf } from '../lib/reading-ui.mjs';
 import { sampleHeatmap, SAMPLE_USAGE, SAMPLE_CODING, SAMPLE_KB_STATS, SAMPLE_POSTS, SAMPLE_DAYS14, SAMPLE_READING, SAMPLE_FRONTIER } from '../lib/sample.js';
 import TrendChart from '../components/TrendChart.astro';
+import WorkbenchGlance from '../components/WorkbenchGlance.astro';
+import WorkbenchBoard from '../components/WorkbenchBoard.astro';
 
 const { activity, usage, graph, reading: readingData, frontier: frontierData } = loadSiteData();
+// 首页知识库图谱 = AI 子图（full）；个人库 stub 仅在 /graph「全部」视图。stats 重算为自洽 AI 口径。
+const aiGraph = graph ? scopedGraph(graph, 'ai') : null;
 
 /* ---- 前沿追踪卡（缺数据回退样例）----
    选条规则（2026-06-12 审计）：importance≥4 优先 + 时间序，排除 insufficientContext，取 3 条
    ——模型已经打过分，门面不给「信息不足」的条目展位 */
 const ftData = frontierData ?? SAMPLE_FRONTIER;
 const isFtSample = !frontierData;
-const FT_TYPE_LABEL: Record<string, string> = { authored: '署名作品', statement: '本人发言', action: '个人行动', cited: '被引用' };
+const FT_TYPE_LABEL: Record<string, string> = { authored: '署名作品', statement: '本人发言', action: '个人行动', cited: '被引用', business: '商业' };
 const ftOwnerMap = new Map<string, any>();
 for (const p of ftData.people ?? []) ftOwnerMap.set(p.slug, p);
 for (const t of ftData.topics ?? []) ftOwnerMap.set(t.slug, t);
@@ -39,6 +45,7 @@ const ftActiveSlugs = new Set((ftData.entries ?? []).map((e: any) => e.person).f
 const ftTotal = ftData.stats?.totalEntries ?? 0;
 const ftPeopleCount = (ftData.people ?? []).length;
 const ftStamp = stamp(ftData.stats?.lastRun?.at ?? ftData.generated_at);
+const ftDomains = ftData.domains ?? {};
 
 /* ---- 阅读（微信读书；无数据回退样例）。首页只留精简 teaser，完整内容在 /reading/ ---- */
 const reading = readingData ?? SAMPLE_READING;
@@ -81,11 +88,11 @@ const coding = activity?.coding ?? SAMPLE_CODING;
 const activityStamp = activity ? stamp(activity.generated_at) : null;
 
 /* ---- 知识图谱统计 ---- */
-const kbStats = graph?.stats
+const kbStats = aiGraph?.stats
   ? [
-      [graph.stats.notes.toLocaleString(), '篇笔记'],
-      [graph.stats.links.toLocaleString(), '条双链'],
-      [String(graph.stats.domains), '个主题域'],
+      [aiGraph.stats.notes.toLocaleString(), '篇笔记'],
+      [aiGraph.stats.links.toLocaleString(), '条双链'],
+      [String(aiGraph.stats.domains), '个主题域'],
     ]
   : SAMPLE_KB_STATS;
 
@@ -102,6 +109,13 @@ const posts = allPosts.length
     }))
   : SAMPLE_POSTS;
 const postsTotal = allPosts.length;
+
+/* ---- 工作台组件透传：产出导向数字（真实/样例皆可） ---- */
+const wbNotesLabel = String(kbStats[0][0]);
+const wbProjectsCount = PROJECTS.length;
+const wbPostsCount = postsTotal || SAMPLE_POSTS.length;
+const wbMethodReal = usage?.method?.real_days ?? null;
+const wbMethodEst = usage?.method?.estimated_days ?? null;
 
 /* ---- 主页图谱卡：构建期降采样（全图 ~600 节点会拖垮首页 SVG 与内联 JSON）----
    规则：每域 hub（度数第一）+ deg≥2 的节点，按度数截断到 ~160；边过滤后重算各域 count */
@@ -141,7 +155,9 @@ function downsampleGraph(g: any, cap = 160) {
     downsampled: { from: g.nodes.length, to: nodes.length },
   };
 }
-const homeGraph = downsampleGraph(graph);
+// 首页图谱卡是 AI 知识库 teaser：只取 full（AI）子图（aiGraph 已在顶部声明），
+// 个人库 stub 节点不进首页（全库视图在 /graph 的「全部个人知识库」开关里）
+const homeGraph = downsampleGraph(aiGraph);
 
 /* ---- 注入客户端的数据（ticker 锚点 / 热力图明细 / 图谱数据） ---- */
 const clientData = JSON.stringify({
@@ -167,7 +183,7 @@ const numbered = (list: typeof PROJECTS, offset = 0) =>
 
 <Glass
   title="司豪杰 Rick Si · AI 产品经理"
-  description="司豪杰 Rick Si — 3 年滴滴国际化治理 PM 转型 AI 产品经理的活数据工作台：项目、实时用量、知识库图谱与写作。"
+  description="司豪杰 Rick Si — 在人工智能与人类的十字路口，我和 AI 的共享自留地：真实项目、实时工作台、知识库图谱、前沿追踪与写作。"
   isHome
   ogImage="/og/home.png"
   jsonLd={{
@@ -187,99 +203,29 @@ const numbered = (list: typeof PROJECTS, offset = 0) =>
         <!-- 左侧：个人介绍 -->
         <div class="hero-text">
           <div class="mono kicker">AI 时代的思考与足迹</div>
-          <h1 class="hero-title">把产品判断，<br />变成能跑起来的东西。</h1>
+          <h1 class="hero-title">在人工智能与人类的<br />十字路口</h1>
           <p class="hero-sub">
-            我是司豪杰 Rick Si——3 年滴滴出行国际化安全与体验治理产品经理，主导的司机安全产品让安全感知指数提升
-            19pp、历史首次反超 Uber。背包拉美半年后，转型 AI 产品经理：读源码、建工具、写思考、养知识库——这个工作台就是转型的证据。
+            hi 我是司豪杰，Rick。欢迎来到我与 AI 的共享自留地。我在这里追逐 AI 的飞速发展，也偶尔回头看看人类的来时路。
           </p>
           <!-- 紧凑目录条 -->
           <nav class="hero-index-strip" aria-label="页面目录">
             <a href="#projects" class="index-strip-item"><span class="mono">01</span> 项目</a>
-            <a href="#workbench" class="index-strip-item"><span class="mono">02</span> 工作台</a>
-            <a href="#knowledge" class="index-strip-item"><span class="mono">03</span> 知识库</a>
-            <a href="#frontier" class="index-strip-item"><span class="mono">04</span> 前沿</a>
-            <a href="#blog" class="index-strip-item"><span class="mono">05</span> 写作</a>
-            <a href="#reading" class="index-strip-item"><span class="mono">06</span> 阅读</a>
+            <a href="#knowledge" class="index-strip-item"><span class="mono">02</span> 知识库</a>
+            <a href="#frontier" class="index-strip-item"><span class="mono">03</span> 前沿</a>
+            <a href="#blog" class="index-strip-item"><span class="mono">04</span> 写作</a>
+            <a href="#reading" class="index-strip-item"><span class="mono">05</span> 阅读</a>
           </nav>
         </div>
-        <!-- 右侧：工作台数据卡片 -->
-        <aside class="hero-wb glass">
-          <div class="mono hero-wb-label">WORKBENCH · 工作台{!usage && <em class="sample-badge">样例数据</em>}</div>
-          <!-- 核心指标行 -->
-          <div class="hero-wb-metrics">
-            <div class="hero-wb-metric hero-wb-main">
-              <div class="mono stat-k">今日 TOKEN</div>
-              <span class="wb-static-num">{u.today.toLocaleString()}</span>
-              {u.today_out != null && (
-                <div class="mono wb-sub">含缓存读写 {u.today_cache_share}% · 输出 {compact(u.today_out)}</div>
-              )}
-            </div>
-            <div class="hero-wb-metric">
-              <div class="mono stat-k">本周</div>
-              <div class="stat-v">{u.week}<span class="stat-unit">tokens</span></div>
-            </div>
-            <div class="hero-wb-metric">
-              <div class="mono stat-k">累计</div>
-              <div class="stat-v">{u.cumulative}<span class="stat-unit">tokens</span></div>
-            </div>
-            <div class="hero-wb-metric">
-              <div class="mono stat-k">连续活跃</div>
-              <div class="stat-v">{coding.streak}<span class="stat-unit">天</span></div>
-            </div>
-          </div>
-          <!-- 模型分布 -->
-          <div class="wb-models">
-            {u.models.map(([m, p]) => (
-              <span class="mono wb-model">{m} <b>{p}%</b></span>
-            ))}
-          </div>
-          <!-- 14 日趋势 -->
-          <div class="hero-wb-trend">
-            <div class="mono wb-label">近 14 日用量趋势（M TOKENS）</div>
-            <TrendChart days={days14} />
-          </div>
-          <!-- 热力图 -->
-          <div class="hero-wb-heat">
-            <div class="mono wb-label">{activity ? '多源活跃 · 近 22 周' : 'CODING 活跃 · 近 22 周'}</div>
-            <div class="hm" id="heatmap">
-              {heatmapCols.map((col, w) => (
-                <div class="hm-col">
-                  {col.map((cell, d) => (
-                    <span
-                      class:list={['hm-cell', `l${cell.l}`, { future: cell.future }]}
-                      data-w={activity ? w : undefined}
-                      data-d={activity ? d : undefined}
-                    ></span>
-                  ))}
-                </div>
-              ))}
-            </div>
-            {activity && (
-              <div class="hm-dims mono" id="hm-dims">
-                {hmDims.map(([key, label]) => (
-                  <button class:list={['hm-dim', { active: key === 'all' }]} data-dim={key}>{label}</button>
-                ))}
-              </div>
-            )}
-            <div class="wb-stat-row" style="margin-top:14px">
-              <div>
-                <div class="mono stat-k">提交</div>
-                <div class="stat-v">{coding.commits.toLocaleString()}<span class="stat-unit">commits</span></div>
-              </div>
-              <div>
-                <div class="mono stat-k">仓库</div>
-                <div class="stat-v">{coding.repos}<span class="stat-unit">个</span></div>
-              </div>
-            </div>
-          </div>
-          {(usageStamp || activityStamp) && (
-            <div class="mono wb-stamp">
-              {usageStamp && `用量更新于 ${usageStamp}`}
-              {usageStamp && activityStamp && ' · '}
-              {activityStamp && `活跃更新于 ${activityStamp}`}
-            </div>
-          )}
-        </aside>
+        <!-- 右侧：工作台精简收起卡（点击展开为全宽数据看板） -->
+        <WorkbenchGlance
+          u={u}
+          heatmapCols={heatmapCols}
+          notesLabel={wbNotesLabel}
+          projectsCount={wbProjectsCount}
+          postsCount={wbPostsCount}
+          isSample={!usage}
+          usageStamp={usageStamp}
+        />
       </div>
       <div class="mono hero-credit">云海之上 · 无人机自摄</div>
     </section>
@@ -294,7 +240,7 @@ const numbered = (list: typeof PROJECTS, offset = 0) =>
               <h2 class="sec-title">项目</h2>
               <span class="mono sec-en">PROJECTS · {PROJECTS.length}</span>
             </div>
-            <span class="sec-desc">每个项目都交代：我的角色、关键决策与结果</span>
+            <span class="sec-desc">AI 时代的大玩具</span>
           </div>
           {numbered(featured).map((p) => <ProjRow {...p} />)}
           {moreProjects.length > 0 && (
@@ -314,53 +260,15 @@ const numbered = (list: typeof PROJECTS, offset = 0) =>
         </section>
       </div>
 
-      <!-- 02 工作台数据 · 补充口径说明（核心数据已在首屏卡片展示） -->
-      <div class="reveal">
-        <section class="sec" id="workbench">
-          <div class="sec-head">
-            <span class="mono sec-no">02</span>
-            <div class="sec-title-row">
-              <h2 class="sec-title">工作台数据</h2>
-              <span class="mono sec-en">WORKBENCH · METHODOLOGY</span>
-            </div>
-            <span class="sec-desc">核心指标见首屏卡片 · 此处补充口径与估算方法</span>
-          </div>
-          <div class="wb-detail-grid">
-            <div class="wb-detail-col">
-              <div class="mono wb-label">TOKEN 用量口径{!usage && <em class="sample-badge">样例数据</em>}</div>
-              <p class="wb-detail-text">
-                5 月底以来逐日实测；更早部分按公开口径估算并标明。
-                {u.cumulative_code && (
-                  <>Code 实测+估算 {u.cumulative_code} · 网页端粗估 {u.cumulative_web}。</>
-                )}
-                全口径含缓存读写 {u.today_cache_share}%，其中模型输出 {compact(u.today_out)}。
-              </p>
-              {usageStamp && (
-                <div class="mono wb-stamp">
-                  数据更新于 {usageStamp} · 口径 v2：实测 {usage?.method?.real_days ?? '—'} 天
-                  {usage?.method?.estimated_days ? ` + 起用期估算 ${usage.method.estimated_days} 天` : ''}
-                  {' · '}
-                  <a href="https://github.com/Longwind1984/ricksi.com/blob/main/docs/token-estimation.md" target="_blank" rel="noreferrer" class="wb-method-link">估算方法 ↗</a>
-                </div>
-              )}
-            </div>
-            <div class="wb-detail-col">
-              <div class="mono wb-label">活跃度口径{!activity && <em class="sample-badge">样例数据</em>}</div>
-              <p class="wb-detail-text">
-                多源活跃统计涵盖代码提交（git）、笔记更新（Obsidian）、AI 会话与 GitHub 贡献。
-                热力图支持按维度切换查看各来源独立分布。
-              </p>
-              {activityStamp && <div class="mono wb-stamp">数据更新于 {activityStamp}</div>}
-            </div>
-          </div>
-        </section>
-      </div>
+      <!-- 工作台口径说明已并入首屏数据看板（WorkbenchBoard 的「口径 v2」入口） -->
+      <!-- prettier-ignore -->
+
 
       <!-- 03 知识库图谱 -->
       <div class="reveal">
         <section class="sec" id="knowledge">
           <div class="sec-head">
-            <span class="mono sec-no">03</span>
+            <span class="mono sec-no">02</span>
             <div class="sec-title-row">
               <h2 class="sec-title">知识库图谱</h2>
               <span class="mono sec-en">KNOWLEDGE GRAPH</span>
@@ -390,11 +298,9 @@ const numbered = (list: typeof PROJECTS, offset = 0) =>
                 </div>
               )}
               <div class="kg-legend" id="kg-legend"></div>
-              <p class="kg-note" id="kg-note">
-                {graph
-                  ? '拖拽节点 · 滚轮缩放 · 悬停看邻域 · 点击节点打开笔记。数据来自 Obsidian 库真实双链结构。'
-                  : '悬停主题域可高亮对应节点。样例数据——完整 Obsidian 库较大，部署版按需接入。'}
-              </p>
+              {!graph && (
+                <p class="kg-note" id="kg-note">悬停主题域可高亮对应节点。样例数据——完整 Obsidian 库较大，部署版按需接入。</p>
+              )}
               {graph && (
                 <div class="kg-links">
                   <a class="kg-browse mono" href="/kb/">浏览全部笔记 →</a>
@@ -409,26 +315,34 @@ const numbered = (list: typeof PROJECTS, offset = 0) =>
       <div class="reveal">
         <section class="sec" id="frontier">
           <div class="sec-head">
-            <span class="mono sec-no">04</span>
+            <span class="mono sec-no">03</span>
             <div class="sec-title-row">
               <h2 class="sec-title"><a href="/frontier/" class="sec-title-link">前沿追踪</a></h2>
               <span class="mono sec-en">FRONTIER{ftTotal ? ` · ${ftTotal}` : ''}</span>
             </div>
-            <span class="sec-desc">盯着 {ftPeopleCount} 位 AI 前沿人物的公开痕迹，每天抓取，模型梳理成中文{isFtSample && <em class="sample-badge">样例数据</em>}</span>
+            <span class="sec-desc">在指数级的变化里保持在场{isFtSample && <em class="sample-badge">样例数据</em>}</span>
           </div>
-          <!-- 头像锚点条：回答「这是什么模块」——盯人 -->
-          <a class="ft-home-strip" href="/frontier/#people" aria-label="查看在追的人完整档案">
+          <!-- 二维迷你时间轴：突出「持续追踪」的时间序状态（完整可切窗版在 /frontier） -->
+          <FrontierTimeline entries={ftPool} domains={ftDomains} mini />
+          <!-- 头像锚点条：每个头像各自是热区（有动态→筛选该人，无动态→档案） -->
+          <div class="ft-home-strip">
             {(ftData.people ?? []).map((p: any) => {
               const portrait = ftPortraitOf(p.slug);
               const on = ftActiveSlugs.has(p.slug);
               return (
-                <span class:list={['ft-home-ava', { dim: !on }]} style={`--p-accent:${FT_ACCENT[p.domain] ?? '#7FB3F0'}`} title={p.name}>
+                <a
+                  class:list={['ft-home-ava', { dim: !on }]}
+                  href={on ? `/frontier/?person=${p.slug}` : '/frontier/#people'}
+                  style={`--p-accent:${FT_ACCENT[p.domain] ?? '#7FB3F0'}`}
+                  title={on ? `${p.name} · 看 TA 的痕迹` : `${p.name} · 暂无动态`}
+                  aria-label={p.name}
+                >
                   {portrait ? <img src={portrait} alt={p.name} width="36" height="36" loading="lazy" /> : <Fragment set:html={ftFallbackSvg(p)} />}
-                </span>
+                </a>
               );
             })}
-            <span class="mono ft-home-strip-more">在追的 {ftPeopleCount} 人 →</span>
-          </a>
+            <a class="mono ft-home-strip-more" href="/frontier/#people">在追的 {ftPeopleCount} 人 →</a>
+          </div>
 
           <!-- 今日要点：importance 最高的一条 -->
           {ftHero && (
@@ -466,7 +380,6 @@ const numbered = (list: typeof PROJECTS, offset = 0) =>
           <div class="proj-expand-row">
             <a class="proj-expand mono" href="/frontier/">进入前沿追踪{ftTotal ? ` · 全部 ${ftTotal} 条` : ''} →</a>
           </div>
-          {ftStamp && <p class="mono wb-stamp">最近核查 {ftStamp} · 本轮新增 {ftData.stats?.lastRun?.added ?? 0} 条</p>}
         </section>
       </div>
 
@@ -474,12 +387,12 @@ const numbered = (list: typeof PROJECTS, offset = 0) =>
       <div class="reveal">
         <section class="sec" id="blog">
           <div class="sec-head">
-            <span class="mono sec-no">05</span>
+            <span class="mono sec-no">04</span>
             <div class="sec-title-row">
               <h2 class="sec-title"><a href="/blog/" class="sec-title-link">思考与写作</a></h2>
               <span class="mono sec-en">WRITING</span>
             </div>
-            <span class="sec-desc">做的时候想清楚，写下来才算数</span>
+            <span class="sec-desc">大声思考，写明白才算想清楚</span>
           </div>
           <div>
             {posts.map((p) => (
@@ -503,12 +416,12 @@ const numbered = (list: typeof PROJECTS, offset = 0) =>
       <div class="reveal">
         <section class="sec" id="reading">
           <div class="sec-head">
-            <span class="mono sec-no">06</span>
+            <span class="mono sec-no">05</span>
             <div class="sec-title-row">
               <h2 class="sec-title"><a href="/reading/" class="sec-title-link">阅读</a></h2>
               <span class="mono sec-en">READING · WEREAD</span>
             </div>
-            <span class="sec-desc">书目人工筛选 · 点击任何一本进入划线页</span>
+            <span class="sec-desc">驻足，回望</span>
           </div>
 
           <div class="rd-stats">
@@ -603,6 +516,26 @@ const numbered = (list: typeof PROJECTS, offset = 0) =>
       </div>
     </div>
   </main>
+
+  <!-- 工作台数据看板浮层（由 Glance 卡展开；home.js 控制 open/close/焦点/ESC/scrim） -->
+  <div class="wb-scrim" id="wb-scrim" hidden></div>
+  <WorkbenchBoard
+    u={u}
+    coding={coding}
+    days14={days14}
+    heatmapCols={heatmapCols}
+    activity={!!activity}
+    hmDims={hmDims}
+    notesLabel={wbNotesLabel}
+    projectsCount={wbProjectsCount}
+    postsCount={wbPostsCount}
+    isUsageSample={!usage}
+    isActivitySample={!activity}
+    usageStamp={usageStamp}
+    activityStamp={activityStamp}
+    methodReal={wbMethodReal}
+    methodEst={wbMethodEst}
+  />
 
   <script type="application/json" id="site-data" set:html={clientData} />
   <script>

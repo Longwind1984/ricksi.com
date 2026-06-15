@@ -12,19 +12,20 @@
     "collect:activity": "node scripts/collect-activity.mjs",
     "collect:usage": "node scripts/collect-usage.mjs",
     "collect:frontier": "node scripts/collect-frontier.mjs",
+    "collect:frontier:remote": "node scripts/collect-frontier.mjs --remote",
     "frontier:portraits": "node scripts/generate-frontier-portraits.mjs",
-    "sync:vault": "node scripts/sync-vault.mjs"
+    "sync:vault": "node scripts/sync-vault.mjs --migrate",
+    "sync:vault:migrate-dry-run": "node scripts/sync-vault.mjs --migrate-dry-run",
+    "verify:privacy": "node scripts/verify-privacy-invariants.mjs"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.18",
     "@astrojs/sitemap": "^3.7.3",
-    "3d-force-graph": "^1.80.0",
     "astro": "^5.0.0",
     "d3-force": "^3.0.0",
     "d3-force-3d": "^3.0.6",
     "gray-matter": "^4.0.3",
-    "three": "^0.184.0",
-    "three-spritetext": "^1.10.0"
+    "three": "^0.184.0"
   },
   "devDependencies": {
     "@resvg/resvg-js": "^2.6.2",

@@ -1,0 +1,39 @@
+{
+  "_note": "自主上传的本地 ePub 书（不在微信书架里，走不了 weread API）。由 scripts/merge-local-books.mjs 在采集后合入 reading.json 的 aiTopics。authored 源，sync 永不覆写。新增一本：复制 epub 到 public/assets/books/epub/<slug>.epub、封面到 epub-covers/、在此追加一条（id 用 CB_local_<slug>）。",
+  "topics": [
+    {
+      "id": "harness",
+      "topic": "Harness 工程",
+      "blurb": "缰绳上的工程学：当 AI 智能体的能力从模型转移到环境——两本拆解 agent harness 的小书。",
+      "graphFocus": null,
+      "books": [
+        {
+          "id": "CB_local_harness-engineering",
+          "title": "Harness Engineering",
+          "author": "Rick's Fable 5 Extra",
+          "subtitle": "缰绳上的工程学 / 当 AI 智能体的能力从模型转移到环境",
+          "cover": "/assets/books/epub-covers/harness-engineering.png",
+          "epub": "/assets/books/epub/harness-engineering.epub",
+          "progress": 0,
+          "finished": false,
+          "notes": 0,
+          "lastRead": 0,
+          "highlights": []
+        },
+        {
+          "id": "CB_local_codex-anatomy",
+          "title": "解剖 Codex",
+          "author": "Rick's Fable 5 Extra",
+          "subtitle": "一个开源 Harness 的架构、元素与张力",
+          "cover": "/assets/books/epub-covers/codex-anatomy.png",
+          "epub": "/assets/books/epub/codex-anatomy.epub",
+          "progress": 0,
+          "finished": false,
+          "notes": 0,
+          "lastRead": 0,
+          "highlights": []
+        }
+      ]
+    }
+  ]
+}

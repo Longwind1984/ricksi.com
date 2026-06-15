@@ -1,0 +1,17 @@
+{
+  "_note": "自制书的落地页增补：导言(intro)、副题(subtitle)、epub 源文件路径。authored 源，sync 永不覆写，由 scripts/merge-local-books.mjs 按 id/title 盖到 reading.json 的对应书上。补传旧书 epub：把 <slug>.epub 放进 public/assets/books/epub/，在对应 byTitle 条目加 \"epub\": \"/assets/books/epub/<slug>.epub\"，落地页即出现「开始阅读」。intro 留空则不渲染导言块。",
+  "byId": {
+    "CB_local_harness-engineering": { "intro": "" },
+    "CB_local_codex-anatomy": { "intro": "" }
+  },
+  "byTitle": {
+    "记忆的四种耦合": { "subtitle": "AI 记忆机制的分层解剖——从权重到图谱", "intro": "" },
+    "记忆的梯度": { "subtitle": "从 KV Cache 到外置记忆的衰减谱系", "intro": "" },
+    "记忆 一个词的解剖": { "subtitle": "同一个词，在认知科学与 LLM 里的两种身体", "intro": "" },
+    "当分数成为目标": { "subtitle": "Goodhart 定律下的 AI 评测", "intro": "" },
+    "分数之外": { "subtitle": "基准分之外的能力信号", "intro": "" },
+    "提示词工程：从咒语，到工程": { "subtitle": "从咒语，到工程——可复现、可评测、可维护的提示词体系", "intro": "" },
+    "自主的尺度": { "subtitle": "Agent 自主性的边界与刻度", "intro": "" },
+    "信号的阶梯": { "subtitle": "从输出读懂模型的内部状态", "intro": "" }
+  }
+}

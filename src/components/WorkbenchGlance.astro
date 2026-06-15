@@ -1,0 +1,51 @@
+---
+/* 工作台 · 首屏精简收起卡（Glance）
+   小而克制：累计用量主数 + 一行产出口径 + 整体多源热力图（静态预览）+ 展开按钮。
+   完整 14 日趋势 / 维度切换 / 口径在展开的 WorkbenchBoard 里。
+   热力图为装饰性预览（aria-hidden）；可达数据走 Board 的可交互热力图。
+   id="workbench" 承接全局导航锚点与 scrollspy（详见 layouts/Glass.astro）。 */
+interface Cell { l: number; future?: boolean }
+interface Props {
+  u: any;
+  heatmapCols: Cell[][];
+  notesLabel: string;
+  projectsCount: number;
+  postsCount: number;
+  isSample: boolean;
+  usageStamp?: string | null;
+}
+const { u, heatmapCols, notesLabel, projectsCount, postsCount, isSample, usageStamp } = Astro.props;
+const weeks = heatmapCols.length;
+---
+
+<aside class="hero-wb glass wb-glance" id="workbench" aria-label="工作台数据">
+  <div class="wb-glance-top">
+    <span class="mono wb-glance-kicker">WORKBENCH · 工作台</span>
+    <span class="wb-live" aria-hidden="true"></span>
+    {isSample && <em class="sample-badge">样例</em>}
+  </div>
+
+  <div class="wb-glance-num">{u.cumulative}<span class="wb-glance-unit">tokens</span></div>
+  <p class="wb-glance-say">真实 AI 协作 → {projectsCount} 个项目 · 一座知识库 · {postsCount} 篇写作 · 这页本身</p>
+
+  <div class="wb-glance-heatwrap">
+    <div class="mono wb-glance-heatlab">多源活跃 · 近 {weeks} 周</div>
+    <div class="hm wb-glance-hm" aria-hidden="true">
+      {heatmapCols.map((col) => (
+        <div class="hm-col">
+          {col.map((cell) => (
+            <span class:list={['hm-cell', `l${cell.l}`, { future: cell.future }]}></span>
+          ))}
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div class="wb-glance-foot">
+    <button class="wb-expand" id="wb-expand" type="button" aria-expanded="false" aria-controls="wb-board">
+      展开数据看板
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"></path><path d="M9 7h8v8"></path></svg>
+    </button>
+    {usageStamp && <span class="mono wb-glance-stamp">更新于 {usageStamp}</span>}
+  </div>
+</aside>

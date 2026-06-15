@@ -1,16 +1,18 @@
 ---
 // 前沿追踪人物卡：头像（真图 / 程序化星座字母牌兜底）+ 档案定位 + 条目数
 // 点击 = 在信息流上设人物筛选并滚回流顶（frontier.js 处理）
-import { portraitFallbackSvg, DOMAIN_ACCENT } from '../lib/frontier-ui.mjs';
+import { portraitFallbackSvg, DOMAIN_ACCENT, CONSTELLATION } from '../lib/frontier-ui.mjs';
 
 interface Props {
-  person: { slug: string; name: string; title: string; bio: string; domain: string };
+  person: { slug: string; name: string; title: string; bio: string; domain: string; constellation?: string };
   count: number;
   /* 构建期由页面探测 public/assets/frontier/<slug>.webp 是否存在 */
   portrait?: string | null;
 }
 const { person, count, portrait = null } = Astro.props;
 const accent = DOMAIN_ACCENT[person.domain] ?? '#7FB3F0';
+const con = person.constellation ? (CONSTELLATION as any)[person.constellation] : null;
+const isBeidou = person.constellation === 'beidou';
 ---
 
 <button
@@ -27,7 +29,7 @@ const accent = DOMAIN_ACCENT[person.domain] ?? '#7FB3F0';
     )}
   </span>
   <span class="ft-pmain">
-    <span class="ft-pname">{person.name}</span>
+    <span class="ft-pname">{person.name}{con && <span class:list={['ft-pcon', { beidou: isBeidou }]} title={`${con.zh} · ${con.gist}`}>{con.sym}</span>}</span>
     <span class="mono ft-ptitle">{person.title}</span>
     <span class="ft-pbio">{person.bio}</span>
   </span>

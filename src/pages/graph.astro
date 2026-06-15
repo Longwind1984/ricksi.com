@@ -20,10 +20,16 @@ const updated = graph ? stamp(graph.generated_at) : null;
 
         <!-- 顶部控制条 -->
         <div class="graph-bar">
+          <a class="gx-back mono" href="/#knowledge" aria-label="返回首页知识库">← 返回</a>
           <input id="gx-search" class="kg-search mono" type="search" placeholder={`搜索 ${graph.stats.notes} 篇笔记…`} />
+          <div class="gx-scope-row" id="gx-scope-row">
+            <span class="gx-scope-label mono">视图</span>
+            <button class="hm-dim gx-scope active" data-scope="ai">仅 AI 知识库</button>
+            <button class="hm-dim gx-scope" data-scope="all">全部个人知识库</button>
+          </div>
           <div class="gx-clusters" id="gx-clusters">
             {graph.clusters.map((c) => (
-              <button class="hm-dim gx-cluster" data-cluster={c.id}>{c.name} · {c.count}</button>
+              <button class="hm-dim gx-cluster" data-cluster={c.id} data-tier={c.tier} hidden={c.tier === 'stub'}>{c.name} · {c.count}</button>
             ))}
           </div>
         </div>

@@ -58,6 +58,67 @@ if (projExpand) {
   });
 }
 
+/* ---------- 工作台展开/收起（模态浮层）----------
+   Glance 卡 → 全宽数据看板：切类动画 + 焦点管理 + ESC + 点 scrim/锚点关闭 + inert 背景 */
+const wbExpand = document.getElementById('wb-expand');
+const wbBoard = document.getElementById('wb-board');
+const wbScrim = document.getElementById('wb-scrim');
+if (wbExpand && wbBoard && wbScrim) {
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const closeBtn = document.getElementById('wb-close');
+  const bgEls = [document.getElementById('top'), document.getElementById('site-head'), document.querySelector('.site-foot')].filter(Boolean);
+  let lastFocus = null;
+  let closeTimer = null;
+
+  const open = () => {
+    if (closeTimer) { clearTimeout(closeTimer); closeTimer = null; }
+    lastFocus = document.activeElement;
+    wbBoard.hidden = false;
+    wbScrim.hidden = false;
+    document.documentElement.classList.add('wb-open');
+    bgEls.forEach((el) => el.setAttribute('inert', ''));
+    wbExpand.setAttribute('aria-expanded', 'true');
+    wbBoard.setAttribute('aria-hidden', 'false');
+    const reveal = () => { wbBoard.classList.add('open'); wbScrim.classList.add('open'); };
+    if (reduce) reveal();
+    else requestAnimationFrame(() => requestAnimationFrame(reveal));
+    (closeBtn || wbBoard).focus({ preventScroll: true });
+  };
+
+  const close = () => {
+    if (!wbBoard.classList.contains('open') && wbBoard.hidden) return;
+    wbBoard.classList.remove('open');
+    wbScrim.classList.remove('open');
+    wbExpand.setAttribute('aria-expanded', 'false');
+    wbBoard.setAttribute('aria-hidden', 'true');
+    document.documentElement.classList.remove('wb-open');
+    bgEls.forEach((el) => el.removeAttribute('inert'));
+    const finish = () => { wbBoard.hidden = true; wbScrim.hidden = true; };
+    if (reduce) finish();
+    else closeTimer = setTimeout(finish, 420);
+    if (lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll: true });
+  };
+
+  wbExpand.addEventListener('click', open, { signal: sig });
+  closeBtn?.addEventListener('click', close, { signal: sig });
+  wbScrim.addEventListener('click', close, { signal: sig });
+  // 看板内站内锚点（产出联动 stat tile）→ 先收起再跳转
+  wbBoard.addEventListener('click', (e) => {
+    if (e.target.closest('a[href^="#"]')) close();
+  }, { signal: sig });
+  // ESC 关闭 + 焦点圈闭（Tab 在看板内循环）
+  document.addEventListener('keydown', (e) => {
+    if (!wbBoard.classList.contains('open')) return;
+    if (e.key === 'Escape') { e.preventDefault(); close(); return; }
+    if (e.key !== 'Tab') return;
+    const els = [...wbBoard.querySelectorAll('a[href], button:not([disabled]), summary, [tabindex]:not([tabindex="-1"])')].filter((el) => el.offsetParent !== null);
+    if (!els.length) return;
+    const first = els[0], last = els[els.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  }, { signal: sig });
+}
+
 /* ---------- 趋势图悬浮明细（点位 data-tip） ---------- */
 const tcPts = document.querySelectorAll('.tc-pt[data-tip]');
 if (tcPts.length) {
@@ -154,7 +215,11 @@ if (siteData.weeks) {
   }
   dimButtons.forEach((btn) => {
     btn.addEventListener('click', () => {
-      dimButtons.forEach((b) => b.classList.toggle('active', b === btn));
+      dimButtons.forEach((b) => {
+        const on = b === btn;
+        b.classList.toggle('active', on);
+        b.setAttribute('aria-pressed', String(on));
+      });
       applyDim(btn.dataset.dim);
     });
   });
@@ -197,18 +262,17 @@ if (kgPaper && siteData.graph) {
       if (mounted) return;
       mounted = true;
       try {
-        const { renderGraph3D } = await import('./graph-view3d.js');
+        // 首页预览用 galaxy 聚合渲染器（与 /graph 同源，深空+辉光，迷你自转氛围）
+        const { renderGraph3D } = await import('./graph-view-galaxy.js');
         if (sig.aborted) return;
         hintEl.remove();
         homeGraphCtl = renderGraph3D(kgPaper, graph, {
           mini: true,
           onStateChange,
           onSelect: (n) => {
-            window.location.href = `/graph?focus=${encodeURIComponent(n.slug)}`;
+            if (n?.slug) window.location.href = `/graph?focus=${encodeURIComponent(n.slug)}`;
           },
         });
-        const note = document.getElementById('kg-note');
-        if (note) note.textContent = '3D 预览：拖拽旋转 · 点击节点在全图中定位。数据来自 Obsidian 库真实双链结构。';
       } catch (e) {
         console.error('[home] 3D 预览加载失败，回退 2D：', e);
         hintEl.remove();
@@ -259,24 +323,8 @@ if (kgPaper && siteData.graph) {
     legEls.push(item);
   });
 
-  // 图例折叠：主题域多于 7 个时默认只显前 6 个（14 个全铺会把卡片撑得过长）
-  const LEG_SHOW = 6;
-  if (legEls.length > LEG_SHOW + 1) {
-    legEls.slice(LEG_SHOW).forEach((el) => (el.hidden = true));
-    const toggle = document.createElement('button');
-    toggle.type = 'button';
-    toggle.className = 'kg-leg-toggle mono';
-    toggle.setAttribute('aria-expanded', 'false');
-    const closedText = `展开全部 ${legEls.length} 个主题域 ↓`;
-    toggle.textContent = closedText;
-    toggle.addEventListener('click', () => {
-      const open = toggle.getAttribute('aria-expanded') !== 'true';
-      toggle.setAttribute('aria-expanded', String(open));
-      legEls.slice(LEG_SHOW).forEach((el) => (el.hidden = !open));
-      toggle.textContent = open ? '收起 ↑' : closedText;
-    });
-    legend.appendChild(toggle);
-  }
+  // 卡片高度已硬限制（glass.css），图例区 flex 滚动自适应：全部主题域常显，
+  // 容纳不下即在图例内滚动，不再撑高卡片（撤销原折叠展开——长度问题的根因）
 
   const input = document.getElementById('kg-search');
   const hint = document.getElementById('kg-search-hint');

@@ -67,7 +67,8 @@
      "finished": false,
      "notes": 0,
      "lastRead": 1780646908,
-     "highlights": []
+     "highlights": [],
+     "subtitle": "AI 记忆机制的分层解剖——从权重到图谱"
     },
     {
      "id": "CB_43523D20VGaf74D75cFum4Wr",
@@ -80,7 +81,8 @@
      "lastRead": 1781269361,
      "highlights": [
       "框架展示了一种将情景记录压缩为可复用工作流规则的方法——这更接近认知科学中的”技能习得”概念"
-     ]
+     ],
+     "subtitle": "从 KV Cache 到外置记忆的衰减谱系"
     },
     {
      "id": "CB_CCi60i61DGWW74C75c5qJ163",
@@ -91,7 +93,8 @@
      "finished": false,
      "notes": 0,
      "lastRead": 1781239642,
-     "highlights": []
+     "highlights": [],
+     "subtitle": "同一个词，在认知科学与 LLM 里的两种身体"
     }
    ]
   },
@@ -118,7 +121,8 @@
       "2026 年初，DeepSeek V3.2 等模型还因在若干知名基准上出现统计学上异常的得分模式，被独立评测者点名审视污染嫌疑。",
       "决定某个改动是否保留",
       "评测之难，一半是工程问题（怎么防污染、怎么降噪、怎么压低成本），另一半是哲学问题（我们到底在测一个什么东西，它存不存在）。 把后半个问题当成前半个问题来解，是这个领域反复栽跟头的根源。"
-     ]
+     ],
+     "subtitle": "Goodhart 定律下的 AI 评测"
     },
     {
      "id": "CB_1WXAqbApPGrF74H75c0XS19o",
@@ -129,7 +133,8 @@
      "finished": false,
      "notes": 0,
      "lastRead": 1780854746,
-     "highlights": []
+     "highlights": [],
+     "subtitle": "基准分之外的能力信号"
     }
    ]
   },
@@ -156,7 +161,8 @@
       "所以”提示工程在消失”与”提示工程在变难”其实同时为真——消失的是旧的表层（手写咒语），变难的是新的系统层（评测、编译、语境、安全）。看不清这一点，就会在”它死了吗”这种伪问题上空转。",
       "提示能定位、组合、放大一个模型已经具备的能力，却无法凭空注入它不具备的知识或技能——这正是为什么”调用外部”（第三章）与检索增强如此重要。把这条记牢，能省下大量徒劳的”再换个说法逼它一下”的尝试：如果模型根本不知道某个事实，你换一百种措辞它也只会条理清晰地编一个错答",
       "少样本学习”：你在提示里放几对输入-输出示例，模型就能”执行”一个它从未被专门微调过的任务。"
-     ]
+     ],
+     "subtitle": "从咒语，到工程——可复现、可评测、可维护的提示词体系"
     }
    ]
   },
@@ -175,7 +181,8 @@
      "finished": false,
      "notes": 0,
      "lastRead": 1780854754,
-     "highlights": []
+     "highlights": [],
+     "subtitle": "Agent 自主性的边界与刻度"
     },
     {
      "id": "CB_5JEChYCghGix74F75c8xPAcn",
@@ -186,6 +193,41 @@
      "finished": false,
      "notes": 0,
      "lastRead": 1780849435,
+     "highlights": [],
+     "subtitle": "从输出读懂模型的内部状态"
+    }
+   ]
+  },
+  {
+   "id": "harness",
+   "topic": "Harness 工程",
+   "blurb": "缰绳上的工程学：当 AI 智能体的能力从模型转移到环境——两本拆解 agent harness 的小书。",
+   "graphFocus": null,
+   "books": [
+    {
+     "id": "CB_local_harness-engineering",
+     "title": "Harness Engineering",
+     "author": "Rick's Fable 5 Extra",
+     "subtitle": "缰绳上的工程学 / 当 AI 智能体的能力从模型转移到环境",
+     "cover": "/assets/books/epub-covers/harness-engineering.png",
+     "epub": "/assets/books/epub/harness-engineering.epub",
+     "progress": 0,
+     "finished": false,
+     "notes": 0,
+     "lastRead": 0,
+     "highlights": []
+    },
+    {
+     "id": "CB_local_codex-anatomy",
+     "title": "解剖 Codex",
+     "author": "Rick's Fable 5 Extra",
+     "subtitle": "一个开源 Harness 的架构、元素与张力",
+     "cover": "/assets/books/epub-covers/codex-anatomy.png",
+     "epub": "/assets/books/epub/codex-anatomy.epub",
+     "progress": 0,
+     "finished": false,
+     "notes": 0,
+     "lastRead": 0,
      "highlights": []
     }
    ]

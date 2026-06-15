@@ -11,11 +11,182 @@ import path from 'node:path';
 import matter from 'gray-matter';
 import { CONFIG } from './config.mjs';
 import { writeJson, walk, dayKey } from './lib/util.mjs';
+import { topFolderOf, classify, isPolitical } from './lib/privacy-tier.mjs';
 
 const AI_ROOT = path.join(CONFIG.vault, CONFIG.vaultAiDir);
 const GRAPH_OUT = path.join(CONFIG.dataDir, 'graph.json');
 const MANIFEST_OUT = path.join(CONFIG.dataDir, 'kb-manifest.json');
 const SAN = CONFIG.sanitize;
+
+/* ════════════════════════════════════════════════════════════════
+   全库三态隐私迁移 · dry-run 分支（--migrate-dry-run）
+   只【扫描全库 + 分级 + 产出 data/title-review.json】，
+   绝不写 graph.json / content/kb，绝不动 04AI full 主路径。
+   命中此分支即 return，下方既有全文管线一行都不执行。
+   ════════════════════════════════════════════════════════════════ */
+/* --migrate-dry-run：只扫描 + 分级 + 产出 .private/title-review.json（绝不写产物）。
+   --migrate / 默认：跑全文管线产出 598 full 节点；带 --migrate 时再把 stub 节点并入 graph.json。
+   不带任何标志 = 既有行为（仅 04AI full），向后兼容。 */
+const MIGRATE = process.argv.includes('--migrate');
+if (process.argv.includes('--migrate-dry-run')) {
+  runMigrationDryRun();
+} else {
+  runFullPipeline({ migrate: MIGRATE });
+}
+
+function runMigrationDryRun() {
+  const PM = CONFIG.privacyMigration;
+  if (!fs.existsSync(CONFIG.vault)) {
+    console.error(`[migrate] ✗ 找不到 vault ${CONFIG.vault}`);
+    process.exit(1);
+  }
+
+  /* 1) 全库扫描（排除 .obsidian/.trash 与 04AI 子树——04AI 维持 full，不进三态审查）。
+        只读标题（文件名，去 .md），正文绝不读取、绝不进任何产物。 */
+  const WIKILINK_RE = /\[\[([^\]|#\n]+)(#[^\]|\n]*)?(\|[^\]\n]*)?\]\]/g;
+  const records = []; // { path, title, folder, name }
+  let icloudSkipped = 0;
+  let bodyReadForLinks = 0;
+
+  for (const f of walk(CONFIG.vault, { exclude: ['.obsidian', '.trash'] })) {
+    const base = path.basename(f);
+    if (base.endsWith('.icloud')) { icloudSkipped++; continue; }
+    if (!base.endsWith('.md')) continue;
+    const rel = path.relative(CONFIG.vault, f).split(path.sep).join('/');
+    const folder = topFolderOf(rel);
+    // 04AI 维持 full（既有主路径产出），不纳入三态审查
+    if (folder === CONFIG.vaultAiDir) continue;
+    records.push({ path: rel, title: base.slice(0, -3), folder, file: f });
+  }
+
+  /* 2) 逐篇分级 */
+  const reviewed = records.map((r) => {
+    const { tier, hitRules, reason } = classify({ title: r.title, topFolder: r.folder });
+    return {
+      path: r.path,
+      title: r.title,
+      folder: r.folder,
+      tierSuggested: tier,
+      hitRules,
+      reason,
+      disposition: 'auto',
+      file: r.file,
+    };
+  });
+
+  /* 3) 仅对 stub 笔记解析其相互双链（标题级关联，供前端聚类）。
+        读正文只为提取 [[wikilink]] 目标名做匹配，不写入任何产物、不留存正文。
+        只在 stub↔stub 间连边（hidden 不出现，full 由主图谱另算）。 */
+  const stubNotes = reviewed.filter((r) => r.tierSuggested === 'stub');
+  const stubByName = new Map(stubNotes.map((r) => [r.title, r]));
+  for (const r of stubNotes) {
+    const links = new Set();
+    let body = '';
+    try {
+      body = fs.readFileSync(r.file, 'utf8').replace(/\u0000+/g, '');
+      bodyReadForLinks++;
+    } catch { /* 读不到就当无链接 */ }
+    for (const m of body.matchAll(WIKILINK_RE)) {
+      const target = m[1].trim().replace(/\.md$/, '').split('/').pop();
+      if (target && target !== r.title && stubByName.has(target)) links.add(target);
+    }
+    r.links = [...links];
+  }
+
+  /* 4) 统计 */
+  const stubCount = reviewed.filter((r) => r.tierSuggested === 'stub').length;
+  const hiddenCount = reviewed.filter((r) => r.tierSuggested === 'hidden').length;
+
+  const byFolder = {};
+  for (const r of reviewed) {
+    const k = `${r.folder} → ${r.tierSuggested}`;
+    byFolder[k] = (byFolder[k] || 0) + 1;
+  }
+  const hiddenByRule = {};
+  for (const r of reviewed.filter((x) => x.tierSuggested === 'hidden' && x.hitRules.length)) {
+    for (const rule of r.hitRules) hiddenByRule[rule] = (hiddenByRule[rule] || 0) + 1;
+  }
+
+  /* 5) 红线复检：对全部 stub 候选标题再跑一遍政治正则，命中必须为 0 */
+  const stubPoliticalLeaks = stubNotes.filter((r) => isPolitical(r.title));
+
+  /* 6) 写 title-review.json —— 三段式，按「谁需要被审 + 暴露面最小」分组：
+        a. stubCandidates：将公开（标题+双链），逐条带标题供用户确认可发（524）
+        b. overrideCandidates：白名单域内被敏感规则降级的 hidden，带标题+命中规则供用户复核误杀
+           （这些是用户选入的中性域，标题敏感度低；需要人看以挑出假阳性）
+        c. excludedFolders：整域排除（02工作/80随记等）只出「文件夹 + 数量」摘要，
+           【绝不列明文标题/路径】——这是审阅文件被传阅/截图时的最大泄漏面，从源头去掉
+        stub 的 links 是计数（number），不暴露被链接笔记内容。 */
+  const stubFolderSet = new Set(PM.stubFolders);
+  const stubCandidates = reviewed
+    .filter((r) => r.tierSuggested === 'stub')
+    .sort((a, b) => a.path.localeCompare(b.path, 'zh'))
+    .map(({ title, folder, links }) => ({
+      title, folder, disposition: 'publish',
+      ...(links && links.length ? { links: links.length } : {}),
+    }));
+  // 白名单域内被降级的 hidden（需人工复核误杀）——带标题
+  const overrideCandidates = reviewed
+    .filter((r) => r.tierSuggested === 'hidden' && stubFolderSet.has(r.folder))
+    .sort((a, b) => a.path.localeCompare(b.path, 'zh'))
+    .map(({ title, folder, hitRules, reason }) => ({ title, folder, hitRules, reason, disposition: 'hide' }));
+  // 整域排除的 hidden：只出文件夹 + 数量，不出任何标题/路径
+  const excludedFolders = {};
+  for (const r of reviewed) {
+    if (r.tierSuggested === 'hidden' && !stubFolderSet.has(r.folder)) {
+      excludedFolders[r.folder] = (excludedFolders[r.folder] || 0) + 1;
+    }
+  }
+  const out = {
+    generated_at: new Date().toISOString(),
+    mode: 'dry-run',
+    note: '三态隐私迁移分级草案。审阅指引见下。本文件落 .private/（已 gitignore），含敏感标题，绝不入库。',
+    howToReview: [
+      'stubCandidates：将以「标题+双链」公开的非 AI 节点。逐条看标题，不想公开的把 disposition 改 hide。',
+      'overrideCandidates：白名单中性域内被敏感规则自动降级隐藏的笔记。复核有无误杀（如「中国农民亩均收入」被 finance 误命中），想公开的改 disposition 为 publish。',
+      'excludedFolders：整域硬排除（雇主/极私/导入区/涉政）。这里只给文件夹+数量摘要，不列标题以防泄漏。确认这些文件夹整体不发布即可；如某域想改为逐篇审，把它从 hiddenFolders 移到 stubFolders 重跑。',
+    ],
+    config: {
+      stubFolders: PM.stubFolders,
+      hiddenFolders: PM.hiddenFolders,
+      sensitiveRuleCount: PM.titleSensitivePatterns.length,
+    },
+    stats: {
+      scanned: reviewed.length,
+      stub: stubCount,
+      hidden: hiddenCount,
+      byFolderTier: byFolder,
+      hiddenByRule,
+      politicalLeaksInStub: stubPoliticalLeaks.length,
+      icloudSkipped,
+    },
+    stubCandidates,
+    overrideCandidates,
+    excludedFolders,
+  };
+  writeJson(PM.titleReviewOut, out);
+
+  /* 7) 控制台报告（不打印正文，标题也只在泄漏时列出供排查） */
+  console.log(`[migrate · dry-run] 扫描全库（除 04AI/.obsidian/.trash）共 ${reviewed.length} 篇`);
+  console.log(`[migrate · dry-run] stub 候选 ${stubCount} 篇 · hidden ${hiddenCount} 篇 · 读正文取链接 ${bodyReadForLinks} 篇`);
+  console.log('[migrate · dry-run] 按 文件夹→分级 分布：');
+  for (const [k, v] of Object.entries(byFolder).sort()) console.log(`    ${k}: ${v}`);
+  if (Object.keys(hiddenByRule).length) {
+    console.log('[migrate · dry-run] hidden 命中规则分布：');
+    for (const [k, v] of Object.entries(hiddenByRule).sort((a, b) => b[1] - a[1])) console.log(`    ${k}: ${v}`);
+  }
+  if (stubPoliticalLeaks.length) {
+    console.error(`[migrate · dry-run] ✗✗ 红线复检失败：${stubPoliticalLeaks.length} 篇 stub 候选标题命中政治正则：`);
+    stubPoliticalLeaks.forEach((r) => console.error(`    ${r.path}`));
+    process.exitCode = 2;
+  } else {
+    console.log('[migrate · dry-run] ✓ 红线复检：全部 stub 候选标题政治正则命中 = 0');
+  }
+  if (icloudSkipped) console.warn(`[migrate · dry-run] ⚠ ${icloudSkipped} 个 iCloud 未下载文件被跳过`);
+  console.log(`[migrate · dry-run] → ${PM.titleReviewOut}（未写 graph.json / content/kb）`);
+}
+
+function runFullPipeline({ migrate = false } = {}) {
 
 /* "0401AI 基础知识库" → 展示名 "AI 基础知识库"、序号 0401
    "04T 专题库/F6 人文社科透镜" → 展示名 "专题 · 人文社科透镜"、序号 04T6 */
@@ -243,7 +414,6 @@ for (const n of pub) {
 
 const nodeIdx = new Map(pub.map((n, i) => [n.name, i]));
 const edges = [];
-const degree = new Array(pub.length).fill(0);
 for (const n of pub) {
   const a = nodeIdx.get(n.name);
   for (const t of n.links) {
@@ -252,34 +422,70 @@ for (const n of pub) {
     if (a < b) edges.push([a, b]);
   }
 }
-for (const [a, b] of edges) {
-  degree[a]++;
-  degree[b]++;
-}
+
+/* ---------- 4b. 三态发布：把非 04AI 的 stub 节点并入图谱（--migrate） ----------
+   stub 节点 = privacyMigration 白名单域内、过完三态分级判定为 stub 的笔记。
+   绝无 slug、绝无 body/excerpt/provenance/created/任何正文派生字段——只 {id,title,cluster,deg,tier,links}。
+   正文只用于解析双链目标后即丢弃（不写盘、不进任何产物）。
+   edges 统一为「节点下标 [a,b]」：full↔full（已建）+ stub↔stub + stub↔full 都入；hidden 不入图。 */
+let stubLayer = null;
+if (migrate) stubLayer = buildStubLayer({ fullNotes: notes, fullNameIdx: nodeIdx, fullCount: pub.length });
+
+/* full↔stub / stub↔stub 边追加到全局 edges（下标已对齐：full 占 0..pub.length-1，stub 顺延） */
+if (stubLayer) for (const e of stubLayer.edges) edges.push(e);
+
+/* 度数：在「全部边」上统一计算（含跨层），full 节点度数也会吸收 stub↔full 的贡献 */
+const totalNodeCount = pub.length + (stubLayer ? stubLayer.nodes.length : 0);
+const degree = new Array(totalNodeCount).fill(0);
+for (const [a, b] of edges) { degree[a]++; degree[b]++; }
+
+const fullNodes = pub.map((n, i) => ({
+  id: i,
+  title: n.name,
+  slug: n.slugPath,
+  cluster: clusterIdx.get(n.clusterFolder),
+  deg: degree[i],
+  tier: 'full',
+  created: dayKey(new Date(n.created)),
+  ...(n.facet ? { facet: n.facet } : {}),
+  ...(n.featured ? { hub: 1 } : {}),
+}));
+
+const stubNodes = stubLayer
+  ? stubLayer.nodes.map((s) => ({
+      id: s.id,
+      title: s.title,
+      cluster: s.cluster,
+      deg: degree[s.id],
+      tier: 'stub',
+      links: s.links, // 被链节点 id 引用数组（同层 stub + 跨层 full）
+    }))
+  : [];
+
+const fullClusters = clusters.filter((c) => c.count > 0).map(({ id, name, count }) => ({ id, name, count }));
+const stubClusters = stubLayer ? stubLayer.clusters : [];
 
 const graph = {
   generated_at: new Date().toISOString(),
-  nodes: pub.map((n, i) => ({
-    id: i,
-    title: n.name,
-    slug: n.slugPath,
-    cluster: clusterIdx.get(n.clusterFolder),
-    deg: degree[i],
-    created: dayKey(new Date(n.created)),
-    ...(n.facet ? { facet: n.facet } : {}),
-    ...(n.featured ? { hub: 1 } : {}),
-  })),
+  nodes: [...fullNodes, ...stubNodes],
   edges,
-  clusters: clusters.filter((c) => c.count > 0).map(({ id, name, count }) => ({ id, name, count })),
+  clusters: [...fullClusters, ...stubClusters],
   stats: {
     notes: pub.length,
     links: edges.length,
-    domains: clusters.filter((c) => c.count > 0).length,
+    domains: fullClusters.length,
+    ...(stubLayer ? { stubNotes: stubNodes.length, stubDomains: stubClusters.length } : {}),
     vaultNotesAll: null, // collect-activity 填的是全库口径，这里只管 04AI
     aiNotesAll: notes.size,
   },
 };
 writeJson(GRAPH_OUT, graph);
+if (stubLayer) {
+  console.log(
+    `[vault · migrate] 并入 stub：${stubNodes.length} 节点 / ${stubClusters.length} 域；` +
+      `跨层与同层 stub 边 ${stubLayer.edges.length} 条；hidden ${stubLayer.hiddenCount} 篇不入图`
+  );
+}
 
 /* ---------- 5. 导出可发布笔记 → content/kb ---------- */
 fs.rmSync(CONFIG.kbContentDir, { recursive: true, force: true });
@@ -376,3 +582,102 @@ if (deadLinks.size) {
     console.warn(`    [[${t}]] ← ${srcs.slice(0, 3).join('、')}${srcs.length > 3 ? ` 等 ${srcs.length} 篇` : ''}`);
   });
 }
+/* ════════════════════════════════════════════════════════════════
+   buildStubLayer —— 扫全库非 04AI，按 classify 分级，产出 stub 节点层。
+   入参：
+     fullNotes   —— 04AI full 笔记 Map（name → note），用于 stub↔full 跨层连边
+     fullNameIdx —— full 笔记 name → 全局节点下标（0..fullCount-1）
+     fullCount   —— full 节点数（stub 节点 id 从此顺延）
+   产出：{ nodes:[{id,title,cluster,links}], clusters:[{id,name,count,tier}], edges:[[a,b]], hiddenCount }
+   不变量：
+     · 只读标题做分级；正文仅用于解析 [[双链]] 目标后即丢弃，绝不写盘、不进任何字段。
+     · stub 节点无 slug、无任何正文派生字段。
+     · hidden 节点不产出、其边不入图。
+   ════════════════════════════════════════════════════════════════ */
+function buildStubLayer({ fullNotes, fullNameIdx, fullCount }) {
+  const WIKILINK_RE = /\[\[([^\]|#\n]+)(#[^\]|\n]*)?(\|[^\]\n]*)?\]\]/g;
+
+  /* 1) 扫全库（排除 04AI 子树/.obsidian/.trash/.icloud），逐篇分级 */
+  const stubRecs = []; // { title, folder, file }
+  let hiddenCount = 0;
+  for (const f of walk(CONFIG.vault, { exclude: ['.obsidian', '.trash'] })) {
+    const base = path.basename(f);
+    if (base.endsWith('.icloud')) continue;
+    if (!base.endsWith('.md')) continue;
+    const rel = path.relative(CONFIG.vault, f).split(path.sep).join('/');
+    const folder = topFolderOf(rel);
+    if (folder === CONFIG.vaultAiDir) continue; // 04AI 维持 full，不进 stub 层
+    const title = base.slice(0, -3);
+    const { tier } = classify({ title, topFolder: folder });
+    if (tier === 'stub') stubRecs.push({ title, folder, file: f });
+    else hiddenCount++; // tier === 'hidden'
+  }
+
+  /* 2) 同名去重（vault 不同目录可能撞名；保第一个，与 full 主路径 notes Map 同语义）。
+        stub↔full 撞名极少，但若 stub 标题已是 full 节点名，连边会指向 full，节点仍各自存在。 */
+  const seen = new Set();
+  const stubNotes = [];
+  for (const r of stubRecs) {
+    if (seen.has(r.title)) continue;
+    seen.add(r.title);
+    stubNotes.push(r);
+  }
+
+  /* 3) cluster 分配：每个出现过的 stub 顶层文件夹各一个【新 cluster id】，从现 max+1 续号。
+        现 full cluster id = clusterFolders 下标 0..len-1（max 为 len-1），故 stub 起始 = clusterFolders.length。 */
+  const stubFolderOrder = []; // 保持白名单声明顺序里实际出现的文件夹
+  for (const fld of CONFIG.privacyMigration.stubFolders) {
+    if (stubNotes.some((s) => s.folder === fld) && !stubFolderOrder.includes(fld)) stubFolderOrder.push(fld);
+  }
+  // 兜底：万一有 stub 文件夹不在声明顺序里（理论不会），按出现序补上
+  for (const s of stubNotes) {
+    if (!stubFolderOrder.includes(s.folder)) stubFolderOrder.push(s.folder);
+  }
+  const stubClusterIdBase = clusterFolders.length;
+  const stubClusterId = new Map(stubFolderOrder.map((fld, i) => [fld, stubClusterIdBase + i]));
+
+  /* 4) stub 节点 id 顺延 full：fullCount + i */
+  stubNotes.forEach((s, i) => { s.id = fullCount + i; });
+  const stubNameIdx = new Map(stubNotes.map((s) => [s.title, s.id]));
+
+  /* 5) 解析双链 → 全局 id 引用 + 边。正文读取后即丢弃，不留存。
+        目标可命中 stub（同层）或 full（跨层）；hidden 笔记不在两张表里，自然被排除。 */
+  const edgeSet = new Set(); // "a,b"（a<b）去重
+  for (const s of stubNotes) {
+    const linkIds = new Set();
+    let body = '';
+    try { body = fs.readFileSync(s.file, 'utf8').replace(/\u0000+/g, ''); } catch { /* 读不到当无链接 */ }
+    for (const m of body.matchAll(WIKILINK_RE)) {
+      const target = m[1].trim().replace(/\.md$/, '').split('/').pop();
+      if (!target || target === s.title) continue;
+      let b;
+      if (stubNameIdx.has(target)) b = stubNameIdx.get(target);      // stub↔stub
+      else if (fullNameIdx.has(target)) b = fullNameIdx.get(target); // stub↔full
+      else continue; // 指向 hidden / 死链 / 库外：丢弃
+      if (b === s.id) continue;
+      linkIds.add(b);
+      const [lo, hi] = s.id < b ? [s.id, b] : [b, s.id];
+      edgeSet.add(`${lo},${hi}`);
+    }
+    s.links = [...linkIds].sort((a, b) => a - b);
+  }
+  const edges = [...edgeSet].map((k) => k.split(',').map(Number));
+
+  /* 6) cluster 元数据（count = 该域 stub 节点数；GRAPH_PALETTE 由前端按 id%12 取色，回绕可接受） */
+  const clusters = stubFolderOrder.map((fld) => ({
+    id: stubClusterId.get(fld),
+    name: fld,
+    count: stubNotes.filter((s) => s.folder === fld).length,
+    tier: 'stub',
+  }));
+
+  const nodes = stubNotes.map((s) => ({
+    id: s.id,
+    title: s.title,
+    cluster: stubClusterId.get(s.folder),
+    links: s.links,
+  }));
+
+  return { nodes, clusters, edges, hiddenCount };
+}
+} // ── end runFullPipeline ──

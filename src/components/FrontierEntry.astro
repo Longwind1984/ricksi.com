@@ -1,27 +1,34 @@
 ---
-// 前沿追踪单条：人名(可点筛选)/类型徽章/来源 + 中文标题(外链原文) + 一句话判断 + 原生 details 展开
-// 日期不在条目内重复渲染（日组头已有）；importance=5 标金点；本轮新增标 NEW
+// 前沿追踪单条：星类徽章 + 人名(可点筛选) + 类型/来源 + 标题(外链原文) + 一句话判断 + 展开摘要
+// 星类由 frontier-ui.starOf 从三维分确定性映射；日期不在条目内重复（日组头已有）
 // 布局无关 DOM：方向 A(.rows 报纸流) / B(.cards 卡片网格) 由父容器类切换
+import { STAR_CLASS, starOf, hypeLabel } from '../lib/frontier-ui.mjs';
 interface Props {
   entry: {
     id: string;
-    date: string; // YYYY-MM-DD（筛选/深链用，不展示）
+    date: string;
     person: string | null;
     topicSource: string | null;
     ownerName: string;
     domain: string;
     sourceName: string;
     sourceType: string;
-    contentType: 'authored' | 'statement' | 'action' | 'cited';
+    contentType: 'authored' | 'statement' | 'action' | 'cited' | 'business';
     titleZh: string;
     verdict: string;
     summaryZh: string;
     tags: string[];
     url: string;
     excerpt?: string;
+    apparent?: number;
+    absolute?: number;
+    gravity?: boolean;
+    periodic?: boolean;
+    canon?: boolean;
     importance?: number;
     insufficientContext?: boolean;
     isNew?: boolean;
+    backfill?: boolean;
   };
 }
 const { entry } = Astro.props;
@@ -30,12 +37,17 @@ const TYPE_LABEL: Record<string, string> = {
   statement: '本人发言',
   action: '个人行动',
   cited: '被引用',
+  business: '商业',
 };
 const ownerKey = entry.person ?? entry.topicSource ?? '';
 const external = entry.url && entry.url !== '#';
-/* 标签减噪：默认露出前 2 个，其余收进展开区 */
 const tagsOut = entry.tags.slice(0, 2);
 const tagsMore = entry.tags.slice(2);
+/* 星图评级：星类 + 被低估标记（深空/高负 hype_gap 是策展招牌） */
+const starKey = starOf(entry);
+const sc = STAR_CLASS[starKey];
+const hype = hypeLabel(entry); // '被低估' | '声量 > 分量' | null
+const underrated = hype === '被低估';
 ---
 
 <article
@@ -44,16 +56,20 @@ const tagsMore = entry.tags.slice(2);
   data-person={ownerKey}
   data-type={entry.contentType}
   data-domain={entry.domain}
+  data-star={starKey}
   data-tags={entry.tags.join('|')}
 >
   <header class="ft-head">
+    <span class="ft-star" style={`--sc:${sc.color}`} title={`${sc.zh} · ${sc.gist}`}>
+      <span class="ft-star-sym">{sc.sym}</span><span class="ft-star-zh">{sc.zh}</span>
+    </span>
     <button class="mono ft-person" type="button" data-ft-person={ownerKey}>{entry.ownerName}</button>
     <span class="tag mono ft-type">{TYPE_LABEL[entry.contentType] ?? entry.contentType}</span>
     <span class="mono ft-source">{entry.sourceName}</span>
+    {underrated && <span class="mono ft-underrated" title="声量低于其真实分量——值得多看一眼">被低估</span>}
     {entry.isNew && <span class="mono ft-new">NEW</span>}
   </header>
   <h3 class="ft-title">
-    {(entry.importance ?? 3) >= 5 && <span class="ft-imp5" title="高信号" aria-label="高信号"></span>}
     {external ? (
       <a href={entry.url} target="_blank" rel="noreferrer">{entry.titleZh}</a>
     ) : (
@@ -61,6 +77,10 @@ const tagsMore = entry.tags.slice(2);
     )}
   </h3>
   <p class="ft-take">{entry.verdict}</p>
+  {entry.backfill ? (
+    /* 回溯条目无长摘要，不给空展开——只留判断 + 原文 */
+    external && <a class="mono ft-link ft-link-block" href={entry.url} target="_blank" rel="noreferrer">原文 ↗</a>
+  ) : (
   <details class="ft-more">
     <summary class="mono">展开摘要</summary>
     <div class="ft-body">
@@ -84,6 +104,7 @@ const tagsMore = entry.tags.slice(2);
       )}
     </div>
   </details>
+  )}
   {tagsOut.length > 0 && (
     <div class="ft-tags">
       {tagsOut.map((t) => (

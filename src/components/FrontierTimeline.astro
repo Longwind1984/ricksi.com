@@ -1,0 +1,120 @@
+---
+// 前沿追踪二维时间轴（泳道图）：纵轴=领域分组(父)+人物/源行(子)，横轴=时间(可切窗)
+// 节点按星图评级编码（大小=分量 absolute，色=星类）；点击=跳到下方该条目深链
+// mini（主页）：领域聚合 4 行 / 近 14 天 / 无窗口切换；full（落地页）：人物行按领域分组 / 7·30·90 天可切
+// 行头 data-ft-person / data-domain 复用 frontier.js 筛选委托；窗口切换由 frontier.js 接管
+import { STAR_CLASS, starOf, DOMAIN_ACCENT } from '../lib/frontier-ui.mjs';
+interface Props {
+  entries: any[];
+  domains: Record<string, string>;
+  rows?: any[]; // full：人物+源行定义（{slug,name,domain}）；mini 不用
+  portraitOf?: (slug: string) => string | null;
+  mini?: boolean;
+}
+const { entries, domains, rows = [], portraitOf = () => null, mini = false } = Astro.props;
+
+const DAY = 86400000;
+const now = new Date();
+const winEnd = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59).getTime();
+const defSpan = mini ? 14 : 30;
+const rawX = (t: number, span: number) => ((t - (winEnd - span * DAY)) / (span * DAY)) * 100; // 未 clamp，判窗口内外
+const xOf = (t: number, span: number) => Math.max(0, Math.min(100, rawX(t, span)));
+const inWin = (t: number, span: number) => rawX(t, span) >= 0 && rawX(t, span) <= 100;
+
+const evs = entries.map((e: any) => ({
+  id: e.id,
+  date: e.date,
+  t: new Date(e.date + 'T12:00:00').getTime(),
+  owner: e.person ?? e.topicSource,
+  domain: e.domain,
+  star: starOf(e),
+  abs: e.absolute ?? e.importance ?? 3,
+  title: e.titleZh,
+  ownerName: e.ownerName,
+}));
+
+/* 行分组：mini=领域聚合一行；full=每个有事件的人物/源一行，按领域分组 */
+type Lane = { key: string; name: string; portrait: string | null; events: typeof evs };
+let groups: { domainKey: string; label: string; lanes: Lane[] }[];
+if (mini) {
+  // mini 无 JS：构建期就只收窗口内事件，避免窗口外被 clamp 堆到最左
+  groups = Object.entries(domains)
+    .map(([k, label]) => ({ domainKey: k, label, lanes: [{ key: k, name: label, portrait: null, events: evs.filter((e) => e.domain === k && inWin(e.t, defSpan)) }] as Lane[] }))
+    .filter((g) => g.lanes[0].events.length);
+} else {
+  const byOwner: Record<string, typeof evs> = {};
+  for (const e of evs) (byOwner[e.owner] ??= []).push(e);
+  groups = Object.entries(domains)
+    .map(([k, label]) => ({
+      domainKey: k,
+      label,
+      lanes: rows
+        .filter((r: any) => r.domain === k && byOwner[r.slug]?.length)
+        .map((r: any) => ({ key: r.slug, name: r.name, portrait: portraitOf(r.slug), events: byOwner[r.slug] })) as Lane[],
+    }))
+    .filter((g) => g.lanes.length);
+}
+
+const fmt = (ms: number) => { const d = new Date(ms); return `${d.getMonth() + 1}.${d.getDate()}`; };
+const tickLabels = (span: number) => [fmt(winEnd - span * DAY), fmt(winEnd - (span * DAY) / 2), '今天'];
+const ticks = tickLabels(defSpan);
+const WINS = [7, 30, 90];
+const totalEvents = evs.length;
+---
+
+<div class:list={['ft-tl', { 'ft-tl-mini': mini }]} data-span={defSpan} data-winend={winEnd}>
+  {!mini && (
+    <div class="ft-tl-bar">
+      <span class="mono ft-tl-cap">时间轴 · 横轴时间 / 纵轴领域含人物 / 点大小=分量</span>
+      <div class="ft-tl-wins mono" role="group" aria-label="时间窗口">
+        {WINS.map((w) => (
+          <button class:list={['ft-tl-win', { active: w === defSpan }]} type="button" data-win={w}>近{w}天</button>
+        ))}
+      </div>
+    </div>
+  )}
+
+  {groups.length === 0 ? (
+    <p class="kg-note">窗口内暂无信号。</p>
+  ) : (
+    <div class="ft-tl-grid">
+      {groups.map((g) => (
+        <div class="ft-tl-group">
+          <div class="mono ft-tl-ghead" style={`--d-accent:${DOMAIN_ACCENT[g.domainKey] ?? '#71C1F7'}`}>{g.label}</div>
+          {g.lanes.map((lane) => (
+            <div class="ft-tl-row">
+              <button
+                class="ft-tl-rowhead mono"
+                type="button"
+                data-ft-person={mini ? undefined : lane.key}
+                data-domain={mini ? g.domainKey : undefined}
+                title={mini ? `筛选领域：${lane.name}` : `只看 ${lane.name} 的痕迹`}
+              >
+                {!mini && lane.portrait && <img class="ft-tl-ava" src={lane.portrait} width="20" height="20" loading="lazy" alt={lane.name} />}
+                <span class="ft-tl-name">{lane.name.split(' ')[0]}</span>
+                <span class="ft-tl-ct">{lane.events.length}</span>
+              </button>
+              <div class="ft-tl-track">
+                <span class="ft-tl-baseline" aria-hidden="true"></span>
+                {lane.events.map((ev) => (
+                  <a
+                    class="ft-tl-node"
+                    href={`/frontier/#e-${ev.id}`}
+                    style={`left:${xOf(ev.t, defSpan).toFixed(2)}%;--sc:${STAR_CLASS[ev.star].color};--sz:${(4 + ev.abs * 1.7).toFixed(1)}px${inWin(ev.t, defSpan) ? '' : ';display:none'}`}
+                    data-time={ev.t}
+                    title={`${ev.date} · ${ev.ownerName}：${ev.title}（${STAR_CLASS[ev.star].zh}）`}
+                  ><span class="ft-tl-dot"></span></a>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      ))}
+    </div>
+  )}
+
+  <div class="ft-tl-axis mono" aria-hidden="true">
+    {ticks.map((t) => <span>{t}</span>)}
+  </div>
+  {mini && <a class="mono ft-tl-more" href="/frontier/">展开完整时间轴 · {totalEvents} 个信号 →</a>}
+</div>

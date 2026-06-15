@@ -8,6 +8,7 @@ import path from 'node:path';
 import Glass from '../layouts/Glass.astro';
 import FrontierEntry from '../components/FrontierEntry.astro';
 import FrontierPersonCard from '../components/FrontierPersonCard.astro';
+import FrontierTimeline from '../components/FrontierTimeline.astro';
 import { loadSiteData, stamp } from '../lib/site-data.mjs';
 import { SAMPLE_FRONTIER } from '../lib/sample.js';
 import { portraitFallbackSvg, DOMAIN_ACCENT } from '../lib/frontier-ui.mjs';
@@ -27,6 +28,7 @@ const topics = ft.topics ?? [];
 const ownerMap = new Map<string, { name: string; domain: string }>();
 for (const p of people) ownerMap.set(p.slug, p);
 for (const t of topics) ownerMap.set(t.slug, t);
+const tlRows = [...people, ...topics]; // 时间轴泳道行：人物 + 机构源，按 domain 分组
 
 /* 条目补全归属名与领域（采集产物只存 slug，名称/领域以 config 当前值为准） */
 const lastRunDay = (ft.stats?.lastRun?.at ?? '').slice(0, 10);
@@ -81,6 +83,7 @@ const TYPE_OPTIONS = [
   ['statement', '本人发言'],
   ['action', '个人行动'],
   ['cited', '被引用'],
+  ['business', '商业'],
 ];
 ---
 
@@ -101,43 +104,11 @@ const TYPE_OPTIONS = [
           <span class="sec-desc">每天抓取这些人的论文、发言、发布与行动，由模型梳理成中文并给出一句话判断</span>
         </div>
 
-        <!-- 人物横滚条：压缩态档案（点头像 = 流内只看 TA；完整档案沉底 #people） -->
-        <div class="ft-prail" id="ft-prail">
-          {people.map((p: any) => {
-            const c = countByOwner[p.slug] ?? 0;
-            const portrait = portraitOf(p.slug);
-            return (
-              <button
-                class:list={['ft-prail-item', { 'ft-disabled': c === 0 }]}
-                type="button"
-                data-ft-person={c > 0 ? p.slug : undefined}
-                title={c === 0 ? `${p.name} · 暂无动态` : `${p.name} · ${c} 条`}
-                style={`--p-accent:${DOMAIN_ACCENT[p.domain] ?? '#7FB3F0'}`}
-              >
-                <span class="ft-prail-ava">
-                  {portrait ? <img src={portrait} alt={p.name} width="56" height="56" loading="lazy" /> : <Fragment set:html={portraitFallbackSvg(p)} />}
-                  {c > 0 && <span class="mono ft-prail-n">{c}</span>}
-                </span>
-                <span class="mono ft-prail-name">{p.name.split(' ')[0]}</span>
-              </button>
-            );
-          })}
-          <span class="ft-prail-div" aria-hidden="true"></span>
-          {topics.map((t: any) => {
-            const c = countByOwner[t.slug] ?? 0;
-            return (
-              <button class:list={['hm-dim', 'mono', 'ft-topic-chip', { 'ft-disabled': c === 0 }]} type="button" data-ft-person={c > 0 ? t.slug : undefined}>
-                {t.name}{c ? ` ${c}` : ''}
-              </button>
-            );
-          })}
-        </div>
-        <p class="mono ft-rail-hint">点一个人，下面的流里只看 TA 的痕迹 · <a href="#people">完整档案 ↓</a></p>
+        <!-- 二维时间轴：纵轴领域含人物/源、横轴可切窗；点行名筛选、点节点跳到下方对应条目 -->
+        <FrontierTimeline entries={entries} domains={domains} rows={tlRows} portraitOf={portraitOf} />
+        <p class="mono ft-rail-hint">点行名只看 TA 的痕迹 · 点时间轴上的星点跳到对应条目 · <a href="#people">完整档案 ↓</a></p>
 
-        <p class="mono wb-stamp">
-          最近核查 {lastChecked ?? '—'} · 本轮新增 {added} 条
-          {isSample && <em class="sample-badge">样例数据</em>}
-        </p>
+        {isSample && <p class="mono wb-stamp"><em class="sample-badge">样例数据</em></p>}
 
         <div class="hm-dims mono ft-filters" id="ft-filters">
           <div class="ft-frow" data-dim="type">

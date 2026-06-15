@@ -82,7 +82,7 @@ const hasEstimated = days.some((d) => d.estimated);
     >{fmtV(pts[peakIdx].v)}</text>
     {pts.map((p, i) =>
       i % 3 === 0 || i === n - 1 ? (
-        <text x={p.x} y={H - 7} text-anchor="middle" font-size="9" fill="rgba(240,245,252,0.55)" style="font-family: 'Geist Mono', 'JetBrains Mono', monospace">{p.label}</text>
+        <text x={p.x} y={H - 7} text-anchor="middle" font-size="10.5" fill="rgba(240,245,252,0.55)" style="font-family: 'Geist Mono', 'JetBrains Mono', monospace">{p.label}</text>
       ) : null
     )}
   </svg>

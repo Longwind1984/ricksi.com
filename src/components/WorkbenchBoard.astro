@@ -1,0 +1,156 @@
+---
+/* 工作台 · 展开态全宽 bento 数据看板（Board）
+   从 Glance 卡原地展开的模态浮层（home.js 控制 open/close/焦点/ESC/scrim）。
+   产出导向：主 tile 叙事 + 全宽多源热力图(#heatmap，home.js 直接复用) + 14 日趋势 +
+   模型分段条 + 产出联动 stat tiles（跨链 #projects/#knowledge/#blog）+ 口径最小化入口。
+   默认 hidden；数据同源 SSR，无客户端取数。 */
+import TrendChart from './TrendChart.astro';
+
+interface Day { label: string; v: number; estimated?: boolean }
+interface Props {
+  u: any;
+  coding: any;
+  days14: Day[];
+  heatmapCols: any[][];
+  activity: boolean;
+  hmDims: [string, string][];
+  notesLabel: string;
+  projectsCount: number;
+  postsCount: number;
+  isUsageSample: boolean;
+  isActivitySample: boolean;
+  usageStamp?: string | null;
+  activityStamp?: string | null;
+  methodReal?: number | null;
+  methodEst?: number | null;
+}
+const {
+  u, coding, days14, heatmapCols, activity, hmDims,
+  notesLabel, projectsCount, postsCount,
+  isUsageSample, isActivitySample, usageStamp, activityStamp, methodReal, methodEst,
+} = Astro.props;
+
+const compact = (n: number) =>
+  n >= 1e9 ? (n / 1e9).toFixed(1) + 'B' : n >= 1e6 ? (n / 1e6).toFixed(1) + 'M' : n >= 1e3 ? Math.round(n / 1e3) + 'K' : String(n);
+const models: [string, number][] = u.models ?? [];
+---
+
+<div class="wb-board" id="wb-board" role="dialog" aria-modal="true" aria-labelledby="wb-board-title" hidden>
+  <div class="wb-board-inner">
+    <div class="wb-board-head">
+      <div class="wb-board-headline">
+        <span class="mono wb-board-kicker">WORKBENCH · 工作台</span>
+        <h2 class="wb-board-title" id="wb-board-title">这页本身，就是产出</h2>
+      </div>
+      <button class="wb-close" id="wb-close" type="button" aria-label="收起数据看板">
+        收起
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+      </button>
+    </div>
+
+    <div class="wb-board-grid">
+      <!-- 主 tile · 产出叙事 -->
+      <section class="wb-tile wb-tile-hero">
+        <p class="wb-hero-say">
+          累计 <b>{u.cumulative}</b> tokens 的真实 AI 协作，沉淀为
+          <a href="#projects">{projectsCount} 个项目</a>、<a href="#knowledge">{notesLabel} 篇笔记</a>、<a href="#blog">{postsCount} 篇写作</a>，以及这座主页本身。
+        </p>
+        <div class="wb-hero-live">
+          <div class="wb-live-cell"><span class="mono stat-k">今日</span><span class="stat-v">{u.today.toLocaleString()}</span></div>
+          <div class="wb-live-cell"><span class="mono stat-k">本周</span><span class="stat-v">{u.week}</span></div>
+          <div class="wb-live-cell"><span class="mono stat-k">连续活跃</span><span class="stat-v">{coding.streak}<span class="stat-unit">天</span></span></div>
+        </div>
+      </section>
+
+      <!-- 模型分布 · 分段条 -->
+      <section class="wb-tile wb-tile-models">
+        <div class="mono wb-label">模型分布{isUsageSample && <em class="sample-badge">样例</em>}</div>
+        <div class="wb-modelbar" role="img" aria-label={'模型分布：' + models.map(([m, p]) => `${m} ${p}%`).join('，')}>
+          {models.map(([m, p], i) => (<span class="wb-modelseg" style={`flex:${p}; background:var(--mseg-${Math.min(i, 3)})`}></span>))}
+        </div>
+        <div class="wb-modellegend">
+          {models.map(([m, p], i) => (
+            <span class="mono wb-modelleg"><span class="wb-modeldot" style={`background:var(--mseg-${Math.min(i, 3)})`}></span>{m} <b>{p}%</b></span>
+          ))}
+        </div>
+      </section>
+
+      <!-- 全宽多源热力图 -->
+      <section class="wb-tile wb-tile-heat">
+        <div class="wb-heat-head">
+          <div class="mono wb-label">{activity ? '多源活跃 · 近 22 周' : 'CODING 活跃 · 近 22 周'}{isActivitySample && <em class="sample-badge">样例</em>}</div>
+          {activity && (
+            <div class="hm-dims mono" id="hm-dims" role="group" aria-label="切换活跃维度">
+              {hmDims.map(([key, label]) => (
+                <button class:list={['hm-dim', { active: key === 'all' }]} data-dim={key} aria-pressed={key === 'all' ? 'true' : 'false'}>{label}</button>
+              ))}
+            </div>
+          )}
+        </div>
+        <div class="hm" id="heatmap" role="img" aria-label={activity ? '多源活跃热力图，近 22 周；金色为当日最活跃，灰色为无活动' : 'CODING 活跃热力图，近 22 周'}>
+          {heatmapCols.map((col, w) => (
+            <div class="hm-col">
+              {col.map((cell, d) => (
+                <span
+                  class:list={['hm-cell', `l${cell.l}`, { future: cell.future }]}
+                  data-w={activity ? w : undefined}
+                  data-d={activity ? d : undefined}
+                ></span>
+              ))}
+            </div>
+          ))}
+        </div>
+        <div class="wb-heat-legend mono">
+          <span class="sr-only">活跃水平由少到多，最高档金色为当日最活跃。</span>
+          <span aria-hidden="true">少</span>
+          <span class="hm-leg l1" aria-hidden="true"></span><span class="hm-leg l2" aria-hidden="true"></span><span class="hm-leg l3" aria-hidden="true"></span><span class="hm-leg l4" aria-hidden="true"></span>
+          <span aria-hidden="true">多</span>
+          <span class="wb-heat-legnote" aria-hidden="true">金顶 = 当日最活跃</span>
+        </div>
+      </section>
+
+      <!-- 14 日趋势 -->
+      <section class="wb-tile wb-tile-trend">
+        <div class="mono wb-label">近 14 日用量趋势（M tokens）{isUsageSample && <em class="sample-badge">样例</em>}</div>
+        <TrendChart days={days14} />
+      </section>
+
+      <!-- 产出联动 stat tiles -->
+      <a class="wb-otile" href="#projects">
+        <div class="wb-onum">{coding.commits.toLocaleString()}</div>
+        <div class="wb-olabel">提交 <span class="wb-oarrow">→ 化为项目</span></div>
+      </a>
+      <a class="wb-otile" href="#knowledge">
+        <div class="wb-onum">{notesLabel}</div>
+        <div class="wb-olabel">笔记 <span class="wb-oarrow">→ 进知识库</span></div>
+      </a>
+      <a class="wb-otile" href="#blog">
+        <div class="wb-onum">{postsCount}</div>
+        <div class="wb-olabel">写作 <span class="wb-oarrow">→ 读文章</span></div>
+      </a>
+      <div class="wb-otile wb-otile-static">
+        <div class="wb-onum">{coding.repos}</div>
+        <div class="wb-olabel">活跃仓库</div>
+      </div>
+
+      <!-- 口径最小化入口 -->
+      <details class="wb-method">
+        <summary class="mono"><span class="wb-method-dot" aria-hidden="true"></span>口径 v2 · 数据怎么来的</summary>
+        <div class="wb-method-body">
+          <p>
+            Token：5 月底以来逐日实测{methodReal ? `（实测 ${methodReal} 天` : ''}{methodEst ? ` + 起用期估算 ${methodEst} 天）` : methodReal ? '）' : ''}；
+            {u.cumulative_code && (<>Code 实测+估算 {u.cumulative_code} · 网页端粗估 {u.cumulative_web}；</>)}
+            全口径含缓存读写 {u.today_cache_share}%，模型输出 {compact(u.today_out ?? 0)}。
+            <a href="https://github.com/Longwind1984/ricksi.com/blob/main/docs/token-estimation.md" target="_blank" rel="noreferrer">估算方法 ↗</a>
+          </p>
+          <p>活跃：多源统计涵盖代码提交（git）、笔记更新（Obsidian）、AI 会话与 GitHub 贡献，可按上方维度切换查看各来源分布。</p>
+          {(usageStamp || activityStamp) && (
+            <p class="wb-method-stamp">
+              {usageStamp && `用量更新于 ${usageStamp}`}{usageStamp && activityStamp && ' · '}{activityStamp && `活跃更新于 ${activityStamp}`}
+            </p>
+          )}
+        </div>
+      </details>
+    </div>
+  </div>
+</div>

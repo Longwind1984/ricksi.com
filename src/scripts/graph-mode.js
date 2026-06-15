@@ -1,5 +1,5 @@
 // 图谱渲染模式裁决：WebGL 能力 > 用户显式选择(localStorage) > reduced-motion > 默认 3D
-// 轻量无依赖——绝不 import three（three 只允许出现在 graph-view3d.js 的异步 chunk 里）。
+// 轻量无依赖——绝不 import three（three 只允许出现在 graph-view-galaxy.js / galaxy/* 的异步 chunk 里）。
 const KEY = 'kg-graph-mode';
 
 export function webglOK() {

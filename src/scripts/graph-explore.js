@@ -5,6 +5,7 @@
 import { renderGraph } from './graph-view.js';
 import { resolveMode, saveMode, webglOK } from './graph-mode.js';
 import { GRAPH_PALETTE } from '../lib/sample.js';
+import { scopedGraph } from '../lib/graph-scope.mjs';
 
 let gxCtl = null;
 let gxToken = 0; // 异步竞态守卫：动态 import 期间用户导航走 → 弃实例
@@ -16,7 +17,10 @@ document.addEventListener('astro:page-load', () => {
   const dataEl = document.getElementById('gx-data');
   const stage = document.getElementById('graph-stage');
   if (!dataEl || !stage) return;
-  const { graph } = JSON.parse(dataEl.textContent);
+  // 全量图（598 full + 529 stub）。作用域：'ai'=仅 AI 知识库(full)，默认；'all'=全部个人知识库。
+  const { graph: fullGraph } = JSON.parse(dataEl.textContent);
+  let scope = 'ai';
+  let graph = scopedGraph(fullGraph, scope);
 
   const panel = document.getElementById('gx-panel');
   const pCluster = document.getElementById('gx-p-cluster');
@@ -69,17 +73,29 @@ document.addEventListener('astro:page-load', () => {
     syncSliders(ctl.getParams());
   }
 
-  const clusterName = (id) => graph.clusters.find((c) => c.id === id)?.name ?? '';
+  // 用全量 clusters（含 5 个 stub 文件夹域），两种作用域下面板着色/命名都正确
+  const clusterName = (id) => fullGraph.clusters.find((c) => c.id === id)?.name ?? '';
 
   function showPanel(n) {
     current = n;
     pCluster.textContent = clusterName(n.cluster) + (n.facet ? ` · ${n.facet}` : '');
     pCluster.style.color = GRAPH_PALETTE[n.cluster % GRAPH_PALETTE.length];
     pTitle.textContent = n.title;
-    pMeta.textContent = `${n.deg} 条双链 · 创建于 ${n.created}`;
-    pOpen.href = `/kb/${n.slug}/`;
+    if (n.slug) {
+      // full 节点：有页面，可打开正文
+      pMeta.textContent = `${n.deg} 条双链 · 创建于 ${n.created}`;
+      pOpen.href = `/kb/${n.slug}/`;
+      pOpen.hidden = false;
+      pFocus.hidden = false;
+      history.replaceState(null, '', `?focus=${encodeURIComponent(n.slug)}`);
+    } else {
+      // stub 节点（个人知识库）：仅标题 + 双链拓扑，正文未公开、无站内页面
+      pMeta.textContent = `${n.deg} 条双链 · 正文未公开`;
+      pOpen.hidden = true;
+      pFocus.hidden = true;
+      history.replaceState(null, '', location.pathname);
+    }
     panel.hidden = false;
-    history.replaceState(null, '', `?focus=${encodeURIComponent(n.slug)}`);
   }
 
   async function boot(nextMode, { applyDeepLink = false } = {}) {
@@ -92,7 +108,7 @@ document.addEventListener('astro:page-load', () => {
     if (nextMode === '3d') {
       loading.hidden = false;
       try {
-        const { renderGraph3D } = await import('./graph-view3d.js');
+        const { renderGraph3D } = await import('./graph-view-galaxy.js');
         if (token !== gxToken) return; // 加载期间已导航/切换
         ctl = renderGraph3D(stage, graph, { onSelect: showPanel });
       } catch (e) {
@@ -207,6 +223,35 @@ document.addEventListener('astro:page-load', () => {
   search.addEventListener('input', () => {
     document.querySelectorAll('.gx-cluster.active').forEach((b) => b.classList.remove('active'));
     ctl?.search(search.value);
+  });
+
+  /* 作用域切换：仅 AI 知识库 / 全部个人知识库。切换 = 重算子图 + 重启渲染器 +
+     显隐 stub 主题域 chip（个人库文件夹域）。stub 节点无论选什么都无正文/无页面（数据层保证）。 */
+  function applyScopeUI() {
+    document.querySelectorAll('.gx-scope').forEach((b) =>
+      b.classList.toggle('active', b.dataset.scope === scope)
+    );
+    // stub 文件夹域的主题 chip 仅在「全部」时可见
+    document.querySelectorAll('.gx-cluster[data-tier="stub"]').forEach((b) => {
+      b.hidden = scope !== 'all';
+    });
+    if (search) search.placeholder = `搜索 ${graph.stats.notes} 篇笔记…`;
+  }
+  applyScopeUI();
+  document.querySelectorAll('.gx-scope').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const next = btn.dataset.scope;
+      if (next === scope) return;
+      scope = next;
+      graph = scopedGraph(fullGraph, scope);
+      applyScopeUI();
+      // 清理高亮/搜索/面板，按当前模式重启
+      panel.hidden = true;
+      if (search) search.value = '';
+      document.querySelectorAll('.gx-cluster.active').forEach((b) => b.classList.remove('active'));
+      history.replaceState(null, '', location.pathname);
+      boot(mode);
+    });
   });
 
   /* 主题域 chips（单选切换） */

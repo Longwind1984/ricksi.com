@@ -20,14 +20,10 @@ function initFrontier() {
 
   /* slug → 显示名（横滚条/档案卡里都有中文/原名，胶囊不再露 slug） */
   const nameOf = new Map();
-  document.querySelectorAll('.ft-prail-item[data-ft-person]').forEach((b) => {
-    nameOf.set(b.dataset.ftPerson, b.title?.split(' · ')[0] || b.textContent.trim());
-  });
+  // 全名来源：档案卡（people）+ 流内条目兜底（含 topics 的 ownerName 全名）。
+  // 横滚条/topic-chip 已被时间轴取代，旧选择器移除（曾是死查询）。
   document.querySelectorAll('.ft-pcard[data-ft-person]').forEach((c) => {
     nameOf.set(c.dataset.ftPerson, c.querySelector('.ft-pname')?.textContent ?? c.dataset.ftPerson);
-  });
-  document.querySelectorAll('.ft-topic-chip[data-ft-person]').forEach((b) => {
-    nameOf.set(b.dataset.ftPerson, b.textContent.trim().replace(/\s*\d+$/, ''));
   });
   entries.forEach((el) => {
     const k = el.dataset.person;
@@ -157,17 +153,63 @@ function initFrontier() {
   });
   apply();
 
-  if (location.hash.startsWith('#e-')) {
-    const target = document.getElementById(location.hash.slice(1));
-    if (target) {
-      target.closest('details.ft-day-fold')?.setAttribute('open', ''); // 先展开所在日组
-      target.querySelector('details')?.setAttribute('open', '');
-      requestAnimationFrame(() => {
-        target.scrollIntoView({ block: 'center' });
-        target.classList.add('ft-flash');
-        setTimeout(() => target.classList.remove('ft-flash'), 1600);
+  function revealEntry(id) {
+    const target = document.getElementById(id);
+    if (!target) return;
+    target.closest('details.ft-day-fold')?.setAttribute('open', ''); // 先展开所在日组
+    target.querySelector('details')?.setAttribute('open', '');
+    requestAnimationFrame(() => {
+      target.scrollIntoView({ block: 'center' });
+      target.classList.add('ft-flash');
+      setTimeout(() => target.classList.remove('ft-flash'), 1600);
+    });
+  }
+  if (location.hash.startsWith('#e-')) revealEntry(location.hash.slice(1));
+  // 同页内 #e- 链接（时间轴节点等）点击改变 hash 不触发 page-load，需 hashchange 兜住（全局挂一次）
+  if (!window.__ftHashBound) {
+    window.__ftHashBound = true;
+    window.addEventListener('hashchange', () => {
+      if (location.hash.startsWith('#e-')) {
+        const t = document.getElementById(location.hash.slice(1));
+        if (!t) return;
+        t.closest('details.ft-day-fold')?.setAttribute('open', '');
+        t.querySelector('details')?.setAttribute('open', '');
+        requestAnimationFrame(() => {
+          t.scrollIntoView({ block: 'center' });
+          t.classList.add('ft-flash');
+          setTimeout(() => t.classList.remove('ft-flash'), 1600);
+        });
+      }
+    });
+  }
+
+  // 时间轴窗口切换（仅落地页完整版 .ft-tl 非 mini）
+  const tl = document.querySelector('.ft-tl:not(.ft-tl-mini)');
+  if (tl) {
+    const winEnd = +tl.dataset.winend;
+    const DAY = 86400000;
+    const nodes = [...tl.querySelectorAll('.ft-tl-node')];
+    const axis = [...tl.querySelectorAll('.ft-tl-axis span')];
+    const fmt = (ms) => { const d = new Date(ms); return `${d.getMonth() + 1}.${d.getDate()}`; };
+    tl.querySelector('.ft-tl-wins')?.addEventListener('click', (e) => {
+      const b = e.target.closest('.ft-tl-win');
+      if (!b) return;
+      const span = +b.dataset.win;
+      tl.querySelectorAll('.ft-tl-win').forEach((x) => x.classList.toggle('active', x === b));
+      const start = winEnd - span * DAY;
+      nodes.forEach((n) => {
+        const x = ((+n.dataset.time - start) / (span * DAY)) * 100;
+        if (x < 0 || x > 100) n.style.display = 'none';
+        else { n.style.display = ''; n.style.left = x.toFixed(2) + '%'; }
       });
-    }
+      if (axis.length === 3) { axis[0].textContent = fmt(start); axis[1].textContent = fmt(winEnd - span * DAY / 2); axis[2].textContent = '今天'; }
+      tl.querySelectorAll('.ft-tl-row').forEach((r) => {
+        r.style.display = [...r.querySelectorAll('.ft-tl-node')].some((n) => n.style.display !== 'none') ? '' : 'none';
+      });
+      tl.querySelectorAll('.ft-tl-group').forEach((gp) => {
+        gp.style.display = [...gp.querySelectorAll('.ft-tl-row')].some((r) => r.style.display !== 'none') ? '' : 'none';
+      });
+    });
   }
 }
 

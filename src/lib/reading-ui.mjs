@@ -16,6 +16,7 @@ export const TOPIC_GRADS = {
   evals: 'linear-gradient(155deg,#1F5B52 0%,#0C2522 100%)',
   prompt: 'linear-gradient(155deg,#6B4A1F 0%,#2A1C0C 100%)',
   agency: 'linear-gradient(155deg,#1F3F6B 0%,#0C1A2E 100%)',
+  harness: 'linear-gradient(155deg,#6B3A1F 0%,#281209 100%)',
 };
 
 /* 字符串稳定哈希 → 渐变索引（同一本书永远同色） */

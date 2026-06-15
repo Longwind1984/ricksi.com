@@ -164,24 +164,35 @@ export const CONFIG = {
       /taiwan|台湾|台灣|香港|新疆|西藏|中共|共产党|习近平/i,
     ],
 
-    /* 人物头像：统一风格只靠 stylePrompt 模板锁定（{name}/{title} 占位）——
-       不要把已有头像当参考图传入：实测会「串脸」（模型连主体一起复制，2026-06-12）。
+    /* 人物头像：风格靠 stylePrompt 模板锁定（{name}/{title} 占位）+ 本人真实照片做似真锚点。
+       似真：refPhotoOf 自动取「本人」真实照片做参考图（图生图）——必须传，这是还原度的来源。
+       ⚠ 只能传本人照片；传「别人的成品头像」会串脸（模型连主体一起复制，2026-06-12 实测）。
        生成：npm run frontier:portraits —— 有 GEMINI_API_KEY（env 或 scripts/.gemini-key，已 gitignore）
-       时调 nano banana 2（gemini-3.1-flash-image，v1beta，约 $0.067/张）只为缺头像的人生成；
-       无 key 时打印每人完整 prompt 供手动生成后放入 dir。改了 stylePrompt 想全员统一重生成：
-       删掉 dir 下全部 webp 再跑。头像缺失不破版：人物卡自动回退程序化「星座字母牌」
-      （frontier-ui.mjs，slug 种子确定性生成） */
+       时调 nano banana 2（gemini-3.1-flash-image，v1beta，约 $0.067/张）。
+       经济性（避免无谓调用）：默认只为「缺头像」的人生成（已有 webp 直接跳过）；改 stylePrompt 不会
+       自动重生旧图；单独重做某人用 `-- --force <slug>`；只有要全员统一重生才删 dir 下全部 webp。
+       某人还原度差先查「参考图对不对」：refPhotoOf 默认按 config 的 wiki 词条取图，偶尔会取到
+       旧照/错图——用该人的 `refPhoto: '<直链>'` 覆盖、删掉 .frontier-refs/<slug>.jpg 重跑即可。
+       无 key 时打印每人 prompt 供 AI Studio 手动生成后放入 dir。头像缺失不破版：人物卡回退程序化
+      「星座字母牌」（frontier-ui.mjs，slug 种子确定性）。
+       （Seedream/火山方舟实测复刻不了这套线稿风、似真不可控，2026-06-15 弃用于头像，仅留作其他生图备选） */
     portrait: {
       dir: 'public/assets/frontier',
       model: 'gemini-3.1-flash-image',
       size: 512, // 落盘 webp 边长
+      // 风格只锁「一致性」（钴蓝深空 + 星点 + 自然的金色点缀 + 白线稿/冰川蓝调色板），
+      // 不 micro-管构图/姿态/金线形状——留给模型自由发挥，换取更丰富有神的面部细节（别卡通化）。
+      // 教训 2026-06-15：过度具象的 prompt（强制金线横穿/头占 60%/少几笔）反而把脸做塌、卡通化。
       stylePrompt:
-        'Minimalist editorial portrait illustration of {name} ({title}), recognizable likeness, ' +
-        'three-quarter view, head and shoulders. Refined geometric line art with flat shading, ' +
-        'no photorealism. Deep navy night-sky background (#0A1222) with a sparse subtle starfield ' +
-        'and one thin warm gold accent line (#E8B36A). Palette strictly limited to: ink-white lines, ' +
-        'muted glacier-blue rim light (#4D9FEC), single gold accent. Square 1:1 composition with ' +
-        'generous negative space, subject slightly off-center. No text, no logo, no watermark, no frame.',
+        'Editorial portrait illustration of {name} ({title}), with a strong, expressive, ' +
+        'recognizable likeness and rich facial detail — refined and characterful, not ' +
+        'over-simplified or cartoonish. Refined ink line-art with flat shading, no photorealism. ' +
+        'A cohesive house look across the whole set: a deep near-black navy night-sky setting ' +
+        '(#0A1222) with a subtle starfield and an understated warm gold accent (#E8B36A) worked ' +
+        'naturally into the composition (any shape — a fine line, curve or arc, however it fits). ' +
+        'Palette kept consistent: ink-white linework, muted glacier-blue rim light (#4D9FEC), a ' +
+        'single warm gold accent. Three-quarter head-and-shoulders, square composition with ' +
+        'generous negative space. No text, no logo, no watermark, no border, no frame.',
     },
 
     /* 人物名单（草案 2026-06-12，随时增删；domain 取值见 domains） */
@@ -193,7 +204,7 @@ export const CONFIG = {
     },
     people: [
       {
-        slug: 'karpathy', name: 'Andrej Karpathy', domain: 'engineering', wiki: 'Andrej_Karpathy',
+        slug: 'karpathy', name: 'Andrej Karpathy', domain: 'engineering', constellation: 'beidou', wiki: 'Andrej_Karpathy',
         title: 'Eureka Labs 创始人，前 Tesla AI / OpenAI',
         bio: '把复杂 AI 知识压缩成人类可学习接口的教学型思想者，Software 3.0 与 agentic engineering 的提出者。',
         sources: [
@@ -203,37 +214,37 @@ export const CONFIG = {
         ],
       },
       {
-        slug: 'dario-amodei', name: 'Dario Amodei', domain: 'lab', wiki: 'Dario_Amodei',
+        slug: 'dario-amodei', name: 'Dario Amodei', domain: 'lab', constellation: 'beidou', wiki: 'Dario_Amodei',
         title: 'Anthropic CEO',
         bio: '把模型能力、安全叙事和政策表态放在同一张桌子上的公司型思想者。',
         sources: [{ type: 'x', handle: 'DarioAmodei' }], // 个人站无 RSS（2026-06-12 验证）
       },
       {
-        slug: 'ilya-sutskever', name: 'Ilya Sutskever', domain: 'lab', wiki: 'Ilya_Sutskever',
+        slug: 'ilya-sutskever', name: 'Ilya Sutskever', domain: 'lab', constellation: 'beidou', wiki: 'Ilya_Sutskever',
         title: 'SSI 创始人，前 OpenAI 首席科学家',
         bio: '低频但高信号：能力跃迁与对齐叙事之间最关键的内部见证者之一。',
         sources: [{ type: 'x', handle: 'ilyasut' }],
       },
       {
-        slug: 'demis-hassabis', name: 'Demis Hassabis', domain: 'lab', wiki: 'Demis_Hassabis',
+        slug: 'demis-hassabis', name: 'Demis Hassabis', domain: 'lab', constellation: 'beidou', wiki: 'Demis_Hassabis',
         title: 'Google DeepMind CEO',
         bio: '科学发现型 AI 路线的代表，强调世界模型与科研加速。',
         sources: [{ type: 'x', handle: 'demishassabis' }],
       },
       {
-        slug: 'yann-lecun', name: 'Yann LeCun', domain: 'research', wiki: 'Yann_LeCun',
+        slug: 'yann-lecun', name: 'Yann LeCun', domain: 'research', constellation: 'beidou', wiki: 'Yann_LeCun',
         title: 'AMI Labs 创始人，前 Meta 首席 AI 科学家',
         bio: '在 LLM 主潮之外持续押注世界模型路线的反向坐标。',
         sources: [{ type: 'x', handle: 'ylecun' }],
       },
       {
-        slug: 'francois-chollet', name: 'François Chollet', domain: 'research', wiki: 'François_Chollet',
+        slug: 'francois-chollet', name: 'François Chollet', domain: 'research', constellation: 'constellation', wiki: 'François_Chollet',
         title: 'Keras 作者，ARC-AGI 设计者',
         bio: '通过重新定义「什么才算智能」来校准 AGI 讨论的概念边界。',
         sources: [{ type: 'x', handle: 'fchollet' }],
       },
       {
-        slug: 'lilian-weng', name: 'Lilian Weng', domain: 'writing',
+        slug: 'lilian-weng', name: 'Lilian Weng', domain: 'writing', constellation: 'star',
         title: 'Thinking Machines 联创，前 OpenAI 安全研究负责人',
         bio: '长文综述的标杆：把一个研究方向的全部脉络压进一篇可执行的 Lil\'Log。',
         sources: [
@@ -242,13 +253,13 @@ export const CONFIG = {
         ],
       },
       {
-        slug: 'simon-willison', name: 'Simon Willison', domain: 'engineering', wiki: 'Simon_Willison',
+        slug: 'simon-willison', name: 'Simon Willison', domain: 'engineering', constellation: 'star', wiki: 'Simon_Willison',
         title: 'Datasette 作者，独立开发者',
         bio: 'AI 工程实践的高频观察哨：新模型、新工具的第一手试用记录。',
         sources: [{ type: 'rss', url: 'https://simonwillison.net/atom/everything/' }], // 高频源，maxPerSource 控量；X 与博客高度重复故不抓
       },
       {
-        slug: 'sam-altman', name: 'Sam Altman', domain: 'lab', wiki: 'Sam_Altman',
+        slug: 'sam-altman', name: 'Sam Altman', domain: 'lab', constellation: 'constellation', wiki: 'Sam_Altman',
         title: 'OpenAI CEO',
         bio: '产品节奏与 AGI 叙事的风向标。',
         sources: [
@@ -257,35 +268,138 @@ export const CONFIG = {
         ],
       },
       {
-        slug: 'nathan-lambert', name: 'Nathan Lambert', domain: 'writing', refPhoto: 'x:natolambert',
+        slug: 'nathan-lambert', name: 'Nathan Lambert', domain: 'writing', constellation: 'star', refPhoto: 'x:natolambert',
         title: 'AI2 研究员，Interconnects 作者',
         bio: '开源模型与后训练（RLHF）生态最稳定的中文圈外解读源。',
         sources: [{ type: 'rss', url: 'https://www.interconnects.ai/feed' }],
+      },
+      {
+        slug: 'fei-fei-li', name: 'Fei-Fei Li 李飞飞', domain: 'research', constellation: 'constellation', wiki: 'Fei-Fei_Li',
+        title: 'World Labs 创始人/CEO，斯坦福教授',
+        bio: '空间智能旗手，ImageNet 之后再押一个新范式：3D 世界模型。',
+        sources: [],
+      },
+      {
+        slug: 'chris-olah', name: 'Chris Olah', domain: 'research', constellation: 'constellation', wiki: 'Christopher_Olah',
+        title: 'Anthropic 可解释性负责人/联合创始人',
+        bio: '机制可解释性奠基人，看模型内部到底在算什么。',
+        sources: [],
+      },
+      {
+        slug: 'subbarao-kambhampati', name: 'Subbarao Kambhampati', domain: 'research', constellation: 'constellation',
+        title: 'Arizona State University 教授',
+        bio: 'LLM 不会真正规划——对 agent/推理宣称最严谨的批评者。',
+        sources: [],
+      },
+      {
+        slug: 'josh-tenenbaum', name: 'Josh Tenenbaum', domain: 'research', constellation: 'constellation',
+        title: 'MIT 教授',
+        bio: '计算认知科学旗手，用人怎么少样本学习对照 LLM。',
+        sources: [],
       },
     ],
 
     /* 话题/机构源（person 为空，topicSource 落 slug） */
     topics: [
       {
-        slug: 'anthropic', name: 'Anthropic 官方', domain: 'lab',
+        slug: 'anthropic', name: 'Anthropic 官方', domain: 'lab', constellation: 'beidou',
         sources: [{ type: 'x', handle: 'AnthropicAI' }], // 官网无 RSS（2026-06-12 验证）
       },
       {
-        slug: 'openai', name: 'OpenAI 官方', domain: 'lab',
+        slug: 'openai', name: 'OpenAI 官方', domain: 'lab', constellation: 'beidou',
         sources: [{ type: 'rss', url: 'https://openai.com/news/rss.xml' }],
       },
       {
-        slug: 'deepmind', name: 'DeepMind Blog', domain: 'lab',
+        slug: 'deepmind', name: 'DeepMind Blog', domain: 'lab', constellation: 'beidou',
         sources: [{ type: 'rss', url: 'https://deepmind.google/blog/rss.xml' }],
       },
       {
-        slug: 'arc-prize', name: 'ARC Prize', domain: 'research',
+        slug: 'arc-prize', name: 'ARC Prize', domain: 'research', constellation: 'star',
         sources: [{ type: 'rss', url: 'https://arcprize.org/feed.xml' }],
       },
       {
-        slug: 'arxiv-agents', name: 'arXiv · LLM Agent 论文', domain: 'research',
+        slug: 'arxiv-agents', name: 'arXiv · LLM Agent 论文', domain: 'research', constellation: 'planet',
         sources: [{ type: 'arxiv', query: 'cat:cs.CL AND abs:"LLM agent"', maxResults: 10 }],
       },
+      {
+        slug: 'deepseek', name: 'DeepSeek 深度求索', domain: 'lab', constellation: 'beidou',
+        sources: [],
+      },
+      {
+        slug: 'bytedance-seed', name: 'ByteDance Seed / 豆包', domain: 'lab', constellation: 'constellation',
+        sources: [],
+      },
+      {
+        slug: 'metr', name: 'METR', domain: 'research', constellation: 'constellation',
+        sources: [],
+      },
+      {
+        slug: 'epoch-ai', name: 'Epoch AI', domain: 'research', constellation: 'constellation',
+        sources: [],
+      },
     ],
+  },
+
+  /* ── 全库三态隐私迁移 · 保守发布配置 ──────────────────────────
+     现状：管线只读 vaultAiDir='04AI'，产出 598 full 节点（全文）。
+     目标：把库里【明确中性】的域以「stub」形态纳入（仅 title/id/cluster/links，
+           正文永不进任何产物、无 slug、无 content/kb 页），其余整域 + 任何域里命中
+           敏感规则的标题一律 hidden（连标题都不发）。
+     三态定义：
+       full   —— 全文发布，维持现状，仅 04AI（含 04T）。
+       stub   —— 仅元数据（标题/聚类/双链），正文不进产物。
+       hidden —— 不出现在任何产物（连标题都不发）。
+     ⚠ 本配置块只被「三态迁移管线」读取；不改动 04AI 既有 full 行为。
+        每篇 stub 候选还要逐条过 titleSensitivePatterns（命中→降级 hidden），
+        最终发布前由用户在 data/title-review.json 逐条签字（disposition）。 */
+  privacyMigration: {
+    /* 顶层文件夹（vault 一级目录名，须与磁盘完全一致）。
+       这些域【整域纳入 stub 候选】，再逐篇过标题敏感审查；命中即降 hidden。 */
+    stubFolders: ['05读书', '60流浪', '06人', '01学习', '03产品'],
+
+    /* 硬排除整域 → hidden（连标题都不出）。'(根目录)' 是哨兵值，
+       表示 vault 根目录下的散落 .md（非 04AI/非白名单子目录的顶层文件）。 */
+    hiddenFolders: [
+      '02工作', '30认真活着', '80随记', '99Archive',
+      'Cubox', 'Readwise', '00Meta', '90故纸堆',
+      '(根目录)',
+    ],
+
+    /* 标题敏感规则（命中任一 → 该笔记强制降级 hidden，无论它落在哪个白名单域）。
+       每条带 rule 标识，title-review.json 的 hitRules 里逐条记录命中了哪几类。 */
+    titleSensitivePatterns: [
+      /* ① 政治 / 地缘 —— 复用 frontier.excludePatterns（备案站硬红线）+ 显式补全
+         （特朗普/拜登/内塔尼亚胡/毛泽东/伊朗/马杜罗/伊以/美以 等中文译名）。
+         frontier.excludePatterns 在运行时由管线 spread 进来，这里只放它没覆盖的补充项。 */
+      { rule: 'political', re: /特朗普|拜登|内塔尼亚胡|毛泽东|伊朗|马杜罗|伊以|美以|中美|地缘|大选|政变|战争|冲突|局势|普京|泽连斯基|哈马斯|加沙|乌克兰|俄罗斯|以色列|巴勒斯坦/i },
+      /* ② 私人日记 —— YYYYMMDD- 开头的日记文件名 + 自我档案/职业决策/复盘/flomo/微博草稿 */
+      { rule: 'diary', re: /^\d{6,8}[-_－]/ },
+      { rule: 'diary', re: /自我档案|职业决策|复盘|flomo|微博草稿|日记|随想|碎念/i },
+      /* ③ 财务 —— 投资/持仓/估值/薪资/期权 */
+      { rule: 'finance', re: /投资|持仓|估值|薪资|薪酬|期权|股权|财务|资产|理财|收入|工资/i },
+      /* ④ 健康 —— 冒名顶替/焦虑/抑郁/体检/就医 */
+      { rule: 'health', re: /冒名顶替|焦虑|抑郁|体检|就医|心理|病|抑鬱|疗愈|情绪/i },
+      /* ⑤ 关系 —— 恋爱/分手/家庭 */
+      { rule: 'relationship', re: /恋爱|分手|家庭|家族|婚|情感|相亲|前任|暗恋/i },
+      /* ⑥ 求职 —— 跳槽/offer/面试/求职 + 简历/履历/晋升/OKR/离职/Gap/JD（03产品 职业生涯子树） */
+      { rule: 'jobhunt', re: /跳槽|offer|面试|求职|简历|履历|晋升|OKR|离职|gap\b|\bJD\b|内推|猎头/i },
+      /* ⑦ 未命名 / Untitled */
+      { rule: 'untitled', re: /^(未命名|untitled)/i },
+    ],
+
+    /* 误杀放行白名单（用户 2026-06-15 签字复核）：这些标题被上面的规则误命中（finance 的「收入」、
+       health 的「心理」），但实为中性学术/读书笔记，显式放行为 stub。
+       注意：放行【不覆盖政治红线】——政治命中者即便在此列表也仍 hidden（classify 里政治判定优先）。 */
+    titleOverrideAllow: [
+      '中国农民亩均收入',
+      '中等收入陷阱',
+      '0163心理学',
+      '心理',
+      '心理动机：激发行动力的底层逻辑',
+    ],
+
+    /* dry-run 产物：扫描 + 分级结果，给用户审标题用。落 .private/（已 gitignore），绝不入库；
+       hidden 整域排除条目只出文件夹摘要、不出明文标题（防审阅文件被传阅/截图泄漏）。 */
+    titleReviewOut: path.resolve('.private', 'title-review.json'),
   },
 };
