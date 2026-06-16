@@ -19,16 +19,6 @@ const I = (paths: string) =>
 
 export const PROJECTS: Project[] = [
   {
-    title: '博物志 · 把 AI 的约束当设计原则',
-    desc: '我的 AI PM 作品集：把自己拆成 8 个有边界的 agent、跑 5 个 sprint，从零做一个 AI 原生文博收藏产品。核心不是用 AI 写代码，是把它的三个约束（角色有边界 / 上下文冷启动 / 文件系统即状态）当成产品和协作的设计原则。一夜审计放行的 demo，被我自己一点就露馅——275 件文物静默回退成同一件，于是加了第 7 个「必须真点击」的审计；一条 RAG 反幻觉管道，无出处的 chunk 当场拒收。产出：三联动可跑 demo（28/28 绿）、277 件 ×11 字段结构化数据、约 10,600 字方法论复盘。MVP 未发布、KPI 全是假设——都写在页面里。',
-    tags: ['AI 原生产品', '多智能体方法论', 'RAG 反幻觉'],
-    icon: I('<circle cx="5" cy="6" r="2.2"/><circle cx="19" cy="6" r="2.2"/><circle cx="5" cy="18" r="2.2"/><circle cx="19" cy="18" r="2.2"/><circle cx="12" cy="12" r="2.6"/><path d="M6.8 7.4 9.9 10.2M17.2 7.4 14.1 10.2M6.8 16.6 9.9 13.8M17.2 16.6 14.1 13.8"/>'),
-    img: '/assets/proj-museum-collect.jpg',
-    alt: '博物志 v3 三联动 dashboard：时代柱、古国地图与文物卡片同屏联动',
-    href: '/projects/museum-collect/',
-    featured: true,
-  },
-  {
     title: 'Slash Goal · 谁来认定「干完了」',
     desc: '逆向 Codex 的 /goal 自驱动循环，在 Trae 和 Claude Code 上各复刻一遍。难点从来不是 agent 干不干得完，是它会从自己刚污染过的会话里给自己打绿灯——要么漏需求假完成，要么把半截 stub 当验收。Trae 没 hooks，只能停在「求模型自觉」；Claude Code 上换成独立冷上下文 auditor，从 spec 重推需求、对照真实文件树才放行。然后我审了自己的审计器：2 个 Critical（沙箱实证的 jq 注入、伪只读的任意代码执行）全修。厂商中途上线原生 /goal，我转成对照评测——探针级 5/5 抓出假完成。',
     tags: ['Agent 编排', '独立审计', '对抗评测'],
@@ -59,6 +49,16 @@ export const PROJECTS: Project[] = [
     featured: true,
   },
   {
+    title: '博物志 · 把 AI 的约束当设计原则',
+    desc: '我的 AI PM 作品集：把自己拆成 8 个有边界的 agent、跑 5 个 sprint，从零做一个 AI 原生文博收藏产品。核心不是用 AI 写代码，是把它的三个约束（角色有边界 / 上下文冷启动 / 文件系统即状态）当成产品和协作的设计原则。一夜审计放行的 demo，被我自己一点就露馅——275 件文物静默回退成同一件，于是加了第 7 个「必须真点击」的审计；一条 RAG 反幻觉管道，无出处的 chunk 当场拒收。产出：三联动可跑 demo（28/28 绿）、277 件 ×11 字段结构化数据、约 10,600 字方法论复盘。MVP 未发布、KPI 全是假设——都写在页面里。',
+    tags: ['AI 原生产品', '多智能体方法论', 'RAG 反幻觉'],
+    icon: I('<circle cx="5" cy="6" r="2.2"/><circle cx="19" cy="6" r="2.2"/><circle cx="5" cy="18" r="2.2"/><circle cx="19" cy="18" r="2.2"/><circle cx="12" cy="12" r="2.6"/><path d="M6.8 7.4 9.9 10.2M17.2 7.4 14.1 10.2M6.8 16.6 9.9 13.8M17.2 16.6 14.1 13.8"/>'),
+    img: '/assets/proj-museum-collect.jpg',
+    alt: '博物志 v3 三联动 dashboard：时代柱、古国地图与文物卡片同屏联动',
+    href: '/projects/museum-collect/',
+    featured: true,
+  },
+  {
     title: '博物馆互动导览',
     desc: '讲解与引路结合的导览 demo。定位上做减法：不做覆盖型百科，只答「它为什么在这里」。仓库含可本地运行的演示与说明，在线版部署中。',
     tags: ['互动叙事', 'Demo'],
@@ -66,7 +66,6 @@ export const PROJECTS: Project[] = [
     img: '/assets/proj-museum.svg',
     alt: '山西博物院策展批判型导览 Demo 界面示意',
     href: 'https://github.com/Longwind1984/prac_Museum',
-    featured: true,
   },
   {
     title: '行程规划套件',

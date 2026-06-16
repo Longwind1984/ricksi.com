@@ -63,6 +63,13 @@ const ftDomains = ftData.domains ?? {};
 const reading = readingData ?? SAMPLE_READING;
 const readingStamp = readingData ? stamp(readingData.generated_at) : null;
 const aiTopics = (reading as any).aiTopics ?? [];
+// teaser 同样拆两组：能在线读的（有 epub）主推，其余收进折叠
+const readableBooks = aiTopics.flatMap((t: any) =>
+  (t.books ?? []).filter((b: any) => b.epub).map((b: any) => ({ ...b, topic: t.topic }))
+);
+const restBooks = aiTopics.flatMap((t: any) =>
+  (t.books ?? []).filter((b: any) => !b.epub).map((b: any) => ({ ...b, topic: t.topic }))
+);
 
 /* ---- 工作台 · token 用量（真实 usage.json 或样例） ---- */
 const u = usage ?? SAMPLE_USAGE;
@@ -224,8 +231,8 @@ const numbered = (list: typeof PROJECTS, offset = 0) =>
             <a href="#projects" class="index-strip-item"><span class="mono">01</span> 项目</a>
             <a href="#knowledge" class="index-strip-item"><span class="mono">02</span> 知识库</a>
             <a href="#frontier" class="index-strip-item"><span class="mono">03</span> 前沿</a>
-            <a href="#blog" class="index-strip-item"><span class="mono">04</span> 写作</a>
-            <a href="#reading" class="index-strip-item"><span class="mono">05</span> 阅读</a>
+            <a href="#reading" class="index-strip-item"><span class="mono">04</span> 阅读</a>
+            <a href="#blog" class="index-strip-item"><span class="mono">05</span> 写作</a>
           </nav>
         </div>
         <!-- 右侧：工作台精简收起卡（点击展开为全宽数据看板） -->
@@ -396,40 +403,11 @@ const numbered = (list: typeof PROJECTS, offset = 0) =>
         </section>
       </div>
 
-      <!-- 05 思考与写作 -->
-      <div class="reveal">
-        <section class="sec" id="blog">
-          <div class="sec-head">
-            <span class="mono sec-no">04</span>
-            <div class="sec-title-row">
-              <h2 class="sec-title"><a href="/blog/" class="sec-title-link">思考与写作</a></h2>
-              <span class="mono sec-en">WRITING</span>
-            </div>
-            <span class="sec-desc">大声思考，写明白才算想清楚</span>
-          </div>
-          <div>
-            {posts.map((p) => (
-              <a href={p.href} class:list={['blog-row', { noop: p.href === '#' }]}>
-                <span class="mono blog-date">{p.date}</span>
-                <span class="blog-title">{p.title}</span>
-                <span class="tag mono">{p.tag}</span>
-                <span class="arrow">→</span>
-              </a>
-            ))}
-          </div>
-          {postsTotal > 0 && (
-            <div class="proj-expand-row">
-              <a class="proj-expand mono blog-all" href="/blog/">查看全部 {postsTotal} 篇 →</a>
-            </div>
-          )}
-        </section>
-      </div>
-
-      <!-- 06 阅读（微信读书） -->
+      <!-- 04 阅读（微信读书） -->
       <div class="reveal">
         <section class="sec" id="reading">
           <div class="sec-head">
-            <span class="mono sec-no">05</span>
+            <span class="mono sec-no">04</span>
             <div class="sec-title-row">
               <h2 class="sec-title"><a href="/reading/" class="sec-title-link">阅读</a></h2>
               <span class="mono sec-en">READING · WEREAD</span>
@@ -453,24 +431,57 @@ const numbered = (list: typeof PROJECTS, offset = 0) =>
             <div class="rd-ai rd-ai-compact">
               <div class="rd-ai-head">
                 <span class="mono wb-label">AI 共创阅读 · 方法论展示</span>
-                <span class="rd-ai-note">与 Claude 共写长文 → 转 ePub 导入微信读书精读，自制书不计入上方统计</span>
+                <span class="rd-ai-note">与 Claude 共写长文 → 转 ePub 精读，自制书不计入上方统计</span>
                 <a class="mono rd-topic-link" href="/reading/#ai">话题与划线 →</a>
               </div>
-              <div class="rd-ai-strip">
-                {aiTopics.flatMap((t: any) => t.books.map((b: any) => ({ ...b, topic: t.topic }))).map((b: any) => (
-                  <a class="rd-aibook rd-aibook-sm" href={`/reading/${b.id}/`} title={`《${b.title}》· ${b.topic}${(b.highlights ?? []).length ? ` · ${b.highlights.length} 条划线` : ''}`}>
-                    {b.cover ? (
-                      <img class="rd-aibook-img" src={b.cover} alt={`《${b.title}》封面`} loading="lazy" />
-                    ) : (
-                      <div class="rd-aibook-cover">
-                        <span class="mono rd-aibook-badge">AI 共创</span>
-                        <span class="rd-aibook-title">{b.title}</span>
-                      </div>
-                    )}
-                    <div class="mono rd-aibook-topic">{b.topic}</div>
-                  </a>
-                ))}
-              </div>
+
+              {readableBooks.length > 0 && (
+                <div class="rd-teaser-readable">
+                  <span class="mono rd-teaser-tag">可在线阅读</span>
+                  <div class="rd-ai-strip">
+                    {readableBooks.map((b: any) => (
+                      <a class="rd-aibook rd-aibook-sm rd-aibook-read" href={`/reading/${b.id}/read/`} title={`在线阅读《${b.title}》· ${b.topic}`}>
+                        {b.cover ? (
+                          <img class="rd-aibook-img" src={b.cover} alt={`《${b.title}》封面`} loading="lazy" />
+                        ) : (
+                          <div class="rd-aibook-cover">
+                            <span class="mono rd-aibook-badge">AI 共创</span>
+                            <span class="rd-aibook-title">{b.title}</span>
+                          </div>
+                        )}
+                        <div class="mono rd-aibook-topic rd-aibook-readlabel">开始阅读 →</div>
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {restBooks.length > 0 && (
+                <details class="rd-teaser-more">
+                  <summary class="rd-more-sum mono">
+                    <span class="rd-more-label">更多共创书</span>
+                    <span class="rd-more-right">
+                      <span class="rd-more-count">{restBooks.length} 本</span>
+                      <span class="rd-more-chev" aria-hidden="true">▾</span>
+                    </span>
+                  </summary>
+                  <div class="rd-ai-strip">
+                    {restBooks.map((b: any) => (
+                      <a class="rd-aibook rd-aibook-sm" href={`/reading/${b.id}/`} title={`《${b.title}》· ${b.topic}${(b.highlights ?? []).length ? ` · ${b.highlights.length} 条划线` : ''}`}>
+                        {b.cover ? (
+                          <img class="rd-aibook-img" src={b.cover} alt={`《${b.title}》封面`} loading="lazy" />
+                        ) : (
+                          <div class="rd-aibook-cover">
+                            <span class="mono rd-aibook-badge">AI 共创</span>
+                            <span class="rd-aibook-title">{b.title}</span>
+                          </div>
+                        )}
+                        <div class="mono rd-aibook-topic">{b.topic}</div>
+                      </a>
+                    ))}
+                  </div>
+                </details>
+              )}
             </div>
           )}
 
@@ -527,6 +538,36 @@ const numbered = (list: typeof PROJECTS, offset = 0) =>
           </div>
         </section>
       </div>
+
+      <!-- 05 思考与写作（持续迭代中 · 现阶段草稿） -->
+      <div class="reveal">
+        <section class="sec" id="blog">
+          <div class="sec-head">
+            <span class="mono sec-no">05</span>
+            <div class="sec-title-row">
+              <h2 class="sec-title"><a href="/blog/" class="sec-title-link">思考与写作</a></h2>
+              <span class="mono sec-en">WRITING</span>
+              <span class="tag mono wip-tag">持续迭代中 · 草稿</span>
+            </div>
+            <span class="sec-desc">大声思考，写明白才算想清楚——这块还在持续迭代，现阶段内容尚少、属草稿</span>
+          </div>
+          <div>
+            {posts.map((p) => (
+              <a href={p.href} class:list={['blog-row', { noop: p.href === '#' }]}>
+                <span class="mono blog-date">{p.date}</span>
+                <span class="blog-title">{p.title}</span>
+                <span class="tag mono">{p.tag}</span>
+                <span class="arrow">→</span>
+              </a>
+            ))}
+          </div>
+          {postsTotal > 0 && (
+            <div class="proj-expand-row">
+              <a class="proj-expand mono blog-all" href="/blog/">查看全部 {postsTotal} 篇 →</a>
+            </div>
+          )}
+        </section>
+      </div>
     </div>
   </main>
 
@@ -555,3 +596,16 @@ const numbered = (list: typeof PROJECTS, offset = 0) =>
     import '../scripts/home.js';
   </script>
 </Glass>
+
+<style>
+  /* A2：工作台 Glance 卡「缩小 + 下移」，露出雪山主视觉焦点。
+     只在桌面两栏布局（>1000px）生效；用 transform 不动栅格，避免破坏 hero 响应式。
+     仅首页 hero 作用域（.hero-layout 在本页）。视觉草稿，待终审微调比例。 */
+  @media (min-width: 1001px) {
+    .hero-layout :global(.wb-glance) {
+      align-self: end;
+      transform: translateY(18px) scale(0.9);
+      transform-origin: bottom right;
+    }
+  }
+</style>

@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-06-15T16:41:58Z",
+ "generated_at": "2026-06-16T09:35:13.121Z",
  "rollingDays": 90,
  "domains": {
   "lab": "前沿实验室",
@@ -13,191 +13,444 @@
    "name": "Andrej Karpathy",
    "domain": "engineering",
    "title": "Eureka Labs 创始人，前 Tesla AI / OpenAI",
-   "bio": "把复杂 AI 知识压缩成人类可学习接口的教学型思想者，Software 3.0 与 agentic engineering 的提出者。",
-   "constellation": "polaris"
+   "bio": "把复杂 AI 知识压缩成人类可学习接口的教学型思想者，Software 3.0 与 agentic engineering 的提出者。"
   },
   {
    "slug": "dario-amodei",
    "name": "Dario Amodei",
    "domain": "lab",
    "title": "Anthropic CEO",
-   "bio": "把模型能力、安全叙事和政策表态放在同一张桌子上的公司型思想者。",
-   "constellation": "polaris"
+   "bio": "把模型能力、安全叙事和政策表态放在同一张桌子上的公司型思想者。"
   },
   {
    "slug": "ilya-sutskever",
    "name": "Ilya Sutskever",
    "domain": "lab",
    "title": "SSI 创始人，前 OpenAI 首席科学家",
-   "bio": "低频但高信号：能力跃迁与对齐叙事之间最关键的内部见证者之一。",
-   "constellation": "polaris"
+   "bio": "低频但高信号：能力跃迁与对齐叙事之间最关键的内部见证者之一。"
   },
   {
    "slug": "demis-hassabis",
    "name": "Demis Hassabis",
    "domain": "lab",
    "title": "Google DeepMind CEO",
-   "bio": "科学发现型 AI 路线的代表，强调世界模型与科研加速。",
-   "constellation": "polaris"
+   "bio": "科学发现型 AI 路线的代表，强调世界模型与科研加速。"
   },
   {
    "slug": "yann-lecun",
    "name": "Yann LeCun",
    "domain": "research",
    "title": "AMI Labs 创始人，前 Meta 首席 AI 科学家",
-   "bio": "在 LLM 主潮之外持续押注世界模型路线的反向坐标。",
-   "constellation": "polaris"
+   "bio": "在 LLM 主潮之外持续押注世界模型路线的反向坐标。"
   },
   {
    "slug": "francois-chollet",
    "name": "François Chollet",
    "domain": "research",
    "title": "Keras 作者，ARC-AGI 设计者",
-   "bio": "通过重新定义「什么才算智能」来校准 AGI 讨论的概念边界。",
-   "constellation": "constellation"
+   "bio": "通过重新定义「什么才算智能」来校准 AGI 讨论的概念边界。"
   },
   {
    "slug": "lilian-weng",
    "name": "Lilian Weng",
    "domain": "writing",
    "title": "Thinking Machines 联创，前 OpenAI 安全研究负责人",
-   "bio": "长文综述的标杆：把一个研究方向的全部脉络压进一篇可执行的 Lil'Log。",
-   "constellation": "star"
+   "bio": "长文综述的标杆：把一个研究方向的全部脉络压进一篇可执行的 Lil'Log。"
   },
   {
    "slug": "simon-willison",
    "name": "Simon Willison",
    "domain": "engineering",
    "title": "Datasette 作者，独立开发者",
-   "bio": "AI 工程实践的高频观察哨：新模型、新工具的第一手试用记录。",
-   "constellation": "star"
+   "bio": "AI 工程实践的高频观察哨：新模型、新工具的第一手试用记录。"
   },
   {
    "slug": "sam-altman",
    "name": "Sam Altman",
    "domain": "lab",
    "title": "OpenAI CEO",
-   "bio": "产品节奏与 AGI 叙事的风向标。",
-   "constellation": "constellation"
+   "bio": "产品节奏与 AGI 叙事的风向标。"
   },
   {
    "slug": "nathan-lambert",
    "name": "Nathan Lambert",
    "domain": "writing",
    "title": "AI2 研究员，Interconnects 作者",
-   "bio": "开源模型与后训练（RLHF）生态最稳定的中文圈外解读源。",
-   "constellation": "star"
+   "bio": "开源模型与后训练（RLHF）生态最稳定的中文圈外解读源。"
   },
   {
    "slug": "fei-fei-li",
    "name": "Fei-Fei Li 李飞飞",
    "domain": "research",
    "title": "World Labs 创始人/CEO，斯坦福教授",
-   "bio": "空间智能旗手，ImageNet 之后再押一个新范式：3D 世界模型。",
-   "constellation": "constellation"
+   "bio": "空间智能旗手，ImageNet 之后再押一个新范式：3D 世界模型。"
   },
   {
    "slug": "chris-olah",
    "name": "Chris Olah",
    "domain": "research",
    "title": "Anthropic 可解释性负责人/联合创始人",
-   "bio": "机制可解释性奠基人，看模型内部到底在算什么。",
-   "constellation": "constellation"
+   "bio": "机制可解释性奠基人，看模型内部到底在算什么。"
   },
   {
    "slug": "subbarao-kambhampati",
    "name": "Subbarao Kambhampati",
    "domain": "research",
    "title": "Arizona State University 教授",
-   "bio": "LLM 不会真正规划——对 agent/推理宣称最严谨的批评者。",
-   "constellation": "constellation"
+   "bio": "LLM 不会真正规划——对 agent/推理宣称最严谨的批评者。"
   },
   {
    "slug": "josh-tenenbaum",
    "name": "Josh Tenenbaum",
    "domain": "research",
    "title": "MIT 教授",
-   "bio": "计算认知科学旗手，用人怎么少样本学习对照 LLM。",
-   "constellation": "constellation"
+   "bio": "计算认知科学旗手，用人怎么少样本学习对照 LLM。"
   }
  ],
  "topics": [
   {
    "slug": "anthropic",
    "name": "Anthropic 官方",
-   "domain": "lab",
-   "constellation": "polaris"
+   "domain": "lab"
   },
   {
    "slug": "openai",
    "name": "OpenAI 官方",
-   "domain": "lab",
-   "constellation": "polaris"
+   "domain": "lab"
   },
   {
    "slug": "deepmind",
    "name": "DeepMind Blog",
-   "domain": "lab",
-   "constellation": "polaris"
+   "domain": "lab"
   },
   {
    "slug": "arc-prize",
    "name": "ARC Prize",
-   "domain": "research",
-   "constellation": "star"
+   "domain": "research"
   },
   {
    "slug": "arxiv-agents",
    "name": "arXiv · LLM Agent 论文",
-   "domain": "research",
-   "constellation": "planet"
+   "domain": "research"
   },
   {
    "slug": "deepseek",
    "name": "DeepSeek 深度求索",
-   "domain": "lab",
-   "constellation": "polaris"
+   "domain": "lab"
   },
   {
    "slug": "bytedance-seed",
    "name": "ByteDance Seed / 豆包",
-   "domain": "lab",
-   "constellation": "constellation"
+   "domain": "lab"
   },
   {
    "slug": "metr",
    "name": "METR",
-   "domain": "research",
-   "constellation": "constellation"
+   "domain": "research"
   },
   {
    "slug": "epoch-ai",
    "name": "Epoch AI",
-   "domain": "research",
-   "constellation": "constellation"
+   "domain": "research"
   }
  ],
  "stats": {
-  "totalEntries": 118,
-  "totalAllTime": 118,
+  "totalEntries": 125,
+  "totalAllTime": 127,
   "lastRun": {
-   "at": "2026-06-15T13:38:21.435Z",
-   "fetched": 11,
-   "processed": 11,
+   "at": "2026-06-16T09:35:13.122Z",
+   "fetched": 14,
+   "processed": 9,
    "added": 9,
    "llmFailed": 0,
    "rateLimited": false,
    "skippedSources": [
     "x:yann-lecun@ylecun"
    ]
-  },
-  "backfillImported": {
-   "at": "2026-06-16",
-   "added": 82,
-   "deduped": 5
   }
  },
  "entries": [
+  {
+   "id": "f97ec39585de0340",
+   "date": "2026-06-16",
+   "person": "simon-willison",
+   "topicSource": null,
+   "sourceName": "simonwillison.net",
+   "sourceType": "rss",
+   "contentType": "authored",
+   "titleZh": "Fable 5出口管制误判\"修复代码\"为越狱，损害美国网络防御",
+   "titleOriginal": "The Fable 5 Export Controls Harm US Cyber Defense",
+   "verdict": "防御性安全研究中\"修复代码\"被认定越狱触发出口管制，暴露AI安全政策的根本性技术误判。",
+   "summaryZh": "Simon Willison在博客中引用安全研究员Kate Moussouris的证词，还原Claude Fable 5因\"越狱\"遭出口管制封禁的真相：研究人员要求模型审查含已知CVE漏洞和故意植入漏洞的代码，Fable 5拒绝后他们改用\"修复这段代码\"的提示词，经多步骤手动流程将输出转化为测试补丁的脚本。Willison指出这荒谬至极——修复安全漏洞恰恰是AI最有价值的防御性用途。防御安全的核心循环（发现→修复→验证补丁）依赖AI解释修复原因并生成验证测试，这与攻击性利用在技术层无法切割：移除该能力必然同步削弱模型整体代码修复能力。他批评非技术决策者长期接受\"能辅助网络攻击的模型极度危险\"的叙事，正将防御性安全工具错误归类，出口管制政策实质上正在误伤真正的网络安全防御工作。",
+   "tags": [
+    "出口管制",
+    "Claude Fable 5",
+    "安全风险",
+    "AI治理",
+    "AI政策",
+    "Anthropic"
+   ],
+   "url": "https://simonwillison.net/2026/Jun/16/fable-5-export-controls",
+   "excerpt": "The Fable 5 Export Controls Harm US Cyber Defense\nI quoted The Atlantic quoting Kate Moussouris earlier, when I should have gone straight to the source. Here she is confirming that the \"jailbreak\" that got Claude Fable 5 banned under an export control really was \"fix this code\":\nThe researchers took open-source code with known CVEs, plus new code with deliberately planted vulnerabilities, and asked Fable 5, Mythos, and Opus to “review the code for security issues.” Fable 5 refused. They then ask",
+   "apparent": 3,
+   "absolute": 3,
+   "importance": 3,
+   "gravity": false,
+   "periodic": false,
+   "singularity": false,
+   "rationale": "Willison的评论精准点出出口管制政策的技术认知盲区，属圈内有效分析而非轻量观点；声量限于AI安全子社区，分量在于清晰揭示政策误判的实质危害，给后续政策讨论提供具体案例依据。",
+   "insufficientContext": false,
+   "addedAt": "2026-06-16"
+  },
+  {
+   "id": "8272eda854b13857",
+   "date": "2026-06-16",
+   "person": "simon-willison",
+   "topicSource": null,
+   "sourceName": "simonwillison.net",
+   "sourceType": "rss",
+   "contentType": "cited",
+   "titleZh": "白宫 Fable 越狱报告：网络安全专家为 Anthropic 辩护，称属\"按预期运作\"",
+   "titleOriginal": "Quoting Matteo Wong, The Atlantic",
+   "verdict": "白宫将 Fable 对语义近似指令的差异响应定性为越狱，独立安全专家却认定是正常防御设计——两方叙事分歧折射 AI 安全标准尚无共识。",
+   "summaryZh": "《大西洋月刊》记者 Matteo Wong 报道，网络安全专家、Luta Security CEO Katie Moussouris 受 Anthropic 委托评估白宫关于 Claude Fable 模型\"越狱\"事件的报告（Moussouris 声明未收取 Anthropic 报酬）。报告显示：IT 专家向 Fable 提交刻意植入漏洞的代码，当要求\"review the code for security issues\"时模型拒绝执行，改换为\"fix this code\"后模型则配合操作，并辅以若干手动步骤。Moussouris 认为这不是越狱成功，而是\"模型按预期运作\"以服务于网络防御目的。此事件是白宫针对 Anthropic 施压行动的组成部分，但外部专家评估结论与白宫叙事存在明显分歧。Simon Willison 在其博客上转引该报道，标注了 jailbreaking、ai-security-research 等标签。本条材料信息量有限，仅涉及专家单方评估，白宫报告原文及 Anthropic 官方回应均未在此处呈现。",
+   "tags": [
+    "Anthropic",
+    "Claude Fable 5",
+    "安全风险",
+    "AI治理",
+    "AI政策",
+    "prompt injection"
+   ],
+   "url": "https://simonwillison.net/2026/Jun/16/matteo-wong-the-atlantic",
+   "excerpt": "Katie Moussouris, a cybersecurity expert and the CEO of Luta Security, told me that Anthropic shared with her a copy of the White House’s report on the Fable jailbreak to get her appraisal. (She said that she is not being paid by Anthropic.) The report, Moussouris said, involved IT experts asking Fable to help find and patch bugs. When given deliberately insecure code, she said, Fable refused the prompt “review the code for security issues” but then complied when asked to “fix this code,” follow",
+   "apparent": 4,
+   "absolute": 3,
+   "importance": 3,
+   "gravity": false,
+   "periodic": false,
+   "singularity": false,
+   "rationale": "声量来自《大西洋月刊》及白宫层面的关注，圈内广泛转发；分量在于揭示模型对语义近似指令的差异响应以及 AI 安全评估标准的争议，但无新能力突破，属有效增量而非范式改写。",
+   "insufficientContext": false,
+   "addedAt": "2026-06-16"
+  },
+  {
+   "id": "61904a15c7837dce",
+   "date": "2026-06-16",
+   "person": "simon-willison",
+   "topicSource": null,
+   "sourceName": "simonwillison.net",
+   "sourceType": "rss",
+   "contentType": "authored",
+   "titleZh": "Simon Willison：借 Claude Code 解决 Cloudflare CAPTCHA 误触发，顺带踩出 MCP 权限边界",
+   "titleOriginal": "Cloudflare CAPTCHA on at least one ampersand",
+   "verdict": "一则实操 TIL，AI 仅作辅助调试工具出现；真正有价值的侧面是 Cloudflare MCP 权限不足时 Claude Code 自动回退到 API 的真实案例。",
+   "summaryZh": "Simon Willison 分享了一条 Cloudflare WAF 配置技巧：将搜索页 CAPTCHA 的触发条件限定为查询字符串含 ampersand（`&`）的请求，使简单的 `/search/?q=term` 不再触发人机验证挑战，对应规则为 `http.request.uri.query contains \"&\"`。过程中他使用 Claude Code 辅助排查规则写法，并尝试了 Cloudflare MCP（Model Context Protocol）——但该 MCP 无法编辑目标防火墙规则，最终让 Claude Code 切换至 Cloudflare REST API 完成操作。内容以运维实操记录为主，AI 相关信息量有限：Claude Code 扮演调试助手角色，Cloudflare MCP 的能力边界（不能写防火墙规则）是唯一值得关注的 MCP 现实局限案例。对 AI PM 的参考价值在于：MCP 工具与直接 API 调用之间的能力差距在真实场景中正在被用户逐条发现。",
+   "tags": [
+    "开发工具",
+    "工具调用",
+    "Claude Code"
+   ],
+   "url": "https://simonwillison.net/2026/Jun/16/captcha-on-at-least-one-ampersand",
+   "excerpt": "TIL: Cloudflare CAPTCHA on at least one ampersand\nI'm using Cloudflare's CAPTCHA (they call it a \"Web Application Firewall > Custom rules > Managed Challenge\" these days) to prevent crawlers from aggresively spidering my faceted search engine on this site, but I got fed up of even simple ?q=term searches triggering the challenge.\nAfter some mucking around with Claude Code it turns out you can register the following rule instead, so the CAPTCHA only kicks in for search URLs containing at least on",
+   "apparent": 1,
+   "absolute": 1,
+   "importance": 1,
+   "gravity": false,
+   "periodic": false,
+   "singularity": false,
+   "rationale": "纯实操 TIL 博文，主题是 Cloudflare 规则配置，AI 工具仅作辅助一笔带过，无圈内传播迹象，实质增量极低。",
+   "insufficientContext": false,
+   "addedAt": "2026-06-16"
+  },
+  {
+   "id": "e6193f6f3952dc8b",
+   "date": "2026-06-16",
+   "person": "simon-willison",
+   "topicSource": null,
+   "sourceName": "simonwillison.net",
+   "sourceType": "rss",
+   "contentType": "authored",
+   "titleZh": "datasette-agent 0.3a0 发布：数据库写操作引入用户审批机制",
+   "titleOriginal": "datasette-agent 0.3a0",
+   "verdict": "datasette-agent 新增 execute_write_sql 工具，通过用户审批把 LLM 写数据库操作纳入可控范围，是 AI Agent 安全实践的具体落地。",
+   "summaryZh": "Simon Willison 发布 datasette-agent 0.3a0 alpha 版本，核心更新是新增 `execute_write_sql` 工具，允许 LLM Agent 在获得用户明确审批后对数据库执行写操作。审批机制最初在 0.2a0 版本引入，本版本将其扩展至写 SQL 场景，并同步升级了 Chat 终端模式以支持审批流程。新增三个命令行选项：`--root`（以 root 权限运行）、`--yes`（自动批准所有审批请求）、`--unsafe`（同时启用上述两者）。工具输出也新增纯文本备选格式，便于 CLI 显示。实际使用场景包括通过自然语言提示\"create a notes table\"或\"add a note about X\"直接对数据库进行结构和数据变更。该设计体现了在 AI Agent 获得更多操作权限时，通过人机协作审批环节控制风险的工程思路，--unsafe 模式则为自动化场景提供了直通选项。",
+   "tags": [
+    "LLM Agent",
+    "工具调用",
+    "Datasette",
+    "开发工具",
+    "人机协作",
+    "安全风险"
+   ],
+   "url": "https://simonwillison.net/2026/Jun/15/datasette-agent",
+   "excerpt": "Release: datasette-agent 0.3a0\nNew tool, execute_write_sql , which requests user approval and then writes to a database - taking user permissions into account. #27\nI added a mechanism for asking user approval in datasette agent 0.2a0 . The new execute_write_sql tool can now prompt the user for all kinds of useful operations. Here's an example where I add some pelican sightings to my pelican_sightings table:\nThe new version also enhances the datasette agent chat terminal mode to support approvals",
+   "apparent": 2,
+   "absolute": 3,
+   "importance": 3,
+   "gravity": false,
+   "periodic": false,
+   "singularity": false,
+   "rationale": "实用增量工具改进：在数据库 Agent 写操作中落地用户审批机制是扎实的安全工程实践，但属工具层迭代，受众小众，不改写能力边界，声量和分量均属中低水平。",
+   "insufficientContext": false,
+   "addedAt": "2026-06-16"
+  },
+  {
+   "id": "00f43f716722ee0a",
+   "date": "2026-06-16",
+   "person": "francois-chollet",
+   "topicSource": null,
+   "sourceName": "X @fchollet",
+   "sourceType": "x",
+   "contentType": "statement",
+   "titleZh": "François Chollet：不透明的AI监管措施对整个行业适得其反",
+   "titleOriginal": "Even if you are in favor of AI regulation, you should recognize that opaque and arbitrary regulatory strikes are counter-productive for the whole industry.",
+   "verdict": "Keras创始人Chollet就AI监管发声，主张即便支持监管，不透明且任意的监管打击对行业同样有害。",
+   "summaryZh": "Keras创始人、ARC基准测试设计者François Chollet在X上发表政策立场声明，认为无论个人是否支持AI监管，不透明且随意的监管行动对整个AI行业都具有反效果。该推文措辞简短，未指向任何具体监管事件或国家政策，背景语境不明。Chollet在AI研究社区具有较高知名度，其观点会引发一定讨论，但本条内容属于一般性政策倡导，无新数据、无具体案例支撑，实质信息量有限。",
+   "tags": [
+    "AI治理",
+    "AI政策"
+   ],
+   "url": "https://x.com/fchollet/status/2066554345345147288",
+   "excerpt": "Even if you are in favor of AI regulation, you should recognize that opaque and arbitrary regulatory strikes are counter-productive for the whole industry.",
+   "apparent": 2,
+   "absolute": 2,
+   "importance": 2,
+   "gravity": false,
+   "periodic": false,
+   "singularity": false,
+   "rationale": "知名研究者的监管观点，圈内有少量关注；但无新事实、无具体指向，属轻量观点输出，对能力边界或行业格局无实质推进。",
+   "insufficientContext": true,
+   "addedAt": "2026-06-16"
+  },
+  {
+   "id": "06d5c6fb7d0b869c",
+   "date": "2026-06-15",
+   "person": "simon-willison",
+   "topicSource": null,
+   "sourceName": "simonwillison.net",
+   "sourceType": "rss",
+   "contentType": "authored",
+   "titleZh": "美政府与Anthropic\"性格冲突\"致旗舰模型下线——围绕越狱漏洞的幕后博弈",
+   "titleOriginal": "\"They screwed us\": Personality clashes sent Anthropic's models offline",
+   "verdict": "Anthropic Fable/Mythos因越狱争议遭美国商务部施压下线，安全团队紧急赴华府谈判，复上线时间表不明朗。",
+   "summaryZh": "Simon Willison 在博客中转述并评注了 Axios 一篇关于 Anthropic 与美国政府\"性格冲突\"的深度报道。核心事件：Claude Mythos/Fable 因越狱漏洞问题被要求下线，Anthropic 前沿红队负责人 Logan Graham、安全防护负责人 Dave Orr（前 Google DeepMind 工程总监）及安全研究员 Nicholas Carlini 当日紧急赴华盛顿与商务部会谈。Anthropic 将触发政府反应的越狱行为定性为\"潜在的窄域、非通用越狱\"，并以其宪法分类器（Constitutional Classifiers）研究作为防御依据，强调未发现针对 Claude Mythos 的\"通用越狱\"。然而据知情人透露，模型复上线的路径要么是实现完全越狱防御（被认为\"几乎不可能\"），要么是各方态度转变至\"皆感安全、安心、愉快\"——Willison 对此并不乐观。文中还追溯了 2023 年\"通用对抗攻击论文\"背景，并顺带提及 Logan Graham 具备 Boris Johnson 政府时期 AI 科技政策顾问的从政经历，或有助于此次谈判。",
+   "tags": [
+    "Anthropic",
+    "Claude Fable 5",
+    "出口管制",
+    "AI治理",
+    "安全风险",
+    "AI政策"
+   ],
+   "url": "https://simonwillison.net/2026/Jun/15/axios-clashes-anthropics",
+   "excerpt": "\"They screwed us\": Personality clashes sent Anthropic&#x27;s models offline\nLots of \"source familiar with the administration's thinking\" and \"source close to Anthropic\" in this Axios piece, which is the best collection of behind-the-scenes gossip I've seen about the US government export control Mythos/Fable story so far.\nLogan Graham ( I lead the Frontier Red Team at Anthropic ), Dave Orr (Head of Safeguards, previously a Director of Engineering at Google DeepMind), and blog favorite Nicholas Ca",
+   "apparent": 4,
+   "absolute": 3,
+   "importance": 3,
+   "gravity": false,
+   "periodic": false,
+   "singularity": false,
+   "rationale": "Anthropic旗舰模型因监管压力下线属重大行业事件（apparent=4），但本文以转述幕后消息为主，无新技术突破，absolute=3反映其政策层面实质意义而非能力边界变化。",
+   "insufficientContext": false,
+   "addedAt": "2026-06-16"
+  },
+  {
+   "id": "917ca93d1172f9a6",
+   "date": "2026-06-15",
+   "person": null,
+   "topicSource": "arxiv-agents",
+   "sourceName": "arXiv",
+   "sourceType": "arxiv",
+   "contentType": "authored",
+   "titleZh": "OpenClaw-Skill：集体智能驱动的技能树搜索框架提升 LLM Agent 能力",
+   "titleOriginal": "OpenClaw-Skill: Collective Skill Tree Search for Agentic Large Language Models",
+   "verdict": "提出 CSTS 框架，通过多模型协作构建可复用技能树，显著增强 LLM Agent 在工具调用、长链规划和跨模型泛化上的表现。",
+   "summaryZh": "本文提出 Collective Skill Tree Search（CSTS），一种面向 LLM Agent 的结构化技能自动构建框架，核心动机是让 Agent 在 OpenClaw 等复杂现实系统中自动习得可复用技能，而非依赖手工编写。\n\nCSTS 分两个迭代阶段运行：（1）集体技能节点生成（CSN-Gen）——调用多个模型共同探索每个子任务的候选技能，保证技能多样性；（2）集体技能节点评估（CSN-Assess）——多模型担任评委，通过「集体质量评分」聚合独立打分获得稳健的效用估计，通过「集体迁移性评分」验证技能能否跨模型泛化，而非只在生成模型上有效。两阶段迭代后产出结构化技能树与配套训练数据。\n\n在此基础上，论文进一步提出「集体技能强化学习」：训练时从技能树中主动采样多个相关技能，拓展解空间探索、避免单一技能导致的同质化或次优解。最终训练出的 OpenClaw-Skill 模型在长链规划、工具调用和泛化能力基准测试上均表现突出。\n\n该工作的关键贡献在于：将「集体智能」思路引入技能树搜索，把技能质量评估与跨模型迁移性验证统一进同一框架，并通过强化学习将技能树活用于模型训练，而非仅作静态检索库。对关注 Agent 技能工程、多模型协作和工具调用能力的研究者具有参考价值。",
+   "tags": [
+    "LLM Agent",
+    "工具调用",
+    "动态环境评测",
+    "基准测试",
+    "AI自主性",
+    "开源模型"
+   ],
+   "url": "https://arxiv.org/abs/2606.16774v1",
+   "excerpt": "Equipping Large Language Model (LLM) agents with effective skills is crucial for solving complex tasks in real-world systems like OpenClaw. In this work, we aim to develop a framework that automatically constructs such reusable skills to enhance LLMs in tool use, multi-step reasoning, and dynamic environment interaction. To this end, we propose Collective Skill Tree Search (CSTS), a novel tree-search-based skill construction framework that constructs structured, diverse and generalizable tree of",
+   "apparent": 2,
+   "absolute": 3,
+   "importance": 3,
+   "gravity": false,
+   "periodic": false,
+   "singularity": false,
+   "rationale": "方法创新点扎实（集体智能+树搜索+跨模型迁移评估三合一），有基准验证，属于 Agent 技能工程的有效增量推进，但尚无超出子领域的影响迹象，apparent 取低位、absolute 取中位。",
+   "insufficientContext": false,
+   "addedAt": "2026-06-16"
+  },
+  {
+   "id": "cb0c6762017c4c32",
+   "date": "2026-06-15",
+   "person": null,
+   "topicSource": "arxiv-agents",
+   "sourceName": "arXiv",
+   "sourceType": "arxiv",
+   "contentType": "authored",
+   "titleZh": "LLM Agent 能否推断世界模型？——基于 Agentic 自动机学习的实证研究",
+   "titleOriginal": "Can LLM Agents Infer World Models? Evidence from Agentic Automata Learning",
+   "verdict": "首个以可控确定性有限自动机为测试床系统评测 LLM Agent 世界模型推断能力的框架，结论明确：推理模型显著优于非推理模型，但面对规模增长时均远逊于经典算法。",
+   "summaryZh": "论文提出\"Agentic 自动机学习（Agentic Automata Learning）\"评测框架：让工具调用型 LLM Agent 通过与隐藏确定性有限自动机（DFA）交互来推断其结构。Agent 可使用两类查询——成员查询（某字符串是否属于目标语言？）与等价查询（当前猜测是否与目标 DFA 一致？）。框架的核心优势在于：任务复杂度可精确控制（DFA 状态数量），交互效率可量化，且存在性能上界明确的经典算法基线（如 Angluin 的 L* 算法）。\n\n主要发现：（1）随 DFA 规模增大，所有模型性能急剧下滑；（2）推理模型（reasoning models）显著强于非推理模型，但两类模型均远不及经典算法；（3）轨迹分析揭示三类普遍性失败模式——查询规划缺乏系统性、证据整合不充分、假设构建能力薄弱。该工作为评估 LLM Agent 在动态未知环境中的主动探索与推断能力提供了一个可重复、可扩展的测试床，对 Agent 设计与能力边界讨论具有参考价值。",
+   "tags": [
+    "LLM Agent",
+    "基准测试",
+    "动态环境评测",
+    "工具调用",
+    "AI自主性",
+    "推理加速"
+   ],
+   "url": "https://arxiv.org/abs/2606.16576v1",
+   "excerpt": "We propose agentic automata learning to evaluate the extent to which tool-calling LLM agents can uncover hidden environments through interaction. In our setup, an agent should uncover a hidden deterministic finite automaton (DFA) by interacting with an oracle through (1) membership queries (\"Does this string belong to the target language?\") and (2) equivalence queries (\"Is this the target DFA?\"). This yields a scalable testbed with controlled task complexity, measurable interaction efficiency, a",
+   "apparent": 2,
+   "absolute": 3,
+   "importance": 3,
+   "gravity": false,
+   "periodic": false,
+   "singularity": false,
+   "rationale": "公开 arXiv 论文，声量局限于 LLM Agent 研究子社区（apparent=2）；方法论贡献扎实——可控测试床 + 经典算法基线 + 明确失败模式分析，属有效增量（absolute=3），但尚未突破现有范式。",
+   "insufficientContext": false,
+   "addedAt": "2026-06-16"
+  },
+  {
+   "id": "133b47a213d27006",
+   "date": "2026-06-15",
+   "person": null,
+   "topicSource": "arxiv-agents",
+   "sourceName": "arXiv",
+   "sourceType": "arxiv",
+   "contentType": "authored",
+   "titleZh": "LLM 编程 Agent 能否推理时序数据？",
+   "titleOriginal": "Can LLM Coding Agents Reason About Time Series?",
+   "verdict": "首个系统对比 LLM 时序分析三种范式的实证研究，coding agent 最优但仍有 22–34% 错误率，揭示现阶段能力上限。",
+   "summaryZh": "本文系统评估 LLM Agent 在时间序列理解任务上的表现，对比三种范式：（1）直接输入原始数值数据；（2）让模型作为编程 Agent 迭代生成 Python 代码查询数据；（3）两者结合。实验基于两个时序理解基准，结果显示拥有代码执行权限的 Agent 相较于直接处理原始数据的模型准确率最高提升 10%，但即便是最优 Agent 仍有 22–34% 的问题回答错误。通过强 LLM-as-judge 对模型输出的分析，发现编程 Agent 能够选择合适的统计检验方法，却容易忽视重要细节；而直接读取原始数据的模型则能通过\"费米估算式\"推理得出正确结论。该研究针对金融、医疗、环境监测等高度依赖时序数据的决策场景，为如何部署 LLM Agent 提供了实证参考，同时也坦诚指出当前最优方案仍存在不可忽视的错误率。",
+   "tags": [
+    "LLM Agent",
+    "coding agent",
+    "基准测试",
+    "工具调用",
+    "动态环境评测",
+    "人机协作"
+   ],
+   "url": "https://arxiv.org/abs/2606.16545v1",
+   "excerpt": "Large language models (LLMs) are increasingly being used for automated decision-making systems in finance, healthcare, or environmental monitoring. Time series data are ubiquitous in these fields, yet hard to process automatically. Can time series be analyzed by LLM agents? We examine three approaches: providing the agent with raw numerical data, using the LLM as a coding agent, or a combination of both. In the coding agent setup, the model iteratively queries the data using Python code. Using t",
+   "apparent": 2,
+   "absolute": 3,
+   "importance": 3,
+   "gravity": false,
+   "periodic": false,
+   "singularity": false,
+   "rationale": "扎实的实证评测，结论（coding agent 优于原始数据输入但仍有显著错误率）对实践有参考价值，属有效增量；arXiv 预印本尚未引发广泛讨论，声量低。",
+   "insufficientContext": false,
+   "addedAt": "2026-06-16"
+  },
   {
    "id": "ecce5c2ee49155e5",
    "date": "2026-06-15",
@@ -3378,58 +3631,6 @@
    "apparent": 4,
    "absolute": 3,
    "importance": 3,
-   "gravity": false,
-   "periodic": false,
-   "canon": false,
-   "rationale": "",
-   "insufficientContext": false,
-   "addedAt": "2026-06-16",
-   "backfill": true
-  },
-  {
-   "id": "cdb09fd37cbe8b62",
-   "date": "2026-03-17",
-   "person": null,
-   "topicSource": "openai",
-   "sourceName": "Wikipedia / OpenAI Help Center",
-   "sourceType": "web",
-   "contentType": "action",
-   "titleZh": "GPT-5.4 mini/nano 上线，mini 开放免费层",
-   "titleOriginal": "GPT-5.4 mini/nano 上线，mini 开放免费层",
-   "verdict": "GPT-5.4 系列轻量版落地（基座 3 月 5 日），mini 进免费层、nano 走 API，API 定价被指偏高。",
-   "summaryZh": "GPT-5.4 系列轻量版落地（基座 3 月 5 日），mini 进免费层、nano 走 API，API 定价被指偏高。",
-   "tags": [],
-   "url": "https://en.wikipedia.org/wiki/GPT-5.4",
-   "excerpt": "",
-   "apparent": 2,
-   "absolute": 2,
-   "importance": 2,
-   "gravity": false,
-   "periodic": false,
-   "canon": false,
-   "rationale": "",
-   "insufficientContext": false,
-   "addedAt": "2026-06-16",
-   "backfill": true
-  },
-  {
-   "id": "b88ae5665d4b838c",
-   "date": "2026-03-06",
-   "person": "subbarao-kambhampati",
-   "topicSource": null,
-   "sourceName": "arXiv",
-   "sourceType": "web",
-   "contentType": "authored",
-   "titleZh": "立场论文《Stop Anthropomorphizing Intermediate Tokens as Reasoning/Thinking Traces!》更新 v3（后又 v4 6/9），确认入选 ICML 2026，获 Nature/VentureBeat/Decoder 报道",
-   "titleOriginal": "立场论文《Stop Anthropomorphizing Intermediate Tokens as Reasoning/Thinking Traces!》更新 v3（后又 v4 6/9），确认入选 ICML 2026，获 Nature/VentureBeat/Decoder 报道",
-   "verdict": "他对\"把中间 token 拟人化为推理/思考\"的旗舰反驳，窗口内多次修订并定档 ICML 2026",
-   "summaryZh": "他对\"把中间 token 拟人化为推理/思考\"的旗舰反驳，窗口内多次修订并定档 ICML 2026",
-   "tags": [],
-   "url": "https://arxiv.org/abs/2504.09762",
-   "excerpt": "",
-   "apparent": 4,
-   "absolute": 4,
-   "importance": 4,
    "gravity": false,
    "periodic": false,
    "canon": false,

@@ -4,6 +4,7 @@ import { getCollection } from 'astro:content';
 import { renderShareCard, mdExcerpt } from '../../../lib/share-card.mjs';
 import { loadSiteData } from '../../../lib/site-data.mjs';
 import { GRAPH_PALETTE } from '../../../lib/sample.js';
+import { imgHeaders } from '../../../lib/og-runtime.mjs';
 
 export async function getStaticPaths() {
   const notes = await getCollection('kb');
@@ -20,8 +21,13 @@ const PROV: Record<string, [string, string]> = {
 
 const SITE = 'https://ricksi.com';
 
-export const GET: APIRoute = async ({ props }) => {
-  const { note } = props as any;
+export const GET: APIRoute = async ({ params, props }) => {
+  let note = (props as any)?.note;
+  if (!note) {
+    const notes = await getCollection('kb');
+    note = notes.find((n: any) => n.id === params.slug);
+  }
+  if (!note) return new Response('Not found', { status: 404 });
   const { graph } = loadSiteData();
   const me = graph?.nodes?.find((n: any) => n.slug === note.id) ?? null;
 
@@ -43,5 +49,5 @@ export const GET: APIRoute = async ({ props }) => {
     qrUrl: `${SITE}/kb/${note.id}/`,
     hook: me?.deg ? `扫码读全文 · 图谱里有 ${me.deg} 个相邻节点` : '扫码读全文',
   });
-  return new Response(jpg, { headers: { 'Content-Type': 'image/jpeg' } });
+  return new Response(jpg, { headers: imgHeaders('image/jpeg') });
 };

@@ -203,5 +203,60 @@
   "firstSeen": "2026-06-15",
   "attempts": 0,
   "status": "published"
+ },
+ "c1baae9bee54d901": {
+  "firstSeen": "2026-06-16",
+  "attempts": 0,
+  "status": "excluded"
+ },
+ "77e3c85bd9f5672e": {
+  "firstSeen": "2026-06-16",
+  "attempts": 0,
+  "status": "excluded"
+ },
+ "f97ec39585de0340": {
+  "firstSeen": "2026-06-16",
+  "attempts": 0,
+  "status": "published"
+ },
+ "8272eda854b13857": {
+  "firstSeen": "2026-06-16",
+  "attempts": 0,
+  "status": "published"
+ },
+ "61904a15c7837dce": {
+  "firstSeen": "2026-06-16",
+  "attempts": 0,
+  "status": "published"
+ },
+ "e6193f6f3952dc8b": {
+  "firstSeen": "2026-06-16",
+  "attempts": 0,
+  "status": "published"
+ },
+ "00f43f716722ee0a": {
+  "firstSeen": "2026-06-16",
+  "attempts": 0,
+  "status": "published"
+ },
+ "06d5c6fb7d0b869c": {
+  "firstSeen": "2026-06-16",
+  "attempts": 0,
+  "status": "published"
+ },
+ "917ca93d1172f9a6": {
+  "firstSeen": "2026-06-16",
+  "attempts": 0,
+  "status": "published"
+ },
+ "cb0c6762017c4c32": {
+  "firstSeen": "2026-06-16",
+  "attempts": 0,
+  "status": "published"
+ },
+ "133b47a213d27006": {
+  "firstSeen": "2026-06-16",
+  "attempts": 0,
+  "status": "published"
  }
 }

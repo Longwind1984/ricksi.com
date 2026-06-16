@@ -1,5 +1,71 @@
 # WORKLOG（append-only，倒金字塔：结论在前、清单沉底）
 
+## 2026-06-16 · 30书架接入书架管线 + 阅读模块「可读/其余」双框 + 新增 Trae SOLO + 全量手动同步
+
+### 体验影响（着重 · 先看这个）
+
+- **阅读模块改成两个框**：①「可在线阅读 · 我写的书」——把能点开通读全文的 3 本自制 ePub（Harness Engineering / 解剖 Codex / Trae SOLO）单独做成主推横排卡（封面 + 副题 + 作者 + 「开始阅读」按钮直达阅读器 + 「导言与划线」次链）；②「更多共创书」——其余 8 本（仅划线、无 epub）按话题收进**默认折叠**的 details 框，点开才展开。首页 teaser 同样拆：可在线读的 3 本主推（直达 `/read/`），其余折叠。目的：让 recruiter 一眼看到「这几本是我写的、当场能读」，而不是混在一堆只有划线的书里。
+- **书架新增 Trae SOLO**（第 3 本可在线读的自制书）：字节 agentic IDE 的战略拆解，归入「Harness 工程」话题，封面/详情/阅读器/导言全到位。
+
+### 做了什么
+
+- **接入 30书架为 ePub 源真相**：`~/Documents/30书架` 写进 config，每次 `npm run sync` 的合书步自动按各书 `sourceFile` 从那里拉最新 epub 到站点、缺封面时从 epub 内封面图提取并压到 500×800。以后新增一本只需「epub 丢进 30书架 + local-books.json 登记一条」，跑 sync 即上架。
+- **跑了一遍全量手动同步**（`npm run sync -- --no-push`）：活动热力图、Token 用量、知识库图谱+笔记、微信读书划线/书架、本地书架（含 Trae SOLO）、前沿追踪（新增 9 条、现存 125 条，1 源 yann-lecun 瞬时 400 次日自补）全部刷新。
+- **项目记忆更新**：30书架 路径 + sync 各步更新范围 + 「前沿头像不在 sync 提交范围、是另一步」这条线上没生效的根因。
+
+### 关键决策 / 被否决备选
+
+- **封面：缺失才提取，不覆盖既有**。实测既有封面是 epub 内大图（2000×3200）压到 500×800 的精修缩图（md5 与原图不同），所以脚本只在目标封面缺失时才从 epub 提取，避免每次 sync 把精修缩图打回原图、产生无谓 diff。**epub 文件则永远以 30书架为准**（源 mtime 新即覆盖），因为正文内容要能随源更新。
+- **Trae SOLO 归入「Harness 工程」话题**而非新开话题：3 本可读书正好同属「agent 工程/产品拆解」，同框即「我写的书」一组，与双框 UI 自然对齐。
+- **双框 = 原生 `<details>` 零 JS**：复用站内既有折叠范式（页脚二维码/日组），无新增脚本。
+
+### 当前状态（能跑什么）
+
+- 本地纯静态 `npm run build` EXIT 0（644 页，~463s）：`/reading/` 出 3 张可读卡 + 1 个折叠「更多共创书」；`/reading/CB_local_trae-solo/` 详情 + `/read/` 阅读器 + epub(2MB)/封面(106KB) 均入 dist；首页 teaser 双区就位。dev（4321）DOM 校验：可读框 3 卡、折叠框 8 本、无 console error。
+- 数据已全量刷新但**未提交未推送**（本轮代码改动要和数据一起 push）。
+
+### 未尽事项 / 已知问题
+
+- **整轮尚未 push**（运行时出图 + A1/A2/A3 + 30书架/双框 全在工作树未提交）；push 到 main = 双平台线上重建，需用户确认后统一提交。
+- **A2 工作台卡缩小下移仅为草稿**：预览视口受限没法真机眼校，需用户在真桌面确认是否挡主视觉。
+- **B1 封面 / B2 头像线上未生效**：文件都在 repo，根因是构建慢导致部署滞后（已由运行时出图解决）+ 同名静态资源 CDN 缓存；要等本轮 push + 一次 Vercel 部署后看是否刷新，仍旧则加 `?v=hash` 破缓存。
+- **Vercel 运行时出图真机未验**：需一次 preview 部署确认 linux resvg + 冷启动。
+
+### 文件级变更清单
+
+- 书架管线：`scripts/config.mjs`（+`bookshelfDir`=30书架）、`scripts/merge-local-books.mjs`（+书架同步：拉 epub / unzip 解析 OPF 提封面 / sharp 压 500×800；话题级元数据每次刷新）
+- 书目数据：`data/local-books.json`（3 本加 `sourceFile`、新增 Trae SOLO、blurb 改「三本」）、`data/book-extras.json`（+Trae SOLO 导言）
+- 阅读 UI：`src/pages/reading/index.astro`（可读/其余双框）、`src/pages/index.astro`（teaser 双区）、`src/styles/glass.css`（`.rd-readable*` / `.rd-more*` / `.rd-teaser-*`）
+- 同步产物（手动 sync）：`data/{activity,usage,graph,kb-manifest,reading,frontier,frontier-seen}.json`、`data/frontier/`(归档)、`public/assets/books/epub/trae-solo.epub` + `epub-covers/trae-solo.png`
+- 文档：`WORKLOG.md`（本条）
+
+## 2026-06-16 · 出图改运行时（Vercel 构建 18min→分钟级）+ 首页项目重排/阅读前置
+
+### 体验影响（着重）
+
+- **构建提速（核心）**：把 KB/blog/frontier 的 share+OG 社交图（~1,316 张）从构建期预渲染改为 **Vercel 运行时 Serverless 按需出图 + CDN 缓存**。实测 `VERCEL=1 npm run build` 从 ~560s（9–18min）降到 **~8s**；Vercel 部署应随之进入分钟级。**EdgeOne/本地零改动**：未设 `VERCEL` 时仍纯静态全量预渲染（双平台兼容）。
+- **首页项目重排**：博物志移到第 4 位（Slash Goal / Writer Pipeline / Galaxy View 依次提到 1–3），第 5 位起（博物馆互动导览 / 行程 / WeatherLens）默认收进「展开全部」。
+- **阅读前置于写作**：首页 04=阅读、05=写作（含 hero 目录条 + 全站导航同步）；写作卡加「持续迭代中 · 草稿」标注（内容尚少）。
+
+### 关键决策 / 踩坑
+
+- 运行时开关用 **`astro:route:setup` 钩子**程序化设 `route.prerender=false`（仅 `og|share/{kb,blog,frontier}`）。踩坑：`export const prerender = <import 进来的值 / 自定义 import.meta.env + define>` **都不被 Astro 静态分析认**（仍全量预渲染）；钩子才可靠。
+- 双平台冲突：runtime 出图需 `@astrojs/vercel`（v8，Astro5 兼容）adapter，会改构建产物 → EdgeOne 静态会崩。解法：adapter + 钩子均按 `process.env.VERCEL` 条件化；EdgeOne 仍静态。
+- 函数依赖打包：satori 字体 / hero 底图 / `data/{graph,frontier}.json` 经 `vercel({ includeFiles })` 打进函数；端点仍 `path.resolve(cwd)` 读（Vercel 函数 cwd=项目根）。出图响应加 `Cache-Control`（s-maxage + SWR）让边缘缓存。
+- 端点 GET 改为 props（预渲染）∥ 按 params 运行时查实体双模，兼容两条构建路径。
+
+### 验证
+
+- `VERCEL=1 npm run build` → EXIT 0、~8s、产出 `_render.func`；函数内含 `@resvg/resvg-js` 原生二进制 + 6 字体 + graph/frontier.json + hero 底图（核对通过）；static 仅剩 home/site 两张图，1,316 张批量图不再预渲染。首页 + 4 个项目落地页正常生成。
+- **未跑**：本地纯静态（无 VERCEL）全量 build（~18min，逻辑未变跳过）；Vercel 真机函数调用（需一次 preview 部署确认 linux resvg + 冷启动）。
+
+### 文件级变更清单
+
+- 改部署：`astro.config.mjs`（条件 adapter+includeFiles + `astro:route:setup` 运行时出图钩子）、`package.json`/`lock`（+`@astrojs/vercel@8`）
+- 出图端点（5）：`src/pages/{og/kb,og/blog,share/kb,share/blog,share/frontier}/[...].ts`（去 `export const prerender` 文件级开关、GET 加 params 运行时查实体、`imgHeaders` 缓存头）；新增 `src/lib/og-runtime.mjs`（imgHeaders）
+- 首页：`src/data/projects.ts`（重排 + 第 5 起收起）、`src/pages/index.astro`（阅读↔写作换序 + 写作草稿标注 + 目录条）、`src/layouts/Glass.astro`（导航换序）
+- 文档：`WORKLOG.md`（本条）
+
 ## 2026-06-16 · 首页第 1 卡升级为「博物志」+ 方法论主导的可交互落地页
 
 ### 体验影响（着重 · 先看这个）
@@ -73,7 +139,7 @@
 
 ### 未尽事项与已知问题
 
-- **机构头像需重新 build 才进 dist**：上次 build 在生成机构头像之前跑的，6 张 webp 在 `public/` 已就位、下次 build/部署自动纳入；本轮未再跑 16 分钟全量 build 仅为拷贝静态图。
+- ~~机构头像需重新 build~~ 已解决：发版前重跑全量 build（642 页 exit 0，6/6 机构头像进 dist），已随大版本 push 到 main（`f86967c`，fcbadec..f86967c ff）触发部署。发版时还修了一处合并副作用：projects.ts 重复 Slash Goal 卡（工作树版 + main 版叠加）已去重。
 - **奇点目前 0 条**：分水岭事件多在 3 个月回溯窗口外，功能在位但需手动标注（`data/frontier.json` 置 `singularity:true`）或等未来事件。
 - **数据质量待你 HITL**：分享卡测试时撞到一条疑似杜撰的回溯条目（「美国政府强制暂停 Anthropic Claude 5 Fable 境外访问」挂在 Nathan Lambert 名下、评超新星）——渲染没问题，但内容可疑，建议复核回溯数据。
 - Anthropic 机构头像偏通用「AI」字样；arc-prize/metr/epoch-ai 三家无 logo 源、时间轴行暂只显名字。

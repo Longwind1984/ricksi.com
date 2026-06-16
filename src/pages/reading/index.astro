@@ -11,6 +11,15 @@ const quotes = (reading as any)?.highlights ?? [];
 const shelf = (reading as any)?.shelf ?? [];
 const current = (reading as any)?.current ?? null;
 const hlCount = (b: any) => (b.highlights ?? []).length;
+
+// 拆两组：能点开在线读的（有 epub）独立成「可在线阅读」框；其余按话题收进折叠框
+const readable = aiTopics.flatMap((t: any) =>
+  (t.books ?? []).filter((b: any) => b.epub).map((b: any) => ({ ...b, topic: t.topic, topicId: t.id }))
+);
+const restTopics = aiTopics
+  .map((t: any) => ({ ...t, books: (t.books ?? []).filter((b: any) => !b.epub) }))
+  .filter((t: any) => t.books.length > 0);
+const restCount = restTopics.reduce((s: number, t: any) => s + t.books.length, 0);
 ---
 
 <Glass
@@ -58,35 +67,86 @@ const hlCount = (b: any) => (b.highlights ?? []).length;
                 </div>
                 <span class="sec-desc">与 Claude 共写长文 → 转 ePub 导入微信读书 → 通勤路上精读划线</span>
               </div>
-              <div class="rd-ai-grid">
-                {aiTopics.map((t: any) => (
-                  <div class="rd-topic">
-                    <div class="rd-topic-head">
-                      <b>{t.topic}</b>
-                      {t.graphFocus && (
-                        <a class="mono rd-topic-link" href={`/graph?focus=${encodeURIComponent(t.graphFocus)}`}>知识图谱 ↗</a>
-                      )}
-                    </div>
-                    <p class="rd-topic-blurb">{t.blurb}</p>
-                    <div class="rd-topic-books">
-                      {t.books.map((b: any) => (
-                        <a class="rd-aibook" href={`/reading/${b.id}/`} title={`《${b.title}》${hlCount(b) ? ` · ${hlCount(b)} 条划线` : ''}`}>
+
+              {/* 框一：能点开在线读的自制书 */}
+              {readable.length > 0 && (
+                <div class="rd-readable">
+                  <div class="rd-readable-head">
+                    <span class="mono wb-label">可在线阅读 · 我写的书</span>
+                    <span class="rd-ai-note">与 Claude 共写、自制成 ePub，点开即在站内通读全文</span>
+                  </div>
+                  <div class="rd-readable-grid">
+                    {readable.map((b: any) => (
+                      <div class="rd-readable-card">
+                        <a class="rd-readable-cover-link" href={`/reading/${b.id}/read/`} aria-label={`在线阅读《${b.title}》`}>
                           {b.cover ? (
-                            <img class="rd-aibook-img" src={b.cover} alt={`《${b.title}》封面`} loading="lazy" />
+                            <img class="rd-readable-cover" src={b.cover} alt={`《${b.title}》封面`} loading="lazy" />
                           ) : (
-                            <div class="rd-aibook-cover" style={`background:${TOPIC_GRADS[t.id] ?? TOPIC_GRADS.agency}`}>
-                              <span class="mono rd-aibook-badge">AI 共创</span>
-                              <span class="rd-aibook-title">{b.title}</span>
-                              <span class="mono rd-aibook-author">{b.author || 'with Claude'}</span>
+                            <div class="rd-readable-cover rd-cover-ph" style={`background:${TOPIC_GRADS[b.topicId] ?? TOPIC_GRADS.harness}`}>
+                              <span>{b.title.slice(0, 1)}</span>
                             </div>
                           )}
-                          {hlCount(b) > 0 && <div class="mono rd-aibook-notes">{hlCount(b)} 条划线</div>}
                         </a>
-                      ))}
-                    </div>
+                        <div class="rd-readable-info">
+                          <div class="rd-readable-title">{b.title}</div>
+                          {b.subtitle && <div class="rd-readable-sub">{b.subtitle}</div>}
+                          <div class="mono rd-readable-author">{b.author || 'with Claude'}</div>
+                          <div class="rd-readable-cta">
+                            <a class="btn-accent rd-read-btn" href={`/reading/${b.id}/read/`}>
+                              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 5.5A2.5 2.5 0 0 1 4.5 3H10a2 2 0 0 1 2 2v15a1.5 1.5 0 0 0-1.5-1.5H4.5A2.5 2.5 0 0 1 2 16Z"/><path d="M22 5.5A2.5 2.5 0 0 0 19.5 3H14a2 2 0 0 0-2 2v15a1.5 1.5 0 0 1 1.5-1.5h6A2.5 2.5 0 0 0 22 16Z"/></svg>
+                              开始阅读
+                            </a>
+                            <a class="mono rd-topic-link" href={`/reading/${b.id}/`}>导言与划线 →</a>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
+                </div>
+              )}
+
+              {/* 框二：其余共创书（无 epub），按话题收进折叠 */}
+              {restTopics.length > 0 && (
+                <details class="rd-more">
+                  <summary class="rd-more-sum mono">
+                    <span class="rd-more-label">更多共创书 · 话题与划线</span>
+                    <span class="rd-more-right">
+                      <span class="rd-more-count">{restCount} 本</span>
+                      <span class="rd-more-chev" aria-hidden="true">▾</span>
+                    </span>
+                  </summary>
+                  <div class="rd-ai-grid">
+                    {restTopics.map((t: any) => (
+                      <div class="rd-topic">
+                        <div class="rd-topic-head">
+                          <b>{t.topic}</b>
+                          {t.graphFocus && (
+                            <a class="mono rd-topic-link" href={`/graph?focus=${encodeURIComponent(t.graphFocus)}`}>知识图谱 ↗</a>
+                          )}
+                        </div>
+                        <p class="rd-topic-blurb">{t.blurb}</p>
+                        <div class="rd-topic-books">
+                          {t.books.map((b: any) => (
+                            <a class="rd-aibook" href={`/reading/${b.id}/`} title={`《${b.title}》${hlCount(b) ? ` · ${hlCount(b)} 条划线` : ''}`}>
+                              {b.cover ? (
+                                <img class="rd-aibook-img" src={b.cover} alt={`《${b.title}》封面`} loading="lazy" />
+                              ) : (
+                                <div class="rd-aibook-cover" style={`background:${TOPIC_GRADS[t.id] ?? TOPIC_GRADS.agency}`}>
+                                  <span class="mono rd-aibook-badge">AI 共创</span>
+                                  <span class="rd-aibook-title">{b.title}</span>
+                                  <span class="mono rd-aibook-author">{b.author || 'with Claude'}</span>
+                                </div>
+                              )}
+                              {hlCount(b) > 0 && <div class="mono rd-aibook-notes">{hlCount(b)} 条划线</div>}
+                            </a>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </details>
+              )}
+
               {quotes.length > 0 && (
                 <div class="rd-quotes">
                   <div class="mono wb-label">共创书里的划线</div>

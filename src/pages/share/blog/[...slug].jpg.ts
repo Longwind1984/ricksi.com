@@ -2,6 +2,7 @@
 import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
 import { renderShareCard, mdExcerpt } from '../../../lib/share-card.mjs';
+import { imgHeaders } from '../../../lib/og-runtime.mjs';
 
 export async function getStaticPaths() {
   const posts = await getCollection('posts', ({ data }: any) => !data.draft);
@@ -10,8 +11,13 @@ export async function getStaticPaths() {
 
 const SITE = 'https://ricksi.com';
 
-export const GET: APIRoute = async ({ props }) => {
-  const { post } = props as any;
+export const GET: APIRoute = async ({ params, props }) => {
+  let post = (props as any)?.post;
+  if (!post) {
+    const posts = await getCollection('posts', ({ data }: any) => !data.draft);
+    post = posts.find((p: any) => p.id === params.slug);
+  }
+  if (!post) return new Response('Not found', { status: 404 });
   const d = post.data.date as Date;
   const kicker = `写作 · ${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, '0')}`;
   /* 字数/时长：CJK 逐字 + 拉丁按词，350 字/分钟 */
@@ -36,5 +42,5 @@ export const GET: APIRoute = async ({ props }) => {
     qrUrl: `${SITE}/blog/${post.id}/`,
     hook: '扫码读全文 · 数据与决策可核查',
   });
-  return new Response(jpg, { headers: { 'Content-Type': 'image/jpeg' } });
+  return new Response(jpg, { headers: imgHeaders('image/jpeg') });
 };

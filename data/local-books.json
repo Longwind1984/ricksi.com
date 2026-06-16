@@ -1,10 +1,10 @@
 {
-  "_note": "自主上传的本地 ePub 书（不在微信书架里，走不了 weread API）。由 scripts/merge-local-books.mjs 在采集后合入 reading.json 的 aiTopics。authored 源，sync 永不覆写。新增一本：复制 epub 到 public/assets/books/epub/<slug>.epub、封面到 epub-covers/、在此追加一条（id 用 CB_local_<slug>）。",
+  "_note": "自主上传的本地 ePub 书（不在微信书架里，走不了 weread API）。由 scripts/merge-local-books.mjs 在采集后合入 reading.json 的 aiTopics。authored 源，sync 永不覆写。新增一本：把 epub 放进 30书架（~/Documents/30书架）→ 在此追加一条（id 用 CB_local_<slug>，sourceFile=30书架内文件名，epub=目标路径）→ 跑 npm run sync（自动拉 epub + 提封面）。",
   "topics": [
     {
       "id": "harness",
       "topic": "Harness 工程",
-      "blurb": "缰绳上的工程学：当 AI 智能体的能力从模型转移到环境——两本拆解 agent harness 的小书。",
+      "blurb": "缰绳上的工程学：当 AI 智能体的能力从模型转移到环境——三本从 agent harness 拆到 agentic 产品的小书。",
       "graphFocus": null,
       "books": [
         {
@@ -12,6 +12,7 @@
           "title": "Harness Engineering",
           "author": "Rick's Fable 5 Extra",
           "subtitle": "缰绳上的工程学 / 当 AI 智能体的能力从模型转移到环境",
+          "sourceFile": "Harness Engineering (1).epub",
           "cover": "/assets/books/epub-covers/harness-engineering.png",
           "epub": "/assets/books/epub/harness-engineering.epub",
           "progress": 0,
@@ -25,8 +26,23 @@
           "title": "解剖 Codex",
           "author": "Rick's Fable 5 Extra",
           "subtitle": "一个开源 Harness 的架构、元素与张力",
+          "sourceFile": "解剖 Codex (1).epub",
           "cover": "/assets/books/epub-covers/codex-anatomy.png",
           "epub": "/assets/books/epub/codex-anatomy.epub",
+          "progress": 0,
+          "finished": false,
+          "notes": 0,
+          "lastRead": 0,
+          "highlights": []
+        },
+        {
+          "id": "CB_local_trae-solo",
+          "title": "Trae SOLO",
+          "author": "Rick's Opus 4.8",
+          "subtitle": "一次 agentic IDE 的范式赌注，与「上下文工程」护城河的真伪",
+          "sourceFile": "Trae SOLO.epub",
+          "cover": "/assets/books/epub-covers/trae-solo.png",
+          "epub": "/assets/books/epub/trae-solo.epub",
           "progress": 0,
           "finished": false,
           "notes": 0,

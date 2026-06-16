@@ -5,6 +5,7 @@ import { renderShareCard } from '../../../lib/share-card.mjs';
 import { loadSiteData } from '../../../lib/site-data.mjs';
 import { SAMPLE_FRONTIER } from '../../../lib/sample.js';
 import { starOf, STAR_CLASS, DOMAIN_ACCENT, hypeLabel } from '../../../lib/frontier-ui.mjs';
+import { imgHeaders } from '../../../lib/og-runtime.mjs';
 
 const SITE = 'https://ricksi.com';
 const TYPE_LABEL: Record<string, string> = {
@@ -24,8 +25,22 @@ export async function getStaticPaths() {
   });
 }
 
-export const GET: APIRoute = async ({ props }) => {
-  const { e, ownerName, domain } = props as any;
+// 运行时（Vercel）props 空 → 按 id 从 frontier 数据重算 owner/domain（与 getStaticPaths 同口径）
+function resolveEntry(id: string) {
+  const ft = ftData();
+  const ownerMap = new Map<string, any>();
+  for (const p of ft.people ?? []) ownerMap.set(p.slug, p);
+  for (const t of ft.topics ?? []) ownerMap.set(t.slug, t);
+  const e = (ft.entries ?? []).find((x: any) => x.id === id);
+  if (!e) return null;
+  const owner = ownerMap.get(e.person ?? e.topicSource);
+  return { e, ownerName: owner?.name ?? e.sourceName, domain: owner?.domain ?? '' };
+}
+
+export const GET: APIRoute = async ({ params, props }) => {
+  const data = (props as any)?.e ? (props as any) : resolveEntry(params.id as string);
+  if (!data) return new Response('Not found', { status: 404 });
+  const { e, ownerName, domain } = data as any;
   const star: any = (STAR_CLASS as any)[starOf(e)] ?? {};
   const accent = (DOMAIN_ACCENT as any)[domain] ?? '#7FB3F0';
   const underrated = hypeLabel(e) === '被低估';
@@ -48,5 +63,5 @@ export const GET: APIRoute = async ({ props }) => {
     qrUrl: `${SITE}/frontier/#e-${e.id}`,
     hook: `${dd} · 每日梳理 + 工作台判断`,
   });
-  return new Response(jpg, { headers: { 'Content-Type': 'image/jpeg' } });
+  return new Response(jpg, { headers: imgHeaders('image/jpeg') });
 };
