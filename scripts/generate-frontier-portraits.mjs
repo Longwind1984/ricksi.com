@@ -43,6 +43,19 @@ fs.mkdirSync(dir, { recursive: true });
 fs.mkdirSync(REF_DIR, { recursive: true });
 const webpOf = (slug) => path.join(dir, `${slug}.webp`);
 const promptOf = (p) => P.stylePrompt.replaceAll('{name}', p.name).replaceAll('{title}', p.title);
+const logoPromptOf = (p) => (P.logoPrompt ?? P.stylePrompt).replaceAll('{name}', p.name).replaceAll('{title}', p.title ?? '');
+
+/* 去白边（系统化）：模型偶尔无视 prompt 给整图套白框。检测左上角近白 → sharp.trim 裁掉，
+   调用方再 cover 回方图。非白边图原样返回（identity），避免误裁正常深色图。 */
+async function trimWhiteBorder(buf) {
+  try {
+    const px = await sharp(buf).extract({ left: 0, top: 0, width: 1, height: 1 }).raw().toBuffer();
+    if (!(px[0] > 226 && px[1] > 226 && px[2] > 226)) return buf; // 左上角非近白 → 无白边
+    return await sharp(buf).trim({ background: '#ffffff', threshold: 40 }).toBuffer();
+  } catch {
+    return buf; // trim 失败兜底原图
+  }
+}
 const UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36';
 
 async function fetchBuf(url) {
@@ -100,17 +113,63 @@ async function refPhotoOf(p) {
   return jpg;
 }
 
-/* 0. 先把目录里手动放入的 PNG/JPG 规整为 webp（手动轨的收口） */
+/* 机构 logo → i2i 参考：取真实 logo（SVG 光栅化 / 位图），contain 进深底方图缓存 png。
+   失败返回 null（该机构退星座字母牌，不阻塞其它）。 */
+async function logoImage(p) {
+  const cache = path.join(REF_DIR, `${p.slug}.logo.png`);
+  if (fs.existsSync(cache)) return fs.readFileSync(cache);
+  let raw;
+  try { raw = await fetchBuf(p.logo); }
+  catch (e) { console.warn(`[portrait] ⚠ ${p.slug} logo 获取失败（${e.message?.slice(0, 80)}），退化字母牌`); return null; }
+  try {
+    const isSvg = /\.svg($|\?)/i.test(p.logo) || raw.slice(0, 300).toString('utf8').includes('<svg');
+    const png = await sharp(raw, isSvg ? { density: 384 } : undefined)
+      .resize(360, 360, { fit: 'contain', background: '#0A1222' })
+      .flatten({ background: '#0A1222' })
+      .png().toBuffer();
+    fs.writeFileSync(cache, png);
+    return png;
+  } catch (e) {
+    console.warn(`[portrait] ⚠ ${p.slug} logo 处理失败（${e.message?.slice(0, 80)}），退化字母牌`);
+    return null;
+  }
+}
+
+/* 修复模式：--repair 只对已有 webp 去白边（本地 sharp，不调 API、不需 key），幂等可重跑 */
+if (process.argv.includes('--repair')) {
+  let fixed = 0, kept = 0;
+  for (const f of fs.readdirSync(dir)) {
+    if (!f.endsWith('.webp')) continue;
+    const fp = path.join(dir, f);
+    const orig = fs.readFileSync(fp);
+    const trimmed = await trimWhiteBorder(orig);
+    if (trimmed === orig) { kept++; continue; }
+    await sharp(trimmed).resize(P.size, P.size, { fit: 'cover' }).webp({ quality: 88 }).toFile(fp);
+    fixed++;
+    console.log(`[portrait] 去白边 ${f}`);
+  }
+  console.log(`[portrait] 修复完成：去白边 ${fixed}，无需处理 ${kept}`);
+  process.exit(0);
+}
+
+/* 0. 先把目录里手动放入的 PNG/JPG 规整为 webp（手动轨的收口；顺带去白边） */
 for (const f of fs.readdirSync(dir)) {
   const m = f.match(/^([a-z0-9-]+)\.(png|jpg|jpeg)$/i);
   if (!m) continue;
   const out = webpOf(m[1]);
   if (fs.existsSync(out) && !forceSlug) continue;
-  await sharp(path.join(dir, f)).resize(P.size, P.size, { fit: 'cover' }).webp({ quality: 88 }).toFile(out);
+  const src = await trimWhiteBorder(fs.readFileSync(path.join(dir, f)));
+  await sharp(src).resize(P.size, P.size, { fit: 'cover' }).webp({ quality: 88 }).toFile(out);
   console.log(`[portrait] 规整 ${f} → ${path.basename(out)}`);
 }
 
-const todo = F.people.filter((p) => (forceSlug ? p.slug === forceSlug : !fs.existsSync(webpOf(p.slug))));
+const missing = (p) => (forceSlug ? p.slug === forceSlug : !fs.existsSync(webpOf(p.slug)));
+const hasPhotoSrc = (p) => p.wiki || p.refPhoto || (p.sources ?? []).some((s) => s.type === 'x');
+const todo = [
+  // 人：仅当有真实照片源才生成；无源者保留星座字母牌（不做无似真度的纯文本脸）
+  ...F.people.filter((p) => missing(p) && hasPhotoSrc(p)).map((p) => ({ p, isOrg: false })),
+  ...(F.topics ?? []).filter((p) => p.logo && missing(p)).map((p) => ({ p, isOrg: true })),
+];
 if (!todo.length) {
   console.log('[portrait] 全员头像齐备，无需生成');
   process.exit(0);
@@ -119,30 +178,39 @@ if (!todo.length) {
 if (!apiKey) {
   console.log(`[portrait] 未配置 GEMINI_API_KEY（或 scripts/.gemini-key）。缺 ${todo.length} 张，手动生成清单：`);
   console.log('  （贴到 https://aistudio.google.com 选 Nano Banana 2，1:1 构图；产物 PNG 放入 ' + P.dir + '/<slug>.png 后重跑本脚本）\n');
-  for (const p of todo) {
-    console.log(`── ${p.slug} ──`);
-    console.log(promptOf(p) + '\n');
+  for (const { p, isOrg } of todo) {
+    console.log(`── ${p.slug}${isOrg ? '（机构 logo）' : ''} ──`);
+    console.log((isOrg ? logoPromptOf(p) : promptOf(p)) + '\n');
   }
   process.exit(0);
 }
 
 /* 似真 = 本人照片做主体参考；风格 = stylePrompt 模板。
    注意只传「本人」的照片——传别人的成品头像会串脸（2026-06-12 实测） */
-async function generate(p) {
-  const ref = await refPhotoOf(p);
-  const parts = ref
-    ? [
-        {
-          text:
-            `The attached photograph shows the real appearance of ${p.name}. ` +
-            "Accurately capture this exact person's recognizable facial structure, hairstyle, " +
-            'eyebrows, eye shape, nose, jawline, facial hair and glasses (if any) so the portrait ' +
-            'is clearly identifiable as the same person, then render it in the following style: ' +
-            promptOf(p),
-        },
-        { inline_data: { mime_type: 'image/jpeg', data: ref.toString('base64') } },
-      ]
-    : [{ text: promptOf(p) }];
+async function generate(p, isOrg) {
+  let parts;
+  if (isOrg) {
+    const ref = await logoImage(p);
+    if (!ref) throw new Error('logo 不可用，跳过（退字母牌）');
+    parts = [
+      { text: `The attached image is the real brand logo of ${p.name}. ` + logoPromptOf(p) },
+      { inline_data: { mime_type: 'image/png', data: ref.toString('base64') } },
+    ];
+  } else {
+    const ref = await refPhotoOf(p);
+    if (!ref) throw new Error('无真实照片，跳过（保留字母牌，避免无似真度的脸）');
+    parts = [
+      {
+        text:
+          `The attached photograph shows the real appearance of ${p.name}. ` +
+          "Accurately capture this exact person's recognizable facial structure, hairstyle, " +
+          'eyebrows, eye shape, nose, jawline, facial hair and glasses (if any) so the portrait ' +
+          'is clearly identifiable as the same person, then render it in the following style: ' +
+          promptOf(p),
+      },
+      { inline_data: { mime_type: 'image/jpeg', data: ref.toString('base64') } },
+    ];
+  }
   const res = await fetch(ENDPOINT, {
     method: 'POST',
     headers: { 'x-goog-api-key': apiKey, 'Content-Type': 'application/json' },
@@ -163,10 +231,10 @@ async function generate(p) {
 }
 
 let ok = 0, fail = 0;
-for (const p of todo) {
-  process.stdout.write(`[portrait] nano banana 2 生成 ${p.slug} … `);
+for (const { p, isOrg } of todo) {
+  process.stdout.write(`[portrait] nano banana 2 生成 ${p.slug}${isOrg ? '(logo)' : ''} … `);
   try {
-    const buf = await generate(p);
+    const buf = await trimWhiteBorder(await generate(p, isOrg));
     await sharp(buf).resize(P.size, P.size, { fit: 'cover' }).webp({ quality: 88 }).toFile(webpOf(p.slug));
     ok++;
     console.log('✓');

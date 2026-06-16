@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 三星堆青铜大立人 (Sanxingdui standing figure), 商, 三星堆 K2; 三星堆博物馆藏. viewBox 100x100. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+  <!-- conical headdress + head + extended arms with cupped hands gripping (implied) vertical object + layered robe + pedestal base -->
+  <path fill="#a4732c" fill-rule="evenodd" d="
+    M 42 4 L 58 4 L 60 12 L 58 18 L 42 18 L 40 12 Z
+    M 40 18 Q 38 26 40 32 L 36 36 L 36 42
+       L 24 44 L 22 50 L 36 50
+       L 36 56 L 32 60
+       L 32 76 L 26 78 L 26 90 L 74 90 L 74 78 L 68 76
+       L 68 60 L 64 56 L 64 50 L 78 50 L 76 44 L 64 42 L 64 36 L 60 32
+       Q 62 26 60 18 Z
+  "/>
+  <!-- pedestal base (separate solid block) -->
+  <path fill="#a4732c" d="M 18 90 L 82 90 L 88 94 L 88 100 L 12 100 L 12 94 Z"/>
+</svg>

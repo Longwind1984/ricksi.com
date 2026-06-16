@@ -30,16 +30,19 @@ function initFrontier() {
     if (k && !nameOf.has(k)) nameOf.set(k, el.querySelector('.ft-person')?.textContent ?? k);
   });
 
-  /* 状态：type/domain 来自筛选条 chip；person/tag 只能由点击产生 */
-  const state = { type: '', domain: '', person: '', tag: '' };
+  /* 状态：type/domain/con(信源量级)/star(事件量级) 来自筛选条 chip；person/tag 只能由点击产生 */
+  const state = { type: '', domain: '', con: '', star: '', person: '', tag: '' };
   let shownGroups = GROUP_BATCH;
+  let syncTimeline = null; // 落地页时间轴可见性同步（窗口 + 类目筛选统一），在 tl 块内赋值
 
-  const hasFilter = () => !!(state.type || state.domain || state.person || state.tag);
+  const hasFilter = () => !!(state.type || state.domain || state.con || state.star || state.person || state.tag);
 
   function apply({ scroll = false } = {}) {
     const matches = entries.filter((el) => {
       if (state.type && el.dataset.type !== state.type) return false;
       if (state.domain && el.dataset.domain !== state.domain) return false;
+      if (state.con && el.dataset.constellation !== state.con) return false;
+      if (state.star && el.dataset.star !== state.star) return false;
       if (state.person && el.dataset.person !== state.person) return false;
       if (state.tag && !(el.dataset.tags || '').split('|').includes(state.tag)) return false;
       return true;
@@ -82,10 +85,11 @@ function initFrontier() {
 
     /* URL 同步（replaceState 不污染历史栈；先例 /graph?focus） */
     const params = new URLSearchParams();
-    for (const k of ['type', 'domain', 'person', 'tag']) if (state[k]) params.set(k, state[k]);
+    for (const k of ['type', 'domain', 'con', 'star', 'person', 'tag']) if (state[k]) params.set(k, state[k]);
     const qs = params.toString();
     history.replaceState(null, '', location.pathname + (qs ? `?${qs}` : '') + location.hash);
 
+    if (syncTimeline) syncTimeline(); // 类目筛选同步驱动时间轴
     if (scroll) stream.closest('.sec')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
@@ -102,6 +106,13 @@ function initFrontier() {
 
   /* 人物/标签点击（横滚条、流内人名、标签、人物卡、信息源 chip 统一委托；ft-disabled 不响应） */
   document.querySelector('.sub-main')?.addEventListener('click', (e) => {
+    // 时间轴领域名 = 方向筛选（替代已删的「方向」chip 行）：点选聚焦该领域，再点退出
+    const domBtn = e.target.closest('.ft-tl-ghead-btn[data-domain]');
+    if (domBtn) {
+      state.domain = state.domain === domBtn.dataset.domain ? '' : domBtn.dataset.domain;
+      apply();
+      return;
+    }
     const personBtn = e.target.closest('[data-ft-person]');
     if (personBtn && !personBtn.classList.contains('ft-disabled')) {
       state.person = state.person === personBtn.dataset.ftPerson ? '' : personBtn.dataset.ftPerson;
@@ -126,6 +137,8 @@ function initFrontier() {
   document.getElementById('ft-clear')?.addEventListener('click', () => {
     state.type = '';
     state.domain = '';
+    state.con = '';
+    state.star = '';
     state.person = '';
     state.tag = '';
     filters?.querySelectorAll('.ft-frow').forEach((row) => {
@@ -143,7 +156,7 @@ function initFrontier() {
   const params = new URLSearchParams(location.search);
   // 视觉方向试穿：?view=cards 切卡片流（A/B 保留期，用户决策 2026-06-12）
   if (params.get('view') === 'cards') stream.classList.replace('rows', 'cards');
-  for (const k of ['type', 'domain', 'person', 'tag']) {
+  for (const k of ['type', 'domain', 'con', 'star', 'person', 'tag']) {
     const v = params.get(k);
     if (v) state[k] = v;
   }
@@ -183,33 +196,48 @@ function initFrontier() {
     });
   }
 
-  // 时间轴窗口切换（仅落地页完整版 .ft-tl 非 mini）
+  // 时间轴（仅落地页完整版 .ft-tl 非 mini）：窗口切换 + 类目筛选统一驱动节点/行/组可见性
+  // 节点可见 = 在当前窗口内 且 匹配量级(star)筛选；行可见 = 匹配 人物/方向/声量 且 有可见节点
   const tl = document.querySelector('.ft-tl:not(.ft-tl-mini)');
   if (tl) {
     const winEnd = +tl.dataset.winend;
     const DAY = 86400000;
+    let span = +tl.dataset.span || 30;
     const nodes = [...tl.querySelectorAll('.ft-tl-node')];
     const axis = [...tl.querySelectorAll('.ft-tl-axis span')];
     const fmt = (ms) => { const d = new Date(ms); return `${d.getMonth() + 1}.${d.getDate()}`; };
-    tl.querySelector('.ft-tl-wins')?.addEventListener('click', (e) => {
-      const b = e.target.closest('.ft-tl-win');
-      if (!b) return;
-      const span = +b.dataset.win;
-      tl.querySelectorAll('.ft-tl-win').forEach((x) => x.classList.toggle('active', x === b));
+    syncTimeline = () => {
       const start = winEnd - span * DAY;
       nodes.forEach((n) => {
         const x = ((+n.dataset.time - start) / (span * DAY)) * 100;
-        if (x < 0 || x > 100) n.style.display = 'none';
-        else { n.style.display = ''; n.style.left = x.toFixed(2) + '%'; }
+        const inWin = x >= 0 && x <= 100;
+        const okStar = !state.star || n.dataset.star === state.star;
+        if (inWin && okStar) { n.style.display = ''; n.style.left = x.toFixed(2) + '%'; }
+        else n.style.display = 'none';
       });
       if (axis.length === 3) { axis[0].textContent = fmt(start); axis[1].textContent = fmt(winEnd - span * DAY / 2); axis[2].textContent = '今天'; }
       tl.querySelectorAll('.ft-tl-row').forEach((r) => {
-        r.style.display = [...r.querySelectorAll('.ft-tl-node')].some((n) => n.style.display !== 'none') ? '' : 'none';
+        const okRow = (!state.person || r.dataset.person === state.person)
+          && (!state.domain || r.dataset.domain === state.domain)
+          && (!state.con || r.dataset.con === state.con);
+        const hasNode = okRow && [...r.querySelectorAll('.ft-tl-node')].some((n) => n.style.display !== 'none');
+        r.style.display = hasNode ? '' : 'none';
       });
       tl.querySelectorAll('.ft-tl-group').forEach((gp) => {
-        gp.style.display = [...gp.querySelectorAll('.ft-tl-row')].some((r) => r.style.display !== 'none') ? '' : 'none';
+        const has = [...gp.querySelectorAll('.ft-tl-row')].some((r) => r.style.display !== 'none');
+        gp.classList.toggle('ft-tl-collapsed', !has); // class 折叠 → CSS 过渡，丝滑聚焦
       });
+      // 领域名选中态（聚焦中）
+      tl.querySelectorAll('.ft-tl-ghead-btn').forEach((h) => h.classList.toggle('active', !!state.domain && h.dataset.domain === state.domain));
+    };
+    tl.querySelector('.ft-tl-wins')?.addEventListener('click', (e) => {
+      const b = e.target.closest('.ft-tl-win');
+      if (!b) return;
+      span = +b.dataset.win;
+      tl.querySelectorAll('.ft-tl-win').forEach((x) => x.classList.toggle('active', x === b));
+      syncTimeline();
     });
+    syncTimeline(); // 初次：按默认窗口 + 当前筛选状态铺一遍
   }
 }
 

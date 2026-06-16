@@ -1,0 +1,237 @@
+{
+  "type": "FeatureCollection",
+  "description": "Approximate ancient state boundaries for the Shang dynasty period (~1600-1046 BC). Polygons are simplified approximations for visualization purposes, not archaeologically precise boundaries.",
+  "epoch": "商",
+  "epoch_en": "Shang Dynasty",
+  "date_range": "~1600-1046 BC",
+  "features": [
+    {
+      "type": "Feature",
+      "id": "shang-core",
+      "properties": {
+        "name": "商王畿",
+        "name_en": "Shang Royal Domain",
+        "dynasty": "商",
+        "type": "core",
+        "capital": "殷(安阳)",
+        "color": "#4a5a3a",
+        "opacity": 0.35,
+        "description": "商王直辖核心区域，以殷(今安阳)为都，控制黄河中下游"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [108.0, 36.5],
+          [109.5, 37.0],
+          [111.0, 37.5],
+          [113.0, 37.5],
+          [114.5, 37.0],
+          [116.0, 36.5],
+          [117.0, 35.5],
+          [117.0, 34.0],
+          [116.0, 33.0],
+          [114.5, 32.5],
+          [113.0, 32.5],
+          [111.5, 33.0],
+          [110.5, 33.5],
+          [109.5, 34.0],
+          [108.5, 34.5],
+          [108.0, 35.5],
+          [108.0, 36.5]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "zhou-fang",
+      "properties": {
+        "name": "周方",
+        "name_en": "Zhou State",
+        "dynasty": "商",
+        "type": "vassal",
+        "capital": "岐邑(今宝鸡)",
+        "color": "#a73a2a",
+        "opacity": 0.25,
+        "description": "商代方国，后灭商建立西周，都于关中渭水流域"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [104.5, 34.5],
+          [106.0, 35.0],
+          [107.5, 35.0],
+          [108.5, 34.5],
+          [108.5, 33.5],
+          [108.0, 32.5],
+          [106.5, 32.5],
+          [105.0, 33.0],
+          [104.5, 34.0],
+          [104.5, 34.5]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "guifang",
+      "properties": {
+        "name": "鬼方",
+        "name_en": "Guifang",
+        "dynasty": "商",
+        "type": "peripheral",
+        "capital": null,
+        "color": "#6e4a2e",
+        "opacity": 0.2,
+        "description": "商代北方游牧方国，商王武丁曾派妇好率军征讨"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [108.0, 40.0],
+          [110.0, 41.0],
+          [112.0, 41.5],
+          [114.0, 41.0],
+          [115.5, 40.0],
+          [114.0, 39.0],
+          [112.0, 38.5],
+          [110.0, 39.0],
+          [108.0, 40.0]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "qiangfang",
+      "properties": {
+        "name": "羌方",
+        "name_en": "Qiangfang",
+        "dynasty": "商",
+        "type": "peripheral",
+        "capital": null,
+        "color": "#6e4a2e",
+        "opacity": 0.2,
+        "description": "商代西方方国，以牧羊为主的羌人，曾多次与商发生战争"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [103.0, 35.5],
+          [105.0, 36.0],
+          [106.5, 35.5],
+          [107.0, 34.5],
+          [106.0, 33.5],
+          [104.5, 33.5],
+          [103.0, 34.0],
+          [103.0, 35.5]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "gushu",
+      "properties": {
+        "name": "古蜀(三星堆)",
+        "name_en": "Ancient Shu (Sanxingdui)",
+        "dynasty": "商",
+        "type": "independent",
+        "capital": "三星堆",
+        "color": "#7a3a2a",
+        "opacity": 0.3,
+        "description": "与商并存的独立文明，三星堆文化，高度发达的青铜艺术，与商文化交流但保持独立性"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [102.0, 31.5],
+          [103.5, 31.5],
+          [104.5, 31.0],
+          [105.5, 30.0],
+          [105.0, 29.0],
+          [103.5, 28.5],
+          [102.0, 29.0],
+          [101.0, 30.0],
+          [101.0, 31.0],
+          [102.0, 31.5]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "panlongcheng",
+      "properties": {
+        "name": "盘龙城(南土)",
+        "name_en": "Panlongcheng",
+        "dynasty": "商",
+        "type": "colony",
+        "capital": "盘龙城",
+        "color": "#4a5a3a",
+        "opacity": 0.2,
+        "description": "商代在长江中游建立的据点，是目前发现最早的商代城市之一，位于今湖北黄陂"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [113.5, 30.5],
+          [115.0, 31.0],
+          [116.0, 30.5],
+          [116.0, 29.5],
+          [114.5, 29.0],
+          [113.0, 29.5],
+          [113.5, 30.5]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "chu-shang",
+      "properties": {
+        "name": "楚(早期)",
+        "name_en": "Early Chu",
+        "dynasty": "商",
+        "type": "peripheral",
+        "capital": null,
+        "color": "#2a3a2a",
+        "opacity": 0.2,
+        "description": "楚人先祖，商代生活于荆山一带，尚未形成强大政权"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [109.5, 31.0],
+          [111.0, 31.0],
+          [112.0, 30.5],
+          [112.0, 29.5],
+          [110.5, 29.0],
+          [109.0, 29.5],
+          [109.5, 31.0]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "yue-shang",
+      "properties": {
+        "name": "扬越",
+        "name_en": "Yang Yue",
+        "dynasty": "商",
+        "type": "peripheral",
+        "capital": null,
+        "color": "#2a4a3a",
+        "opacity": 0.2,
+        "description": "商代南方越族，湘江流域出土大量商式青铜器，与商有贸易往来"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [111.0, 27.5],
+          [113.0, 27.5],
+          [114.0, 27.0],
+          [114.0, 25.5],
+          [112.5, 25.0],
+          [111.0, 25.5],
+          [110.5, 26.5],
+          [111.0, 27.5]
+        ]]
+      }
+    }
+  ]
+}

@@ -1,5 +1,106 @@
 # WORKLOG（append-only，倒金字塔：结论在前、清单沉底）
 
+## 2026-06-16 · 首页第 1 卡升级为「博物志」+ 方法论主导的可交互落地页
+
+### 体验影响（着重 · 先看这个）
+
+- **没有新增第二张卡**：首页第 1 张「MuseumCollect 智能体协作案例」原地升级成「博物志 · 把 AI 的约束当设计原则」，`href` 从外链 GitHub 改成站内 `/projects/museum-collect/`，仍在第 1 位。原因：那张卡指向的就是同一个仓库（方法论缩写版），新增第二张同仓库卡会变成凑数。与用户确认后选「升级」而非「新增到 3/4 位」。
+- **新落地页四个可交互模块，两个用真数据**：①三联动 dashboard（时代柱↔古国地图↔文物卡，组件内 `EventTarget` 事件总线 + source 字段防环，西周点亮 3 件/暗 9 件实测联动正确）用源仓库 277 件里 curate 的 12 件真实文物（挂「样例数据」徽章）；②真实地形流散图用真 geojson（手写 `geoConicEqualArea` 投影，30 出土点 / 24 馆含 9 海外，海外视图画流散弧并标「示意路径」）；③多 Agent 拓扑（常驻 6 / 夜跑 8 切换 + 点节点出 constitution）；④反幻觉状态机（喂 3 种 chunk 走五字段硬门）+ 叙事打架（白石佛/红山玉三方矛盾，点「让 AI 编一个真相」演示硬门拒绝）。
+- **诚实节提级为卖点**：一个讲反幻觉/反假完成的页面，把诚实当卖点而非免责声明——05 双标自审（直接引「这种诚实是选择性表演」并认「双标成立」）、09「它不是什么」（MVP 未发布 / CLIP 未端到端 / KPI 全是假设 / 跨页总线是 workaround）与正文同框。所有假设数字带「假设」、curate 子集带「样例数据」徽章。
+- **降级与可达**：两个数据交互 fetch 失败回退到源仓库真实截图（已本地化）；全部交互过 `prefers-reduced-motion`、键盘可达（tabindex/role/Enter/Esc/方向键）；移动端 390px 实测零横向溢出、翻牌堆叠、底部 Dock 正常。
+
+### 做了什么
+
+读完源仓库（`longwind1984/prac03_museumcollect@claude/museum-photo-sharing-8qJiz`）58KB 交接文档 + 核实仓库真实数据，把「博物志」这个 AI 原生文博收藏产品做成方法论主导的全景案例落地页。主轴：AI PM 的关键不是用 AI 写代码，是把 AI 的三个约束（角色有边界 / 上下文冷启动 / 文件系统即状态）当成产品与协作的设计原则。结构：Hero 翻牌（三约束→三原则）+ 命题 + 11 节（反讽底座 / Agent 拓扑 / 审计驱动 BUG-001 / 反幻觉管道 / 诚实 DNA / 可跑 demo / 流散地图 / 克制产品 / 诚实约束 / 量化 / 收束）。方法论三节（02/03/04）给足篇幅，产品与 demo 作「方法论指向的实物证据」。沿用 slash-goal 的零依赖手写 SVG + Liquid Glass token 范式，全程 Rick 第一人称、避免 AI 腔。真实数据（geojson/文物/截图/剪影）构建期一次性 curl 本地化到 `public/assets/museum/`，运行期零外网依赖。
+
+### 关键决策与被否决的备选
+
+- **升级 #1 卡 vs 新增卡**（与用户确认）：选升级，避免首页出现两张同仓库卡。否决「新增到 3/4 位」——同仓库两卡读起来像凑作品集。
+- **路由 `/projects/museum-collect/`**（英文 slug，对齐 slash-goal/writer-pipeline/galaxy-view），否决拼音 `bowuzhi`。
+- **地图投影手写 `geoConicEqualArea`**：否决引入 `d3-geo`（会拖进 d3-array、团队没维护过其 tree-shaking）。手写约 40 行纯函数，与全站零-d3 的手写 SVG 交互一致、可单测、不增体积。
+- **数据运行期 fetch（public） vs frontmatter 内联**：选 fetch + 截图降级，HTML 保持精简（41KB），与 public 资产性质一致；no-JS/fetch 失败回退真实截图。
+- **诚实节当卖点**（与用户确认）：05/09 提级为正式章节，整页可信度重心压在自我批判上。
+
+### 当前状态：能跑什么、怎么跑
+
+- `cd rick-homepage && npm run dev` → 访问 `/projects/museum-collect/`；首页 `/` 第 1 位卡片点击站内跳转（非新标签）。
+- 已验证：`npm run build` **exit 0**（museum-collect/index.html 41KB 正确产出、首页 dist 含站内链接）；dev 下四个交互全部工作（DOM 实测：翻牌、拓扑常驻↔夜跑切换 + 点节点出面板、状态机切三档、dashboard 三向联动 dim 计数正确、地图三视图 + 海外 9 馆 + 流散弧、叙事翻转）；首页卡确认升级为「博物志」/ 站内链 / 旧 GitHub 链已移除 / 排第 1；控制台无本页报错（`[museum-collect]` 零条）；移动端 390px 无横向溢出。
+- 截图存档：hero（桌面 + 移动堆叠）、三联动 dashboard（已发用户）。
+
+### 未尽事项与已知问题
+
+- **build 输出有一条预先存在的报错**：`Cannot find module dist/pages/share/site.jpg.astro.mjs`（站点 OG 分享图路由，与本次改动无关；上一条相关 WORKLOG 已记 OG 分享图未做）。本次构建是在 dev server 运行时跑的，疑为 dev+build 并发读写 dist 的竞态；exit code 仍为 0，museum-collect 与首页均正确产出。建议单独 `npm run build`（停 dev）复核该路由。
+- **地图/拓扑/状态机的实时截图未留存**：验证期间用户正在预览窗口浏览其它页（阅读/首页），程序化截图与用户导航竞态、且预览器对程序化滚动支持不稳（slash-goal 那条 WORKLOG 已记同款限制）。这三个交互已用 `preview_eval` 在本页逐项功能确证（返回值正确），dashboard 实图已截到。
+- 落地页未做专属 OG 分享图（沿用站点默认）。
+- 文物图 `image_urls` 未本地化（dashboard 用剪影 SVG，未铺实景照）；如需实景照需后续把 CC0 图也拉到本地。
+
+### 文件级变更清单
+
+- `src/data/projects.ts`：第 1 个对象由「MuseumCollect 智能体协作案例」改写为「博物志 · 把 AI 的约束当设计原则」（title/desc/tags/img/alt/href 更新，icon 沿用多智能体网格图标，href 改站内）。
+- `src/pages/projects/museum-collect.astro`：新建落地页（Hero + 11 节 markup + `is:global` 作用域样式）。
+- `src/scripts/museum-collect-page.js`：新建交互脚本（initCommon/initFlips/initTopology/initFsm/initNarrative/initDashboard/initMap + 手写 geoConicEqualArea 投影 + 事件总线 + 数据 fetch 降级）。
+- `public/assets/proj-museum-collect.jpg`：新封面（源仓库 dashboard 真实截图缩放至 960×540）。
+- `public/assets/museum/`：新增真实数据资产——`artifacts.curated.json`（12 件 curate）、`narrative-conflict.json`（叙事打架两案）、`geo/`（9 个 geojson）、`shots/`（10 张 demo 截图）、`silhouettes/`（12 文物剪影）。
+
+## 2026-06-16 · 前沿追踪 v7：奇点评级 + 三维筛选 + 悬浮预览 + 分享卡 + 去白边 + 机构头像
+
+### 体验影响（着重 · 先看这个）
+
+- **信息流默认动作反转**：以前点条目标题=跳走原文、摘要藏在次级「展开」里；现在**点标题/判断=就地展开摘要阅读**，「原文 ↗」和「分享 ↗」降为脚部次级操作。这是本轮最大的可感知交互变化。
+- **悬浮预览浮层**（桌面）：时间轴星点 / 信息流条目 / 首页卡，鼠标悬浮即呼出预览（星类+人物+判断+摘要节选）。触控设备不弹（无 hover），主操作仍是点击展开。
+- **时间轴筛选**（发版前按用户反馈二改定稿）：删「方向」「类型」两条 chip 行；**方向改为点时间轴纵轴领域名**——点「研究与评测」即丝滑聚焦该领域（其余领域组 max-height/opacity 过渡折叠、领域名标「聚焦中·再点退出」），再点退出；筛选条只留 **声量**（信源量级 北极星·猎户座·星辰·行星）+ **量级**（事件星类 奇点·超新星…，选中用该星类自身颜色着色）。三者 + 人物 + 窗口正交，**同时连动时间轴与下方信息流**。
+- **评级体系两处变动**：① 新增最高事件星类「**奇点**」（技术演进史分水岭，时间轴节点最亮+脉冲，目前数据里 0 条，靠手动/未来标注）；② 「北极星」**从事件星类移出**、并入「信源量级」（即原「北斗」改名为北极星，描述重要的人/实验室），时间轴上其行名描金、头像描金边。
+- **每条事件可分享**：复用站内分享卡管线，新增 frontier 玻璃明信片（kicker 用星类色 + 一句话判断 + 人物徽章 + 二维码）。
+- **头像**：李飞飞白边已去除并系统化（生成与修复都过去白边）；OpenAI/Anthropic/DeepMind/DeepSeek/ByteDance/arXiv 六家机构新增风格化 logo 头像，显示在时间轴行。
+
+### 做了什么
+
+按用户「先审计、再纳入输入做整体优化」的要求，先派 3 个 Explore agent 审计现状（评级/时间轴/交互/分享/头像），再做 6 块改动并逐块在 dev 实测验证。评级口径按用户口头确认重定：奇点封顶事件级、删「基点」、北极星归信源级（北斗改名）。机构 logo 走 AI i2i（用户在「真 logo 风格化」与「程序化字母牌」之间选了前者）；找不到照片的研究者（chris-olah/subbarao/josh）保留字母牌，不做无似真度的随机脸。
+
+### 关键决策与被否决的备选
+
+- **北极星属于哪条 track（与用户确认）**：北极星=信源量级最高级（重命名自「北斗」，成员不变），不进事件星类；「基点」不做。否决「奇点/基点/北极星三档并存」（语义重叠、无判据）。
+- **悬浮浮层做成纯只读 peek（pointer-events:none）**：不放交互链接，避免 hover-into 维持逻辑的脆弱；可见性用 `.show` 类的 `visibility/opacity` 驱动，**不靠 rAF**（后台标签页节流时 rAF 不触发会导致浮层不显）。
+- **机构 logo 来源**：clearbit 已失效、wiki summary 不给公司 logo（非自由版权）→ 改用 simpleicons 单色描白 SVG（OpenAI 用 Commons SVG）。单色 glyph 做 i2i 输入效果意外地好。Anthropic 被渲成通用「AI」字样，记为可接受/可换源。
+- **无照片不强生**：人无照片源退字母牌（诚实），否决纯文本生成随机脸。
+- **奇点/北极星 视觉强化保持克制**：只给这两档加光环/描金 + 极缓脉冲（尊重 `prefers-reduced-motion`），不满屏发光。
+
+### 当前状态：能跑什么、怎么跑
+
+- `cd rick-homepage && npm run dev` → `/frontier`：筛选四维（含声量/量级）实测连动时间轴+信息流、URL 往返、清除复位；条目点击就地展开、脚部原文/分享；桌面悬浮浮层定位填充正确、移出/Esc 关闭；分享按钮 → `#share-modal` 出 frontier 卡。
+- 已验证：**`npm run build` 通过（exit 0，642 页，118 张 frontier 分享卡，约 16 分钟）**；分享卡端点 `curl /share/frontier/<id>.jpg` 返回 720×1280 JPEG（已肉眼核对：kicker 星类色、人物徽章、二维码）；6 张机构 logo 头像 dev 下时间轴行已显示；李飞飞去白边后满版无框。
+- 头像修旧：`npm run frontier:portraits -- --repair`（本地 sharp，不调 API）。
+
+### 未尽事项与已知问题
+
+- **机构头像需重新 build 才进 dist**：上次 build 在生成机构头像之前跑的，6 张 webp 在 `public/` 已就位、下次 build/部署自动纳入；本轮未再跑 16 分钟全量 build 仅为拷贝静态图。
+- **奇点目前 0 条**：分水岭事件多在 3 个月回溯窗口外，功能在位但需手动标注（`data/frontier.json` 置 `singularity:true`）或等未来事件。
+- **数据质量待你 HITL**：分享卡测试时撞到一条疑似杜撰的回溯条目（「美国政府强制暂停 Anthropic Claude 5 Fable 境外访问」挂在 Nathan Lambert 名下、评超新星）——渲染没问题，但内容可疑，建议复核回溯数据。
+- Anthropic 机构头像偏通用「AI」字样；arc-prize/metr/epoch-ai 三家无 logo 源、时间轴行暂只显名字。
+- build 末尾有一条 `ENOENT manifest_Xh4Njuod.mjs` 警告，非致命（exit 0、真实 manifest `manifest_BgcoOS5G.mjs` 在、dist 完整），疑似 Astro 构建后清理的陈旧引用。
+- 全量回溯剩 ~43 实体仍待你定（本轮未动）。
+
+### 文件级变更清单
+
+- `src/lib/frontier-ui.mjs`：STAR_CLASS 加 `singularity`(奇点,rank6) 删 `polaris`；`starOf` 链首加 singularity、删 canon；CONSTELLATION `beidou`→`polaris`（北斗→北极星）+ RANK 同步；注释订正。
+- `scripts/collect-frontier.mjs` / `scripts/migrate-frontier-rating.mjs` / `scripts/import-backfill.mjs`：评级字段 `canon`→`singularity`（schema/prompt/落盘/日志）。
+- `scripts/config.mjs`：people/topics `constellation` `beidou`→`polaris`；portrait 加 `logoPrompt`、stylePrompt 强化无白边；6 机构源加 `logo` 直链。
+- `data/frontier.json`：people/topics 快照 `constellation` `beidou`→`polaris`（9 处，字面替换不动其它）。
+- `src/components/FrontierEntry.astro`：点击模型反转（标题/判断入 `<summary>` 做主展开）+ 脚部 原文/分享 次级 + `data-ft-pop` + `data-constellation`；回溯条目走扁平态。
+- `src/components/FrontierTimeline.astro`：lane 带 `con`、行加 `data-domain/-con/-person`、节点加 `data-star/-ft-pop`。
+- `src/components/FrontierPersonCard.astro`：`isBeidou`→`isPolaris`。
+- `src/pages/frontier.astro`：ownerMap 带 constellation、entries 加 constellation；筛选条重做（方向/声量/量级/类型 带标签，仅列出现项）；发悬浮预览 JSON 岛。
+- `src/pages/index.astro`：首页 hero/行加 `data-ft-pop` + 发首页预览 JSON 岛。
+- `src/scripts/frontier.js`：state 加 `con/star`、`apply` 增两维 + 统一 `syncTimeline`（窗口×筛选共同驱动节点/行/组）；URL/清除纳入新维。
+- `src/scripts/frontier-preview.js`：**新建**，悬浮预览浮层（桌面 hover、AbortController 生命周期）。
+- `src/layouts/Glass.astro`：全局挂 `#ft-preview` + import 预览脚本。
+- `src/lib/share-card.mjs`：加 `frontier` variant（PHOTO_POS/PANEL_H）+ `kickerColor` 参数。
+- `src/pages/share/frontier/[...id].jpg.ts`：**新建**，每条事件分享卡端点。
+- `src/styles/glass.css`：筛选标签/星类色 chip、`.ft-sum/.ft-foot/.ft-expand-hint`、`.ft-pop*` 浮层、奇点节点光环+脉冲、北极星行描金、`:focus-visible`、`.ft-pcon.polaris`。
+- `scripts/generate-frontier-portraits.mjs`：去白边 `trimWhiteBorder` + `--repair` 模式；机构 logo i2i 路径（`logoImage`/`logoPromptOf`/todo 分人机）；人无照片不强生。
+- `docs/star-rating.md` / `docs/image-generation.md`：评级与头像管线文档同步。
+- `public/assets/frontier/`：`fei-fei-li.webp` 去白边重写；新增 6 张机构 logo 头像。
+
 ## 2026-06-16 · 新增项目「Slash Goal · 谁来认定「干完了」」+ 二级可交互落地页
 
 ### 体验影响（着重 · 先看这个）
@@ -132,7 +233,8 @@
 
 - **首页「项目」区第 2 位新增 Writer Pipeline**（MuseumCollect 之后、Galaxy View 之前），编号自动顺延为 02。它和 Galaxy View 一样有自己的二级落地页 `/projects/writer-pipeline/`——**点击进落地页，不跳 GitHub**（仓库 Private，代码库刻意杜绝死链）。
 - **落地页核心是「pipeline 跑一遍」三阶交互**（按 Rick 反馈重做，替掉原来的单轮 X 光扫描——原版只 3 处高亮、只改 1 处，体现不出 pipeline 怎么工作）：同一段哥伦比亚大选题材，① **AI 初稿**（同主题演示构造的「体面的空洞」——流畅、有结构、像有观点，却用对称句式／抽象大词／伪共情／认识论投降「没有标准答案」打太极，7 处紫色高亮的难察觉 AI 味；二改后刻意不写成小学生作文式的弱靶子，否则体现不出 pipeline 的提升）→ ② **去 AI 味**（writer 注入 voice memo 改写到真实草稿 §8，critic 第二轮逮金句口癖：绿 A 承重句留／红 C 电锯补刀砍）→ ③ **配额收口**（红 C 片段当场坍缩，落到真实 v5）。点高亮看 critic 判语，可逐阶跳或「↺ 再跑一遍」循环。把 writer↔critic 逐轮工作过程做成可玩演示。原始 AI 初稿构造不算造假——pipeline 的输入本就是 AI 生成的稿。
-- **正文是第一人称案例长文**，覆盖：砸掉自己设计的 13 组件系统（PM 自审 severity 4/5，13→3 拆除可视化）→ examples≫rules（砍 5 维 voice DNA）→ AI 味可扫描清单 + 金句 earned/cosplay 配额 → v4→v5 四处纯减法 diff → 跨模型 A/B 实测推翻自己写进 plan 的推荐 → 决策时间线 → 验证窗口与「刻意不做」清单。
+- **正文是第一人称案例长文**，覆盖：砸掉自己设计的 13 组件系统（PM 自审 severity 4/5，13→3 拆除可视化）→ examples≫rules（砍 5 维 voice DNA）→ **AI 味到底是什么（新增 §03）** → AI 味可扫描清单 + 金句 earned/cosplay 配额 → v4→v5 四处纯减法 diff → 跨模型 A/B 实测推翻自己写进 plan 的推荐 → 决策时间线 → 验证窗口与「刻意不做」清单。
+- **新增 §03「AI 味到底是什么」（竞品 + 本质，按 Rick 要求加，已做轮 web 调研）**：本质——AI 味不是词汇问题是概率问题（LLM 挑最可能的下一个词＝回归均值；检测器把它量化成 perplexity + burstiness；RLHF 偏爱「清楚周到」把安全演成深刻），所有 tell 是「一个病根的七种表症：模型在求稳、不在下判断」。竞品三派卡：检测器对抗派（Undetectable AI/QuillBot，✗ 军备竞赛+北极星错）／禁用词清单派（GPT-ism 黑名单，✗ 打地鼠）／例子+品味派（few-shot/Sudowrite，✓ 我在这派，但多了一层扫「体面的空洞」的 critic + 「我宁愿发」的验收线）。收尾点题：我和检测器只在诊断一致、裁判分道（低 burstiness=AI 我认，所以 writer 强约束长短句交替；但裁判是「会不会贴公众号」不是检测分）。来源：GPTZero/Originality perplexity+burstiness、Altman 承认 em-dash 调高、「delve」过度表征研究。
 - 全部文案按 Rick voice memo + critic AI 味清单写并自扫：无导览腔、无升华结尾、无大词、无 hedging，金句控在配额内。
 - 全部为**草案**，待你视觉终审。
 

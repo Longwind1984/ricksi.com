@@ -11,7 +11,7 @@ import FrontierPersonCard from '../components/FrontierPersonCard.astro';
 import FrontierTimeline from '../components/FrontierTimeline.astro';
 import { loadSiteData, stamp } from '../lib/site-data.mjs';
 import { SAMPLE_FRONTIER } from '../lib/sample.js';
-import { portraitFallbackSvg, DOMAIN_ACCENT } from '../lib/frontier-ui.mjs';
+import { portraitFallbackSvg, DOMAIN_ACCENT, starOf, STAR_CLASS, CONSTELLATION, CONSTELLATION_RANK } from '../lib/frontier-ui.mjs';
 
 /* 构建期探测人物头像（npm run frontier:portraits 产物）；缺图 → 星座字母牌兜底 */
 const PORTRAIT_DIR = path.resolve('public/assets/frontier');
@@ -25,7 +25,7 @@ const isSample = !frontier;
 const domains: Record<string, string> = ft.domains ?? {};
 const people = ft.people ?? [];
 const topics = ft.topics ?? [];
-const ownerMap = new Map<string, { name: string; domain: string }>();
+const ownerMap = new Map<string, { name: string; domain: string; constellation?: string }>();
 for (const p of people) ownerMap.set(p.slug, p);
 for (const t of topics) ownerMap.set(t.slug, t);
 const tlRows = [...people, ...topics]; // 时间轴泳道行：人物 + 机构源，按 domain 分组
@@ -38,6 +38,7 @@ const entries = (ft.entries ?? []).map((e: any) => {
     ...e,
     ownerName: owner?.name ?? e.sourceName,
     domain: owner?.domain ?? '',
+    constellation: owner?.constellation ?? '',
     isNew: !!e.addedAt && e.addedAt === lastRunDay,
   };
 });
@@ -85,6 +86,25 @@ const TYPE_OPTIONS = [
   ['cited', '被引用'],
   ['business', '商业'],
 ];
+/* 筛选维度的可选项：只列数据中实际出现的星类(量级)与源级(声量)，按等级降序，避免空选项堆砌 */
+const presentStars = [...new Set(entries.map((e: any) => starOf(e)))]
+  .sort((a: any, b: any) => ((STAR_CLASS as any)[b]?.rank ?? 0) - ((STAR_CLASS as any)[a]?.rank ?? 0));
+const presentCons = [...new Set(entries.map((e: any) => e.constellation).filter(Boolean))]
+  .sort((a: any, b: any) => ((CONSTELLATION_RANK as any)[b] ?? 0) - ((CONSTELLATION_RANK as any)[a] ?? 0));
+
+/* 悬浮预览数据岛（frontier-preview.js 按 id 取）：判断 + 摘要节选(≤160) + 星类，供时间轴节点/条目复用 */
+const typeLabelMap: Record<string, string> = Object.fromEntries(TYPE_OPTIONS);
+const ftSnippet = (s: string, n = 160) => (s && s.length > n ? s.slice(0, n - 1) + '…' : s || '');
+const popData = Object.fromEntries(entries.map((e: any) => [e.id, {
+  o: e.ownerName,
+  t: typeLabelMap[e.contentType] ?? e.contentType,
+  s: e.sourceName,
+  star: starOf(e),
+  ti: e.titleZh,
+  v: e.verdict,
+  su: e.summaryZh && e.summaryZh !== e.verdict ? ftSnippet(e.summaryZh) : '',
+  d: e.date,
+}]));
 ---
 
 <Glass
@@ -106,23 +126,34 @@ const TYPE_OPTIONS = [
 
         <!-- 二维时间轴：纵轴领域含人物/源、横轴可切窗；点行名筛选、点节点跳到下方对应条目 -->
         <FrontierTimeline entries={entries} domains={domains} rows={tlRows} portraitOf={portraitOf} />
-        <p class="mono ft-rail-hint">点行名只看 TA 的痕迹 · 点时间轴上的星点跳到对应条目 · <a href="#people">完整档案 ↓</a></p>
+        <p class="mono ft-rail-hint">点领域名聚焦该方向 · 点行名只看 TA · 悬浮看预览 · 点星点跳到条目 · 下方按 声量/量级 过滤 · <a href="#people">完整档案 ↓</a></p>
+        <script type="application/json" id="ft-pop-data" set:html={JSON.stringify(popData)}></script>
 
         {isSample && <p class="mono wb-stamp"><em class="sample-badge">样例数据</em></p>}
 
         <div class="hm-dims mono ft-filters" id="ft-filters">
-          <div class="ft-frow" data-dim="type">
-            <button class="hm-dim active" data-val="">全部类型</button>
-            {TYPE_OPTIONS.map(([val, label]) => (
-              <button class="hm-dim" data-val={val}>{label}</button>
-            ))}
-          </div>
-          <div class="ft-frow" data-dim="domain">
-            <button class="hm-dim active" data-val="">全部领域</button>
-            {Object.entries(domains).map(([key, label]) => (
-              <button class="hm-dim" data-val={key}>{label}</button>
-            ))}
-          </div>
+          {presentCons.length > 1 && (
+            <div class="ft-frow" data-dim="con">
+              <span class="ft-frow-label" title="信源量级：发声者的地标级别">声量</span>
+              <button class="hm-dim active" data-val="">全部</button>
+              {presentCons.map((key: any) => (
+                <button class="hm-dim ft-dim-con" data-val={key} title={(CONSTELLATION as any)[key]?.gist}>
+                  <span class="ft-dim-sym">{(CONSTELLATION as any)[key]?.sym}</span>{(CONSTELLATION as any)[key]?.zh}
+                </button>
+              ))}
+            </div>
+          )}
+          {presentStars.length > 1 && (
+            <div class="ft-frow" data-dim="star">
+              <span class="ft-frow-label" title="事件量级：这条动态本身的分量">量级</span>
+              <button class="hm-dim active" data-val="">全部</button>
+              {presentStars.map((key: any) => (
+                <button class="hm-dim ft-dim-star" data-val={key} style={`--sc:${(STAR_CLASS as any)[key]?.color}`} title={(STAR_CLASS as any)[key]?.gist}>
+                  <span class="ft-dim-sym">{(STAR_CLASS as any)[key]?.sym}</span>{(STAR_CLASS as any)[key]?.zh}
+                </button>
+              ))}
+            </div>
+          )}
           <div class="mono ft-active" id="ft-active" hidden>
             <button class="hm-dim active" id="ft-active-chip" type="button"></button>
           </div>

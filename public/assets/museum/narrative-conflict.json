@@ -1,0 +1,65 @@
+{
+  "_note": "叙事打架案例：同一件文物三方说法互相矛盾，AI 叠呈张力而非编造一个真相。内容为 2026-06-07 夜跑 / 2026-05-18 样本实抓的 verified_chunks 片段。源: longwind1984/prac03_museumcollect@claude/museum-photo-sharing-8qJiz · agents/researcher/sample-bundles/",
+  "cases": [
+    {
+      "id": "white-marble-buddha",
+      "name": "北齐白石佛立像",
+      "museum": "上海博物馆东馆 · 中国古代雕塑馆",
+      "question": "它来自河北响堂山，还是山西？",
+      "sources": [
+        {
+          "label": "展线挂牌 / 媒体",
+          "tier": "媒体解读",
+          "claim": "「北齐白石佛立像（响堂山系）」——暗示来源在河北响堂山、邺城域。",
+          "origin": "上博展线 + 澎湃《在上海看一部中国古代雕塑通史》",
+          "license": "(c) all-rights"
+        },
+        {
+          "label": "上博藏品库一手字段",
+          "tier": "馆方一手",
+          "claim": "题名「石佛像」，北齐，高 144cm；产地『山西』，来源『山西省博物院调拨』。馆方自己的结构化字段，并不背书『响堂山 / 河北』。",
+          "origin": "shanghaimuseum.net · CI00159756（playwright 渲染成功）",
+          "license": "(c) all-rights"
+        },
+        {
+          "label": "海外馆著录",
+          "tier": "海外 OA",
+          "claim": "V&A O129249：『probably from Xiangtangshan, Hebei province』；Met 42704：culture『China (Southern Xiangtangshan)』——同窗口北齐佛头，出处都写河北响堂山。",
+          "origin": "V&A / Metropolitan Museum",
+          "license": "V&A unknown · Met CC0"
+        }
+      ],
+      "verdict": "三方说法并不一致。反幻觉硬门只认实抓到的字段——它把这件的旧样本，从『馆方自标响堂山→V&A 闭环』当场改写成『山西 vs 响堂山』的张力件，因为抓回的馆方字段不支持原说法。AI 把这三层叠给你看，不替馆方拍板哪个是真相。"
+    },
+    {
+      "id": "hongshan-jade",
+      "name": "红山文化玉神人兽像",
+      "museum": "震旦博物馆 · 历代玉器展厅",
+      "question": "它真是五千年前的红山玉，还是只是『风格上像』？",
+      "sources": [
+        {
+          "label": "震旦馆方",
+          "tier": "馆方一手",
+          "claim": "定为红山文化（约前 4500–3000）。私立馆无公开 accession 编号，本件无考古出处——私人收藏捐入。",
+          "origin": "震旦博物馆典藏",
+          "license": "(c) all-rights"
+        },
+        {
+          "label": "国博背书",
+          "tier": "官方专题",
+          "claim": "2020《玉出红山》专题，以牛河梁科学发掘背书『红山五千年』的文化序列。",
+          "origin": "中国国家博物馆",
+          "license": "(c) all-rights"
+        },
+        {
+          "label": "独立学术",
+          "tier": "学术 OA",
+          "claim": "『所有被归为红山的玉神人，没有一件经科学发掘出土；它们的红山归属基于风格判断，不是地层学。』",
+          "origin": "OCS 讲座 + MDPI Arts（CC-BY）· Childs-Johnson",
+          "license": "CC-BY / OA"
+        }
+      ],
+      "verdict": "馆方说明牌大概不会写『本件无考古出处』。AI 可以 surface 这层——不是说馆方错，是把『谁在用什么底气说这是红山』摊给你看。找不到一手出土叙事，本身就是产品要呈现的素材。"
+    }
+  ]
+}

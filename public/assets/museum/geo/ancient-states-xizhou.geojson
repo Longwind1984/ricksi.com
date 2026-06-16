@@ -1,0 +1,283 @@
+{
+  "type": "FeatureCollection",
+  "description": "Approximate ancient state boundaries for the Western Zhou dynasty period (~1046-771 BC). Polygons are simplified approximations for visualization purposes.",
+  "epoch": "西周",
+  "epoch_en": "Western Zhou Dynasty",
+  "date_range": "~1046-771 BC",
+  "features": [
+    {
+      "type": "Feature",
+      "id": "zhou-core",
+      "properties": {
+        "name": "周王畿",
+        "name_en": "Zhou Royal Domain",
+        "dynasty": "西周",
+        "type": "core",
+        "capital": "镐京/洛邑",
+        "color": "#a73a2a",
+        "opacity": 0.35,
+        "description": "西周王室直辖区域，都镐京(今西安)，东都洛邑(今洛阳)，控制关中与洛阳盆地"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [107.0, 35.5],
+          [108.5, 36.0],
+          [110.0, 36.0],
+          [111.0, 35.5],
+          [112.0, 35.0],
+          [113.0, 35.0],
+          [113.5, 34.5],
+          [113.0, 33.5],
+          [111.5, 33.0],
+          [110.0, 33.5],
+          [108.5, 33.5],
+          [107.5, 34.0],
+          [107.0, 35.0],
+          [107.0, 35.5]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "lu",
+      "properties": {
+        "name": "鲁",
+        "name_en": "Lu",
+        "dynasty": "西周",
+        "type": "vassal",
+        "capital": "曲阜",
+        "color": "#a73a2a",
+        "opacity": 0.25,
+        "description": "周公旦之子封国，孔子故乡，礼乐之邦，位于今山东曲阜一带"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [116.0, 36.0],
+          [117.5, 36.5],
+          [118.5, 36.0],
+          [118.5, 35.0],
+          [117.5, 34.5],
+          [116.0, 35.0],
+          [116.0, 36.0]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "qi",
+      "properties": {
+        "name": "齐",
+        "name_en": "Qi",
+        "dynasty": "西周",
+        "type": "vassal",
+        "capital": "临淄",
+        "color": "#a73a2a",
+        "opacity": 0.25,
+        "description": "姜太公封国，位于今山东，春秋时成为霸主"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [117.5, 37.5],
+          [119.0, 38.0],
+          [120.5, 37.5],
+          [121.0, 36.5],
+          [120.0, 35.5],
+          [118.5, 35.5],
+          [117.5, 36.0],
+          [117.5, 37.5]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "yan",
+      "properties": {
+        "name": "燕",
+        "name_en": "Yan",
+        "dynasty": "西周",
+        "type": "vassal",
+        "capital": "蓟(今北京)",
+        "color": "#a73a2a",
+        "opacity": 0.25,
+        "description": "周王室宗亲封国，位于今北京燕山一带，守护北方边疆"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [114.5, 40.0],
+          [116.0, 40.5],
+          [117.5, 40.5],
+          [119.0, 40.0],
+          [120.0, 39.0],
+          [119.0, 38.5],
+          [117.0, 38.5],
+          [115.0, 39.0],
+          [114.5, 40.0]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "jin",
+      "properties": {
+        "name": "晋",
+        "name_en": "Jin",
+        "dynasty": "西周",
+        "type": "vassal",
+        "capital": "唐(今太原)",
+        "color": "#a73a2a",
+        "opacity": 0.25,
+        "description": "唐叔虞封国，位于今山西，春秋时成为强大霸主，战国初分为韩赵魏"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [110.5, 38.5],
+          [112.0, 39.0],
+          [113.5, 39.0],
+          [114.5, 38.5],
+          [114.5, 37.0],
+          [113.5, 36.0],
+          [112.0, 35.5],
+          [110.5, 36.0],
+          [110.0, 37.0],
+          [110.5, 38.5]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "wei-xizhou",
+      "properties": {
+        "name": "卫",
+        "name_en": "Wei",
+        "dynasty": "西周",
+        "type": "vassal",
+        "capital": "朝歌",
+        "color": "#a73a2a",
+        "opacity": 0.22,
+        "description": "康叔封国，都朝歌(今河南淇县)，位于黄河中下游北岸"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [113.5, 36.0],
+          [115.0, 36.5],
+          [116.0, 36.0],
+          [116.0, 35.0],
+          [115.0, 34.5],
+          [113.5, 34.5],
+          [113.5, 36.0]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "zheng-xizhou",
+      "properties": {
+        "name": "郑",
+        "name_en": "Zheng",
+        "dynasty": "西周",
+        "type": "vassal",
+        "capital": "郑(今新郑)",
+        "color": "#a73a2a",
+        "opacity": 0.22,
+        "description": "周宣王弟弟封国，位于今河南新郑，出土莲鹤方壶"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [113.0, 34.0],
+          [114.5, 34.5],
+          [115.0, 34.0],
+          [115.0, 33.0],
+          [113.5, 32.5],
+          [112.5, 33.0],
+          [113.0, 34.0]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "chu-xizhou",
+      "properties": {
+        "name": "楚",
+        "name_en": "Chu",
+        "dynasty": "西周",
+        "type": "vassal_peripheral",
+        "capital": "丹阳",
+        "color": "#2a3a2a",
+        "opacity": 0.25,
+        "description": "熊氏楚国，西周时已受封，位于汉水中游，与周关系时而从属时而抵触"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [108.5, 32.5],
+          [110.5, 32.5],
+          [112.0, 31.5],
+          [113.0, 30.5],
+          [112.5, 29.5],
+          [110.5, 29.0],
+          [109.0, 30.0],
+          [108.0, 31.0],
+          [108.5, 32.5]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "song",
+      "properties": {
+        "name": "宋",
+        "name_en": "Song",
+        "dynasty": "西周",
+        "type": "vassal",
+        "capital": "商丘",
+        "color": "#a73a2a",
+        "opacity": 0.22,
+        "description": "商纣王之兄微子启封国，都商丘(今河南)，以保留商人礼乐"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [115.0, 34.5],
+          [116.5, 34.5],
+          [117.0, 33.5],
+          [116.5, 32.5],
+          [115.0, 32.5],
+          [114.5, 33.5],
+          [115.0, 34.5]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "guo",
+      "properties": {
+        "name": "虢",
+        "name_en": "Guo",
+        "dynasty": "西周",
+        "type": "vassal",
+        "capital": "上阳(今三门峡)",
+        "color": "#a73a2a",
+        "opacity": 0.22,
+        "description": "周文王之弟封国，位于今河南三门峡，出土虢季子白盘"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [109.5, 34.5],
+          [111.0, 34.5],
+          [111.5, 33.5],
+          [110.5, 33.0],
+          [109.5, 33.5],
+          [109.5, 34.5]
+        ]]
+      }
+    }
+  ]
+}

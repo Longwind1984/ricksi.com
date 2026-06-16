@@ -1,0 +1,440 @@
+{
+  "type": "FeatureCollection",
+  "description": "Major museums holding significant Chinese bronze collections. Includes mainland China, Taiwan, and overseas institutions.",
+  "features": [
+    {
+      "type": "Feature",
+      "id": "guobo",
+      "properties": {
+        "name": "中国国家博物馆",
+        "name_en": "National Museum of China",
+        "city": "北京",
+        "country": "中国",
+        "type": "national",
+        "tier": "top",
+        "bronze_count_approx": 4200,
+        "key_artifacts": ["后母戊鼎", "四羊方尊", "大盂鼎", "利簋", "虢季子白盘", "子龙鼎"],
+        "website": "http://en.chnmuseum.cn",
+        "user_visited": true,
+        "user_collected_here": 6
+      },
+      "geometry": {"type": "Point", "coordinates": [116.3975, 39.9057]}
+    },
+    {
+      "type": "Feature",
+      "id": "gugong",
+      "properties": {
+        "name": "故宫博物院",
+        "name_en": "Palace Museum",
+        "city": "北京",
+        "country": "中国",
+        "type": "imperial",
+        "tier": "top",
+        "bronze_count_approx": 6895,
+        "key_artifacts": ["毛公鼎(台北)", "莲鹤方壶(一件)", "大量商周铜器"],
+        "website": "https://www.dpm.org.cn",
+        "user_visited": true,
+        "user_collected_here": 2
+      },
+      "geometry": {"type": "Point", "coordinates": [116.3974, 39.9163]}
+    },
+    {
+      "type": "Feature",
+      "id": "shanghai-museum",
+      "properties": {
+        "name": "上海博物馆",
+        "name_en": "Shanghai Museum",
+        "city": "上海",
+        "country": "中国",
+        "type": "provincial",
+        "tier": "top",
+        "bronze_count_approx": 7900,
+        "key_artifacts": ["大克鼎", "商鞅方升", "散氏盘(台北)"],
+        "website": "https://www.shanghaimuseum.net",
+        "user_visited": true,
+        "user_collected_here": 2
+      },
+      "geometry": {"type": "Point", "coordinates": [121.4737, 31.2314]}
+    },
+    {
+      "type": "Feature",
+      "id": "shaanxi-lishi",
+      "properties": {
+        "name": "陕西历史博物馆",
+        "name_en": "Shaanxi History Museum",
+        "city": "西安",
+        "country": "中国",
+        "type": "provincial",
+        "tier": "top",
+        "bronze_count_approx": 3000,
+        "key_artifacts": ["多友鼎", "史密簋", "数百件西周铜器"],
+        "website": "http://www.sxhm.com",
+        "user_visited": false,
+        "user_collected_here": 0
+      },
+      "geometry": {"type": "Point", "coordinates": [108.9553, 34.2238]}
+    },
+    {
+      "type": "Feature",
+      "id": "henan-bwg",
+      "properties": {
+        "name": "河南博物院",
+        "name_en": "Henan Museum",
+        "city": "郑州",
+        "country": "中国",
+        "type": "provincial",
+        "tier": "top",
+        "bronze_count_approx": 5000,
+        "key_artifacts": ["妇好鸮尊(一件)", "莲鹤方壶(一件)", "云纹铜禁"],
+        "website": "https://www.chnmus.net",
+        "user_visited": false,
+        "user_collected_here": 2
+      },
+      "geometry": {"type": "Point", "coordinates": [113.6667, 34.7659]}
+    },
+    {
+      "type": "Feature",
+      "id": "hubei-bwg",
+      "properties": {
+        "name": "湖北省博物馆",
+        "name_en": "Hubei Provincial Museum",
+        "city": "武汉",
+        "country": "中国",
+        "type": "provincial",
+        "tier": "top",
+        "bronze_count_approx": 2000,
+        "key_artifacts": ["曾侯乙编钟", "曾侯乙尊盘", "越王勾践剑"],
+        "website": "http://www.hbww.org",
+        "user_visited": false,
+        "user_collected_here": 3
+      },
+      "geometry": {"type": "Point", "coordinates": [114.3731, 30.5456]}
+    },
+    {
+      "type": "Feature",
+      "id": "hebei-bwg",
+      "properties": {
+        "name": "河北博物院",
+        "name_en": "Hebei Museum",
+        "city": "石家庄",
+        "country": "中国",
+        "type": "provincial",
+        "tier": "tier1",
+        "bronze_count_approx": 1500,
+        "key_artifacts": ["错金博山炉", "长信宫灯", "金缕玉衣"],
+        "website": "http://www.hebeimuseum.com",
+        "user_visited": false,
+        "user_collected_here": 2
+      },
+      "geometry": {"type": "Point", "coordinates": [114.5024, 38.0428]}
+    },
+    {
+      "type": "Feature",
+      "id": "shanxi-bwg",
+      "properties": {
+        "name": "山西博物院",
+        "name_en": "Shanxi Museum",
+        "city": "太原",
+        "country": "中国",
+        "type": "provincial",
+        "tier": "tier1",
+        "bronze_count_approx": 3000,
+        "key_artifacts": ["龙形觥", "大量晋国铜器", "侯马盟书"],
+        "website": "http://www.shanximuseum.com",
+        "user_visited": false,
+        "user_collected_here": 1
+      },
+      "geometry": {"type": "Point", "coordinates": [112.5534, 37.8699]}
+    },
+    {
+      "type": "Feature",
+      "id": "sanxingdui-museum",
+      "properties": {
+        "name": "三星堆博物馆",
+        "name_en": "Sanxingdui Museum",
+        "city": "广汉",
+        "country": "中国",
+        "type": "site",
+        "tier": "top",
+        "bronze_count_approx": 1400,
+        "key_artifacts": ["青铜大立人", "纵目面具", "青铜神树", "黄金面具"],
+        "website": "https://www.sxd.cn",
+        "user_visited": false,
+        "user_collected_here": 1
+      },
+      "geometry": {"type": "Point", "coordinates": [104.0383, 31.1281]}
+    },
+    {
+      "type": "Feature",
+      "id": "baoji-bronze",
+      "properties": {
+        "name": "宝鸡青铜器博物院",
+        "name_en": "Baoji Bronze Museum",
+        "city": "宝鸡",
+        "country": "中国",
+        "type": "thematic",
+        "tier": "tier1",
+        "bronze_count_approx": 2000,
+        "key_artifacts": ["何尊", "西周弓鱼国铜器群", "大量关中周原出土器"],
+        "website": "http://www.bjbwg.com",
+        "user_visited": false,
+        "user_collected_here": 1
+      },
+      "geometry": {"type": "Point", "coordinates": [107.1695, 34.3642]}
+    },
+    {
+      "type": "Feature",
+      "id": "gansu-bwg",
+      "properties": {
+        "name": "甘肃省博物馆",
+        "name_en": "Gansu Provincial Museum",
+        "city": "兰州",
+        "country": "中国",
+        "type": "provincial",
+        "tier": "tier1",
+        "bronze_count_approx": 800,
+        "key_artifacts": ["马踏飞燕", "铜奔马车仪仗"],
+        "website": "http://www.gansumuseum.com",
+        "user_visited": false,
+        "user_collected_here": 1
+      },
+      "geometry": {"type": "Point", "coordinates": [103.8321, 36.0612]}
+    },
+    {
+      "type": "Feature",
+      "id": "hunan-bwg",
+      "properties": {
+        "name": "湖南省博物馆",
+        "name_en": "Hunan Museum",
+        "city": "长沙",
+        "country": "中国",
+        "type": "provincial",
+        "tier": "tier1",
+        "bronze_count_approx": 1200,
+        "key_artifacts": ["四羊首铜瓿", "商代湘江铜器群", "马王堆汉墓器物"],
+        "website": "https://www.hnmuseum.com",
+        "user_visited": false,
+        "user_collected_here": 0
+      },
+      "geometry": {"type": "Point", "coordinates": [112.9836, 28.1836]}
+    },
+    {
+      "type": "Feature",
+      "id": "taipei-npm",
+      "properties": {
+        "name": "台北故宫博物院",
+        "name_en": "National Palace Museum Taipei",
+        "city": "台北",
+        "country": "台湾",
+        "type": "imperial",
+        "tier": "top",
+        "bronze_count_approx": 6000,
+        "key_artifacts": ["毛公鼎", "散氏盘", "大量故宫旧藏商周铜器"],
+        "website": "https://www.npm.gov.tw",
+        "user_visited": false,
+        "user_collected_here": 2
+      },
+      "geometry": {"type": "Point", "coordinates": [121.5482, 25.1022]}
+    },
+    {
+      "type": "Feature",
+      "id": "nanyuewang-bwg",
+      "properties": {
+        "name": "南越王博物院",
+        "name_en": "Nanyue King Museum",
+        "city": "广州",
+        "country": "中国",
+        "type": "site",
+        "tier": "tier2",
+        "bronze_count_approx": 500,
+        "key_artifacts": ["南越王墓铜器", "丝缕玉衣", "铜熏炉"],
+        "website": "http://www.gznywmuseum.org",
+        "user_visited": false,
+        "user_collected_here": 0
+      },
+      "geometry": {"type": "Point", "coordinates": [113.2535, 23.1322]}
+    },
+    {
+      "type": "Feature",
+      "id": "yunnan-bwg",
+      "properties": {
+        "name": "云南省博物馆",
+        "name_en": "Yunnan Provincial Museum",
+        "city": "昆明",
+        "country": "中国",
+        "type": "provincial",
+        "tier": "tier2",
+        "bronze_count_approx": 1800,
+        "key_artifacts": ["牛虎铜案", "铜鼓", "滇王之印"],
+        "website": "http://www.ynmuseum.org",
+        "user_visited": false,
+        "user_collected_here": 0
+      },
+      "geometry": {"type": "Point", "coordinates": [102.7186, 25.0492]}
+    },
+    {
+      "type": "Feature",
+      "id": "met-newyork",
+      "properties": {
+        "name": "大都会艺术博物馆",
+        "name_en": "The Metropolitan Museum of Art",
+        "city": "纽约",
+        "country": "美国",
+        "type": "overseas",
+        "tier": "top",
+        "bronze_count_approx": 800,
+        "key_artifacts": ["大量商周铜器", "Haidong Ding", "多件妇好时期铜器"],
+        "website": "https://www.metmuseum.org",
+        "user_visited": false,
+        "user_collected_here": 0,
+        "overseas_note": "持续收藏，部分器物来源存争议"
+      },
+      "geometry": {"type": "Point", "coordinates": [-73.9632, 40.7794]}
+    },
+    {
+      "type": "Feature",
+      "id": "british-museum",
+      "properties": {
+        "name": "大英博物馆",
+        "name_en": "The British Museum",
+        "city": "伦敦",
+        "country": "英国",
+        "type": "overseas",
+        "tier": "top",
+        "bronze_count_approx": 500,
+        "key_artifacts": ["大量西周商代青铜器", "散氏盘拓片", "何尊复制品"],
+        "website": "https://www.britishmuseum.org",
+        "user_visited": false,
+        "user_collected_here": 0,
+        "overseas_note": "部分藏品历史来源不明，近代流散"
+      },
+      "geometry": {"type": "Point", "coordinates": [-0.1277, 51.5194]}
+    },
+    {
+      "type": "Feature",
+      "id": "freer-sackler",
+      "properties": {
+        "name": "弗利尔/赛克勒美术馆",
+        "name_en": "Freer/Sackler Gallery (Smithsonian)",
+        "city": "华盛顿DC",
+        "country": "美国",
+        "type": "overseas",
+        "tier": "tier1",
+        "bronze_count_approx": 450,
+        "key_artifacts": ["大量商周铜器", "晚商觥", "Sackler collection"],
+        "website": "https://asia.si.edu",
+        "user_visited": false,
+        "user_collected_here": 0
+      },
+      "geometry": {"type": "Point", "coordinates": [-77.0265, 38.8878]}
+    },
+    {
+      "type": "Feature",
+      "id": "boston-mfa",
+      "properties": {
+        "name": "波士顿美术馆",
+        "name_en": "Museum of Fine Arts Boston",
+        "city": "波士顿",
+        "country": "美国",
+        "type": "overseas",
+        "tier": "tier1",
+        "bronze_count_approx": 280,
+        "key_artifacts": ["商周铜器", "Ross Collection中国青铜器"],
+        "website": "https://www.mfa.org",
+        "user_visited": false,
+        "user_collected_here": 0
+      },
+      "geometry": {"type": "Point", "coordinates": [-71.0967, 42.3394]}
+    },
+    {
+      "type": "Feature",
+      "id": "guimet-paris",
+      "properties": {
+        "name": "吉美东方艺术博物馆",
+        "name_en": "Musée Guimet",
+        "city": "巴黎",
+        "country": "法国",
+        "type": "overseas",
+        "tier": "tier1",
+        "bronze_count_approx": 200,
+        "key_artifacts": ["商周青铜器", "Grandidier Collection"],
+        "website": "https://www.guimet.fr",
+        "user_visited": false,
+        "user_collected_here": 0
+      },
+      "geometry": {"type": "Point", "coordinates": [2.2922, 48.8652]}
+    },
+    {
+      "type": "Feature",
+      "id": "izumiya-kyoto",
+      "properties": {
+        "name": "泉屋博古馆",
+        "name_en": "Sen-oku Hakukokan Museum",
+        "city": "京都",
+        "country": "日本",
+        "type": "overseas",
+        "tier": "tier1",
+        "bronze_count_approx": 370,
+        "key_artifacts": ["大量商周铜器", "住友家族旧藏", "精选各朝代礼器"],
+        "website": "https://www.senoku.or.jp",
+        "user_visited": false,
+        "user_collected_here": 0
+      },
+      "geometry": {"type": "Point", "coordinates": [135.7861, 35.0282]}
+    },
+    {
+      "type": "Feature",
+      "id": "tokyo-national",
+      "properties": {
+        "name": "东京国立博物馆",
+        "name_en": "Tokyo National Museum",
+        "city": "东京",
+        "country": "日本",
+        "type": "overseas",
+        "tier": "tier1",
+        "bronze_count_approx": 250,
+        "key_artifacts": ["商周铜器", "日本国内重要中国青铜器藏品"],
+        "website": "https://www.tnm.jp",
+        "user_visited": false,
+        "user_collected_here": 0
+      },
+      "geometry": {"type": "Point", "coordinates": [139.7763, 35.7189]}
+    },
+    {
+      "type": "Feature",
+      "id": "kyoto-national",
+      "properties": {
+        "name": "京都国立博物馆",
+        "name_en": "Kyoto National Museum",
+        "city": "京都",
+        "country": "日本",
+        "type": "overseas",
+        "tier": "tier2",
+        "bronze_count_approx": 120,
+        "key_artifacts": ["商周铜器少量精品"],
+        "website": "https://www.kyohaku.go.jp",
+        "user_visited": false,
+        "user_collected_here": 0
+      },
+      "geometry": {"type": "Point", "coordinates": [135.7732, 34.9955]}
+    },
+    {
+      "type": "Feature",
+      "id": "liaoning-bwg",
+      "properties": {
+        "name": "辽宁省博物馆",
+        "name_en": "Liaoning Provincial Museum",
+        "city": "沈阳",
+        "country": "中国",
+        "type": "provincial",
+        "tier": "tier2",
+        "bronze_count_approx": 600,
+        "key_artifacts": ["北方系青铜器", "东北地区商周铜器"],
+        "website": "http://www.lnmuseum.com.cn",
+        "user_visited": false,
+        "user_collected_here": 0
+      },
+      "geometry": {"type": "Point", "coordinates": [123.4322, 41.7928]}
+    }
+  ]
+}

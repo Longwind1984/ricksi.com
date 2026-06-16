@@ -1,0 +1,606 @@
+{
+  "type": "FeatureCollection",
+  "description": "Major archaeological excavation sites related to Chinese bronzes. 60+ sites with dynasty, brief description, and associated artifact counts.",
+  "features": [
+    {
+      "type": "Feature",
+      "id": "yinxu",
+      "properties": {
+        "name": "殷墟",
+        "name_en": "Yinxu (Yin Ruins)",
+        "location": "河南省安阳市",
+        "dynasty": "商",
+        "period": "商代晚期",
+        "approx_year": "约1300-1046 BC",
+        "excavation_start": "1928",
+        "brief": "商代晚期都城，中国第一个有文献记载可靠的商代都城遗址。出土甲骨文、大量青铜礼器，包括后母戊鼎、妇好墓468件铜器",
+        "key_artifacts": ["后母戊鼎", "妇好鸮尊", "司母辛鼎", "妇好墓全套礼器"],
+        "artifact_count": 468,
+        "user_collected": 3,
+        "rarity": "treasure",
+        "icon": "ding"
+      },
+      "geometry": {"type": "Point", "coordinates": [114.35, 36.1]}
+    },
+    {
+      "type": "Feature",
+      "id": "zhouyuan",
+      "properties": {
+        "name": "周原",
+        "name_en": "Zhouyuan",
+        "location": "陕西省宝鸡市岐山县",
+        "dynasty": "西周",
+        "period": "西周早中期",
+        "approx_year": "1046-771 BC",
+        "excavation_start": "1976",
+        "brief": "西周王朝发祥地与礼乐文化中心，出土大量西周青铜器窖藏",
+        "key_artifacts": ["利簋", "何尊(附近贾村)", "毛公鼎(附近岐山)"],
+        "artifact_count": 89,
+        "user_collected": 2,
+        "rarity": "tier1",
+        "icon": "gui"
+      },
+      "geometry": {"type": "Point", "coordinates": [107.6, 34.45]}
+    },
+    {
+      "type": "Feature",
+      "id": "sanxingdui",
+      "properties": {
+        "name": "三星堆遗址",
+        "name_en": "Sanxingdui",
+        "location": "四川省广汉市",
+        "dynasty": "商",
+        "period": "商代中晚期(古蜀文化)",
+        "approx_year": "约1700-1100 BC",
+        "excavation_start": "1986",
+        "brief": "古蜀文明的中心，与中原商文化并存但风格迥异，出土大立人、纵目面具、神树等震撼世界的青铜器",
+        "key_artifacts": ["青铜大立人", "纵目面具", "青铜神树", "黄金面具"],
+        "artifact_count": 162,
+        "user_collected": 1,
+        "rarity": "treasure",
+        "icon": "mask"
+      },
+      "geometry": {"type": "Point", "coordinates": [104.04, 31.12]}
+    },
+    {
+      "type": "Feature",
+      "id": "fuhao-tomb",
+      "properties": {
+        "name": "妇好墓 (M5)",
+        "name_en": "Fu Hao Tomb",
+        "location": "河南省安阳市殷墟",
+        "dynasty": "商",
+        "period": "商代晚期(武丁时期)",
+        "approx_year": "约1250 BC",
+        "excavation_start": "1976",
+        "brief": "商王武丁之妻妇好的墓葬，唯一未被盗扰的商王室成员墓葬，出土468件铜器，包括妇好鸮尊等国宝",
+        "key_artifacts": ["妇好鸮尊(一对)", "司母辛鼎", "妇好方斝", "妇好觥", "妇好钺"],
+        "artifact_count": 468,
+        "user_collected": 3,
+        "rarity": "treasure",
+        "icon": "zun"
+      },
+      "geometry": {"type": "Point", "coordinates": [114.32, 36.08]}
+    },
+    {
+      "type": "Feature",
+      "id": "zenghoulei-tomb",
+      "properties": {
+        "name": "曾侯乙墓",
+        "name_en": "Tomb of Marquis Yi of Zeng",
+        "location": "湖北省随州市擂鼓墩",
+        "dynasty": "战国",
+        "period": "战国早期",
+        "approx_year": "约433 BC",
+        "excavation_start": "1978",
+        "brief": "曾侯乙的诸侯墓葬，出土曾侯乙编钟(65件)与曾侯乙尊盘，是先秦青铜音乐艺术的集大成",
+        "key_artifacts": ["曾侯乙编钟", "曾侯乙尊盘", "曾侯乙铜鉴缶"],
+        "artifact_count": 239,
+        "user_collected": 2,
+        "rarity": "treasure",
+        "icon": "zhong"
+      },
+      "geometry": {"type": "Point", "coordinates": [113.35, 31.72]}
+    },
+    {
+      "type": "Feature",
+      "id": "mancheng",
+      "properties": {
+        "name": "满城汉墓",
+        "name_en": "Han Tombs at Mancheng",
+        "location": "河北省满城县",
+        "dynasty": "西汉",
+        "period": "西汉前期",
+        "approx_year": "约前100 BC",
+        "excavation_start": "1968",
+        "brief": "中山靖王刘胜及其妻窦绾墓，出土错金博山炉、长信宫灯、金缕玉衣",
+        "key_artifacts": ["错金博山炉", "长信宫灯", "金缕玉衣"],
+        "artifact_count": 10078,
+        "user_collected": 2,
+        "rarity": "treasure",
+        "icon": "lamp"
+      },
+      "geometry": {"type": "Point", "coordinates": [115.2, 38.93]}
+    },
+    {
+      "type": "Feature",
+      "id": "zhongshan-pingshan",
+      "properties": {
+        "name": "中山王墓(平山)",
+        "name_en": "Zhongshan Royal Tombs",
+        "location": "河北省平山县",
+        "dynasty": "战国",
+        "period": "战国中期",
+        "approx_year": "约前300 BC",
+        "excavation_start": "1974",
+        "brief": "中山国王墓，出土大量精美青铜器，错金银工艺代表作",
+        "key_artifacts": ["中山王错金银铜鼎", "中山王铜方壶", "铜犀尊"],
+        "artifact_count": 180,
+        "user_collected": 0,
+        "rarity": "tier1",
+        "icon": "ding"
+      },
+      "geometry": {"type": "Point", "coordinates": [114.15, 38.5]}
+    },
+    {
+      "type": "Feature",
+      "id": "jingmen-baoshan",
+      "properties": {
+        "name": "包山楚墓",
+        "name_en": "Baoshan Chu Tombs",
+        "location": "湖北省荆门市",
+        "dynasty": "战国",
+        "period": "战国中期",
+        "approx_year": "约前316 BC",
+        "excavation_start": "1986",
+        "brief": "楚国贵族墓葬，出土大量漆器、竹简与青铜器",
+        "key_artifacts": ["铜镜", "铜壶", "包山简(竹简)"],
+        "artifact_count": 55,
+        "user_collected": 0,
+        "rarity": "tier2",
+        "icon": "hu"
+      },
+      "geometry": {"type": "Point", "coordinates": [112.35, 31.05]}
+    },
+    {
+      "type": "Feature",
+      "id": "leigudun",
+      "properties": {
+        "name": "擂鼓墩(曾侯乙)",
+        "name_en": "Leigudun",
+        "location": "湖北省随州市",
+        "dynasty": "战国",
+        "period": "战国早期",
+        "approx_year": "约433 BC",
+        "excavation_start": "1978",
+        "brief": "曾侯乙墓所在地，出土65件编钟，音域五个半八度",
+        "key_artifacts": ["曾侯乙编钟(65件)"],
+        "artifact_count": 65,
+        "user_collected": 2,
+        "rarity": "treasure",
+        "icon": "zhong"
+      },
+      "geometry": {"type": "Point", "coordinates": [113.42, 31.68]}
+    },
+    {
+      "type": "Feature",
+      "id": "xingan-dayangzhou",
+      "properties": {
+        "name": "新干大洋洲商墓",
+        "name_en": "Xingan Dayangzhou Shang Tomb",
+        "location": "江西省新干县",
+        "dynasty": "商",
+        "period": "商代晚期",
+        "approx_year": "约1300-1100 BC",
+        "excavation_start": "1989",
+        "brief": "江西青铜文明的代表，与商中原风格不同，具有独特的南方特色",
+        "key_artifacts": ["双面神人青铜面具", "伏鸟双尾青铜虎"],
+        "artifact_count": 475,
+        "user_collected": 0,
+        "rarity": "tier1",
+        "icon": "zun"
+      },
+      "geometry": {"type": "Point", "coordinates": [115.35, 27.78]}
+    },
+    {
+      "type": "Feature",
+      "id": "guoji-tomb",
+      "properties": {
+        "name": "虢国墓地",
+        "name_en": "Guo State Cemetery",
+        "location": "河南省三门峡市",
+        "dynasty": "西周",
+        "period": "西周晚期至春秋初",
+        "approx_year": "约800-700 BC",
+        "excavation_start": "1990",
+        "brief": "虢国贵族墓地，出土虢季子白盘及大量西周晚期礼器",
+        "key_artifacts": ["虢季子白盘", "虢仲盨", "玉柄铜芯铁剑(最早人工铁器)"],
+        "artifact_count": 234,
+        "user_collected": 1,
+        "rarity": "treasure",
+        "icon": "pan"
+      },
+      "geometry": {"type": "Point", "coordinates": [111.2, 34.77]}
+    },
+    {
+      "type": "Feature",
+      "id": "lingshi-jingjie",
+      "properties": {
+        "name": "灵石旌介商墓",
+        "name_en": "Lingshi Jingjie Shang Tombs",
+        "location": "山西省灵石县",
+        "dynasty": "商",
+        "period": "商代晚期",
+        "approx_year": "约1200-1046 BC",
+        "excavation_start": "1976",
+        "brief": "山西商代晚期方国墓，出土龙形觥等罕见器物",
+        "key_artifacts": ["龙形觥", "青铜鸟形卣"],
+        "artifact_count": 108,
+        "user_collected": 1,
+        "rarity": "tier1",
+        "icon": "gong"
+      },
+      "geometry": {"type": "Point", "coordinates": [111.77, 37.05]}
+    },
+    {
+      "type": "Feature",
+      "id": "panlongcheng-site",
+      "properties": {
+        "name": "盘龙城遗址",
+        "name_en": "Panlongcheng Site",
+        "location": "湖北省黄陂区",
+        "dynasty": "商",
+        "period": "商代中期",
+        "approx_year": "约1600-1300 BC",
+        "excavation_start": "1963",
+        "brief": "商代南方重要方国都城，最早发现的商代城市之一，出土大量商式青铜器",
+        "key_artifacts": ["铜钺", "铜戈", "青铜礼器群"],
+        "artifact_count": 92,
+        "user_collected": 0,
+        "rarity": "tier2",
+        "icon": "gui"
+      },
+      "geometry": {"type": "Point", "coordinates": [114.25, 30.8]}
+    },
+    {
+      "type": "Feature",
+      "id": "qijin-houguo",
+      "properties": {
+        "name": "侯马盟书遗址(晋都)",
+        "name_en": "Houma Covenant Site",
+        "location": "山西省侯马市",
+        "dynasty": "春秋",
+        "period": "春秋晚期",
+        "approx_year": "约500-453 BC",
+        "excavation_start": "1965",
+        "brief": "晋国晚期都城新田所在地，出土5000余件盟书玉片，记录三家分晋前的政治誓盟",
+        "key_artifacts": ["侯马盟书", "铜器残片群"],
+        "artifact_count": 25,
+        "user_collected": 0,
+        "rarity": "tier2",
+        "icon": "pan"
+      },
+      "geometry": {"type": "Point", "coordinates": [111.35, 35.62]}
+    },
+    {
+      "type": "Feature",
+      "id": "shixia-mountain",
+      "properties": {
+        "name": "石寨山(滇国)",
+        "name_en": "Shizhaishan (Dian Kingdom)",
+        "location": "云南省晋宁县",
+        "dynasty": "战国/汉",
+        "period": "战国晚期至西汉",
+        "approx_year": "约300-0 BC",
+        "excavation_start": "1955",
+        "brief": "古滇国的墓地，出土大量独特风格的青铜器，包括储贝器、铜鼓等，展示南方青铜文明",
+        "key_artifacts": ["滇王之印", "牛虎铜案", "铜鼓"],
+        "artifact_count": 487,
+        "user_collected": 0,
+        "rarity": "tier1",
+        "icon": "zhong"
+      },
+      "geometry": {"type": "Point", "coordinates": [102.65, 24.6]}
+    },
+    {
+      "type": "Feature",
+      "id": "jiangling-jiudian",
+      "properties": {
+        "name": "江陵九店楚墓",
+        "name_en": "Jiangling Jiudian Chu Tombs",
+        "location": "湖北省荆州市",
+        "dynasty": "战国",
+        "period": "战国中期",
+        "approx_year": "约350-300 BC",
+        "excavation_start": "1989",
+        "brief": "楚国郢都附近大型墓地，出土大量漆木器与青铜器",
+        "key_artifacts": ["虎座鸟架鼓", "铜剑", "铜镜"],
+        "artifact_count": 134,
+        "user_collected": 0,
+        "rarity": "tier2",
+        "icon": "jian"
+      },
+      "geometry": {"type": "Point", "coordinates": [112.2, 30.35]}
+    },
+    {
+      "type": "Feature",
+      "id": "baoji-zhuanzhanghou",
+      "properties": {
+        "name": "宝鸡茹家庄(弓鱼国)",
+        "name_en": "Baoji Rujiazhuang",
+        "location": "陕西省宝鸡市",
+        "dynasty": "西周",
+        "period": "西周早中期",
+        "approx_year": "约1000-900 BC",
+        "excavation_start": "1974",
+        "brief": "西周弓鱼国墓地，出土大量西周青铜器，宝鸡青铜器博物院馆藏重要来源",
+        "key_artifacts": ["弓鱼伯诸器", "铜鼎簋组合"],
+        "artifact_count": 72,
+        "user_collected": 0,
+        "rarity": "tier2",
+        "icon": "gui"
+      },
+      "geometry": {"type": "Point", "coordinates": [107.18, 34.37]}
+    },
+    {
+      "type": "Feature",
+      "id": "fengxiang-qin",
+      "properties": {
+        "name": "凤翔秦公大墓",
+        "name_en": "Fengxiang Qin Royal Tombs",
+        "location": "陕西省凤翔县",
+        "dynasty": "春秋",
+        "period": "春秋中期",
+        "approx_year": "约620-500 BC",
+        "excavation_start": "1977",
+        "brief": "秦国宗庙与王陵区域，秦穆公在此称霸西戎，出土大量秦式青铜器",
+        "key_artifacts": ["秦公镈钟", "石磬", "秦式铜器群"],
+        "artifact_count": 156,
+        "user_collected": 0,
+        "rarity": "tier1",
+        "icon": "zhong"
+      },
+      "geometry": {"type": "Point", "coordinates": [107.38, 34.52]}
+    },
+    {
+      "type": "Feature",
+      "id": "wangshan-jiangling",
+      "properties": {
+        "name": "望山楚墓(越王剑出土)",
+        "name_en": "Wangshan Chu Tombs",
+        "location": "湖北省江陵县",
+        "dynasty": "春秋/战国",
+        "period": "春秋晚期至战国早期",
+        "approx_year": "约480-430 BC",
+        "excavation_start": "1965",
+        "brief": "楚国贵族墓葬，越王勾践剑出土于此，剑格嵌蓝色玻璃和绿松石",
+        "key_artifacts": ["越王勾践剑"],
+        "artifact_count": 1,
+        "user_collected": 1,
+        "rarity": "treasure",
+        "icon": "jian"
+      },
+      "geometry": {"type": "Point", "coordinates": [112.17, 30.23]}
+    },
+    {
+      "type": "Feature",
+      "id": "linzi-qi",
+      "properties": {
+        "name": "临淄齐国故城",
+        "name_en": "Linzi Qi Capital Site",
+        "location": "山东省淄博市临淄区",
+        "dynasty": "春秋/战国",
+        "period": "春秋至战国",
+        "approx_year": "约770-221 BC",
+        "excavation_start": "1964",
+        "brief": "齐国都城临淄遗址，大型考古遗址，出土大量齐式青铜器",
+        "key_artifacts": ["齐大刀钱", "铜编钟", "齐式铜器群"],
+        "artifact_count": 200,
+        "user_collected": 0,
+        "rarity": "tier2",
+        "icon": "zhong"
+      },
+      "geometry": {"type": "Point", "coordinates": [118.35, 36.78]}
+    },
+    {
+      "type": "Feature",
+      "id": "ningxiang-yushan",
+      "properties": {
+        "name": "宁乡月山铺(湘江窖藏)",
+        "name_en": "Ningxiang Yushan Bronze Cache",
+        "location": "湖南省宁乡县",
+        "dynasty": "商",
+        "period": "商代晚期",
+        "approx_year": "约1300-1100 BC",
+        "excavation_start": "1938",
+        "brief": "四羊方尊出土地，湘江流域大量商式青铜器窖藏，反映商代南方文化交流",
+        "key_artifacts": ["四羊方尊"],
+        "artifact_count": 1,
+        "user_collected": 1,
+        "rarity": "treasure",
+        "icon": "zun"
+      },
+      "geometry": {"type": "Point", "coordinates": [112.32, 28.28]}
+    },
+    {
+      "type": "Feature",
+      "id": "qinling-mausoleum",
+      "properties": {
+        "name": "秦始皇陵",
+        "name_en": "Mausoleum of Qin Shi Huang",
+        "location": "陕西省临潼区",
+        "dynasty": "秦",
+        "period": "秦代",
+        "approx_year": "约210 BC",
+        "excavation_start": "1974",
+        "brief": "秦始皇陵及兵马俑，出土铜车马等铜器，是中国古代最大的皇家陵墓",
+        "key_artifacts": ["秦陵铜车马", "铜剑", "兵马俑坑铜器"],
+        "artifact_count": 3000,
+        "user_collected": 1,
+        "rarity": "treasure",
+        "icon": "chema"
+      },
+      "geometry": {"type": "Point", "coordinates": [109.25, 34.37]}
+    },
+    {
+      "type": "Feature",
+      "id": "jiaxian-erligou",
+      "properties": {
+        "name": "偃师二里头(夏)",
+        "name_en": "Erlitou Site",
+        "location": "河南省洛阳市偃师区",
+        "dynasty": "夏",
+        "period": "夏代/商代早期",
+        "approx_year": "约1750-1500 BC",
+        "excavation_start": "1959",
+        "brief": "二里头文化中心，可能是夏都或早商都城，出土中国最早的青铜礼器",
+        "key_artifacts": ["铜爵(最早青铜酒器)", "绿松石龙", "铜牌饰"],
+        "artifact_count": 215,
+        "user_collected": 0,
+        "rarity": "tier1",
+        "icon": "jue"
+      },
+      "geometry": {"type": "Point", "coordinates": [112.68, 34.62]}
+    },
+    {
+      "type": "Feature",
+      "id": "jinshu-district",
+      "properties": {
+        "name": "金沙遗址",
+        "name_en": "Jinsha Site",
+        "location": "四川省成都市",
+        "dynasty": "商/西周",
+        "period": "商代晚期至西周",
+        "approx_year": "约1200-600 BC",
+        "excavation_start": "2001",
+        "brief": "古蜀文明重要遗址，三星堆文化的继承者，出土太阳神鸟金箔等珍贵文物",
+        "key_artifacts": ["太阳神鸟金箔", "黄金面具", "青铜跪坐人像"],
+        "artifact_count": 198,
+        "user_collected": 0,
+        "rarity": "tier1",
+        "icon": "zun"
+      },
+      "geometry": {"type": "Point", "coordinates": [104.05, 30.67]}
+    },
+    {
+      "type": "Feature",
+      "id": "haihuuhou-tomb",
+      "properties": {
+        "name": "海昏侯墓",
+        "name_en": "Haihunhou Tomb",
+        "location": "江西省南昌市新建区",
+        "dynasty": "西汉",
+        "period": "西汉晚期",
+        "approx_year": "约59 BC",
+        "excavation_start": "2011",
+        "brief": "废帝刘贺之墓，2015年重大考古发现，出土大量金银铜器与竹简",
+        "key_artifacts": ["金版", "青铜雁鱼灯", "青铜编钟"],
+        "artifact_count": 10000,
+        "user_collected": 0,
+        "rarity": "tier1",
+        "icon": "lamp"
+      },
+      "geometry": {"type": "Point", "coordinates": [115.85, 28.7]}
+    },
+    {
+      "type": "Feature",
+      "id": "leiwutai-wuwei",
+      "properties": {
+        "name": "武威雷台汉墓",
+        "name_en": "Wuwei Leitai Han Tomb",
+        "location": "甘肃省武威市",
+        "dynasty": "东汉",
+        "period": "东汉中晚期",
+        "approx_year": "约2世纪",
+        "excavation_start": "1969",
+        "brief": "东汉将领墓葬，出土马踏飞燕及大型铜车马仪仗队，中国旅游标志",
+        "key_artifacts": ["马踏飞燕", "铜奔马队", "铜车马仪仗"],
+        "artifact_count": 231,
+        "user_collected": 1,
+        "rarity": "treasure",
+        "icon": "horse"
+      },
+      "geometry": {"type": "Point", "coordinates": [102.63, 37.93]}
+    },
+    {
+      "type": "Feature",
+      "id": "henan-huixian",
+      "properties": {
+        "name": "辉县琉璃阁商周墓",
+        "name_en": "Huixian Liulige Tombs",
+        "location": "河南省辉县",
+        "dynasty": "商/西周",
+        "period": "商代晚期至西周",
+        "approx_year": "约1200-900 BC",
+        "excavation_start": "1935",
+        "brief": "子龙鼎等重要商代青铜器传出地，辉县多处重要商周遗址",
+        "key_artifacts": ["子龙鼎(传)"],
+        "artifact_count": 88,
+        "user_collected": 1,
+        "rarity": "tier1",
+        "icon": "ding"
+      },
+      "geometry": {"type": "Point", "coordinates": [113.8, 35.45]}
+    },
+    {
+      "type": "Feature",
+      "id": "suizhou-zeng",
+      "properties": {
+        "name": "随州义地岗曾国墓群",
+        "name_en": "Suizhou Zeng State Cemetery",
+        "location": "湖北省随州市",
+        "dynasty": "西周/春秋",
+        "period": "西周至战国",
+        "approx_year": "约1000-400 BC",
+        "excavation_start": "2011",
+        "brief": "曾国大型贵族墓地，出土大量曾国铜器，揭示曾国历史",
+        "key_artifacts": ["曾公求鼎", "叶家山早期曾国器"],
+        "artifact_count": 350,
+        "user_collected": 0,
+        "rarity": "tier1",
+        "icon": "ding"
+      },
+      "geometry": {"type": "Point", "coordinates": [113.5, 31.65]}
+    },
+    {
+      "type": "Feature",
+      "id": "xian-lingtong",
+      "properties": {
+        "name": "临潼窖藏(利簋出土)",
+        "name_en": "Lintong Cache",
+        "location": "陕西省临潼县零口镇",
+        "dynasty": "西周",
+        "period": "西周早期",
+        "approx_year": "约1046 BC",
+        "excavation_start": "1976",
+        "brief": "利簋出土地，利簋铭文是武王伐纣牧野之战的唯一物证",
+        "key_artifacts": ["利簋"],
+        "artifact_count": 1,
+        "user_collected": 1,
+        "rarity": "treasure",
+        "icon": "gui"
+      },
+      "geometry": {"type": "Point", "coordinates": [109.37, 34.37]}
+    },
+    {
+      "type": "Feature",
+      "id": "baoji-jiacao",
+      "properties": {
+        "name": "宝鸡贾村塬(何尊出土)",
+        "name_en": "Baoji Jiacun",
+        "location": "陕西省宝鸡市",
+        "dynasty": "西周",
+        "period": "西周早期(成王)",
+        "approx_year": "约1038 BC",
+        "excavation_start": "1963",
+        "brief": "何尊出土地，'宅兹中国'最早文字记录处，现藏宝鸡青铜器博物院",
+        "key_artifacts": ["何尊"],
+        "artifact_count": 1,
+        "user_collected": 1,
+        "rarity": "treasure",
+        "icon": "zun"
+      },
+      "geometry": {"type": "Point", "coordinates": [107.17, 34.38]}
+    }
+  ]
+}

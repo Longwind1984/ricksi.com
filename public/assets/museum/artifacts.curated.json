@@ -1,0 +1,303 @@
+{
+ "_note": "自源仓库 277 件 ×11 字段中 curate 的 12 件代表作。字段取自真实数据；coord 为出土地近似坐标(人工标注)，museum_coord 仅流散件。源: longwind1984/prac03_museumcollect@claude/museum-photo-sharing-8qJiz · data/curated/bronze-treasures-v3-segment-*.json",
+ "count_total": 277,
+ "artifacts": [
+  {
+   "id": "houmuwu_ding",
+   "name_zh": "后母戊鼎",
+   "name_pinyin": "Hou Mu Wu Ding",
+   "dynasty": "商",
+   "era": "商",
+   "period": "商代晚期",
+   "approx_year": "约公元前1300-1046年",
+   "type": "食器",
+   "form_subtype": "方鼎",
+   "rarity_level": "国宝",
+   "museum": "中国国家博物馆",
+   "museum_country": "中国",
+   "diaspora": false,
+   "site": "河南省安阳市武官村殷墟遗址",
+   "ancient_state": "商",
+   "coord": [
+    114.35,
+    36.1
+   ],
+   "museum_coord": null,
+   "silhouette": "fangding",
+   "story_brief": "后母戊鼎是商王祖庚或祖甲为祭祀其母'戊'(武丁王后妇妌)所铸,是迄今出土最大、最重的商代青铜礼器,也是世界古代青铜器之最。1939年由河南安阳武官村农民吴希增等在田间发现,因日军逼近被就地回埋保护。抗战胜利后辗转运抵南京,新中国成立后由南京调归中国历史博物馆(今国博)。由28块陶范分铸再合铸而成,展…"
+  },
+  {
+   "id": "fuhao_xiaozun",
+   "name_zh": "妇好鸮尊",
+   "name_pinyin": "Fu Hao Xiao Zun",
+   "dynasty": "商",
+   "era": "商",
+   "period": "商代晚期(武丁时期)",
+   "approx_year": "约公元前1250年",
+   "type": "酒器",
+   "form_subtype": "鸟兽形尊(鸮形)",
+   "rarity_level": "国宝",
+   "museum": "河南博物院",
+   "museum_country": "中国",
+   "diaspora": false,
+   "site": "河南省安阳市殷墟妇好墓(M5)",
+   "ancient_state": "商",
+   "coord": [
+    114.32,
+    36.08
+   ],
+   "museum_coord": null,
+   "silhouette": "xiao_zun",
+   "story_brief": "妇好鸮尊为一对,1976年出土于安阳殷墟妇好墓(中国唯一未被盗扰的商王室成员墓葬),分藏中国国家博物馆与河南博物院。器形整体作站立鸮(猫头鹰)状,小耳圆目,宽喙宽尾下垂,与双足三点稳立。盖钮立鸟立龙,通身满饰蝉纹、饕餮纹、蟠蛇纹、夔龙纹与云雷纹,工艺繁复。'妇好'是商王武丁之妻、能征善战的女将军,中…"
+  },
+  {
+   "id": "sanxingdui_dali_ren_v3",
+   "name_zh": "三星堆青铜大立人",
+   "name_pinyin": "San Xing Dui Qing Tong Da Li Ren",
+   "dynasty": "商",
+   "era": "商",
+   "period": "商代晚期(古蜀文化)",
+   "approx_year": null,
+   "type": null,
+   "form_subtype": null,
+   "rarity_level": "禁止出境",
+   "museum": "三星堆博物馆",
+   "museum_country": "中国",
+   "diaspora": false,
+   "site": "",
+   "ancient_state": "",
+   "coord": [
+    104.04,
+    31.12
+   ],
+   "museum_coord": null,
+   "silhouette": "sanxingdui_dali_ren",
+   "story_brief": ""
+  },
+  {
+   "id": "bm_double_ram_zun",
+   "name_zh": "商代双羊尊（大英）",
+   "name_pinyin": "Shang Dai Shuang Yang Zun BM",
+   "dynasty": "商",
+   "era": "商",
+   "period": "商代晚期",
+   "approx_year": "约公元前13-11世纪",
+   "type": "酒器",
+   "form_subtype": "尊",
+   "rarity_level": "国宝级海外藏",
+   "museum": "大英博物馆",
+   "museum_country": "英国",
+   "diaspora": true,
+   "site": "",
+   "ancient_state": "",
+   "coord": [
+    112.0,
+    27.5
+   ],
+   "museum_coord": [
+    -0.1278,
+    51.5194
+   ],
+   "silhouette": "fang_zun",
+   "story_brief": "全球仅存两件双羊尊，另一件藏东京根津美术馆。此器以两头背对背的雄羊支撑壶形器身，羊角卷曲、羊身饰鳞纹，构思奇绝。1936年大英博物馆购自乔治·尤摩福普罗斯（George Eumorfopoulos）。湖南宁乡地区出土大量商代青铜器，与殷墟中心区相距遥远，证明商文化向南的深度渗透。2013年学者对其进…"
+  },
+  {
+   "id": "he_zun",
+   "name_zh": "何尊",
+   "name_pinyin": "He Zun",
+   "dynasty": "西周",
+   "era": "西周",
+   "period": "西周早期(成王时期)",
+   "approx_year": "约公元前1038年(成王五年)",
+   "type": "酒器",
+   "form_subtype": "尊(圆口方腹,四隅有扉棱)",
+   "rarity_level": "国宝(2002年首批禁止出境文物)",
+   "museum": "宝鸡青铜器博物院",
+   "museum_country": "中国",
+   "diaspora": false,
+   "site": "",
+   "ancient_state": "",
+   "coord": [
+    107.24,
+    34.36
+   ],
+   "museum_coord": null,
+   "silhouette": null,
+   "story_brief": "何尊1963年由宝鸡贾村塬陈氏农民挖出,因不识其价值,1965年以30元卖入废品收购站。文物干部佟太放慧眼识宝抢救入库。1975年马承源除锈时发现底部122字铭文,'宅兹中国'四字震惊学界——这是'中国'二字最早出处。何尊见证了武王克商、成王迁洛、营建成周的关键史实。现为宝鸡青铜器博物院镇馆之宝。"
+  },
+  {
+   "id": "da_ke_ding",
+   "name_zh": "大克鼎",
+   "name_pinyin": "Da Ke Ding",
+   "dynasty": "西周",
+   "era": "西周",
+   "period": "西周中期(孝王时期)",
+   "approx_year": "约公元前10世纪中期",
+   "type": "食器",
+   "form_subtype": "圆鼎(附耳三柱足)",
+   "rarity_level": "国宝(2002年首批禁止出境文物)",
+   "museum": "上海博物馆",
+   "museum_country": "中国",
+   "diaspora": false,
+   "site": "",
+   "ancient_state": "",
+   "coord": [
+    107.6,
+    34.45
+   ],
+   "museum_coord": null,
+   "silhouette": "yuanding",
+   "story_brief": "大克鼎1890年出土于陕西扶风法门寺附近窖藏,同坑出土小克鼎7件、编钟等逾1200件青铜器。先归柯劭忞,后归潘祖荫。抗战时潘达于女士将其与大盂鼎同埋地下。1952年捐献国家,藏上海博物馆。高93.1 cm,重201.5 kg,腹饰西周晚期流行之波曲纹(环带纹),290字铭文是膳夫克的册命录,与大盂鼎…"
+  },
+  {
+   "id": "maogong_ding",
+   "name_zh": "毛公鼎",
+   "name_pinyin": "Mao Gong Ding",
+   "dynasty": "西周",
+   "era": "西周",
+   "period": "西周晚期(宣王时期)",
+   "approx_year": "约公元前828-782年",
+   "type": "食器",
+   "form_subtype": "圆鼎(附耳三柱足)",
+   "rarity_level": "国宝",
+   "museum": "台北故宫博物院",
+   "museum_country": "台湾",
+   "diaspora": true,
+   "site": "",
+   "ancient_state": "",
+   "coord": [
+    107.6,
+    34.45
+   ],
+   "museum_coord": [
+    121.5485,
+    25.1023
+   ],
+   "silhouette": "yuanding",
+   "story_brief": "毛公鼎1843年出土于陕西岐山,因器主为周宣王叔父毛公而得名。499字铭文是世界最长青铜器铭文,内容涵盖宣王中兴政治蓝图。鼎几经辗转:陈介祺—端方—叶恭绰—陈咏仁。抗战时叶氏密藏沪上避日军,1946年陈咏仁捐出,1948年随国宝迁台,现为台北故宫三大镇馆之宝之一。与大盂鼎、大克鼎并称'海内三宝'。"
+  },
+  {
+   "id": "yuewang_goujian_jian",
+   "name_zh": "越王勾践剑",
+   "name_pinyin": "Yue Wang Gou Jian Jian",
+   "dynasty": "春秋",
+   "era": "春秋",
+   "period": "春秋晚期(越国)",
+   "approx_year": "约公元前496-465年(勾践在位期间)",
+   "type": "兵器",
+   "form_subtype": "剑(青铜复合剑)",
+   "rarity_level": "国宝(2013年首批禁止出境文物)",
+   "museum": "湖北省博物馆",
+   "museum_country": "中国",
+   "diaspora": false,
+   "site": "",
+   "ancient_state": "",
+   "coord": [
+    112.19,
+    30.42
+   ],
+   "museum_coord": null,
+   "silhouette": "yuewang_jian",
+   "story_brief": "越王勾践剑1965年12月出土于湖北江陵望山一号楚墓,出土时寒光依旧、锋利如新,试纸应手而断,埋地2400余年几乎无锈。剑刃含锡量高(硬而锋利),剑脊含锡低(韧不易折),为典型'复合金属'工艺;菱形暗格纹系含硫处理而成,兼具防腐与装饰功能。剑格嵌蓝色玻璃和绿松石,近格处错金鸟篆'越王鸠浅自作用剑'8…"
+  },
+  {
+   "id": "zifu_he_zhong",
+   "name_zh": "子犯和钟",
+   "name_pinyin": "Zi Fan He Zhong",
+   "dynasty": "春秋",
+   "era": "春秋",
+   "period": "春秋中期(晋国)",
+   "approx_year": "约公元前632年(城濮之战前后)",
+   "type": "乐器",
+   "form_subtype": "编钟(甬钟,传世8件)",
+   "rarity_level": "国宝级(流散海外)",
+   "museum": "美国大都会艺术博物馆",
+   "museum_country": "美国",
+   "diaspora": true,
+   "site": "",
+   "ancient_state": "",
+   "coord": [
+    111.5,
+    35.6
+   ],
+   "museum_coord": [
+    -73.9632,
+    40.7794
+   ],
+   "silhouette": "bianzhong",
+   "story_brief": "子犯和钟为春秋晋国卿子犯(狐偃)铸造,铭文记述公元前632年城濮之战中晋国大败楚国、晋文公确立霸主地位的史实。铭文总约356字,与《左传》《史记》等文献高度契合,是先秦史研究的珍贵一手资料。现传世8件藏于美国大都会艺术博物馆,为流散海外的重要先秦青铜器之一。"
+  },
+  {
+   "id": "zenghouyi_bianzhong",
+   "name_zh": "曾侯乙编钟",
+   "name_pinyin": "Zeng Hou Yi Bian Zhong",
+   "dynasty": "战国",
+   "era": "战国",
+   "period": "战国早期(曾国)",
+   "approx_year": "约公元前433年",
+   "type": "乐器",
+   "form_subtype": "编钟(钮钟+甬钟+镈钟共65件,三层八组)",
+   "rarity_level": "国宝(2002年首批禁止出境文物,2024年入UNESCO世界记忆名录)",
+   "museum": "湖北省博物馆",
+   "museum_country": "中国",
+   "diaspora": false,
+   "site": "",
+   "ancient_state": "",
+   "coord": [
+    113.38,
+    31.72
+   ],
+   "museum_coord": null,
+   "silhouette": "bianzhong",
+   "story_brief": "曾侯乙编钟1978年出土于湖北随州擂鼓墩,共65件分三层八组悬于7.48米长曲尺形钟架,总重逾4421公斤。每枚甬钟可发两个相差三度的音(一钟双音),音域跨越5个半八度,12律俱全。3755字铭文是世界乐律学最早系统文献,展示公元前5世纪中国已有十二平均律雏形。中央最大镈钟为楚惠王熊章赠予曾侯乙的纪…"
+  },
+  {
+   "id": "qin_tongchema",
+   "name_zh": "秦陵铜车马",
+   "name_pinyin": "Qin Ling Tong Che Ma",
+   "dynasty": "秦",
+   "era": "秦",
+   "period": "秦代(始皇时期)",
+   "approx_year": "约公元前210年",
+   "type": "杂器",
+   "form_subtype": "铜车马(一号立车+二号安车)",
+   "rarity_level": "禁止出境",
+   "museum": "秦始皇帝陵博物院",
+   "museum_country": "中国",
+   "diaspora": false,
+   "site": "",
+   "ancient_state": "",
+   "coord": [
+    109.26,
+    34.38
+   ],
+   "museum_coord": null,
+   "silhouette": null,
+   "story_brief": "秦陵铜车马1980年12月出土于秦始皇陵封土西侧7.8米地下, 出土时碎为3000余片, 经8年精修复原。共两乘: 一号'立车'(车手立式驾驭), 二号'安车'(封闭厢式, 后室可坐卧)。每车配四匹铜马一位车御, 马具、车具齐全。彩绘以白色为底, 绘云气纹; 部分构件错金银。比例为真车马的1/2。被…"
+  },
+  {
+   "id": "dian_wang_gold_seal",
+   "name_zh": "滇王之印",
+   "name_pinyin": "Dian Wang Zhi Yin",
+   "dynasty": "西汉",
+   "era": "汉",
+   "period": "西汉中期",
+   "approx_year": "约公元前109年（汉武帝元封二年）",
+   "type": "符信器",
+   "form_subtype": "金印",
+   "rarity_level": "国宝",
+   "museum": "云南省博物馆",
+   "museum_country": "中国",
+   "diaspora": false,
+   "site": "",
+   "ancient_state": "",
+   "coord": [
+    102.6,
+    24.58
+   ],
+   "museum_coord": null,
+   "silhouette": null,
+   "story_brief": "史记西南夷列传记载汉武帝元封二年赐滇王王印，此印正与史料吻合，是云南最早归属中央的物证。蛇纽金印重90克，印文为凿制而非铸制，反映封赐之仓促。2013年列入第三批禁止出境展览文物目录。"
+  }
+ ]
+}

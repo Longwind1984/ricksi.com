@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 圆鼎 (round-bowl three-leg ding), 西周, 大盂鼎 / 大克鼎 / 毛公鼎 reference. viewBox 100x100. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+  <!-- two upright handles + round bowl body + three legs (two outer, one center-back) -->
+  <path fill="#a4732c" fill-rule="evenodd" d="
+    M 30 14 L 30 30 L 34 30 L 34 20 L 42 20 L 42 30 L 46 30 L 46 14 Z
+    M 54 14 L 54 30 L 58 30 L 58 20 L 66 20 L 66 30 L 70 30 L 70 14 Z
+    M 18 32 L 82 32 L 80 38 L 80 56 Q 80 70 70 72 L 70 88 L 62 88 L 62 72 L 54 72 L 54 88 L 46 88 L 46 72 L 38 72 L 38 88 L 30 88 L 30 72 Q 20 70 20 56 L 20 38 Z
+  "/>
+</svg>

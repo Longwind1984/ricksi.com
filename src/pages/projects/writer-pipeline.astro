@@ -28,6 +28,25 @@ const tells = [
   { t: 'hedging 护栏', e: '也许 / 可能 / 某种程度上 / 我觉得' },
 ];
 
+/* 竞品三派：去 AI 味的三种主流做法 + 我的取舍（基于调研，见 phase_ai_flavor_reduction） */
+const camps = [
+  {
+    name: '检测器对抗派', verdict: 'no', who: 'Undetectable AI · QuillBot · StealthWriter',
+    how: '改写文本，去骗过 GPTZero / Originality 的 AI 评分。',
+    why: '跟检测器的军备竞赛——它们 v3/v4 一直在追；何况北极星错了：骗过机器 ≠ 我宁愿发。',
+  },
+  {
+    name: '禁用词清单派', verdict: 'no', who: 'GPT-ism 黑名单：delve / 在…的背景下 / 破折号',
+    how: '把可疑词逐个拉黑、全局替换。',
+    why: '纯词汇层是打地鼠：删一个词，换一种 tell，清单永远补不完（v0 voice DNA 同款陷阱）。',
+  },
+  {
+    name: '例子 + 品味派', verdict: 'yes', who: 'few-shot · brand voice · Sudowrite',
+    how: '喂模型几篇你真写过的东西，让它学你怎么写。',
+    why: '我在这派——但加了别人没有的两样：一个会扫「体面的空洞」那层残留的 critic，和一条「我宁愿发它」的验收线（不是检测分）。',
+  },
+];
+
 /* worked example：draft-v4 → draft-v5 的四处纯减法（抄自 v5 文末「版本说明」） */
 const diffs = [
   {
@@ -97,28 +116,34 @@ const notBuilt = [
         <div class="mono kicker wp-kicker">个人长文写作系统 · CLAUDE CODE · MVP</div>
         <h1 class="wp-h1">让 AI 写出，<br />我宁愿发的那一版。</h1>
         <p class="wp-sub">
-          一个产品经理给自己（只有自己）做的中文长文写作工具。难的不是让 AI 写，是压住它的 AI 味、保住我的判断。
-          下面是一段真实草稿——开「X 光」，看 critic 怎么逐句判它。
+          一个产品经理给自己（只有自己）做的中文长文写作工具。难的不是让 AI 写，是把 AI 味压下去、把判断保住。
+          下面让 pipeline 跑一遍——同一段题材，看 writer 和 critic 怎么逐轮把一篇<em>看着挺像样</em>的 AI 初稿，逼成我会发的版本。
         </p>
 
-        <div class="wp-scanner" id="wp-scanner">
-          <div class="wp-scan-bar">
-            <div class="wp-scan-toggles">
-              <button class="wp-tg mono" id="wp-xray" type="button" aria-pressed="false">
-                <span class="wp-tg-dot"></span>X 光扫描
-              </button>
-              <button class="wp-tg mono" id="wp-clean" type="button" aria-pressed="false">
-                净化 · v4→v5
-              </button>
-            </div>
-            <div class="wp-legend mono" aria-hidden="true">
-              <span class="wp-lg a">A 留</span><span class="wp-lg b">B 标</span><span class="wp-lg c">C 砍</span>
-            </div>
+        <div class="wp-scanner" id="wp-scanner" data-stage="1">
+          <div class="wp-rail" role="tablist" aria-label="pipeline 阶段">
+            <button class="wp-step is-on" id="wp-step-1" data-step="1" role="tab" type="button" aria-selected="true">
+              <span class="wp-step-n">1</span><span class="wp-step-k">AI 初稿</span>
+            </button>
+            <span class="wp-rail-line"></span>
+            <button class="wp-step" id="wp-step-2" data-step="2" role="tab" type="button" aria-selected="false">
+              <span class="wp-step-n">2</span><span class="wp-step-k">去 AI 味</span>
+            </button>
+            <span class="wp-rail-line"></span>
+            <button class="wp-step" id="wp-step-3" data-step="3" role="tab" type="button" aria-selected="false">
+              <span class="wp-step-n">3</span><span class="wp-step-k">配额收口</span>
+            </button>
           </div>
 
-          <div class="wp-scan-doc" id="wp-doc">
+          <!-- 阶段 1：AI 初稿（同主题演示构造，满屏 AI 味；原始输入本就是 AI 生成） -->
+          <div class="wp-scan-doc wp-doc-ai wp-on" id="wp-doc-ai">
+            <p>巴耶杜帕尔的这场选举，<span class="wp-s ai" data-note="套路对称：『与其说…不如说…』是 AI 最爱的优雅句式，听着像洞察，其实是套到任何题目都成立的模板。">与其说是一次理性的抉择，不如说是一场关于符号的角逐</span>。在信息过载的时代，选民很难真正穿透候选人精心构建的形象，去触及其治理能力的实质——他们最终选择的，<span class="wp-s ai" data-note="抽象名词：『叙事／焦虑／期待』这类大词，听着深刻，却落不到一个具体的人、一件具体的事上。">往往是那个更能承载自己焦虑与期待的叙事</span>。<span class="wp-s ai" data-note="中立姿态 + 伪共情：站在局外做四平八稳的体谅。voice memo 明确要避免——叙述者不装局外、拒绝伪共情与道德姿态。">当然，我们或许不应简单地苛责选民的非理性</span>，<span class="wp-s ai" data-note="套路连接 + 大词：『在…的背景下』接一个抽象名词，是 AI 的万能填充句。">因为在制度性信任普遍流失的背景下</span>，这种选择自有其逻辑。<span class="wp-s ai" data-note="导览腔 signposting（高级版）：『更值得深思的是』替读者划重点，仍是把读者当需要被引导的学生。">更值得深思的是</span>，当一个民主体制亲手把权力交给一个可能侵蚀它的人，它暴露的，<span class="wp-s ai" data-note="大词升华：『古老而深刻的悖论』是放之四海皆准的漂亮话，套到任何民主议题都成立——等于没说。">正是民主自身那个古老而深刻的悖论</span>。<span class="wp-s ai" data-note="认识论投降 + 升华收尾（最致命）：该下判断处打太极『没有标准答案』，再拔高成对所有人的开放式呼吁。voice memo：作判断、给预见，绝不提前认怂——这正是 AI 味里最难察觉、也最毁 voice 的一处。">这或许是一个没有标准答案的问题，但它值得每一个关心这片土地的人，持续追问下去</span>。</p>
+          </div>
+
+          <!-- 阶段 2/3：真实草稿 v4→v5（节选 §8，逐字未改） -->
+          <div class="wp-scan-doc wp-doc-voice" id="wp-doc-voice">
             <p>
-              没几个选民有这功夫，也没几个选民拿得到这些底。验不了实质，就只能挑行头。<span
+              没几个选民拿得到这些底。验不了实质，就只能挑行头。<span
                 class="wp-s" data-grade="A"
                 data-note="A · 留（配额第一记）。承重对仗，行头主线收束——判断从场景挤出来，对仗是结果，不是目的。"
               >最挺的那身西装赢。那件从没穿过的军装赢。</span>
@@ -127,7 +152,7 @@ const notBuilt = [
             <p>
               看看他的偶像们：藤森一九九二年直接解散了秘鲁国会；布克莱带着兵走进萨尔瓦多立法会，坐上议长的椅子，低头祈祷，说这是上帝的意思；米莱举着电锯竞选<span
                 class="wp-s wp-cut" data-grade="C"
-                data-note="C · 砍后半句。藤森 / 布克莱已说够「招式土却好使」，这记是为俏皮补的甩尾。开「净化」看 v5 怎么删。"
+                data-note="C · 砍后半句。藤森 / 布克莱已说够「招式土却好使」，这记是为俏皮补的甩尾——进下一步看它被删。"
               >，那电锯是用来锯国家的</span>。这些招式土得掉渣，可你不得不承认，它们好使。
             </p>
             <p class="wp-doc-gap">⋯⋯</p>
@@ -142,8 +167,12 @@ const notBuilt = [
             </p>
           </div>
 
-          <div class="wp-scan-note mono" id="wp-note" data-empty="true">点高亮的句子，看 critic 怎么判它。</div>
-          <div class="mono wp-scan-cap">真实草稿节选 · 哥伦比亚大选《巴耶杜帕尔的回响》§8 · 颜色是 critic 的逐句判档</div>
+          <div class="wp-note mono" id="wp-note"></div>
+
+          <div class="wp-scan-foot">
+            <button class="wp-next mono" id="wp-next" type="button">扫一遍，看怎么改 →</button>
+            <span class="mono wp-scan-cap">① 同主题演示构造的 AI 初稿 · ②③ 真实草稿 v4→v5（《巴耶杜帕尔的回响》§8）</span>
+          </div>
         </div>
 
         <a class="wp-ghost mono" href="#why">往下看怎么做的 ↓</a>
@@ -245,16 +274,53 @@ const notBuilt = [
         </p>
       </section>
 
-      <!-- ============ 03 AI 味怎么治 ============ -->
+      <!-- ============ 03 AI 味到底是什么（本质 + 竞品） ============ -->
       <section class="sec wp-reveal">
         <div class="sec-head">
           <span class="mono sec-no">03</span>
-          <div class="sec-title-row"><h2 class="sec-title">把 AI 味做成可扫描的清单</h2><span class="mono sec-en">THE SCAN</span></div>
-          <span class="sec-desc">从抽象口号到逐句可查</span>
+          <div class="sec-title-row"><h2 class="sec-title">AI 味到底是什么</h2><span class="mono sec-en">WHAT AI SLOP IS</span></div>
+          <span class="sec-desc">本质、竞品、和我为什么不那么治</span>
         </div>
         <p class="wp-body">
-          一开始我只会说「这段 AI 味太强」，落不了地。做了一轮调研（三个并行 agent，覆盖中英文的机制、检测、实践、和怀疑的视角）之后，
-          我把它拆成两层。第一层是通用的中文 AI 腔，critic 现在逐类扫、命中即标原句：
+          动手前我做了一轮调研（三个并行 agent，覆盖中英文的机制、检测、实践、和怀疑视角），先说本质：
+          <strong>AI 味不是词汇问题，是概率问题。</strong>LLM 每一步都在挑「最可能的下一个词」，写出来的，是把所有人写过的东西取了个平均——
+          最稳、最周全、最不得罪人的那一版。检测器（GPTZero、Originality、Turnitin）把这件事量化成两个数：<strong>perplexity</strong>（文本多可预测，AI 太好猜）、
+          <strong>burstiness</strong>（句子节奏多起伏，人忽长忽短、机器齐平）。RLHF 再加一层：打分的人偏爱「清楚、周到、显得到位」，
+          于是模型学会用导览腔、排比、破折号、四平八稳的对仗，把「安全」演成「深刻」。
+        </p>
+        <p class="wp-body">
+          所以那些 tell——delve、破折号、「与其说不如说」、「没有标准答案」——不是七个毛病，是<strong>一个病根的七种表症</strong>：
+          模型在求稳、在讨好，不在下判断。上面 stage-1 那段「体面的空洞」最难治，正因为它没有病句，只是不敢判断。
+        </p>
+        <div class="wp-camps">
+          {camps.map((c) => (
+            <div class:list={['wp-camp', { mine: c.verdict === 'yes' }]}>
+              <div class="wp-camp-head">
+                <span class="wp-camp-name">{c.name}</span>
+                <span class:list={['wp-camp-tag mono', c.verdict]}>{c.verdict === 'yes' ? '✓ 我在这派' : '✗ 不做'}</span>
+              </div>
+              <div class="mono wp-camp-who">{c.who}</div>
+              <p class="wp-camp-how">{c.how}</p>
+              <p class="wp-camp-why">{c.why}</p>
+            </div>
+          ))}
+        </div>
+        <p class="wp-note">
+          有意思的是，我和检测器只在<strong>诊断</strong>上一致、在<strong>裁判</strong>上分道：它说低 burstiness = AI，对——
+          所以我的 writer 把「长短句交替」当硬约束；但它拿检测分当判决，我拿「Rick 会不会贴到公众号」当判决。
+          治 AI 味的北极星，从来不是骗过机器，是写出我自己愿意签名的那一版。
+        </p>
+      </section>
+
+      <!-- ============ 04 AI 味怎么治（可扫描清单） ============ -->
+      <section class="sec wp-reveal">
+        <div class="sec-head">
+          <span class="mono sec-no">04</span>
+          <div class="sec-title-row"><h2 class="sec-title">把 AI 味做成可扫描的清单</h2><span class="mono sec-en">THE SCAN</span></div>
+          <span class="sec-desc">落到第三派，再加一层 critic</span>
+        </div>
+        <p class="wp-body">
+          我的解法落在第三派，但拆成两层、各加一道扫描。第一层是通用的中文 AI 腔，critic 逐类扫、命中即标原句：
         </p>
         <div class="wp-tells">
           {tells.map((x) => (
@@ -279,10 +345,10 @@ const notBuilt = [
         </p>
       </section>
 
-      <!-- ============ 04 worked example ============ -->
+      <!-- ============ 05 worked example ============ -->
       <section class="sec wp-reveal">
         <div class="sec-head">
-          <span class="mono sec-no">04</span>
+          <span class="mono sec-no">05</span>
           <div class="sec-title-row"><h2 class="sec-title">一篇真稿，v4 到 v5 只做减法</h2><span class="mono sec-en">WORKED EXAMPLE</span></div>
           <span class="sec-desc">哥伦比亚大选《巴耶杜帕尔的回响》</span>
         </div>
@@ -310,10 +376,10 @@ const notBuilt = [
         </blockquote>
       </section>
 
-      <!-- ============ 05 诚实的自我纠错 ============ -->
+      <!-- ============ 06 诚实的自我纠错 ============ -->
       <section class="sec wp-reveal wp-break">
         <div class="sec-head">
-          <span class="mono sec-no">05</span>
+          <span class="mono sec-no">06</span>
           <div class="sec-title-row"><h2 class="sec-title">我推翻了自己写进计划的推荐</h2><span class="mono sec-en">THE RETRACTION</span></div>
           <span class="sec-desc">跨模型 A/B 实测</span>
         </div>
@@ -333,10 +399,10 @@ const notBuilt = [
         </p>
       </section>
 
-      <!-- ============ 06 时间线 ============ -->
+      <!-- ============ 07 时间线 ============ -->
       <section class="sec wp-reveal">
         <div class="sec-head">
-          <span class="mono sec-no">06</span>
+          <span class="mono sec-no">07</span>
           <div class="sec-title-row"><h2 class="sec-title">一条把自己否掉两次的时间线</h2><span class="mono sec-en">TIMELINE</span></div>
           <span class="sec-desc">17 commits · 5/21 → 6/06</span>
         </div>
@@ -360,10 +426,10 @@ const notBuilt = [
         </ol>
       </section>
 
-      <!-- ============ 07 怎么算它成了 ============ -->
+      <!-- ============ 08 怎么算它成了 ============ -->
       <section class="sec wp-reveal">
         <div class="sec-head">
-          <span class="mono sec-no">07</span>
+          <span class="mono sec-no">08</span>
           <div class="sec-title-row"><h2 class="sec-title">怎么算它成了</h2><span class="mono sec-en">THE BAR</span></div>
           <span class="sec-desc">克制，加一个真判据</span>
         </div>
@@ -385,10 +451,10 @@ const notBuilt = [
         </div>
       </section>
 
-      <!-- ============ 状态 + 收束 ============ -->
+      <!-- ============ 09 状态 + 收束 ============ -->
       <section class="sec wp-reveal wp-end">
         <div class="sec-head">
-          <span class="mono sec-no">08</span>
+          <span class="mono sec-no">09</span>
           <div class="sec-title-row"><h2 class="sec-title">现在的状态</h2><span class="mono sec-en">STATUS</span></div>
           <span class="sec-desc">验证窗口里</span>
         </div>
@@ -440,71 +506,99 @@ const notBuilt = [
     letter-spacing: -0.02em; color: #fff; text-wrap: pretty;
   }
   .wp-sub { margin: 22px 0 0; font-size: 16.5px; line-height: 1.85; color: rgba(232,240,255,0.82); max-width: 600px; }
+  .wp-sub em { font-style: normal; color: #fff; border-bottom: 1px solid color-mix(in srgb, var(--accent) 50%, transparent); }
 
-  /* ===== 扫描器 ===== */
+  /* ===== Pipeline 扫描器（三阶 stepper） ===== */
   .wp-scanner {
-    margin-top: 34px;
+    --wp-a: #54C39A; --wp-b: #E0B252; --wp-c: #E0786A; --wp-ai: #B79BEA;
+    margin-top: 30px;
     border-radius: var(--r-sec, 28px);
     background: linear-gradient(160deg, rgba(20,34,74,0.5), rgba(12,22,52,0.55));
     backdrop-filter: blur(22px) saturate(170%); -webkit-backdrop-filter: blur(22px) saturate(170%);
     border: 1px solid rgba(190,210,255,0.18);
     box-shadow: inset 0 1px 0 rgba(200,220,255,0.22), 0 24px 60px rgba(2,8,28,0.5);
-    padding: 22px 26px 20px;
+    padding: 20px 24px 18px;
     position: relative; overflow: hidden;
   }
-  .wp-scan-bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 4px; }
-  .wp-scan-toggles { display: flex; gap: 10px; }
-  .wp-tg {
-    display: inline-flex; align-items: center; gap: 8px; height: 34px; padding: 0 14px;
-    border-radius: 999px; cursor: pointer; font-size: 12px; letter-spacing: 0.03em; color: rgba(232,240,255,0.82);
-    background: rgba(190,210,255,0.07); border: 1px solid rgba(190,210,255,0.2);
-    transition: filter .2s, transform .35s var(--ease-liquid), background-color .2s, color .2s;
-    -webkit-tap-highlight-color: transparent;
-  }
-  .wp-tg:hover { background: rgba(190,210,255,0.13); color: #fff; }
-  .wp-tg:active { transform: scale(0.96); }
-  .wp-tg:focus-visible { outline: 2px solid rgba(120,170,255,0.8); outline-offset: 2px; }
-  .wp-tg[aria-pressed='true'] {
-    background: color-mix(in srgb, var(--accent) 40%, transparent);
-    border-color: rgba(170,200,255,0.5); color: #fff;
-  }
-  .wp-tg-dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(190,210,255,0.4); transition: background .2s, box-shadow .2s; }
-  .wp-tg[aria-pressed='true'] .wp-tg-dot { background: #9fc0ff; box-shadow: 0 0 8px rgba(120,170,255,0.9); }
-  .wp-legend { display: flex; gap: 12px; font-size: 11px; }
-  .wp-lg { position: relative; padding-left: 14px; color: var(--sub); }
-  .wp-lg::before { content: ""; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 8px; height: 8px; border-radius: 2px; }
-  .wp-lg.a::before { background: var(--wp-a); } .wp-lg.b::before { background: var(--wp-b); } .wp-lg.c::before { background: var(--wp-c); }
 
+  /* 阶段进度轨 */
+  .wp-rail { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; }
+  .wp-step {
+    display: inline-flex; align-items: center; gap: 8px; padding: 6px 13px 6px 7px;
+    border-radius: 999px; cursor: pointer; background: rgba(190,210,255,0.06);
+    border: 1px solid rgba(190,210,255,0.16); color: rgba(225,236,255,0.6);
+    transition: background-color .25s, color .25s, border-color .25s, transform .35s var(--ease-liquid);
+    -webkit-tap-highlight-color: transparent; white-space: nowrap;
+  }
+  .wp-step:hover { color: #fff; background: rgba(190,210,255,0.12); }
+  .wp-step:active { transform: scale(0.97); }
+  .wp-step:focus-visible { outline: 2px solid rgba(120,170,255,0.8); outline-offset: 2px; }
+  .wp-step-n {
+    width: 20px; height: 20px; border-radius: 50%; display: grid; place-items: center;
+    font-family: var(--font-mono, monospace); font-size: 11px; font-weight: 600;
+    background: rgba(190,210,255,0.14); color: rgba(225,236,255,0.7); transition: background-color .25s, color .25s;
+  }
+  .wp-step-k { font-size: 12.5px; letter-spacing: 0.01em; }
+  .wp-step.is-on { color: #fff; background: color-mix(in srgb, var(--accent) 34%, transparent); border-color: rgba(170,200,255,0.5); }
+  .wp-step.is-on .wp-step-n { background: var(--accent); color: #fff; box-shadow: 0 0 10px color-mix(in srgb, var(--accent) 70%, transparent); }
+  .wp-step.is-done .wp-step-n { background: color-mix(in srgb, var(--accent) 50%, transparent); color: #fff; }
+  .wp-rail-line { flex: 1; height: 1.5px; background: rgba(190,210,255,0.18); border-radius: 2px; min-width: 14px; }
+
+  /* 文稿（每阶一块，淡入切换） */
   .wp-scan-doc {
-    --wp-a: #54C39A; --wp-b: #E0B252; --wp-c: #E0786A;
-    margin: 14px 0 0; padding: 16px 18px;
+    padding: 16px 18px; display: none;
     font-family: var(--font-reading, 'LXGW WenKai', 'Kaiti SC', STKaiti, serif);
     font-size: 16px; line-height: 2.0; color: rgba(238,244,255,0.9);
     border-radius: var(--r-card, 16px); background: rgba(4,8,20,0.34); border: 1px solid rgba(190,210,255,0.1);
+    position: relative; overflow: hidden;
   }
+  .wp-scan-doc.wp-on { display: block; animation: wp-fade .45s var(--ease-liquid); }
+  @keyframes wp-fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
   .wp-scan-doc p { margin: 0; }
   .wp-doc-gap { text-align: center; color: rgba(190,210,255,0.32); letter-spacing: 0.3em; line-height: 1.4; margin: 2px 0; font-size: 13px; }
+  /* 扫描线：进场自上而下扫一遍 */
+  .wp-scan-doc.wp-on::after {
+    content: ""; position: absolute; left: 0; right: 0; top: 0; height: 42px; pointer-events: none;
+    background: linear-gradient(180deg, transparent, color-mix(in srgb, var(--accent) 28%, transparent), transparent);
+    animation: wp-sweep 1.15s var(--ease-liquid) 1; mix-blend-mode: screen;
+  }
+  @keyframes wp-sweep { from { transform: translateY(-42px); opacity: 0.9; } to { transform: translateY(440px); opacity: 0; } }
 
-  /* 句子默认不可见标注（干净阅读态） */
-  .wp-s { transition: background-color .3s var(--ease-liquid), box-shadow .3s, color .2s; border-radius: 4px; padding: 0 1px; }
-  /* X 光模式：按判档显色 */
-  .wp-scan-doc.wp-xray .wp-s { cursor: pointer; }
-  .wp-scan-doc.wp-xray .wp-s[data-grade='A'] { background: color-mix(in srgb, var(--wp-a) 22%, transparent); box-shadow: inset 0 -2px 0 var(--wp-a); }
-  .wp-scan-doc.wp-xray .wp-s[data-grade='B'] { background: color-mix(in srgb, var(--wp-b) 22%, transparent); box-shadow: inset 0 -2px 0 var(--wp-b); }
-  .wp-scan-doc.wp-xray .wp-s[data-grade='C'] { background: color-mix(in srgb, var(--wp-c) 20%, transparent); box-shadow: inset 0 -2px 0 var(--wp-c); }
-  .wp-scan-doc.wp-xray .wp-s.active { filter: brightness(1.18); box-shadow: inset 0 -2px 0 currentColor, 0 0 0 1px rgba(255,255,255,0.25); }
-  /* 净化模式：被砍的片段坍缩（inline-block + max-width 裁剪，确保真收起） */
-  .wp-cut { display: inline-block; white-space: nowrap; overflow: hidden; vertical-align: bottom; max-width: 30em; transition: max-width .45s var(--ease-liquid), opacity .35s; }
-  .wp-scan-doc.wp-clean .wp-cut { max-width: 0; opacity: 0; color: var(--wp-c); }
+  /* 句子高亮（每阶即一次扫描，常亮；点击看判语） */
+  .wp-s { cursor: pointer; border-radius: 4px; padding: 0 1px; transition: background-color .3s var(--ease-liquid), box-shadow .3s, filter .2s; }
+  .wp-doc-voice .wp-s[data-grade='A'] { background: color-mix(in srgb, var(--wp-a) 20%, transparent); box-shadow: inset 0 -2px 0 var(--wp-a); }
+  .wp-doc-voice .wp-s[data-grade='B'] { background: color-mix(in srgb, var(--wp-b) 20%, transparent); box-shadow: inset 0 -2px 0 var(--wp-b); }
+  .wp-doc-voice .wp-s[data-grade='C'] { background: color-mix(in srgb, var(--wp-c) 18%, transparent); box-shadow: inset 0 -2px 0 var(--wp-c); }
+  .wp-doc-ai .wp-s.ai { background: color-mix(in srgb, var(--wp-ai) 20%, transparent); box-shadow: inset 0 -2px 0 var(--wp-ai); }
+  .wp-s.active { filter: brightness(1.2); box-shadow: inset 0 -2px 0 currentColor, 0 0 0 1px rgba(255,255,255,0.28); }
 
-  .wp-scan-note {
-    margin-top: 12px; min-height: 2.6em; padding: 10px 14px; border-radius: 10px;
-    font-size: 12.5px; line-height: 1.7; color: rgba(232,240,255,0.86);
+  /* 净化（阶段 3）：被砍片段坍缩 */
+  .wp-cut { display: inline-block; white-space: nowrap; overflow: hidden; vertical-align: bottom; max-width: 30em; transition: max-width .5s var(--ease-liquid), opacity .4s; }
+  .wp-doc-voice.wp-clean .wp-cut { max-width: 0; opacity: 0; color: var(--wp-c); }
+
+  /* 判语 / 注解行 */
+  .wp-note {
+    margin-top: 14px; min-height: 3.4em; padding: 11px 15px; border-radius: 10px;
+    font-size: 12.5px; line-height: 1.75; color: rgba(232,240,255,0.86);
     background: rgba(6,12,28,0.5); border-left: 2px solid var(--accent);
     transition: color .2s, border-color .2s;
   }
-  .wp-scan-note[data-empty='true'] { color: rgba(200,216,255,0.45); border-left-color: rgba(190,210,255,0.25); }
-  .wp-scan-cap { margin-top: 12px; font-size: 10.5px; letter-spacing: 0.03em; color: rgba(200,216,255,0.42); }
+  .wp-note b { color: #fff; font-weight: 600; }
+  .wp-note .t-a { color: var(--wp-a); } .wp-note .t-b { color: var(--wp-b); } .wp-note .t-c { color: var(--wp-c); } .wp-note .t-ai { color: var(--wp-ai); }
+
+  /* 底排：下一步 + 出处 */
+  .wp-scan-foot { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-top: 12px; flex-wrap: wrap; }
+  .wp-next {
+    display: inline-flex; align-items: center; height: 34px; padding: 0 16px; border-radius: 999px; cursor: pointer;
+    font-size: 12.5px; letter-spacing: 0.02em; color: #fff; white-space: nowrap;
+    background: color-mix(in srgb, var(--accent) 42%, transparent); border: 1px solid rgba(170,200,255,0.5);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), 0 6px 18px color-mix(in srgb, var(--accent) 36%, transparent);
+    transition: filter .2s, transform .35s var(--ease-liquid); -webkit-tap-highlight-color: transparent;
+  }
+  .wp-next:hover { filter: brightness(1.1); }
+  .wp-next:active { transform: scale(0.96); }
+  .wp-next:focus-visible { outline: 2px solid rgba(255,255,255,0.7); outline-offset: 2px; }
+  .wp-scan-cap { font-size: 10.5px; letter-spacing: 0.02em; color: rgba(200,216,255,0.42); max-width: 58%; text-align: right; }
 
   .wp-ghost { display: inline-block; margin-top: 30px; font-size: 13px; color: rgba(232,240,255,0.7); letter-spacing: 0.04em; transition: color .2s; }
   .wp-ghost:hover { color: #fff; }
@@ -556,6 +650,20 @@ const notBuilt = [
   .wp-tell { padding: 13px 16px; border-radius: 12px; background: rgba(8,16,32,0.4); border: 1px solid rgba(190,210,255,0.12); }
   .wp-tell-t { font-family: var(--head); font-size: 14px; font-weight: 600; color: rgba(240,245,255,0.9); }
   .wp-tell-e { margin-top: 5px; font-size: 11px; color: color-mix(in srgb, var(--wp-c, #E0786A) 70%, #b8b0a0); }
+
+  /* ===== 竞品三派卡 ===== */
+  .wp-camps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 24px; }
+  .wp-camp { display: flex; flex-direction: column; padding: 18px 20px; border-radius: var(--r-card); background: rgba(8,16,32,0.4); border: 1px solid rgba(190,210,255,0.14); }
+  .wp-camp.mine { border-color: color-mix(in srgb, #54C39A 48%, transparent); background: color-mix(in srgb, #54C39A 9%, rgba(8,16,32,0.4)); }
+  .wp-camp-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+  .wp-camp-name { font-family: var(--head); font-size: 15px; font-weight: 650; color: #fff; }
+  .wp-camp-tag { font-size: 10px; padding: 2px 9px; border-radius: 999px; white-space: nowrap; letter-spacing: 0.02em; }
+  .wp-camp-tag.no { color: #E0786A; background: color-mix(in srgb, #E0786A 15%, transparent); }
+  .wp-camp-tag.yes { color: #54C39A; background: color-mix(in srgb, #54C39A 18%, transparent); }
+  .wp-camp-who { margin-top: 9px; font-size: 10.5px; line-height: 1.5; color: var(--accent-text, var(--accent)); }
+  .wp-camp-how { margin: 11px 0 0; font-size: 13px; line-height: 1.7; color: rgba(232,240,255,0.8); }
+  .wp-camp-why { margin: 10px 0 0; padding-top: 10px; border-top: 1px solid rgba(190,210,255,0.1); font-size: 12.5px; line-height: 1.7; color: rgba(220,230,255,0.62); }
+  .wp-camp.mine .wp-camp-why { color: rgba(232,240,255,0.84); }
 
   /* ===== A/B/C 卡 ===== */
   .wp-abc { --wp-a: #54C39A; --wp-b: #E0B252; --wp-c: #E0786A; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 22px; }
@@ -622,7 +730,7 @@ const notBuilt = [
     .wp-lead { font-size: 25px; }
     .wp-demo { grid-template-columns: 1fr; gap: 16px; }
     .wp-demo-mid { flex-direction: row; }
-    .wp-tells, .wp-abc, .wp-diffs, .wp-bars { grid-template-columns: 1fr; }
+    .wp-tells, .wp-abc, .wp-diffs, .wp-bars, .wp-camps { grid-template-columns: 1fr; }
     .wp-abc { grid-template-columns: 1fr 1fr 1fr; }
   }
   @media (max-width: 560px) {
@@ -632,7 +740,10 @@ const notBuilt = [
     .wp-scanner { padding: 18px 16px 16px; }
     .wp-scan-doc { font-size: 15px; }
     .wp-abc { grid-template-columns: 1fr; }
-    .wp-scan-bar { gap: 10px; }
+    .wp-rail { flex-wrap: wrap; gap: 6px; }
+    .wp-rail-line { display: none; }
+    .wp-scan-foot { gap: 10px; }
+    .wp-scan-cap { max-width: 100%; text-align: left; }
     .sec-title-row { flex-wrap: wrap; }
   }
   @media (prefers-reduced-motion: reduce) {

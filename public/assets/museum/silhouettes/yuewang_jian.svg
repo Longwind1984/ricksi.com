@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 越王勾践剑 (Goujian sword), 春秋晚期; 湖北省博物馆藏. viewBox 100x100. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+  <!-- vertical orientation: pommel disc + handle + guard + double-edged blade with center ridge + pointed tip -->
+  <path fill="#a4732c" fill-rule="evenodd" d="
+    M 44 4 L 56 4 L 58 8 L 56 10 L 56 14 L 58 16 L 56 18 L 56 22 L 58 24 L 56 26 L 56 30
+       L 64 32 L 66 36 L 60 38
+       L 56 40 L 56 84 L 50 96 L 44 84 L 44 40
+       L 40 38 L 34 36 L 36 32 L 44 30
+       L 44 26 L 42 24 L 44 22 L 44 18 L 42 16 L 44 14 L 44 10 L 42 8 Z
+  "/>
+</svg>

@@ -19,13 +19,23 @@ const I = (paths: string) =>
 
 export const PROJECTS: Project[] = [
   {
-    title: 'MuseumCollect 智能体协作案例',
-    desc: '我做产品负责人，给 8 个有边界的 agent 立规则、跑 5 个 sprint。两轮冷审计专拷问「虚假完成」：抓出 28 个详情页静默回退同一件文物的假绿灯，也抓出商业文档里 9 个无出处数字——修复不是删稿，而是建假设登记册，24 个关键数字逐个标上实测 / 外部出处 / 假设。产出：三联动 demo、11 份审计、万字复盘。',
-    tags: ['多智能体', '对抗审计', 'Case Study'],
+    title: '博物志 · 把 AI 的约束当设计原则',
+    desc: '我的 AI PM 作品集：把自己拆成 8 个有边界的 agent、跑 5 个 sprint，从零做一个 AI 原生文博收藏产品。核心不是用 AI 写代码，是把它的三个约束（角色有边界 / 上下文冷启动 / 文件系统即状态）当成产品和协作的设计原则。一夜审计放行的 demo，被我自己一点就露馅——275 件文物静默回退成同一件，于是加了第 7 个「必须真点击」的审计；一条 RAG 反幻觉管道，无出处的 chunk 当场拒收。产出：三联动可跑 demo（28/28 绿）、277 件 ×11 字段结构化数据、约 10,600 字方法论复盘。MVP 未发布、KPI 全是假设——都写在页面里。',
+    tags: ['AI 原生产品', '多智能体方法论', 'RAG 反幻觉'],
     icon: I('<circle cx="5" cy="6" r="2.2"/><circle cx="19" cy="6" r="2.2"/><circle cx="5" cy="18" r="2.2"/><circle cx="19" cy="18" r="2.2"/><circle cx="12" cy="12" r="2.6"/><path d="M6.8 7.4 9.9 10.2M17.2 7.4 14.1 10.2M6.8 16.6 9.9 13.8M17.2 16.6 14.1 13.8"/>'),
-    img: '/assets/proj-museumcollect.jpg',
-    alt: 'MuseumCollect v3 三联动 dashboard：时代柱、古国地图与文物卡片联动',
-    href: 'https://github.com/Longwind1984/prac03_MuseumCollect',
+    img: '/assets/proj-museum-collect.jpg',
+    alt: '博物志 v3 三联动 dashboard：时代柱、古国地图与文物卡片同屏联动',
+    href: '/projects/museum-collect/',
+    featured: true,
+  },
+  {
+    title: 'Slash Goal · 谁来认定「干完了」',
+    desc: '逆向 Codex 的 /goal 自驱动循环，在 Trae 和 Claude Code 上各复刻一遍。难点从来不是 agent 干不干得完，是它会从自己刚污染过的会话里给自己打绿灯——要么漏需求假完成，要么把半截 stub 当验收。Trae 没 hooks，只能停在「求模型自觉」；Claude Code 上换成独立冷上下文 auditor，从 spec 重推需求、对照真实文件树才放行。然后我审了自己的审计器：2 个 Critical（沙箱实证的 jq 注入、伪只读的任意代码执行）全修。厂商中途上线原生 /goal，我转成对照评测——探针级 5/5 抓出假完成。',
+    tags: ['Agent 编排', '独立审计', '对抗评测'],
+    icon: I('<rect x="3" y="4" width="18" height="16" rx="3"/><path d="m8 9 3 3-3 3"/><path d="M13 15h4"/>'),
+    img: '/assets/proj-slash-goal.svg',
+    alt: 'Slash Goal：自驱动 agent 完成判定 — 会话内自评 vs 独立冷上下文审计',
+    href: '/projects/slash-goal/',
     featured: true,
   },
   {
@@ -56,15 +66,6 @@ export const PROJECTS: Project[] = [
     img: '/assets/proj-museum.svg',
     alt: '山西博物院策展批判型导览 Demo 界面示意',
     href: 'https://github.com/Longwind1984/prac_Museum',
-    featured: true,
-  },
-  {
-    title: 'Slash Goal 复刻',
-    desc: '在 Claude Code 原生 /Goal 发布前，逆向 Codex 开源实现，用 CC Hooks 复刻其目标编排。核心机制是完成不能自我宣告：独立冷上下文 auditor 从 spec 重推需求、对照真实文件树才能关单（防 reward-hacking）。对抗评审抓出 2 个 Critical 风险（含一个沙箱实证的 jq 注入），全部留档在案。',
-    tags: ['Hooks 编排', '对抗评测'],
-    icon: I('<rect x="3" y="4" width="18" height="16" rx="3"/><path d="m8 9 3 3-3 3"/><path d="M13 15h4"/>'),
-    img: '/assets/proj-slash-goal.svg',
-    alt: 'Slash Goal 斜杠命令面板界面示意',
     featured: true,
   },
   {

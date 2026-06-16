@@ -14,7 +14,7 @@
    "domain": "engineering",
    "title": "Eureka Labs 创始人，前 Tesla AI / OpenAI",
    "bio": "把复杂 AI 知识压缩成人类可学习接口的教学型思想者，Software 3.0 与 agentic engineering 的提出者。",
-   "constellation": "beidou"
+   "constellation": "polaris"
   },
   {
    "slug": "dario-amodei",
@@ -22,7 +22,7 @@
    "domain": "lab",
    "title": "Anthropic CEO",
    "bio": "把模型能力、安全叙事和政策表态放在同一张桌子上的公司型思想者。",
-   "constellation": "beidou"
+   "constellation": "polaris"
   },
   {
    "slug": "ilya-sutskever",
@@ -30,7 +30,7 @@
    "domain": "lab",
    "title": "SSI 创始人，前 OpenAI 首席科学家",
    "bio": "低频但高信号：能力跃迁与对齐叙事之间最关键的内部见证者之一。",
-   "constellation": "beidou"
+   "constellation": "polaris"
   },
   {
    "slug": "demis-hassabis",
@@ -38,7 +38,7 @@
    "domain": "lab",
    "title": "Google DeepMind CEO",
    "bio": "科学发现型 AI 路线的代表，强调世界模型与科研加速。",
-   "constellation": "beidou"
+   "constellation": "polaris"
   },
   {
    "slug": "yann-lecun",
@@ -46,7 +46,7 @@
    "domain": "research",
    "title": "AMI Labs 创始人，前 Meta 首席 AI 科学家",
    "bio": "在 LLM 主潮之外持续押注世界模型路线的反向坐标。",
-   "constellation": "beidou"
+   "constellation": "polaris"
   },
   {
    "slug": "francois-chollet",
@@ -126,19 +126,19 @@
    "slug": "anthropic",
    "name": "Anthropic 官方",
    "domain": "lab",
-   "constellation": "beidou"
+   "constellation": "polaris"
   },
   {
    "slug": "openai",
    "name": "OpenAI 官方",
    "domain": "lab",
-   "constellation": "beidou"
+   "constellation": "polaris"
   },
   {
    "slug": "deepmind",
    "name": "DeepMind Blog",
    "domain": "lab",
-   "constellation": "beidou"
+   "constellation": "polaris"
   },
   {
    "slug": "arc-prize",
@@ -156,7 +156,7 @@
    "slug": "deepseek",
    "name": "DeepSeek 深度求索",
    "domain": "lab",
-   "constellation": "beidou"
+   "constellation": "polaris"
   },
   {
    "slug": "bytedance-seed",

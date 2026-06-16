@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import Glass from '../layouts/Glass.astro';
 import { getCollection } from 'astro:content';
-import { portraitFallbackSvg as ftFallbackSvg, DOMAIN_ACCENT as FT_ACCENT } from '../lib/frontier-ui.mjs';
+import { portraitFallbackSvg as ftFallbackSvg, DOMAIN_ACCENT as FT_ACCENT, starOf as ftStarOf } from '../lib/frontier-ui.mjs';
 import FrontierTimeline from '../components/FrontierTimeline.astro';
 import { PROJECTS } from '../data/projects';
 import ProjRow from '../components/ProjRow.astro';
@@ -44,6 +44,18 @@ const ftRows = ftPicked.slice(1);
 const ftActiveSlugs = new Set((ftData.entries ?? []).map((e: any) => e.person).filter(Boolean));
 const ftTotal = ftData.stats?.totalEntries ?? 0;
 const ftPeopleCount = (ftData.people ?? []).length;
+/* 悬浮预览数据岛（frontier-preview.js 按 id 取）：首页卡 + 迷你时间轴节点共用 */
+const ftSnip = (s: string, n = 140) => (s && s.length > n ? s.slice(0, n - 1) + '…' : s || '');
+const ftPopData = Object.fromEntries(ftPool.map((e: any) => [e.id, {
+  o: e.ownerName,
+  t: FT_TYPE_LABEL[e.contentType] ?? e.contentType,
+  s: e.sourceName ?? '',
+  star: ftStarOf(e),
+  ti: e.titleZh,
+  v: e.verdict,
+  su: e.summaryZh && e.summaryZh !== e.verdict ? ftSnip(e.summaryZh) : '',
+  d: e.date,
+}]));
 const ftStamp = stamp(ftData.stats?.lastRun?.at ?? ftData.generated_at);
 const ftDomains = ftData.domains ?? {};
 
@@ -324,6 +336,7 @@ const numbered = (list: typeof PROJECTS, offset = 0) =>
           </div>
           <!-- 二维迷你时间轴：突出「持续追踪」的时间序状态（完整可切窗版在 /frontier） -->
           <FrontierTimeline entries={ftPool} domains={ftDomains} mini />
+          <script type="application/json" id="ft-pop-data" set:html={JSON.stringify(ftPopData)}></script>
           <!-- 头像锚点条：每个头像各自是热区（有动态→筛选该人，无动态→档案） -->
           <div class="ft-home-strip">
             {(ftData.people ?? []).map((p: any) => {
@@ -346,7 +359,7 @@ const numbered = (list: typeof PROJECTS, offset = 0) =>
 
           <!-- 今日要点：importance 最高的一条 -->
           {ftHero && (
-            <a class="ft-home-hero" href={`/frontier/#e-${ftHero.id}`}>
+            <a class="ft-home-hero" href={`/frontier/#e-${ftHero.id}`} data-ft-pop={ftHero.id}>
               <span class="ft-home-hero-ava" style={`--p-accent:${FT_ACCENT[ftHero.domain] ?? '#7FB3F0'}`}>
                 {ftPortraitOf(ftHero.ownerSlug) ? (
                   <img src={ftPortraitOf(ftHero.ownerSlug)} alt={ftHero.ownerName} width="56" height="56" loading="lazy" />
@@ -366,7 +379,7 @@ const numbered = (list: typeof PROJECTS, offset = 0) =>
           <!-- 次级两条：紧凑行（判断 clamp 1 行） -->
           <div>
             {ftRows.map((e: any) => (
-              <a href={`/frontier/#e-${e.id}`} class="blog-row ft-home-row">
+              <a href={`/frontier/#e-${e.id}`} class="blog-row ft-home-row" data-ft-pop={e.id}>
                 <span class="mono blog-date">{e.date.slice(5).replace('-', '.')}</span>
                 <span class="blog-main">
                   <span class="blog-title ft-home-title">{e.titleZh}</span>

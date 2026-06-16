@@ -34,12 +34,12 @@ const evs = entries.map((e: any) => ({
 }));
 
 /* 行分组：mini=领域聚合一行；full=每个有事件的人物/源一行，按领域分组 */
-type Lane = { key: string; name: string; portrait: string | null; events: typeof evs };
+type Lane = { key: string; name: string; portrait: string | null; con: string; events: typeof evs };
 let groups: { domainKey: string; label: string; lanes: Lane[] }[];
 if (mini) {
   // mini 无 JS：构建期就只收窗口内事件，避免窗口外被 clamp 堆到最左
   groups = Object.entries(domains)
-    .map(([k, label]) => ({ domainKey: k, label, lanes: [{ key: k, name: label, portrait: null, events: evs.filter((e) => e.domain === k && inWin(e.t, defSpan)) }] as Lane[] }))
+    .map(([k, label]) => ({ domainKey: k, label, lanes: [{ key: k, name: label, portrait: null, con: '', events: evs.filter((e) => e.domain === k && inWin(e.t, defSpan)) }] as Lane[] }))
     .filter((g) => g.lanes[0].events.length);
 } else {
   const byOwner: Record<string, typeof evs> = {};
@@ -50,7 +50,7 @@ if (mini) {
       label,
       lanes: rows
         .filter((r: any) => r.domain === k && byOwner[r.slug]?.length)
-        .map((r: any) => ({ key: r.slug, name: r.name, portrait: portraitOf(r.slug), events: byOwner[r.slug] })) as Lane[],
+        .map((r: any) => ({ key: r.slug, name: r.name, portrait: portraitOf(r.slug), con: r.constellation ?? '', events: byOwner[r.slug] })) as Lane[],
     }))
     .filter((g) => g.lanes.length);
 }
@@ -80,9 +80,13 @@ const totalEvents = evs.length;
     <div class="ft-tl-grid">
       {groups.map((g) => (
         <div class="ft-tl-group">
-          <div class="mono ft-tl-ghead" style={`--d-accent:${DOMAIN_ACCENT[g.domainKey] ?? '#71C1F7'}`}>{g.label}</div>
+          {mini ? (
+            <div class="mono ft-tl-ghead" style={`--d-accent:${DOMAIN_ACCENT[g.domainKey] ?? '#71C1F7'}`}>{g.label}</div>
+          ) : (
+            <button class="mono ft-tl-ghead ft-tl-ghead-btn" type="button" data-domain={g.domainKey} title={`聚焦：${g.label}`} style={`--d-accent:${DOMAIN_ACCENT[g.domainKey] ?? '#71C1F7'}`}>{g.label}</button>
+          )}
           {g.lanes.map((lane) => (
-            <div class="ft-tl-row">
+            <div class="ft-tl-row" data-domain={g.domainKey} data-con={lane.con} data-person={mini ? undefined : lane.key}>
               <button
                 class="ft-tl-rowhead mono"
                 type="button"
@@ -102,6 +106,8 @@ const totalEvents = evs.length;
                     href={`/frontier/#e-${ev.id}`}
                     style={`left:${xOf(ev.t, defSpan).toFixed(2)}%;--sc:${STAR_CLASS[ev.star].color};--sz:${(4 + ev.abs * 1.7).toFixed(1)}px${inWin(ev.t, defSpan) ? '' : ';display:none'}`}
                     data-time={ev.t}
+                    data-star={ev.star}
+                    data-ft-pop={ev.id}
                     title={`${ev.date} · ${ev.ownerName}：${ev.title}（${STAR_CLASS[ev.star].zh}）`}
                   ><span class="ft-tl-dot"></span></a>
                 ))}

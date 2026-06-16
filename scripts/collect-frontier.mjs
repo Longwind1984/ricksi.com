@@ -189,7 +189,7 @@ async function enhanceText(item) {
 const OUTPUT_SCHEMA = {
   type: 'object',
   additionalProperties: false,
-  required: ['titleZh', 'verdict', 'summaryZh', 'tags', 'contentType', 'apparent', 'absolute', 'gravity', 'periodic', 'canon', 'rationale', 'relevant', 'insufficientContext'],
+  required: ['titleZh', 'verdict', 'summaryZh', 'tags', 'contentType', 'apparent', 'absolute', 'gravity', 'periodic', 'singularity', 'rationale', 'relevant', 'insufficientContext'],
   properties: {
     titleZh: { type: 'string', description: '中文标题，≤40 字' },
     verdict: { type: 'string', description: '一句话判断：这条为什么重要，≤60 字' },
@@ -201,7 +201,7 @@ const OUTPUT_SCHEMA = {
     absolute: { type: 'integer', minimum: 1, maximum: 5, description: '分量/绝对亮度：真实重要性，与热度无关' },
     gravity: { type: 'boolean', description: '隐体：本体不可观测但可由其对周围影响反推高分量（罕见）' },
     periodic: { type: 'boolean', description: '周期性回归的话题潮（少见）' },
-    canon: { type: 'boolean', description: '已是领域公认的奠基正典/必读参照（日常抓取极罕见）' },
+    singularity: { type: 'boolean', description: '技术演进史的分水岭事件（如 Attention 论文/GPT-3.5/DeepSeek R1，日常抓取几乎一律 false）' },
     rationale: { type: 'string', description: '一句话评级理由' },
     relevant: { type: 'boolean' },
     insufficientContext: { type: 'boolean' },
@@ -227,7 +227,7 @@ function buildPrompt(item) {
 5. 星图评级（多维，替代单一分数）——独立打两个分，绝不用声量给分量充值：
    · apparent 声量 1-5：当下动静。5=出圈刷屏/主流科技媒体头条；4=圈内沸腾几乎人人转；3=子社区有明显讨论；2=零星少数人注意；1=几乎无声或本体刻意未公开。
    · absolute 分量 1-5：真实重要性，与热度无关。5=改写范式（6-12 月后仍必引参照）；4=实质推进（可靠新方法/新结果/重要数据，后续会建立其上）；3=有效增量（扎实改进/复现/有用工具/综述）；2=边角衍生/轻量观点；1=无实质/噪声/纯情绪。
-   · 三个布尔（默认 false，极少为 true，置 true 须在 rationale 说明依据）：gravity=隐体黑洞，仅当「本体完全未公开、无法直接读到」（保密项目/未发布模型，其重量只能从第三方连锁反应反推）才 true——任何已公开可读的论文/帖子/发布/报道一律不是黑洞，gravity=false；periodic=可识别的周期性回归话题潮（每隔一阵就回来）；canon=已被领域确立为奠基正典/必读参照（当下新发布几乎都不是）。
+   · 三个布尔（默认 false，极少为 true，置 true 须在 rationale 说明依据）：gravity=隐体黑洞，仅当「本体完全未公开、无法直接读到」（保密项目/未发布模型，其重量只能从第三方连锁反应反推）才 true——任何已公开可读的论文/帖子/发布/报道一律不是黑洞，gravity=false；periodic=可识别的周期性回归话题潮（每隔一阵就回来）；singularity=奇点，技术演进史的分水岭（如 Attention 论文 / GPT-3.5 发布 / DeepSeek R1 这种重定义时代的事件）——日常新发布几乎都不是，置 true 须在 rationale 说明为何是时代分水岭。
    · 法则：亮≠重，两个分相互独立；absolute 拿不准向下取整；在「炒作」与「实质」之间犹豫，按实质打 absolute、把热度交给 apparent。
    · rationale：一句话说明为何这样打分。
 6. 全部输出用简体中文（专有名词保留英文）。${vocabLine}
@@ -457,7 +457,7 @@ for (const [idx, item] of queue.entries()) {
       importance: out.absolute,
       gravity: out.gravity,
       periodic: out.periodic,
-      canon: out.canon,
+      singularity: out.singularity,
       rationale: out.rationale,
       insufficientContext: out.insufficientContext,
       addedAt: today, // 入库日（≠发布日）：前端用来标 NEW

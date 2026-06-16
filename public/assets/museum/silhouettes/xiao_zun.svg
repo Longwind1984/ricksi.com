@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 鸮尊 (owl-shape zun), 商, 妇好鸮尊 reference; 河南博物院藏. viewBox 100x100. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+  <!-- compound: owl body silhouette w/ two pointed ear tufts, round head, prominent chest, downward tail meeting two feet -->
+  <path fill="#a4732c" fill-rule="evenodd" d="
+    M 32 16 L 36 8 L 40 16 Z
+    M 60 16 L 64 8 L 68 16 Z
+    M 28 22 Q 30 12 50 12 Q 70 12 72 22
+       Q 78 30 78 44
+       L 80 56
+       Q 80 70 72 78
+       L 70 90 L 60 90 L 60 78 L 40 78 L 40 90 L 30 90 L 28 78
+       Q 20 70 20 56
+       L 22 44
+       Q 22 30 28 22 Z
+    M 40 32 a 4 4 0 1 1 0.01 0 Z
+    M 60 32 a 4 4 0 1 1 0.01 0 Z
+  "/>
+  <!-- eye cutouts (invisible markers; visual eyes are circles in the path) -->
+  <circle cx="40" cy="34" r="3" fill="#fff" fill-opacity="0"/>
+  <circle cx="60" cy="34" r="3" fill="#fff" fill-opacity="0"/>
+</svg>

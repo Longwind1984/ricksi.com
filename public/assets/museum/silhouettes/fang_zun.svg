@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 方尊 (square mouth zun), 商, 四羊方尊 reference; 国家博物馆藏. viewBox 100x100. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+  <!-- shape: wide flared square mouth at top, slim waist, square base; four ram-horn shoulders. -->
+  <path fill="#a4732c" fill-rule="evenodd" d="
+    M 8 12 L 92 12 L 92 22 L 82 26 L 82 38
+       L 92 44 L 92 48 L 80 50
+       L 72 56 L 72 76
+       L 80 82 L 80 88 L 20 88 L 20 82 L 28 76 L 28 56
+       L 20 50 L 8 48 L 8 44 L 18 38 L 18 26 L 8 22 Z
+  "/>
+  <!-- left ram horn -->
+  <path fill="#a4732c" d="M 4 32 Q 0 38 4 44 L 8 44 L 8 32 Z"/>
+  <!-- right ram horn -->
+  <path fill="#a4732c" d="M 96 32 Q 100 38 96 44 L 92 44 L 92 32 Z"/>
+</svg>

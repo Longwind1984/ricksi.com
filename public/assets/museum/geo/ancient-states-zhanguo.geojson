@@ -1,0 +1,297 @@
+{
+  "type": "FeatureCollection",
+  "description": "Approximate ancient state boundaries for the Warring States period (~476-221 BC). Seven major powers plus additional states.",
+  "epoch": "战国",
+  "epoch_en": "Warring States Period",
+  "date_range": "~476-221 BC",
+  "features": [
+    {
+      "type": "Feature",
+      "id": "qin-zhanguo",
+      "properties": {
+        "name": "秦",
+        "name_en": "Qin",
+        "dynasty": "战国",
+        "type": "seven_powers",
+        "capital": "咸阳",
+        "color": "#1a1a1a",
+        "opacity": 0.35,
+        "description": "战国七雄之一，商鞅变法后国力大增，最终统一六国，商鞅方升出于此"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [102.5, 37.0],
+          [105.0, 38.0],
+          [107.5, 38.0],
+          [109.5, 37.5],
+          [110.5, 36.5],
+          [110.5, 34.5],
+          [109.0, 33.5],
+          [107.5, 33.0],
+          [105.0, 33.0],
+          [103.5, 33.5],
+          [102.5, 35.0],
+          [102.5, 37.0]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "chu-zhanguo",
+      "properties": {
+        "name": "楚",
+        "name_en": "Chu",
+        "dynasty": "战国",
+        "type": "seven_powers",
+        "capital": "郢/陈",
+        "color": "#2a4a1a",
+        "opacity": 0.3,
+        "description": "战国七雄之一，疆土最广，曾侯乙编钟、越王勾践剑均出于其控制区域"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [109.0, 34.0],
+          [111.5, 34.0],
+          [114.0, 34.5],
+          [116.5, 34.0],
+          [118.0, 32.5],
+          [118.5, 31.0],
+          [117.5, 29.0],
+          [116.0, 28.0],
+          [113.5, 27.0],
+          [111.0, 27.0],
+          [109.0, 27.5],
+          [107.0, 29.0],
+          [107.0, 31.0],
+          [108.0, 33.0],
+          [109.0, 34.0]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "qi-zhanguo",
+      "properties": {
+        "name": "齐",
+        "name_en": "Qi",
+        "dynasty": "战国",
+        "type": "seven_powers",
+        "capital": "临淄",
+        "color": "#1a3a5a",
+        "opacity": 0.3,
+        "description": "战国七雄之一，田氏代齐后成为东方强国，后被秦所灭"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [116.5, 38.0],
+          [119.0, 38.5],
+          [121.5, 37.5],
+          [122.0, 36.0],
+          [121.0, 35.0],
+          [118.5, 34.0],
+          [117.0, 34.5],
+          [116.0, 35.5],
+          [116.5, 38.0]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "yan-zhanguo",
+      "properties": {
+        "name": "燕",
+        "name_en": "Yan",
+        "dynasty": "战国",
+        "type": "seven_powers",
+        "capital": "蓟",
+        "color": "#1a2a4a",
+        "opacity": 0.3,
+        "description": "战国七雄之一，荆轲刺秦王的故事发生于此国，北方防御重镇"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [114.0, 42.0],
+          [116.5, 42.5],
+          [119.0, 42.0],
+          [121.0, 41.0],
+          [121.0, 39.5],
+          [119.0, 39.0],
+          [117.0, 38.5],
+          [115.0, 39.0],
+          [114.0, 40.0],
+          [114.0, 42.0]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "zhao",
+      "properties": {
+        "name": "赵",
+        "name_en": "Zhao",
+        "dynasty": "战国",
+        "type": "seven_powers",
+        "capital": "邯郸",
+        "color": "#3a2a5a",
+        "opacity": 0.3,
+        "description": "战国七雄之一，三家分晋所建，都邯郸，长平之战被秦大败"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [109.5, 41.5],
+          [112.0, 42.0],
+          [114.0, 41.5],
+          [115.5, 40.5],
+          [115.5, 38.5],
+          [114.0, 37.0],
+          [112.5, 36.0],
+          [111.0, 36.5],
+          [109.5, 38.0],
+          [109.5, 41.5]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "wei-zhanguo",
+      "properties": {
+        "name": "魏",
+        "name_en": "Wei",
+        "dynasty": "战国",
+        "type": "seven_powers",
+        "capital": "大梁(今开封)",
+        "color": "#4a1a1a",
+        "opacity": 0.3,
+        "description": "战国七雄之一，三家分晋所建，战国初期最强，后逐渐衰落"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [110.5, 36.0],
+          [112.5, 36.5],
+          [114.0, 36.5],
+          [115.0, 35.5],
+          [115.0, 34.0],
+          [113.5, 33.0],
+          [112.0, 33.0],
+          [111.0, 34.0],
+          [110.5, 35.0],
+          [110.5, 36.0]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "han",
+      "properties": {
+        "name": "韩",
+        "name_en": "Han",
+        "dynasty": "战国",
+        "type": "seven_powers",
+        "capital": "新郑/阳翟",
+        "color": "#3a3a1a",
+        "opacity": 0.3,
+        "description": "战国七雄之一，三家分晋所建，最弱的七雄，最先被秦所灭"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [111.0, 34.5],
+          [113.0, 35.0],
+          [114.5, 34.5],
+          [114.5, 33.0],
+          [113.0, 32.0],
+          [111.5, 32.5],
+          [111.0, 33.5],
+          [111.0, 34.5]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "zhongshan",
+      "properties": {
+        "name": "中山",
+        "name_en": "Zhongshan",
+        "dynasty": "战国",
+        "type": "minor_state",
+        "capital": "灵寿",
+        "color": "#2a3a4a",
+        "opacity": 0.25,
+        "description": "鲜虞建立的中山国，夹在赵魏之间，出土大量精美青铜器，最终被赵所灭"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [113.5, 39.5],
+          [115.0, 39.5],
+          [115.5, 38.5],
+          [115.0, 37.5],
+          [113.5, 37.5],
+          [113.0, 38.5],
+          [113.5, 39.5]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "ba",
+      "properties": {
+        "name": "巴",
+        "name_en": "Ba",
+        "dynasty": "战国",
+        "type": "minor_state",
+        "capital": "江州(今重庆)",
+        "color": "#5a3a1a",
+        "opacity": 0.25,
+        "description": "巴人国家，位于今重庆一带，与蜀相邻，最终被秦所灭"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [106.0, 31.5],
+          [107.5, 32.0],
+          [108.5, 31.5],
+          [108.5, 30.0],
+          [107.0, 29.5],
+          [105.5, 30.0],
+          [105.5, 31.0],
+          [106.0, 31.5]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "shu",
+      "properties": {
+        "name": "蜀",
+        "name_en": "Shu",
+        "dynasty": "战国",
+        "type": "minor_state",
+        "capital": "成都",
+        "color": "#4a4a1a",
+        "opacity": 0.25,
+        "description": "古蜀国，秦惠文王时被张仪、司马错所灭，设蜀郡，为秦统一奠基"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [102.0, 32.0],
+          [104.5, 32.5],
+          [105.5, 32.0],
+          [106.0, 31.0],
+          [105.5, 29.5],
+          [104.0, 29.0],
+          [102.0, 29.5],
+          [101.5, 31.0],
+          [102.0, 32.0]
+        ]]
+      }
+    }
+  ]
+}

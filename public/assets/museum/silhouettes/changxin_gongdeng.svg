@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 长信宫灯 (Changxin Palace Lamp), 西汉; 河北博物院藏. Kneeling palace servant holding lamp; left arm raised = smoke duct. viewBox 100x100. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+  <!-- compound: head + raised left arm holding lamp shade + body + kneeling robe + right hand on knee -->
+  <path fill="#a4732c" fill-rule="evenodd" d="
+    M 38 14 a 8 8 0 1 1 16 0 a 8 8 0 1 1 -16 0 Z
+    M 40 24 L 52 24 L 56 30 L 56 34
+       L 64 36 L 70 32 L 76 30 L 74 24 L 78 22 L 82 28
+       L 78 38 L 70 42 L 62 42 L 62 50
+       L 70 56 L 70 70 L 66 76 L 78 80
+       L 80 86 L 30 86 L 28 80 L 38 76 L 32 70 L 32 56 L 38 50 L 38 42
+       L 34 30 Z
+  "/>
+  <!-- Lamp shade (oval-flared bowl with chimney top) held by raised left arm -->
+  <path fill="#a4732c" d="
+    M 64 6 L 84 6 L 86 10 L 84 16 L 88 18 L 88 22 L 80 26 L 68 26 L 60 22 L 60 18 L 64 16 L 62 10 Z
+  "/>
+</svg>

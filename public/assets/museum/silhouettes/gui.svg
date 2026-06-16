@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 簋 (gui, ritual food vessel with two side handles), 西周; 利簋 (方座簋) reference. viewBox 100x100. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+  <!-- round bowl body with two ear-handles + flared mouth + raised square pedestal base (方座簋) -->
+  <path fill="#a4732c" fill-rule="evenodd" d="
+    M 22 18 L 78 18 L 78 24 L 72 28
+       L 72 36
+       Q 86 38 88 50
+       Q 86 60 76 64
+       L 76 72 L 24 72 L 24 64
+       Q 14 60 12 50
+       Q 14 38 28 36
+       L 28 28 L 22 24 Z
+    M 20 72 L 80 72 L 80 90 L 86 90 L 86 96 L 14 96 L 14 90 L 20 90 Z
+  "/>
+  <!-- left handle hole (negative space via evenodd) -->
+  <path fill="#a4732c" fill-rule="evenodd" d="M 14 44 Q 18 48 14 56 Q 22 56 22 50 Q 22 44 14 44 Z"/>
+  <!-- right handle hole -->
+  <path fill="#a4732c" fill-rule="evenodd" d="M 86 44 Q 82 48 86 56 Q 78 56 78 50 Q 78 44 86 44 Z"/>
+</svg>

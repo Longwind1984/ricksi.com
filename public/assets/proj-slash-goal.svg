@@ -3,39 +3,78 @@
     <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0" stop-color="#10203E"/><stop offset="1" stop-color="#091223"/>
     </linearGradient>
-    <linearGradient id="win" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="rgba(255,255,255,0.13)"/><stop offset="1" stop-color="rgba(255,255,255,0.05)"/>
+    <radialGradient id="topglow" cx="0.5" cy="0" r="0.9">
+      <stop offset="0" stop-color="rgba(60,100,210,0.35)"/><stop offset="1" stop-color="rgba(60,100,210,0)"/>
+    </radialGradient>
+    <linearGradient id="card" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="rgba(255,255,255,0.10)"/><stop offset="1" stop-color="rgba(255,255,255,0.035)"/>
     </linearGradient>
-    <linearGradient id="row" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="rgba(77,159,236,0.5)"/><stop offset="1" stop-color="rgba(77,159,236,0.28)"/>
-    </linearGradient>
-    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-      <feGaussianBlur stdDeviation="10" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    <filter id="soft" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="7" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
   </defs>
+
   <rect width="640" height="300" fill="url(#bg)"/>
-  <path d="M0 268 L90 218 L170 252 L260 200 L350 248 L470 196 L560 240 L640 212 L640 300 L0 300 Z" fill="#0B1730" opacity="0.85"/>
-  <path d="M0 276 L80 238 L180 266 L300 224 L420 262 L540 228 L640 252 L640 300 L0 300 Z" fill="#081020" opacity="0.9"/>
-  <!-- 终端玻璃窗 -->
-  <g filter="url(#glow)" opacity="0.35"><rect x="150" y="38" width="340" height="210" rx="18" fill="#4D9FEC" opacity="0.18"/></g>
-  <rect x="150" y="38" width="340" height="210" rx="18" fill="url(#win)" stroke="rgba(255,255,255,0.28)" stroke-width="1.2"/>
-  <rect x="150.6" y="38.6" width="338.8" height="208.8" rx="17.4" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="0.6" opacity="0.6"/>
-  <circle cx="172" cy="58" r="4.5" fill="#FF6159"/><circle cx="188" cy="58" r="4.5" fill="#FFBD2E"/><circle cx="204" cy="58" r="4.5" fill="#2ACB42"/>
-  <text x="320" y="62" text-anchor="middle" font-size="11" fill="rgba(255,255,255,0.5)">slash goal · codex replica</text>
-  <!-- 输入行 -->
-  <rect x="170" y="78" width="300" height="34" rx="10" fill="rgba(8,16,32,0.65)" stroke="rgba(77,159,236,0.55)" stroke-width="1.2"/>
-  <text x="184" y="100" font-size="16" fill="#4D9FEC" font-weight="700">/goal</text>
-  <rect x="238" y="86" width="2.5" height="18" fill="#9CC8F5">
-    <animate attributeName="opacity" values="1;0;1" dur="1.2s" repeatCount="indefinite"/>
-  </rect>
-  <!-- 命令下拉 -->
-  <rect x="170" y="120" width="300" height="112" rx="12" fill="rgba(10,20,40,0.78)" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
-  <rect x="178" y="129" width="284" height="26" rx="8" fill="url(#row)"/>
-  <text x="190" y="146" font-size="12.5" fill="#FFFFFF">/goal review</text>
-  <text x="450" y="146" font-size="10" fill="rgba(255,255,255,0.75)" text-anchor="end">⌘R</text>
-  <text x="190" y="174" font-size="12.5" fill="rgba(235,242,250,0.78)">/goal test</text>
-  <text x="450" y="174" font-size="10" fill="rgba(255,255,255,0.45)" text-anchor="end">⌘T</text>
-  <text x="190" y="200" font-size="12.5" fill="rgba(235,242,250,0.78)">/goal deploy</text>
-  <text x="450" y="200" font-size="10" fill="rgba(255,255,255,0.45)" text-anchor="end">⌘D</text>
-  <text x="190" y="224" font-size="12.5" fill="rgba(235,242,250,0.62)">/goal docs</text>
+  <rect width="640" height="180" fill="url(#topglow)"/>
+  <!-- 山脊（沿用站点风格） -->
+  <path d="M0 270 L90 222 L170 254 L260 206 L350 250 L470 202 L560 242 L640 216 L640 300 L0 300 Z" fill="#0B1730" opacity="0.85"/>
+  <path d="M0 278 L80 244 L180 268 L300 228 L420 264 L540 232 L640 254 L640 300 L0 300 Z" fill="#081020" opacity="0.9"/>
+
+  <!-- 任务/spec 胶囊 -->
+  <g>
+    <rect x="186" y="20" width="268" height="30" rx="15" fill="rgba(8,16,36,0.66)" stroke="rgba(190,210,255,0.22)" stroke-width="1"/>
+    <text x="206" y="39" font-size="12" fill="rgba(232,194,90,0.95)" font-weight="700">Done =</text>
+    <text x="262" y="39" font-size="12" fill="rgba(228,236,255,0.82)">模块导出改用 FileStore</text>
+  </g>
+
+  <!-- 中线 + 裁判问号 -->
+  <line x1="320" y1="74" x2="320" y2="244" stroke="rgba(190,210,255,0.16)" stroke-width="1" stroke-dasharray="3 4"/>
+  <g>
+    <circle cx="320" cy="152" r="17" fill="#0B1730" stroke="rgba(190,210,255,0.3)" stroke-width="1"/>
+    <text x="320" y="158" text-anchor="middle" font-size="17" fill="rgba(228,236,255,0.85)" font-weight="700">?</text>
+    <text x="320" y="190" text-anchor="middle" font-size="9" fill="rgba(210,226,255,0.5)" letter-spacing="0.5">谁来判定</text>
+  </g>
+
+  <!-- ============ 左：会话内自评（污染上下文 → 假完成） ============ -->
+  <g>
+    <rect x="34" y="70" width="262" height="178" rx="16" fill="url(#card)" stroke="rgba(232,117,94,0.4)" stroke-width="1.1"/>
+    <text x="52" y="94" font-size="11.5" fill="rgba(228,236,255,0.82)" font-weight="700">会话内自评</text>
+    <text x="52" y="110" font-size="9.5" fill="rgba(210,226,255,0.5)">带着被污染的对话上下文</text>
+
+    <!-- 叙事行（被它信了） -->
+    <text x="52" y="134" font-size="10" fill="rgba(210,226,255,0.55)">notes: 导出已切换 <tspan fill="#46C7BE">✓</tspan></text>
+    <text x="52" y="151" font-size="10" fill="rgba(210,226,255,0.55)">PR #123: migration done <tspan fill="#46C7BE">✓</tspan></text>
+
+    <!-- 大 ✓ 印章（珊瑚 = 假） -->
+    <g transform="translate(165,188) rotate(-9)" filter="url(#soft)">
+      <circle r="30" fill="none" stroke="#E8755E" stroke-width="2.4"/>
+      <path d="M-13 1 L-4 11 L14 -11" fill="none" stroke="#E8755E" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+      <line x1="-30" y1="30" x2="30" y2="-30" stroke="#E8755E" stroke-width="2.2" opacity="0.85"/>
+    </g>
+    <text x="52" y="200" font-size="12" fill="rgba(228,236,255,0.55)" font-weight="700" text-decoration="line-through">完成</text>
+    <text x="52" y="226" font-size="13" fill="#E8755E" font-weight="700">假完成</text>
+    <text x="52" y="240" font-size="9" fill="rgba(232,117,94,0.7)">没真去读代码</text>
+  </g>
+
+  <!-- ============ 右：独立 auditor（只读真实文件树 → 定位到行） ============ -->
+  <g>
+    <rect x="344" y="70" width="262" height="178" rx="16" fill="url(#card)" stroke="rgba(70,199,190,0.42)" stroke-width="1.1"/>
+    <text x="362" y="94" font-size="11.5" fill="rgba(228,236,255,0.82)" font-weight="700">独立 auditor</text>
+    <text x="362" y="110" font-size="9.5" fill="rgba(210,226,255,0.5)">干净上下文 · 只读真实文件树</text>
+
+    <!-- 代码片段 -->
+    <text x="362" y="135" font-size="10" fill="rgba(180,210,255,0.55)">22  class FileStore {…} <tspan fill="#46C7BE">✓</tspan></text>
+    <rect x="356" y="143" width="240" height="20" rx="5" fill="rgba(232,117,94,0.16)"/>
+    <rect x="356" y="143" width="3" height="20" fill="#E8755E"/>
+    <text x="368" y="157" font-size="10" fill="rgba(240,244,255,0.92)">24  exports = new MemoryStore()</text>
+
+    <!-- ✗ 判语（青 = 诚实拒绝） -->
+    <g transform="translate(470,200)" filter="url(#soft)">
+      <circle r="26" fill="none" stroke="#46C7BE" stroke-width="2.4"/>
+      <path d="M-10 -10 L10 10 M10 -10 L-10 10" fill="none" stroke="#46C7BE" stroke-width="3.2" stroke-linecap="round"/>
+    </g>
+    <text x="362" y="200" font-size="13" fill="#46C7BE" font-weight="700">INCOMPLETE</text>
+    <text x="362" y="222" font-size="10" fill="rgba(228,236,255,0.7)">gap → src/db.js:24</text>
+    <text x="362" y="238" font-size="9" fill="rgba(70,199,190,0.75)">类已写好，只差这行导出</text>
+  </g>
 </svg>

@@ -1543,12 +1543,22 @@ a.rd-book, a.rd-aibook { display: block; -webkit-tap-highlight-color: transparen
 .ft-type { padding: 2px 9px; font-size: 10.5px; }
 .ft-title { margin: 8px 0 0; font-family: var(--head); font-size: 18px; font-weight: 600; letter-spacing: -0.01em; color: #FFFFFF; line-height: 1.5; }
 .ft-take { margin: 6px 0 0; font-size: 13px; line-height: 1.75; color: var(--sub); }
-.ft-more { margin-top: 8px; }
-.ft-more summary { cursor: pointer; list-style: none; font-size: 11.5px; color: rgba(255,255,255,0.45); letter-spacing: 0.08em; padding: 8px 0; -webkit-tap-highlight-color: transparent; }
-.ft-more summary::-webkit-details-marker { display: none; }
-.ft-more summary::before { content: '▸ '; }
-.ft-more[open] summary::before { content: '▾ '; }
-.ft-more summary:hover { color: rgba(255,255,255,0.75); }
+.ft-more { margin-top: 0; }
+/* 摘要触发区（主操作）：整块标题+判断可点展开就地读；去默认三角，自带「展开摘要 ▾」提示 */
+.ft-sum { cursor: pointer; list-style: none; display: block; padding: 0; border-radius: 10px; -webkit-tap-highlight-color: transparent; }
+.ft-sum::-webkit-details-marker { display: none; }
+.ft-sum .ft-title { transition: color .15s; }
+.ft-more[open] > .ft-sum .ft-title, .ft-sum:hover .ft-title { color: color-mix(in srgb, var(--accent) 34%, #fff); }
+.ft-sum:focus-visible { outline: 2px solid color-mix(in srgb, var(--accent) 60%, transparent); outline-offset: 4px; }
+.ft-sum-flat { cursor: default; }
+.ft-expand-hint { display: inline-block; margin-top: 8px; font-size: 11px; color: rgba(255,255,255,0.4); letter-spacing: 0.08em; transition: color .15s; }
+.ft-sum:hover .ft-expand-hint { color: var(--accent); }
+.ft-more[open] .ft-expand-hint { display: none; }
+/* 脚部次级操作：原文 + 分享（不抢主操作；与展开/折叠无关，常显） */
+.ft-foot { display: flex; align-items: center; gap: 16px; margin-top: 12px; }
+.ft-link-sec, .ft-share-btn { font-size: 11.5px; color: rgba(255,255,255,0.5); letter-spacing: 0.04em; transition: color .15s; background: none; border: none; padding: 0; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.ft-link-sec:hover, .ft-share-btn:hover { color: color-mix(in srgb, var(--accent) 85%, white); }
+.ft-share-btn:focus-visible, .ft-link-sec:focus-visible { outline: 2px solid color-mix(in srgb, var(--accent) 55%, transparent); outline-offset: 3px; border-radius: 6px; }
 .ft-body { margin-top: 10px; padding-left: 14px; border-left: 2.5px solid color-mix(in srgb, var(--accent) 55%, transparent); display: grid; gap: 10px; }
 .ft-summary { margin: 0; font-size: 13.5px; line-height: 1.9; color: rgba(235,241,250,0.8); white-space: pre-line; }
 .ft-thin { margin: 0; font-size: 10.5px; color: var(--gold); }
@@ -1706,8 +1716,15 @@ a.rd-book, a.rd-aibook { display: block; -webkit-tap-highlight-color: transparen
 .ft-tl-win:hover { background: rgba(255,255,255,.1); color: #fff; }
 .ft-tl-win.active { background: color-mix(in srgb, var(--accent) 28%, transparent); border-color: color-mix(in srgb, var(--accent) 55%, transparent); color: #fff; }
 .ft-tl-grid { display: flex; flex-direction: column; }
-.ft-tl-group { margin-top: 8px; }
+.ft-tl-group { margin-top: 8px; max-height: 520px; overflow: hidden; transition: max-height .42s cubic-bezier(.4, 0, .2, 1), opacity .3s ease, margin-top .3s ease; }
+.ft-tl-group.ft-tl-collapsed { max-height: 0; opacity: 0; margin-top: 0; pointer-events: none; } /* 方向聚焦：非选中领域丝滑折叠 */
 .ft-tl-ghead { font-size: 10.5px; letter-spacing: .1em; color: color-mix(in srgb, var(--d-accent) 82%, #fff); border-left: 2px solid var(--d-accent); padding: 5px 0 4px 9px; margin-bottom: 2px; }
+/* 领域名可点 = 方向筛选（纵轴点选聚焦该领域，再点退出） */
+.ft-tl-ghead-btn { display: block; width: 100%; text-align: left; background: none; cursor: pointer; border-top: none; border-right: none; border-bottom: none; border-radius: 0 8px 8px 0; transition: background-color .2s, color .2s; -webkit-tap-highlight-color: transparent; }
+.ft-tl-ghead-btn:hover { background: color-mix(in srgb, var(--d-accent) 13%, transparent); color: #fff; }
+.ft-tl-ghead-btn.active { background: color-mix(in srgb, var(--d-accent) 22%, transparent); color: #fff; box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--d-accent) 32%, transparent); }
+.ft-tl-ghead-btn.active::after { content: ' ◂ 聚焦中 · 再点退出'; font-size: 9px; letter-spacing: .03em; opacity: .7; font-weight: 400; }
+.ft-tl-ghead-btn:focus-visible { outline: 2px solid color-mix(in srgb, var(--d-accent) 60%, transparent); outline-offset: 2px; }
 .ft-tl-row { display: grid; grid-template-columns: 104px 1fr; align-items: center; gap: 10px; min-height: 30px; }
 .ft-tl-rowhead { display: flex; align-items: center; gap: 6px; background: none; border: none; cursor: pointer; color: var(--sub); font-size: 11px; padding: 2px 0; overflow: hidden; text-align: left; -webkit-tap-highlight-color: transparent; }
 .ft-tl-rowhead:hover { color: #fff; }
@@ -1747,3 +1764,52 @@ a.rd-book, a.rd-aibook { display: block; -webkit-tap-highlight-color: transparen
 .ft-pcon.polaris { color: #F4C761; text-shadow: 0 0 6px rgba(244,199,97,0.55); }
 
 .ft-link-block { display: inline-block; margin-top: 8px; }
+
+/* 悬浮预览浮层（桌面）：fixed 定位玻璃面板，纯只读 peek（pointer-events:none），frontier-preview.js 控制 */
+.ft-pop {
+  position: fixed; z-index: 80; left: 0; top: 0;
+  width: min(360px, calc(100vw - 24px));
+  padding: 14px 16px; border-radius: 16px;
+  background: rgba(16,28,64,0.92);
+  border: 1px solid rgba(180,204,255,0.22);
+  box-shadow: 0 18px 50px rgba(2,8,28,0.6);
+  backdrop-filter: blur(20px) saturate(160%); -webkit-backdrop-filter: blur(20px) saturate(160%);
+  pointer-events: none; opacity: 0; visibility: hidden; transform: translateY(4px);
+  transition: opacity .16s ease, transform .16s ease, visibility .16s;
+}
+.ft-pop.show { opacity: 1; visibility: visible; transform: translateY(0); }
+.ft-pop-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.ft-pop-star { font-size: 11px; color: var(--sc, #cdd); font-weight: 600; letter-spacing: .02em; text-shadow: 0 0 6px color-mix(in srgb, var(--sc, transparent) 45%, transparent); }
+.ft-pop-owner { font-size: 11.5px; color: color-mix(in srgb, var(--accent) 80%, white); }
+.ft-pop-meta { margin-top: 4px; font-size: 9.5px; letter-spacing: .06em; color: rgba(255,255,255,0.4); text-transform: uppercase; }
+.ft-pop-title { margin: 8px 0 0; font-family: var(--head); font-size: 15px; font-weight: 600; line-height: 1.45; color: #fff; }
+.ft-pop-verdict { margin: 6px 0 0; font-size: 12px; line-height: 1.7; color: var(--sub); }
+.ft-pop-summary { margin: 8px 0 0; font-size: 11.5px; line-height: 1.75; color: rgba(235,241,250,0.62); }
+
+/* 筛选 chip 键盘可达 */
+.hm-dim:focus-visible { outline: 2px solid color-mix(in srgb, var(--accent) 60%, transparent); outline-offset: 2px; }
+
+/* 声量/量级 chip 视觉优化：量级选中用该星类自身颜色着色，北极星符号描金，符号常显其色 */
+.ft-dim-star .ft-dim-sym, .ft-dim-con .ft-dim-sym { opacity: 1; }
+.ft-dim-con[data-val="polaris"] .ft-dim-sym { color: #F4C761; text-shadow: 0 0 6px rgba(244,199,97,0.5); }
+.ft-dim-star.active { border-color: color-mix(in srgb, var(--sc) 62%, transparent); background: color-mix(in srgb, var(--sc) 16%, transparent); color: #fff; box-shadow: inset 0 1px 0 rgba(255,255,255,0.18); }
+.ft-dim-star.active .ft-dim-sym { color: var(--sc); }
+.ft-dim-con.active { border-color: color-mix(in srgb, var(--accent) 55%, transparent); background: color-mix(in srgb, var(--accent) 22%, transparent); color: #fff; }
+.ft-frow-label { text-transform: none; }
+
+/* ── 顶档视觉强化：仅奇点(事件最高级) + 北极星(信源最高级)，克制不满屏发光 ── */
+/* 北极星信源：时间轴行名描金 + 头像描金边（标出「据以定向的定义者」），不动星点避免与奇点冲突 */
+.ft-tl-row[data-con="polaris"] .ft-tl-name { color: color-mix(in srgb, #F4C761 68%, #fff); font-weight: 600; }
+.ft-tl-row[data-con="polaris"] .ft-tl-ava { border-color: color-mix(in srgb, #F4C761 60%, transparent); box-shadow: 0 0 6px rgba(244,199,97,0.38); }
+/* 奇点事件：时间轴节点最亮——光环 + 极缓脉冲（rare，按数据驱动；尊重减动偏好） */
+.ft-tl-node[data-star="singularity"] .ft-tl-dot {
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--sc) 42%, transparent), 0 0 16px var(--sc), 0 0 30px color-mix(in srgb, var(--sc) 55%, transparent);
+}
+.ft-entry[data-star="singularity"] .ft-star-sym { text-shadow: 0 0 9px var(--sc); }
+@media (prefers-reduced-motion: no-preference) {
+  .ft-tl-node[data-star="singularity"] .ft-tl-dot { animation: ft-singularity 3.4s ease-in-out infinite; }
+  @keyframes ft-singularity {
+    0%, 100% { box-shadow: 0 0 0 2px color-mix(in srgb, var(--sc) 40%, transparent), 0 0 12px var(--sc); }
+    50% { box-shadow: 0 0 0 3px color-mix(in srgb, var(--sc) 30%, transparent), 0 0 24px var(--sc), 0 0 36px color-mix(in srgb, var(--sc) 50%, transparent); }
+  }
+}

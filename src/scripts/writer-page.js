@@ -52,48 +52,57 @@ function initWriterPage(sig) {
     } catch { nums.forEach(runCount); }
   }
 
-  /* ---------- AI 味 X 光扫描器 ---------- */
-  const doc = document.getElementById('wp-doc');
+  /* ---------- Pipeline 三阶扫描器 ---------- */
+  const docAi = document.getElementById('wp-doc-ai');
+  const docVoice = document.getElementById('wp-doc-voice');
   const note = document.getElementById('wp-note');
-  const xrayBtn = document.getElementById('wp-xray');
-  const cleanBtn = document.getElementById('wp-clean');
-  const spans = doc ? [...doc.querySelectorAll('.wp-s')] : [];
+  const nextBtn = document.getElementById('wp-next');
+  const steps = [...document.querySelectorAll('.wp-step')];
+  const spans = [...document.querySelectorAll('#wp-scanner .wp-s')];
 
-  const setNote = (text, empty) => {
-    if (!note) return;
-    note.textContent = text;
-    note.setAttribute('data-empty', empty ? 'true' : 'false');
-  };
+  if (scanner && docAi && docVoice && note) {
+    const verdicts = {
+      1: '<b>critic 第一轮 · 扫 AI 味</b>：这稿不蠢——流畅、有结构、像有观点。但 AI 味最难治的正是这种体面：<span class="t-ai">该下判断处打太极（「没有标准答案」）、用抽象名词代替具体场景、结尾升华成一句关于「民主」的漂亮废话</span>。critic 打回 writer 一句：你的判断到底是什么？点高亮看每一处。',
+      2: '<b>writer 注入 voice memo + few-shot 改写</b> → critic 第二轮：三个 hard floor 干净了。再逮到更隐蔽的金句口癖——<span class="t-c">「电锯是用来锯国家的」是为俏皮补的甩尾（C）</span>；<span class="t-a">「西装／军装」「不画问号」从场景长出来（A，留）</span>。点高亮看判语。',
+      3: '<b>配额收口</b>：一篇只够 1–2 记真甩尾。<span class="t-c">砍掉电锯补刀</span>，<span class="t-a">承重句一字未动</span>。AI 初稿进去，我宁愿发的版本出来——这就是 pipeline 跑完的样子。',
+    };
+    const nextLabel = { 1: '改写去 AI 味 →', 2: '配额收口 →', 3: '↺ 再跑一遍' };
 
-  if (xrayBtn && doc) {
-    xrayBtn.addEventListener('click', () => {
-      const on = doc.classList.toggle('wp-xray');
-      xrayBtn.setAttribute('aria-pressed', String(on));
-      if (on) {
-        setNote('点高亮的句子，看 critic 怎么判它。', true);
-      } else {
-        spans.forEach((s) => s.classList.remove('active'));
-        setNote('点高亮的句子，看 critic 怎么判它。', true);
-      }
-    }, { signal: sig });
+    const setStage = (n) => {
+      scanner.dataset.stage = String(n);
+      steps.forEach((st) => {
+        const k = Number(st.dataset.step);
+        st.classList.toggle('is-on', k === n);
+        st.classList.toggle('is-done', k < n);
+        st.setAttribute('aria-selected', String(k === n));
+      });
+      // 阶段 1 显示 AI 初稿；阶段 2/3 显示真实草稿；阶段 3 收起被砍片段
+      docAi.classList.toggle('wp-on', n === 1);
+      docVoice.classList.toggle('wp-on', n >= 2);
+      docVoice.classList.toggle('wp-clean', n === 3);
+      spans.forEach((s) => s.classList.remove('active'));
+      note.innerHTML = verdicts[n];
+      if (nextBtn) nextBtn.textContent = nextLabel[n];
+    };
+
+    steps.forEach((st) =>
+      st.addEventListener('click', () => setStage(Number(st.dataset.step)), { signal: sig }),
+    );
+    if (nextBtn) {
+      nextBtn.addEventListener('click', () => {
+        const cur = Number(scanner.dataset.stage) || 1;
+        setStage(cur >= 3 ? 1 : cur + 1);
+      }, { signal: sig });
+    }
+    spans.forEach((s) =>
+      s.addEventListener('click', () => {
+        spans.forEach((o) => o.classList.toggle('active', o === s));
+        note.textContent = s.dataset.note || '';
+      }, { signal: sig }),
+    );
+
+    setStage(1);
   }
-
-  if (cleanBtn && doc) {
-    cleanBtn.addEventListener('click', () => {
-      const on = doc.classList.toggle('wp-clean');
-      cleanBtn.setAttribute('aria-pressed', String(on));
-      if (on) setNote('净化到 v5：被判 C 的「电锯补刀」按 critic 建议删掉，承重句一字未动。', false);
-    }, { signal: sig });
-  }
-
-  // 点句看判语（仅 X 光开启时可点）
-  spans.forEach((s) => {
-    s.addEventListener('click', () => {
-      if (!doc.classList.contains('wp-xray')) return;
-      spans.forEach((o) => o.classList.toggle('active', o === s));
-      setNote(s.dataset.note || '', false);
-    }, { signal: sig });
-  });
 }
 
 document.addEventListener('astro:page-load', () => {

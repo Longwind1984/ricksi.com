@@ -56,7 +56,7 @@ for (const s of sample.samples) {
       importance: e.absolute,
       gravity: !!e.gravity,
       periodic: !!e.periodic,
-      canon: !!e.canon,
+      singularity: !!e.singularity,
       rationale: '',
       insufficientContext: false,
       addedAt: today,

@@ -1,0 +1,311 @@
+{
+  "type": "FeatureCollection",
+  "description": "Approximate ancient state boundaries for the Spring and Autumn period (~771-476 BC). Many small states; major ones shown.",
+  "epoch": "春秋",
+  "epoch_en": "Spring and Autumn Period",
+  "date_range": "~771-476 BC",
+  "features": [
+    {
+      "type": "Feature",
+      "id": "zhou-chunqiu",
+      "properties": {
+        "name": "周(王室)",
+        "name_en": "Zhou Royal",
+        "dynasty": "春秋",
+        "type": "nominal_core",
+        "capital": "洛邑",
+        "color": "#a73a2a",
+        "opacity": 0.2,
+        "description": "平王东迁洛邑后，周王室名义天子，实力式微，诸侯争霸"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [111.0, 34.5],
+          [113.0, 35.0],
+          [113.5, 34.0],
+          [112.5, 33.0],
+          [111.0, 33.5],
+          [111.0, 34.5]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "qi-chunqiu",
+      "properties": {
+        "name": "齐",
+        "name_en": "Qi",
+        "dynasty": "春秋",
+        "type": "hegemon",
+        "capital": "临淄",
+        "color": "#2a5a3a",
+        "opacity": 0.3,
+        "description": "春秋五霸之首，齐桓公以管仲为相，尊王攘夷，霸诸侯"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [116.5, 37.5],
+          [119.0, 38.0],
+          [121.0, 37.0],
+          [121.5, 35.5],
+          [120.0, 35.0],
+          [118.0, 35.0],
+          [116.5, 35.5],
+          [116.5, 37.5]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "jin-chunqiu",
+      "properties": {
+        "name": "晋",
+        "name_en": "Jin",
+        "dynasty": "春秋",
+        "type": "hegemon",
+        "capital": "绛(今侯马)",
+        "color": "#2a3a5a",
+        "opacity": 0.3,
+        "description": "春秋霸主，晋文公城濮之战确立霸权，后三分为韩赵魏"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [109.5, 40.0],
+          [112.0, 40.0],
+          [114.5, 39.0],
+          [115.0, 37.5],
+          [114.0, 36.0],
+          [112.0, 35.5],
+          [110.0, 36.0],
+          [109.0, 37.0],
+          [109.5, 40.0]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "qin-chunqiu",
+      "properties": {
+        "name": "秦",
+        "name_en": "Qin",
+        "dynasty": "春秋",
+        "type": "hegemon",
+        "capital": "雍(今宝鸡凤翔)",
+        "color": "#3a2a2a",
+        "opacity": 0.3,
+        "description": "春秋西方强国，秦穆公称霸西戎，占据关中全境"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [104.0, 37.0],
+          [106.0, 37.5],
+          [108.0, 37.0],
+          [109.0, 36.0],
+          [109.0, 34.5],
+          [108.0, 33.5],
+          [106.5, 33.0],
+          [104.5, 33.5],
+          [103.5, 35.0],
+          [104.0, 37.0]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "chu-chunqiu",
+      "properties": {
+        "name": "楚",
+        "name_en": "Chu",
+        "dynasty": "春秋",
+        "type": "hegemon",
+        "capital": "郢(今荆州)",
+        "color": "#3a5a2a",
+        "opacity": 0.3,
+        "description": "春秋大国，雄踞南方，兼并江汉众国，出土大量精美青铜器"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [107.5, 33.0],
+          [109.5, 33.0],
+          [112.0, 32.0],
+          [114.5, 31.5],
+          [116.0, 31.0],
+          [116.0, 29.5],
+          [114.0, 28.5],
+          [112.0, 28.0],
+          [110.0, 28.5],
+          [108.5, 29.5],
+          [108.0, 31.0],
+          [107.5, 33.0]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "wu",
+      "properties": {
+        "name": "吴",
+        "name_en": "Wu",
+        "dynasty": "春秋",
+        "type": "hegemon",
+        "capital": "姑苏(今苏州)",
+        "color": "#2a4a5a",
+        "opacity": 0.28,
+        "description": "春秋末崛起，吴王阖闾以孙武为将，破楚，争霸中原，后被越所灭"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [117.0, 32.0],
+          [119.0, 32.5],
+          [121.0, 31.5],
+          [121.5, 30.0],
+          [120.5, 29.0],
+          [119.0, 28.5],
+          [117.5, 29.0],
+          [116.5, 30.0],
+          [116.5, 31.0],
+          [117.0, 32.0]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "yue",
+      "properties": {
+        "name": "越",
+        "name_en": "Yue",
+        "dynasty": "春秋",
+        "type": "hegemon",
+        "capital": "会稽(今绍兴)",
+        "color": "#2a4a4a",
+        "opacity": 0.28,
+        "description": "春秋末南方大国，越王勾践卧薪尝胆灭吴，越王勾践剑出自此国"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [118.0, 29.0],
+          [120.0, 29.5],
+          [121.5, 29.0],
+          [122.0, 28.0],
+          [121.0, 27.0],
+          [119.0, 27.0],
+          [117.5, 27.5],
+          [117.5, 28.5],
+          [118.0, 29.0]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "lu-chunqiu",
+      "properties": {
+        "name": "鲁",
+        "name_en": "Lu",
+        "dynasty": "春秋",
+        "type": "state",
+        "capital": "曲阜",
+        "color": "#a73a2a",
+        "opacity": 0.22,
+        "description": "礼乐之邦，孔子故国，周礼保存最完整的诸侯国"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [115.5, 36.5],
+          [117.5, 37.0],
+          [118.5, 36.5],
+          [119.0, 35.5],
+          [118.0, 34.5],
+          [116.5, 35.0],
+          [115.5, 36.0],
+          [115.5, 36.5]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "cai",
+      "properties": {
+        "name": "蔡",
+        "name_en": "Cai",
+        "dynasty": "春秋",
+        "type": "state",
+        "capital": "上蔡",
+        "color": "#a73a2a",
+        "opacity": 0.2,
+        "description": "周文王子封国，位于今河南上蔡"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [113.5, 33.5],
+          [115.0, 34.0],
+          [115.5, 33.0],
+          [115.0, 32.0],
+          [113.5, 32.0],
+          [113.0, 33.0],
+          [113.5, 33.5]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "zheng-chunqiu",
+      "properties": {
+        "name": "郑",
+        "name_en": "Zheng",
+        "dynasty": "春秋",
+        "type": "state",
+        "capital": "新郑",
+        "color": "#a73a2a",
+        "opacity": 0.22,
+        "description": "莲鹤方壶出土地，春秋时期礼器艺术高峰"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [113.0, 34.5],
+          [114.5, 35.0],
+          [115.0, 34.0],
+          [114.5, 33.0],
+          [113.0, 32.5],
+          [112.5, 33.5],
+          [113.0, 34.5]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "zeng",
+      "properties": {
+        "name": "曾(随)",
+        "name_en": "Zeng/Sui",
+        "dynasty": "春秋",
+        "type": "state",
+        "capital": "随州",
+        "color": "#3a4a2a",
+        "opacity": 0.25,
+        "description": "随州曾国，出土曾侯乙编钟，青铜音乐艺术巅峰"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [111.5, 32.0],
+          [113.0, 32.5],
+          [114.0, 32.0],
+          [113.5, 31.0],
+          [112.0, 31.0],
+          [111.5, 31.5],
+          [111.5, 32.0]
+        ]]
+      }
+    }
+  ]
+}

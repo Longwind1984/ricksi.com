@@ -235,11 +235,24 @@ const scrollspyIds = navItems.map(([id]) => id).join(',');
       </div>
     </div>
 
+    {/* 前沿动态悬浮预览浮层（桌面 hover；frontier-preview.js 按 data-ft-pop 填充并定位，纯只读 peek） */}
+    <div class="ft-pop" id="ft-preview" role="tooltip" aria-hidden="true">
+      <div class="ft-pop-head">
+        <span class="ft-pop-star"></span>
+        <span class="mono ft-pop-owner"></span>
+      </div>
+      <div class="mono ft-pop-meta"></div>
+      <h4 class="ft-pop-title"></h4>
+      <p class="ft-pop-verdict"></p>
+      <p class="ft-pop-summary"></p>
+    </div>
+
     <script>
       import '../scripts/nav.js';
       import '../scripts/cmdk.js';
       import '../scripts/reader.js';
       import '../scripts/resume-gate.js';
+      import '../scripts/frontier-preview.js';
     </script>
   </body>
 </html>

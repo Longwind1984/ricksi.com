@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 编钟 (chime bell, single piece), 战国; 曾侯乙编钟 reference; 湖北省博物馆藏. viewBox 100x100. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+  <!-- hanging loop + flat top + oval bell body with raised nipples (mei) + scalloped curve at bottom (yu) -->
+  <path fill="#a4732c" fill-rule="evenodd" d="
+    M 44 4 L 56 4 L 56 8 L 60 12 L 60 18 L 56 22 L 56 24
+       L 70 24 L 76 30
+       L 78 64
+       Q 78 78 70 84
+       L 70 86 L 66 90 L 60 86 L 54 90 L 50 86 L 46 90 L 40 86 L 34 90 L 30 86 L 30 84
+       Q 22 78 22 64
+       L 24 30 L 30 24
+       L 44 24 L 44 22 L 40 18 L 40 12 L 44 8 Z
+  "/>
+  <!-- decorative bumps (mei) on bell body -->
+  <circle cx="40" cy="42" r="2" fill="#fff" fill-opacity="0.4"/>
+  <circle cx="50" cy="42" r="2" fill="#fff" fill-opacity="0.4"/>
+  <circle cx="60" cy="42" r="2" fill="#fff" fill-opacity="0.4"/>
+  <circle cx="40" cy="54" r="2" fill="#fff" fill-opacity="0.4"/>
+  <circle cx="50" cy="54" r="2" fill="#fff" fill-opacity="0.4"/>
+  <circle cx="60" cy="54" r="2" fill="#fff" fill-opacity="0.4"/>
+</svg>

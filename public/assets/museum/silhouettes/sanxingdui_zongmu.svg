@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 三星堆纵目面具 (Sanxingdui zongmu mask, protruding-eyes & flared ears mask), 商, 三星堆 K2; 三星堆博物馆藏. viewBox 100x100. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+  <!-- The face core: trapezoidal head + giant flared ears + cylindrical bulging eyes that visually pop forward -->
+  <path fill="#a4732c" fill-rule="evenodd" d="
+    M 30 30 L 70 30 L 76 38
+       L 78 60 L 70 76 L 30 76 L 22 60
+       L 24 38 Z
+  "/>
+  <!-- left ear -->
+  <path fill="#a4732c" d="M 22 38 L 4 24 L 2 36 L 10 52 L 22 60 Z"/>
+  <!-- right ear -->
+  <path fill="#a4732c" d="M 78 38 L 96 24 L 98 36 L 90 52 L 78 60 Z"/>
+  <!-- left protruding eye cylinder -->
+  <path fill="#a4732c" d="M 32 44 a 6 6 0 1 1 0.01 0 Z M 26 44 L 14 44 L 14 50 L 26 50 Z"/>
+  <!-- right protruding eye cylinder -->
+  <path fill="#a4732c" d="M 68 44 a 6 6 0 1 1 0.01 0 Z M 74 44 L 86 44 L 86 50 L 74 50 Z"/>
+  <!-- mouth -->
+  <path fill="#a4732c" d="M 38 66 L 62 66 L 60 72 L 40 72 Z"/>
+</svg>

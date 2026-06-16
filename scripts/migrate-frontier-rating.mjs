@@ -1,6 +1,6 @@
 // 一次性迁移：给 frontier.json 存量条目补「星图」三维评级
 // 旧 importance 时代抓的条目只有单一分数；本脚本调 claude 仅评级（基于已梳理好的
-// titleZh+verdict+summaryZh，不改任何内容），补 apparent/absolute/gravity/periodic/canon。
+// titleZh+verdict+summaryZh，不改任何内容），补 apparent/absolute/gravity/periodic/singularity。
 // 口径与新采集（collect-frontier）统一（评级措辞逐字对齐）。已有 absolute 的条目自动跳过。幂等，可重跑。
 // 仅本地一次性运行（依赖本机 claude + 代理）；不用于云端 Routine——云端只跑 collect-frontier --remote。
 import { spawnSync } from 'node:child_process';
@@ -23,11 +23,11 @@ if (F.proxy && process.env.NODE_USE_ENV_PROXY !== '1') {
 
 const SCHEMA = {
   type: 'object', additionalProperties: false,
-  required: ['apparent', 'absolute', 'gravity', 'periodic', 'canon', 'rationale'],
+  required: ['apparent', 'absolute', 'gravity', 'periodic', 'singularity', 'rationale'],
   properties: {
     apparent: { type: 'integer', minimum: 1, maximum: 5 },
     absolute: { type: 'integer', minimum: 1, maximum: 5 },
-    gravity: { type: 'boolean' }, periodic: { type: 'boolean' }, canon: { type: 'boolean' },
+    gravity: { type: 'boolean' }, periodic: { type: 'boolean' }, singularity: { type: 'boolean' },
     rationale: { type: 'string' },
   },
 };
@@ -37,7 +37,7 @@ function rate(e) {
 独立打两个分，绝不用声量给分量充值：
 · apparent 声量 1-5：当下动静。5=出圈刷屏/主流科技媒体头条；4=圈内沸腾几乎人人转；3=子社区有明显讨论；2=零星少数人注意；1=几乎无声。
 · absolute 分量 1-5：真实重要性，与热度无关。5=改写范式（6-12 月后仍必引参照）；4=实质推进（可靠新方法/新结果/重要数据，后续会建立其上）；3=有效增量（扎实改进/复现/有用工具/综述）；2=边角衍生/轻量观点；1=无实质/噪声/纯情绪。
-· 三个布尔默认 false，极少为 true（置 true 须在 rationale 说明）：gravity=隐体黑洞，仅当「本体完全未公开、无法直接读到」（保密项目/未发布模型，其重量只能从第三方连锁反应反推）才 true——任何已公开可读的论文/帖子/发布/报道一律 gravity=false；periodic=可识别的周期性回归话题潮；canon=已被领域确立为奠基正典/必读参照（当下新发布几乎都不是）。
+· 三个布尔默认 false，极少为 true（置 true 须在 rationale 说明）：gravity=隐体黑洞，仅当「本体完全未公开、无法直接读到」（保密项目/未发布模型，其重量只能从第三方连锁反应反推）才 true——任何已公开可读的论文/帖子/发布/报道一律 gravity=false；periodic=可识别的周期性回归话题潮；singularity=奇点，技术演进史的分水岭（如 Attention 论文/GPT-3.5/DeepSeek R1 这种重定义时代的事件，几乎都不是）。
 · 法则：亮≠重，两分独立；absolute 拿不准向下取整；在「炒作」与「实质」间犹豫按实质打 absolute。
 · rationale：一句话评级理由。
 
@@ -77,10 +77,10 @@ for (const e of data.entries) {
   try {
     const o = rate(e);
     e.apparent = o.apparent; e.absolute = o.absolute; e.importance = o.absolute;
-    e.gravity = o.gravity; e.periodic = o.periodic; e.canon = o.canon; e.rationale = o.rationale;
+    e.gravity = o.gravity; e.periodic = o.periodic; e.singularity = o.singularity; e.rationale = o.rationale;
     delete e.ownerName;
     done++;
-    console.log(`✓ 声${o.apparent}/量${o.absolute}${o.gravity ? ' 黑洞' : ''}${o.canon ? ' 正典' : ''}`);
+    console.log(`✓ 声${o.apparent}/量${o.absolute}${o.gravity ? ' 黑洞' : ''}${o.singularity ? ' 奇点' : ''}`);
   } catch (err) {
     delete e.ownerName;
     fail++;

@@ -1,5 +1,7 @@
 ---
-// 前沿追踪单条：星类徽章 + 人名(可点筛选) + 类型/来源 + 标题(外链原文) + 一句话判断 + 展开摘要
+// 前沿追踪单条：星类徽章 + 人名(可点筛选) + 类型/来源 + 标题/判断(点=就地展开摘要) + 摘要
+// 交互模型（v7）：主操作 = 点标题/判断展开摘要就地读；原文↗与分享降为脚部次级操作；
+//   悬浮(桌面)由 frontier-preview.js 借 data-ft-pop 呼出预览浮层。
 // 星类由 frontier-ui.starOf 从三维分确定性映射；日期不在条目内重复（日组头已有）
 // 布局无关 DOM：方向 A(.rows 报纸流) / B(.cards 卡片网格) 由父容器类切换
 import { STAR_CLASS, starOf, hypeLabel } from '../lib/frontier-ui.mjs';
@@ -11,6 +13,7 @@ interface Props {
     topicSource: string | null;
     ownerName: string;
     domain: string;
+    constellation?: string;
     sourceName: string;
     sourceType: string;
     contentType: 'authored' | 'statement' | 'action' | 'cited' | 'business';
@@ -24,7 +27,7 @@ interface Props {
     absolute?: number;
     gravity?: boolean;
     periodic?: boolean;
-    canon?: boolean;
+    singularity?: boolean;
     importance?: number;
     insufficientContext?: boolean;
     isNew?: boolean;
@@ -48,6 +51,9 @@ const starKey = starOf(entry);
 const sc = STAR_CLASS[starKey];
 const hype = hypeLabel(entry); // '被低估' | '声量 > 分量' | null
 const underrated = hype === '被低估';
+/* 回溯条目摘要==判断，无可展开内容 → 走扁平态（标题/判断不做开合，只留脚部次级操作） */
+const hasSummary = !entry.backfill && !!entry.summaryZh && entry.summaryZh !== entry.verdict;
+const shareUrl = `https://ricksi.com/frontier/#e-${entry.id}`;
 ---
 
 <article
@@ -56,8 +62,10 @@ const underrated = hype === '被低估';
   data-person={ownerKey}
   data-type={entry.contentType}
   data-domain={entry.domain}
+  data-constellation={entry.constellation}
   data-star={starKey}
   data-tags={entry.tags.join('|')}
+  data-ft-pop={hasSummary ? entry.id : undefined}
 >
   <header class="ft-head">
     <span class="ft-star" style={`--sc:${sc.color}`} title={`${sc.zh} · ${sc.gist}`}>
@@ -69,42 +77,51 @@ const underrated = hype === '被低估';
     {underrated && <span class="mono ft-underrated" title="声量低于其真实分量——值得多看一眼">被低估</span>}
     {entry.isNew && <span class="mono ft-new">NEW</span>}
   </header>
-  <h3 class="ft-title">
-    {external ? (
-      <a href={entry.url} target="_blank" rel="noreferrer">{entry.titleZh}</a>
-    ) : (
-      entry.titleZh
-    )}
-  </h3>
-  <p class="ft-take">{entry.verdict}</p>
-  {entry.backfill ? (
-    /* 回溯条目无长摘要，不给空展开——只留判断 + 原文 */
-    external && <a class="mono ft-link ft-link-block" href={entry.url} target="_blank" rel="noreferrer">原文 ↗</a>
+
+  {hasSummary ? (
+    <details class="ft-more">
+      <summary class="ft-sum">
+        <h3 class="ft-title">{entry.titleZh}</h3>
+        <p class="ft-take">{entry.verdict}</p>
+        <span class="mono ft-expand-hint">展开摘要 ▾</span>
+      </summary>
+      <div class="ft-body">
+        <p class="ft-summary">{entry.summaryZh}</p>
+        {entry.insufficientContext && <p class="mono ft-thin">⚠ 原始材料信息有限，摘要从简</p>}
+        {entry.excerpt && (
+          <blockquote class="ft-excerpt">
+            <span class="mono ft-excerpt-label">原文摘录</span>
+            {entry.excerpt}
+          </blockquote>
+        )}
+        {tagsMore.length > 0 && (
+          <div class="ft-tags">
+            {tagsMore.map((t) => (
+              <button class="tag mono ft-tag" type="button" data-ft-tag={t}>{t}</button>
+            ))}
+          </div>
+        )}
+      </div>
+    </details>
   ) : (
-  <details class="ft-more">
-    <summary class="mono">展开摘要</summary>
-    <div class="ft-body">
-      <p class="ft-summary">{entry.summaryZh}</p>
-      {entry.insufficientContext && <p class="mono ft-thin">⚠ 原始材料信息有限，摘要从简</p>}
-      {entry.excerpt && (
-        <blockquote class="ft-excerpt">
-          <span class="mono ft-excerpt-label">原文摘录</span>
-          {entry.excerpt}
-        </blockquote>
-      )}
-      {tagsMore.length > 0 && (
-        <div class="ft-tags">
-          {tagsMore.map((t) => (
-            <button class="tag mono ft-tag" type="button" data-ft-tag={t}>{t}</button>
-          ))}
-        </div>
-      )}
-      {external && (
-        <a class="mono ft-link" href={entry.url} target="_blank" rel="noreferrer">原文 ↗</a>
-      )}
+    <div class="ft-sum ft-sum-flat">
+      <h3 class="ft-title">{entry.titleZh}</h3>
+      <p class="ft-take">{entry.verdict}</p>
     </div>
-  </details>
   )}
+
+  <div class="ft-foot mono">
+    {external && <a class="ft-link-sec" href={entry.url} target="_blank" rel="noreferrer">原文 ↗</a>}
+    <button
+      class="ft-share-btn"
+      type="button"
+      data-share-trigger
+      data-share={`/share/frontier/${entry.id}.jpg`}
+      data-title={entry.titleZh}
+      data-url={shareUrl}
+    >分享 ↗</button>
+  </div>
+
   {tagsOut.length > 0 && (
     <div class="ft-tags">
       {tagsOut.map((t) => (

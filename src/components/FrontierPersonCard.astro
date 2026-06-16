@@ -12,7 +12,7 @@ interface Props {
 const { person, count, portrait = null } = Astro.props;
 const accent = DOMAIN_ACCENT[person.domain] ?? '#7FB3F0';
 const con = person.constellation ? (CONSTELLATION as any)[person.constellation] : null;
-const isBeidou = person.constellation === 'beidou';
+const isPolaris = person.constellation === 'polaris';
 ---
 
 <button
@@ -29,7 +29,7 @@ const isBeidou = person.constellation === 'beidou';
     )}
   </span>
   <span class="ft-pmain">
-    <span class="ft-pname">{person.name}{con && <span class:list={['ft-pcon', { beidou: isBeidou }]} title={`${con.zh} · ${con.gist}`}>{con.sym}</span>}</span>
+    <span class="ft-pname">{person.name}{con && <span class:list={['ft-pcon', { polaris: isPolaris }]} title={`${con.zh} · ${con.gist}`}>{con.sym}</span>}</span>
     <span class="mono ft-ptitle">{person.title}</span>
     <span class="ft-pbio">{person.bio}</span>
   </span>

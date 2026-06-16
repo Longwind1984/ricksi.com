@@ -193,7 +193,18 @@ export const CONFIG = {
         'naturally into the composition (any shape — a fine line, curve or arc, however it fits). ' +
         'Palette kept consistent: ink-white linework, muted glacier-blue rim light (#4D9FEC), a ' +
         'single warm gold accent. Three-quarter head-and-shoulders, square composition with ' +
-        'generous negative space. No text, no logo, no watermark, no border, no frame.',
+        'generous negative space. The dark night-sky background must fill the entire frame edge ' +
+        'to edge and bleed off all four sides — absolutely no white margin, no light border, no ' +
+        'outline, no frame, no rounded card. No text, no logo, no watermark.',
+      // 机构源用：以真实 logo（i2i 参考图）风格化进同一套房屋夜空风，保持可识别。
+      logoPrompt:
+        'A stylized emblem for {name}, derived from its real brand logo shown in the attached image. ' +
+        "Re-draw the logo's exact, recognizable silhouette and mark as clean ink-white line-art, " +
+        'centered, on a deep near-black navy night-sky background (#0A1222) that fills the entire ' +
+        'frame edge to edge, with a subtle starfield and one understated warm gold accent (#E8B36A) ' +
+        'and a muted glacier-blue rim light (#4D9FEC). Keep it unmistakably the same brand mark; do ' +
+        'not invent a different symbol. Square, generous negative space. No extra text, no white ' +
+        'margin, no border, no frame.',
     },
 
     /* 人物名单（草案 2026-06-12，随时增删；domain 取值见 domains） */
@@ -205,7 +216,7 @@ export const CONFIG = {
     },
     people: [
       {
-        slug: 'karpathy', name: 'Andrej Karpathy', domain: 'engineering', constellation: 'beidou', wiki: 'Andrej_Karpathy',
+        slug: 'karpathy', name: 'Andrej Karpathy', domain: 'engineering', constellation: 'polaris', wiki: 'Andrej_Karpathy',
         title: 'Eureka Labs 创始人，前 Tesla AI / OpenAI',
         bio: '把复杂 AI 知识压缩成人类可学习接口的教学型思想者，Software 3.0 与 agentic engineering 的提出者。',
         sources: [
@@ -215,25 +226,25 @@ export const CONFIG = {
         ],
       },
       {
-        slug: 'dario-amodei', name: 'Dario Amodei', domain: 'lab', constellation: 'beidou', wiki: 'Dario_Amodei',
+        slug: 'dario-amodei', name: 'Dario Amodei', domain: 'lab', constellation: 'polaris', wiki: 'Dario_Amodei',
         title: 'Anthropic CEO',
         bio: '把模型能力、安全叙事和政策表态放在同一张桌子上的公司型思想者。',
         sources: [{ type: 'x', handle: 'DarioAmodei' }], // 个人站无 RSS（2026-06-12 验证）
       },
       {
-        slug: 'ilya-sutskever', name: 'Ilya Sutskever', domain: 'lab', constellation: 'beidou', wiki: 'Ilya_Sutskever',
+        slug: 'ilya-sutskever', name: 'Ilya Sutskever', domain: 'lab', constellation: 'polaris', wiki: 'Ilya_Sutskever',
         title: 'SSI 创始人，前 OpenAI 首席科学家',
         bio: '低频但高信号：能力跃迁与对齐叙事之间最关键的内部见证者之一。',
         sources: [{ type: 'x', handle: 'ilyasut' }],
       },
       {
-        slug: 'demis-hassabis', name: 'Demis Hassabis', domain: 'lab', constellation: 'beidou', wiki: 'Demis_Hassabis',
+        slug: 'demis-hassabis', name: 'Demis Hassabis', domain: 'lab', constellation: 'polaris', wiki: 'Demis_Hassabis',
         title: 'Google DeepMind CEO',
         bio: '科学发现型 AI 路线的代表，强调世界模型与科研加速。',
         sources: [{ type: 'x', handle: 'demishassabis' }],
       },
       {
-        slug: 'yann-lecun', name: 'Yann LeCun', domain: 'research', constellation: 'beidou', wiki: 'Yann_LeCun',
+        slug: 'yann-lecun', name: 'Yann LeCun', domain: 'research', constellation: 'polaris', wiki: 'Yann_LeCun',
         title: 'AMI Labs 创始人，前 Meta 首席 AI 科学家',
         bio: '在 LLM 主潮之外持续押注世界模型路线的反向坐标。',
         sources: [{ type: 'x', handle: 'ylecun' }],
@@ -303,15 +314,19 @@ export const CONFIG = {
     /* 话题/机构源（person 为空，topicSource 落 slug） */
     topics: [
       {
-        slug: 'anthropic', name: 'Anthropic 官方', domain: 'lab', constellation: 'beidou',
+        // logo：机构头像 i2i 参考（simpleicons 单色描白 / 官方 SVG）；缺源者退星座字母牌
+        slug: 'anthropic', name: 'Anthropic 官方', domain: 'lab', constellation: 'polaris',
+        logo: 'https://cdn.simpleicons.org/anthropic/cfe0f5',
         sources: [{ type: 'x', handle: 'AnthropicAI' }], // 官网无 RSS（2026-06-12 验证）
       },
       {
-        slug: 'openai', name: 'OpenAI 官方', domain: 'lab', constellation: 'beidou',
+        slug: 'openai', name: 'OpenAI 官方', domain: 'lab', constellation: 'polaris',
+        logo: 'https://upload.wikimedia.org/wikipedia/commons/4/4d/OpenAI_Logo.svg',
         sources: [{ type: 'rss', url: 'https://openai.com/news/rss.xml' }],
       },
       {
-        slug: 'deepmind', name: 'DeepMind Blog', domain: 'lab', constellation: 'beidou',
+        slug: 'deepmind', name: 'DeepMind Blog', domain: 'lab', constellation: 'polaris',
+        logo: 'https://cdn.simpleicons.org/deepmind/cfe0f5',
         sources: [{ type: 'rss', url: 'https://deepmind.google/blog/rss.xml' }],
       },
       {
@@ -320,14 +335,17 @@ export const CONFIG = {
       },
       {
         slug: 'arxiv-agents', name: 'arXiv · LLM Agent 论文', domain: 'research', constellation: 'planet',
+        logo: 'https://cdn.simpleicons.org/arxiv/cfe0f5',
         sources: [{ type: 'arxiv', query: 'cat:cs.CL AND abs:"LLM agent"', maxResults: 10 }],
       },
       {
-        slug: 'deepseek', name: 'DeepSeek 深度求索', domain: 'lab', constellation: 'beidou',
+        slug: 'deepseek', name: 'DeepSeek 深度求索', domain: 'lab', constellation: 'polaris',
+        logo: 'https://cdn.simpleicons.org/deepseek/cfe0f5',
         sources: [],
       },
       {
         slug: 'bytedance-seed', name: 'ByteDance Seed / 豆包', domain: 'lab', constellation: 'constellation',
+        logo: 'https://cdn.simpleicons.org/bytedance/cfe0f5',
         sources: [],
       },
       {

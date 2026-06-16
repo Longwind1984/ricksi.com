@@ -7,6 +7,7 @@
 | 用途 | 用什么 | 为什么 |
 |---|---|---|
 | **人物头像 /frontier** | **Nano Banana（Gemini `gemini-3.1-flash-image`）** | 它能稳定复刻「钴蓝之夜」细线稿、似真可控、无边框 |
+| **机构头像 /frontier** | 同上，i2i 真实 logo | 取机构真 logo 做参考图风格化进同一套夜空风，保持可识别（2026-06-16 起） |
 | 其他临时生图（如需要） | 火山方舟 Seedream（备选，未在用） | key 已配，但头像实测复刻不了这套风格、似真不可控，已弃用于头像 |
 
 > ⚠ **头像不要再用 Seedream**：2026-06-15 实测 Seedream 风格漂移（厚涂/偏亮）、随机加白边/相框、串色，
@@ -22,6 +23,24 @@
   ⚠ 只能传本人照片；传别人的成品头像会串脸（2026-06-12 实测）。
 - **风格一致 + 识别度**（stylePrompt 已锁定）：似真优先（少几笔也认得出谁）、三七分头肩像、
   头占画面约 60%、近黑钴蓝满版底 + 星点 + 一条金线、调色板限白线/冰川蓝/金。
+- **无照片的人不强生**：人只在有照片源（`wiki`/`refPhoto`/X source）时才生成；查不到照片
+  退星座字母牌（`frontier-ui.portraitFallbackSvg`），不做无似真度的「随机脸」。
+
+### 机构头像（i2i 真 logo · 2026-06-16）
+
+- config 机构源（`frontier.topics[]`）加 `logo: '<url>'` 即纳入生成；用 `logoPrompt` 模板。
+  来源经验：**clearbit 已失效、wiki summary 不暴露公司 logo（非自由版权）**；可用
+  [simpleicons](https://simpleicons.org) CDN `https://cdn.simpleicons.org/<slug>/<hex>`（单色描白）
+  或官方/Commons 的 SVG 直链。OpenAI 不在 simpleicons（商标移除），用 Commons SVG。
+- 单色干净 logo 做 i2i 输入效果意外地好（模型忠实复刻轮廓再上夜空风）；Anthropic 的字标 glyph
+  会被渲成偏通用的「AI」字样，可接受或换更具象的 logo 源。
+- 没 logo 源的机构（arc-prize / metr / epoch-ai）暂不出头像，时间轴行只显名字。
+
+### 去白边（系统化 · 2026-06-16）
+
+- 模型偶尔无视「no border」给整图套白框。脚本后处理 `trimWhiteBorder()`：检测左上角近白 →
+  `sharp.trim` 裁掉 → cover 回方图；非白边图原样不动。生成与手动收口两条路径都过这一步。
+- 修旧图（不调 API、本地 sharp、幂等）：`npm run frontier:portraits -- --repair`。
 
 ### 经济性（避免无谓 token / 调用）
 

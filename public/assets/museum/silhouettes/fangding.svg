@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 方鼎 (square-mouth four-leg ding), 商周, 后母戊鼎 / 子龙鼎 reference. viewBox 100x100. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+  <!-- single compound path: two upright handles on top + rectangular body + four legs -->
+  <path fill="#a4732c" fill-rule="evenodd" d="
+    M 24 14 L 24 26 L 28 26 L 28 18 L 38 18 L 38 26 L 42 26 L 42 14 Z
+    M 58 14 L 58 26 L 62 26 L 62 18 L 72 18 L 72 26 L 76 26 L 76 14 Z
+    M 16 26 L 84 26 L 84 32 L 82 36 L 82 64 L 84 68 L 84 72 L 76 72 L 76 86 L 70 86 L 70 72 L 60 72 L 60 86 L 54 86 L 54 72 L 46 72 L 46 86 L 40 86 L 40 72 L 30 72 L 30 86 L 24 86 L 24 72 L 16 72 L 16 68 L 18 64 L 18 36 L 16 32 Z
+  "/>
+</svg>

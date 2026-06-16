@@ -67,12 +67,13 @@ export function portraitFallbackSvg(person) {
 }
 
 /* ── 星图评级（详见 docs/star-rating.md，规约 v1）─────────────────────
-   采集端只存三维分（apparent 声量 / absolute 分量 / gravity·periodic·canon 布尔），
+   采集端只存三维分（apparent 声量 / absolute 分量 / gravity·periodic·singularity 布尔），
    星类是这些维度的确定性函数——规则单点在此，改规则不必重抓数据。
-   核心：视亮度(声量)与绝对亮度(分量)解耦——北极星不亮却定向，流星很亮却空。 */
+   核心：视亮度(声量)与绝对亮度(分量)解耦——深空不亮却重，流星很亮却空，黑洞不亮却主宰。
+   注意：北极星已迁出事件星类、归入信源量级 CONSTELLATION（见下）。 */
 export const STAR_CLASS = {
+  singularity: { zh: '奇点', en: 'Singularity', sym: '✺', rank: 6, color: '#FFF2CC', gist: '技术演进史的分水岭——重定义时代的少数大事件' },
   supernova: { zh: '超新星', en: 'Supernova',   sym: '✦', rank: 5, color: '#F4C761', gist: '高分量 + 出圈：重新定义领域、且刷屏' },
-  polaris:   { zh: '北极星', en: 'Polaris',     sym: '✧', rank: 5, color: '#EBD9A0', gist: '已确立的奠基正典，据以定向' },
   deepfield: { zh: '深空',   en: 'Deep Field',  sym: '◈', rank: 4, color: '#71C1F7', gist: '高分量却几乎无声——被低估的宝藏' },
   blackhole: { zh: '黑洞',   en: 'Black Hole',  sym: '◉', rank: 4, color: '#C2A7F4', gist: '本体看不见，由对周边的影响反推其重量' },
   nova:      { zh: '新星',   en: 'Nova',        sym: '✶', rank: 3, color: '#59CEBA', gist: '热度很大但不改写范式的爆发' },
@@ -82,25 +83,27 @@ export const STAR_CLASS = {
   stardust:  { zh: '星尘',   en: 'Cosmic Dust', sym: '·', rank: 1, color: '#5A6B85', gist: '背景噪声——通稿、水文' },
 };
 
-/* 源级星类（人物/机构的定性，标在 config people[].constellation / topics[].constellation）。
-   北斗 = 猎户座之上的最高级，能力上沿的定义者，人工挑选少数进入。 */
+/* 信源量级（人物/机构的定性，标在 config people[].constellation / topics[].constellation）。
+   北极星 = 猎户座之上的最高级，据以定向的定义者（重要的人/实验室），人工挑选少数进入。
+   注意：这是「信源」track，与事件级 STAR_CLASS（含奇点）是两条独立坐标。 */
 export const CONSTELLATION = {
-  beidou:        { zh: '北斗',   en: 'Big Dipper',    sym: '❖', gist: '能力上沿的定义者——地标中的地标，最高源级' },
+  polaris:       { zh: '北极星', en: 'Polaris',       sym: '✧', gist: '据以定向的定义者——重要的人与实验室，最高源级' },
   constellation: { zh: '猎户座', en: 'Constellation', sym: '✷', gist: '地标级、人人辨认的长期源' },
   star:          { zh: '星辰',   en: 'Star',          sym: '✦', gist: '可靠产出原创的常规源' },
   planet:        { zh: '行星',   en: 'Planet',        sym: '◐', gist: '反射他人之光的转述/聚合源' },
 };
-/* 源级星类排序权重（北斗 > 猎户座 > 星辰 > 行星），档案区/时间轴行序用 */
-export const CONSTELLATION_RANK = { beidou: 4, constellation: 3, star: 2, planet: 1 };
+/* 信源量级排序权重（北极星 > 猎户座 > 星辰 > 行星），档案区/时间轴行序用 */
+export const CONSTELLATION_RANK = { polaris: 4, constellation: 3, star: 2, planet: 1 };
 
 const _abs = (d) => d.absolute ?? d.importance ?? 3;
 const _app = (d) => d.apparent ?? _abs(d); // 旧数据无声量，退化为 = 分量（hype_gap 0）
 
-/* 条目级星类映射（family=EVENT；忠于规约 R1/R6-R8，补齐 absolute≥4 高声量盲区，全网格覆盖）。 */
+/* 条目级星类映射（family=EVENT；忠于规约 R1/R6-R8，补齐 absolute≥4 高声量盲区，全网格覆盖）。
+   奇点 = 事件级最高，标记技术演进史分水岭，由 singularity 布尔显式置位（极罕见）。 */
 export function starOf(d = {}) {
   const abs = _abs(d), app = _app(d);
+  if (d.singularity) return 'singularity';
   if (d.gravity) return 'blackhole';
-  if (d.canon) return 'polaris';
   if (d.periodic && abs <= 3) return 'comet';
   if (abs >= 4) return app >= 4 ? 'supernova' : 'deepfield';
   if (abs === 3) return app >= 4 ? 'nova' : 'glimmer';

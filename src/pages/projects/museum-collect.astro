@@ -1,0 +1,803 @@
+---
+// 博物志落地页：把 AI 的约束当设计原则——一个 AI PM 用 8 个有边界的 agent、跑 5 个 sprint，
+// 从零做一个 AI 原生文博收藏产品的全景案例。方法论主导（多 agent 拓扑 / 审计驱动 / RAG 反幻觉），
+// 产品与可跑 demo 作「方法论指向的实物证据」。
+// 数据口径出自源仓库 longwind1984/prac03_museumcollect@claude/museum-photo-sharing-8qJiz 的 50+ 份文档。
+// Rick 第一人称；问题/判断/取舍作主句，实现作证据；诚实约束与正文同框，不得删。
+import Glass from '../../layouts/Glass.astro';
+
+/* 三个 AI 约束 → 三条设计原则（Hero 翻牌） */
+const CONSTRAINTS = [
+  {
+    c: '角色有边界',
+    cd: '一个全能 agent 顶不住「既出方案又评方案」——它会从自己刚妥协过的上下文里，给自己打绿灯。',
+    p: '拆成 6–8 个职责单一、互相制衡的 agent',
+    pd: 'Builder 的产出要 PM-Critic 加 Strategy-Curator 双签才能合并。没有谁能既当运动员又当裁判。',
+  },
+  {
+    c: '上下文冷启动',
+    cd: '每个被召唤的 agent 是没有记忆的新人线程，读不到之前发生过什么。',
+    p: '把冷启动当审计特性，不当缺陷',
+    pd: '新人「假装第一次看」反而抓得到设计者的盲区；坏掉的回合直接重启，不被污染的历史拖着走。',
+  },
+  {
+    c: '文件系统即状态',
+    cd: 'agent 之间没有共享内存，会话一关就忘。',
+    p: '用 append-only 事件日志加 git trace 做协调',
+    pd: '每个决策都能 grep 到来源：谁在哪一轮、改了什么、为什么。仓库就是这支队伍的大脑。',
+  },
+];
+
+/* 02 多 Agent 拓扑——升级触发器 */
+const ESCALATIONS = [
+  { id: 'T2', k: '边界违反', d: '违反 PRD 的人格 / 拒绝清单 / 隐私边界。' },
+  { id: 'T3', k: '外部资源', d: '花钱 / 对外发信 / 联系馆方 / 公开承诺——签字前不执行。' },
+  { id: 'T4', k: '僵局', d: '同一产出 Critic 与 Builder 顶到第 3 回合无果。' },
+];
+
+/* 03 审计驱动——6 审计人格 */
+const AUDITORS = [
+  '初次硬核观众（UX）', '讲究的设计师（Aesthetic）', '青铜学研究生（Content）',
+  '早期重度用户（Motivation）', '字节腾讯招聘官（PM）', '综合五家的 Comparative',
+];
+
+/* 04 反幻觉——5 字段硬门 */
+const FSM_FIELDS = [
+  { k: 'url', d: '没有 url，整条拒收。' },
+  { k: 'fetched_at', d: '抓取时间戳，证明是这次真抓的。' },
+  { k: 'content_hash', d: '没有指纹，强制 low，不可全文引用。' },
+  { k: 'license_observed', d: 'unknown 封顶 low，不向量化。' },
+  { k: 'confidence_tier', d: '找不到就显式写「X 类源未到手，原因 Y」。' },
+];
+
+/* 08 产品——7+1 维度 × 收集动机 */
+const DIMS = [
+  { k: '形制', form: '谱系树 · 实景⇄线稿', hook: 'Completion' },
+  { k: '时代', form: '真比例时间柱', hook: 'Temporal' },
+  { k: '地理', form: '真实地形 · 流散三视图', hook: 'Spatial · Story' },
+  { k: '纹饰', form: '演化树 · 拓片放大镜', hook: 'Identity' },
+  { k: '铭文', form: '逐字释读 · 何尊长卷', hook: 'Identity · Story' },
+  { k: '用途', form: '礼器归位场景 ×5', hook: 'Spatial · Story' },
+  { k: '铸主', form: '列传卡 · 关系图谱', hook: 'Connection' },
+  { k: '★ 稀有度', form: '全局光晕层 · 4 级', hook: '跨七维渲染' },
+];
+
+/* 08 拒绝清单 */
+const REJECTS = ['打卡 / 集章 / 徽章', '排行榜 / 热门 Top10', 'AR 合成 / 复原动画', '社交广场 / UGC', '行程 / 票务 / 餐饮', '一键讲完整馆', '文物百科长文', '连胜 / 红点 / push'];
+
+/* 09 诚实约束（与正文同框，不得删） */
+const CAVEATS = [
+  ['MVP 未发布', '没有小程序移植。这是作品集与原型，不是上线产品。'],
+  ['真实识别未端到端', '沙箱防火墙挡了 HuggingFace / Wikimedia / pytorch，CLIP 识别只是生产形态 stub，真 P@1/P@5 待本机跑。'],
+  ['无真实用户 beta', '只有 9 人粗访。所有 KPI——含 WAC 目标、商业模型——都是标了「假设」的数字。'],
+  ['跨页联动没做成', 'CustomEvent 不能跨标签页。同屏三联动是 workaround，被 5/5 审计标 P0。'],
+];
+
+/* 10 量化成果 */
+const NUMS = [
+  { n: '8', u: '个有边界的 agent', s: '5 个 sprint · 约 32 次子 agent 调用' },
+  { n: '277', u: '件 ×11 字段', s: '300 的 92%（DE-4 撞 token 上限少 23 件）' },
+  { n: '28', u: '/ 28 测试绿', s: '16 桌面 + 12 移动 · Playwright' },
+  { n: '104', u: '条 verified chunk', s: '夜跑约 1 小时 · 100 ok / 4 failed · T3 零违反' },
+  { n: '11', u: '份多视角审计', s: '+ 2 轮冷审计 · 2 份 merged-spec' },
+  { n: '56', u: '条 wiki 词条', s: '77,215 汉字 · 约 20 个并行 research agent' },
+];
+
+/* 11 状态 chips */
+const STATUS = ['demo 可跑 · 28/28 绿', 'RAG 夜跑已执行 · 104 chunk', '277 件 ×11 字段', '方法论成文 · 约 10,600 字', 'MVP 未发布'];
+
+/* 05 叙事打架（夜跑 / 样本实抓的 verified_chunks 片段，三方矛盾并列） */
+const NARRATIVES = [
+  {
+    id: 'buddha',
+    name: '北齐白石佛立像',
+    museum: '上海博物馆东馆 · 中国古代雕塑馆',
+    q: '它来自河北响堂山，还是山西？',
+    sources: [
+      { label: '展线挂牌 / 媒体', tier: '媒体解读', claim: '「北齐白石佛立像（响堂山系）」——暗示来源在河北响堂山、邺城域。', origin: '上博展线 + 澎湃报道', lic: '(c) all-rights' },
+      { label: '上博藏品库一手字段', tier: '馆方一手', claim: '题名「石佛像」，北齐，高 144cm；产地『山西』，来源『山西省博物院调拨』。馆方自己的字段，并不背书『响堂山 / 河北』。', origin: 'shanghaimuseum.net · CI00159756', lic: '(c) all-rights' },
+      { label: '海外馆著录', tier: '海外 OA', claim: 'V&A：『probably from Xiangtangshan, Hebei』；Met 42704：culture『China (Southern Xiangtangshan)』——同窗口北齐佛头，出处都写河北响堂山。', origin: 'V&A / Metropolitan Museum', lic: 'V&A unknown · Met CC0' },
+    ],
+    verdict: '三方说法并不一致。反幻觉硬门只认实抓到的字段——它把这件的旧样本，从『馆方自标响堂山 → V&A 闭环』当场改写成『山西 vs 响堂山』的张力件，因为抓回的馆方字段不支持原说法。AI 把这三层叠给你看，不替馆方拍板哪个是真相。',
+  },
+  {
+    id: 'jade',
+    name: '红山文化玉神人兽像',
+    museum: '震旦博物馆 · 历代玉器展厅',
+    q: '它真是五千年前的红山玉，还是只是「风格上像」？',
+    sources: [
+      { label: '震旦馆方', tier: '馆方一手', claim: '定为红山文化（约前 4500–3000）。私立馆无公开编号，本件无考古出处——私人收藏捐入。', origin: '震旦博物馆典藏', lic: '(c) all-rights' },
+      { label: '国博背书', tier: '官方专题', claim: '2020《玉出红山》专题，以牛河梁科学发掘背书『红山五千年』的文化序列。', origin: '中国国家博物馆', lic: '(c) all-rights' },
+      { label: '独立学术', tier: '学术 OA', claim: '『所有被归为红山的玉神人，没有一件经科学发掘出土；它们的红山归属基于风格判断，不是地层学。』', origin: 'OCS 讲座 + MDPI Arts（CC-BY）', lic: 'CC-BY / OA' },
+    ],
+    verdict: '馆方说明牌大概不会写『本件无考古出处』。AI 可以 surface 这层——不是说馆方错，是把『谁在用什么底气说这是红山』摊给你看。找不到一手出土叙事，本身就是产品要呈现的素材。',
+  },
+];
+
+const desc = '一个 AI 产品经理把自己拆成 8 个有边界的 agent、跑 5 个 sprint，从零做一个 AI 原生文博收藏产品的全景案例。核心不是用 AI 写代码，是把 AI 的三个约束当成产品与协作的设计原则：多 agent 拓扑、审计驱动迭代、RAG 反幻觉管道。可跑 demo、277 件结构化数据、约 10,600 字方法论复盘。MVP 未发布、KPI 全是假设——都写在页面里。';
+---
+
+<Glass
+  title="博物志 · 把 AI 的约束当设计原则 · Rick Si"
+  description={desc}
+  active="projects"
+>
+  <main class="mc-main mc-root">
+    <!-- ============ Hero ============ -->
+    <section class="mc-hero">
+      <div class="container mc-hero-inner">
+        <nav class="mono mc-crumb"><a href="/#projects">← 项目</a></nav>
+        <div class="mono kicker mc-kicker">AI 产品经理作品集 · 8 个 AGENT · 5 个 SPRINT · 277 件文物</div>
+        <h1 class="mc-h1">我没把 AI 当写代码的工具。<br />我把它的三个约束，当成了设计原则。</h1>
+        <p class="mc-sub">
+          做这个文博产品，真正难的不是让 AI 写出 demo。是 AI 自己带着三条硬约束——<strong>角色有边界、上下文冷启动、文件系统即状态</strong>。
+          多数人把它们当限制绕过去；我把它们翻成产品和协作的设计原则。点一张卡，看每条约束逼出了什么决定。
+        </p>
+
+        <div class="mc-constraints" id="mc-constraints">
+          {CONSTRAINTS.map((x, i) => (
+            <button class="mc-flip" data-i={i} type="button" aria-label={`约束：${x.c}，点击看它逼出的设计原则`}>
+              <span class="mc-flip-inner">
+                <span class="mc-flip-face mc-flip-front">
+                  <span class="mono mc-flip-tag">约束 0{i + 1}</span>
+                  <span class="mc-flip-k">{x.c}</span>
+                  <span class="mc-flip-d">{x.cd}</span>
+                  <span class="mono mc-flip-hint">→ 翻成原则</span>
+                </span>
+                <span class="mc-flip-face mc-flip-back">
+                  <span class="mono mc-flip-tag">设计原则 0{i + 1}</span>
+                  <span class="mc-flip-k">{x.p}</span>
+                  <span class="mc-flip-d">{x.pd}</span>
+                </span>
+              </span>
+            </button>
+          ))}
+        </div>
+
+        <a class="mc-ghost mono" href="#thesis">往下看怎么做的 ↓</a>
+      </div>
+    </section>
+
+    <div class="container">
+      <!-- ============ 命题 ============ -->
+      <section class="sec mc-reveal" id="thesis">
+        <div class="mono kicker">命题</div>
+        <p class="mc-lead">AI PM 的关键不是用 AI 写代码，是<em>把 AI 的约束当成设计原则</em>。</p>
+        <p class="mc-body">
+          这是一个完整的作品集：给博物馆中度爱好者的 AI 原生陪看 / 收藏产品，以青铜器为第一个垂类。产品定位、PRD、四份 ADR、一个能跑的 demo、277 件结构化文物数据、一套 RAG 知识发现管道——以及把这一切做出来的方法。
+        </p>
+        <p class="mc-body">
+          但它不是一个「功能很全的 demo」。它最强的气质是诚实纪律：拒绝伪造数字、把找不到当产品哲学、主动抓自己的双标。下面这一页，我让方法论先讲——多 agent 怎么搭、审计怎么驱动迭代、RAG 怎么把幻觉挡在门外——产品和 demo，是这套方法指向的实物证据。
+        </p>
+      </section>
+
+      <!-- ============ 01 反讽底座 ============ -->
+      <section class="sec mc-reveal">
+        <div class="sec-head">
+          <span class="mono sec-no">01</span>
+          <div class="sec-title-row"><h2 class="sec-title">一个 CC0 的反讽底座</h2><span class="mono sec-en">THE FOUNDING IRONY</span></div>
+          <span class="sec-desc">最干净的底座，不在任何国内馆</span>
+        </div>
+        <p class="mc-body">
+          做中文文博 AI，第一个工程问题是：图像和元数据的底座从哪来。国内没有一家馆达到 Met、V&A、Smithsonian 那种开放度——没有公开 API、没有 CC0，立体文物的高清摄影还在著作权灰区。
+        </p>
+        <p class="mc-body">
+          反讽在这里：约 1900 年起大量流散海外的中国文物（北朝佛造像、青铜、玉、瓷），近十年被 Met、克利夫兰、弗利尔、V&A 等海外馆以 <strong>CC0 释出</strong>了高清图加元数据。
+        </p>
+        <blockquote class="mc-quote">
+          <p>做一个面向中国大陆用户的 AI 文博产品，最稳、最干净、最可放心向量化的图像底座，不是任何一家国内馆，而是这些海外馆的 CC0 数据集。</p>
+          <footer class="mono">— 我把它从 ADR-003 的附录，提升成了 PRD 的 founding insight</footer>
+        </blockquote>
+        <p class="mc-note">
+          于是一期切片定为「天龙山：从晋阳到世界——北朝佛造像的流散与数字回归」。流散叙事本身就是产品的内容，不是被叙事服务的题材。这条线后面会在地图上画出来。
+        </p>
+      </section>
+
+      <!-- ============ 02 Agent 拓扑 ============ -->
+      <section class="sec mc-reveal mc-break">
+        <div class="sec-head">
+          <span class="mono sec-no">02</span>
+          <div class="sec-title-row"><h2 class="sec-title">把一个人，拆成一支队伍</h2><span class="mono sec-en">THE AGENT TOPOLOGY</span></div>
+          <span class="sec-desc">病根是单人没有制衡</span>
+        </div>
+        <p class="mc-body">
+          一开始是我一个人。下了 4,466 张 Met 的图、写了 800 行 chunks pipeline 之后才意识到一件事：<strong>我既出方案又评方案，没有任何制衡</strong>。这正是第一个 AI 约束——角色有边界——给的解法：与其要一个全能助手，不如组一支职责单一、互相制衡的 agent 队伍。
+        </p>
+        <p class="mc-body">
+          每个 agent 有自己的 constitution。Builder 只从已签的清单取活、不评自己的产出、不顺手扩 scope、产出要 PM-Critic 和 Strategy-Curator <strong>双签</strong>才能合并。点节点看它的边界；切换两套拓扑——白天的常驻团队，和夜跑时的生产编队。
+        </p>
+
+        <div class="mc-topo" id="mc-topo">
+          <div class="mc-topo-tabs" role="tablist" aria-label="切换拓扑">
+            <button class="mc-topo-tab is-on" data-topo="standing" role="tab" aria-selected="true" type="button">常驻团队 · 6 角色</button>
+            <button class="mc-topo-tab" data-topo="night" role="tab" aria-selected="false" type="button">夜跑编队 · 8 生产 + 7 审计</button>
+          </div>
+          <div class="mc-topo-stage">
+            <svg class="mc-topo-svg" id="mc-topo-svg" viewBox="0 0 560 420" role="group" aria-label="多 agent 拓扑图"></svg>
+            <aside class="mc-topo-panel" id="mc-topo-panel">
+              <div class="mono mc-panel-tag">点一个 agent，看它的边界与职责</div>
+            </aside>
+          </div>
+        </div>
+
+        <div class="mc-esc">
+          <span class="mono mc-esc-lead">只有三件事能打断我这个人类 PM：</span>
+          {ESCALATIONS.map((e) => (
+            <div class="mc-esc-item">
+              <span class="mono mc-esc-id">{e.id}</span>
+              <span class="mc-esc-k">{e.k}</span>
+              <span class="mc-esc-d">{e.d}</span>
+            </div>
+          ))}
+        </div>
+        <p class="mc-note">
+          全程 <strong>escalations.md 是 0 条目</strong>——这支队伍从没真正需要打断我。成本也按判断重量路由：Opus 给判断重的角色，Sonnet 给执行，全 Opus 要贵三倍以上。
+        </p>
+      </section>
+
+      <!-- ============ 03 审计驱动 ============ -->
+      <section class="sec mc-reveal mc-break">
+        <div class="sec-head">
+          <span class="mono sec-no">03</span>
+          <div class="sec-title-row"><h2 class="sec-title">审计者，直接驱动下一轮</h2><span class="mono sec-en">AUDIT-DRIVEN ITERATION</span></div>
+          <span class="sec-desc">审计不是终点，是迭代触发器</span>
+        </div>
+        <p class="mc-body">
+          审计者写完 report，同时产出 next-iteration-brief，直接驱动下一轮；严重的问题可以推翻整轮，回到 Researcher 或 Designer 级重做，而不是在 Builder 级打补丁。六个审计人格，各看一个面：
+        </p>
+        <div class="mc-auditors">
+          {AUDITORS.map((a) => <span class="tag mono">{a}</span>)}
+        </div>
+
+        <p class="mc-body mc-stack">
+          然后出了一件事，它成了整个作品集最强的反思信号。v3 的 demo 被这五个只读审计<strong>全部放行</strong>。我自己一点——点了后母戊鼎和何尊以外的任何一件——每次都跳回后母戊鼎。
+        </p>
+        <div class="mc-chain" aria-label="BUG-001 审计断点">
+          <span class="mc-chain-grp">
+            <span class="mc-chain-node ok">UX ✓</span><span class="mc-chain-node ok">Aesthetic ✓</span><span class="mc-chain-node ok">Content ✓</span><span class="mc-chain-node ok">Motivation ✓</span><span class="mc-chain-node ok">PM ✓</span>
+          </span>
+          <span class="mc-chain-arr">→</span>
+          <span class="mc-chain-node bug">用户一点 · 28 个详情页全回退后母戊鼎</span>
+        </div>
+        <p class="mc-note">
+          根因：2 条硬编码的 MOCK 静默覆盖了其余 275 件。五个只读审计都是「近视读者」，读源码、看一两页，没人真去点。于是我加了第 7 个 <strong>Runtime Auditor</strong>——唯一一个真去点击、开 DevTools、查 network 的审计，它的判定对其他审计 binding，外加 8 项强制验证清单。
+        </p>
+        <blockquote class="mc-quote">
+          <p>Persona Auditor 判 demo 好不好；Runtime Auditor 判 demo 存不存在。</p>
+          <footer class="mono">— BUG-001 之后定的一条规矩</footer>
+        </blockquote>
+      </section>
+
+      <!-- ============ 04 反幻觉管道 ============ -->
+      <section class="sec mc-reveal mc-break">
+        <div class="sec-head">
+          <span class="mono sec-no">04</span>
+          <div class="sec-title-row"><h2 class="sec-title">反幻觉，靠一台状态机硬门</h2><span class="mono sec-en">OPEN DISCOVERY PIPELINE</span></div>
+          <span class="sec-desc">不靠模型自觉，靠字段门挡</span>
+        </div>
+        <p class="mc-body">
+          知识底座需要为每件展品，从馆方、海外 OA、学术、现场、数字人文五类源里，拼出一个多维 bundle。幻觉就藏在这一步。我没让模型「自觉别编」——我让它走一台状态机：每条资料必须带齐五个字段，缺一个就降级或拒收。喂一条进去看它怎么判：
+        </p>
+
+        <div class="mc-fsm" id="mc-fsm">
+          <div class="mc-fsm-feed" role="tablist" aria-label="选一条资料喂进管道">
+            <button class="mc-chunk is-on" data-chunk="0" role="tab" aria-selected="true" type="button">一条齐全的 CC0 源</button>
+            <button class="mc-chunk" data-chunk="1" role="tab" aria-selected="false" type="button">一条 license 未知的源</button>
+            <button class="mc-chunk" data-chunk="2" role="tab" aria-selected="false" type="button">一条抓不到的源</button>
+          </div>
+          <div class="mc-fsm-stage">
+            <svg class="mc-fsm-svg" id="mc-fsm-svg" viewBox="0 0 720 150" role="group" aria-label="反幻觉状态机流程"></svg>
+          </div>
+          <div class="mc-fsm-verdict" id="mc-fsm-verdict" role="status" aria-live="polite"></div>
+        </div>
+
+        <p class="mc-body mc-stack">
+          三个子 agent 不能合并，因为三件样本暴露的是三种不同的幻觉：<strong>Discovery</strong> 只列 URL 候选不抓，<strong>Verifier</strong> 逐条抓加指纹加 license，<strong>Compiler</strong> 装订加反幻觉硬门。它们还跑在两个环境里——沙箱对所有外网返回 403（白名单只剩 GitHub 和 pypi），所以拆成「沙箱动脑、我本机动手」。
+        </p>
+        <p class="mc-note">
+          最后我连操作员都不想当了：贴一段 prompt 给本机的 Claude 就去睡。7 个阶段各带时间盒、8 小时硬截止、不中断我。<strong>2026-06-07</strong> 那夜约 1 小时跑完——104 条 verified chunk（100 ok / 4 failed）、28 个 bundle、平均 3.6 类源每件，<strong>T3 零违反</strong>：0 次注册、0 封邮件、0 次绕过。
+        </p>
+      </section>
+
+      <!-- ============ 05 诚实 DNA ============ -->
+      <section class="sec mc-reveal mc-break">
+        <div class="sec-head">
+          <span class="mono sec-no">05</span>
+          <div class="sec-title-row"><h2 class="sec-title">诚实，不是态度是纪律</h2><span class="mono sec-en">THE HONESTY GENE</span></div>
+          <span class="sec-desc">它甚至抓到了我自己的双标</span>
+        </div>
+        <p class="mc-body">
+          反幻觉硬门最干净的一次自证，是它拒绝替我编一个真相。同一件文物，三套互相打架的产地叙事——AI 没有挑一个当真相，而是把三层叠在一起，呈现张力。点「让 AI 编一个真相」看它怎么回。
+        </p>
+
+        <div class="mc-nc" id="mc-nc">
+          {NARRATIVES.map((c) => (
+            <div class="mc-nc-case" data-id={c.id}>
+              <div class="mc-nc-head">
+                <span class="mc-nc-name">{c.name}</span>
+                <span class="mono mc-nc-museum">{c.museum}</span>
+              </div>
+              <div class="mc-nc-q">{c.q}</div>
+              <div class="mc-nc-cols">
+                {c.sources.map((s) => (
+                  <div class="mc-nc-src">
+                    <span class="mono mc-nc-tier">{s.tier}</span>
+                    <span class="mc-nc-label">{s.label}</span>
+                    <p class="mc-nc-claim">{s.claim}</p>
+                    <span class="mono mc-nc-origin">{s.origin} · {s.lic}</span>
+                  </div>
+                ))}
+              </div>
+              <div class="mc-nc-foot">
+                <button class="mc-nc-btn mono" type="button">让 AI 编一个真相 →</button>
+                <p class="mc-nc-verdict" hidden>{c.verdict}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <p class="mc-body mc-stack">
+          这条纪律也对着我自己。round-2 的冷审计逐字抓出我的双标：
+        </p>
+        <blockquote class="mc-quote soft">
+          <p>你在 §5.9 拒绝伪造一个 CLIP 的 P@5 数字、说「假数字直接 disqualify」，却在同一周的商业文档里伪造了 9 个 load-bearing 的商业指标、零引用——这种诚实是选择性表演，不是纪律。</p>
+          <footer class="mono">— round-2 冷审计对我的指控</footer>
+        </blockquote>
+        <p class="mc-note">
+          指控成立。这是双标。修法不是道歉，是上标签纪律：建一份 assumptions-register，24 个数字逐个打 <span class="mc-tag-m">[M] 实测</span> <span class="mc-tag-b">[B] benchmark</span> <span class="mc-tag-a">[A] 假设</span>，任何假设数字出现的地方必须带「假设」标注，不许裸奔成事实。沙箱里那个 pHash 基线真跑出 <strong>P@5 = 0.667</strong>——一个故意诚实的、近乎无用的真数字，作为 CLIP 必须打败的下限，而不是一个好看的假数字。
+        </p>
+      </section>
+
+      <!-- ============ 06 可跑的 demo（三联动） ============ -->
+      <section class="sec mc-reveal">
+        <div class="sec-head">
+          <span class="mono sec-no">06</span>
+          <div class="sec-title-row"><h2 class="sec-title">方法论指向的实物：一个能跑的 demo</h2><span class="mono sec-en">THE RUNNING DEMO</span></div>
+          <span class="sec-desc">14 个页面 · 28/28 绿 · 同屏三联动</span>
+        </div>
+        <p class="mc-body">
+          上面那套方法，落地成 14 个 HTML、28/28 Playwright 绿的可跑 demo。最能说明问题的是这个三联动 dashboard：六个 window 事件（带 source 字段防环）把时代柱、古国地图、文物卡串起来。点任一处，三处一起响应。
+        </p>
+        <div class="mc-dash" id="mc-dash">
+          <div class="mc-sample-badge mono">样例数据 · 自 277 件 curate 的 12 件</div>
+          <div class="mc-dash-live" id="mc-dash-live" hidden>
+            <div class="mc-dash-grid">
+              <div class="mc-dash-col">
+                <div class="mono mc-dash-col-h">时代柱 · 点朝代</div>
+                <div class="mc-dash-pillar" id="mc-dash-pillar"></div>
+              </div>
+              <div class="mc-dash-col">
+                <div class="mono mc-dash-col-h">古国地图 · 点疆域</div>
+                <svg class="mc-dash-map" id="mc-dash-map" viewBox="0 0 300 340" role="group" aria-label="古国疆域迷你地图"></svg>
+              </div>
+              <div class="mc-dash-col">
+                <div class="mono mc-dash-col-h">文物卡 · 点一件</div>
+                <div class="mc-dash-cards" id="mc-dash-cards"></div>
+              </div>
+            </div>
+          </div>
+          <figure class="mc-fallback" id="mc-dash-fallback">
+            <img src="/assets/museum/shots/dashboard-desktop.jpg" alt="博物志 v3 三联动 dashboard：时代柱、古国地图与文物卡片同屏联动" loading="lazy" width="1920" height="1080" />
+            <figcaption class="mono">三联动 dashboard 原始截图 · demos/v3-converged/dashboard.html</figcaption>
+          </figure>
+        </div>
+        <p class="mc-note">
+          诚实标一句：这套事件总线<strong>不能跨标签页</strong>（CustomEvent 的局限），同屏三联动是 workaround——5 个审计和 D2 都把它标成 P0。它证明的是联动这件事成立，不是它已经产品化。
+        </p>
+      </section>
+
+      <!-- ============ 07 流散地图 ============ -->
+      <section class="sec mc-reveal">
+        <div class="sec-head">
+          <span class="mono sec-no">07</span>
+          <div class="sec-title-row"><h2 class="sec-title">流散与数字回归</h2><span class="mono sec-en">THE DIASPORA MAP</span></div>
+          <span class="sec-desc">真实地形 · 三视图 · 回答「为什么在那里」</span>
+        </div>
+        <p class="mc-body">
+          接 01 那条反讽底座，把它画出来。真实地理地形——12 条山脉、6 大河、盆地——用兰勃特等积圆锥投影渲染，不是示意图。它回答两个产品要讲的问题：为什么三星堆在那里（它和中原之间隔着整个秦岭加大巴山），以及这些文物如今流散在哪。切换三视图，海外那一档会画出从出土地到海外馆的流散弧。
+        </p>
+        <div class="mc-map" id="mc-map">
+          <div class="mc-map-tabs" role="tablist" aria-label="切换地图视图">
+            <button class="mc-map-tab is-on" data-view="excavation" role="tab" aria-selected="true" type="button">出土地</button>
+            <button class="mc-map-tab" data-view="domestic" role="tab" aria-selected="false" type="button">国内馆藏</button>
+            <button class="mc-map-tab" data-view="diaspora" role="tab" aria-selected="false" type="button">海外流散</button>
+          </div>
+          <div class="mc-map-stage">
+            <svg class="mc-map-svg" id="mc-map-svg" viewBox="0 0 760 520" role="group" aria-label="青铜时代核心区真实地形与文物分布图"></svg>
+            <aside class="mc-map-panel" id="mc-map-panel">
+              <div class="mono mc-panel-tag">点一个点，看它是什么</div>
+            </aside>
+          </div>
+          <div class="mono mc-map-cap" id="mc-map-cap">真实数据：30 出土点 · 24 馆（含海外）· 4 套古国疆域 · 流散弧为示意路径</div>
+          <figure class="mc-fallback" id="mc-map-fallback">
+            <img src="/assets/museum/shots/geo-system-desktop.jpg" alt="真实地形地理系统：山脉、河流与文物出土点、馆藏点" loading="lazy" width="1920" height="1080" />
+            <figcaption class="mono">真实地形系统原始截图 · demos/v3-converged/geo-system.html</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <!-- ============ 08 克制基因 ============ -->
+      <section class="sec mc-reveal">
+        <div class="sec-head">
+          <span class="mono sec-no">08</span>
+          <div class="sec-title-row"><h2 class="sec-title">一个反成瘾的收藏产品</h2><span class="mono sec-en">THE PRODUCT, RESTRAINED</span></div>
+          <span class="sec-desc">克制基因 · 7+1 维度 · 北极星不选 DAU</span>
+        </div>
+        <p class="mc-body">
+          产品的人格是「同行的资深爱好者」，不是讲解员——自称我和咱们、默认不教学、先反问。它有一条克制基因：零 push、零红点、零徽章、零连胜，黑底巨大留白，每张卡都有一个「合上手机」按钮，把人推回到实物面前。
+        </p>
+        <p class="mc-body">青铜器的意义被拆成 7+1 个维度，每个维度映射一个产品形态，再挂一个驱动收集的动机钩子：</p>
+        <div class="mc-dims">
+          {DIMS.map((d) => (
+            <div class="mc-dim">
+              <span class="mc-dim-k">{d.k}</span>
+              <span class="mc-dim-form">{d.form}</span>
+              <span class="mono mc-dim-hook">{d.hook}</span>
+            </div>
+          ))}
+        </div>
+        <p class="mc-body mc-stack">
+          北极星是 WAC——周活跃收藏者，过去 7 天往个人博物馆加过至少 1 件的注册用户。我特意没用 DAU 或时长：用 DAU 当北极星会逼出打卡推送，等于用一个指标做坏产品；时长还跟核心价值负相关。下面这些是我<strong>明确拒绝</strong>做的：
+        </p>
+        <div class="mc-rejects">
+          {REJECTS.map((r) => <span class="mc-reject mono">{r}</span>)}
+        </div>
+      </section>
+
+      <!-- ============ 09 诚实约束 ============ -->
+      <section class="sec mc-reveal mc-break">
+        <div class="sec-head">
+          <span class="mono sec-no">09</span>
+          <div class="sec-title-row"><h2 class="sec-title">它不是什么</h2><span class="mono sec-en">WHAT IT IS NOT</span></div>
+          <span class="sec-desc">一个讲反幻觉的页面，自己不能假完成</span>
+        </div>
+        <div class="mc-caveats">
+          {CAVEATS.map(([k, v]) => (
+            <div class="mc-caveat">
+              <span class="mc-caveat-k">{k}</span>
+              <p class="mc-caveat-v">{v}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- ============ 10 量化 ============ -->
+      <section class="sec mc-reveal">
+        <div class="sec-head">
+          <span class="mono sec-no">10</span>
+          <div class="sec-title-row"><h2 class="sec-title">摊在桌上的数字</h2><span class="mono sec-en">BY THE NUMBERS</span></div>
+          <span class="sec-desc">每个都带出处</span>
+        </div>
+        <div class="mc-nums">
+          {NUMS.map((x) => (
+            <div class="mc-numcard">
+              <div class="mc-num-row"><span class="mc-num" data-count={x.n}>{x.n}</span><span class="mc-num-u">{x.u}</span></div>
+              <div class="mono mc-num-s">{x.s}</div>
+            </div>
+          ))}
+        </div>
+        <p class="mc-note">
+          杠杆大约 <strong>30–40×</strong>——8 到 9 个人周的活，在 2 个夜班里跑完。这个数是估算，标「假设」：约 $40–50 的总成本、约 4.5M tokens 是有账的，人周折算是我自己拍的。
+        </p>
+      </section>
+
+      <!-- ============ 11 收束 ============ -->
+      <section class="sec mc-reveal mc-end">
+        <div class="sec-head">
+          <span class="mono sec-no">11</span>
+          <div class="sec-title-row"><h2 class="sec-title">现在的状态</h2><span class="mono sec-en">STATUS</span></div>
+          <span class="sec-desc">该留的 caveat 都留着</span>
+        </div>
+        <div class="mc-status-chips">
+          {STATUS.map((s) => <span class="tag mono">{s}</span>)}
+        </div>
+        <p class="mc-body mc-stack">
+          这个项目最值钱的不是 demo，也不是那 277 件数据。是一套能复用的方法：把 AI 的约束当设计原则，把审计做成能推翻自己的牙齿，把诚实做成挡在门口的状态机。对一个 AI 产品经理，这比多做几个功能更说明问题。
+        </p>
+        <div class="mc-cta-row">
+          <a class="mc-ghost back" href="https://github.com/Longwind1984/prac03_MuseumCollect" target="_blank" rel="noreferrer">源仓库 ↗</a>
+          <a class="mc-ghost back" href="/#projects">← 回到全部项目</a>
+        </div>
+        <p class="mc-end-note">
+          版本号有两套口径，我按「做了什么」讲、少纠缠编号。数据与交互的真实数据出自源仓库分支 claude/museum-photo-sharing-8qJiz；dashboard 的 12 件是 277 件里 curate 的样例子集（已标），地图的地形、出土点、馆藏点是真实 geojson，流散弧为示意路径。RAG 夜跑日期 2026-06-07。
+        </p>
+      </section>
+    </div>
+  </main>
+</Glass>
+
+<style is:global>
+  /* ===== 页面局部语义色（青铜 / 朝代来自真实数据；群青仍是唯一操作色，金做数据强调） ===== */
+  .mc-root {
+    --mc-bronze: #b98a4e; --mc-bronze-ink: #d8b37e; --mc-bronze-soft: rgba(185,138,78,0.14);
+    --mc-jade: #5aa6a0; --mc-jade-ink: #8fd0c9; --mc-jade-soft: rgba(90,166,160,0.13);
+    --mc-coral: #E8755E; --mc-coral-ink: #f0917f; --mc-coral-soft: rgba(232,117,94,0.13);
+    --mc-green: #4FC785;
+    position: relative; z-index: 1; overflow-x: clip;
+  }
+
+  /* ===== Hero ===== */
+  .mc-hero {
+    position: relative; min-height: 100vh; display: flex; align-items: center; overflow: hidden;
+    background:
+      radial-gradient(120% 90% at 80% 14%, rgba(40,70,150,0.34) 0%, rgba(10,18,40,0) 56%),
+      radial-gradient(90% 70% at 10% 92%, rgba(8,14,34,0.85) 0%, rgba(8,14,34,0) 60%),
+      #070D20;
+  }
+  .mc-hero::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 200px; z-index: 1;
+    background: linear-gradient(180deg, rgba(10,20,38,0) 0%, rgba(10,20,38,0.5) 60%, #0A1426 100%); pointer-events: none;
+  }
+  .mc-hero-inner { position: relative; z-index: 2; padding: 116px 0 92px; max-width: 920px; }
+  .mc-crumb { margin-bottom: 22px; font-size: 12px; color: rgba(220,230,255,0.6); letter-spacing: 0.08em; }
+  .mc-crumb a:hover { color: #fff; }
+  .mc-kicker { margin-bottom: 18px; }
+  .mc-h1 { margin: 0; font-family: var(--head); font-weight: 700; font-size: 50px; line-height: 1.22; letter-spacing: -0.02em; color: #fff; text-wrap: pretty; }
+  .mc-sub { margin: 22px 0 0; font-size: 16.5px; line-height: 1.85; color: rgba(232,240,255,0.82); max-width: 720px; }
+  .mc-sub strong { color: #fff; font-weight: 650; }
+
+  /* ===== Hero 翻牌 ===== */
+  .mc-constraints { margin-top: 30px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .mc-flip { position: relative; min-height: 188px; border: none; background: none; padding: 0; cursor: pointer; perspective: 1200px; text-align: left; -webkit-tap-highlight-color: transparent; }
+  .mc-flip-inner { position: relative; display: block; width: 100%; height: 100%; min-height: 188px; transition: transform .6s var(--ease-liquid); transform-style: preserve-3d; }
+  .mc-flip.is-flipped .mc-flip-inner { transform: rotateY(180deg); }
+  .mc-flip-face { position: absolute; inset: 0; display: flex; flex-direction: column; padding: 18px 20px; border-radius: var(--r-card, 16px); backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+  .mc-flip-front { background: linear-gradient(160deg, rgba(20,34,74,0.5), rgba(12,22,52,0.55)); border: 1px solid rgba(190,210,255,0.18); box-shadow: inset 0 1px 0 rgba(200,220,255,0.2); }
+  .mc-flip-back { background: linear-gradient(160deg, color-mix(in srgb, var(--accent) 22%, rgba(12,22,52,0.6)), rgba(10,20,48,0.7)); border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent); transform: rotateY(180deg); }
+  .mc-flip-tag { font-size: 10px; letter-spacing: 0.12em; color: var(--gold); }
+  .mc-flip-back .mc-flip-tag { color: var(--accent-text, var(--accent)); }
+  .mc-flip-k { margin-top: 8px; font-family: var(--head); font-size: 18px; font-weight: 700; color: #fff; line-height: 1.35; }
+  .mc-flip-d { margin-top: 9px; font-size: 12.5px; line-height: 1.65; color: rgba(226,236,255,0.78); flex: 1; }
+  .mc-flip-hint { margin-top: 8px; font-size: 10px; color: rgba(200,216,255,0.5); }
+  .mc-flip:hover .mc-flip-front { border-color: rgba(190,210,255,0.34); }
+  .mc-flip:focus-visible { outline: 2px solid var(--accent-text, var(--accent)); outline-offset: 3px; border-radius: var(--r-card); }
+
+  .mc-ghost { display: inline-block; margin-top: 30px; font-size: 13px; color: rgba(232,240,255,0.7); letter-spacing: 0.04em; transition: color .2s; }
+  .mc-ghost:hover { color: #fff; }
+
+  /* ===== 通用正文 ===== */
+  .mc-body { margin: 14px 0 0; font-size: 15.5px; line-height: 1.95; color: rgba(232,240,255,0.82); max-width: 800px; text-wrap: pretty; }
+  .mc-body strong { color: #fff; font-weight: 650; }
+  .mc-note { margin: 18px 0 0; font-size: 13px; line-height: 1.85; color: rgba(220,230,255,0.58); max-width: 800px; }
+  .mc-note strong { color: rgba(235,242,255,0.9); }
+  .mc-stack { margin-top: 22px; }
+  .mc-lead { margin: 16px 0 0; font-family: var(--head); font-size: 32px; line-height: 1.42; font-weight: 700; letter-spacing: -0.02em; color: #fff; text-wrap: pretty; max-width: 880px; }
+  .mc-lead em { font-style: normal; color: var(--gold); }
+  .mc-num { font-variant-numeric: tabular-nums; }
+  .mc-break { }
+
+  /* ===== 引文块 ===== */
+  .mc-quote { margin: 26px 0 0; padding: 20px 24px; border-radius: var(--r-card); background: rgba(8,16,32,0.46); border: 1px solid rgba(190,210,255,0.14); border-left: 3px solid var(--accent); }
+  .mc-quote.soft { border-left-color: var(--mc-coral); }
+  .mc-quote p { margin: 0; font-family: var(--head); font-size: 19px; line-height: 1.6; font-weight: 600; color: #fff; text-wrap: pretty; }
+  .mc-quote.soft p { font-size: 16.5px; font-weight: 550; color: rgba(240,245,255,0.92); }
+  .mc-quote footer { margin-top: 12px; font-size: 11.5px; color: var(--sub); }
+
+  /* ===== 02 Agent 拓扑 ===== */
+  .mc-topo { margin-top: 22px; }
+  .mc-topo-tabs, .mc-fsm-feed, .mc-map-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+  .mc-topo-tab, .mc-chunk, .mc-map-tab {
+    font-family: var(--font-mono); font-size: 12px; padding: 8px 15px; border-radius: 999px; cursor: pointer;
+    color: rgba(225,236,255,0.62); background: rgba(190,210,255,0.06); border: 1px solid rgba(190,210,255,0.16);
+    transition: background-color .25s, color .25s, border-color .25s, transform .3s var(--ease-liquid); -webkit-tap-highlight-color: transparent;
+  }
+  .mc-topo-tab:hover, .mc-chunk:hover, .mc-map-tab:hover { color: #fff; background: rgba(190,210,255,0.12); }
+  .mc-topo-tab:active, .mc-chunk:active, .mc-map-tab:active { transform: scale(0.97); }
+  .mc-topo-tab.is-on, .mc-chunk.is-on, .mc-map-tab.is-on { color: #fff; background: color-mix(in srgb, var(--accent) 32%, transparent); border-color: rgba(170,200,255,0.5); }
+  .mc-topo-tab:focus-visible, .mc-chunk:focus-visible, .mc-map-tab:focus-visible { outline: 2px solid var(--accent-text, var(--accent)); outline-offset: 2px; }
+  .mc-topo-stage, .mc-map-stage { display: grid; grid-template-columns: 1.35fr 1fr; gap: 18px; align-items: stretch; }
+  .mc-topo-svg, .mc-map-svg { width: 100%; height: auto; overflow: visible; }
+  .mc-topo-panel, .mc-map-panel { border-radius: var(--r-card); background: rgba(8,16,32,0.5); border: 1px solid rgba(190,210,255,0.14); padding: 16px 18px; min-height: 160px; }
+  .mc-panel-tag { font-size: 11.5px; color: rgba(200,216,255,0.5); line-height: 1.6; }
+  .mc-panel-title { font-family: var(--head); font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+  .mc-panel-role { font-size: 11px; color: var(--gold); font-family: var(--font-mono); letter-spacing: 0.04em; }
+  .mc-panel-body { margin: 9px 0 0; font-size: 12.5px; line-height: 1.7; color: rgba(228,236,255,0.8); }
+  .mc-panel-body li { margin-top: 4px; }
+  .mc-panel-body ul { margin: 6px 0 0; padding-left: 16px; }
+
+  .mc-node { cursor: pointer; }
+  .mc-node-dot { stroke: #0B1730; stroke-width: 1.5; transition: r .2s; }
+  .mc-node.kind-orchestrator .mc-node-dot { fill: var(--gold); }
+  .mc-node.kind-heavy .mc-node-dot { fill: var(--accent); }
+  .mc-node.kind-exec .mc-node-dot { fill: var(--mc-jade); }
+  .mc-node.kind-audit .mc-node-dot { fill: var(--mc-bronze); }
+  .mc-node-lbl { fill: rgba(228,236,255,0.82); font-size: 10.5px; font-family: var(--font-mono); transition: fill .2s; }
+  .mc-topo.has-active .mc-node:not(.is-active) .mc-node-dot { opacity: 0.4; }
+  .mc-topo.has-active .mc-node:not(.is-active) .mc-node-lbl { opacity: 0.4; }
+  .mc-node.is-active .mc-node-dot { r: 13; }
+  .mc-node.is-active .mc-node-lbl { fill: #fff; }
+  .mc-node:focus-visible { outline: none; }
+  .mc-node:focus-visible .mc-node-dot { stroke: var(--accent-text); stroke-width: 2; r: 13; }
+  .mc-edge { stroke: rgba(190,210,255,0.22); stroke-width: 1.3; fill: none; transition: opacity .3s; }
+  .mc-edge.sign { stroke: color-mix(in srgb, var(--gold) 60%, transparent); }
+  .mc-edge.esc { stroke: color-mix(in srgb, var(--mc-coral) 50%, transparent); stroke-dasharray: 4 4; }
+  .mc-topo-legend { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 14px; }
+  .mc-leg { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 10.5px; color: rgba(210,226,255,0.6); }
+  .mc-leg::before { content: ""; width: 9px; height: 9px; border-radius: 50%; }
+  .mc-leg.l-orc::before { background: var(--gold); } .mc-leg.l-heavy::before { background: var(--accent); }
+  .mc-leg.l-exec::before { background: var(--mc-jade); } .mc-leg.l-audit::before { background: var(--mc-bronze); }
+
+  /* ===== 02 升级触发器 ===== */
+  .mc-esc { margin-top: 22px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .mc-esc-lead { grid-column: 1 / -1; font-size: 11.5px; letter-spacing: 0.04em; color: var(--sub); }
+  .mc-esc-item { padding: 13px 16px; border-radius: 12px; background: rgba(8,16,32,0.42); border: 1px solid rgba(190,210,255,0.13); border-left: 2px solid color-mix(in srgb, var(--mc-coral) 50%, transparent); }
+  .mc-esc-id { font-size: 12px; font-weight: 700; color: var(--mc-coral-ink); }
+  .mc-esc-k { display: block; margin-top: 4px; font-family: var(--head); font-size: 13.5px; font-weight: 650; color: #fff; }
+  .mc-esc-d { display: block; margin-top: 5px; font-size: 11.5px; line-height: 1.6; color: rgba(220,230,255,0.7); }
+
+  /* ===== 03 审计 ===== */
+  .mc-auditors { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+  .mc-chain { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 22px; }
+  .mc-chain-grp { display: flex; gap: 6px; flex-wrap: wrap; }
+  .mc-chain-node { font-family: var(--font-mono); font-size: 11.5px; padding: 7px 12px; border-radius: 999px; }
+  .mc-chain-node.ok { color: var(--mc-jade-ink); background: var(--mc-jade-soft); border: 1px solid color-mix(in srgb, var(--mc-jade) 36%, transparent); }
+  .mc-chain-node.bug { color: var(--mc-coral-ink); background: var(--mc-coral-soft); border: 1px dashed color-mix(in srgb, var(--mc-coral) 60%, transparent); font-weight: 600; }
+  .mc-chain-arr { color: var(--mc-coral); font-size: 16px; }
+
+  /* ===== 04 反幻觉状态机 ===== */
+  .mc-fsm { margin-top: 22px; }
+  .mc-fsm-stage { border-radius: var(--r-card); background: rgba(4,8,20,0.4); border: 1px solid rgba(190,210,255,0.12); padding: 14px; }
+  .mc-fsm-svg { width: 100%; height: auto; overflow: visible; }
+  .mc-gate-box { fill: rgba(12,22,52,0.6); stroke: rgba(190,210,255,0.2); stroke-width: 1.2; transition: fill .3s, stroke .3s; }
+  .mc-gate-box.pass { fill: color-mix(in srgb, var(--mc-jade) 22%, rgba(12,22,52,0.6)); stroke: color-mix(in srgb, var(--mc-jade) 55%, transparent); }
+  .mc-gate-box.fail { fill: color-mix(in srgb, var(--mc-coral) 22%, rgba(12,22,52,0.6)); stroke: color-mix(in srgb, var(--mc-coral) 55%, transparent); }
+  .mc-gate-lbl { fill: rgba(228,236,255,0.82); font-size: 11px; font-family: var(--font-mono); text-anchor: middle; }
+  .mc-gate-mark { font-size: 13px; font-family: var(--font-mono); text-anchor: middle; font-weight: 700; transition: opacity .3s; }
+  .mc-gate-arr { stroke: rgba(190,210,255,0.3); stroke-width: 1.4; marker-end: url(#mc-fsm-arrow); }
+  .mc-fsm-verdict { margin-top: 14px; padding: 13px 16px; border-radius: 12px; min-height: 3.2em; font-size: 13px; line-height: 1.7; background: rgba(8,16,32,0.5); border-left: 2px solid var(--accent); color: rgba(228,236,255,0.85); transition: border-color .3s; }
+  .mc-fsm-verdict.pass { border-left-color: var(--mc-jade); }
+  .mc-fsm-verdict.fail { border-left-color: var(--mc-coral); }
+  .mc-fsm-verdict b { color: #fff; }
+
+  /* ===== 05 叙事打架 ===== */
+  .mc-nc { margin-top: 22px; display: flex; flex-direction: column; gap: 16px; }
+  .mc-nc-case { padding: 20px 22px; border-radius: var(--r-card); background: rgba(8,16,32,0.42); border: 1px solid rgba(190,210,255,0.14); }
+  .mc-nc-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .mc-nc-name { font-family: var(--head); font-size: 17px; font-weight: 700; color: #fff; }
+  .mc-nc-museum { font-size: 11px; color: var(--sub); }
+  .mc-nc-q { margin-top: 8px; font-size: 14px; color: var(--gold); font-weight: 600; }
+  .mc-nc-cols { margin-top: 14px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .mc-nc-src { padding: 12px 14px; border-radius: 12px; background: rgba(6,12,28,0.5); border: 1px solid rgba(190,210,255,0.1); border-top: 2px solid var(--mc-bronze); }
+  .mc-nc-tier { font-size: 9.5px; letter-spacing: 0.06em; color: var(--mc-bronze-ink); }
+  .mc-nc-label { display: block; margin-top: 4px; font-family: var(--head); font-size: 13px; font-weight: 650; color: #fff; }
+  .mc-nc-claim { margin: 7px 0 0; font-size: 12px; line-height: 1.65; color: rgba(225,236,255,0.78); }
+  .mc-nc-origin { display: block; margin-top: 8px; font-size: 9.5px; color: rgba(190,210,255,0.5); }
+  .mc-nc-foot { margin-top: 14px; }
+  .mc-nc-btn { font-size: 12px; padding: 8px 15px; border-radius: 999px; cursor: pointer; color: rgba(232,240,255,0.85); background: color-mix(in srgb, var(--accent) 16%, transparent); border: 1px solid color-mix(in srgb, var(--accent) 38%, transparent); transition: filter .2s, transform .3s var(--ease-liquid); -webkit-tap-highlight-color: transparent; }
+  .mc-nc-btn:hover { filter: brightness(1.12); }
+  .mc-nc-btn:active { transform: scale(0.97); }
+  .mc-nc-btn:focus-visible { outline: 2px solid var(--accent-text); outline-offset: 2px; }
+  .mc-nc-btn.is-done { background: var(--mc-jade-soft); border-color: color-mix(in srgb, var(--mc-jade) 45%, transparent); color: var(--mc-jade-ink); cursor: default; }
+  .mc-nc-verdict { margin: 12px 0 0; padding: 13px 16px; border-radius: 12px; font-size: 12.5px; line-height: 1.75; color: rgba(228,236,255,0.85); background: rgba(6,12,28,0.5); border-left: 2px solid var(--mc-jade); }
+  .mc-tag-m, .mc-tag-b, .mc-tag-a { font-family: var(--font-mono); font-size: 11px; padding: 1px 6px; border-radius: 5px; white-space: nowrap; }
+  .mc-tag-m { color: var(--prov-human, var(--gold)); background: color-mix(in srgb, var(--gold) 14%, transparent); }
+  .mc-tag-b { color: var(--mc-jade-ink); background: var(--mc-jade-soft); }
+  .mc-tag-a { color: var(--mc-coral-ink); background: var(--mc-coral-soft); border: 1px dashed color-mix(in srgb, var(--mc-coral) 45%, transparent); }
+
+  /* ===== 06 三联动 dashboard ===== */
+  .mc-dash, .mc-map { margin-top: 22px; position: relative; }
+  .mc-sample-badge { display: inline-block; font-size: 10px; letter-spacing: 0.04em; color: var(--gold); border: 1px dashed color-mix(in srgb, var(--gold) 50%, transparent); border-radius: 6px; padding: 3px 9px; margin-bottom: 12px; }
+  .mc-dash-grid { display: grid; grid-template-columns: 0.8fr 1fr 1.1fr; gap: 14px; align-items: start; }
+  .mc-dash-col { border-radius: var(--r-card); background: rgba(8,16,32,0.42); border: 1px solid rgba(190,210,255,0.12); padding: 14px; min-height: 300px; }
+  .mc-dash-col-h { font-size: 10.5px; color: var(--sub); margin-bottom: 12px; letter-spacing: 0.04em; }
+  .mc-dash-pillar { display: flex; flex-direction: column; gap: 6px; }
+  .mc-pillar-row { display: flex; align-items: center; gap: 8px; cursor: pointer; padding: 5px 7px; border-radius: 8px; border: 1px solid transparent; transition: background-color .25s, border-color .25s; -webkit-tap-highlight-color: transparent; }
+  .mc-pillar-row:hover { background: rgba(190,210,255,0.06); }
+  .mc-pillar-row.is-on { background: color-mix(in srgb, var(--accent) 16%, transparent); border-color: color-mix(in srgb, var(--accent) 40%, transparent); }
+  .mc-pillar-row:focus-visible { outline: 2px solid var(--accent-text); outline-offset: 1px; }
+  .mc-pillar-era { font-family: var(--head); font-size: 13px; font-weight: 650; color: #fff; width: 38px; }
+  .mc-pillar-bar { height: 14px; border-radius: 4px; flex: 1; min-width: 4px; transition: filter .25s; }
+  .mc-pillar-row.is-on .mc-pillar-bar { filter: brightness(1.3); }
+  .mc-pillar-ct { font-family: var(--font-mono); font-size: 11px; color: rgba(210,226,255,0.6); width: 20px; text-align: right; }
+  .mc-dash-map { width: 100%; height: auto; }
+  .mc-mini-state { fill: rgba(120,90,55,0.18); stroke: var(--mc-bronze); stroke-width: 0.8; transition: fill .25s, stroke .25s; }
+  .mc-mini-state.is-on { fill: color-mix(in srgb, var(--mc-bronze) 30%, transparent); stroke: var(--mc-bronze-ink); }
+  .mc-mini-dot { stroke: #0B1730; stroke-width: 1; cursor: pointer; transition: r .2s, opacity .25s; }
+  .mc-mini-dot.dia { fill: var(--gold); }
+  .mc-mini-dot.dom { fill: var(--accent); }
+  .mc-mini-dot.dim { opacity: 0.22; }
+  .mc-dash-cards { display: flex; flex-direction: column; gap: 8px; max-height: 340px; overflow-y: auto; }
+  .mc-art { display: flex; gap: 10px; padding: 9px 11px; border-radius: 10px; background: rgba(6,12,28,0.5); border: 1px solid rgba(190,210,255,0.1); cursor: pointer; transition: border-color .25s, background-color .25s, opacity .25s; -webkit-tap-highlight-color: transparent; }
+  .mc-art:hover { border-color: rgba(190,210,255,0.28); }
+  .mc-art.is-on { border-color: color-mix(in srgb, var(--accent) 50%, transparent); background: color-mix(in srgb, var(--accent) 12%, transparent); }
+  .mc-art.dim { opacity: 0.32; }
+  .mc-art:focus-visible { outline: 2px solid var(--accent-text); outline-offset: 1px; }
+  .mc-art-sil { width: 30px; height: 38px; flex-shrink: 0; object-fit: contain; opacity: 0.85; filter: brightness(0) invert(1); }
+  .mc-art-sil-ph { width: 30px; height: 38px; flex-shrink: 0; border-radius: 6px; background: rgba(185,138,78,0.16); }
+  .mc-art-b { min-width: 0; }
+  .mc-art-name { font-family: var(--head); font-size: 13px; font-weight: 650; color: #fff; }
+  .mc-art-meta { margin-top: 2px; font-family: var(--font-mono); font-size: 10px; color: rgba(210,226,255,0.6); }
+  .mc-art-dia { display: inline-block; margin-top: 4px; font-family: var(--font-mono); font-size: 9px; color: var(--gold); border: 1px solid color-mix(in srgb, var(--gold) 40%, transparent); border-radius: 4px; padding: 0 4px; }
+
+  /* fallback 图 */
+  .mc-fallback { margin: 0; border-radius: var(--r-card); overflow: hidden; border: 1px solid rgba(190,210,255,0.12); }
+  .mc-fallback img { display: block; width: 100%; height: auto; }
+  .mc-fallback figcaption { padding: 9px 14px; font-size: 10.5px; color: rgba(200,216,255,0.5); background: rgba(8,16,32,0.5); }
+  /* 数据驱动交互：fetch 成功(is-live)前 / 失败时，隐藏空交互、留静态截图 */
+  .mc-map:not(.is-live) .mc-map-tabs,
+  .mc-map:not(.is-live) .mc-map-stage,
+  .mc-map:not(.is-live) .mc-map-cap { display: none; }
+  .mc-map.is-live .mc-fallback,
+  .mc-dash.is-live .mc-fallback { display: none; }
+
+  /* ===== 07 地图 ===== */
+  .mc-terr { fill: none; stroke: rgba(190,210,255,0.16); stroke-width: 1; }
+  .mc-terr.basin { fill: rgba(120,90,55,0.06); stroke: none; }
+  .mc-river { fill: none; stroke: var(--mc-jade); stroke-width: 1.2; stroke-opacity: 0.5; }
+  .mc-mtn { fill: none; stroke: rgba(200,210,230,0.32); stroke-width: 1.4; stroke-linecap: round; }
+  .mc-state-poly { fill: rgba(185,138,78,0.1); stroke: color-mix(in srgb, var(--mc-bronze) 45%, transparent); stroke-width: 0.8; stroke-dasharray: 3 3; }
+  .mc-mpt { stroke: #0B1730; stroke-width: 1.2; cursor: pointer; transition: r .2s, opacity .3s; }
+  .mc-mpt.exc { fill: var(--gold); }
+  .mc-mpt.mus-dom { fill: var(--accent); }
+  .mc-mpt.mus-dia { fill: var(--mc-coral); }
+  .mc-mpt.hidden { opacity: 0; pointer-events: none; }
+  .mc-mpt-lbl { fill: rgba(220,230,255,0.7); font-size: 9px; font-family: var(--font-mono); pointer-events: none; }
+  .mc-arc { fill: none; stroke: var(--gold); stroke-width: 1.3; stroke-opacity: 0.55; stroke-dasharray: 4 3; }
+  .mc-map-cap { margin-top: 10px; font-size: 10.5px; color: rgba(200,216,255,0.45); }
+
+  /* ===== 08 产品 ===== */
+  .mc-dims { margin-top: 22px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .mc-dim { padding: 14px 15px; border-radius: 12px; background: rgba(8,16,32,0.42); border: 1px solid rgba(190,210,255,0.12); border-top: 2px solid var(--mc-bronze); }
+  .mc-dim-k { font-family: var(--head); font-size: 14px; font-weight: 700; color: #fff; }
+  .mc-dim-form { display: block; margin-top: 6px; font-size: 12px; line-height: 1.5; color: rgba(225,236,255,0.74); }
+  .mc-dim-hook { display: block; margin-top: 6px; font-size: 10px; color: var(--mc-bronze-ink); letter-spacing: 0.03em; }
+  .mc-rejects { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .mc-reject { font-size: 11.5px; padding: 6px 12px; border-radius: 999px; color: rgba(210,226,255,0.5); background: rgba(190,210,255,0.04); border: 1px solid rgba(190,210,255,0.12); text-decoration: line-through; text-decoration-color: color-mix(in srgb, var(--mc-coral) 55%, transparent); }
+
+  /* ===== 09 诚实约束 ===== */
+  .mc-caveats { margin-top: 8px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .mc-caveat { padding: 16px 18px; border-radius: var(--r-card); background: rgba(8,16,32,0.4); border: 1px solid rgba(190,210,255,0.13); border-left: 2px solid color-mix(in srgb, var(--mc-coral) 45%, transparent); }
+  .mc-caveat-k { font-family: var(--head); font-size: 14px; font-weight: 650; color: var(--mc-coral-ink); }
+  .mc-caveat-v { margin: 7px 0 0; font-size: 13px; line-height: 1.7; color: rgba(224,234,255,0.78); }
+
+  /* ===== 10 量化 ===== */
+  .mc-nums { margin-top: 22px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .mc-numcard { padding: 18px 20px; border-radius: var(--r-card); background: rgba(8,16,32,0.42); border: 1px solid rgba(190,210,255,0.14); }
+  .mc-num-row { display: flex; align-items: baseline; gap: 7px; }
+  .mc-num-row .mc-num { font-family: var(--head); font-size: 36px; font-weight: 700; letter-spacing: -0.02em; color: #fff; }
+  .mc-num-u { font-size: 13px; color: var(--sub); }
+  .mc-num-s { margin-top: 7px; font-size: 11px; line-height: 1.55; color: rgba(200,216,255,0.55); }
+
+  /* ===== 收束 ===== */
+  .mc-status-chips { display: flex; flex-wrap: wrap; gap: 9px; }
+  .mc-cta-row { margin-top: 26px; display: flex; gap: 20px; flex-wrap: wrap; }
+  .mc-ghost.back { margin-top: 0; }
+  .mc-end-note { margin-top: 20px; font-size: 12px; line-height: 1.8; color: rgba(200,216,255,0.45); max-width: 820px; }
+
+  /* ===== 滚动揭示 ===== */
+  .mc-reveal { opacity: 0; transform: translateY(22px); transition: opacity .6s var(--ease-liquid), transform .6s var(--ease-liquid); }
+  .mc-reveal.mc-in { opacity: 1; transform: none; }
+
+  /* ===== 响应式 ===== */
+  @media (max-width: 980px) {
+    .mc-topo-stage, .mc-map-stage { grid-template-columns: 1fr; }
+    .mc-dash-grid { grid-template-columns: 1fr; }
+    .mc-dash-cards { max-height: none; }
+  }
+  @media (max-width: 760px) {
+    .mc-h1 { font-size: 34px; }
+    .mc-lead { font-size: 25px; }
+    .mc-constraints { grid-template-columns: 1fr; }
+    .mc-flip, .mc-flip-inner { min-height: 0; }
+    .mc-flip-inner { transform: none !important; }
+    .mc-flip-face { position: relative; backface-visibility: visible; -webkit-backface-visibility: visible; min-height: 0; }
+    .mc-flip-back { transform: none; margin-top: 8px; }
+    .mc-flip-hint { display: none; }
+    .mc-dims, .mc-nums, .mc-caveats, .mc-esc, .mc-nc-cols { grid-template-columns: 1fr; }
+    .mc-esc-lead { grid-column: auto; }
+  }
+  @media (max-width: 560px) {
+    .mc-hero-inner { padding: 100px 0 76px; }
+    .mc-h1 { font-size: 29px; }
+    .mc-sub { font-size: 15px; }
+    .mc-sub br, .mc-h1 br { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .mc-reveal { transition: none; opacity: 1; transform: none; }
+    .mc-flip-inner, .mc-node, .mc-pillar-bar, .mc-mpt { transition: none; }
+  }
+</style>
+
+<script>
+  import '../../scripts/museum-collect-page.js';
+</script>

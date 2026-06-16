@@ -32,8 +32,8 @@ const GOLD = '#F4C761';
 const LINE = 'rgba(190,210,255,0.16)';
 const MONO = 'Geist Mono';
 
-const PHOTO_POS = { node: 0.30, article: 0.58, site: 0.5 };
-const PANEL_H = { node: 660, article: 690, site: 640 };
+const PHOTO_POS = { node: 0.30, article: 0.58, site: 0.5, frontier: 0.42 };
+const PANEL_H = { node: 660, article: 690, site: 640, frontier: 660 };
 
 const div = (style, children) => ({ type: 'div', props: { style: { display: 'flex', ...style }, children } });
 const txt = (style, text) => ({ type: 'div', props: { style: { display: 'flex', ...style }, children: text } });
@@ -79,10 +79,11 @@ export function mdExcerpt(body = '') {
 }
 
 export async function renderShareCard({
-  variant = 'node',          // node | article | site
+  variant = 'node',          // node | article | site | frontier
   brand = 'RICK SI',
   module: mod,               // mono 模块徽标，如 KNOWLEDGE · NODE
-  kicker,                    // 金色 kicker
+  kicker,                    // kicker 文案（默认金色）
+  kickerColor,               // kicker 颜色覆盖（前沿卡用星类色）
   title,
   excerpt,                   // node/site：摘录
   quote,                     // article：文楷引文（人的声音）
@@ -154,7 +155,7 @@ export async function renderShareCard({
         div({ position: 'absolute', top: 0, left: 0, width: PANEL_W, height: panelH, backgroundImage: 'linear-gradient(160deg, rgba(56,88,180,0.34) 0%, rgba(22,38,96,0.40) 100%)' }),
         div({ position: 'relative', flexDirection: 'column', justifyContent: 'space-between', flex: 1, padding: '40px 40px 32px' }, [
           div({ flexDirection: 'column' }, [
-            ...(kicker ? [txt({ fontFamily: MONO, fontSize: 20, letterSpacing: 3.6, color: GOLD, marginBottom: 20 }, kicker)] : []),
+            ...(kicker ? [txt({ fontFamily: MONO, fontSize: 20, letterSpacing: 3.6, color: kickerColor || GOLD, marginBottom: 20 }, kicker)] : []),
             txt({ fontSize: variant === 'article' ? 46 : 50, fontWeight: 600, lineHeight: 1.42, letterSpacing: -1, color: '#FFFFFF', marginBottom: 20, textShadow: '0 4px 40px rgba(4,10,32,0.5)', lineClamp: 2 }, clamp(title, 30)),
             ...(quote ? [txt({
               fontFamily: 'LXGW WenKai', fontSize: 27, lineHeight: 1.9, color: 'rgba(238,243,252,0.88)',
