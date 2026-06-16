@@ -1522,7 +1522,10 @@ a.rd-book, a.rd-aibook { display: block; -webkit-tap-highlight-color: transparen
 
 /* ═══ 前沿追踪（/frontier） ═══ */
 .ft-filters { margin-top: 20px; flex-direction: column; gap: 8px; align-items: flex-start; }
-.ft-frow { display: flex; flex-wrap: wrap; gap: 8px; }
+.ft-frow { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.ft-frow-label { flex: 0 0 auto; min-width: 28px; font-size: 10px; letter-spacing: 0.12em; color: rgba(255,255,255,0.34); cursor: default; }
+.ft-dim-sym { margin-right: 4px; opacity: 0.9; }
+.ft-dim-star .ft-dim-sym { color: var(--sc); text-shadow: 0 0 5px color-mix(in srgb, var(--sc) 55%, transparent); }
 .ft-active { display: flex; }
 .ft-active[hidden] { display: none; }
 .ft-count { margin-top: 14px; font-size: 11px; color: rgba(255,255,255,0.38); letter-spacing: 0.06em; }
@@ -1739,8 +1742,8 @@ a.rd-book, a.rd-aibook { display: block; -webkit-tap-highlight-color: transparen
   }
 }
 
-/* 人物卡源级星徽（北斗金色醒目，其余低调） */
+/* 人物卡源级星徽（北极星金色醒目，其余低调） */
 .ft-pcon { margin-left: 5px; font-size: 11px; color: rgba(255,255,255,0.32); vertical-align: 1px; }
-.ft-pcon.beidou { color: #F4C761; text-shadow: 0 0 6px rgba(244,199,97,0.55); }
+.ft-pcon.polaris { color: #F4C761; text-shadow: 0 0 6px rgba(244,199,97,0.55); }
 
 .ft-link-block { display: inline-block; margin-top: 8px; }
