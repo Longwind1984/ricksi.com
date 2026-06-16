@@ -16,7 +16,7 @@ const { entries, domains, rows = [], portraitOf = () => null, mini = false } = A
 const DAY = 86400000;
 const now = new Date();
 const winEnd = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59).getTime();
-const defSpan = mini ? 14 : 30;
+const defSpan = 90; // mini(首页) 与 full(落地页) 均默认 90 天——长周期才有时间线效果、事件密度更高
 const rawX = (t: number, span: number) => ((t - (winEnd - span * DAY)) / (span * DAY)) * 100; // 未 clamp，判窗口内外
 const xOf = (t: number, span: number) => Math.max(0, Math.min(100, rawX(t, span)));
 const inWin = (t: number, span: number) => rawX(t, span) >= 0 && rawX(t, span) <= 100;
@@ -38,9 +38,9 @@ type Lane = { key: string; name: string; portrait: string | null; con: string; e
 let groups: { domainKey: string; label: string; lanes: Lane[] }[];
 if (mini) {
   // mini 无 JS：构建期就只收窗口内事件，避免窗口外被 clamp 堆到最左
+  // 首页：展示全部方向（不过滤空域），只聚合到方向、不展开人物/机构
   groups = Object.entries(domains)
-    .map(([k, label]) => ({ domainKey: k, label, lanes: [{ key: k, name: label, portrait: null, con: '', events: evs.filter((e) => e.domain === k && inWin(e.t, defSpan)) }] as Lane[] }))
-    .filter((g) => g.lanes[0].events.length);
+    .map(([k, label]) => ({ domainKey: k, label, lanes: [{ key: k, name: label, portrait: null, con: '', events: evs.filter((e) => e.domain === k && inWin(e.t, defSpan)) }] as Lane[] }));
 } else {
   const byOwner: Record<string, typeof evs> = {};
   for (const e of evs) (byOwner[e.owner] ??= []).push(e);
@@ -108,7 +108,7 @@ const totalEvents = evs.length;
                     data-time={ev.t}
                     data-star={ev.star}
                     data-ft-pop={ev.id}
-                    title={`${ev.date} · ${ev.ownerName}：${ev.title}（${STAR_CLASS[ev.star].zh}）`}
+                    aria-label={`${ev.date} · ${ev.ownerName}：${ev.title}（${STAR_CLASS[ev.star].zh}）`}
                   ><span class="ft-tl-dot"></span></a>
                 ))}
               </div>

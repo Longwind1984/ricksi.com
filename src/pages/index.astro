@@ -344,20 +344,19 @@ const numbered = (list: typeof PROJECTS, offset = 0) =>
           <!-- 二维迷你时间轴：突出「持续追踪」的时间序状态（完整可切窗版在 /frontier） -->
           <FrontierTimeline entries={ftPool} domains={ftDomains} mini />
           <script type="application/json" id="ft-pop-data" set:html={JSON.stringify(ftPopData)}></script>
-          <!-- 头像锚点条：每个头像各自是热区（有动态→筛选该人，无动态→档案） -->
+          <!-- 头像锚点条：只露有动态的人（放大到可识别）；全名单在档案区。移动端横滚不溢出 -->
           <div class="ft-home-strip">
-            {(ftData.people ?? []).map((p: any) => {
+            {(ftData.people ?? []).filter((p: any) => ftActiveSlugs.has(p.slug)).map((p: any) => {
               const portrait = ftPortraitOf(p.slug);
-              const on = ftActiveSlugs.has(p.slug);
               return (
                 <a
-                  class:list={['ft-home-ava', { dim: !on }]}
-                  href={on ? `/frontier/?person=${p.slug}` : '/frontier/#people'}
+                  class="ft-home-ava"
+                  href={`/frontier/?person=${p.slug}`}
                   style={`--p-accent:${FT_ACCENT[p.domain] ?? '#7FB3F0'}`}
-                  title={on ? `${p.name} · 看 TA 的痕迹` : `${p.name} · 暂无动态`}
+                  title={`${p.name} · 看 TA 的痕迹`}
                   aria-label={p.name}
                 >
-                  {portrait ? <img src={portrait} alt={p.name} width="36" height="36" loading="lazy" /> : <Fragment set:html={ftFallbackSvg(p)} />}
+                  {portrait ? <img src={portrait} alt={p.name} width="46" height="46" loading="lazy" /> : <Fragment set:html={ftFallbackSvg(p)} />}
                 </a>
               );
             })}

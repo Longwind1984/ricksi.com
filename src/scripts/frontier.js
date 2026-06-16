@@ -2,7 +2,10 @@
 // IA（2026-06-12）：最新一天展开、更早日组 <details> 折叠；筛选激活时全组强制展开（折叠会吞结果）
 // 惯例：astro:page-load 内初始化，元素不存在即 return（View Transitions 兼容）
 
+import { CONSTELLATION_RANK } from '../lib/frontier-ui.mjs';
+
 const GROUP_BATCH = 10; // 无筛选时首屏日组数，每点一次「显示更早」+20
+const conRank = (k) => CONSTELLATION_RANK[k] || 0; // 信源量级序权：北极星4>猎户座3>星辰2>行星1
 
 function initFrontier() {
   const stream = document.getElementById('ft-stream');
@@ -41,7 +44,7 @@ function initFrontier() {
     const matches = entries.filter((el) => {
       if (state.type && el.dataset.type !== state.type) return false;
       if (state.domain && el.dataset.domain !== state.domain) return false;
-      if (state.con && el.dataset.constellation !== state.con) return false;
+      if (state.con && conRank(el.dataset.constellation) < conRank(state.con)) return false; // 信源量级：该档及以上
       if (state.star && el.dataset.star !== state.star) return false;
       if (state.person && el.dataset.person !== state.person) return false;
       if (state.tag && !(el.dataset.tags || '').split('|').includes(state.tag)) return false;
@@ -50,6 +53,15 @@ function initFrontier() {
     const set = new Set(matches);
     entries.forEach((el) => {
       el.style.display = set.has(el) ? '' : 'none';
+    });
+
+    /* #people 档案区：按信源量级阈值显隐人物卡（人多后按量级收窄），空的领域组隐藏 */
+    document.querySelectorAll('.ft-pcard[data-constellation]').forEach((c) => {
+      c.style.display = (!state.con || conRank(c.dataset.constellation) >= conRank(state.con)) ? '' : 'none';
+    });
+    document.querySelectorAll('.ft-domain-group').forEach((g) => {
+      if (!g.querySelector('.ft-pcard')) return;
+      g.style.display = [...g.querySelectorAll('.ft-pcard')].some((c) => c.style.display !== 'none') ? '' : 'none';
     });
 
     /* 日组：空组隐藏；筛选时全部强制展开，无筛选时恢复折叠默认 + 组级分批 */
@@ -93,14 +105,28 @@ function initFrontier() {
     if (scroll) stream.closest('.sec')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
-  /* 筛选条：type/domain 单选 chip */
+  /* 声量(信源量级) chip 累积高亮：选中某档 → 该档及以上全部高亮（点同档取消） */
+  function setConActive(row) {
+    row.querySelectorAll('.hm-dim').forEach((b) => {
+      const v = b.dataset.val || '';
+      b.classList.toggle('active', v ? (!!state.con && conRank(v) >= conRank(state.con)) : !state.con);
+    });
+  }
+
+  /* 筛选条：量级(star)/类型 单选；声量(con) = 阈值「及以上」 */
   filters?.addEventListener('click', (e) => {
     const btn = e.target.closest('.hm-dim[data-val]');
     if (!btn) return;
     const row = btn.closest('.ft-frow');
     if (!row) return;
-    row.querySelectorAll('.hm-dim').forEach((b) => b.classList.toggle('active', b === btn));
-    state[row.dataset.dim] = btn.dataset.val || '';
+    if (row.dataset.dim === 'con') {
+      const val = btn.dataset.val || '';
+      state.con = state.con === val ? '' : val;
+      setConActive(row);
+    } else {
+      row.querySelectorAll('.hm-dim').forEach((b) => b.classList.toggle('active', b === btn));
+      state[row.dataset.dim] = btn.dataset.val || '';
+    }
     apply();
   });
 
@@ -161,6 +187,7 @@ function initFrontier() {
     if (v) state[k] = v;
   }
   filters?.querySelectorAll('.ft-frow').forEach((row) => {
+    if (row.dataset.dim === 'con') { setConActive(row); return; }
     const want = state[row.dataset.dim] || '';
     row.querySelectorAll('.hm-dim').forEach((b) => b.classList.toggle('active', (b.dataset.val || '') === want));
   });
@@ -219,7 +246,7 @@ function initFrontier() {
       tl.querySelectorAll('.ft-tl-row').forEach((r) => {
         const okRow = (!state.person || r.dataset.person === state.person)
           && (!state.domain || r.dataset.domain === state.domain)
-          && (!state.con || r.dataset.con === state.con);
+          && (!state.con || conRank(r.dataset.con) >= conRank(state.con));
         const hasNode = okRow && [...r.querySelectorAll('.ft-tl-node')].some((n) => n.style.display !== 'none');
         r.style.display = hasNode ? '' : 'none';
       });

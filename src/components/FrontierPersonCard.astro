@@ -12,13 +12,13 @@ interface Props {
 const { person, count, portrait = null } = Astro.props;
 const accent = DOMAIN_ACCENT[person.domain] ?? '#7FB3F0';
 const con = person.constellation ? (CONSTELLATION as any)[person.constellation] : null;
-const isPolaris = person.constellation === 'polaris';
 ---
 
 <button
   class:list={['ft-pcard', { 'ft-disabled': count === 0 }]}
   type="button"
   data-ft-person={count > 0 ? person.slug : undefined}
+  data-constellation={person.constellation}
   style={`--p-accent:${accent}`}
 >
   <span class="ft-pavatar">
@@ -29,7 +29,14 @@ const isPolaris = person.constellation === 'polaris';
     )}
   </span>
   <span class="ft-pmain">
-    <span class="ft-pname">{person.name}{con && <span class:list={['ft-pcon', { polaris: isPolaris }]} title={`${con.zh} · ${con.gist}`}>{con.sym}</span>}</span>
+    <span class="ft-pname-row">
+      <span class="ft-pname">{person.name}</span>
+      {con && (
+        <span class="mono ft-pcon-tag" style={`--cc:${con.color}`} title={con.gist}>
+          <span class="ft-pcon-sym">{con.sym}</span>{con.zh}
+        </span>
+      )}
+    </span>
     <span class="mono ft-ptitle">{person.title}</span>
     <span class="ft-pbio">{person.bio}</span>
   </span>

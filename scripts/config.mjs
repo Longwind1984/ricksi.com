@@ -314,6 +314,126 @@ export const CONFIG = {
         bio: '计算认知科学旗手，用人怎么少样本学习对照 LLM。',
         sources: [],
       },
+      {
+        slug: 'noam-shazeer', name: 'Noam Shazeer', domain: 'lab', constellation: 'constellation',
+        title: 'Transformer 架构共创者、Gemin…',
+        bio: 'Noam Shazeer 是 Transformer 架构的联合发明者，现为 Google DeepMind 副总裁，…',
+        sources: [],
+      },
+      {
+        slug: 'jeff-dean', name: 'Jeff Dean', domain: 'lab', constellation: 'constellation',
+        title: 'AI前沿实验室掌舵人',
+        bio: '谷歌首席科学家，Gemini与Google DeepMind技术负责人，从分布式系统到推理系统的架构设计者，AI工业化…',
+        sources: [],
+      },
+      {
+        slug: 'neel-nanda', name: 'Neel Nanda', domain: 'research', constellation: 'star',
+        title: 'Google DeepMind机械可解释性团队…',
+        bio: 'Google DeepMind Staff Research Scientist，26岁，领导机械可解释性团队，专注通…',
+        sources: [],
+      },
+      {
+        slug: 'jan-leike', name: 'Jan Leike', domain: 'research', constellation: 'constellation',
+        title: 'Anthropic 对齐科学团队负责人',
+        bio: '前 OpenAI 超级对齐项目联合负责人，现任 Anthropic 对齐科学团队主任，致力于弱到强监督、可扩展监督与自…',
+        sources: [],
+      },
+      {
+        slug: 'jared-kaplan', name: 'Jared Kaplan', domain: 'lab', constellation: 'constellation',
+        title: 'Anthropic 联合创始人兼首席科学家',
+        bio: '神经网络缩放律先驱、Constitutional AI 方法论奠基人、Anthropic 首席科学官与负责任缩放官，掌…',
+        sources: [],
+      },
+      {
+        slug: 'percy-liang', name: 'Percy Liang', domain: 'research', constellation: 'constellation',
+        title: 'Percy Liang - 基础模型与开源 A…',
+        bio: '斯坦福计算机科学教授、基础模型研究中心（CRFM）创始主任、Together AI 与 Simile AI 联合创始人…',
+        sources: [],
+      },
+      {
+        slug: 'jacob-steinhardt', name: 'Jacob Steinhardt', domain: 'research', constellation: 'star',
+        title: 'AI对齐与可解释性研究者',
+        bio: 'UC Berkeley统计学副教授、Transluce非营利研究室创始人兼首席执行官，致力于机器学习系统的可靠性、对齐…',
+        sources: [],
+      },
+      {
+        slug: 'sebastien-bubeck', name: 'Sébastien Bubeck', domain: 'research', constellation: 'star',
+        title: 'OpenAI数学与推理研究领导者',
+        bio: 'Sébastien Bubeck是OpenAI数学研究团队负责人，前微软AI研究副总裁，专长优化理论与深度学习理论，在…',
+        sources: [],
+      },
+      {
+        slug: 'surya-ganguli', name: 'Surya Ganguli', domain: 'research', constellation: 'star',
+        title: 'AI与神经科学融合的理论家',
+        bio: '斯坦福应用物理副教授，HAI高级研究员，研究神经网络学习、神经编码与AI理论的计算机制，近三年推动NeuroAI科学范…',
+        sources: [],
+      },
+      {
+        slug: 'tom-griffiths', name: 'Tom Griffiths', domain: 'research', constellation: 'star',
+        title: '普林斯顿计算认知科学与AI实验室负责人',
+        bio: 'Tom Griffiths是普林斯顿大学心理学与计算机科学系的Henry R. Luce教授，致力于建立人类与机器学习…',
+        sources: [],
+      },
+      {
+        slug: 'brenden-lake', name: 'Brenden Lake', domain: 'research', constellation: 'star',
+        title: '认知与机器智能桥梁者',
+        bio: '普林斯顿计算机与心理学双聘副教授，以整合认知科学与神经网络，探究人与机器学习本质差异著称，2016年被科学美国人评为十…',
+        sources: [],
+      },
+      {
+        slug: 'ev-fedorenko', name: 'Ev Fedorenko', domain: 'research', constellation: 'star',
+        title: 'MIT神经语言学家 · LLM-脑对齐研究先驱',
+        bio: '麻省理工学院McGovern脑研究所副教授，EvLab主任。聚焦用脑成像/计算建模解析人类语言系统内部架构，近年主导大…',
+        sources: [],
+      },
+      {
+        slug: 'karl-friston', name: 'Karl Friston', domain: 'research', constellation: 'star',
+        title: '神经科学与AI理论家·自由能原理奠基人',
+        bio: '英国神经影像学教授，伦敦大学学院；自由能原理创立者；VERSES AI首席科学家；约8万篇论文引用；架构感知、推理、学…',
+        sources: [],
+      },
+      {
+        slug: 'stanislas-dehaene', name: 'Stanislas Dehaene', domain: 'research', constellation: 'star',
+        title: '意识神经机制与 AI 认知的奠基人',
+        bio: '法国认知神经科学家，Collège de France 讲座教授，提出全局神经工作区理论（GNW），在意识科学、数学认…',
+        sources: [],
+      },
+      {
+        slug: 'anil-seth', name: 'Anil Seth', domain: 'research', constellation: 'star',
+        title: '意识科学与AI伦理的北极星',
+        bio: '牛津大学认知与计算神经科学教授，Sussex意识科学中心主任，2025年Berggruen哲学奖得主，倡导生物自然主义…',
+        sources: [],
+      },
+      {
+        slug: 'anthony-zador', name: 'Anthony Zador', domain: 'research', constellation: 'star',
+        title: 'NeuroAI 先驱：脑神经科学与人工智能交叉',
+        bio: 'Cold Spring Harbor 实验室生物学教授，Alle Davis Harris 讲座人，COSYNE 会议…',
+        sources: [],
+      },
+      {
+        slug: 'jeff-hawkins', name: 'Jeff Hawkins', domain: 'research', constellation: 'star',
+        title: '生物神经启发 AI 理论与系统研究者',
+        bio: 'Palm 联合创始人，Numenta 与 Thousand Brains Project 创办人，专注神经皮层计算原理…',
+        sources: [],
+      },
+      {
+        slug: 'melanie-mitchell', name: 'Melanie Mitchell', domain: 'research', constellation: 'constellation',
+        title: 'AI评测与认知能力评估专家',
+        bio: '圣塔菲研究所詹姆斯·艾利教授，专攻AI认知能力评估、类比推理、抽象能力。通过心理学实验范式重新定义AI评测方法，质疑大…',
+        sources: [],
+      },
+      {
+        slug: 'emily-bender', name: 'Emily Bender', domain: 'research', constellation: 'constellation',
+        title: '语言学家·AI伦理评论家',
+        bio: '华盛顿大学计算语言学实验室主任、Wyckoff讲席教授。通过"随机鹦鹉"等概念揭示大语言模型的本质，推动AI伦理与人文…',
+        sources: [],
+      },
+      {
+        slug: 'gary-marcus', name: 'Gary Marcus', domain: 'writing', constellation: 'constellation',
+        title: 'AI批评家与神经符号论倡导者',
+        bio: '认知科学家、创业者，以对大型语言模型的深度批判和对神经符号AI方法的倡导著称。长期通过Substack和公开发言塑造A…',
+        sources: [],
+      },
     ],
 
     /* 话题/机构源（person 为空，topicSource 落 slug） */
@@ -359,6 +479,94 @@ export const CONFIG = {
       },
       {
         slug: 'epoch-ai', name: 'Epoch AI', domain: 'research', constellation: 'constellation',
+        sources: [],
+      },
+      {
+        slug: 'xai', name: 'xAI', domain: 'lab', constellation: 'constellation',
+        sources: [],
+      },
+      {
+        slug: 'meta-msl', name: 'Meta Superintelligence Labs', domain: 'lab', constellation: 'constellation',
+        sources: [],
+      },
+      {
+        slug: 'ssi', name: 'Safe Superintelligence (SSI)', domain: 'lab', constellation: 'constellation',
+        sources: [],
+      },
+      {
+        slug: 'thinking-machines', name: 'Thinking Machines Lab', domain: 'lab', constellation: 'constellation',
+        sources: [],
+      },
+      {
+        slug: 'mistral', name: 'Mistral AI', domain: 'lab', constellation: 'constellation',
+        sources: [],
+      },
+      {
+        slug: 'cohere', name: 'Cohere', domain: 'lab', constellation: 'star',
+        sources: [],
+      },
+      {
+        slug: 'world-labs', name: 'World Labs', domain: 'lab', constellation: 'star',
+        sources: [],
+      },
+      {
+        slug: 'qwen', name: 'Qwen 通义千问（阿里）', domain: 'lab', constellation: 'constellation',
+        sources: [],
+      },
+      {
+        slug: 'zhipu', name: '智谱 AI（Z.ai / GLM）', domain: 'lab', constellation: 'constellation',
+        sources: [],
+      },
+      {
+        slug: 'moonshot', name: '月之暗面 Moonshot（Kimi）', domain: 'lab', constellation: 'constellation',
+        sources: [],
+      },
+      {
+        slug: 'minimax', name: 'MiniMax', domain: 'lab', constellation: 'star',
+        sources: [],
+      },
+      {
+        slug: 'stepfun', name: '阶跃星辰 StepFun', domain: 'lab', constellation: 'star',
+        sources: [],
+      },
+      {
+        slug: 'baidu-ernie', name: '百度文心 Baidu ERNIE', domain: 'lab', constellation: 'star',
+        sources: [],
+      },
+      {
+        slug: 'xiaomi-mimo', name: '小米 MiMo', domain: 'lab', constellation: 'planet',
+        sources: [],
+      },
+      {
+        slug: 'lmarena', name: 'LMArena（Chatbot Arena）', domain: 'research', constellation: 'constellation',
+        sources: [],
+      },
+      {
+        slug: 'artificial-analysis', name: 'Artificial Analysis', domain: 'research', constellation: 'star',
+        sources: [],
+      },
+      {
+        slug: 'stanford-crfm', name: 'Stanford CRFM / HELM', domain: 'research', constellation: 'star',
+        sources: [],
+      },
+      {
+        slug: 'semianalysis', name: 'SemiAnalysis', domain: 'research', constellation: 'constellation',
+        sources: [],
+      },
+      {
+        slug: 'uk-aisi', name: 'UK AI Safety Institute', domain: 'research', constellation: 'constellation',
+        sources: [],
+      },
+      {
+        slug: 'us-aisi', name: 'US AI Safety Institute (CAISI)', domain: 'research', constellation: 'star',
+        sources: [],
+      },
+      {
+        slug: 'govai', name: 'GovAI（Centre for the Governance of AI）', domain: 'research', constellation: 'star',
+        sources: [],
+      },
+      {
+        slug: 'apollo-research', name: 'Apollo Research', domain: 'research', constellation: 'star',
         sources: [],
       },
     ],

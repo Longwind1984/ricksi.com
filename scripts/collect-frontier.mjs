@@ -521,8 +521,8 @@ writeJson(OUT, {
   generated_at: new Date().toISOString(),
   rollingDays: F.rollingDays,
   domains: F.domains,
-  people: F.people.map(({ slug, name, domain, title, bio }) => ({ slug, name, domain, title, bio })),
-  topics: F.topics.map(({ slug, name, domain }) => ({ slug, name, domain })),
+  people: F.people.map(({ slug, name, domain, title, bio, constellation }) => ({ slug, name, domain, title, bio, constellation })),
+  topics: F.topics.map(({ slug, name, domain, constellation }) => ({ slug, name, domain, constellation })),
   stats: {
     totalEntries: keep.length,
     totalAllTime,

@@ -1,5 +1,45 @@
 # WORKLOG（append-only，倒金字塔：结论在前、清单沉底）
 
+## 2026-06-16 · 前沿追踪 v8：首页/落地页预览升级 + 信源量级筛选 + 全量回溯(+40 实体) + 修线上回归
+
+### 体验影响（着重 · 先看）
+- **修了一个线上回归**：`/frontier` 声量筛选此前是坏的——`collect-frontier` 重写 frontier.json 时漏带 `constellation`，昨晚定时 sync 把它抹掉并 push 上线了。已修源头（people/topics 落盘保留 constellation）+ 回填存量；本次随版修正线上。
+- **首页前沿卡**：迷你时间轴默认 14→90 天、4 个方向全展示（只聚合到方向、更密）；头像条 36→46px、只露有动态的人、移动横滚。
+- **落地页**：默认 30→90 天窗口；节点 hover 去掉浏览器原生黄气泡（title→aria-label），只留自定义浮层。
+- **信源量级筛选改「及以上」**：点「猎户座」=猎户座及以上（北极星+猎户座累积高亮），同时收窄事件流/时间轴/#people 档案；人物卡加带色「信源质量」标签。
+- **名单从 23 扩到 65 实体**（+20 人 +22 机构），回溯入站 277 条（共 398 条）——经多 agent 网研，**用户未逐条 review，按我的评判上线**（HITL 清单存档 data/frontier-backfill-review-v8.md 备查）。
+
+### 做了什么
+按批准的 v8 计划分三阶段。A（首页/落地页/筛选/人物卡，UI）已 dev+build 验证。B（全量回溯）：42-agent Workflow 网研近 3 月（1.72M tokens）→ 组装入 config（我校准 域/源级，纠正 agent 滥用 engineering/polaris）→ import-backfill 合并。C（邮件订阅）按用户要求**搁置**，进度+前置交接写入 docs/frontier-email-subscription.md。
+
+### 关键决策与被否决
+- **北极星迁源级后曾被定时 sync 抹掉**：根因是 collect-frontier 落盘 slim 漏字段；修 slim 而非每次回填。
+- **回溯名单由我重建 + 校准**：用户无时间 review，授权按我判断上线；agent 研判的 域/源级偏激进（中国实验室→engineering、滥发 polaris），我按既有口径收敛。
+- **新实体头像暂不生成**：42 个先用字母牌兜底（设计内的 fallback），避免上线前给可能调整的实体批量跑 API；列为未尽。
+- 工作偏好入库（项目+全局 CLAUDE.md）：分阶段计划默认顺序连续执行、不逐阶段请示。
+
+### 当前状态：能跑什么
+- `cd rick-homepage && npm run dev` → `/frontier`：90 天窗口、声量「及以上」筛选连动三处、人物卡信源标签；首页迷你轴 90 天 4 方向 + 头像放大。dev 实测通过、无控制台报错。
+- A+B 已合并提交并 push main（见文件清单/commit）；EdgeOne+Vercel 重建部署。
+
+### 未尽事项与已知问题
+- **回溯内容未经用户 HITL**：AI 网研产物，可能含幻觉/源级错配；清单在 data/frontier-backfill-review-v8.md，建议事后抽检纠正。stepfun 空回溯。部分条目日期早于 90 天窗（真实大事件，信息流显示、时间轴不绘）。
+- **42 新实体仍是字母牌**，头像待后续批量生成（含机构 logo i2i + 去白边）。
+- **分享卡静态构建随条目数增长**（398 张）；生产 Vercel 按需出图不受影响，EdgeOne 静态构建变慢。
+- **Phase C 邮件订阅未做**，交接见 docs/frontier-email-subscription.md（含用户 3 个前置：Resend/Upstash/端点平台）。
+
+### 文件级变更清单
+- `src/components/FrontierTimeline.astro`：defSpan 90（mini+full）；mini 全方向；节点 title→aria-label。
+- `src/pages/index.astro`：首页头像条只露活跃人 + 46px。
+- `src/scripts/frontier.js`：声量精确匹配→rank 阈值「及以上」+ 累积高亮 + #people 档案纳入筛选。
+- `src/components/FrontierPersonCard.astro` + `src/lib/frontier-ui.mjs`（CONSTELLATION 加 color）+ `glass.css`：人物卡信源标签 pill + 头像条尺寸/移动适配。
+- `scripts/config.mjs`：+20 人 +22 机构（域/源级/title/bio）。
+- `scripts/collect-frontier.mjs`：落盘 people/topics 保留 constellation（修回归）。
+- `data/frontier.json`：回填 constellation + import-backfill 合并 272 条（398 总）。
+- `data/frontier-backfill-sample.json` 重写为 v8 42 实体；`data/frontier-backfill-review-v8.md` HITL 清单。
+- `.gitignore`：+ scripts/.resend-key、scripts/.upstash（Phase C 预备）。
+- `docs/frontier-email-subscription.md`：**新建**，Phase C 交接。
+
 ## 2026-06-16 · 30书架接入书架管线 + 阅读模块「可读/其余」双框 + 新增 Trae SOLO + 全量手动同步
 
 ### 体验影响（着重 · 先看这个）

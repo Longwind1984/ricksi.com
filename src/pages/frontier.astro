@@ -134,7 +134,7 @@ const popData = Object.fromEntries(entries.map((e: any) => [e.id, {
         <div class="hm-dims mono ft-filters" id="ft-filters">
           {presentCons.length > 1 && (
             <div class="ft-frow" data-dim="con">
-              <span class="ft-frow-label" title="信源量级：发声者的地标级别">声量</span>
+              <span class="ft-frow-label" title="信源量级：点某档 = 该档及以上">声量</span>
               <button class="hm-dim active" data-val="">全部</button>
               {presentCons.map((key: any) => (
                 <button class="hm-dim ft-dim-con" data-val={key} title={(CONSTELLATION as any)[key]?.gist}>

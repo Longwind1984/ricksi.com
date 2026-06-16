@@ -87,10 +87,10 @@ export const STAR_CLASS = {
    北极星 = 猎户座之上的最高级，据以定向的定义者（重要的人/实验室），人工挑选少数进入。
    注意：这是「信源」track，与事件级 STAR_CLASS（含奇点）是两条独立坐标。 */
 export const CONSTELLATION = {
-  polaris:       { zh: '北极星', en: 'Polaris',       sym: '✧', gist: '据以定向的定义者——重要的人与实验室，最高源级' },
-  constellation: { zh: '猎户座', en: 'Constellation', sym: '✷', gist: '地标级、人人辨认的长期源' },
-  star:          { zh: '星辰',   en: 'Star',          sym: '✦', gist: '可靠产出原创的常规源' },
-  planet:        { zh: '行星',   en: 'Planet',        sym: '◐', gist: '反射他人之光的转述/聚合源' },
+  polaris:       { zh: '北极星', en: 'Polaris',       sym: '✧', color: '#F4C761', gist: '据以定向的定义者——重要的人与实验室，最高源级' },
+  constellation: { zh: '猎户座', en: 'Constellation', sym: '✷', color: '#8FB8F0', gist: '地标级、人人辨认的长期源' },
+  star:          { zh: '星辰',   en: 'Star',          sym: '✦', color: '#6FC2AE', gist: '可靠产出原创的常规源' },
+  planet:        { zh: '行星',   en: 'Planet',        sym: '◐', color: '#8693A8', gist: '反射他人之光的转述/聚合源' },
 };
 /* 信源量级排序权重（北极星 > 猎户座 > 星辰 > 行星），档案区/时间轴行序用 */
 export const CONSTELLATION_RANK = { polaris: 4, constellation: 3, star: 2, planet: 1 };

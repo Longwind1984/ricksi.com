@@ -1645,6 +1645,7 @@ a.rd-book, a.rd-aibook { display: block; -webkit-tap-highlight-color: transparen
 }
 .ft-pavatar img, .ft-pavatar svg { width: 100%; height: 100%; display: block; object-fit: cover; }
 .ft-pmain { display: grid; gap: 4px; min-width: 0; }
+.ft-pname-row { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; }
 .ft-pname { font-family: var(--head); font-size: 16px; font-weight: 600; color: #FFFFFF; }
 .ft-ptitle { font-size: 10.5px; color: rgba(255,255,255,0.42); letter-spacing: 0.04em; }
 .ft-pbio { font-size: 12px; line-height: 1.7; color: var(--sub); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
@@ -1708,7 +1709,7 @@ a.rd-book, a.rd-aibook { display: block; -webkit-tap-highlight-color: transparen
 /* 主页 · 头像锚点条 */
 .ft-home-strip { display: flex; align-items: center; gap: 8px; margin: 14px 0 6px; padding: 6px 0; overflow-x: auto; scrollbar-width: none; -webkit-tap-highlight-color: transparent; }
 .ft-home-strip::-webkit-scrollbar { display: none; }
-.ft-home-ava { position: relative; flex: 0 0 auto; display: block; width: 36px; height: 36px; border-radius: 10px; overflow: hidden; border: 1.5px solid color-mix(in srgb, var(--p-accent, var(--accent)) 45%, transparent); transition: transform .25s cubic-bezier(.3,1.4,.4,1), border-color .2s; }
+.ft-home-ava { position: relative; flex: 0 0 auto; display: block; width: 46px; height: 46px; border-radius: 12px; overflow: hidden; border: 1.5px solid color-mix(in srgb, var(--p-accent, var(--accent)) 45%, transparent); transition: transform .25s cubic-bezier(.3,1.4,.4,1), border-color .2s; }
 .ft-home-ava img, .ft-home-ava svg { width: 100%; height: 100%; display: block; object-fit: cover; }
 .ft-home-ava.dim { opacity: 0.45; border-color: rgba(255,255,255,0.16); }
 .ft-home-ava:hover { transform: translateY(-2px); z-index: 2; border-color: color-mix(in srgb, var(--p-accent, var(--accent)) 80%, transparent); }
@@ -1733,6 +1734,7 @@ a.rd-book, a.rd-aibook { display: block; -webkit-tap-highlight-color: transparen
   .ft-home-hero { grid-template-columns: 44px 1fr; padding: 14px; margin: 10px -14px 0; }
   .ft-home-hero .arrow { display: none; }
   .ft-home-hero-ava { width: 44px; height: 44px; border-radius: 11px; }
+  .ft-home-ava { width: 42px; height: 42px; }
   .ft-home-title { -webkit-line-clamp: 2; font-size: 15.5px; }
   .ft-day-top { display: none; } /* 窄屏日组摘要只留日期与条数 */
 }
@@ -1799,8 +1801,9 @@ a.rd-book, a.rd-aibook { display: block; -webkit-tap-highlight-color: transparen
 }
 
 /* 人物卡源级星徽（北极星金色醒目，其余低调） */
-.ft-pcon { margin-left: 5px; font-size: 11px; color: rgba(255,255,255,0.32); vertical-align: 1px; }
-.ft-pcon.polaris { color: #F4C761; text-shadow: 0 0 6px rgba(244,199,97,0.55); }
+/* 人物卡信源质量标签：带色 pill（色由 --cc 注入：北极星金/猎户座蓝/星辰青/行星灰） */
+.ft-pcon-tag { display: inline-flex; align-items: center; gap: 3px; flex: 0 0 auto; font-size: 9.5px; letter-spacing: .04em; line-height: 1.4; padding: 2px 7px; border-radius: 999px; color: var(--cc, #cdd); border: 1px solid color-mix(in srgb, var(--cc, #cdd) 42%, transparent); background: color-mix(in srgb, var(--cc, #cdd) 13%, transparent); }
+.ft-pcon-sym { font-size: 10px; }
 
 .ft-link-block { display: inline-block; margin-top: 8px; }
 
