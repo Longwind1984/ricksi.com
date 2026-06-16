@@ -1,11 +1,56 @@
 # WORKLOG（append-only，倒金字塔：结论在前、清单沉底）
 
+## 2026-06-16 · 首页七项体验迭代（v5）+ 死代码/可达性审计 + 合并上线
+
+### 体验影响（着重 · 先看这个）
+
+- **导航不再「竖排」**：宽屏→窄屏 700–1000px 区间，三字中文 tab 会逐字竖排（丑）。改为 `.nav-link` 永不换行 + 顶栏→底部 Dock 的切换断点从 700px 抬到 860px——桌面横排放不下时直接切移动端 Dock，杜绝竖排。
+- **首屏数据看板更紧凑**：「展开数据看板」从满卡宽收成内容宽胶囊（≈145px），「更新于…」并到同一行右侧，不再独占一行。
+- **知识库图谱卡远景化 + 修误触**：首页迷你图谱镜头拉远（×1.5）、节点缩 0.7、辉光降 0.38，呈远景星系而非放大的大团；**拖拽旋转松手不再误触进入 /graph**（onClick 加 6px 位移判定区分点击/拖拽，/graph 同享此修复）。
+- **窄屏统计横排**：单列布局下「598 篇 · 1073 双链 · 14 域」改横排一行，去逐行分隔与大留白。
+- **二级页都有显式返回**：/graph 加「← 返回」(→/#knowledge)；知识库/写作/阅读列表页加「← 返回首页」(→各栏目锚点)；详情页本就有面包屑——不再只能靠浏览器返回。
+- **下载简历前加轻量人机校验**：两处入口接管，弹玻璃「滑动验证」modal，拖到底再下载；纯前端零后端，无 JS 时链接仍可直接下载（不挡死）。
+- **项目卡星系缩略图**换成自绘深空星系 SVG（替原静态简图）。
+
+### 做了什么（除上述体验项）
+
+1. **死代码/依赖清理**：删无人引用的 `graph-view3d.js`（18.5KB），卸 `3d-force-graph` + `three-spritetext`（实测全站 0 import）。
+2. **可达性/SEO/性能审计批量**：全站补自指 `canonical` + `og:url`；分享卡关闭钮 32→40px；ProjRow 图补 `width/height` 防 CLS；`scroll-behavior` 包进 `prefers-reduced-motion:no-preference`；微信码 summary 补 focus-visible；图谱 bloom 在 reduced-motion 下也关。
+3. **三路并行静态审计**（响应式 / 交互可达 / 诚实与死码）发现上述项；推测性的平板断点跳变实测后未见真坏，没盲目堆规则。
+
+### 关键决策
+
+- **第 3 点「星系预览太简约」判为「项目区 Galaxy View 卡缩略图」**（非知识库图谱卡，那是第 4 点），你拍板。只换 `projects.ts` 的 img 指向新建 `proj-galaxy-view-deep.svg`，不碰另一会话的 `proj-galaxy-view.svg` 与落地页。
+- **简历校验用纯前端滑动验证**（三选一里你选零成本纯前端）——简历是求职门面，招聘方摩擦越低越好，边缘函数防爬虫成本不值。
+- **合并范围：整条 kg-upgrade → main 立即上线**（你拍板 B），含另一会话当时在改状态；合并前以全量 build 绿为闸。
+- **共享工作树并发**：对共享文件（Glass.astro/glass.css/projects.ts 等）做最小化外科手术式 Edit、编辑前重读，不覆盖另一会话的行。
+
+### 当前状态：验证
+
+- 已合并：本轮 7 项 + 审计包全部在 merge 提交 `1ac2714`（= origin/main，已部署），逐文件核验通过。
+- 另一会话工作完好未回退（frontier v5/v6、writer-pipeline、galaxy-view、galaxy/* 都在；共享文件同时带两边改动）。
+- 合并整树 `npm run build` → **638 页 / 479s / exit 0**。
+- 实机（preview MCP）：导航 900/834px 不竖排、干净切 Dock；glance 按钮收窄 + 时间同行；窄屏统计横排；简历滑动验证 modal 走通（拖到底→下载）；/graph 返回钮在位。
+- **未实机确认**：④「远景星系」运行时视觉——dev 服务器 Vite 依赖缓存被中途 `npm uninstall` 搞脏致 three 动态 import 卡 loading；生产 build 干净缓存 exit 0，线上照常渲染；未重启共享 dev 服务器（怕打断另一会话）。
+
+### 未尽事项 / 已知问题
+
+1. **简历 PDF 仍是 v0.8 损坏版**：⑥ 校验闸做好了但闸后下载的还是「AI 项目经历」复制粘贴损坏的 PDF——需你同名覆盖 `public/assets/rick-si-resume.pdf`。
+2. **Part B 暂缓两项**（P2）：blog/kb 的 Article JSON-LD、skip-to-content 跳转链接。
+3. 另一会话仍在活跃开发（EPUB 阅读器 `epub-reader.js` + 书封 SVG 等在制品），其分支可能还会再提交。
+
+### 文件级变更清单（自动罗列，可跳读）
+
+- 新增：`src/scripts/resume-gate.js`、`public/assets/proj-galaxy-view-deep.svg`
+- 删除：`src/scripts/graph-view3d.js`
+- 修改：`src/styles/glass.css`（导航 nowrap+860 Dock / kg-stats 横排 / wb-glance-foot / sub-back+gx-back / resume modal / a11y）、`src/layouts/Glass.astro`（canonical+og:url / data-resume×2 / resume modal / import）、`src/scripts/graph-view-galaxy.js`（mini 拉远+节点+bloom / 拖拽判定 / reduced-motion bloom）、`src/components/WorkbenchGlance.astro`、`src/data/projects.ts`（galaxy 卡 img）、`src/components/ProjRow.astro`（width/height）、`src/pages/graph.astro`（gx-back）、`src/pages/{kb,blog,reading}/index.astro`（sub-back）、`src/scripts/graph-mode.js`（注释）、`package.json`/`package-lock.json`（卸 2 依赖）
+
 ## 2026-06-16 · 新增「Writer Pipeline 写作系统」项目 + 高交互二级落地页
 
 ### 体验影响（着重 · 先看这个）
 
 - **首页「项目」区第 2 位新增 Writer Pipeline**（MuseumCollect 之后、Galaxy View 之前），编号自动顺延为 02。它和 Galaxy View 一样有自己的二级落地页 `/projects/writer-pipeline/`——**点击进落地页，不跳 GitHub**（仓库 Private，代码库刻意杜绝死链）。
-- **落地页核心是「AI 味 X 光扫描器」**：一段真实草稿（哥伦比亚大选《巴耶杜帕尔的回响》§8 节选）。开「X 光」逐句点亮 critic 判档（绿 A 留 / 琥珀 B 标 / 红 C 砍），点句看 critic-v4 真实判语；开「净化 v4→v5」把被判 C 的「电锯补刀」当场收起。把产品本身做成可玩演示。
+- **落地页核心是「pipeline 跑一遍」三阶交互**（按 Rick 反馈重做，替掉原来的单轮 X 光扫描——原版只 3 处高亮、只改 1 处，体现不出 pipeline 怎么工作）：同一段哥伦比亚大选题材，① **AI 初稿**（同主题演示构造，满屏 AI 味——导览腔／总分总／大词／hedging／强行升华，7 处紫色高亮）→ ② **去 AI 味**（writer 注入 voice memo 改写到真实草稿 §8，critic 第二轮逮金句口癖：绿 A 承重句留／红 C 电锯补刀砍）→ ③ **配额收口**（红 C 片段当场坍缩，落到真实 v5）。点高亮看 critic 判语，可逐阶跳或「↺ 再跑一遍」循环。把 writer↔critic 逐轮工作过程做成可玩演示。原始 AI 初稿构造不算造假——pipeline 的输入本就是 AI 生成的稿。
 - **正文是第一人称案例长文**，覆盖：砸掉自己设计的 13 组件系统（PM 自审 severity 4/5，13→3 拆除可视化）→ examples≫rules（砍 5 维 voice DNA）→ AI 味可扫描清单 + 金句 earned/cosplay 配额 → v4→v5 四处纯减法 diff → 跨模型 A/B 实测推翻自己写进 plan 的推荐 → 决策时间线 → 验证窗口与「刻意不做」清单。
 - 全部文案按 Rick voice memo + critic AI 味清单写并自扫：无导览腔、无升华结尾、无大词、无 hedging，金句控在配额内。
 - 全部为**草案**，待你视觉终审。
@@ -640,3 +685,46 @@
 - 重写：`scripts/sync-vault.mjs`（04T 下钻 + 消毒管线）、`scripts/collect-usage.mjs`（口径 v2）、`src/scripts/graph-explore.js`（双引擎编排）、`src/data/projects.ts`（文案 + 图标 + 排序）、`src/components/ProjRow.astro`
 - 修改：`scripts/config.mjs`（sanitize/facetedClusters/wereadAiTopics）、`scripts/collect-weread.mjs`（白名单/划线/书架策展）、`src/layouts/Glass.astro`（reader chrome/分享弹层/简历链接/微信二维码/品牌名）、`src/pages/index.astro`（hero/口径 v2 展示/AI 共创阅读区/降采样图谱/样例徽章）、`src/pages/graph.astro`、`src/pages/kb/index.astro`（精选层）、`src/pages/kb/[...slug].astro`（reader/徽章/进度条）、`src/pages/blog/[...slug].astro`、`src/scripts/graph-view.js`（TDZ 修复 + ready + 大图静态布局）、`src/lib/sample.js`（18 色板）、`src/styles/glass.css`（reader/分享/AI 书/图标/断点/圆角修复等）、`content/posts/how-this-page-was-built.md`（去草稿声明/硬编码数字）、`README.md`、4 张项目 SVG（补 width/height）
 - 数据：`data/graph.json`（594 节点）、`data/usage.json`（v2）、`data/reading.json`（aiTopics/highlights/策展书架）、`data/kb-manifest.json`（消毒报告）、`content/kb/**` 全量重生成
+
+---
+
+## 2026-06-16 · 自制 ePub 在线阅读器 + 两本新书上传 + 10 本导言/8 张定制封面（multi-agent）
+
+阅读模块的「自制 ePub」分区过去只有元数据 + 划线归档，读不了书、落地页缺导言、封面是扁平模板。这一轮把三个缺口一起补上：能在站内读、有导言、封面是为每本书定制的信息图。
+
+### 做了什么（写给非开发者）
+
+1. **站内 ePub 阅读器**：基于成熟开源引擎 epub.js（不自己造轮子），套一层钴蓝玻璃皮。能翻页、出目录、调字号、显进度；正文是深色护眼底 + 霞鹜文楷。**选中文字会弹出悬浮小菜单：划线 / 复制 / 分享**。划线会留在本地（换设备不同步），分享会即时生成一张「玻璃明信片」金句卡，可下载、复制带定位锚点的回链、或调系统分享。书页地址形如 `/reading/<书>/read/`。
+2. **两本新书上传**：把 Documents 书架里的 `Harness Engineering`、`解剖 Codex` 收进项目，封面用它们 epub 内自带的精装封面，落地页加了「开始阅读」入口，点进去就是上面的阅读器。
+3. **10 本导言**（multi-agent）：调用 18 个智能体的工作流，给自制书架全部 10 本各写一段 120–350 字导言，挂在各自落地页。两本新书的导言读了 epub 全文（标 high 置信）；评测/提示词等 4 本有真实划线作底（medium）；其余 4 本只凭标题副题在主题层概述（low，已标注，不杜撰）。
+4. **8 张定制封面**（同一工作流）：把 8 本旧书的「扁平模板封面」全部重绘为**为各书主题定制的信息图 SVG**，仿两本新书封面的 house 语言（顶部 mono 元信息条 + 大标题 + accent 副题 + 专属示意图 + 底部 credit），每本一个专属配色与一张独有图示（四层耦合带 / 衰减条 / 左右解剖对照 / Goodhart 分叉曲线 / 雷达 / 模块电路 / 刻度尺 / 信号阶梯）。
+
+### 关键决策与被否决的备选
+
+- **阅读引擎选 epub.js 而非 foliate-js / react-reader**：epub.js 的 `selected` 事件 + `annotations.add` + CFI 持久化正好命中「划线→悬浮菜单→分享」，单依赖、vanilla（与现有 three.js 同样的 ESM island 用法）；foliate-js 要自己写标注层，react-reader 会拖入项目没有的 React。BSD-2 许可，可放心用。
+- **iframe 内字体用 npmmirror CDN 而非自托管**：计划本想自托管霞鹜文楷 woff2，但全 CJK woff2 体积大；页面本就用同一 CDN 加载文楷，于是 iframe 内注入同一条 CDN 样式，零新增重资产、与站点一致。**取舍**：iframe 内多一个 CDN 依赖，断网/被墙时回退宋体。
+- **分享两形态都做**：玻璃明信片金句卡（canvas 客户端绘制，复用现有 share-modal 弹层）+ 轻量「复制金句 + CFI 深链回链 + 原生分享」。短金句卡片偏空（留白多），属已知小瑕疵。
+- **自制书登记走独立 source-of-truth 而非塞进采集产物**：两本新书不在微信书架、走不了 weread API，故新建 `data/local-books.json` + `data/book-extras.json`（authored，sync 永不覆写），由新步骤 `merge-local-books.mjs` 在采集后确定性合入 `reading.json`——不改 `generated_at`，单独重跑零 diff（幂等）。导言/副题/封面覆盖同走这条路，survive sync。
+- **被否决**：把导言/epub 路径直接写进 `reading.json`（会被每次 `collect-weread` 重写清空）。
+
+### 当前状态：能跑什么、怎么跑
+
+- `npm run dev` → 已实测：`/reading/CB_local_harness-engineering/read/` 正常渲染（钴蓝主题 + 文楷 + 章节插图），目录 10 章、进度条、A−/A+；模拟真实选区 → 悬浮菜单弹出 → 划线落 localStorage 并可视、分享生成金句卡并弹出弹层（截图为证）。落地页导言块 + 副题 + 开始阅读按钮、书架 10 张新封面均正常。
+- `npm run build` → **640 页 / 398 秒，exit 0**；`dist` 内两本书的 `read/index.html` + 落地页 + 8 张 SVG + 两个 epub(3MB) + 封面 PNG 均就位，epub-reader 岛已打包。
+- 加书：复制 `<slug>.epub` 进 `public/assets/books/epub/`、封面进 `epub-covers/`、在 `data/local-books.json` 追加一条（id 用 `CB_local_<slug>`）、跑 `node scripts/merge-local-books.mjs`。补传旧书 epub：丢文件 + 在 `book-extras.json` 对应 `byTitle` 加 `"epub"`，落地页自动出「开始阅读」。
+
+### 未尽事项与已知问题（缺陷优先）
+
+1. **EdgeOne 需确认 `.epub` 的 MIME/缓存**：dev 下 `/assets/books/epub/*.epub` 返回 `application/epub+zip` 正常；EdgeOne 线上需验证按 `application/epub+zip` inline 返回（并建议 `Cache-Control: immutable`）。这是部署面板配置，非代码，**上线前你需在 EdgeOne 确认一次**。
+2. **3MB epub 客户端整包加载**：首屏前需下载+解压整本，慢网下加载条会停留几秒（已有玻璃骨架兜底）。
+3. **划线只在本机**：localStorage 存储，不跨设备同步；若日后重生某本 epub，旧 CFI 可能错位（已做内容兜底，失配标 legacy 而非乱定位——此兜底逻辑写了但未触发验证）。
+4. **8 本旧封面 + 4 本 low 置信导言是 AI 产出**：题材与视觉的最终把关是你的。封面 contact-sheet 已发你预览；不满意的某张可单独重绘。4 本 low 置信导言（记忆四种耦合 / 一个词的解剖 / 分数之外 / 自主的尺度 / 信号的阶梯）只在主题层概述，补传 epub 后可精修升级。
+5. **短金句分享卡留白偏多**：卡片为长引文设计，选很短的句子时下半部偏空。
+6. CFI 深链回链（`#cfi=`）与位置恢复走同一 `display(cfi)` 路径（位置恢复已实测生效），深链单独未逐一验证。
+
+### 文件级变更清单（可跳读）
+
+- 新增：`src/pages/reading/[book]/read.astro`（阅读器路由）、`src/scripts/epub-reader.js`（阅读器岛：渲染/选区悬浮菜单/划线/localStorage/主题注入/canvas 金句卡/CFI 深链/VT 收尾）、`scripts/merge-local-books.mjs`（本地书 + 导言/副题/封面合入）、`data/local-books.json`、`data/book-extras.json`、`public/assets/books/epub/{harness-engineering,codex-anatomy}.epub`、`public/assets/books/epub-covers/{harness-engineering,codex-anatomy}.png`
+- 重绘：`public/assets/books/ai/*.svg` ×8（定制信息图封面，删除旧 `memory-coupling.png`）
+- 修改：`scripts/sync.mjs`（插入 4.5 步合并）、`scripts/config.mjs`（`wereadAiCovers` 改 svg + 注释）、`src/pages/reading/[book].astro`（副题 + 导言块 + 开始阅读按钮）、`src/lib/reading-ui.mjs`（`TOPIC_GRADS.harness`）、`src/styles/glass.css`（`.epub-*` 阅读器样式 + `.bk-intro*/.bk-subtitle/.bk-read-btn`）、`package.json`（+epubjs）
+- 数据：`data/reading.json`（新增 harness 话题组 2 本 + 10 本导言/副题 + memory-coupling 封面改 svg）

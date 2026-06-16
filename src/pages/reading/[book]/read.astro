@@ -1,0 +1,75 @@
+---
+// 自制 ePub 在线阅读器路由：/reading/<id>/read/
+// 只为「有 epub 源文件」的书生成（getStaticPaths 过滤），没源文件的书不会有死页。
+import Glass from '../../../layouts/Glass.astro';
+import { loadSiteData } from '../../../lib/site-data.mjs';
+
+export async function getStaticPaths() {
+  const { reading } = loadSiteData();
+  if (!reading) return [];
+  const map = new Map();
+  for (const t of reading.aiTopics ?? []) {
+    for (const b of t.books ?? []) {
+      if (b.epub && !map.has(b.id)) map.set(b.id, b);
+    }
+  }
+  return [...map.values()].map((book) => ({ params: { book: book.id }, props: { book } }));
+}
+const { book } = Astro.props;
+---
+
+<Glass
+  title={`阅读《${book.title}》· Rick Si`}
+  description={`在线阅读《${book.title}》${book.author ? `（${book.author}）` : ''}——划线、悬浮菜单、分享金句。`}
+  active="reading"
+  reader
+  noFooter
+>
+  <div
+    id="reader-root"
+    class="epub-reader"
+    data-epub={book.epub}
+    data-slug={book.id}
+    data-title={book.title}
+    data-author={book.author ?? ''}
+  >
+    <div id="viewer" class="epub-viewer"></div>
+
+    <button id="epub-prev" class="epub-nav epub-prev" type="button" aria-label="上一页">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+    </button>
+    <button id="epub-next" class="epub-nav epub-next" type="button" aria-label="下一页">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+    </button>
+
+    <div id="epub-loading" class="epub-loading">
+      <span class="epub-spinner" aria-hidden="true"></span>
+      <span class="mono">正在载入《{book.title}》…</span>
+    </div>
+
+    <div class="epub-bar">
+      <button id="epub-toc-btn" class="epub-bar-btn mono" type="button">目录</button>
+      <div class="epub-progress"><span id="epub-progress-fill"></span></div>
+      <span id="epub-pct" class="mono epub-pct">0%</span>
+      <div class="epub-font">
+        <button id="epub-font-dec" class="epub-bar-btn" type="button" aria-label="减小字号">A−</button>
+        <button id="epub-font-inc" class="epub-bar-btn" type="button" aria-label="增大字号">A+</button>
+      </div>
+    </div>
+
+    <nav id="epub-toc" class="epub-toc" hidden></nav>
+
+    <div id="epub-menu" class="epub-menu" hidden>
+      <button data-act="highlight" type="button">划线</button>
+      <button data-act="copy" type="button">复制</button>
+      <button data-act="share" type="button">分享</button>
+    </div>
+
+    <div id="epub-toast" class="epub-toast" aria-live="polite"></div>
+    <button id="epub-share-trigger" data-share-trigger hidden aria-hidden="true"></button>
+  </div>
+
+  <script>
+    import '../../../scripts/epub-reader.js';
+  </script>
+</Glass>

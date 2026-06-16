@@ -57,6 +57,7 @@ for (const t of reading.aiTopics) {
     }
     if (!b.subtitle && e.subtitle) b.subtitle = e.subtitle;
     if (!b.epub && e.epub) b.epub = e.epub;
+    if (e.cover) b.cover = e.cover; // authored 封面覆盖（如旧默认 png 换成重绘 svg）
   }
 }
 

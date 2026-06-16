@@ -1,1 +1,146 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="500" height="800" viewBox="0 0 500 800"><rect width="500" height="800" fill="#1B2039"/><text x="48" y="270" font-size="72" font-weight="700" fill="#F2EFE6" font-family="Songti SC, Noto Serif SC, STSong, serif">提示词工程</text><rect x="50" y="296" width="68" height="5" fill="#A8894C"/><text x="48" y="352" font-size="23" fill="#8E97B3" font-family="PingFang SC, Noto Sans SC, sans-serif">从咒语，到工程——</text><text x="48" y="388" font-size="23" fill="#8E97B3" font-family="PingFang SC, Noto Sans SC, sans-serif">可复现、可评测、可维护的提示词体系</text><text x="48" y="752" font-size="20" fill="#6E7790" font-family="PingFang SC, Noto Sans SC, sans-serif">Rick's Opus 4.8 Extra</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="500" height="800" viewBox="0 0 500 800">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1A2138"/>
+      <stop offset="1" stop-color="#0E1428"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="500" height="800" fill="url(#bg)"/>
+
+  <!-- faint blueprint grid -->
+  <g stroke="#202842" stroke-width="1">
+    <line x1="40" y1="260" x2="460" y2="260"/>
+    <line x1="40" y1="660" x2="460" y2="660"/>
+  </g>
+  <g stroke="#1B2238" stroke-width="1" opacity="0.6">
+    <line x1="125" y1="262" x2="125" y2="658"/>
+    <line x1="250" y1="262" x2="250" y2="658"/>
+    <line x1="375" y1="262" x2="375" y2="658"/>
+    <line x1="42" y1="345" x2="458" y2="345"/>
+    <line x1="42" y1="430" x2="458" y2="430"/>
+    <line x1="42" y1="575" x2="458" y2="575"/>
+  </g>
+
+  <!-- top mono meta bar -->
+  <text x="40" y="54" font-size="12" letter-spacing="3" fill="#6E7790" font-family="ui-monospace, Menlo, monospace">提示词工程</text>
+  <text x="460" y="54" text-anchor="end" font-size="12" letter-spacing="3" fill="#6E7790" font-family="ui-monospace, Menlo, monospace">PLATE No.6 · ASSEMBLY</text>
+  <line x1="40" y1="70" x2="460" y2="70" stroke="#2A3350" stroke-width="1"/>
+  <text x="40" y="90" font-size="10.5" letter-spacing="2" fill="#4E5778" font-family="ui-monospace, Menlo, monospace">SPELL &#8594; SYSTEM  ·  6 BLOCKS, &#8734; RECOMBINATIONS</text>
+
+  <!-- title -->
+  <text x="40" y="150" font-size="52" font-weight="700" fill="#F2EFE6" font-family="Songti SC, Noto Serif SC, STSong, serif">提示词工程</text>
+  <rect x="42" y="170" width="64" height="5" fill="#E8843C"/>
+
+  <!-- subtitle -->
+  <text x="40" y="206" font-size="18" fill="#E8843C" font-family="PingFang SC, Noto Sans SC, sans-serif">从咒语，到工程</text>
+  <text x="40" y="232" font-size="14.5" fill="#9AA0BC" font-family="PingFang SC, Noto Sans SC, sans-serif">可复现、可评测、可维护的提示词体系</text>
+
+  <!-- ================= CENTRAL MOTIF (y ~ 260-660) ================= -->
+  <!-- left rail: the "spell" - a single tangled scribble (before) -->
+  <g>
+    <text x="40" y="288" font-size="10.5" letter-spacing="2" fill="#5A6488" font-family="ui-monospace, Menlo, monospace">咒语 / SPELL</text>
+    <path d="M44 312 q14 -14 26 0 q-22 8 -4 22 q24 6 0 18 q-22 10 6 18 q22 4 -2 16"
+          fill="none" stroke="#4E5778" stroke-width="1.6" stroke-linecap="round"/>
+    <text x="42" y="416" font-size="9" fill="#4E5778" font-family="ui-monospace, Menlo, monospace">一团祈使句</text>
+  </g>
+
+  <!-- transition arrow -->
+  <g>
+    <line x1="84" y1="360" x2="118" y2="360" stroke="#E8843C" stroke-width="1.4"/>
+    <path d="M114 355 l8 5 l-8 5 z" fill="#E8843C"/>
+  </g>
+
+  <!-- the assembly board: 6 pluggable blocks wired into a model core -->
+  <!-- connector traces: every block plug tab routes onto the bus, into the core -->
+  <g fill="none" stroke="#E8843C" stroke-width="1.6" opacity="0.6">
+    <path d="M165 348 H250 V436"/>          <!-- 角色 -> top bus -> core -->
+    <path d="M335 348 H250"/>               <!-- 目标 -> top bus -->
+    <path d="M165 412 H206"/>               <!-- 输入 -> core left port -->
+    <path d="M335 412 H288"/>               <!-- 输出 -> core right port -->
+    <path d="M165 540 H250 V491"/>          <!-- 约束 -> bottom bus -> core -->
+    <path d="M335 540 H250"/>               <!-- 边角 -> bottom bus -->
+  </g>
+
+  <!-- core: MODEL -->
+  <g>
+    <rect x="209" y="439" width="82" height="55" rx="6" fill="#161E36" stroke="#E8843C" stroke-width="0.8" opacity="0.3"/>
+    <rect x="206" y="436" width="82" height="55" rx="6" fill="#161E36" stroke="#E8843C" stroke-width="1.6"/>
+    <text x="247" y="461" text-anchor="middle" font-size="17" fill="#F2EFE6" font-family="Songti SC, Noto Serif SC, serif">模型</text>
+    <text x="247" y="480" text-anchor="middle" font-size="9" letter-spacing="2" fill="#8E97B3" font-family="ui-monospace, Menlo, monospace">MODEL</text>
+  </g>
+
+  <!-- solder nodes -->
+  <g fill="#E8843C">
+    <circle cx="250" cy="436" r="2.6"/>
+    <circle cx="250" cy="491" r="2.6"/>
+    <circle cx="206" cy="412" r="2.6"/>
+    <circle cx="288" cy="412" r="2.6"/>
+  </g>
+
+  <!-- BLK01 角色 -->
+  <g>
+    <rect x="88" y="328" width="77" height="40" rx="5" fill="#1C243E" stroke="#3A456A" stroke-width="1.2"/>
+    <rect x="160" y="343" width="5" height="10" fill="#E8843C"/>
+    <text x="98" y="350" font-size="14" fill="#F2EFE6" font-family="Songti SC, Noto Serif SC, serif">角色</text>
+    <text x="98" y="362" font-size="8" letter-spacing="1.5" fill="#7B85A6" font-family="ui-monospace, Menlo, monospace">ROLE · 01</text>
+  </g>
+  <!-- BLK02 目标 -->
+  <g>
+    <rect x="335" y="328" width="77" height="40" rx="5" fill="#1C243E" stroke="#3A456A" stroke-width="1.2"/>
+    <rect x="330" y="343" width="5" height="10" fill="#E8843C"/>
+    <text x="345" y="350" font-size="14" fill="#F2EFE6" font-family="Songti SC, Noto Serif SC, serif">目标</text>
+    <text x="345" y="362" font-size="8" letter-spacing="1.5" fill="#7B85A6" font-family="ui-monospace, Menlo, monospace">GOAL · 02</text>
+  </g>
+  <!-- BLK03 输入 -->
+  <g>
+    <rect x="88" y="392" width="77" height="40" rx="5" fill="#1C243E" stroke="#3A456A" stroke-width="1.2"/>
+    <rect x="160" y="407" width="5" height="10" fill="#E8843C"/>
+    <text x="98" y="414" font-size="14" fill="#F2EFE6" font-family="Songti SC, Noto Serif SC, serif">输入</text>
+    <text x="98" y="426" font-size="8" letter-spacing="1.5" fill="#7B85A6" font-family="ui-monospace, Menlo, monospace">INPUT · 03</text>
+  </g>
+  <!-- BLK04 输出 -->
+  <g>
+    <rect x="335" y="392" width="77" height="40" rx="5" fill="#1C243E" stroke="#3A456A" stroke-width="1.2"/>
+    <rect x="330" y="407" width="5" height="10" fill="#E8843C"/>
+    <text x="345" y="414" font-size="14" fill="#F2EFE6" font-family="Songti SC, Noto Serif SC, serif">输出</text>
+    <text x="345" y="426" font-size="8" letter-spacing="1.5" fill="#7B85A6" font-family="ui-monospace, Menlo, monospace">OUTPUT · 04</text>
+  </g>
+  <!-- BLK05 约束 -->
+  <g>
+    <rect x="88" y="520" width="77" height="40" rx="5" fill="#1C243E" stroke="#3A456A" stroke-width="1.2"/>
+    <rect x="160" y="535" width="5" height="10" fill="#E8843C"/>
+    <text x="98" y="542" font-size="14" fill="#F2EFE6" font-family="Songti SC, Noto Serif SC, serif">约束</text>
+    <text x="98" y="554" font-size="8" letter-spacing="1.5" fill="#7B85A6" font-family="ui-monospace, Menlo, monospace">LIMIT · 05</text>
+  </g>
+  <!-- BLK06 边角 -->
+  <g>
+    <rect x="335" y="520" width="77" height="40" rx="5" fill="#1C243E" stroke="#3A456A" stroke-width="1.2"/>
+    <rect x="330" y="535" width="5" height="10" fill="#E8843C"/>
+    <text x="345" y="542" font-size="14" fill="#F2EFE6" font-family="Songti SC, Noto Serif SC, serif">边角</text>
+    <text x="345" y="554" font-size="8" letter-spacing="1.5" fill="#7B85A6" font-family="ui-monospace, Menlo, monospace">EDGE · 06</text>
+  </g>
+
+  <!-- right rail: the "system" callout (after) -->
+  <text x="460" y="288" text-anchor="end" font-size="10.5" letter-spacing="2" fill="#5A6488" font-family="ui-monospace, Menlo, monospace">工程 / SYSTEM</text>
+
+  <!-- engineering annotation: leader + note on the core -->
+  <g stroke="#E8843C" stroke-width="1" opacity="0.7">
+    <line x1="288" y1="464" x2="326" y2="464"/>
+    <line x1="326" y1="460" x2="326" y2="468"/>
+  </g>
+  <text x="332" y="462" font-size="8.5" fill="#C9803F" font-family="ui-monospace, Menlo, monospace">定位·组合</text>
+  <text x="332" y="474" font-size="8.5" fill="#C9803F" font-family="ui-monospace, Menlo, monospace">·放大已有</text>
+
+  <!-- bottom notes of the motif -->
+  <text x="250" y="602" text-anchor="middle" font-size="11" fill="#8E97B3" font-family="PingFang SC, Noto Sans SC, sans-serif">六个模块的重新排列组合 = 几乎每一种新提示技术</text>
+  <text x="250" y="624" text-anchor="middle" font-size="9" letter-spacing="0.5" fill="#5A6488" font-family="ui-monospace, Menlo, monospace">FEW-SHOT = (INPUT&#8853;OUTPUT)&#215;n    CoT = GOAL&#8853;LIMIT(step-by-step)</text>
+  <text x="250" y="644" text-anchor="middle" font-size="9.5" fill="#5A6488" font-family="ui-monospace, Menlo, monospace">— 不能凭空注入模型不具备的知识或技能 —</text>
+
+  <!-- ================= FOOTER ================= -->
+  <line x1="40" y1="700" x2="460" y2="700" stroke="#2A3350" stroke-width="1"/>
+  <text x="40" y="731" font-size="13" fill="#8E97B3" font-family="ui-monospace, Menlo, monospace">技术手记 · 6 模块 · 2026</text>
+  <text x="460" y="731" text-anchor="end" font-size="10" letter-spacing="1.5" fill="#4E5778" font-family="ui-monospace, Menlo, monospace">PLATE No.6</text>
+  <text x="40" y="760" font-size="13" fill="#6E7790" font-family="PingFang SC, Noto Sans SC, sans-serif">Rick's Opus 4.8 Extra</text>
+  <text x="460" y="760" text-anchor="end" font-size="10" letter-spacing="1.5" fill="#3E4768" font-family="ui-monospace, Menlo, monospace">REPRODUCIBLE·EVALUABLE·MAINTAINABLE</text>
+</svg>

@@ -49,7 +49,15 @@ npm run sync            # 一键：采集全部 → commit → push（--no-push 
 04T 专题库的 PKM 质量门控（front-matter publish:false）被显式覆盖为全量发布（用户决策 2026-06-12）。
 
 **微信读书 AI 共创书白名单**：secret=1 私密书一律排除，仅 `scripts/config.mjs → wereadAiTopics`
-按书名显式放行（当前 4 话题 8 本），在主页阅读区以独立「方法论展示」分区呈现、不混入真实阅读统计。
+按书名显式放行，在主页阅读区以独立「方法论展示」分区呈现、不混入真实阅读统计。
+
+**自制 ePub 在线阅读器**：自主上传的 ePub 书不走微信 API，登记在 `data/local-books.json`（id 用 `CB_local_<slug>`），
+导言/副题/封面覆盖在 `data/book-extras.json`（按 id/title），二者均为 authored 源、sync 永不覆写，由
+`scripts/merge-local-books.mjs`（sync 第 4.5 步，幂等、无 key 也跑）在采集后确定性合入 `reading.json`。
+有 epub 源文件的书，落地页出「开始阅读」→ `/reading/<id>/read/`：基于 epub.js 的钴蓝玻璃阅读器，
+支持翻页/目录/字号/进度、**选中文字划线（localStorage 持久化）、悬浮菜单、生成玻璃明信片金句卡分享（含 CFI 深链回链）**。
+epub 文件放 `public/assets/books/epub/<slug>.epub`，封面放 `public/assets/books/epub-covers/`；
+AI 共创书封面为各书主题定制的信息图 SVG（`public/assets/books/ai/`）。补传旧书 epub：丢文件 + 在 `book-extras.json` 对应条目加 `"epub"`。
 
 **前沿追踪（/frontier）**：追踪名单（人物/话题/信息源）在 `scripts/config.mjs → frontier` 集中配置，
 随时增删。每条产出 = 中文标题 + 一句话判断 + 200-400 字摘要 + 标签 + 原文摘录（核查锚点）+ 原文链接。

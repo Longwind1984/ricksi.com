@@ -1,1 +1,153 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="500" height="800" viewBox="0 0 500 800"><rect width="500" height="800" fill="#1B2039"/><text x="48" y="270" font-size="72" font-weight="700" fill="#F2EFE6" font-family="Songti SC, Noto Serif SC, STSong, serif">信号的阶梯</text><rect x="50" y="296" width="68" height="5" fill="#A8894C"/><text x="48" y="352" font-size="23" fill="#8E97B3" font-family="PingFang SC, Noto Sans SC, sans-serif">从输出读懂模型的内部状态</text><text x="48" y="752" font-size="20" fill="#6E7790" font-family="PingFang SC, Noto Sans SC, sans-serif">Rick × Claude</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="500" height="800" viewBox="0 0 500 800" role="img" aria-labelledby="t d">
+  <title id="t">信号的阶梯 — 从输出读懂模型的内部状态</title>
+  <desc id="d">封面信息图：一道由外部输出逐级上升至模型内核的信号阶梯，每一级标注一种可观察信号，从字面输出到内部激活，越往上越接近模型的内部状态。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#192443"/>
+      <stop offset="0.55" stop-color="#121A33"/>
+      <stop offset="1" stop-color="#0D1226"/>
+    </linearGradient>
+    <linearGradient id="rung" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#49C8E0" stop-opacity="0.08"/>
+      <stop offset="1" stop-color="#49C8E0" stop-opacity="0.30"/>
+    </linearGradient>
+    <radialGradient id="core" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#9CE8F4" stop-opacity="0.55"/>
+      <stop offset="0.6" stop-color="#49C8E0" stop-opacity="0.16"/>
+      <stop offset="1" stop-color="#49C8E0" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="500" height="800" fill="url(#bg)"/>
+
+  <!-- ===== 顶部 mono 元信息条 ===== -->
+  <text x="40" y="54" font-size="12" letter-spacing="3" fill="#6E7790" font-family="ui-monospace, Menlo, monospace">自主与信号</text>
+  <text x="460" y="54" text-anchor="end" font-size="12" letter-spacing="3" fill="#6E7790" font-family="ui-monospace, Menlo, monospace">PLATE No.7</text>
+  <line x1="40" y1="70" x2="460" y2="70" stroke="#2A3350" stroke-width="1"/>
+  <text x="40" y="90" font-size="10" letter-spacing="2" fill="#566085" font-family="ui-monospace, Menlo, monospace">SURFACE OUTPUT &#8594; INTERNAL STATE / READ INWARD</text>
+
+  <!-- ===== 大标题 ===== -->
+  <text x="40" y="156" font-size="64" font-weight="700" fill="#F2EFE6" font-family="Songti SC, Noto Serif SC, STSong, serif">信号的阶梯</text>
+  <rect x="42" y="178" width="64" height="5" fill="#49C8E0"/>
+  <text x="40" y="222" font-size="19" fill="#49C8E0" font-family="PingFang SC, Noto Sans SC, sans-serif">从输出读懂模型的内部状态</text>
+  <text x="40" y="246" font-size="13" fill="#8E97B3" font-family="PingFang SC, Noto Sans SC, sans-serif">逐级上升，每一级解锁一种可观察信号</text>
+
+  <!-- ============================================================ -->
+  <!-- 中央 motif: 信号阶梯，从左下(外部输出)升到右上(模型内核) -->
+  <!-- ============================================================ -->
+  <g font-family="ui-monospace, Menlo, monospace">
+
+    <!-- faint blueprint grid -->
+    <g stroke="#212B49" stroke-width="0.6">
+      <line x1="60" y1="300" x2="60" y2="652"/>
+      <line x1="160" y1="300" x2="160" y2="652"/>
+      <line x1="260" y1="300" x2="260" y2="652"/>
+      <line x1="360" y1="300" x2="360" y2="652"/>
+    </g>
+
+    <!-- 深度轴：底=表层，顶=内核 -->
+    <line x1="48" y1="306" x2="48" y2="648" stroke="#49C8E0" stroke-width="1" opacity="0.45"/>
+    <polygon points="48,300 44,310 52,310" fill="#49C8E0" opacity="0.7"/>
+    <text x="60" y="296" font-size="10.5" letter-spacing="1.5" fill="#9CE8F4" opacity="0.85">内部状态 INTERNAL</text>
+    <text x="60" y="664" font-size="10.5" letter-spacing="1.5" fill="#6E7790">外部输出 SURFACE</text>
+
+    <!-- 模型内核：阶梯顶端的同心环 -->
+    <circle cx="376" cy="330" r="58" fill="url(#core)"/>
+    <circle cx="376" cy="330" r="28" fill="none" stroke="#49C8E0" stroke-width="1" opacity="0.5"/>
+    <circle cx="376" cy="330" r="16" fill="none" stroke="#9CE8F4" stroke-width="1" opacity="0.7"/>
+    <circle cx="376" cy="330" r="4" fill="#9CE8F4"/>
+    <text x="376" y="282" text-anchor="middle" font-size="10" letter-spacing="2" fill="#9CE8F4" opacity="0.8">MODEL CORE</text>
+
+    <!-- 左缘层级索引 -->
+    <g font-size="9" letter-spacing="1" fill="#46527A">
+      <text x="40" y="626">05</text>
+      <text x="40" y="570">04</text>
+      <text x="40" y="514">03</text>
+      <text x="40" y="458">02</text>
+      <text x="40" y="402">01</text>
+    </g>
+
+    <!-- 五级阶梯：左下(表层) -> 右上(内核)。每级含：横条 + L标签 + 可观察信号 + 可得性小条 -->
+
+    <!-- L1 -->
+    <rect x="62" y="606" width="150" height="34" rx="3" fill="url(#rung)" stroke="#49C8E0" stroke-opacity="0.42" stroke-width="1"/>
+    <text x="72" y="623" font-size="14" fill="#EAF6F9" font-family="PingFang SC, Noto Sans SC, sans-serif">字面输出</text>
+    <text x="72" y="635" font-size="8" fill="#6E7A9C">回答里直接说出来</text>
+    <text x="202" y="635" text-anchor="end" font-size="10" fill="#7E88A6">L1 · text</text>
+    <rect x="382" y="616" width="48" height="5" rx="2.5" fill="#1E2742"/>
+    <rect x="382" y="616" width="46" height="5" rx="2.5" fill="#49C8E0" opacity="0.85"/>
+    <text x="382" y="640" font-size="7.5" fill="#566085">人人可见</text>
+    <line x1="212" y1="623" x2="222" y2="567" stroke="#49C8E0" stroke-width="1" opacity="0.32" stroke-dasharray="2 3"/>
+    <circle cx="212" cy="623" r="2" fill="#49C8E0" opacity="0.7"/>
+
+    <!-- L2 -->
+    <rect x="112" y="550" width="158" height="34" rx="3" fill="url(#rung)" stroke="#49C8E0" stroke-opacity="0.5" stroke-width="1"/>
+    <text x="122" y="567" font-size="14" fill="#EAF6F9" font-family="PingFang SC, Noto Sans SC, sans-serif">置信与犹豫</text>
+    <text x="122" y="579" font-size="8" fill="#6E7A9C">概率分布的确定度</text>
+    <text x="260" y="579" text-anchor="end" font-size="10" fill="#7E88A6">L2 · logits</text>
+    <rect x="382" y="560" width="48" height="5" rx="2.5" fill="#1E2742"/>
+    <rect x="382" y="560" width="36" height="5" rx="2.5" fill="#49C8E0" opacity="0.75"/>
+    <text x="382" y="584" font-size="7.5" fill="#566085">需读概率</text>
+    <line x1="270" y1="567" x2="280" y2="511" stroke="#49C8E0" stroke-width="1" opacity="0.4" stroke-dasharray="2 3"/>
+    <circle cx="270" cy="567" r="2" fill="#49C8E0" opacity="0.7"/>
+
+    <!-- L3 -->
+    <rect x="162" y="494" width="166" height="34" rx="3" fill="url(#rung)" stroke="#49C8E0" stroke-opacity="0.6" stroke-width="1"/>
+    <text x="172" y="511" font-size="14" fill="#EAF6F9" font-family="PingFang SC, Noto Sans SC, sans-serif">推理轨迹</text>
+    <text x="172" y="523" font-size="8" fill="#6E7A9C">展开思考的中间步骤</text>
+    <text x="318" y="523" text-anchor="end" font-size="10" fill="#8FD8E6">L3 · CoT</text>
+    <rect x="382" y="504" width="48" height="5" rx="2.5" fill="#1E2742"/>
+    <rect x="382" y="504" width="26" height="5" rx="2.5" fill="#49C8E0" opacity="0.65"/>
+    <text x="382" y="528" font-size="7.5" fill="#566085">未必忠实</text>
+    <line x1="328" y1="511" x2="336" y2="455" stroke="#49C8E0" stroke-width="1" opacity="0.5" stroke-dasharray="2 3"/>
+    <circle cx="328" cy="511" r="2" fill="#49C8E0" opacity="0.7"/>
+
+    <!-- 可得性栏目标题（位于 L3 可得条上方，列内对齐 x=382~430） -->
+    <text x="382" y="490" font-size="8.5" letter-spacing="1" fill="#566085">可得性 ACCESS</text>
+    <line x1="382" y1="494" x2="430" y2="494" stroke="#2A3656" stroke-width="0.8"/>
+
+    <!-- L4 -->
+    <rect x="204" y="438" width="172" height="34" rx="3" fill="url(#rung)" stroke="#49C8E0" stroke-opacity="0.72" stroke-width="1.2"/>
+    <text x="214" y="455" font-size="14" fill="#F2EFE6" font-family="PingFang SC, Noto Sans SC, sans-serif">注意力流向</text>
+    <text x="214" y="467" font-size="8" fill="#7E8AAE">它在看输入的哪里</text>
+    <text x="366" y="467" text-anchor="end" font-size="10" fill="#9CE8F4">L4 · attn</text>
+    <line x1="376" y1="455" x2="376" y2="399" stroke="#9CE8F4" stroke-width="1" opacity="0.6" stroke-dasharray="2 3"/>
+    <circle cx="376" cy="455" r="2" fill="#9CE8F4" opacity="0.8"/>
+
+    <!-- L5 (内核层) -->
+    <rect x="240" y="382" width="176" height="34" rx="3" fill="#49C8E0" fill-opacity="0.26" stroke="#9CE8F4" stroke-opacity="0.85" stroke-width="1.4"/>
+    <text x="250" y="399" font-size="14" fill="#FFFFFF" font-family="PingFang SC, Noto Sans SC, sans-serif">激活与回路</text>
+    <text x="250" y="411" font-size="8" fill="#BFE9F2">神经元与特征的内部回路</text>
+    <text x="406" y="411" text-anchor="end" font-size="10" fill="#FFFFFF">L5 · acts</text>
+
+    <!-- 右侧深度刻度 -->
+    <g>
+      <line x1="430" y1="623" x2="438" y2="623" stroke="#39456A" stroke-width="1"/>
+      <line x1="430" y1="567" x2="438" y2="567" stroke="#39456A" stroke-width="1"/>
+      <line x1="430" y1="511" x2="438" y2="511" stroke="#39456A" stroke-width="1"/>
+      <line x1="430" y1="455" x2="438" y2="455" stroke="#39456A" stroke-width="1"/>
+      <line x1="430" y1="399" x2="438" y2="399" stroke="#49C8E0" stroke-width="1.4" opacity="0.7"/>
+    </g>
+    <text x="426" y="392" text-anchor="end" font-size="9" letter-spacing="1" fill="#7E88A6">depth+</text>
+
+    <!-- 右缘两段层级括号：L1–L3 外部可读 / L4–L5 需探测 -->
+    <g stroke="#39456A" stroke-width="1" fill="none">
+      <path d="M450,627 L456,627 L456,507 L450,507"/>
+      <path d="M450,459 L456,459 L456,395 L450,395"/>
+    </g>
+    <text x="468" y="571" font-size="8.5" letter-spacing="1" fill="#6E7A9C" transform="rotate(90 468 571)" text-anchor="middle">外部可读 OBSERVABLE</text>
+    <text x="468" y="427" font-size="8.5" letter-spacing="1" fill="#9CE8F4" opacity="0.85" transform="rotate(90 468 427)" text-anchor="middle">需探测 PROBED</text>
+
+    <!-- 中央贯穿读取轴：从表层一路指向内核 -->
+    <path d="M212,623 L270,567 L328,511 L376,455 L376,416" fill="none" stroke="#9CE8F4" stroke-width="0.8" opacity="0.18"/>
+
+    <!-- 读序标注 -->
+    <text x="62" y="686" font-size="9" letter-spacing="1.5" fill="#566085">READ ORDER  L1 &#8594; L5 &#160;/&#160; 越深越能说明问题，也越难读到</text>
+  </g>
+
+  <!-- ===== 底部分隔线 + credit ===== -->
+  <line x1="40" y1="700" x2="460" y2="700" stroke="#2A3350" stroke-width="1"/>
+  <text x="40" y="730" font-size="13" letter-spacing="1" fill="#8E97B3" font-family="ui-monospace, Menlo, monospace">导读 · 可解释性 · 2026</text>
+  <text x="460" y="730" text-anchor="end" font-size="13" letter-spacing="1" fill="#8E97B3" font-family="ui-monospace, Menlo, monospace">OUTPUT &#8594; STATE</text>
+  <text x="40" y="758" font-size="13" fill="#6E7790" font-family="PingFang SC, Noto Sans SC, sans-serif">Rick &#215; Claude</text>
+</svg>

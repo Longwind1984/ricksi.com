@@ -67,10 +67,11 @@ export const CONFIG = {
     },
   ],
 
-  /* AI 共创书封面：《记忆的四种耦合》为 epub 原版提取；其余 7 本源文件已删，
-     按原版模板（深 navy/白宋体/金划线）重绘 SVG（副题为按主题补写，非原文） */
+  /* AI 共创书封面：8 本均为「定制信息图」SVG（2026-06-16 multi-agent 按各书主题重绘，
+     仿两本新书 epub 内精装封面的 house 语言：mono 元信息条 + 大标题 + accent 副题 + 专属 motif + credit）。
+     封面覆盖也可在 data/book-extras.json 的 byTitle.cover 指定（merge 步会盖，survive sync）。 */
   wereadAiCovers: {
-    记忆的四种耦合: '/assets/books/ai/memory-coupling.png',
+    记忆的四种耦合: '/assets/books/ai/memory-coupling.svg',
     记忆的梯度: '/assets/books/ai/memory-gradient.svg',
     '记忆 一个词的解剖': '/assets/books/ai/memory-anatomy.svg',
     当分数成为目标: '/assets/books/ai/score-goal.svg',

@@ -1,1 +1,106 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="500" height="800" viewBox="0 0 500 800"><rect width="500" height="800" fill="#1B2039"/><text x="48" y="270" font-size="72" font-weight="700" fill="#F2EFE6" font-family="Songti SC, Noto Serif SC, STSong, serif">当分数</text><text x="48" y="356" font-size="72" font-weight="700" fill="#F2EFE6" font-family="Songti SC, Noto Serif SC, STSong, serif">成为目标</text><rect x="50" y="382" width="68" height="5" fill="#A8894C"/><text x="48" y="438" font-size="23" fill="#8E97B3" font-family="PingFang SC, Noto Sans SC, sans-serif">Goodhart 定律下的 AI 评测</text><text x="48" y="752" font-size="20" fill="#6E7790" font-family="PingFang SC, Noto Sans SC, sans-serif">Rick's Opus 4.8 Extra</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="500" height="800" viewBox="0 0 500 800" role="img" aria-labelledby="t d">
+  <title id="t">当分数成为目标 — Goodhart 定律下的 AI 评测</title>
+  <desc id="d">封面信息图：真实能力曲线与分数曲线在「分叉点」前同步上升，此后分数继续冲向天花板、真实能力却掉头下行，二者间裂开一道 GAP；旁附一个箭都射在外环、唯独脱靶中心的靶心。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#181E36"/>
+      <stop offset="0.55" stop-color="#121830"/>
+      <stop offset="1" stop-color="#0D1226"/>
+    </linearGradient>
+    <linearGradient id="trueFade" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#7E8AA8"/>
+      <stop offset="1" stop-color="#5A6486"/>
+    </linearGradient>
+    <radialGradient id="forkGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#E8A84C" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#E8A84C" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="500" height="800" fill="url(#bg)"/>
+
+  <g stroke="#2A3252" stroke-width="0.6" opacity="0.5">
+    <line x1="60" y1="300" x2="60" y2="616"/>
+    <line x1="140" y1="300" x2="140" y2="616"/>
+    <line x1="220" y1="300" x2="220" y2="616"/>
+    <line x1="300" y1="300" x2="300" y2="616"/>
+    <line x1="380" y1="300" x2="380" y2="616"/>
+    <line x1="460" y1="300" x2="460" y2="616"/>
+    <line x1="60" y1="340" x2="460" y2="340"/>
+    <line x1="60" y1="420" x2="460" y2="420"/>
+    <line x1="60" y1="500" x2="460" y2="500"/>
+    <line x1="60" y1="580" x2="460" y2="580"/>
+  </g>
+
+  <text x="40" y="54" font-size="12" letter-spacing="3" fill="#6E7790" font-family="ui-monospace, Menlo, monospace">评测与分数</text>
+  <text x="460" y="54" text-anchor="end" font-size="12" letter-spacing="3" fill="#6E7790" font-family="ui-monospace, Menlo, monospace">PLATE No.2</text>
+  <line x1="40" y1="70" x2="460" y2="70" stroke="#2A3350" stroke-width="1"/>
+  <text x="40" y="90" font-size="10" letter-spacing="1.5" fill="#566085" font-family="ui-monospace, Menlo, monospace">MEASURE &#8594; TARGET &#183; THE METRIC STOPS BEING A GOOD METRIC</text>
+
+  <text x="40" y="152" font-size="58" font-weight="700" fill="#F2EFE6" font-family="Songti SC, Noto Serif SC, STSong, serif">当分数</text>
+  <text x="40" y="218" font-size="58" font-weight="700" fill="#F2EFE6" font-family="Songti SC, Noto Serif SC, STSong, serif">成为目标</text>
+  <rect x="42" y="238" width="64" height="5" fill="#E8A84C"/>
+  <text x="40" y="278" font-size="19" fill="#E8A84C" font-family="PingFang SC, Noto Sans SC, sans-serif">Goodhart 定律下的 AI 评测</text>
+
+  <line x1="60" y1="616" x2="466" y2="616" stroke="#3A4468" stroke-width="1.4"/>
+  <line x1="60" y1="300" x2="60" y2="616" stroke="#3A4468" stroke-width="1.4"/>
+  <text x="62" y="636" font-size="10" letter-spacing="1.5" fill="#6E7790" font-family="ui-monospace, Menlo, monospace">优化压力 →</text>
+  <g font-size="9.5" letter-spacing="1" fill="#5E6888" font-family="ui-monospace, Menlo, monospace">
+    <text x="54" y="344" text-anchor="end">高</text>
+    <text x="54" y="612" text-anchor="end">低</text>
+  </g>
+
+  <circle cx="244" cy="448" r="44" fill="url(#forkGlow)"/>
+
+  <path d="M 60 600 C 120 540 180 488 244 448" fill="none" stroke="#9AA4C0" stroke-width="3" stroke-linecap="round"/>
+
+  <path d="M 244 448 C 300 410 360 366 466 340" fill="none" stroke="#E8A84C" stroke-width="3.4" stroke-linecap="round"/>
+  <line x1="60" y1="340" x2="466" y2="340" stroke="#E8A84C" stroke-width="0.8" stroke-dasharray="2 5" opacity="0.5"/>
+  <circle cx="466" cy="340" r="4.5" fill="#E8A84C"/>
+  <text x="458" y="326" text-anchor="end" font-size="14" fill="#E8A84C" font-family="PingFang SC, Noto Sans SC, sans-serif">分数 ↑</text>
+  <text x="458" y="356" text-anchor="end" font-size="9.5" letter-spacing="1" fill="#B98A3E" font-family="ui-monospace, Menlo, monospace">SCORE · 刷榜</text>
+
+  <path d="M 244 448 C 300 444 350 452 466 500" fill="none" stroke="url(#trueFade)" stroke-width="3" stroke-linecap="round" stroke-dasharray="9 5"/>
+  <circle cx="466" cy="500" r="4.5" fill="#6E7A9C"/>
+  <text x="458" y="490" text-anchor="end" font-size="14" fill="#9AA4C0" font-family="PingFang SC, Noto Sans SC, sans-serif">真实能力 →</text>
+  <text x="458" y="520" text-anchor="end" font-size="9.5" letter-spacing="1" fill="#6E7A9C" font-family="ui-monospace, Menlo, monospace">TRUE ABILITY</text>
+
+  <circle cx="244" cy="448" r="6" fill="#0D1226" stroke="#E8A84C" stroke-width="2"/>
+  <line x1="244" y1="448" x2="244" y2="616" stroke="#E8A84C" stroke-width="0.7" stroke-dasharray="2 4" opacity="0.55"/>
+  <text x="252" y="436" font-size="11" fill="#C9CEE0" font-family="PingFang SC, Noto Sans SC, sans-serif">分叉点</text>
+  <text x="252" y="450" font-size="8.5" letter-spacing="0.5" fill="#7A84A4" font-family="ui-monospace, Menlo, monospace">measure → target</text>
+  <text x="244" y="632" font-size="9" letter-spacing="0.5" fill="#7A84A4" font-family="ui-monospace, Menlo, monospace" text-anchor="middle">t*</text>
+
+  <text x="392" y="426" font-size="9.5" letter-spacing="0.5" fill="#8E97B3" font-family="ui-monospace, Menlo, monospace" text-anchor="middle">GAP</text>
+  <line x1="430" y1="356" x2="430" y2="486" stroke="#8E97B3" stroke-width="0.7" opacity="0.6"/>
+  <path d="M 430 360 l -3 5 l 6 0 z" fill="#8E97B3" opacity="0.7"/>
+  <path d="M 430 482 l -3 -5 l 6 0 z" fill="#8E97B3" opacity="0.7"/>
+
+  <g transform="translate(118 532)">
+    <circle r="36" fill="none" stroke="#3A4468" stroke-width="1"/>
+    <circle r="25" fill="none" stroke="#3A4468" stroke-width="1"/>
+    <circle r="14" fill="none" stroke="#4A547C" stroke-width="1"/>
+    <circle r="4.5" fill="none" stroke="#6E7790" stroke-width="1.2"/>
+    <circle r="1.6" fill="#6E7790"/>
+    <g fill="#E8A84C">
+      <circle cx="-29" cy="-15" r="2.6"/>
+      <circle cx="21" cy="-25" r="2.6"/>
+      <circle cx="29" cy="13" r="2.6"/>
+      <circle cx="-11" cy="29" r="2.6"/>
+    </g>
+    <g stroke="#E8A84C" stroke-width="1.2" opacity="0.7">
+      <line x1="-43" y1="-23" x2="-29" y2="-15"/>
+      <line x1="33" y1="-39" x2="21" y2="-25"/>
+      <line x1="45" y1="21" x2="29" y2="13"/>
+      <line x1="-17" y1="45" x2="-11" y2="29"/>
+    </g>
+    <text x="0" y="56" text-anchor="middle" font-size="9.5" letter-spacing="0.5" fill="#7A84A4" font-family="ui-monospace, Menlo, monospace">中环高分 · 脱靶</text>
+  </g>
+
+  <text x="60" y="676" font-size="9" letter-spacing="0.5" fill="#5E6888" font-family="ui-monospace, Menlo, monospace">FAITHFULNESS · 事后说辞 · 长答案偏好 · ELO 折算 · 我们究竟在测什么</text>
+
+  <line x1="40" y1="700" x2="460" y2="700" stroke="#2A3350" stroke-width="1"/>
+  <text x="40" y="730" font-size="13" fill="#8E97B3" letter-spacing="1" font-family="ui-monospace, Menlo, monospace">导读 · 中篇 · 2026</text>
+  <text x="460" y="730" font-size="13" fill="#8E97B3" letter-spacing="1" text-anchor="end" font-family="ui-monospace, Menlo, monospace">TARGET &gt; MEASURE</text>
+  <text x="40" y="758" font-size="13" fill="#6E7790" font-family="PingFang SC, Noto Sans SC, sans-serif">Rick's Opus 4.8 Extra</text>
+</svg>
