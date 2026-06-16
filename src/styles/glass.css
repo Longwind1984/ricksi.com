@@ -7,6 +7,9 @@
 /* 字体声明见 src/styles/fonts.css；token 见 src/styles/tokens/（docs/design-system 镜像） */
 
 * { box-sizing: border-box; }
+/* 横向溢出守门：任何残留溢出都不让整页横滑（clip 不创建滚动容器、不破坏 fixed/锚点）。
+   真正的溢出源仍在各处单独修（如 .rd-grid 移动端塌单列）；这里是兜底，杜绝"卡片左右滑动"。 */
+html, body { overflow-x: clip; }
 @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
 body {
   margin: 0;
@@ -841,7 +844,18 @@ a.rd-book, a.rd-aibook { display: block; -webkit-tap-highlight-color: transparen
 @media (max-width: 1000px) {
   .rd-grid { grid-template-columns: 1fr; gap: 36px; }
   .rd-stats { gap: 26px; }
-  .rd-shelf { grid-template-columns: repeat(auto-fill, minmax(82px, 1fr)); gap: 14px; }
+  /* 网格子项默认 min-width:auto 会被横向滑动条内容(~780px)撑爆轨道；归零让它收回单列宽度 */
+  .rd-shelf-col, .rd-current { min-width: 0; }
+  /* 最近 9 本：原 3×3 网格窄屏达 582px、太松散 → 单行横向滑动条，紧凑可滑、边缘留滑动余味 */
+  .rd-shelf {
+    min-width: 0;
+    display: flex; gap: 12px;
+    overflow-x: auto; scroll-snap-type: x proximity; -webkit-overflow-scrolling: touch;
+    margin: 0 -2px; padding: 2px 2px 8px; scrollbar-width: none;
+  }
+  .rd-shelf::-webkit-scrollbar { display: none; }
+  .rd-shelf .rd-book { flex: 0 0 76px; width: 76px; scroll-snap-align: start; }
+  .rd-shelf .rd-book-name { font-size: 10px; line-height: 1.45; text-align: center; margin-top: 6px; } /* 标题保留：封面下方居中 2 行省略，紧凑不松散 */
 }
 
 /* Footer */
@@ -1469,6 +1483,9 @@ a.rd-book, a.rd-aibook { display: block; -webkit-tap-highlight-color: transparen
   /* 单列后封面随宽度等比缩放（固定高度 + cover 会在中间宽度裁成细条） */
   .proj-row .ph { grid-column: 2; height: auto; aspect-ratio: 640 / 300; max-width: 560px; }
   .kg-grid { grid-template-columns: 1fr; gap: 36px; }
+  /* 阅读区塌单列：真凶——原 .rd-grid{1fr}(≤1000) 被靠后的 ≤1120 规则盖回 320px 1fr，
+     在这（更靠后的 ≤1000 块）重申一次，移动端不再 320px 固定轨溢出。 */
+  .rd-grid { grid-template-columns: 1fr; gap: 32px; }
   .blog-row { grid-template-columns: 64px 1fr auto auto; gap: 18px; }
   .foot-inner { flex-direction: column; align-items: flex-start; gap: 32px; padding: 44px 28px 52px; }
   .foot-right { justify-items: start; text-align: left; }
@@ -1523,7 +1540,7 @@ a.rd-book, a.rd-aibook { display: block; -webkit-tap-highlight-color: transparen
   /* 版式 */
   .container { padding: 0 20px; }
   .hero-layout { padding-top: 96px; padding-bottom: 48px; gap: 28px; }
-  .hero-title { font-size: 38px; line-height: 1.32; }
+  .hero-title { font-size: clamp(27px, 8.4vw, 38px); line-height: 1.3; }
   .hero-sub { font-size: 15.5px; line-height: 1.85; }
   .hero-wb.glass { padding: 22px 20px; border-radius: 22px; }
   .hero-credit { bottom: 12px; right: 16px; font-size: 10px; }
@@ -1553,10 +1570,15 @@ a.rd-book, a.rd-aibook { display: block; -webkit-tap-highlight-color: transparen
   /* 图谱：触屏可玩的高度 */
   .kg-paper { min-height: 320px; display: flex; }
   .kg-paper svg { flex: 1; }
-  /* 页脚给 Dock 让位 */
-  .foot-inner { padding-bottom: calc(130px + env(safe-area-inset-bottom)); }
+  /* 页脚给 Dock 让位（dock ≈ 44 链接 + 14 底距 + 安全区；88 已足够，130 留大段死白） */
+  .foot-inner { padding-bottom: calc(88px + env(safe-area-inset-bottom)); }
   .foot-right { width: 100%; }
   .btn-accent.big { width: 100%; }
+  /* 触控目标 ≥44px（HIG）：移动端补足偏小的控件 */
+  .proj-expand { height: 44px; }
+  .gx-close { width: 40px; height: 40px; font-size: 14px; }
+  .kg-leg-item { min-height: 44px; }
+  .kg-expand { height: 40px; }
 }
 
 /* ═══ 前沿追踪（/frontier） ═══ */
