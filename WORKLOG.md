@@ -1,5 +1,86 @@
 # WORKLOG（append-only，倒金字塔：结论在前、清单沉底）
 
+## 2026-06-16 · 新增项目「Slash Goal · 谁来认定「干完了」」+ 二级可交互落地页
+
+### 体验影响（着重 · 先看这个）
+
+- **首页新增一个项目卡，置于第 2 位**（紧跟 MuseumCollect、在 Writer Pipeline 之前）。原占位条目「Slash Goal 复刻」（无链接、显示「仓库整理中」）被删除替换，避免重复。
+- **项目卡配图重绘**：原 `proj-slash-goal.svg` 是命令面板 mock，与项目主题（完成判定）不符；改为「会话内自评 → ✓ 假完成（珊瑚）vs 独立 auditor → ✗ 定位到行（青）」的对照图，呼应落地页主轴。
+- **新落地页高度可交互**：三个签名交互——hero「谁来验收」（两裁判演示，agent 绿勾闪→翻珊瑚假完成 / auditor 定位到第 24 行）、验证范式四象限（toggle「实测后的修正」让原生 checker 沿隔离轴下落，「测的是它，地图才变」）、提示词层→程序层光谱（含 ghost L3、珊瑚「无法复刻」禁区）。全部带 `prefers-reduced-motion` 直出兜底 + 键盘可达。
+
+### 做了什么
+
+把两份交接文档（Trae SOLO 上复刻 Codex `/goal` + Claude Code 上复刻为 `/mygoal`）合成一个项目、一条叙事，做成对外作品集页。主轴：自驱动 agent 真正难的是「何时停、谁认定干完了」；坐标轴是「提示词层模拟 ↔ 程序层保证」。Claude Code 为主轴（约 1:2.5），Trae 作受限平台铺垫。八个 section：逆向 Codex → 光谱 → Trae 三级跳 → 独立审计基石 → 自审审计器 → 对照评测 → 验证范式地图 → 状态。全程 Rick 第一人称、问题/取舍/验证作主句，诚实 caveat 与正文同框（26/26 不等于验证器更强、Trae 未上真机、原生 checker 是行为推断、N=1）。
+
+### 关键决策与被否决的备选
+
+- **叙事主轴（与用户确认）**：Claude Code 为主轴，Trae 压成 1 个 section + 可展开「战争故事」。否决「两平台平分」——会把未上真机的那半抬到与已验证那半同等地位，不诚实。
+- **hero 交互选「谁来验收」演示**：否决把四象限/光谱直接放 hero——它们是分类法，更适合作后段的 payoff；hero 应先把问题演出来。
+- **诚实底线**：卡片 desc 只写「探针级 5/5」，刻意不把端到端「26/26」抬进卡片（worker 没被施压，分不出验证器）。
+- **配图重绘 vs 复用**：原 SVG 语义不符，重绘；保持 640×300 与文件名不变以兼容 ProjRow。
+- **动态 SVG 用 `<style is:global>`**：Astro scoped 样式不命中 JS 动态创建的 SVG 节点，全部 `.sg-` 前缀隔离后用 global。
+
+### 当前状态：能跑什么、怎么跑
+
+- `cd rick-homepage && npm run dev` → 访问 `/projects/slash-goal/`；首页 `/` 第 2 位卡片点击跳转。
+- 已验证：`npm run build` 通过（exit 0）；dev 下三个交互全部工作（DOM 实测：hero 两条路径、四象限 toggle 下落 + 点击侧栏、光谱点击）；首页卡片确认编号 02 / 标题 / `→` 活链接 / 新 SVG 加载 640×300 / 无旧占位重复；控制台无报错；移动端 375 宽无横向溢出。
+- 截图存档：hero、光谱+Trae 矩阵、keystone 流程、对照评测计分板、验证范式四象限（已发给用户）。
+
+### 未尽事项与已知问题
+
+- 落地页未做 OG 分享图（沿用站点默认）；如需可后补 satori 卡。
+- 预览器不支持程序化滚动（writer-pipeline 同样 scrollY=0），本次截图用临时负 margin 顶到目标 section（已复原，未改源码）。
+- 时间线在 §08 用保守措辞（逆向研究与原生 /goal 上线前后有重叠，以仓库提交日期为准），未给精确前后顺序——交接文档明确标注此处不可编造。
+
+### 文件级变更清单
+
+- `src/data/projects.ts`：删除旧占位「Slash Goal 复刻」，新增「Slash Goal · 谁来认定「干完了」」为第 2 个 featured 条目。
+- `src/pages/projects/slash-goal.astro`：新建落地页（markup + `is:global` 作用域样式）。
+- `src/scripts/slash-goal-page.js`：新建交互脚本（复用 reveal/count-up 生命周期 + initHeroJudge/initQuadrant/initSpectrum）。
+- `public/assets/proj-slash-goal.svg`：重绘卡片配图（会话内自评 vs 独立审计对照）。
+
+
+## 2026-06-16 · 自制 ePub 在线阅读器 + 两本新书上传 + 10 本导言/8 张定制封面（multi-agent）
+
+阅读模块的「自制 ePub」分区过去只有元数据 + 划线归档，读不了书、落地页缺导言、封面是扁平模板。这一轮把三个缺口一起补上：能在站内读、有导言、封面是为每本书定制的信息图。
+
+### 做了什么（写给非开发者）
+
+1. **站内 ePub 阅读器**：基于成熟开源引擎 epub.js（不自己造轮子），套一层钴蓝玻璃皮。能翻页、出目录、调字号、显进度；正文是深色护眼底 + 霞鹜文楷。**选中文字会弹出悬浮小菜单：划线 / 复制 / 分享**。划线会留在本地（换设备不同步），分享会即时生成一张「玻璃明信片」金句卡，可下载、复制带定位锚点的回链、或调系统分享。书页地址形如 `/reading/<书>/read/`。
+2. **两本新书上传**：把 Documents 书架里的 `Harness Engineering`、`解剖 Codex` 收进项目，封面用它们 epub 内自带的精装封面，落地页加了「开始阅读」入口，点进去就是上面的阅读器。
+3. **10 本导言**（multi-agent）：调用 18 个智能体的工作流，给自制书架全部 10 本各写一段 120–350 字导言，挂在各自落地页。两本新书的导言读了 epub 全文（标 high 置信）；评测/提示词等 4 本有真实划线作底（medium）；其余 4 本只凭标题副题在主题层概述（low，已标注，不杜撰）。
+4. **8 张定制封面**（同一工作流）：把 8 本旧书的「扁平模板封面」全部重绘为**为各书主题定制的信息图 SVG**，仿两本新书封面的 house 语言（顶部 mono 元信息条 + 大标题 + accent 副题 + 专属示意图 + 底部 credit），每本一个专属配色与一张独有图示（四层耦合带 / 衰减条 / 左右解剖对照 / Goodhart 分叉曲线 / 雷达 / 模块电路 / 刻度尺 / 信号阶梯）。
+
+### 关键决策与被否决的备选
+
+- **阅读引擎选 epub.js 而非 foliate-js / react-reader**：epub.js 的 `selected` 事件 + `annotations.add` + CFI 持久化正好命中「划线→悬浮菜单→分享」，单依赖、vanilla（与现有 three.js 同样的 ESM island 用法）；foliate-js 要自己写标注层，react-reader 会拖入项目没有的 React。BSD-2 许可，可放心用。
+- **iframe 内字体用 npmmirror CDN 而非自托管**：计划本想自托管霞鹜文楷 woff2，但全 CJK woff2 体积大；页面本就用同一 CDN 加载文楷，于是 iframe 内注入同一条 CDN 样式，零新增重资产、与站点一致。**取舍**：iframe 内多一个 CDN 依赖，断网/被墙时回退宋体。
+- **分享两形态都做**：玻璃明信片金句卡（canvas 客户端绘制，复用现有 share-modal 弹层）+ 轻量「复制金句 + CFI 深链回链 + 原生分享」。短金句卡片偏空（留白多），属已知小瑕疵。
+- **自制书登记走独立 source-of-truth 而非塞进采集产物**：两本新书不在微信书架、走不了 weread API，故新建 `data/local-books.json` + `data/book-extras.json`（authored，sync 永不覆写），由新步骤 `merge-local-books.mjs` 在采集后确定性合入 `reading.json`——不改 `generated_at`，单独重跑零 diff（幂等）。导言/副题/封面覆盖同走这条路，survive sync。
+- **被否决**：把导言/epub 路径直接写进 `reading.json`（会被每次 `collect-weread` 重写清空）。
+
+### 当前状态：能跑什么、怎么跑
+
+- `npm run dev` → 已实测：`/reading/CB_local_harness-engineering/read/` 正常渲染（钴蓝主题 + 文楷 + 章节插图），目录 10 章、进度条、A−/A+；模拟真实选区 → 悬浮菜单弹出 → 划线落 localStorage 并可视、分享生成金句卡并弹出弹层（截图为证）。落地页导言块 + 副题 + 开始阅读按钮、书架 10 张新封面均正常。
+- `npm run build` → **640 页 / 398 秒，exit 0**；`dist` 内两本书的 `read/index.html` + 落地页 + 8 张 SVG + 两个 epub(3MB) + 封面 PNG 均就位，epub-reader 岛已打包。
+- 加书：复制 `<slug>.epub` 进 `public/assets/books/epub/`、封面进 `epub-covers/`、在 `data/local-books.json` 追加一条（id 用 `CB_local_<slug>`）、跑 `node scripts/merge-local-books.mjs`。补传旧书 epub：丢文件 + 在 `book-extras.json` 对应 `byTitle` 加 `"epub"`，落地页自动出「开始阅读」。
+
+### 未尽事项与已知问题（缺陷优先）
+
+1. **EdgeOne 需确认 `.epub` 的 MIME/缓存**：dev 下 `/assets/books/epub/*.epub` 返回 `application/epub+zip` 正常；EdgeOne 线上需验证按 `application/epub+zip` inline 返回（并建议 `Cache-Control: immutable`）。这是部署面板配置，非代码，**上线前你需在 EdgeOne 确认一次**。
+2. **3MB epub 客户端整包加载**：首屏前需下载+解压整本，慢网下加载条会停留几秒（已有玻璃骨架兜底）。
+3. **划线只在本机**：localStorage 存储，不跨设备同步；若日后重生某本 epub，旧 CFI 可能错位（已做内容兜底，失配标 legacy 而非乱定位——此兜底逻辑写了但未触发验证）。
+4. **8 本旧封面 + 4 本 low 置信导言是 AI 产出**：题材与视觉的最终把关是你的。封面 contact-sheet 已发你预览；不满意的某张可单独重绘。4 本 low 置信导言（记忆四种耦合 / 一个词的解剖 / 分数之外 / 自主的尺度 / 信号的阶梯）只在主题层概述，补传 epub 后可精修升级。
+5. **短金句分享卡留白偏多**：卡片为长引文设计，选很短的句子时下半部偏空。
+6. CFI 深链回链（`#cfi=`）与位置恢复走同一 `display(cfi)` 路径（位置恢复已实测生效），深链单独未逐一验证。
+
+### 文件级变更清单（可跳读）
+
+- 新增：`src/pages/reading/[book]/read.astro`（阅读器路由）、`src/scripts/epub-reader.js`（阅读器岛：渲染/选区悬浮菜单/划线/localStorage/主题注入/canvas 金句卡/CFI 深链/VT 收尾）、`scripts/merge-local-books.mjs`（本地书 + 导言/副题/封面合入）、`data/local-books.json`、`data/book-extras.json`、`public/assets/books/epub/{harness-engineering,codex-anatomy}.epub`、`public/assets/books/epub-covers/{harness-engineering,codex-anatomy}.png`
+- 重绘：`public/assets/books/ai/*.svg` ×8（定制信息图封面，删除旧 `memory-coupling.png`）
+- 修改：`scripts/sync.mjs`（插入 4.5 步合并）、`scripts/config.mjs`（`wereadAiCovers` 改 svg + 注释）、`src/pages/reading/[book].astro`（副题 + 导言块 + 开始阅读按钮）、`src/lib/reading-ui.mjs`（`TOPIC_GRADS.harness`）、`src/styles/glass.css`（`.epub-*` 阅读器样式 + `.bk-intro*/.bk-subtitle/.bk-read-btn`）、`package.json`（+epubjs）
+- 数据：`data/reading.json`（新增 harness 话题组 2 本 + 10 本导言/副题 + memory-coupling 封面改 svg）
+
 ## 2026-06-16 · 首页七项体验迭代（v5）+ 死代码/可达性审计 + 合并上线
 
 ### 体验影响（着重 · 先看这个）
@@ -50,7 +131,7 @@
 ### 体验影响（着重 · 先看这个）
 
 - **首页「项目」区第 2 位新增 Writer Pipeline**（MuseumCollect 之后、Galaxy View 之前），编号自动顺延为 02。它和 Galaxy View 一样有自己的二级落地页 `/projects/writer-pipeline/`——**点击进落地页，不跳 GitHub**（仓库 Private，代码库刻意杜绝死链）。
-- **落地页核心是「pipeline 跑一遍」三阶交互**（按 Rick 反馈重做，替掉原来的单轮 X 光扫描——原版只 3 处高亮、只改 1 处，体现不出 pipeline 怎么工作）：同一段哥伦比亚大选题材，① **AI 初稿**（同主题演示构造，满屏 AI 味——导览腔／总分总／大词／hedging／强行升华，7 处紫色高亮）→ ② **去 AI 味**（writer 注入 voice memo 改写到真实草稿 §8，critic 第二轮逮金句口癖：绿 A 承重句留／红 C 电锯补刀砍）→ ③ **配额收口**（红 C 片段当场坍缩，落到真实 v5）。点高亮看 critic 判语，可逐阶跳或「↺ 再跑一遍」循环。把 writer↔critic 逐轮工作过程做成可玩演示。原始 AI 初稿构造不算造假——pipeline 的输入本就是 AI 生成的稿。
+- **落地页核心是「pipeline 跑一遍」三阶交互**（按 Rick 反馈重做，替掉原来的单轮 X 光扫描——原版只 3 处高亮、只改 1 处，体现不出 pipeline 怎么工作）：同一段哥伦比亚大选题材，① **AI 初稿**（同主题演示构造的「体面的空洞」——流畅、有结构、像有观点，却用对称句式／抽象大词／伪共情／认识论投降「没有标准答案」打太极，7 处紫色高亮的难察觉 AI 味；二改后刻意不写成小学生作文式的弱靶子，否则体现不出 pipeline 的提升）→ ② **去 AI 味**（writer 注入 voice memo 改写到真实草稿 §8，critic 第二轮逮金句口癖：绿 A 承重句留／红 C 电锯补刀砍）→ ③ **配额收口**（红 C 片段当场坍缩，落到真实 v5）。点高亮看 critic 判语，可逐阶跳或「↺ 再跑一遍」循环。把 writer↔critic 逐轮工作过程做成可玩演示。原始 AI 初稿构造不算造假——pipeline 的输入本就是 AI 生成的稿。
 - **正文是第一人称案例长文**，覆盖：砸掉自己设计的 13 组件系统（PM 自审 severity 4/5，13→3 拆除可视化）→ examples≫rules（砍 5 维 voice DNA）→ AI 味可扫描清单 + 金句 earned/cosplay 配额 → v4→v5 四处纯减法 diff → 跨模型 A/B 实测推翻自己写进 plan 的推荐 → 决策时间线 → 验证窗口与「刻意不做」清单。
 - 全部文案按 Rick voice memo + critic AI 味清单写并自扫：无导览腔、无升华结尾、无大词、无 hedging，金句控在配额内。
 - 全部为**草案**，待你视觉终审。
@@ -685,46 +766,3 @@
 - 重写：`scripts/sync-vault.mjs`（04T 下钻 + 消毒管线）、`scripts/collect-usage.mjs`（口径 v2）、`src/scripts/graph-explore.js`（双引擎编排）、`src/data/projects.ts`（文案 + 图标 + 排序）、`src/components/ProjRow.astro`
 - 修改：`scripts/config.mjs`（sanitize/facetedClusters/wereadAiTopics）、`scripts/collect-weread.mjs`（白名单/划线/书架策展）、`src/layouts/Glass.astro`（reader chrome/分享弹层/简历链接/微信二维码/品牌名）、`src/pages/index.astro`（hero/口径 v2 展示/AI 共创阅读区/降采样图谱/样例徽章）、`src/pages/graph.astro`、`src/pages/kb/index.astro`（精选层）、`src/pages/kb/[...slug].astro`（reader/徽章/进度条）、`src/pages/blog/[...slug].astro`、`src/scripts/graph-view.js`（TDZ 修复 + ready + 大图静态布局）、`src/lib/sample.js`（18 色板）、`src/styles/glass.css`（reader/分享/AI 书/图标/断点/圆角修复等）、`content/posts/how-this-page-was-built.md`（去草稿声明/硬编码数字）、`README.md`、4 张项目 SVG（补 width/height）
 - 数据：`data/graph.json`（594 节点）、`data/usage.json`（v2）、`data/reading.json`（aiTopics/highlights/策展书架）、`data/kb-manifest.json`（消毒报告）、`content/kb/**` 全量重生成
-
----
-
-## 2026-06-16 · 自制 ePub 在线阅读器 + 两本新书上传 + 10 本导言/8 张定制封面（multi-agent）
-
-阅读模块的「自制 ePub」分区过去只有元数据 + 划线归档，读不了书、落地页缺导言、封面是扁平模板。这一轮把三个缺口一起补上：能在站内读、有导言、封面是为每本书定制的信息图。
-
-### 做了什么（写给非开发者）
-
-1. **站内 ePub 阅读器**：基于成熟开源引擎 epub.js（不自己造轮子），套一层钴蓝玻璃皮。能翻页、出目录、调字号、显进度；正文是深色护眼底 + 霞鹜文楷。**选中文字会弹出悬浮小菜单：划线 / 复制 / 分享**。划线会留在本地（换设备不同步），分享会即时生成一张「玻璃明信片」金句卡，可下载、复制带定位锚点的回链、或调系统分享。书页地址形如 `/reading/<书>/read/`。
-2. **两本新书上传**：把 Documents 书架里的 `Harness Engineering`、`解剖 Codex` 收进项目，封面用它们 epub 内自带的精装封面，落地页加了「开始阅读」入口，点进去就是上面的阅读器。
-3. **10 本导言**（multi-agent）：调用 18 个智能体的工作流，给自制书架全部 10 本各写一段 120–350 字导言，挂在各自落地页。两本新书的导言读了 epub 全文（标 high 置信）；评测/提示词等 4 本有真实划线作底（medium）；其余 4 本只凭标题副题在主题层概述（low，已标注，不杜撰）。
-4. **8 张定制封面**（同一工作流）：把 8 本旧书的「扁平模板封面」全部重绘为**为各书主题定制的信息图 SVG**，仿两本新书封面的 house 语言（顶部 mono 元信息条 + 大标题 + accent 副题 + 专属示意图 + 底部 credit），每本一个专属配色与一张独有图示（四层耦合带 / 衰减条 / 左右解剖对照 / Goodhart 分叉曲线 / 雷达 / 模块电路 / 刻度尺 / 信号阶梯）。
-
-### 关键决策与被否决的备选
-
-- **阅读引擎选 epub.js 而非 foliate-js / react-reader**：epub.js 的 `selected` 事件 + `annotations.add` + CFI 持久化正好命中「划线→悬浮菜单→分享」，单依赖、vanilla（与现有 three.js 同样的 ESM island 用法）；foliate-js 要自己写标注层，react-reader 会拖入项目没有的 React。BSD-2 许可，可放心用。
-- **iframe 内字体用 npmmirror CDN 而非自托管**：计划本想自托管霞鹜文楷 woff2，但全 CJK woff2 体积大；页面本就用同一 CDN 加载文楷，于是 iframe 内注入同一条 CDN 样式，零新增重资产、与站点一致。**取舍**：iframe 内多一个 CDN 依赖，断网/被墙时回退宋体。
-- **分享两形态都做**：玻璃明信片金句卡（canvas 客户端绘制，复用现有 share-modal 弹层）+ 轻量「复制金句 + CFI 深链回链 + 原生分享」。短金句卡片偏空（留白多），属已知小瑕疵。
-- **自制书登记走独立 source-of-truth 而非塞进采集产物**：两本新书不在微信书架、走不了 weread API，故新建 `data/local-books.json` + `data/book-extras.json`（authored，sync 永不覆写），由新步骤 `merge-local-books.mjs` 在采集后确定性合入 `reading.json`——不改 `generated_at`，单独重跑零 diff（幂等）。导言/副题/封面覆盖同走这条路，survive sync。
-- **被否决**：把导言/epub 路径直接写进 `reading.json`（会被每次 `collect-weread` 重写清空）。
-
-### 当前状态：能跑什么、怎么跑
-
-- `npm run dev` → 已实测：`/reading/CB_local_harness-engineering/read/` 正常渲染（钴蓝主题 + 文楷 + 章节插图），目录 10 章、进度条、A−/A+；模拟真实选区 → 悬浮菜单弹出 → 划线落 localStorage 并可视、分享生成金句卡并弹出弹层（截图为证）。落地页导言块 + 副题 + 开始阅读按钮、书架 10 张新封面均正常。
-- `npm run build` → **640 页 / 398 秒，exit 0**；`dist` 内两本书的 `read/index.html` + 落地页 + 8 张 SVG + 两个 epub(3MB) + 封面 PNG 均就位，epub-reader 岛已打包。
-- 加书：复制 `<slug>.epub` 进 `public/assets/books/epub/`、封面进 `epub-covers/`、在 `data/local-books.json` 追加一条（id 用 `CB_local_<slug>`）、跑 `node scripts/merge-local-books.mjs`。补传旧书 epub：丢文件 + 在 `book-extras.json` 对应 `byTitle` 加 `"epub"`，落地页自动出「开始阅读」。
-
-### 未尽事项与已知问题（缺陷优先）
-
-1. **EdgeOne 需确认 `.epub` 的 MIME/缓存**：dev 下 `/assets/books/epub/*.epub` 返回 `application/epub+zip` 正常；EdgeOne 线上需验证按 `application/epub+zip` inline 返回（并建议 `Cache-Control: immutable`）。这是部署面板配置，非代码，**上线前你需在 EdgeOne 确认一次**。
-2. **3MB epub 客户端整包加载**：首屏前需下载+解压整本，慢网下加载条会停留几秒（已有玻璃骨架兜底）。
-3. **划线只在本机**：localStorage 存储，不跨设备同步；若日后重生某本 epub，旧 CFI 可能错位（已做内容兜底，失配标 legacy 而非乱定位——此兜底逻辑写了但未触发验证）。
-4. **8 本旧封面 + 4 本 low 置信导言是 AI 产出**：题材与视觉的最终把关是你的。封面 contact-sheet 已发你预览；不满意的某张可单独重绘。4 本 low 置信导言（记忆四种耦合 / 一个词的解剖 / 分数之外 / 自主的尺度 / 信号的阶梯）只在主题层概述，补传 epub 后可精修升级。
-5. **短金句分享卡留白偏多**：卡片为长引文设计，选很短的句子时下半部偏空。
-6. CFI 深链回链（`#cfi=`）与位置恢复走同一 `display(cfi)` 路径（位置恢复已实测生效），深链单独未逐一验证。
-
-### 文件级变更清单（可跳读）
-
-- 新增：`src/pages/reading/[book]/read.astro`（阅读器路由）、`src/scripts/epub-reader.js`（阅读器岛：渲染/选区悬浮菜单/划线/localStorage/主题注入/canvas 金句卡/CFI 深链/VT 收尾）、`scripts/merge-local-books.mjs`（本地书 + 导言/副题/封面合入）、`data/local-books.json`、`data/book-extras.json`、`public/assets/books/epub/{harness-engineering,codex-anatomy}.epub`、`public/assets/books/epub-covers/{harness-engineering,codex-anatomy}.png`
-- 重绘：`public/assets/books/ai/*.svg` ×8（定制信息图封面，删除旧 `memory-coupling.png`）
-- 修改：`scripts/sync.mjs`（插入 4.5 步合并）、`scripts/config.mjs`（`wereadAiCovers` 改 svg + 注释）、`src/pages/reading/[book].astro`（副题 + 导言块 + 开始阅读按钮）、`src/lib/reading-ui.mjs`（`TOPIC_GRADS.harness`）、`src/styles/glass.css`（`.epub-*` 阅读器样式 + `.bk-intro*/.bk-subtitle/.bk-read-btn`）、`package.json`（+epubjs）
-- 数据：`data/reading.json`（新增 harness 话题组 2 本 + 10 本导言/副题 + memory-coupling 封面改 svg）
