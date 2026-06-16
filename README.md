@@ -28,7 +28,7 @@
 ## 数据管线：本地优先 + 仓库即存档
 
 本地数据源（Claude Code 日志、Obsidian 库、本地 git 仓）只存在于这台 Mac，因此采集在本地跑，
-产物 JSON 提交进 Git —— push 触发 EdgeOne 自动重建，仓库本身成为只增不减的数据存档。
+产物 JSON 提交进 Git —— push 到 `main` 触发 EdgeOne + Vercel 双平台自动重建，仓库本身成为只增不减的数据存档。
 
 ```bash
 npm run sync            # 一键：采集全部 → commit → push（--no-push 跳过提交）
@@ -118,21 +118,31 @@ npm run dev       # localhost:4321
 npm run build     # 产出 dist/（145 静态页）
 ```
 
-## 部署到 EdgeOne Pages
+## 部署（EdgeOne Pages + Vercel 双平台）
 
-1. 仓库推到 GitHub
-2. EdgeOne Pages 控制台 → 创建项目 → 连接该 GitHub 仓库
-3. 构建配置：
-   - 框架预设：**Astro**（或自定义）
-   - 安装命令：`npm install`
-   - 构建命令：`npm run build`
-   - 输出目录：`dist`
-   - Node 版本：≥ 20
-4. （可选）GitHub 仓库 Settings → Secrets 添加 `CONTRIB_TOKEN`（PAT，read:user 权限）让每日
-   Actions 抓 GitHub 贡献数据
-5. 备案完成后在 EdgeOne 绑定自定义域名；同时把 `astro.config.mjs` 的 `site` 填上正式域名并重新部署
+站点是 **Astro 静态输出**（无 adapter，产物即 `dist/` 纯静态）。**EdgeOne 与 Vercel 同时连接这同一个
+GitHub 仓库（`Longwind1984/ricksi.com`），生产分支均为 `main`**——一次 `git push` 到 `main`，两个平台
+各自收到 GitHub 事件、并行重建部署。非 `main` 分支：Vercel 出 preview，EdgeOne 视项目设置而定。
 
-之后每次 `npm run sync` 或 git push 都会自动触发重建——数据保持新鲜。
+**共同构建配置**（两边一致）：安装 `npm install` · 构建 `npm run build` · 输出目录 `dist` · Node ≥ 20。
+
+**EdgeOne Pages**
+1. 控制台 → 创建项目 → 连接 GitHub 仓库 → 框架预设 **Astro**（构建配置同上）。
+2. 备案完成后绑定自定义域名（站点部署目标是**已备案域名**，含涉政硬过滤闸）；把 `astro.config.mjs`
+   的 `site` 填正式域名重部署。
+3. ⚠ **`.epub` MIME**：自制 ePub 阅读器从 `/assets/books/epub/*.epub` 运行时 fetch，需确认 EdgeOne 按
+   `application/epub+zip` inline 返回（建议 `Cache-Control: public, max-age=31536000, immutable`）。
+   epub.js 按字节读不强依赖 Content-Type，但若 EdgeOne 对未知扩展名返回 404 或 attachment 下载则会读不出书。
+
+**Vercel**
+1. Import 同一 GitHub 仓库 → 零配置自动识别 Astro（静态，无需 adapter；构建/输出同上）。
+2. 生产分支 `main`；PR/非 main 分支自动出 Preview 部署。
+3. `.epub` 等静态资源由 Vercel 按扩展名自动设 `application/epub+zip`，一般无需额外配置；如需自定义缓存头
+   可加 `vercel.json` 的 `headers`（当前未用，保持零配置）。
+
+**可选**：GitHub 仓库 Settings → Secrets 加 `CONTRIB_TOKEN`（PAT，read:user）让每日 Actions 抓贡献数据。
+
+之后每次 `npm run sync`（采集→commit→push）或手动 push 到 `main`，两个平台都会自动重建——数据保持新鲜。
 
 ## 站点能力速查
 
