@@ -1,12 +1,12 @@
 {
- "generated_at": "2026-06-16T09:28:16.470Z",
- "today": 521530624,
- "today_out": 2262238,
+ "generated_at": "2026-06-16T13:30:05.925Z",
+ "today": 650059501,
+ "today_out": 2689212,
  "today_cache_share": 96,
- "week": "2.1B",
- "cumulative": "3.8B",
- "cumulative_code": "3.7B",
- "cumulative_web": "101M",
+ "week": "2.2B",
+ "cumulative": "3.9B",
+ "cumulative_code": "3.8B",
+ "cumulative_web": "102M",
  "models": [
   [
    "Opus",
@@ -14,7 +14,7 @@
   ],
   [
    "Fable",
-   21
+   20
   ],
   [
    "Haiku",
@@ -52,7 +52,7 @@
   },
   {
    "d": "今天",
-   "v": 521.53
+   "v": 650.06
   }
  ],
  "series": {
@@ -523,21 +523,14 @@
    }
   },
   "2026-06-16": {
-   "total": 521530624,
+   "total": 650059501,
    "models": {
-    "haiku-4-5-20251001": {
-     "in": 1909,
-     "out": 87584,
-     "cw": 1205840,
-     "cr": 16515921,
-     "total": 17811254
-    },
     "opus-4-8": {
-     "in": 772533,
-     "out": 2174654,
-     "cw": 16675301,
-     "cr": 484096882,
-     "total": 503719370
+     "in": 1169623,
+     "out": 2581141,
+     "cw": 23344403,
+     "cr": 600419706,
+     "total": 627514873
     },
     "<synthetic>": {
      "in": 0,
@@ -545,6 +538,13 @@
      "cw": 0,
      "cr": 0,
      "total": 0
+    },
+    "haiku-4-5-20251001": {
+     "in": 20779,
+     "out": 108071,
+     "cw": 1607655,
+     "cr": 20808123,
+     "total": 22544628
     }
    }
   },
@@ -604,7 +604,7 @@
   "estimated_days": 12,
   "estimated_share": "10%",
   "web_estimate": {
-   "total": "101M",
+   "total": "102M",
    "since": "2025-07-01",
    "basis": "无日志依据的参数化粗估（日均对话数 × 单对话均量 + 长文共创），参数见 docs/token-estimation.md",
    "breakdown": [
@@ -617,8 +617,8 @@
     {
      "from": "2026-01-01",
      "to": "2026-06-16",
-     "days": 167,
-     "tokens": 78967143
+     "days": 168,
+     "tokens": 79440000
     }
    ]
   },

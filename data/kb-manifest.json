@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-06-16T09:28:16.988Z",
+ "generated_at": "2026-06-16T13:30:06.512Z",
  "excludeClusters": [
   "0404 AI PM 求职与职业发展",
   "0409 待解问题"
@@ -686,6 +686,11 @@
    "path": "0410 AI 公司与产品/Sora.md",
    "publish": true,
    "links": 10
+  },
+  {
+   "path": "04AI 结构优化诊断报告.md",
+   "publish": true,
+   "links": 1
   },
   {
    "path": "04T 专题库/F1 评测与度量/0412 评测系统化专题/_评测系统化专题·总览.md",

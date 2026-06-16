@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-06-16T09:35:13.121Z",
+ "generated_at": "2026-06-16T13:31:21.371Z",
  "rollingDays": 90,
  "domains": {
   "lab": "前沿实验室",
@@ -13,155 +13,178 @@
    "name": "Andrej Karpathy",
    "domain": "engineering",
    "title": "Eureka Labs 创始人，前 Tesla AI / OpenAI",
-   "bio": "把复杂 AI 知识压缩成人类可学习接口的教学型思想者，Software 3.0 与 agentic engineering 的提出者。"
+   "bio": "把复杂 AI 知识压缩成人类可学习接口的教学型思想者，Software 3.0 与 agentic engineering 的提出者。",
+   "constellation": "polaris"
   },
   {
    "slug": "dario-amodei",
    "name": "Dario Amodei",
    "domain": "lab",
    "title": "Anthropic CEO",
-   "bio": "把模型能力、安全叙事和政策表态放在同一张桌子上的公司型思想者。"
+   "bio": "把模型能力、安全叙事和政策表态放在同一张桌子上的公司型思想者。",
+   "constellation": "polaris"
   },
   {
    "slug": "ilya-sutskever",
    "name": "Ilya Sutskever",
    "domain": "lab",
    "title": "SSI 创始人，前 OpenAI 首席科学家",
-   "bio": "低频但高信号：能力跃迁与对齐叙事之间最关键的内部见证者之一。"
+   "bio": "低频但高信号：能力跃迁与对齐叙事之间最关键的内部见证者之一。",
+   "constellation": "polaris"
   },
   {
    "slug": "demis-hassabis",
    "name": "Demis Hassabis",
    "domain": "lab",
    "title": "Google DeepMind CEO",
-   "bio": "科学发现型 AI 路线的代表，强调世界模型与科研加速。"
+   "bio": "科学发现型 AI 路线的代表，强调世界模型与科研加速。",
+   "constellation": "polaris"
   },
   {
    "slug": "yann-lecun",
    "name": "Yann LeCun",
    "domain": "research",
    "title": "AMI Labs 创始人，前 Meta 首席 AI 科学家",
-   "bio": "在 LLM 主潮之外持续押注世界模型路线的反向坐标。"
+   "bio": "在 LLM 主潮之外持续押注世界模型路线的反向坐标。",
+   "constellation": "polaris"
   },
   {
    "slug": "francois-chollet",
    "name": "François Chollet",
    "domain": "research",
    "title": "Keras 作者，ARC-AGI 设计者",
-   "bio": "通过重新定义「什么才算智能」来校准 AGI 讨论的概念边界。"
+   "bio": "通过重新定义「什么才算智能」来校准 AGI 讨论的概念边界。",
+   "constellation": "constellation"
   },
   {
    "slug": "lilian-weng",
    "name": "Lilian Weng",
    "domain": "writing",
    "title": "Thinking Machines 联创，前 OpenAI 安全研究负责人",
-   "bio": "长文综述的标杆：把一个研究方向的全部脉络压进一篇可执行的 Lil'Log。"
+   "bio": "长文综述的标杆：把一个研究方向的全部脉络压进一篇可执行的 Lil'Log。",
+   "constellation": "star"
   },
   {
    "slug": "simon-willison",
    "name": "Simon Willison",
    "domain": "engineering",
    "title": "Datasette 作者，独立开发者",
-   "bio": "AI 工程实践的高频观察哨：新模型、新工具的第一手试用记录。"
+   "bio": "AI 工程实践的高频观察哨：新模型、新工具的第一手试用记录。",
+   "constellation": "star"
   },
   {
    "slug": "sam-altman",
    "name": "Sam Altman",
    "domain": "lab",
    "title": "OpenAI CEO",
-   "bio": "产品节奏与 AGI 叙事的风向标。"
+   "bio": "产品节奏与 AGI 叙事的风向标。",
+   "constellation": "constellation"
   },
   {
    "slug": "nathan-lambert",
    "name": "Nathan Lambert",
    "domain": "writing",
    "title": "AI2 研究员，Interconnects 作者",
-   "bio": "开源模型与后训练（RLHF）生态最稳定的中文圈外解读源。"
+   "bio": "开源模型与后训练（RLHF）生态最稳定的中文圈外解读源。",
+   "constellation": "star"
   },
   {
    "slug": "fei-fei-li",
    "name": "Fei-Fei Li 李飞飞",
    "domain": "research",
    "title": "World Labs 创始人/CEO，斯坦福教授",
-   "bio": "空间智能旗手，ImageNet 之后再押一个新范式：3D 世界模型。"
+   "bio": "空间智能旗手，ImageNet 之后再押一个新范式：3D 世界模型。",
+   "constellation": "constellation"
   },
   {
    "slug": "chris-olah",
    "name": "Chris Olah",
    "domain": "research",
    "title": "Anthropic 可解释性负责人/联合创始人",
-   "bio": "机制可解释性奠基人，看模型内部到底在算什么。"
+   "bio": "机制可解释性奠基人，看模型内部到底在算什么。",
+   "constellation": "constellation"
   },
   {
    "slug": "subbarao-kambhampati",
    "name": "Subbarao Kambhampati",
    "domain": "research",
    "title": "Arizona State University 教授",
-   "bio": "LLM 不会真正规划——对 agent/推理宣称最严谨的批评者。"
+   "bio": "LLM 不会真正规划——对 agent/推理宣称最严谨的批评者。",
+   "constellation": "constellation"
   },
   {
    "slug": "josh-tenenbaum",
    "name": "Josh Tenenbaum",
    "domain": "research",
    "title": "MIT 教授",
-   "bio": "计算认知科学旗手，用人怎么少样本学习对照 LLM。"
+   "bio": "计算认知科学旗手，用人怎么少样本学习对照 LLM。",
+   "constellation": "constellation"
   }
  ],
  "topics": [
   {
    "slug": "anthropic",
    "name": "Anthropic 官方",
-   "domain": "lab"
+   "domain": "lab",
+   "constellation": "polaris"
   },
   {
    "slug": "openai",
    "name": "OpenAI 官方",
-   "domain": "lab"
+   "domain": "lab",
+   "constellation": "polaris"
   },
   {
    "slug": "deepmind",
    "name": "DeepMind Blog",
-   "domain": "lab"
+   "domain": "lab",
+   "constellation": "polaris"
   },
   {
    "slug": "arc-prize",
    "name": "ARC Prize",
-   "domain": "research"
+   "domain": "research",
+   "constellation": "star"
   },
   {
    "slug": "arxiv-agents",
    "name": "arXiv · LLM Agent 论文",
-   "domain": "research"
+   "domain": "research",
+   "constellation": "planet"
   },
   {
    "slug": "deepseek",
    "name": "DeepSeek 深度求索",
-   "domain": "lab"
+   "domain": "lab",
+   "constellation": "polaris"
   },
   {
    "slug": "bytedance-seed",
    "name": "ByteDance Seed / 豆包",
-   "domain": "lab"
+   "domain": "lab",
+   "constellation": "constellation"
   },
   {
    "slug": "metr",
    "name": "METR",
-   "domain": "research"
+   "domain": "research",
+   "constellation": "constellation"
   },
   {
    "slug": "epoch-ai",
    "name": "Epoch AI",
-   "domain": "research"
+   "domain": "research",
+   "constellation": "constellation"
   }
  ],
  "stats": {
-  "totalEntries": 125,
-  "totalAllTime": 127,
+  "totalEntries": 126,
+  "totalAllTime": 128,
   "lastRun": {
-   "at": "2026-06-16T09:35:13.122Z",
-   "fetched": 14,
-   "processed": 9,
-   "added": 9,
+   "at": "2026-06-16T13:31:21.372Z",
+   "fetched": 16,
+   "processed": 2,
+   "added": 1,
    "llmFailed": 0,
    "rateLimited": false,
    "skippedSources": [
@@ -170,6 +193,38 @@
   }
  },
  "entries": [
+  {
+   "id": "4d74d944ff535281",
+   "date": "2026-06-16",
+   "person": "francois-chollet",
+   "topicSource": null,
+   "sourceName": "X @fchollet",
+   "sourceType": "x",
+   "contentType": "statement",
+   "titleZh": "François Chollet：符号学习是推动 AI 开源普及的关键效率路径",
+   "titleOriginal": "The way we will create a future where powerful AI is open-source and available to all is by making AI radically more efficient, both in terms of inference compute and (more importantly) in terms of training data requirements. This is what symbolic learning will achieve.",
+   "verdict": "Chollet 主张通过符号学习根本性提升训练数据与推理效率，使强大 AI 真正可开源、可普及。",
+   "summaryZh": "François Chollet（Keras 作者、ARC 基准创始人）发推文阐述其对开源 AI 未来路径的判断：要让强大 AI 真正做到开源且人人可用，关键不在于堆算力，而在于从根本上提升两类效率——推理计算效率，以及（他认为更重要的）训练数据效率。他明确点名\"符号学习\"（symbolic learning）将是实现这一目标的核心方法。\n\n此观点延续了 Chollet 长期以来对纯规模扩展路线的质疑：大模型依赖海量数据和算力，天然对资源有限的开源社区不友好；而若能找到数据高效的学习范式，开源模型便有机会在能力上真正追平闭源巨头。符号学习在他的框架中对应程序合成、抽象推理等方向，与他主导的 ARC-AGI 挑战赛的研究脉络一致。\n\n材料仅为单条简短推文，无实验数据、无具体方法或论文支撑，属方向性观点表达。",
+   "tags": [
+    "开源模型",
+    "符号学习",
+    "推理加速",
+    "训练数据效率",
+    "LLM Agent",
+    "基准测试"
+   ],
+   "url": "https://x.com/fchollet/status/2066867824404860943",
+   "excerpt": "The way we will create a future where powerful AI is open-source and available to all is by making AI radically more efficient, both in terms of inference compute and (more importantly) in terms of training data requirements. This is what symbolic learning will achieve.",
+   "apparent": 3,
+   "absolute": 2,
+   "importance": 2,
+   "gravity": false,
+   "periodic": true,
+   "singularity": false,
+   "rationale": "Chollet 对\"符号 vs. 规模扩展\"的方向性主张属于他的持续声部，无新数据支撑；apparent=3 因他在 AI 圈具影响力，absolute=2 因仅为观点推文；periodic=true 因该辩题周期性回归。",
+   "insufficientContext": false,
+   "addedAt": "2026-06-16"
+  },
   {
    "id": "f97ec39585de0340",
    "date": "2026-06-16",
