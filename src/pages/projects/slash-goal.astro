@@ -1,0 +1,753 @@
+---
+// Slash Goal 落地页：谁来认定「干完了」——自驱动 agent 的完成判定。
+// 一个项目两处实现合成一条叙事：Codex 逆向 → Trae 受限平台复刻（提示词层）→ Claude Code 独立审计（程序层）。
+// 数据口径出自两份 writer-handoff（公开作品集口径）；诚实 caveat 与正文同框，不得删。
+// Rick 第一人称；问题/取舍/验证作主句，实现作证据。
+import Glass from '../../layouts/Glass.astro';
+
+/* Codex 五层机制（逆向开源实现得来） */
+const codexLayers = [
+  { k: 'SQLite 目标库', d: '六态机（active / paused / blocked / usage-limited / budget-limited / complete），跨 turn、跨上下文压缩、跨 resume 都不丢。' },
+  { k: 'idle-check 续跑', d: 'turn 结束时运行时检查「目标仍 active + 无排队人输入 + 非 plan 模式」，满足就注入续跑合约、开新 turn。人输入优先于自动续跑。' },
+  { k: '续跑合约', d: '逐需求证据化完成（默认 UNPROVEN，弱证据即未完成）；禁缩目标、点名 reward-hacking；「真实工作树才是权威，会话不是」。' },
+  { k: '收窄的出口', d: '模型只有 update_goal 一个工具、仅 {complete, blocked} 两值；blocked 须同因连续 3 turn。pause 与预算属于人和系统，不属于模型。' },
+];
+
+/* Trae 扩展面盘点 */
+const traeSurface = [
+  { k: 'Commands 斜杠命令', s: 'yes', d: '确定性触发——输 / 即出现、点选即注入。选它。' },
+  { k: 'MCP', s: 'yes', d: 'SOLO 与独立端均可用。' },
+  { k: 'Skills', s: 'half', d: '靠语义匹配触发，概率性。' },
+  { k: 'Rules', s: 'half', d: '独立客户端只支持全局规则。' },
+  { k: '$ARGUMENTS', s: 'no', d: '无参数占位符，只能自然语言取参。' },
+  { k: 'Hooks', s: 'no', d: '没有——程序强制循环的天花板就在这。' },
+];
+
+/* Trae 三级跳 */
+const traeLadder = [
+  { id: 'v1', t: '纯提示词协议', tag: 'prompt',
+    d: '一个 markdown 命令 + 6 条执行协议，内嵌我的协作纪律（Trae 读不到 ~/.claude/CLAUDE.md，只能内嵌）。' },
+  { id: 'v2', t: 'GOAL.md 外部状态文件', tag: 'prompt',
+    d: 'status 状态机 + rounds 预算 + 逐轮 log，人类可读可审计，但靠模型维护；配一条需手动粘贴的全局「目标恢复」规则。' },
+  { id: 'L3', t: 'goal-tracker MCP', tag: 'ghost', note: '提案 · 未实现',
+    d: '把预算/状态机沉到真代码：goal_set / goal_tick / goal_complete 三工具；goal_tick 每轮回灌 objective = 程序级重注入，goal_complete 会拒绝非法完成。' },
+];
+
+/* Trae 对抗面试的软肋 */
+const traeFlaws = [
+  ['未上真机', '「确定性触发」是核心卖点词，却从没在真实客户端验过——连客户端扫不扫 commands 目录都没实测。给 AI 立了「禁止跳过验证」的纪律，自己第一个违反。'],
+  ['自我矛盾', 'v2 的目标恢复押在一条手动粘贴的全局 Rule 上——正是 v1 选型时被我按在鄙视链底层否决的机制（token 常驻）。'],
+  ['注入面', 'GOAL.md 被全局规则自动信任。clone 一个带恶意 active GOAL.md 的第三方仓库，agent 一进目录就可能自动信任并执行。无来源校验。'],
+  ['轮次≠金钱', '用户按 token 付费，rounds 与真实成本几乎不挂钩——是被实现便利反向定义的产品。'],
+];
+
+/* Claude Code 退出闸 */
+const exitValves = ['审计门：COMPLETE 才关单', 'blocked×3（sha256 指纹）', '预算上限（turn / token）', 'breather（软 6 / 硬 25）', 'stall：8 轮无变化', 'abort（有序）', 'STOP（应急·jq 无关）', 'pause（用户）'];
+
+/* 自审：两个 Critical */
+const crits = [
+  { id: 'C1', t: 'jq 过滤串注入', before: 'auditor 判语直接拼进 jq 程序：INCOMPLETE" | .status = "complete 是合法 JSON，静默把 status 翻成 complete。', after: '全部状态写改用 jq --arg / --argjson 绑定 + enum 校验判语。' },
+  { id: 'C2', t: '伪只读 = 任意代码执行', before: '号称「只读」的 auditor 白名单里其实有 node / python3 / npx / pytest / find / git——每次声称完成就对活仓库执行任意代码。', after: '剥成真只读集（Read / Grep / Glob + 只读 git 子命令）；产物 600 owner-only。' },
+];
+
+/* 三方对照（Codex / DIY / CC 原生） */
+const cmp = [
+  { dim: '目标持久化', codex: 'SQLite 六态机', diy: 'spec.md(sha256)+state.json · 7 态 · 跨会话', cc: '会话级（新会话 = No goal set）' },
+  { dim: '续跑驱动', codex: '运行时 idle-check 注入合约', diy: 'Stop hook（exit 2 + stderr 合约）', cc: '同样是会话级 Stop hook' },
+  { dim: '完成判定', codex: '同上下文合约自审', diy: '冷上下文 claude -p · 只读真实文件树', cc: '独立轻量判定 · 证据源 = transcript', key: true },
+  { dim: '抗降格锚定', codex: '合约内置禁缩目标', diy: '合约 + 逐字 spec 每轮重注入 + 点名失败模式', cc: '外包给用户（自己往目标里写围栏）' },
+  { dim: '退出', codex: 'complete / blocked×3', diy: '审计门 / blocked×3 / 预算 / breather / stall / abort×2 / pause', cc: '条件自动清除 / /goal clear / 预算' },
+];
+
+/* 状态 */
+const statusChips = ['Codex 逆向已完成', 'Trae 三级跳 · 未上真机', 'Claude Code /mygoal 已落地 · 审计已修复', '对照评测 N=1'];
+
+const desc = '一个 AI 产品经理给自己做的自驱动 agent 完成判定工具：逆向 Codex 的 /goal，在 Trae 和 Claude Code 上各复刻一遍。核心是完成不能自我宣告——独立冷上下文 auditor 对照真实文件树才放行。还审了自己的审计器、跟官方原生 /goal 跑了对抗评测。';
+---
+
+<Glass
+  title="Slash Goal · 谁来认定「干完了」 · Rick Si"
+  description={desc}
+  active="projects"
+>
+  <main class="sg-main sg-root">
+    <!-- ============ Hero · 谁来验收「做完了」 ============ -->
+    <section class="sg-hero">
+      <div class="container sg-hero-inner">
+        <nav class="mono sg-crumb"><a href="/#projects">← 项目</a></nav>
+        <div class="mono kicker sg-kicker">自驱动 AGENT · 完成判定 · CODEX 逆向 → TRAE / CLAUDE CODE</div>
+        <h1 class="sg-h1">一个 agent 说「做完了」。<br />谁有资格盖这个章？</h1>
+        <p class="sg-sub">
+          自驱动 agent 难的不是把活干完，是<strong>何时停、谁来认定它真干完了</strong>。
+          要是它从自己刚污染过的会话里给自己打绿灯，就会出两种事故：漏掉不显眼的需求就宣告完成（<em>假完成</em>），
+          或把半截 stub 当成已验收（<em>降格锚定</em>）。同一个任务，换不同的裁判，结论会完全相反——下面点一个试试。
+        </p>
+
+        <div class="sg-judge" id="sg-judge" data-verdict="idle">
+          <div class="sg-task">
+            <span class="mono sg-task-tag">TASK</span>
+            <span class="sg-task-goal">把导出从内存版 MemoryStore 迁到文件版 FileStore。<b>Done = 模块导出用 FileStore。</b></span>
+          </div>
+
+          <div class="sg-stage">
+            <div class="sg-code" id="sg-code">
+              <span class="sg-scanline" id="sg-scanline" aria-hidden="true"></span>
+              <div class="sg-file" id="sg-file-db" role="img" aria-label="src/db.js 第 24 行的 module.exports 仍使用 MemoryStore">
+                <div class="mono sg-file-name">src/db.js<span class="sg-file-sub">真实文件树</span></div>
+                <ol class="mono sg-lines">
+                  <li><span class="sg-ln">22</span><span class="sg-ok">class FileStore {'{'} … {'}'}  ✓ 已实现</span></li>
+                  <li><span class="sg-ln">23</span></li>
+                  <li id="sg-line-24"><span class="sg-ln">24</span>module.exports = {'{'} store: new <b>MemoryStore</b>() {'}'}</li>
+                  <li><span class="sg-ln">25</span></li>
+                </ol>
+              </div>
+              <div class="sg-narrative" id="sg-narrative">
+                <div class="mono sg-file-name">NOTES.md · PR #123<span class="sg-file-sub sg-bait">诱人的叙事</span></div>
+                <ol class="mono sg-lines">
+                  <li>- [x] FileStore 实现完成</li>
+                  <li>- [x] 导出已切换到 FileStore ✅</li>
+                  <li>PR #123 · "migration done" · merged</li>
+                </ol>
+              </div>
+            </div>
+
+            <div class="sg-verdict" id="sg-verdict" role="status" aria-live="polite">
+              <div class="sg-verdict-hint mono">选一个裁判，看它怎么判 →</div>
+            </div>
+          </div>
+
+          <div class="sg-judges">
+            <button class="sg-jbtn" id="sg-btn-agent" type="button">
+              <span class="sg-jbtn-k">让做事的 agent 自己判</span>
+              <span class="mono sg-jbtn-d">带着被污染的对话上下文</span>
+            </button>
+            <button class="sg-jbtn" id="sg-btn-auditor" type="button">
+              <span class="sg-jbtn-k">交给独立 auditor</span>
+              <span class="mono sg-jbtn-d">干净上下文 · 只读真实文件树</span>
+            </button>
+            <button class="sg-ghostbtn mono" id="sg-reset" type="button" hidden>↺ 换一个裁判</button>
+          </div>
+        </div>
+
+        <a class="sg-ghost mono" href="#why">往下看怎么做的 ↓</a>
+      </div>
+    </section>
+
+    <div class="container">
+      <!-- ============ 命题 ============ -->
+      <section class="sec sg-reveal" id="why">
+        <div class="mono kicker">为什么做</div>
+        <p class="sg-lead">对长期自驱动的 agent，真问题不是「能不能干完」，是<em>谁来认定它干完了</em>。</p>
+        <p class="sg-body">
+          Codex 上线了 /goal：丢给它一段目标，它注册成会话目标、进自驱模式，一轮轮干到达标。我想在自己日常用的工具里也有这个能力——
+          但更想弄清那个难点：自驱循环跑起来容易，<strong>停在哪、由谁拍板「达标」</strong>才难。让模型从它刚生成、刚妥协过的对话里自评，等于让它拿一份可能被污染的记忆给自己打分。
+        </p>
+        <p class="sg-body">
+          于是整件事被一根坐标轴串起来：<strong>提示词层模拟</strong>（求模型自觉遵守一段文字，概率性、可绕过）↔ <strong>程序层保证</strong>（代码强制执行，确定性、不可伪造）。
+          每一轮迭代，都是把更多「模型自觉」换成「代码强制」，并诚实标定哪些缝隙在这个平台上消不掉。
+        </p>
+      </section>
+
+      <!-- ============ 01 逆向 Codex ============ -->
+      <section class="sec sg-reveal">
+        <div class="sec-head">
+          <span class="mono sec-no">01</span>
+          <div class="sec-title-row"><h2 class="sec-title">不靠记忆，逆向 Codex</h2><span class="mono sec-en">REVERSE-ENGINEERING</span></div>
+          <span class="sec-desc">先看清原版到底保证了什么</span>
+        </div>
+        <p class="sg-body">
+          我没凭印象比较。直接读了 Codex 的实现：本机那张 SQLite 目标表，加它开源的 Rust harness。看完才把它的设计意图拆清楚——
+          目标要独立于「会被污染的对话」活着，完成必须有证据，结构上不让模型自己宣告「做完了」或偷偷把目标改小。
+        </p>
+        <div class="sg-cards">
+          {codexLayers.map((c) => (
+            <div class="sg-card">
+              <div class="sg-card-k">{c.k}</div>
+              <div class="sg-card-d">{c.d}</div>
+            </div>
+          ))}
+        </div>
+        <blockquote class="sg-quote-block">
+          <p>真实工作树才是权威，会话叙事不是。</p>
+          <footer class="mono">— Codex 续跑合约里那句承重的话，成了整个项目的指南针</footer>
+        </blockquote>
+      </section>
+
+      <!-- ============ 02 光谱 ============ -->
+      <section class="sec sg-reveal">
+        <div class="sec-head">
+          <span class="mono sec-no">02</span>
+          <div class="sec-title-row"><h2 class="sec-title">提示词层 → 程序层</h2><span class="mono sec-en">THE SPECTRUM</span></div>
+          <span class="sec-desc">贯穿全程的那把尺</span>
+        </div>
+        <p class="sg-body">
+          下面这把尺，是后面所有迭代共用的。左端是「求模型自觉」，右端是「代码强制」。Trae 和 Claude Code 不是两个独立故事，
+          是同一把尺上的两个位置。点一个标记，看它把什么从提示词搬到了程序层——以及在受限平台上，哪一截搬不动。
+        </p>
+        <div class="sg-spectrum" id="sg-spectrum">
+          <div class="sg-spec-stage">
+            <svg class="sg-spec-svg" id="sg-spec-svg" viewBox="0 0 920 130" role="group" aria-label="提示词层到程序层光谱">
+              <defs>
+                <linearGradient id="sg-spec-grad" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0" stop-color="#46C7BE" stop-opacity="0.5" />
+                  <stop offset="1" stop-color="rgba(190,210,255,0.5)" />
+                </linearGradient>
+                <pattern id="sg-hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+                  <rect width="8" height="8" fill="rgba(232,117,94,0.10)" />
+                  <line x1="0" y1="0" x2="0" y2="8" stroke="rgba(232,117,94,0.5)" stroke-width="2" />
+                </pattern>
+              </defs>
+            </svg>
+            <aside class="sg-spec-panel" id="sg-spec-panel">
+              <div class="sg-panel-tag mono">点一个迭代，看它把什么从「提示词」搬到了「程序」</div>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ 03 Trae ============ -->
+      <section class="sec sg-reveal">
+        <div class="sec-head">
+          <span class="mono sec-no">03</span>
+          <div class="sec-title-row"><h2 class="sec-title">Trae：受限平台上的三级跳</h2><span class="mono sec-en">THE CONSTRAINED PLATFORM</span></div>
+          <span class="sec-desc">机制选型 + 约束反塑设计</span>
+        </div>
+        <p class="sg-body">
+          先在我天天用的字节 Trae SOLO 上复刻。动手前盘了它的扩展面——这一步决定了可行域。命令式能力的第一诉求是「可预期地被触发」，
+          只有 Commands 给确定性触发，所以选它；其余各有硬伤：
+        </p>
+        <div class="sg-matrix">
+          {traeSurface.map((m) => (
+            <div class={`sg-mx s-${m.s}`}>
+              <span class="sg-mx-mark">{m.s === 'yes' ? '✓' : m.s === 'half' ? '~' : '✕'}</span>
+              <span class="sg-mx-k">{m.k}</span>
+              <span class="sg-mx-d">{m.d}</span>
+            </div>
+          ))}
+        </div>
+        <p class="sg-body">然后是三级跳，每一级都往程序层挪一点：</p>
+        <div class="sg-ladder">
+          {traeLadder.map((s, i) => (
+            <div class={`sg-step tag-${s.tag}`}>
+              <div class="sg-step-head">
+                <span class="mono sg-step-id">{s.id}</span>
+                <span class="sg-step-t">{s.t}</span>
+                {s.note && <span class="mono sg-step-note">{s.note}</span>}
+              </div>
+              <p class="sg-step-d">{s.d}</p>
+              {i < traeLadder.length - 1 && <span class="sg-step-arrow" aria-hidden="true">↓</span>}
+            </div>
+          ))}
+        </div>
+        <blockquote class="sg-quote-block soft">
+          <p>Trae 上一切仍是「请模型自觉遵守一段文字」。我能做的，是用文件、规则、MCP 把「自觉」尽量换成「可校验」——但确定性回显和程序驱动循环，提示词层复刻不了。</p>
+          <footer class="mono">— 诚实的天花板</footer>
+        </blockquote>
+        <details class="sg-story">
+          <summary class="mono">收尾我请两个子代理扮 PM 和技术负责人压测了它，软肋如下 ↘</summary>
+          <div class="sg-flaws">
+            {traeFlaws.map(([k, v]) => (
+              <div class="sg-flaw">
+                <div class="sg-flaw-k">{k}</div>
+                <p class="sg-flaw-v">{v}</p>
+              </div>
+            ))}
+          </div>
+        </details>
+      </section>
+
+      <!-- ============ 04 Claude Code keystone ============ -->
+      <section class="sec sg-reveal sg-break">
+        <div class="sec-head">
+          <span class="mono sec-no">04</span>
+          <div class="sec-title-row"><h2 class="sec-title">把自评换成独立审计</h2><span class="mono sec-en">THE KEYSTONE</span></div>
+          <span class="sec-desc">Claude Code · 整个项目的基石</span>
+        </div>
+        <p class="sg-body">
+          换到 Claude Code，工具变硬了：Stop hook 能在模型想停下时每轮重注入逐字 spec 合约（exit 2 让它继续）；还能拉起 <code>claude -p</code> 子进程。
+          于是做出 Trae 做不到的那一下——<strong>完成不再自我宣告</strong>：声称完成时，拉起一个<strong>独立、冷上下文的 auditor</strong>
+          （没有会话记忆、只给真只读工具），从 spec 重推需求、对照真实文件树，产出 enum 校验的 JSON 判语（逐需求 MET / NOT_MET + 行级 gap）。只有 COMPLETE 才关单，否则把 gap 喂回合约。
+        </p>
+        <div class="sg-flow">
+          <div class="sg-flow-node">Stop hook 触发</div>
+          <span class="sg-flow-arr" aria-hidden="true">→</span>
+          <div class="sg-flow-node">重注入逐字 spec 合约<span class="sg-flow-sub">exit 2 续跑</span></div>
+          <span class="sg-flow-arr" aria-hidden="true">→</span>
+          <div class="sg-flow-node">agent 干活 → 声称 GOAL_COMPLETE</div>
+          <span class="sg-flow-arr" aria-hidden="true">→</span>
+          <div class="sg-flow-node hot">拉起冷上下文 auditor<span class="sg-flow-sub">claude -p · 只读 · 读真实文件树</span></div>
+          <span class="sg-flow-arr" aria-hidden="true">→</span>
+          <div class="sg-flow-verdicts">
+            <div class="sg-flow-v ok">COMPLETE → 关单</div>
+            <div class="sg-flow-v no">INCOMPLETE → 带 gap 重注入，回上一步</div>
+          </div>
+        </div>
+        <blockquote class="sg-quote-block">
+          <p>语义审计很贵，所以只在它声称完成时才跑，不是每轮——这是产品决定，不是省事。</p>
+          <footer class="mono">— 成本结构决定触发策略</footer>
+        </blockquote>
+        <p class="sg-body">状态落在 spec.md(sha256) + state.json（7 态，只由 hook/脚本写）。退出有八道闸，谁也别想靠「转圈不报告」赖着不停：</p>
+        <div class="sg-valves">
+          {exitValves.map((v) => <span class="tag mono">{v}</span>)}
+        </div>
+      </section>
+
+      <!-- ============ 05 审计我自己的审计器 ============ -->
+      <section class="sec sg-reveal sg-break">
+        <div class="sec-head">
+          <span class="mono sec-no">05</span>
+          <div class="sec-title-row"><h2 class="sec-title">审计我自己的审计器</h2><span class="mono sec-en">AUDITING THE AUDITOR</span></div>
+          <span class="sec-desc">信任锚点恰是最薄的一环</span>
+        </div>
+        <p class="sg-body">
+          一个主打「防假完成」的工具，我用三轮冷审计拷问它自己：一轮安全/可靠性风险审计、一轮 QA 行为审计、再加一次冷读复查。结论扎心——
+          最该可信的那一环（auditor 本身），是整条链上最容易被攻破的面。
+        </p>
+        <div class="sg-bars">
+          <div class="sg-bar"><span class="sg-num sg-bar-n" data-count="2">2</span><span class="sg-bar-u">Critical</span></div>
+          <div class="sg-bar"><span class="sg-num sg-bar-n" data-count="4">4</span><span class="sg-bar-u">High</span></div>
+          <div class="sg-bar"><span class="sg-num sg-bar-n" data-count="6">6</span><span class="sg-bar-u">Medium</span></div>
+          <div class="sg-bar"><span class="sg-num sg-bar-n" data-count="4">4</span><span class="sg-bar-u">Low</span></div>
+        </div>
+        <div class="sg-chain" aria-hidden="true">
+          <span class="sg-link">spec</span><span class="sg-link-j">—</span>
+          <span class="sg-link">hook</span><span class="sg-link-j">—</span>
+          <span class="sg-link weak">auditor</span><span class="sg-link-j">—</span>
+          <span class="sg-link">state.json</span>
+          <span class="sg-chain-cap mono">最该可信的一环最薄</span>
+        </div>
+        <div class="sg-diffs">
+          {crits.map((c) => (
+            <div class="sg-diff">
+              <div class="sg-diff-head"><span class="mono sg-diff-id">{c.id}</span><span class="sg-diff-t">{c.t}</span></div>
+              <p class="sg-diff-before">{c.before}</p>
+              <p class="sg-diff-after"><span class="mono sg-diff-tag">修</span>{c.after}</p>
+            </div>
+          ))}
+        </div>
+        <p class="sg-body">修完不算数，还得证明它真的工作。真机一跑：满足的 spec 审成 <strong>COMPLETE 14s</strong>，违反的审成 <strong>INCOMPLETE 19s</strong> 带行级 gap，都在每次 &lt;$1.50 的闸内。又从一个我自己撞上的真实失败（长跑不停也不进展）补了 stall 检测，并交了一套可移植、hermetic 的 46 断言 QA harness（auditor stub，零花费）。</p>
+        <div class="sg-valves">
+          <span class="tag mono">COMPLETE 14s</span><span class="tag mono">INCOMPLETE 19s</span><span class="tag mono">每审 &lt;$1.50</span><span class="tag mono">46 断言全过</span><span class="tag mono">stall 检测</span>
+        </div>
+      </section>
+
+      <!-- ============ 06 对照评测 ============ -->
+      <section class="sec sg-reveal">
+        <div class="sec-head">
+          <span class="mono sec-no">06</span>
+          <div class="sec-title-row"><h2 class="sec-title">厂商上线了，我转成对照评测</h2><span class="mono sec-en">THE VENDOR SHIPPED IT</span></div>
+          <span class="sec-desc">从填空白到机制研究</span>
+        </div>
+        <p class="sg-body">
+          项目做到中途，Claude Code 自己上线了原生 /goal、带它自己的完成 checker。我没弃坑，把项目从「填一个空白」重定位为「对照机制研究」；
+          顺手把 DIY 命令 /goal 改名 /mygoal 与原生共存（同名 skill 会遮蔽内置命令）。然后做了一组对抗评测：同一份 spec、两臂、两类陷阱族，9 case / 31 run。
+        </p>
+        <div class="sg-table-wrap">
+          <table class="sg-table mono">
+            <thead><tr><th>维度</th><th>Codex（逆向）</th><th>DIY /mygoal（实测）</th><th>CC 原生（实测）</th></tr></thead>
+            <tbody>
+              {cmp.map((r) => (
+                <tr class={r.key ? 'is-key' : ''}>
+                  <td class="sg-td-dim">{r.dim}</td>
+                  <td class={r.key ? 'tone-coral' : ''}>{r.codex}</td>
+                  <td class={r.key ? 'tone-teal' : ''}>{r.diy}</td>
+                  <td class={r.key ? 'tone-gray' : ''}>{r.cc}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <div class="sg-eval">
+          <div class="sg-score muted">
+            <div class="sg-score-n"><span class="sg-num" data-count="26">26</span><span class="sg-score-d">/26</span></div>
+            <div class="sg-score-k">端到端零假完成（两臂）</div>
+            <div class="sg-caveat">这一档任务里 worker 根本没犯错，所以 26/26 分不出两个验证器，只说明任务太简单——不是验证层被验证了。</div>
+          </div>
+          <div class="sg-score head">
+            <div class="sg-score-n gold"><span class="sg-num" data-count="5">5</span><span class="sg-score-d">/5</span></div>
+            <div class="sg-score-k">验证层探针 · 真正的证据</div>
+            <div class="sg-caveat">直接喂构造好的假完成树给 DIY auditor——5/5 全抓出、定位到行。含一个带「migration done in PR #123」假叙事的仓库：auditor 承认类已写好，却把 gap 锁定到没改的那行导出。</div>
+          </div>
+        </div>
+
+        <blockquote class="sg-quote-block">
+          <p>原生 checker 进程上是独立的，但它的证据源是 transcript——13 个判语里 9 个以「The transcript shows…」开头。所以「真实工作树才是权威」这条，实际只有我的 auditor 完整做到了：上下文与证据源都隔离。</p>
+          <footer class="mono">— 一手发现，且它修正了我自己的框架 · 注：对闭源系统的行为推断，非源码事实 · N=1，无统计显著性</footer>
+        </blockquote>
+      </section>
+
+      <!-- ============ 07 框架 ============ -->
+      <section class="sec sg-reveal">
+        <div class="sec-head">
+          <span class="mono sec-no">07</span>
+          <div class="sec-title-row"><h2 class="sec-title">验证范式地图</h2><span class="mono sec-en">THE MAP MOVED</span></div>
+          <span class="sec-desc">测量改变了地图</span>
+        </div>
+        <p class="sg-body">
+          把上面三种判定法摊到一张图上。两条轴：横轴是判定方式（语义理解 ↔ 程序化检查），纵轴是审计者与工作的关系（共享上下文 ↔ 审计者隔离）。
+          点任一个看它为什么落在那；再按「实测后的修正」——你会看到原生 checker 沿隔离轴往下掉。<strong>测的是它，地图才变</strong>：评测把纵轴拆成了「进程隔离」和「证据源隔离」两个子维，而它只占了前者。
+        </p>
+        <div class="sg-quad" id="sg-quad" data-evald="false">
+          <div class="sg-quad-stage">
+            <svg class="sg-quad-svg" id="sg-quad-svg" viewBox="0 0 560 480" role="group" aria-label="验证范式四象限">
+              <defs>
+                <marker id="sg-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                  <path class="sg-arrowhead" d="M0 0 L10 5 L0 10 z" />
+                </marker>
+              </defs>
+            </svg>
+            <aside class="sg-quad-panel" id="sg-quad-panel">
+              <div class="sg-panel-tag mono">点一个系统，看它为什么落在这</div>
+            </aside>
+          </div>
+          <div class="sg-quad-foot">
+            <button class="sg-toggle mono" id="sg-eval-toggle" type="button" aria-pressed="false">实测后的修正</button>
+            <span class="mono sg-quad-cap">① 设计直觉位置 · ② eval 后的真实位置</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ 08 状态 + 收束 ============ -->
+      <section class="sec sg-reveal sg-end">
+        <div class="sec-head">
+          <span class="mono sec-no">08</span>
+          <div class="sec-title-row"><h2 class="sec-title">现在的状态</h2><span class="mono sec-en">STATUS</span></div>
+          <span class="sec-desc">该留的 caveat 都留着</span>
+        </div>
+        <div class="sg-status-chips">
+          {statusChips.map((s) => <span class="tag mono">{s}</span>)}
+        </div>
+        <p class="sg-body sg-stack">
+          一个讲「防假完成」的页面，自己更不能假完成——所以上面每条 caveat 都是故意留的：26/26 不等于验证器更强、Trae 那套从没上真机、对原生 checker 的判断是行为推断而非源码事实、全部 N=1。
+          这个项目最值钱的不是几百行 bash，是一套方法：完成判定必须独立于干活的上下文，而且你得敢把自己的信任锚点也拖去审一遍。
+        </p>
+        <div class="sg-cta-row">
+          <a class="sg-ghost back" href="/#projects">← 回到全部项目</a>
+        </div>
+        <p class="sg-end-note">
+          时间线我说得保守：逆向研究与原生 /goal 上线前后有重叠，以仓库提交日期为准（2026-05 下旬起）。Trae 侧命令落在本机、无公开仓库；Claude Code 侧在分支/未合 PR——本页即交付物，不外链私有仓库。
+        </p>
+      </section>
+    </div>
+  </main>
+</Glass>
+
+<style is:global>
+  /* ===== 页面局部语义三色（灰=程序层 / 青=提示词层 / 珊瑚=假·无法复刻） ===== */
+  .sg-root {
+    --sg-teal: #46C7BE; --sg-teal-ink: #82e0d8; --sg-teal-soft: rgba(70,199,190,0.14);
+    --sg-coral: #E8755E; --sg-coral-ink: #f0917f; --sg-coral-soft: rgba(232,117,94,0.13);
+    --sg-gray: rgba(190,210,255,0.55); --sg-gray-ink: rgba(220,230,255,0.9); --sg-gray-soft: rgba(190,210,255,0.06);
+    --sg-green: #4FC785;
+    position: relative; z-index: 1; overflow-x: clip;
+  }
+
+  /* ===== Hero ===== */
+  .sg-hero {
+    position: relative; min-height: 100vh; display: flex; align-items: center; overflow: hidden;
+    background:
+      radial-gradient(120% 90% at 80% 14%, rgba(40,70,150,0.34) 0%, rgba(10,18,40,0) 56%),
+      radial-gradient(90% 70% at 10% 92%, rgba(8,14,34,0.85) 0%, rgba(8,14,34,0) 60%),
+      #070D20;
+  }
+  .sg-hero::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 200px; z-index: 1;
+    background: linear-gradient(180deg, rgba(10,20,38,0) 0%, rgba(10,20,38,0.5) 60%, #0A1426 100%); pointer-events: none;
+  }
+  .sg-hero-inner { position: relative; z-index: 2; padding: 116px 0 92px; max-width: 880px; }
+  .sg-crumb { margin-bottom: 22px; font-size: 12px; color: rgba(220,230,255,0.6); letter-spacing: 0.08em; }
+  .sg-crumb a:hover { color: #fff; }
+  .sg-kicker { margin-bottom: 18px; }
+  .sg-h1 { margin: 0; font-family: var(--head); font-weight: 700; font-size: 52px; line-height: 1.2; letter-spacing: -0.02em; color: #fff; text-wrap: pretty; }
+  .sg-sub { margin: 22px 0 0; font-size: 16.5px; line-height: 1.85; color: rgba(232,240,255,0.82); max-width: 660px; }
+  .sg-sub strong { color: #fff; font-weight: 650; }
+  .sg-sub em { font-style: normal; color: var(--gold); }
+
+  /* ===== Hero 交互：谁来验收 ===== */
+  .sg-judge {
+    margin-top: 30px; border-radius: var(--r-sec, 28px);
+    background: linear-gradient(160deg, rgba(20,34,74,0.5), rgba(12,22,52,0.55));
+    backdrop-filter: blur(22px) saturate(170%); -webkit-backdrop-filter: blur(22px) saturate(170%);
+    border: 1px solid rgba(190,210,255,0.18);
+    box-shadow: inset 0 1px 0 rgba(200,220,255,0.22), 0 24px 60px rgba(2,8,28,0.5);
+    padding: 20px 22px 18px; position: relative; overflow: hidden;
+  }
+  .sg-task { display: flex; align-items: baseline; gap: 10px; margin-bottom: 14px; flex-wrap: wrap; }
+  .sg-task-tag { font-size: 10px; letter-spacing: 0.14em; color: var(--accent-text, var(--accent)); border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent); border-radius: 5px; padding: 2px 6px; }
+  .sg-task-goal { font-size: 13.5px; color: rgba(232,240,255,0.82); line-height: 1.6; }
+  .sg-task-goal b { color: #fff; }
+  .sg-stage { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 14px; }
+
+  .sg-code { position: relative; border-radius: var(--r-card, 16px); background: rgba(4,8,20,0.5); border: 1px solid rgba(190,210,255,0.12); padding: 12px 14px; overflow: hidden; display: flex; flex-direction: column; gap: 12px; }
+  .sg-scanline { position: absolute; left: 0; right: 0; top: 0; height: 40px; pointer-events: none; opacity: 0; background: linear-gradient(180deg, transparent, color-mix(in srgb, var(--accent) 26%, transparent), transparent); mix-blend-mode: screen; }
+  .sg-scanline.run { animation: sg-sweep 1s var(--ease-liquid) 1; }
+  @keyframes sg-sweep { from { transform: translateY(-40px); opacity: 0.9; } to { transform: translateY(280px); opacity: 0; } }
+  .sg-file-name { font-size: 11px; color: rgba(210,226,255,0.55); margin-bottom: 7px; display: flex; align-items: center; gap: 8px; }
+  .sg-file-sub { font-size: 9.5px; color: rgba(190,210,255,0.4); border: 1px solid rgba(190,210,255,0.16); border-radius: 4px; padding: 1px 5px; }
+  .sg-bait { color: var(--sg-coral-ink); border-color: color-mix(in srgb, var(--sg-coral) 40%, transparent); }
+  .sg-lines { margin: 0; padding: 0; list-style: none; font-size: 11.5px; line-height: 1.85; color: rgba(228,236,255,0.82); }
+  .sg-lines li { display: block; white-space: nowrap; border-radius: 4px; padding: 0 4px; }
+  .sg-ln { display: inline-block; width: 22px; color: rgba(190,210,255,0.34); user-select: none; }
+  .sg-ok { color: var(--sg-teal-ink); }
+  .sg-lines li b { color: var(--sg-coral-ink); font-weight: 700; }
+  #sg-line-24 { transition: background-color .3s, box-shadow .3s; }
+  #sg-line-24.sg-line-hot { background: var(--sg-coral-soft); box-shadow: inset 3px 0 0 var(--sg-coral); }
+  .sg-narrative { border-radius: 10px; transition: background-color .3s, box-shadow .3s; padding: 2px 2px 4px; }
+  .sg-narrative.sg-read { background: rgba(232,117,94,0.06); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--sg-coral) 26%, transparent); }
+
+  .sg-verdict { border-radius: var(--r-card, 16px); background: rgba(8,16,32,0.42); border: 1px solid rgba(190,210,255,0.12); padding: 16px 18px; min-height: 150px; display: flex; flex-direction: column; justify-content: center; }
+  .sg-verdict-hint { font-size: 12px; color: rgba(200,216,255,0.5); text-align: center; }
+  .sg-vbadge { display: inline-block; align-self: flex-start; font-family: var(--font-mono); font-size: 13px; font-weight: 700; letter-spacing: 0.04em; padding: 5px 12px; border-radius: 999px; }
+  .sg-vbadge.agent { color: var(--sg-green); background: color-mix(in srgb, var(--sg-green) 14%, transparent); border: 1px solid color-mix(in srgb, var(--sg-green) 45%, transparent); transition: color .3s, background-color .3s, border-color .3s; }
+  .sg-vbadge.agent.is-false { color: var(--sg-coral); background: var(--sg-coral-soft); border-color: color-mix(in srgb, var(--sg-coral) 50%, transparent); text-decoration: line-through; }
+  .sg-vbadge.auditor { color: var(--sg-teal); background: var(--sg-teal-soft); border: 1px solid color-mix(in srgb, var(--sg-teal) 50%, transparent); }
+  .sg-vbody { margin: 12px 0 0; font-size: 13px; line-height: 1.75; color: rgba(228,236,255,0.82); }
+  .sg-vbody code { font-family: var(--font-mono); font-size: 11.5px; color: var(--sg-coral-ink); background: rgba(232,117,94,0.1); padding: 1px 4px; border-radius: 4px; }
+  .sg-vtag { margin: 10px 0 0; font-size: 12.5px; color: var(--sg-coral-ink); }
+  .sg-vtag strong { color: var(--sg-coral); }
+  .sg-gap { margin-top: 12px; border-left: 2px solid var(--sg-teal); padding-left: 12px; }
+  .sg-gap-from { margin: 0; font-family: var(--font-mono); font-size: 11px; color: rgba(225,236,255,0.5); text-decoration: line-through; text-decoration-color: rgba(232,117,94,0.5); }
+  .sg-gap-to { margin: 5px 0 0; font-family: var(--font-mono); font-size: 11px; color: var(--sg-teal-ink); }
+  .sg-gap-tag { font-size: 9px; color: var(--sg-teal); border: 1px solid color-mix(in srgb, var(--sg-teal) 40%, transparent); border-radius: 4px; padding: 0 4px; margin-right: 7px; }
+  .sg-gap-note { margin: 8px 0 0; font-size: 11.5px; line-height: 1.6; color: rgba(220,230,255,0.6); }
+
+  .sg-judges { display: flex; gap: 10px; margin-top: 14px; flex-wrap: wrap; align-items: center; }
+  .sg-jbtn { flex: 1; min-width: 200px; text-align: left; padding: 11px 16px; border-radius: 14px; cursor: pointer; background: rgba(190,210,255,0.06); border: 1px solid rgba(190,210,255,0.18); transition: background-color .25s, border-color .25s, transform .35s var(--ease-liquid); -webkit-tap-highlight-color: transparent; }
+  .sg-jbtn:hover { background: rgba(190,210,255,0.12); border-color: rgba(190,210,255,0.3); }
+  .sg-jbtn:active { transform: scale(0.98); }
+  .sg-jbtn:focus-visible { outline: 2px solid var(--accent-text, var(--accent)); outline-offset: 2px; }
+  .sg-jbtn.is-chosen { border-color: color-mix(in srgb, var(--accent) 60%, transparent); background: color-mix(in srgb, var(--accent) 16%, transparent); }
+  .sg-jbtn-k { display: block; font-family: var(--head); font-size: 14px; font-weight: 650; color: #fff; }
+  .sg-jbtn-d { display: block; margin-top: 3px; font-size: 10.5px; color: rgba(210,226,255,0.55); }
+  .sg-ghostbtn { font-size: 11.5px; color: rgba(220,230,255,0.6); background: none; border: none; cursor: pointer; padding: 8px; transition: color .2s; }
+  .sg-ghostbtn:hover { color: #fff; }
+
+  .sg-ghost { display: inline-block; margin-top: 30px; font-size: 13px; color: rgba(232,240,255,0.7); letter-spacing: 0.04em; transition: color .2s; }
+  .sg-ghost:hover { color: #fff; }
+
+  /* ===== 通用正文 ===== */
+  .sg-body { margin: 14px 0 0; font-size: 15.5px; line-height: 1.95; color: rgba(232,240,255,0.82); max-width: 780px; text-wrap: pretty; }
+  .sg-body strong { color: #fff; font-weight: 650; }
+  .sg-body code { font-family: var(--font-mono); font-size: 13px; color: var(--accent-text, var(--accent)); }
+  .sg-lead { margin: 16px 0 0; font-family: var(--head); font-size: 32px; line-height: 1.42; font-weight: 700; letter-spacing: -0.02em; color: #fff; text-wrap: pretty; max-width: 880px; }
+  .sg-lead em { font-style: normal; color: var(--gold); }
+  .sg-num { font-variant-numeric: tabular-nums; }
+
+  /* ===== Codex 机制卡 ===== */
+  .sg-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 22px; }
+  .sg-card { padding: 16px 18px; border-radius: var(--r-card); background: rgba(8,16,32,0.4); border: 1px solid rgba(190,210,255,0.13); border-top: 2px solid var(--sg-gray); }
+  .sg-card-k { font-family: var(--head); font-size: 15px; font-weight: 650; color: #fff; }
+  .sg-card-d { margin-top: 7px; font-size: 13px; line-height: 1.7; color: rgba(228,236,255,0.78); }
+
+  /* ===== 引文块 ===== */
+  .sg-quote-block { margin: 26px 0 0; padding: 20px 24px; border-radius: var(--r-card); background: rgba(8,16,32,0.46); border: 1px solid rgba(190,210,255,0.14); border-left: 3px solid var(--accent); }
+  .sg-quote-block.soft { border-left-color: var(--sg-coral); }
+  .sg-quote-block p { margin: 0; font-family: var(--head); font-size: 19px; line-height: 1.6; font-weight: 600; color: #fff; text-wrap: pretty; }
+  .sg-quote-block.soft p { font-size: 17px; font-weight: 550; color: rgba(240,245,255,0.92); }
+  .sg-quote-block footer { margin-top: 12px; font-size: 11.5px; color: var(--sub); }
+
+  /* ===== 光谱 ===== */
+  .sg-spec-stage { display: grid; grid-template-columns: 1.6fr 1fr; gap: 18px; align-items: center; margin-top: 22px; }
+  .sg-spec-svg { width: 100%; height: auto; overflow: visible; }
+  .sg-spec-bar { }
+  .sg-spec-ceil-lbl { fill: var(--sg-coral-ink); font-size: 12px; font-family: var(--font-mono); }
+  .sg-spec-end { fill: rgba(220,230,255,0.6); font-size: 12px; font-family: var(--font-mono); }
+  .sg-mark { cursor: pointer; }
+  .sg-mark-stem { stroke: rgba(190,210,255,0.3); stroke-width: 1.4; }
+  .sg-mark-dot { fill: #0B1730; stroke-width: 2.4; transition: r .25s var(--ease-liquid); }
+  .sg-mark.kind-prompt .sg-mark-dot { stroke: var(--sg-teal); }
+  .sg-mark.kind-program .sg-mark-dot { stroke: var(--sg-gray-ink); }
+  .sg-mark.kind-ghost .sg-mark-dot { stroke: var(--sg-teal); stroke-dasharray: 3 3; fill: rgba(11,23,48,0.5); }
+  .sg-mark-lbl { fill: rgba(228,236,255,0.78); font-size: 12.5px; font-family: var(--font-mono); }
+  .sg-mark:hover .sg-mark-dot, .sg-mark.is-active .sg-mark-dot { r: 9; }
+  .sg-mark.is-active .sg-mark-lbl { fill: #fff; }
+  .sg-mark:focus-visible { outline: none; }
+  .sg-mark:focus-visible .sg-mark-dot { stroke: var(--accent-text); r: 9; }
+  .sg-mark.is-active .sg-mark-dot { filter: drop-shadow(0 0 7px color-mix(in srgb, var(--accent) 70%, transparent)); }
+  #sg-spec-marks { transition: opacity .4s; }
+  #sg-spec-marks.to-place .sg-mark { opacity: 0; transform: translateX(-14px); }
+  #sg-spec-marks .sg-mark { transition: opacity .5s var(--ease-liquid), transform .5s var(--ease-liquid); }
+
+  .sg-spec-panel, .sg-quad-panel { border-radius: var(--r-card); background: rgba(8,16,32,0.5); border: 1px solid rgba(190,210,255,0.14); padding: 16px 18px; min-height: 150px; }
+  .sg-panel-tag { font-size: 11.5px; color: rgba(200,216,255,0.5); line-height: 1.6; }
+  .sg-panel-title { font-family: var(--head); font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 8px; }
+  .sg-panel-title.tone-prompt, .sg-panel-title.tone-ghost { color: var(--sg-teal-ink); }
+  .sg-panel-title.tone-program { color: var(--sg-gray-ink); }
+  .sg-spec-moved span, .sg-spec-cant span { font-size: 10.5px; letter-spacing: 0.06em; color: var(--sub); }
+  .sg-spec-moved ul, .sg-spec-cant ul { margin: 5px 0 0; padding-left: 18px; }
+  .sg-spec-moved li { font-size: 12.5px; line-height: 1.7; color: rgba(228,236,255,0.82); }
+  .sg-spec-cant { margin-top: 12px; }
+  .sg-spec-cant span { color: var(--sg-coral-ink); }
+  .sg-spec-cant li { font-size: 12.5px; line-height: 1.7; color: var(--sg-coral-ink); }
+
+  /* ===== Trae 约束矩阵 ===== */
+  .sg-matrix { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 22px; }
+  .sg-mx { display: grid; grid-template-columns: 22px auto 1fr; align-items: baseline; gap: 8px; padding: 10px 14px; border-radius: 12px; background: rgba(8,16,32,0.4); border: 1px solid rgba(190,210,255,0.12); }
+  .sg-mx-mark { font-family: var(--font-mono); font-weight: 700; }
+  .sg-mx.s-yes .sg-mx-mark { color: var(--sg-teal); }
+  .sg-mx.s-half .sg-mx-mark { color: var(--gold); }
+  .sg-mx.s-no .sg-mx-mark { color: var(--sg-coral); }
+  .sg-mx-k { font-family: var(--head); font-size: 13.5px; font-weight: 600; color: #fff; white-space: nowrap; }
+  .sg-mx-d { font-size: 12px; line-height: 1.6; color: rgba(220,230,255,0.66); }
+
+  /* ===== Trae 三级跳 ===== */
+  .sg-ladder { margin-top: 18px; display: flex; flex-direction: column; gap: 8px; }
+  .sg-step { position: relative; padding: 14px 18px; border-radius: var(--r-card); background: rgba(8,16,32,0.42); border: 1px solid rgba(190,210,255,0.13); border-left: 3px solid var(--sg-teal); }
+  .sg-step.tag-ghost { border-left-style: dashed; opacity: 0.92; }
+  .sg-step-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .sg-step-id { font-size: 12px; font-weight: 700; color: var(--sg-teal-ink); letter-spacing: 0.04em; }
+  .sg-step-t { font-family: var(--head); font-size: 16px; font-weight: 650; color: #fff; }
+  .sg-step-note { font-size: 10px; color: var(--gold); border: 1px solid color-mix(in srgb, var(--gold) 40%, transparent); border-radius: 4px; padding: 1px 6px; }
+  .sg-step-d { margin: 8px 0 0; font-size: 13.5px; line-height: 1.7; color: rgba(228,236,255,0.78); max-width: 760px; }
+  .sg-step-arrow { position: absolute; left: 50%; bottom: -13px; transform: translateX(-50%); color: var(--sg-teal); font-size: 14px; z-index: 1; }
+
+  /* ===== 战争故事 ===== */
+  .sg-story { margin-top: 22px; }
+  .sg-story summary { cursor: pointer; font-size: 11.5px; letter-spacing: 0.04em; color: var(--gold); list-style: none; display: inline-block; padding: 6px 0; transition: color .2s; }
+  .sg-story summary::-webkit-details-marker { display: none; }
+  .sg-story[open] summary { color: #fff; }
+  .sg-flaws { margin-top: 12px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .sg-flaw { padding: 13px 16px; border-radius: 12px; background: rgba(6,10,22,0.5); border-left: 2px solid color-mix(in srgb, var(--sg-coral) 50%, transparent); }
+  .sg-flaw-k { font-family: var(--head); font-size: 13.5px; font-weight: 650; color: var(--sg-coral-ink); }
+  .sg-flaw-v { margin: 6px 0 0; font-size: 12.5px; line-height: 1.7; color: rgba(220,230,255,0.74); }
+
+  /* ===== 架构流程 ===== */
+  .sg-flow { display: flex; align-items: stretch; gap: 8px; flex-wrap: wrap; margin-top: 24px; }
+  .sg-flow-node { flex: 1; min-width: 150px; padding: 13px 15px; border-radius: 12px; background: rgba(8,16,32,0.46); border: 1px solid rgba(190,210,255,0.16); font-size: 13px; font-weight: 600; color: #fff; display: flex; flex-direction: column; justify-content: center; }
+  .sg-flow-node.hot { border-color: color-mix(in srgb, var(--sg-teal) 55%, transparent); background: var(--sg-teal-soft); }
+  .sg-flow-sub { margin-top: 5px; font-family: var(--font-mono); font-size: 10px; font-weight: 400; color: rgba(210,226,255,0.6); }
+  .sg-flow-arr { align-self: center; color: var(--accent); font-size: 16px; }
+  .sg-flow-verdicts { flex: 1.2; min-width: 200px; display: flex; flex-direction: column; gap: 6px; justify-content: center; }
+  .sg-flow-v { padding: 9px 13px; border-radius: 10px; font-size: 12.5px; font-weight: 600; }
+  .sg-flow-v.ok { color: var(--sg-teal-ink); background: var(--sg-teal-soft); border: 1px solid color-mix(in srgb, var(--sg-teal) 40%, transparent); }
+  .sg-flow-v.no { color: var(--sg-coral-ink); background: var(--sg-coral-soft); border: 1px solid color-mix(in srgb, var(--sg-coral) 40%, transparent); }
+
+  /* ===== 退出闸 / 实证 chip ===== */
+  .sg-valves { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+
+  /* ===== 严重度条 ===== */
+  .sg-bars { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 22px; }
+  .sg-bar { padding: 16px 18px; border-radius: var(--r-card); background: rgba(8,16,32,0.42); border: 1px solid rgba(190,210,255,0.14); text-align: center; }
+  .sg-bar-n { font-family: var(--head); font-size: 34px; font-weight: 700; letter-spacing: -0.02em; color: #fff; }
+  .sg-bar:first-child .sg-bar-n { color: var(--sg-coral); }
+  .sg-bar-u { display: block; margin-top: 4px; font-family: var(--font-mono); font-size: 11px; color: var(--sub); letter-spacing: 0.04em; }
+
+  /* ===== 断链 ===== */
+  .sg-chain { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-top: 22px; }
+  .sg-link { font-family: var(--font-mono); font-size: 12px; padding: 7px 14px; border-radius: 999px; color: rgba(228,236,255,0.78); background: var(--sg-teal-soft); border: 1px solid color-mix(in srgb, var(--sg-teal) 40%, transparent); }
+  .sg-link.weak { color: var(--sg-coral-ink); background: var(--sg-coral-soft); border: 1px dashed color-mix(in srgb, var(--sg-coral) 60%, transparent); }
+  .sg-link-j { color: rgba(190,210,255,0.4); }
+  .sg-chain-cap { margin-left: 8px; font-size: 11px; color: var(--sg-coral-ink); }
+
+  /* ===== diff 卡 ===== */
+  .sg-diffs { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 18px; }
+  .sg-diff { padding: 18px 20px; border-radius: var(--r-card); background: rgba(8,16,32,0.4); border: 1px solid rgba(190,210,255,0.14); border-top: 2px solid var(--sg-coral); }
+  .sg-diff-head { display: flex; align-items: baseline; gap: 10px; }
+  .sg-diff-id { font-size: 12px; font-weight: 700; color: var(--sg-coral); }
+  .sg-diff-t { font-family: var(--head); font-size: 15px; font-weight: 650; color: #fff; }
+  .sg-diff-before { margin: 12px 0 0; font-size: 13px; line-height: 1.7; color: rgba(225,236,255,0.6); }
+  .sg-diff-after { margin: 10px 0 0; font-size: 13px; line-height: 1.7; color: rgba(238,244,255,0.92); }
+  .sg-diff-tag { display: inline-block; font-size: 9.5px; color: var(--sg-teal); border: 1px solid color-mix(in srgb, var(--sg-teal) 40%, transparent); border-radius: 4px; padding: 0 5px; margin-right: 8px; }
+
+  /* ===== 三方对照表 ===== */
+  .sg-table-wrap { margin-top: 22px; border-radius: var(--r-card); border: 1px solid rgba(190,210,255,0.14); overflow: hidden; overflow-x: auto; }
+  .sg-table { width: 100%; border-collapse: collapse; font-size: 12.5px; min-width: 640px; }
+  .sg-table th { text-align: left; padding: 12px 16px; font-weight: 600; color: rgba(255,255,255,0.7); background: rgba(190,210,255,0.06); border-bottom: 1px solid rgba(190,210,255,0.16); letter-spacing: 0.02em; }
+  .sg-table td { padding: 12px 16px; line-height: 1.6; color: rgba(228,236,255,0.78); border-bottom: 1px solid rgba(190,210,255,0.08); vertical-align: top; }
+  .sg-table tr:last-child td { border-bottom: none; }
+  .sg-table tbody tr { transition: background-color .2s; }
+  .sg-table tbody tr:hover { background: rgba(190,210,255,0.05); }
+  .sg-table tr.is-key td { background: rgba(190,210,255,0.04); }
+  .sg-td-dim { color: #fff !important; font-weight: 600; }
+  .sg-table td.tone-coral { box-shadow: inset 3px 0 0 var(--sg-coral); color: var(--sg-coral-ink); }
+  .sg-table td.tone-teal { box-shadow: inset 3px 0 0 var(--sg-teal); color: var(--sg-teal-ink); }
+  .sg-table td.tone-gray { box-shadow: inset 3px 0 0 var(--sg-gray); }
+
+  /* ===== 评测计分板 ===== */
+  .sg-eval { display: grid; grid-template-columns: 1fr 1.1fr; gap: 14px; margin-top: 22px; align-items: stretch; }
+  .sg-score { padding: 20px 22px; border-radius: var(--r-card); border: 1px solid rgba(190,210,255,0.14); background: rgba(8,16,32,0.42); }
+  .sg-score.head { border-color: color-mix(in srgb, var(--gold) 32%, transparent); background: color-mix(in srgb, var(--gold) 7%, rgba(8,16,32,0.42)); }
+  .sg-score.muted { opacity: 0.96; }
+  .sg-score-n { font-family: var(--head); font-weight: 700; letter-spacing: -0.02em; line-height: 1; color: rgba(235,242,255,0.85); }
+  .sg-score-n .sg-num { font-size: 46px; }
+  .sg-score-n.gold { color: var(--gold); }
+  .sg-score-d { font-size: 20px; color: var(--sub); margin-left: 2px; }
+  .sg-score-k { margin-top: 8px; font-size: 13.5px; font-weight: 650; color: #fff; }
+  .sg-score.head .sg-score-k { color: var(--gold); }
+  .sg-caveat { margin-top: 8px; font-size: 11.5px; line-height: 1.65; color: rgba(210,226,255,0.62); }
+
+  /* ===== 四象限 ===== */
+  .sg-quad-stage { display: grid; grid-template-columns: 1.25fr 1fr; gap: 18px; align-items: center; margin-top: 22px; }
+  .sg-quad-svg { width: 100%; height: auto; overflow: visible; }
+  .sg-axis-lbl { fill: rgba(210,226,255,0.6); font-size: 12px; font-family: var(--font-mono); }
+  .sg-quad-cap { fill: rgba(190,210,255,0.4); font-size: 10px; }
+  .sg-arrowhead { fill: var(--accent); }
+  .sg-pt { cursor: pointer; }
+  .sg-pt { transition: transform .9s var(--ease-liquid); }
+  .sg-pt-halo { fill: transparent; }
+  .sg-pt-dot { stroke: #0B1730; stroke-width: 1.5; transition: r .2s; }
+  .sg-pt.tone-coral .sg-pt-dot { fill: var(--sg-coral); }
+  .sg-pt.tone-teal .sg-pt-dot { fill: var(--sg-teal); }
+  .sg-pt.tone-gray .sg-pt-dot { fill: var(--sg-gray-ink); }
+  .sg-pt-lbl { fill: rgba(228,236,255,0.82); font-size: 12px; font-family: var(--font-mono); transition: fill .2s; }
+  .sg-quad.has-active .sg-pt:not(.is-active) .sg-pt-dot { opacity: 0.45; }
+  .sg-quad.has-active .sg-pt:not(.is-active) .sg-pt-lbl { opacity: 0.4; }
+  .sg-pt.is-active .sg-pt-halo { fill: color-mix(in srgb, var(--accent) 16%, transparent); }
+  .sg-pt.is-active .sg-pt-dot { r: 10; }
+  .sg-pt.is-active .sg-pt-lbl { fill: #fff; }
+  .sg-pt:focus-visible { outline: none; }
+  .sg-pt:focus-visible .sg-pt-halo { fill: color-mix(in srgb, var(--accent) 20%, transparent); stroke: var(--accent-text); stroke-width: 1.5; }
+  .sg-quad-move { opacity: 0; transition: opacity .5s; }
+  .sg-quad[data-evald="true"] .sg-quad-move { opacity: 1; }
+  .sg-pt-ghost { fill: none; stroke: var(--sg-gray); stroke-width: 1.4; stroke-dasharray: 3 3; }
+  .sg-pt-arrow { stroke: var(--accent); stroke-width: 1.6; }
+  .sg-quad-anno { fill: var(--accent-text); font-size: 11px; font-family: var(--font-mono); }
+  .sg-quad-foot { display: flex; align-items: center; gap: 16px; margin-top: 16px; flex-wrap: wrap; }
+  .sg-toggle { font-size: 12px; padding: 8px 16px; border-radius: 999px; cursor: pointer; color: rgba(232,240,255,0.82); background: rgba(190,210,255,0.08); border: 1px solid rgba(190,210,255,0.22); transition: all .25s; -webkit-tap-highlight-color: transparent; }
+  .sg-toggle:hover { color: #fff; background: rgba(190,210,255,0.14); }
+  .sg-toggle[aria-pressed="true"] { color: #fff; background: color-mix(in srgb, var(--accent) 34%, transparent); border-color: rgba(170,200,255,0.5); }
+  .sg-toggle:focus-visible { outline: 2px solid var(--accent-text); outline-offset: 2px; }
+  .sg-quad-cap { font-size: 10.5px; color: rgba(200,216,255,0.42); }
+
+  /* ===== 收束 ===== */
+  .sg-status-chips { display: flex; flex-wrap: wrap; gap: 9px; }
+  .sg-stack { margin-top: 22px; }
+  .sg-cta-row { margin-top: 26px; }
+  .sg-ghost.back { margin-top: 0; }
+  .sg-end-note { margin-top: 20px; font-size: 12px; line-height: 1.8; color: rgba(200,216,255,0.45); max-width: 780px; }
+
+  /* ===== 滚动揭示 ===== */
+  .sg-reveal { opacity: 0; transform: translateY(22px); transition: opacity .6s var(--ease-liquid), transform .6s var(--ease-liquid); }
+  .sg-reveal.sg-in { opacity: 1; transform: none; }
+
+  /* ===== 响应式 ===== */
+  @media (max-width: 900px) {
+    .sg-h1 { font-size: 38px; }
+    .sg-lead { font-size: 25px; }
+    .sg-stage { grid-template-columns: 1fr; }
+    .sg-spec-stage, .sg-quad-stage, .sg-eval { grid-template-columns: 1fr; }
+    .sg-cards, .sg-matrix, .sg-flaws, .sg-diffs { grid-template-columns: 1fr; }
+    .sg-flow { flex-direction: column; align-items: stretch; }
+    .sg-flow-arr { transform: rotate(90deg); }
+  }
+  @media (max-width: 560px) {
+    .sg-hero-inner { padding: 100px 0 76px; }
+    .sg-h1 { font-size: 30px; }
+    .sg-sub { font-size: 15px; }
+    .sg-judge { padding: 16px 14px; }
+    .sg-jbtn { min-width: 100%; }
+    .sg-bars { grid-template-columns: repeat(2, 1fr); }
+    .sg-lines { font-size: 10.5px; }
+    .sg-sub br { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .sg-reveal { transition: none; opacity: 1; transform: none; }
+    .sg-pt, .sg-mark, #sg-spec-marks .sg-mark, .sg-scanline { transition: none; }
+    .sg-scanline.run { animation: none; }
+  }
+</style>
+
+<script>
+  import '../../scripts/slash-goal-page.js';
+</script>

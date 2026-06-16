@@ -29,6 +29,16 @@ export const PROJECTS: Project[] = [
     featured: true,
   },
   {
+    title: 'Slash Goal · 谁来认定「干完了」',
+    desc: '逆向 Codex 的 /goal 自驱动循环，在 Trae 和 Claude Code 上各复刻一遍。难点从来不是 agent 干不干得完，是它会从自己刚污染过的会话里给自己打绿灯——要么漏需求假完成，要么把半截 stub 当验收。Trae 没 hooks，只能停在「求模型自觉」；Claude Code 上换成独立冷上下文 auditor，从 spec 重推需求、对照真实文件树才放行。然后我审了自己的审计器：2 个 Critical（沙箱实证的 jq 注入、伪只读的任意代码执行）全修。厂商中途上线原生 /goal，我转成对照评测——探针级 5/5 抓出假完成。',
+    tags: ['Agent 编排', '独立审计', '对抗评测'],
+    icon: I('<rect x="3" y="4" width="18" height="16" rx="3"/><path d="m8 9 3 3-3 3"/><path d="M13 15h4"/>'),
+    img: '/assets/proj-slash-goal.svg',
+    alt: 'Slash Goal：自驱动 agent 完成判定 — 会话内自评 vs 独立冷上下文审计',
+    href: '/projects/slash-goal/',
+    featured: true,
+  },
+  {
     title: 'Writer Pipeline 写作系统',
     desc: '我先给自己搭了个 13 组件的多智能体写作系统，再戴上「严苛 AI PM 面试官」的帽子把它审了一遍——severity 4/5，「写作品味 A，产品架构判断 C」，当场砸成 3 组件 MVP。跑通第一篇真文章才看清：AI 味不在通用套路，在「太像我自己」的金句口癖，治法是逐句分 earned/cosplay、给金句配额，不是堆禁用词。最后一次跨模型 A/B 实测，推翻了我自己白纸黑字写进 plan 的「critic 改用 DeepSeek」。',
     tags: ['产品判断', '降 AI 味', 'Case Study'],
@@ -56,15 +66,6 @@ export const PROJECTS: Project[] = [
     img: '/assets/proj-museum.svg',
     alt: '山西博物院策展批判型导览 Demo 界面示意',
     href: 'https://github.com/Longwind1984/prac_Museum',
-    featured: true,
-  },
-  {
-    title: 'Slash Goal 复刻',
-    desc: '在 Claude Code 原生 /Goal 发布前，逆向 Codex 开源实现，用 CC Hooks 复刻其目标编排。核心机制是完成不能自我宣告：独立冷上下文 auditor 从 spec 重推需求、对照真实文件树才能关单（防 reward-hacking）。对抗评审抓出 2 个 Critical 风险（含一个沙箱实证的 jq 注入），全部留档在案。',
-    tags: ['Hooks 编排', '对抗评测'],
-    icon: I('<rect x="3" y="4" width="18" height="16" rx="3"/><path d="m8 9 3 3-3 3"/><path d="M13 15h4"/>'),
-    img: '/assets/proj-slash-goal.svg',
-    alt: 'Slash Goal 斜杠命令面板界面示意',
     featured: true,
   },
   {
