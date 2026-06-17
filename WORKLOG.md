@@ -1,5 +1,32 @@
 # WORKLOG（append-only，倒金字塔：结论在前、清单沉底）
 
+## 2026-06-17 · 落地页定点去 AI 腔（卡片钩子化的第二阶段）
+
+### 体验影响（着重 · 先看）
+- **4 个项目落地页做了定点去 AI 腔，仅 4 处微调**：museum-collect 杠杆数 hedging 堆砌、writer-pipeline 两处（去导览词「先说本质」+ 北极星句去「从来」）、slash-goal「结论扎心——」→「结论是：」。galaxy-view 通读后零改动。
+- **关键判断：落地页本来就不像卡片那样有 AI 味**。通读 ~2850 行 + 3 个 Explore agent 用 Writer Pipeline critic 量表扫描，结论一致：落地页的破折号多是功能性、反转句多是 earned 论点、深度/caveat 是故意的（页头注释明写「不得删」）。卡片式钩子化搬过来会伤好文章，故只做定点微调，没整页重写。
+
+### 做了什么
+卡片综述上线后，按用户确认的「定点去腔 + 清单过目」推进落地页：通读 4 页 → 列逐处 before→after 清单 → 用户勾选 4 处 → 改 → build 验证 → 合并。
+
+### 关键决策与被否决
+- **否决「整页重写落地页」**：用户初始设想是把卡片的去 AI 味推广到落地页，但通读发现落地页问题远小于卡片，整页重写=修没坏的东西。改为定点微调，并把判断坦白告知用户。
+- **galaxy-view 不动**：通读零 AI 腔残留，强行改只会磨掉 earned voice。
+- **earned 句一律保留**：writer-pipeline「AI 味不是词汇问题，是概率问题」「一个病根的七种表症」、museum 北极星指标推理、slash「真实工作树才是权威」等都是从场景挤出来的论点，不碰。
+
+### 当前状态：能跑什么
+- 已 build（exit 0，645 页）验证，合并 push origin/main（c21ece7），kg-upgrade 同步。EdgeOne+Vercel 重建部署。
+- 4 个落地页文案微调上线；卡片综述（下一条，61ff1ef）已先行上线。
+
+### 未尽事项与已知问题
+- 落地页去腔到此为止（用户只勾选了这 4 处定点）；如需更激进可另起。
+- WeatherLens 卡标题行 ~26px 内部溢出（既有问题，与本任务无关）仍在。
+
+### 文件级变更清单
+- `src/pages/projects/museum-collect.astro`：L480 杠杆数 hedging 收紧。
+- `src/pages/projects/writer-pipeline.astro`：L285 去「先说」；L311 北极星句去「从来」。
+- `src/pages/projects/slash-goal.astro`：L304「结论扎心——」→「结论是：」。
+
 ## 2026-06-16 · 首页项目卡综述「钩子化」改写（降 AI 味 + 瘦身，仅卡片层）
 
 ### 体验影响（着重 · 先看）
