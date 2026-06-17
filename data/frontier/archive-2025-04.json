@@ -1,0 +1,30 @@
+{
+ "entries": [
+  {
+   "id": "35c5b09eaf2b18ba",
+   "date": "2025-04-30",
+   "person": "stanislas-dehaene",
+   "topicSource": null,
+   "sourceName": "Nature",
+   "sourceType": "web",
+   "contentType": "authored",
+   "titleZh": "意识理论对抗性测试发表于 Nature 重大突破",
+   "titleOriginal": "意识理论对抗性测试发表于 Nature 重大突破",
+   "verdict": "该论文在自美国 2018 年启动的七年对抗合作基础上，首次用神经影像直接对比 GNW 和 IIT 两大意识理论，验证了 Dehaene 提出的信息工作区假说，为机器意识评估和意识医学提供实证框架。",
+   "summaryZh": "该论文在自美国 2018 年启动的七年对抗合作基础上，首次用神经影像直接对比 GNW 和 IIT 两大意识理论，验证了 Dehaene 提出的信息工作区假说，为机器意识评估和意识医学提供实证框架。",
+   "tags": [],
+   "url": "https://www.nature.com/articles/s41586-025-08888-1",
+   "excerpt": "",
+   "apparent": 5,
+   "absolute": 4,
+   "importance": 4,
+   "gravity": false,
+   "periodic": false,
+   "singularity": false,
+   "rationale": "",
+   "insufficientContext": false,
+   "addedAt": "2026-06-16",
+   "backfill": true
+  }
+ ]
+}

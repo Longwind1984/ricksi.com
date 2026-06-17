@@ -1,0 +1,30 @@
+{
+ "entries": [
+  {
+   "id": "6000f5f854cb61d9",
+   "date": "2024-09-06",
+   "person": "stanislas-dehaene",
+   "topicSource": null,
+   "sourceName": "PLOS Computational Biology",
+   "sourceType": "web",
+   "contentType": "authored",
+   "titleZh": "卷积神经网络词汇识别的神经编码解密",
+   "titleOriginal": "卷积神经网络词汇识别的神经编码解密",
+   "verdict": "Dehaene 与 Agrawal 发表的关键论文揭示了人工神经网络和人脑在词汇识别中的共同机制（空格二元组编码），验证了神经回收假说在深度学习中的适用性，是计算神经科学和 AI-脑对齐研究的重要里程碑。",
+   "summaryZh": "Dehaene 与 Agrawal 发表的关键论文揭示了人工神经网络和人脑在词汇识别中的共同机制（空格二元组编码），验证了神经回收假说在深度学习中的适用性，是计算神经科学和 AI-脑对齐研究的重要里程碑。",
+   "tags": [],
+   "url": "https://journals.plos.org/ploscompbiol/article?id=10.1371%2Fjournal.pcbi.1012430",
+   "excerpt": "",
+   "apparent": 3,
+   "absolute": 4,
+   "importance": 4,
+   "gravity": false,
+   "periodic": false,
+   "singularity": false,
+   "rationale": "",
+   "insufficientContext": false,
+   "addedAt": "2026-06-16",
+   "backfill": true
+  }
+ ]
+}

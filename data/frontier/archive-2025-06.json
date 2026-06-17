@@ -1,0 +1,30 @@
+{
+ "entries": [
+  {
+   "id": "fd21dbd251ef64cd",
+   "date": "2025-06-11",
+   "person": "stanislas-dehaene",
+   "topicSource": null,
+   "sourceName": "Nature",
+   "sourceType": "web",
+   "contentType": "authored",
+   "titleZh": "数学性别差异在一年级快速出现的大规模纵向证据",
+   "titleOriginal": "数学性别差异在一年级快速出现的大规模纵向证据",
+   "verdict": "Dehaene 主持对 265 万法国儿童的四年追踪，发现入学时两性数学能力相同，但四个月内男孩显著领先，效应量 0.2，直接推翻了\"多年刻板印象缓慢渗透\"假说，证实学校系统因素是关键触发器，对教育政策和心理学有重大启示。",
+   "summaryZh": "Dehaene 主持对 265 万法国儿童的四年追踪，发现入学时两性数学能力相同，但四个月内男孩显著领先，效应量 0.2，直接推翻了\"多年刻板印象缓慢渗透\"假说，证实学校系统因素是关键触发器，对教育政策和心理学有重大启示。",
+   "tags": [],
+   "url": "https://www.nature.com/articles/s41586-025-09126-4",
+   "excerpt": "",
+   "apparent": 4,
+   "absolute": 4,
+   "importance": 4,
+   "gravity": false,
+   "periodic": false,
+   "singularity": false,
+   "rationale": "",
+   "insufficientContext": false,
+   "addedAt": "2026-06-16",
+   "backfill": true
+  }
+ ]
+}

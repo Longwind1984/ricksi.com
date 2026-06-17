@@ -1,0 +1,30 @@
+{
+ "entries": [
+  {
+   "id": "0bd07be1da35cb1e",
+   "date": "2025-12-17",
+   "person": "jeff-hawkins",
+   "topicSource": null,
+   "sourceName": "Thousand Brains Project Meetup",
+   "sourceType": "web",
+   "contentType": "action",
+   "titleZh": "Monty 2026 开源框架全面展示与社区动员",
+   "titleOriginal": "Monty 2026 开源框架全面展示与社区动员",
+   "verdict": "通过线上 meetup 向全球研究者与开发者详细演示 Monty 实现细节、应用路径与贡献方式，加速感知运动学习范式的生态构建。",
+   "summaryZh": "通过线上 meetup 向全球研究者与开发者详细演示 Monty 实现细节、应用路径与贡献方式，加速感知运动学习范式的生态构建。",
+   "tags": [],
+   "url": "https://www.meetup.com/thousand-brains-project/events/312163534/",
+   "excerpt": "",
+   "apparent": 2,
+   "absolute": 3,
+   "importance": 3,
+   "gravity": false,
+   "periodic": false,
+   "singularity": false,
+   "rationale": "",
+   "insufficientContext": false,
+   "addedAt": "2026-06-16",
+   "backfill": true
+  }
+ ]
+}

@@ -1,0 +1,30 @@
+{
+ "entries": [
+  {
+   "id": "55b0c72151598df6",
+   "date": "2025-11-20",
+   "person": "sebastien-bubeck",
+   "topicSource": null,
+   "sourceName": "arXiv 2511.16072 / OpenAI博客",
+   "sourceType": "web",
+   "contentType": "authored",
+   "titleZh": "《GPT-5科学加速实验》论文发表（在研究窗口内重要前兆）",
+   "titleOriginal": "《GPT-5科学加速实验》论文发表（在研究窗口内重要前兆）",
+   "verdict": "Bubeck与Timothy Gowers等14位合著者发表论文，通过数学、物理、天文等多学科案例研究，展示GPT-5将人工作时间从月级缩减到小时级，产出4个新数学成果。",
+   "summaryZh": "Bubeck与Timothy Gowers等14位合著者发表论文，通过数学、物理、天文等多学科案例研究，展示GPT-5将人工作时间从月级缩减到小时级，产出4个新数学成果。",
+   "tags": [],
+   "url": "https://arxiv.org/abs/2511.16072",
+   "excerpt": "",
+   "apparent": 4,
+   "absolute": 5,
+   "importance": 5,
+   "gravity": false,
+   "periodic": false,
+   "singularity": false,
+   "rationale": "",
+   "insufficientContext": false,
+   "addedAt": "2026-06-16",
+   "backfill": true
+  }
+ ]
+}
