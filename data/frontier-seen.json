@@ -268,5 +268,110 @@
   "firstSeen": "2026-06-16",
   "attempts": 0,
   "status": "published"
+ },
+ "e158e347b6a0cbc2": {
+  "firstSeen": "2026-06-18",
+  "attempts": 0,
+  "status": "excluded"
+ },
+ "1019790e3f4d9294": {
+  "firstSeen": "2026-06-18",
+  "attempts": 0,
+  "status": "published"
+ },
+ "6311dfe492bd1c64": {
+  "firstSeen": "2026-06-18",
+  "attempts": 0,
+  "status": "published"
+ },
+ "73ba74dfcb6cfb1b": {
+  "firstSeen": "2026-06-18",
+  "attempts": 0,
+  "status": "published"
+ },
+ "c8386c0cd6ca9cd3": {
+  "firstSeen": "2026-06-18",
+  "attempts": 0,
+  "status": "published"
+ },
+ "bda6a6ec6e1361fe": {
+  "firstSeen": "2026-06-18",
+  "attempts": 0,
+  "status": "published"
+ },
+ "47d839a2783dc4db": {
+  "firstSeen": "2026-06-18",
+  "attempts": 0,
+  "status": "published"
+ },
+ "393057dfcc7deed3": {
+  "firstSeen": "2026-06-18",
+  "attempts": 0,
+  "status": "published"
+ },
+ "0b5d1dfe321e960b": {
+  "firstSeen": "2026-06-18",
+  "attempts": 0,
+  "status": "published"
+ },
+ "1a8cd099cf1eaeb6": {
+  "firstSeen": "2026-06-18",
+  "attempts": 0,
+  "status": "published"
+ },
+ "b589992a335c3d58": {
+  "firstSeen": "2026-06-18",
+  "attempts": 0,
+  "status": "published"
+ },
+ "641570864d9680d7": {
+  "firstSeen": "2026-06-18",
+  "attempts": 0,
+  "status": "excluded"
+ },
+ "abb1c184a54796cb": {
+  "firstSeen": "2026-06-18",
+  "attempts": 0,
+  "status": "excluded"
+ },
+ "0088b66458750462": {
+  "firstSeen": "2026-06-18",
+  "attempts": 0,
+  "status": "published"
+ },
+ "4cea84d241b31211": {
+  "firstSeen": "2026-06-18",
+  "attempts": 0,
+  "status": "published"
+ },
+ "0d76c1a20eb3842a": {
+  "firstSeen": "2026-06-18",
+  "attempts": 1,
+  "status": "llm-failed"
+ },
+ "3f18162dafb1afa9": {
+  "firstSeen": "2026-06-18",
+  "attempts": 0,
+  "status": "published"
+ },
+ "60f4ace3e91d59aa": {
+  "firstSeen": "2026-06-18",
+  "attempts": 0,
+  "status": "published"
+ },
+ "abe11d16a5d0a3d5": {
+  "firstSeen": "2026-06-18",
+  "attempts": 0,
+  "status": "published"
+ },
+ "367ca70b57b816d9": {
+  "firstSeen": "2026-06-18",
+  "attempts": 0,
+  "status": "published"
+ },
+ "d157646a0102fffb": {
+  "firstSeen": "2026-06-18",
+  "attempts": 0,
+  "status": "published"
  }
 }
