@@ -3,6 +3,14 @@
 // satori 不支持 backdrop-filter：面板内嵌预模糊照片（hero-blur）按 cover 几何精确对齐，
 // 再叠钴蓝渐变着色——与站内实时玻璃同配方（blur + 钴蓝 tint）。
 // 三形态：node（知识库节点）/ article（写作引文·文楷）/ site（整站名片·三格数据条）。
+//
+// 渲染成本控制（2026-06，EdgeOne 构建超时后定）：satori→resvg 的耗时由「嵌入的 2200px
+// 大照片被 resvg 逐卡重栅格化」主导（~3s/卡），而每张卡的底图+渐变+玻璃面板 chrome 完全相同，
+// 只有面板内文字/徽章/二维码在变。故拆两层：
+//   base（照片+渐变+顶栏+玻璃 chrome+署名）—— 按 variant|brand|module|credit 只渲一次、进程内缓存；
+//   overlay（面板内文字+二维码）—— 透明底、无照片，每卡现渲（≈OG 图速度），sharp 合成到 base 上。
+// 同端点（前沿/blog/kb/site）brand|module|credit 恒定 → 每端点 base 只栅格化一次，
+// 1300+ 张社交图从「全部嵌大图」降到「4 次嵌大图 + N 次纯文字」。输出像素不变。
 import fs from 'node:fs';
 import path from 'node:path';
 import satori from 'satori';
@@ -78,48 +86,27 @@ export function mdExcerpt(body = '') {
     .trim();
 }
 
-export async function renderShareCard({
-  variant = 'node',          // node | article | site | frontier
-  brand = 'RICK SI',
-  module: mod,               // mono 模块徽标，如 KNOWLEDGE · NODE
-  kicker,                    // kicker 文案（默认金色）
-  kickerColor,               // kicker 颜色覆盖（前沿卡用星类色）
-  title,
-  excerpt,                   // node/site：摘录
-  quote,                     // article：文楷引文（人的声音）
-  badges = [],               // [{label, color}] 人机光谱来源徽章
-  chips = [],                // [{label, color?}] 主题域 chip
-  stats = [],                // site：[{label, value, gold?}] 三格数据
-  url,                       // 展示用短址
-  qrUrl,                     // 二维码编码的完整 URL
-  hook,                      // 钩子文案
-  credit = '云海之上 · 无人机自摄',
-}) {
+/* 几何只取决于 variant */
+function geomOf(variant) {
   const px = PHOTO_POS[variant] ?? 0.5;
-  const photoLeft = -Math.round((DISP_W - W) * px);
   const panelH = PANEL_H[variant];
-  const panelTop = H - PANEL_BOTTOM - panelH;
-  const qrData = await QRCode.toDataURL(qrUrl || `https://ricksi.com/`, {
-    width: 200, margin: 0, color: { dark: '#0A1230', light: '#FFFFFF' },
-  });
+  return {
+    photoLeft: -Math.round((DISP_W - W) * px),
+    panelH,
+    panelTop: H - PANEL_BOTTOM - panelH,
+  };
+}
 
-  const metaRow = (badges.length || chips.length)
-    ? div({ gap: 12, flexWrap: 'wrap', alignItems: 'center', marginBottom: 26 }, [
-        ...badges.map((b) => pill(b.label, b.color)),
-        ...chips.map((c) => chip(c.label, c.color)),
-      ])
-    : null;
-
-  const statsRow = stats.length
-    ? div({ marginBottom: 26 }, stats.map((s, i) => div({
-        flexDirection: 'column', flex: 1,
-        ...(i > 0 ? { borderLeft: `2px solid ${LINE}`, paddingLeft: 28 } : {}),
-      }, [
-        txt({ fontFamily: MONO, fontSize: 38, fontWeight: 500, color: s.gold ? GOLD : '#FFFFFF' }, s.value),
-        txt({ fontFamily: MONO, fontSize: 17, letterSpacing: 2, color: 'rgba(210,226,255,0.55)', marginTop: 7 }, s.label),
-      ])))
-    : null;
-
+/* base 层：照片 + 渐变 + 顶栏 + 玻璃面板 chrome + 署名（无面板内文字）。
+   只取决于 variant|brand|module|credit，进程内缓存为「已解码的 raw RGBA」Promise
+   （去重并发首调 + 省掉每卡重复解码 base PNG）。 */
+const baseCache = new Map();
+async function renderBaseRaw(ctx) {
+  const png = await renderBasePng(ctx);
+  return sharp(png).ensureAlpha().raw().toBuffer({ resolveWithObject: true }); // { data, info }
+}
+async function renderBasePng({ variant, brand, mod, credit }) {
+  const { photoLeft, panelH, panelTop } = geomOf(variant);
   const svg = await satori(
     div({
       width: W, height: H, flexDirection: 'column', position: 'relative',
@@ -145,7 +132,7 @@ export async function renderShareCard({
           borderRadius: 999, padding: '10px 24px',
         }, mod)] : []),
       ]),
-      // 钴蓝玻璃面板（预模糊照片对齐内嵌 + 钴蓝渐变着色）
+      // 钴蓝玻璃面板 chrome（预模糊照片对齐内嵌 + 钴蓝渐变着色，无文字）
       div({
         position: 'absolute', left: PANEL_X, top: panelTop, width: PANEL_W, height: panelH,
         borderRadius: 40, overflow: 'hidden', border: '2px solid rgba(180,204,255,0.26)',
@@ -153,6 +140,43 @@ export async function renderShareCard({
       }, [
         { type: 'img', props: { src: HERO_BLUR, width: DISP_W, height: H, style: { position: 'absolute', top: -panelTop, left: photoLeft - PANEL_X } } },
         div({ position: 'absolute', top: 0, left: 0, width: PANEL_W, height: panelH, backgroundImage: 'linear-gradient(160deg, rgba(56,88,180,0.34) 0%, rgba(22,38,96,0.40) 100%)' }),
+      ]),
+      // 摄影署名（必须保留）
+      txt({ position: 'absolute', right: 48, bottom: 20, fontFamily: MONO, fontSize: 17, letterSpacing: 1.4, color: 'rgba(255,255,255,0.4)', textShadow: '0 2px 12px rgba(4,10,32,0.6)' }, credit),
+    ]),
+    { width: W, height: H, fonts }
+  );
+  return new Resvg(svg, { fitTo: { mode: 'width', value: W } }).render().asPng();
+}
+function getBaseRaw(ctx) {
+  const key = `${ctx.variant}|${ctx.brand}|${ctx.mod ?? ''}|${ctx.credit}`;
+  let p = baseCache.get(key);
+  if (!p) {
+    p = renderBaseRaw(ctx);
+    // 失败不毒化缓存：剔除该 key 让下次重试（身份校验避免误删新的在途条目）。
+    // 运行时（Vercel serverless 常驻进程）路径尤其重要——一次瞬时 base 渲染失败
+    // 不应让该端点的全部卡常驻出 500，直到实例冷启动。
+    p.catch(() => { if (baseCache.get(key) === p) baseCache.delete(key); });
+    baseCache.set(key, p);
+  }
+  return p;
+}
+
+/* overlay 层：面板内 kicker/标题/摘录/徽章/数据/落款/二维码。透明底、无照片 → 快。
+   面板容器（位置/尺寸/2px 边框盒/圆角/overflow/padding）与 base 完全一致，
+   边框设为 transparent 以保留同样的 2px 内盒偏移 → 文字落点与未拆分时逐像素一致。 */
+async function renderOverlayPng({ variant, kicker, kickerColor, title, excerpt, quote, metaRow, statsRow, url, hook, qrData }) {
+  const { panelH, panelTop } = geomOf(variant);
+  const svg = await satori(
+    div({
+      width: W, height: H, flexDirection: 'column', position: 'relative',
+      fontFamily: 'MiSans', backgroundColor: 'transparent',
+    }, [
+      div({
+        position: 'absolute', left: PANEL_X, top: panelTop, width: PANEL_W, height: panelH,
+        borderRadius: 40, overflow: 'hidden', border: '2px solid transparent',
+        flexDirection: 'column',
+      }, [
         div({ position: 'relative', flexDirection: 'column', justifyContent: 'space-between', flex: 1, padding: '40px 40px 32px' }, [
           div({ flexDirection: 'column' }, [
             ...(kicker ? [txt({ fontFamily: MONO, fontSize: 20, letterSpacing: 3.6, color: kickerColor || GOLD, marginBottom: 20 }, kicker)] : []),
@@ -177,12 +201,58 @@ export async function renderShareCard({
           ]),
         ]),
       ]),
-      // 摄影署名（必须保留）
-      txt({ position: 'absolute', right: 48, bottom: 20, fontFamily: MONO, fontSize: 17, letterSpacing: 1.4, color: 'rgba(255,255,255,0.4)', textShadow: '0 2px 12px rgba(4,10,32,0.6)' }, credit),
     ]),
     { width: W, height: H, fonts }
   );
+  return new Resvg(svg, { fitTo: { mode: 'width', value: W } }).render().asPng();
+}
 
-  const png = new Resvg(svg, { fitTo: { mode: 'width', value: W } }).render().asPng();
-  return sharp(png).jpeg({ quality: 82, mozjpeg: true }).toBuffer();
+export async function renderShareCard({
+  variant = 'node',          // node | article | site | frontier
+  brand = 'RICK SI',
+  module: mod,               // mono 模块徽标，如 KNOWLEDGE · NODE
+  kicker,                    // kicker 文案（默认金色）
+  kickerColor,               // kicker 颜色覆盖（前沿卡用星类色）
+  title,
+  excerpt,                   // node/site：摘录
+  quote,                     // article：文楷引文（人的声音）
+  badges = [],               // [{label, color}] 人机光谱来源徽章
+  chips = [],                // [{label, color?}] 主题域 chip
+  stats = [],                // site：[{label, value, gold?}] 三格数据
+  url,                       // 展示用短址
+  qrUrl,                     // 二维码编码的完整 URL
+  hook,                      // 钩子文案
+  credit = '云海之上 · 无人机自摄',
+}) {
+  const qrData = await QRCode.toDataURL(qrUrl || `https://ricksi.com/`, {
+    width: 200, margin: 0, color: { dark: '#0A1230', light: '#FFFFFF' },
+  });
+
+  const metaRow = (badges.length || chips.length)
+    ? div({ gap: 12, flexWrap: 'wrap', alignItems: 'center', marginBottom: 26 }, [
+        ...badges.map((b) => pill(b.label, b.color)),
+        ...chips.map((c) => chip(c.label, c.color)),
+      ])
+    : null;
+
+  const statsRow = stats.length
+    ? div({ marginBottom: 26 }, stats.map((s, i) => div({
+        flexDirection: 'column', flex: 1,
+        ...(i > 0 ? { borderLeft: `2px solid ${LINE}`, paddingLeft: 28 } : {}),
+      }, [
+        txt({ fontFamily: MONO, fontSize: 38, fontWeight: 500, color: s.gold ? GOLD : '#FFFFFF' }, s.value),
+        txt({ fontFamily: MONO, fontSize: 17, letterSpacing: 2, color: 'rgba(210,226,255,0.55)', marginTop: 7 }, s.label),
+      ])))
+    : null;
+
+  // base（缓存·已解码 raw 照片层）与 overlay（每卡·文字层）并发出图，再 sharp 合成
+  const [base, overlayPng] = await Promise.all([
+    getBaseRaw({ variant, brand, mod, credit }),
+    renderOverlayPng({ variant, kicker, kickerColor, title, excerpt, quote, metaRow, statsRow, url, hook, qrData }),
+  ]);
+
+  return sharp(base.data, { raw: { width: base.info.width, height: base.info.height, channels: base.info.channels } })
+    .composite([{ input: overlayPng, top: 0, left: 0 }])
+    .jpeg({ quality: 82, mozjpeg: true })
+    .toBuffer();
 }

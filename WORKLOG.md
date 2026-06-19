@@ -1,5 +1,30 @@
 # WORKLOG（append-only，倒金字塔：结论在前、清单沉底）
 
+## 2026-06-19 · EdgeOne 构建超时根治：分享卡出图拆层（base 缓存 + overlay 合成）
+
+### 体验影响（着重 · 先看）
+- **分享卡视觉零变化**：玻璃明信片四形态（frontier/kb/blog/site）输出逐像素不变（旧 vs 新 A/B：meanΔ<0.18/255，>8 差异 0.018%，>24 为 0；差异仅字形 AA 边）。纯构建性能改造，访客看到的图一模一样。
+- **EdgeOne 部署从超时变可用**：全量构建从 19+ 分钟超时（被 EdgeOne ~20min 上限杀）降到 ~5min。Vercel 一直正常（它运行时按需出图、不在构建期出）。
+
+### 做了什么
+EdgeOne 部署失败、Vercel 成功。诊断：EdgeOne 纯静态构建把全部 927 张分享卡 + 604 张 OG 图都在构建期生成；分享卡每张在 satori 里嵌 2200px 云海大图被 resvg 逐卡重栅格化，CI ~3s/卡 ×927 ≈ 46min → 超时（实际死在 frontier 第 300 多张、19 分）。修复（只动 `src/lib/share-card.mjs`）：单次 satori 渲染拆成 base（照片+渐变+顶栏+玻璃 chrome+署名，按 `variant|brand|module|credit` 缓存、每端点只栅格化一次）+ overlay（面板内文字+二维码，透明底无照片，每卡现渲）+ sharp 合成。大图栅格化从 927 次降到 4 次。
+
+### 关键决策与被否决
+- **选 A（压构建成本、EdgeOne 仍纯静态）而非 B（给 EdgeOne 挂边缘 adapter 运行时出图）/ C（构建跳过、图交 Vercel 域）**：A 不改部署配置、不依赖域名拓扑、输出不变、当下可验证；B/C 引入 adapter 成熟度 / 拓扑不确定性。用户确认 A。
+- **根因纠偏**：起初疑「图太多」的通用 CPU 慢；实测 OG 图（无嵌图）CI≈本机（~150ms），而嵌大图在 CI 慢得反常（~6×本机）→ 锁定「逐卡大图栅格化」是 EdgeOne 专属毒药，拆层把它移出每卡路径。
+- **对抗评审采纳一条**：5 透镜评审 + 对抗验证发现 base 渲染失败会把 rejected Promise 永久留缓存——构建期无害（串行 + 确定性输入，坏就该停），但 Vercel 运行时路径会让该端点常驻出 500 到冷启动。已修：失败时身份校验剔除 key 自愈。
+
+### 当前状态：能跑什么
+- 全量静态 build exit 0、306s；927 分享卡 207s（~223ms/卡）；真实 dist 卡（frontier/kb）肉眼检查正确；无 tofu/error。本机 A/B 与 CI 行为可类比（OG 图本机≈CI）。
+- 改动在 worktree 分支 `worktree-edgeone-sharecard`，已本地提交。**因本会话环境无法访问 GitHub 远端，未 push / 未开 PR**（待网络恢复或由用户 push）。**不直接并 main**（前沿在改，合并时机交用户协调）。
+
+### 未尽事项与已知问题
+- **缓解非治本**：单卡固定开销（overlay 全画布 satori→resvg + mozjpeg 合成）成新下界；内容增至 ~2-3× 时会再逼近 20min。治本是给 EdgeOne 挂边缘/Serverless adapter（对称 Vercel runtimeOg），内容继续暴涨再做。详见项目记忆 build-render-cost-control。
+- 极长 frontier 标题换 3 行把 hook 推到面板底边——既有现象（与旧版一致，非本次引入）。
+
+### 文件级变更清单
+- `src/lib/share-card.mjs`：renderShareCard 拆 renderBaseRaw（缓存已解码 raw RGBA）+ renderOverlayPng（透明底文字层）+ sharp 合成；getBaseRaw 失败剔除缓存自愈；+110/−44。导出签名与 mdExcerpt 不变，四调用方无需改。
+
 ## 2026-06-17 · 落地页定点去 AI 腔（卡片钩子化的第二阶段）
 
 ### 体验影响（着重 · 先看）
