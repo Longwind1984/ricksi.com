@@ -373,5 +373,15 @@
   "firstSeen": "2026-06-18",
   "attempts": 0,
   "status": "published"
+ },
+ "02394854355dd1b1": {
+  "firstSeen": "2026-06-19",
+  "attempts": 0,
+  "status": "excluded"
+ },
+ "f83c795c73488588": {
+  "firstSeen": "2026-06-19",
+  "attempts": 0,
+  "status": "excluded"
  }
 }

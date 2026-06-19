@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-06-18T15:12:53.542Z",
+ "generated_at": "2026-06-19T13:30:48.280Z",
  "rollingDays": 90,
  "domains": {
   "lab": "前沿实验室",
@@ -470,15 +470,15 @@
   }
  ],
  "stats": {
-  "totalEntries": 323,
+  "totalEntries": 322,
   "totalAllTime": 417,
   "lastRun": {
-   "at": "2026-06-18T15:12:53.543Z",
-   "fetched": 25,
-   "processed": 20,
-   "added": 17,
-   "llmFailed": 1,
-   "rateLimited": false,
+   "at": "2026-06-19T13:30:48.280Z",
+   "fetched": 26,
+   "processed": 12,
+   "added": 0,
+   "llmFailed": 0,
+   "rateLimited": true,
    "skippedSources": [
     "x:yann-lecun@ylecun"
    ]
@@ -9161,32 +9161,6 @@
    "gravity": false,
    "periodic": false,
    "canon": false,
-   "rationale": "",
-   "insufficientContext": false,
-   "addedAt": "2026-06-16",
-   "backfill": true
-  },
-  {
-   "id": "d8ef9eb73d928fce",
-   "date": "2026-03-20",
-   "person": "ev-fedorenko",
-   "topicSource": null,
-   "sourceName": "Imaging Neuroscience",
-   "sourceType": "web",
-   "contentType": "authored",
-   "titleZh": "发表高效3.5分钟fMRI语言网络定位器 · 工具方法论",
-   "titleOriginal": "发表高效3.5分钟fMRI语言网络定位器 · 工具方法论",
-   "verdict": "Imaging Neuroscience发表Tuckute/Lee/Sathe/Fedorenko联署《A 3.5-minute-long reading-based fMRI localizer for the language network》。针对神经影像个体差异日益得重，提供200ms/词高速呈现localizer，比传统句子阅读方案更高效。已成为跨500+受试精准语言脑图谱建立的基础工具。",
-   "summaryZh": "Imaging Neuroscience发表Tuckute/Lee/Sathe/Fedorenko联署《A 3.5-minute-long reading-based fMRI localizer for the language network》。针对神经影像个体差异日益得重，提供200ms/词高速呈现localizer，比传统句子阅读方案更高效。已成为跨500+受试精准语言脑图谱建立的基础工具。",
-   "tags": [],
-   "url": "https://www.evlab.mit.edu/papers",
-   "excerpt": "",
-   "apparent": 2,
-   "absolute": 3,
-   "importance": 3,
-   "gravity": false,
-   "periodic": false,
-   "singularity": false,
    "rationale": "",
    "insufficientContext": false,
    "addedAt": "2026-06-16",
