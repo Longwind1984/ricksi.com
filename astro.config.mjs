@@ -26,6 +26,10 @@ export default defineConfig({
   site: 'https://ricksi.com',
   trailingSlash: 'ignore',
   integrations: [sitemap({ filter: (page) => !page.includes('/og/') }), runtimeOg],
+  server: {
+    host: '0.0.0.0',
+    port: 4321,
+  },
   // 运行时出图函数需要的字体/底图/数据 —— 打进函数包（端点仍按 path.resolve(cwd) 读，cwd=项目根）
   adapter: onVercel
     ? vercel({
