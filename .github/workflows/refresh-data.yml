@@ -25,10 +25,12 @@ jobs:
         run: |
           git config user.name "data-bot"
           git config user.email "actions@github.com"
-          git pull --rebase
+          # 先 commit 再 pull --rebase 再 push：fetch-github 写了 data/ 后工作树有未暂存改动，
+          # 若先 pull --rebase 会报「cannot pull with rebase: You have unstaged changes」（曾 8/8 必挂）。
           if [[ -n "$(git status --porcelain data)" ]]; then
             git add data
             git commit -m "chore(data): github contributions $(date +%F)"
+            git pull --rebase
             git push
           else
             echo "no changes"

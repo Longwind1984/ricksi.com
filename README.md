@@ -107,6 +107,19 @@ cp scripts/com.ricksi.workbench-sync.plist ~/Library/LaunchAgents/
 launchctl load ~/Library/LaunchAgents/com.ricksi.workbench-sync.plist   # 每天 21:30
 ```
 
+**发布走 HTTPS（前提，否则每晚采集了推不上去）**：本机 Clash fake-ip 把 GitHub SSH（22 端口）路由到黑洞，
+裸 `git push`（`git@github.com`）会连不上。故 remote 用 HTTPS、凭证从文件读（绕开 launchd 下 keychain 的不确定性）：
+
+```bash
+git remote set-url origin https://github.com/Longwind1984/ricksi.com.git
+git config --local credential.helper '' && git config --local --add credential.helper store   # 本仓只用 store
+{ printf 'protocol=https\nhost=github.com\nusername=x-access-token\npassword='; gh auth token; printf '\n'; } | git credential approve   # 写入 ~/.git-credentials(600)
+```
+
+plist 已注入 `HTTPS_PROXY=127.0.0.1:7897`，HTTPS 443 走代理可达。`sync.mjs` push 前 `pull --rebase --autostash`
+防分叉；任一致命步骤失败弹 macOS 通知（不再静默）。gh OAuth token 若轮换失效会推送失败（有通知），重跑上面
+最后一行重新 seed，或换成自建 fine-grained PAT（`contents: read/write`）。
+
 **隐私**：`scripts/config.mjs` 的 `excludeClusters` 默认排除求职/待解问题文件夹；
 单篇笔记 front-matter `publish: false` 可排除；`data/kb-manifest.json` 是全量发布清单，推公开仓库前请过目。
 

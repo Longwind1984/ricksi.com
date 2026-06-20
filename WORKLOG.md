@@ -1,5 +1,42 @@
 # WORKLOG（append-only，倒金字塔：结论在前、清单沉底）
 
+## 2026-06-20 · 同步机制最小可靠化：发布链 SSH→HTTPS + 防分叉 + 失败告警
+
+### 体验影响（着重 · 先看）
+- **线上数据恢复更新**：每晚采集本来正常，但 push 断了——线上数据卡在 06-18。本轮修好发布链，06-19/06-20 数据补上线，此后每晚稳定刷新。
+- **失败不再静默**：以前 sync 出错只写 /tmp 日志没人看（你是被动发现站点不更新的）；现在任一致命步骤失败弹 macOS 通知。
+
+### 做了什么
+调研后定方案＝**最小可靠化**（用户选：不上云、Mac 天天在线）。根因：① 本机 Clash fake-ip 把 GitHub SSH(22) 路由到黑洞，`sync.mjs` 裸 SSH `git push` 连不上，每晚采集完推不上去；② GH Action `refresh-data.yml` 先写 data 再 `git pull --rebase` → unstaged 改动报错，8/8 必挂从未成功；③ 失败静默；④ local/origin 因上一轮 HTTPS 直推构建修复而分叉。
+
+五项修复：
+1. **发布改 HTTPS**：remote 改 `https://`，仓库本地 `credential.helper=store`（绕开 launchd 下 keychain 不确定性），用 `gh auth token` seed `~/.git-credentials`(600)。plist 已有 `HTTPS_PROXY` → 443 走代理可达。
+2. **加固 push**：push 前 `pull --rebase --autostash` 防分叉，冲突即 abort（commit 保留下次重试）。
+3. **失败告警 + 心跳**：sync 顶层 catch → osascript 通知；成功写 `/tmp/workbench-sync-last-ok`。
+4. **修 GH Action 顺序**：改「先 commit 再 pull --rebase 再 push」，工作树干净化。
+5. **清分叉**：本地 06-19 data 提交 rebase 到 origin（含构建修复）再推，分叉消除。
+
+### 关键决策与被否决
+- **否决「上云/兜底」**：调研定论——`collect-usage`(Token,读 ~/.claude logs)、`collect-activity`、`sync-vault`(Obsidian 库)、`merge-local-books` 全依赖 Mac-only 状态，物理上无法上云；`collect-frontier` 梳理硬依赖本机 claude CLI 订阅会话（无 API 路径）。用户确认 Mac 天天在线 → 云端兜底不值得，本轮只修发布链。
+- **凭证用文件 store 而非 keychain**：launchd 非交互环境下 keychain 可能 ACL/锁定挂起；文件式 store 确定可用——已用 `env -i`（模拟 launchd 剥离环境 + plist 代理）`push --dry-run` 实测通过，不靠推断。
+- **HTTPS 而非改 Clash 放行 SSH**：改代理 app 配置脆且在仓库外；HTTPS 是仓库内根治（且 GitHub SSH 在国内本就不稳，才需要代理）。
+
+### 当前状态：能跑什么
+- `node --check sync.mjs` 通过；osascript 通知实测弹出；`env -i` launchd 环境 `push --dry-run` 实测认证+传输通过（这是「launchd 能不能推」的硬验证）。
+- remote=HTTPS、credential store 已配；分叉已清（local main rebased）。
+- 待办验证（本会话继续）：完整 `npm run sync` 真跑一次 + 手动触发 GH Action 看变绿。
+
+### 未尽事项与已知问题
+- 缓解非治本的「云端兜底」按用户决定不做；Mac 关机当天仍不更新（用户接受）。
+- gh OAuth token 若轮换失效→推送失败（有通知），需重新 seed 或换 fine-grained PAT。
+- 前沿限流的「次日补做」依赖每日 run 成功——现在 push 修好后即生效。
+
+### 文件级变更清单
+- `scripts/sync.mjs`：重构为 main()+顶层 catch 告警；push 前 pull --rebase --autostash + abort 兜底；成功写心跳。
+- `.github/workflows/refresh-data.yml`：commit→pull→push 顺序修复。
+- `README.md`：「每日自动同步」段加 HTTPS 发布前提 + 凭证 seed 步骤。
+- git 配置（非文件）：remote→HTTPS、`credential.helper=store`、`~/.git-credentials`(600)。
+
 ## 2026-06-19 · EdgeOne 构建超时根治：分享卡出图拆层（base 缓存 + overlay 合成）
 
 ### 体验影响（着重 · 先看）
