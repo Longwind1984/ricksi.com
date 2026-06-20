@@ -2,7 +2,7 @@
 title: E02 ChatGPT 的 RLHF 谄媚与行为调整剖解
 cluster: 专题 · 能力与训练
 created: '2026-06-07'
-updated: '2026-06-11'
+updated: '2026-06-20'
 provenance: ai
 facet: 后训练即产品
 ---

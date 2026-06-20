@@ -74,7 +74,7 @@ flowchart LR
 
 **已记录的失败-修正轨迹（来源已确认）：**
 
-1. **over-design 失败（skill 层）**：`trip-structure skill` 有完整的"over-design → 被 Rick 拉回 → 收敛"轨迹，时间节点 2026-04-03，由 skill-creator 元 skill 重写（见 [trip-structure skill](/kb/工具/trip-structure-skill/)）。失败模式：AI 倾向于把输出格式做得过度复杂。修正机制：人类介入 + 元 skill 重构。
+1. **over-design 失败（skill 层）**：`trip-structure skill` 有完整的"over-design → 被 Rick 拉回 → 收敛"轨迹，时间节点 2026-04-03，由 skill-creator 元 skill 重写（见 [trip-structure skill](/kb/ai-协作方法论/trip-structure-skill/)）。失败模式：AI 倾向于把输出格式做得过度复杂。修正机制：人类介入 + 元 skill 重构。
 
 2. **over-design 失败（架构层）**：v1.3 的 12-agent 架构本身就是 fleet 自我膨胀的产物——2026-05-17 从单 agent 演化到 8→11 角色，2026-05-18 定型 12 角色，直到 2026-05-21 Rick 介入才塌缩。失败模式：**Orchestrator 暴露 meta-blind spot**——编排者 agent 自己看不到"角色太多"这个问题。修正机制：人类提出挑战 + A/B/C/D 判别框架。
 
@@ -182,7 +182,7 @@ Polanyi 的命题"我们知道的比我们能说出来的多（we know more than
 
 本节点不复述以下节点的事实基础，只做对照升级：
 
-- **对 [trip-structure skill](/kb/工具/trip-structure-skill/)**：该节点记录了 trip-structure 单个 skill 的 over-design→收敛轨迹。本节点做**深化**——把它从"一个 skill 的迭代史"升格为"AI fleet 失败模式的一个实例"，纳入 §3 的过度-膨胀统一模式。
+- **对 [trip-structure skill](/kb/ai-协作方法论/trip-structure-skill/)**：该节点记录了 trip-structure 单个 skill 的 over-design→收敛轨迹。本节点做**深化**——把它从"一个 skill 的迭代史"升格为"AI fleet 失败模式的一个实例"，纳入 §3 的过度-膨胀统一模式。
 - **对 [AI 记忆过拟合与泛化能力](/kb/基础知识库/ai-记忆过拟合与泛化能力/)**：该节点剖析记忆过拟合的机制。本节点做**对话**——把"审美过拟合"放进 §3 的失败三连，论证它与 over-design、架构膨胀同属"AI 倾向于过度"这一更高阶模式。
 - **对 [Skill 系统的本质](/kb/ai-协作方法论/skill-系统的本质/)**：该节点论证 skill = 默会知识的文档化封装。本节点做**纠偏/补缺**——§7 指出"封装的残余"：编排者的判断校准封装不进 skill，是 skill 系统的认识论天花板。
 - **对 PKM 设计哲学与演化史**：该节点记录 v1.3→v1.4 演化。本节点做**纠偏**——把"演化"重新框定为"一次 over-design 的失败与人类剪枝修正"，剥掉线性进步叙事。
@@ -198,14 +198,14 @@ Polanyi 的命题"我们知道的比我们能说出来的多（we know more than
 **核心（必读）：**
 - [Polanyi 默会知识与提示工程的认识论张力](/kb/基础知识库/polanyi-默会知识与提示工程的认识论张力/) — §7 的跨域支柱
 - [Skill 系统的本质](/kb/ai-协作方法论/skill-系统的本质/) — §7 封装残余的对话对象
-- [trip-structure skill](/kb/工具/trip-structure-skill/) — §3 失败实例之一
+- [trip-structure skill](/kb/ai-协作方法论/trip-structure-skill/) — §3 失败实例之一
 - [AI 记忆过拟合与泛化能力](/kb/基础知识库/ai-记忆过拟合与泛化能力/) — §3 失败实例之二
 - PKM 设计哲学与演化史 — §2/§3 架构塌缩的事实来源
 - [Claude routines 调研与 memory allowlist 设计](/kb/产品/claude-routines-调研与-memory-allowlist-设计/) — §2 memory 治理转型的对照
 
 **延伸（可选）：**
 - [旅行规划 Skill 套件系统设计](/kb/产品/旅行规划-skill-套件系统设计/) — fleet 分工的另一切面
-- [AI PM 知识图谱框架设计](/kb/产品/ai-pm-知识图谱框架设计/) — Rick 框架操控行为的旁证
+- [AI PM 知识图谱框架设计](/kb/ai-pm-知识图谱/ai-pm-知识图谱框架设计/) — Rick 框架操控行为的旁证
 - [AI PM 知识图谱·总索引](/kb/ai-pm-知识图谱/ai-pm-知识图谱-总索引/) — 全图谱入口
 - [Claude Code](/kb/ai-公司与产品/claude-code/) — 编排的执行底座
 - [Agent](/kb/基础知识库/agent/) — fleet 角色的概念基础

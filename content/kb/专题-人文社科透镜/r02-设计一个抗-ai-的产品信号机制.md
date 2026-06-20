@@ -2,7 +2,7 @@
 title: R02 设计一个抗 AI 的产品信号机制
 cluster: 专题 · 人文社科透镜
 created: '2026-06-07'
-updated: '2026-06-12'
+updated: '2026-06-20'
 provenance: ai
 facet: 信号理论
 ---

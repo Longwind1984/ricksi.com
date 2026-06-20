@@ -1,6 +1,6 @@
 ---
 title: AI PM 知识图谱框架设计
-cluster: 产品
+cluster: AI PM 知识图谱
 created: '2026-05-16'
 updated: '2026-05-18'
 provenance: co

@@ -2,7 +2,7 @@
 title: A04 Grounding 与 Hallucination 产品策略
 cluster: 专题 · 人文社科透镜
 created: '2026-06-07'
-updated: '2026-06-12'
+updated: '2026-06-20'
 provenance: ai
 facet: 信息检索与知识系统
 ---

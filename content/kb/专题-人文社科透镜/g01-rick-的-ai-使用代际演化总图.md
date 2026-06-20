@@ -161,8 +161,8 @@ Rick 现在站在 G4 内部一个特定位置：**经历过一次膨胀（12 age
 - [AI 记忆过拟合与泛化能力](/kb/基础知识库/ai-记忆过拟合与泛化能力/)（G3 代一手案例）
 - [Claude routines 调研与 memory allowlist 设计](/kb/产品/claude-routines-调研与-memory-allowlist-设计/)（G3 代 allowlist 转型）
 - [旅行规划 Skill 套件系统设计](/kb/产品/旅行规划-skill-套件系统设计/)（G2 代 skill 生态主案例）
-- [trip-structure skill](/kb/工具/trip-structure-skill/)（G2 代 over-design→收敛证据）
-- [AI PM 知识图谱框架设计](/kb/产品/ai-pm-知识图谱框架设计/)（G1 代 prompt 工程证据）
+- [trip-structure skill](/kb/ai-协作方法论/trip-structure-skill/)（G2 代 over-design→收敛证据）
+- [AI PM 知识图谱框架设计](/kb/ai-pm-知识图谱/ai-pm-知识图谱框架设计/)（G1 代 prompt 工程证据）
 - [AI PM 知识图谱·总索引](/kb/ai-pm-知识图谱/ai-pm-知识图谱-总索引/)（图谱归属入口）
 
 **延伸（可选）**

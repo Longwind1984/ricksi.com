@@ -2,7 +2,7 @@
 title: E01 o3 vs R1 vs Claude Extended Thinking 设计哲学
 cluster: 专题 · 能力与训练
 created: '2026-06-07'
-updated: '2026-06-12'
+updated: '2026-06-20'
 provenance: ai
 facet: 推理与测试时计算
 ---

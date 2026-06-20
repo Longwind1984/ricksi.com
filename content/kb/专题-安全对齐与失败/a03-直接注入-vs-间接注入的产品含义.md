@@ -2,7 +2,7 @@
 title: A03 直接注入 vs 间接注入的产品含义
 cluster: 专题 · 安全对齐与失败
 created: '2026-06-07'
-updated: '2026-06-12'
+updated: '2026-06-20'
 provenance: ai
 facet: AI 红队与攻防
 ---

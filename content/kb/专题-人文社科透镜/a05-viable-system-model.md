@@ -2,7 +2,7 @@
 title: A05 Viable System Model
 cluster: 专题 · 人文社科透镜
 created: '2026-06-07'
-updated: '2026-06-11'
+updated: '2026-06-20'
 provenance: ai
 facet: 控制论
 ---

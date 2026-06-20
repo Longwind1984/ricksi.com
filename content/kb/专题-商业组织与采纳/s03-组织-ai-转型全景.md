@@ -2,7 +2,7 @@
 title: S03 组织 AI 转型全景
 cluster: 专题 · 商业组织与采纳
 created: '2026-06-07'
-updated: '2026-06-12'
+updated: '2026-06-20'
 provenance: ai
 facet: 组织采纳
 ---

@@ -2,7 +2,7 @@
 title: A02 五词辨析·CoT 推理 思考 慢思考 Inference-scaling
 cluster: 专题 · 能力与训练
 created: '2026-06-07'
-updated: '2026-06-11'
+updated: '2026-06-20'
 provenance: ai
 facet: 推理与测试时计算
 ---

@@ -1,6 +1,6 @@
 ---
 title: trip-structure skill
-cluster: 工具
+cluster: AI 协作方法论
 created: '2026-05-16'
 updated: '2026-05-18'
 provenance: co

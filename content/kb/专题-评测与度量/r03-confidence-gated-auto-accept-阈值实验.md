@@ -2,7 +2,7 @@
 title: R03 Confidence-gated Auto-accept 阈值实验
 cluster: 专题 · 评测与度量
 created: '2026-06-07'
-updated: '2026-06-12'
+updated: '2026-06-20'
 provenance: ai
 facet: 审阅瓶颈
 ---

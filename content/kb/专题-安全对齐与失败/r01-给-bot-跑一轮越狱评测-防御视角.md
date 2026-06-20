@@ -2,7 +2,7 @@
 title: R01 给 Bot 跑一轮越狱评测(防御视角)
 cluster: 专题 · 安全对齐与失败
 created: '2026-06-07'
-updated: '2026-06-11'
+updated: '2026-06-20'
 provenance: ai
 facet: AI 红队与攻防
 ---

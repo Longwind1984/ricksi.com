@@ -2,7 +2,7 @@
 title: S03 多语言 AI 产品全景
 cluster: 专题 · 人文社科透镜
 created: '2026-06-07'
-updated: '2026-06-12'
+updated: '2026-06-20'
 provenance: ai
 facet: 计算语言学
 ---

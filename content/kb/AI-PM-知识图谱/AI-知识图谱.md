@@ -48,13 +48,13 @@ provenance: co
 
 | 子目录 | 入口 | 体量 | 性质 |
 |---|---|---|---|
-| 0400 | [AI PM 知识图谱·总索引](/kb/ai-pm-知识图谱/ai-pm-知识图谱-总索引/) / [purpose](/kb/ai-pm-知识图谱/purpose/) | 2 | MOC（既有） |
+| 0400 | [AI PM 知识图谱·总索引](/kb/ai-pm-知识图谱/ai-pm-知识图谱-总索引/) / purpose | 2 | MOC（既有） |
 | 0401AI 基础知识库 | [AI技术底层逻辑 v2 - 索引](/kb/基础知识库/ai技术底层逻辑-v2-索引/) / [0框架](/kb/基础知识库/0框架/) | 49 | topic 卡 + cXX 章节 |
 | 0401AI基础 | [Embedding 维度的确定逻辑](/kb/基础知识库/embedding-维度的确定逻辑/) / [LLM 随机性与种子机制](/kb/基础知识库/llm-随机性与种子机制/) | 2 | claim 散文 |
 | 0402AI 工程化与落地架构 | [0框架-模块二](/kb/工程化与落地架构/0框架-模块二/) + m201–m210 | 11 | topic 章节（**read-only**） |
 | 0403AI 产品设计与交互范式 | [0框架-模块三](/kb/产品设计与交互范式/0框架-模块三/) + p301–p309 | 10 | topic 章节 |
-| 0405AI 产品 | [AI PM 知识图谱框架设计](/kb/产品/ai-pm-知识图谱框架设计/)、[博物馆 AI 导览 APP](/kb/产品/博物馆-ai-导览-app/)、[旅行规划 Skill 套件系统设计](/kb/产品/旅行规划-skill-套件系统设计/)、[Claude routines 调研与 memory allowlist 设计](/kb/产品/claude-routines-调研与-memory-allowlist-设计/) | 4 | Rick 设计文档 |
-| 0408AI 工具 | [trip-structure skill](/kb/工具/trip-structure-skill/) | 1 | Rick 自用工具 |
+| 0405AI 产品 | [AI PM 知识图谱框架设计](/kb/ai-pm-知识图谱/ai-pm-知识图谱框架设计/)、[博物馆 AI 导览 APP](/kb/产品/博物馆-ai-导览-app/)、[旅行规划 Skill 套件系统设计](/kb/产品/旅行规划-skill-套件系统设计/)、[Claude routines 调研与 memory allowlist 设计](/kb/产品/claude-routines-调研与-memory-allowlist-设计/) | 4 | Rick 设计文档 |
+| 0408AI 工具 | [trip-structure skill](/kb/ai-协作方法论/trip-structure-skill/) | 1 | Rick 自用工具 |
 | 0409 待解问题 | 问题集 | 1 | 学习 backlog |
 | 0410 AI 公司与产品 | [Anthropic](/kb/ai-公司与产品/anthropic/) / [OpenAI](/kb/ai-公司与产品/openai/) / [Claude](/kb/ai-公司与产品/claude/) / ... | 15 | 公司与模型 topic 卡 |
 | 0410AI 协作方法论 | [Claude Project Instructions](/kb/ai-协作方法论/claude-project-instructions/) | 1 | 协作方法 |
@@ -147,7 +147,7 @@ provenance: co
 横跨 0410（公司/产品）+ 0410AI 协作方法论 + 0408 工具 + 根级 Skill 辨析。
 - 厂商：[Anthropic](/kb/ai-公司与产品/anthropic/) → 产品 [Claude](/kb/ai-公司与产品/claude/) / [Claude Code](/kb/ai-公司与产品/claude-code/) / [Computer Use](/kb/ai-公司与产品/computer-use/) / [Claude Opus](/kb/ai-公司与产品/claude-opus/) / [Claude Sonnet](/kb/ai-公司与产品/claude-sonnet/)
 - 协作机制：[Claude Project Instructions](/kb/ai-协作方法论/claude-project-instructions/) / [Claude 阅读非虚构 instruction 设计](/kb/ai-协作方法论/claude-阅读非虚构-instruction-设计/)
-- Skill 层：[Skill 系统的本质](/kb/ai-协作方法论/skill-系统的本质/) / [trip-structure skill](/kb/工具/trip-structure-skill/) / [intellectual-lens skill 设计](/kb/ai-协作方法论/intellectual-lens-skill-设计/) / [intellectual-lens skill 通过圣周案例的迭代](/kb/ai-协作方法论/intellectual-lens-skill-通过圣周案例的迭代/) / [旅行规划 Skill 套件系统设计](/kb/产品/旅行规划-skill-套件系统设计/)
+- Skill 层：[Skill 系统的本质](/kb/ai-协作方法论/skill-系统的本质/) / [trip-structure skill](/kb/ai-协作方法论/trip-structure-skill/) / [intellectual-lens skill 设计](/kb/ai-协作方法论/intellectual-lens-skill-设计/) / [intellectual-lens skill 通过圣周案例的迭代](/kb/ai-协作方法论/intellectual-lens-skill-通过圣周案例的迭代/) / [旅行规划 Skill 套件系统设计](/kb/产品/旅行规划-skill-套件系统设计/)
 - harness 层：[Harness 词义辨析](/kb/专题-安全对齐与失败/harness-词义辨析/) → 0411 深化 [S03 Harness Engineering 全景](/kb/专题-安全对齐与失败/s03-harness-engineering-全景/)
 - Rick 立场观察：AI 产品代差观察与微博打磨（"Anthropic 会成为 AI 时代赢家"）
 
@@ -184,9 +184,9 @@ provenance: co
 - 跨域链接：→ 0114认识论、→ 06人的相关思想家词条
 
 ### 主题 G：Rick 设计的 AI 产品（0405 + 0408）
-- 框架自反思：[AI PM 知识图谱框架设计](/kb/产品/ai-pm-知识图谱框架设计/)（即设计本图谱体系本身）
+- 框架自反思：[AI PM 知识图谱框架设计](/kb/ai-pm-知识图谱/ai-pm-知识图谱框架设计/)（即设计本图谱体系本身）
 - 产品提案：[博物馆 AI 导览 APP](/kb/产品/博物馆-ai-导览-app/)（0–1 简历价值产品）
-- Skill 套件：[旅行规划 Skill 套件系统设计](/kb/产品/旅行规划-skill-套件系统设计/) / [trip-structure skill](/kb/工具/trip-structure-skill/)
+- Skill 套件：[旅行规划 Skill 套件系统设计](/kb/产品/旅行规划-skill-套件系统设计/) / [trip-structure skill](/kb/ai-协作方法论/trip-structure-skill/)
 - Routines 调研：[Claude routines 调研与 memory allowlist 设计](/kb/产品/claude-routines-调研与-memory-allowlist-设计/)
 
 ---

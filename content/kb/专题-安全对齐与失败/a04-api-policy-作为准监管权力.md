@@ -2,7 +2,7 @@
 title: A04 API Policy 作为准监管权力
 cluster: 专题 · 安全对齐与失败
 created: '2026-06-07'
-updated: '2026-06-12'
+updated: '2026-06-20'
 provenance: ai
 facet: AI 作为制度现象
 ---

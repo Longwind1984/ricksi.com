@@ -2,7 +2,7 @@
 title: A04 Reasoning Effort 作为可计费资源
 cluster: 专题 · 能力与训练
 created: '2026-06-07'
-updated: '2026-06-12'
+updated: '2026-06-20'
 provenance: ai
 facet: 推理与测试时计算
 ---

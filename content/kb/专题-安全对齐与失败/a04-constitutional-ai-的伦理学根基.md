@@ -2,7 +2,7 @@
 title: A04 Constitutional AI 的伦理学根基
 cluster: 专题 · 安全对齐与失败
 created: '2026-06-07'
-updated: '2026-06-11'
+updated: '2026-06-20'
 provenance: ai
 facet: 对齐哲学
 ---

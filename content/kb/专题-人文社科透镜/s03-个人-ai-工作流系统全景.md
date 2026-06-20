@@ -26,7 +26,7 @@ facet: 自我民族志
 | 系统层 | 在 Rick 工作流里的对应物 | 角色（类比软件系统） | 可观察证据 |
 |---|---|---|---|
 | **能力层** | Claude Code + Claude / Agent | CPU / 运行时 | [Claude Code](/kb/ai-公司与产品/claude-code/) 体感是 0414 的研究对象 |
-| **过程封装层** | skill 生态（trip 五件套、intellectual-lens、skill-creator） | 函数库 / 可复用 procedure | trip-discover/evaluate/macro/structure/qa；[trip-structure skill](/kb/工具/trip-structure-skill/) |
+| **过程封装层** | skill 生态（trip 五件套、intellectual-lens、skill-creator） | 函数库 / 可复用 procedure | trip-discover/evaluate/macro/structure/qa；[trip-structure skill](/kb/ai-协作方法论/trip-structure-skill/) |
 | **状态层** | memory（allowlist 索引头）+ vault（外置详细内容） | 内存 vs 磁盘 | [Claude routines 调研与 memory allowlist 设计](/kb/产品/claude-routines-调研与-memory-allowlist-设计/) |
 | **编排层** | sub-agent 架构（v1.4：5 agent + 6 skill） | 调度器 / 进程管理 | PKM 设计哲学与演化史 演化档案 |
 | **治理层** | vault CLAUDE.md 六原则（沙盒、分层产物） | 权限系统 / CI 守卫 | vault 根 CLAUDE.md（六原则） |
@@ -43,7 +43,7 @@ facet: 自我民族志
 证据链（均有对话档案与时间戳）：
 
 - **trip 五件套**（trip-discover / trip-evaluate / trip-macro / trip-structure / trip-qa）由 Rick 在"发散 → 收敛 → 明确指令 → 机制核查"四步节奏中系统设计（2026-03-31 至 04-01 档案）。这不是写一个 prompt，是设计一个**有职责边界的函数家族**：discover 负责生成、evaluate 负责单项判断、structure 负责排程、qa 负责对抗审计。职责分离本身就是系统设计。
-- **trip-structure skill** 有完整的 `over-design → 被 Rick 拉回 → 收敛` 迭代轨迹（2026-04-03，由 skill-creator 这个**元 skill** 重写）。"用 skill 写 skill"是典型的自举（bootstrap）行为，标志着这一层已经有了**生产工具链**，而非手工作坊。详见 [trip-structure skill](/kb/工具/trip-structure-skill/)。
+- **trip-structure skill** 有完整的 `over-design → 被 Rick 拉回 → 收敛` 迭代轨迹（2026-04-03，由 skill-creator 这个**元 skill** 重写）。"用 skill 写 skill"是典型的自举（bootstrap）行为，标志着这一层已经有了**生产工具链**，而非手工作坊。详见 [trip-structure skill](/kb/ai-协作方法论/trip-structure-skill/)。
 - **intellectual-lens skill** 用"竞品输出对照"做 prompt 工程：拿另一个 AI 的分析输出当参照系，定位差距出在 prompt 的哪一步，局部修补（2026-04-05）。这是把 A/B 测试的工程方法搬进了个人 prompt 迭代。
 
 > [!note] 接口契约才是这一层的命门
@@ -223,7 +223,7 @@ skill 是 procedural knowledge 的文档化封装——但能被封装进 skill 
 **核心（必读）**
 - [Claude routines 调研与 memory allowlist 设计](/kb/产品/claude-routines-调研与-memory-allowlist-设计/) — 状态层一手设计档案
 - [Skill 系统的本质](/kb/ai-协作方法论/skill-系统的本质/) — 过程封装层的概念基座
-- [trip-structure skill](/kb/工具/trip-structure-skill/) — 过程封装层的迭代实例
+- [trip-structure skill](/kb/ai-协作方法论/trip-structure-skill/) — 过程封装层的迭代实例
 - [AI 记忆过拟合与泛化能力](/kb/基础知识库/ai-记忆过拟合与泛化能力/) — 状态层的反馈机制
 - PKM 设计哲学与演化史 — 编排层 12→v1.4 演化档案
 - [A02 抽象层级辨析·Harness Framework Agent Skill Orchestrator](/kb/专题-安全对齐与失败/a02-抽象层级辨析-harness-framework-agent-skill-orchestrator/) — 编排层的抽象层级对照（0411）
@@ -231,7 +231,7 @@ skill 是 procedural knowledge 的文档化封装——但能被封装进 skill 
 
 **延伸（可选）**
 - [旅行规划 Skill 套件系统设计](/kb/产品/旅行规划-skill-套件系统设计/) — 五件套的系统设计原档
-- [AI PM 知识图谱框架设计](/kb/产品/ai-pm-知识图谱框架设计/) — 另一条 PM 式框架操控证据
+- [AI PM 知识图谱框架设计](/kb/ai-pm-知识图谱/ai-pm-知识图谱框架设计/) — 另一条 PM 式框架操控证据
 - [S03 Harness Engineering 全景](/kb/专题-安全对齐与失败/s03-harness-engineering-全景/) — 0411 通用 harness 全景（跨专题对照）
 - [Claude Code](/kb/ai-公司与产品/claude-code/) — 能力层运行时
 - [Agent](/kb/基础知识库/agent/) — 编排层基本单元

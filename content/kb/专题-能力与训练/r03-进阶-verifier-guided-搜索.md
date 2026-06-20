@@ -2,7 +2,7 @@
 title: R03 进阶·Verifier-guided 搜索
 cluster: 专题 · 能力与训练
 created: '2026-06-07'
-updated: '2026-06-11'
+updated: '2026-06-20'
 provenance: ai
 facet: 推理与测试时计算
 ---

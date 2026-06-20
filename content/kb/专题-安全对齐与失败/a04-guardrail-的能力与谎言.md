@@ -2,7 +2,7 @@
 title: A04 Guardrail 的能力与谎言
 cluster: 专题 · 安全对齐与失败
 created: '2026-06-07'
-updated: '2026-06-11'
+updated: '2026-06-20'
 provenance: ai
 facet: AI 红队与攻防
 ---

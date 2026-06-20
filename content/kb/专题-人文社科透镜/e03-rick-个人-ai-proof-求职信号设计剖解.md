@@ -2,7 +2,7 @@
 title: E03 Rick 个人 AI-proof 求职信号设计剖解
 cluster: 专题 · 人文社科透镜
 created: '2026-06-07'
-updated: '2026-06-12'
+updated: '2026-06-20'
 provenance: ai
 facet: 信号理论
 ---

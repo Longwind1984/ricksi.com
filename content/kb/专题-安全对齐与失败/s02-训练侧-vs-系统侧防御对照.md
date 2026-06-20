@@ -2,7 +2,7 @@
 title: S02 训练侧 vs 系统侧防御对照
 cluster: 专题 · 安全对齐与失败
 created: '2026-06-07'
-updated: '2026-06-12'
+updated: '2026-06-20'
 provenance: ai
 facet: AI 红队与攻防
 ---

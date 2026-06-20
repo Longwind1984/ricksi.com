@@ -110,7 +110,7 @@ trip-structure 在 2026-04-03 有一条完整的"过度设计 → 被拉回 → 
 
 - 对照 [Skill 系统的本质](/kb/ai-协作方法论/skill-系统的本质/)：那个节点回答"Skill 在抽象层级上**是什么**"（横向辨析）；本节点做的是**升级对照中的"换轴"**——不研究 skill 是什么，而把 skill 的**设计史**当作研究 Rick 的数据轴。从"研究工具"升到"用工具当镜子研究造工具的人"。
 - 对照 [旅行规划 Skill 套件系统设计](/kb/产品/旅行规划-skill-套件系统设计/)：那个节点是 trip 套件的**设计文档**（系统怎么搭）；本节点**不复述**它的架构，只把它记录的设计决策当一手数据，做**深化**——从"设计了什么"问到"这些设计选择显示了 Rick 的什么判断"。
-- 对照 [trip-structure skill](/kb/工具/trip-structure-skill/)：本节点引用了它 2026-04-03 的 over-design→收敛轨迹作为 §3 的核心证据，是**取证关系**，不复述其内容。
+- 对照 [trip-structure skill](/kb/ai-协作方法论/trip-structure-skill/)：本节点引用了它 2026-04-03 的 over-design→收敛轨迹作为 §3 的核心证据，是**取证关系**，不复述其内容。
 - 对照 [AI 记忆过拟合与泛化能力](/kb/基础知识库/ai-记忆过拟合与泛化能力/)：那里 Rick 用 ML 术语对 AI 做元层干预；本节点的 §3 over-design 审查与之同构（都是"对自己的 AI 协作产物做诊断式审查"），构成**互证**。
 
 ## §10 关联节点
@@ -118,8 +118,8 @@ trip-structure 在 2026-04-03 有一条完整的"过度设计 → 被拉回 → 
 **核心（必读）**
 - [Skill 系统的本质](/kb/ai-协作方法论/skill-系统的本质/) — 本节点的"换轴"对照源
 - [旅行规划 Skill 套件系统设计](/kb/产品/旅行规划-skill-套件系统设计/) — trip 套件设计文档，本节点的一手数据源
-- [trip-structure skill](/kb/工具/trip-structure-skill/) — §3 over-design 证据出处
-- [AI PM 知识图谱框架设计](/kb/产品/ai-pm-知识图谱框架设计/) — 同类"为自己造学习工具"的设计史，与本节点互证
+- [trip-structure skill](/kb/ai-协作方法论/trip-structure-skill/) — §3 over-design 证据出处
+- [AI PM 知识图谱框架设计](/kb/ai-pm-知识图谱/ai-pm-知识图谱框架设计/) — 同类"为自己造学习工具"的设计史，与本节点互证
 - [Claude routines 调研与 memory allowlist 设计](/kb/产品/claude-routines-调研与-memory-allowlist-设计/) — memory 治理的设计决策史，同属 revealed-preference 数据
 
 **延伸（可选）**

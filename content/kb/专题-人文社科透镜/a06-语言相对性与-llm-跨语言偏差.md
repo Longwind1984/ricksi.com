@@ -2,7 +2,7 @@
 title: A06 语言相对性与 LLM 跨语言偏差
 cluster: 专题 · 人文社科透镜
 created: '2026-06-07'
-updated: '2026-06-12'
+updated: '2026-06-20'
 provenance: ai
 facet: 计算语言学
 ---

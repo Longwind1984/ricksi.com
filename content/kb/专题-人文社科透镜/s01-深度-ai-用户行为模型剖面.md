@@ -198,11 +198,11 @@ facet: 自我民族志
 - [AI 记忆过拟合与泛化能力](/kb/基础知识库/ai-记忆过拟合与泛化能力/)
 - [Claude routines 调研与 memory allowlist 设计](/kb/产品/claude-routines-调研与-memory-allowlist-设计/)
 - [旅行规划 Skill 套件系统设计](/kb/产品/旅行规划-skill-套件系统设计/)
-- [AI PM 知识图谱框架设计](/kb/产品/ai-pm-知识图谱框架设计/)
+- [AI PM 知识图谱框架设计](/kb/ai-pm-知识图谱/ai-pm-知识图谱框架设计/)
 - [AI PM 知识图谱·总索引](/kb/ai-pm-知识图谱/ai-pm-知识图谱-总索引/)
 
 **延伸（可选）**
-- [trip-structure skill](/kb/工具/trip-structure-skill/)
+- [trip-structure skill](/kb/ai-协作方法论/trip-structure-skill/)
 - [Claude Code](/kb/ai-公司与产品/claude-code/)
 - [Agent](/kb/基础知识库/agent/)
 - 0114认识论

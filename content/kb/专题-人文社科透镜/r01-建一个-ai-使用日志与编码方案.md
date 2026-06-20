@@ -43,10 +43,10 @@ facet: 自我民族志
 
 以下均经本专题工厂的资料采集 Read / 文件系统确认存在：
 
-- **Skill 设计史（决策轴的金矿）**：trip-discover / trip-evaluate / trip-macro / [trip-structure skill](/kb/工具/trip-structure-skill/) / trip-qa 五件套，2026-03-31~04-01 的"发散-收敛-明确指令-机制核查"四步节奏；trip-structure 的 over-design→被拉回→收敛轨迹（2026-04-03，skill-creator 元 skill 重写）；intellectual-lens 的"竞品输出对照"prompt 迭代（2026-04-05）。每一次迭代都是一个**可编码的决策事件**。
+- **Skill 设计史（决策轴的金矿）**：trip-discover / trip-evaluate / trip-macro / [trip-structure skill](/kb/ai-协作方法论/trip-structure-skill/) / trip-qa 五件套，2026-03-31~04-01 的"发散-收敛-明确指令-机制核查"四步节奏；trip-structure 的 over-design→被拉回→收敛轨迹（2026-04-03，skill-creator 元 skill 重写）；intellectual-lens 的"竞品输出对照"prompt 迭代（2026-04-05）。每一次迭代都是一个**可编码的决策事件**。
 - **Memory 治理转型（信任轴 + 筛选轴）**：blocklist→allowlist 的认知转型（2026-05-13），含反向删除旧记忆条目的行为。见 [Claude routines 调研与 memory allowlist 设计](/kb/产品/claude-routines-调研与-memory-allowlist-设计/)。
 - **过拟合诊断（信任轴的元层干预）**：用 ML 框架（过拟合/泛化）对 AI 做两轮元层干预（2026-03-23），干预文本已归档。见 [AI 记忆过拟合与泛化能力](/kb/基础知识库/ai-记忆过拟合与泛化能力/)。
-- **知识图谱框架操控（决策轴）**：两次主动改写 prompt 约束（撤数量上限保完备、把"PM 视角"具体化为场景题），2026-03-05。见 [AI PM 知识图谱框架设计](/kb/产品/ai-pm-知识图谱框架设计/)、[AI PM 知识图谱·总索引](/kb/ai-pm-知识图谱/ai-pm-知识图谱-总索引/)。
+- **知识图谱框架操控（决策轴）**：两次主动改写 prompt 约束（撤数量上限保完备、把"PM 视角"具体化为场景题），2026-03-05。见 [AI PM 知识图谱框架设计](/kb/ai-pm-知识图谱/ai-pm-知识图谱框架设计/)、[AI PM 知识图谱·总索引](/kb/ai-pm-知识图谱/ai-pm-知识图谱-总索引/)。
 - **架构塌缩决策（决策轴的元 case）**：12-agent v1.3 → 主动质疑 over-engineering → 塌缩为 5 sub-agent + 6 skill 的 v1.4（2026-05-21），A/B/C/D 判别框架有文档记录。
 - **本专题工厂作为 meta-case（最珍贵的 in-vivo 数据）**：0412–0423 旅途中 write-first 多 agent 流水线的实时运行——现场触发对话 → 存档 → SABCD 评级 → 升格为笔记，约 40+ 对话、40+ 节点。SABCD pipeline 评级分布已知（`99Archive/_README.md`：S:14 / A:103 / B:194 / C:182）。
 
@@ -130,7 +130,7 @@ artifact_link: <产出节点或对话存档，填真实节点名>
 
 > [!warning] 〔Rick 待填：信任校准的本土阈值〕
 > 我无法替你回答下面这些，它们需要你的内省。请用具体会话举例，不要写抽象原则：
-> - 在 [trip-structure skill](/kb/工具/trip-structure-skill/) 或代码 diff 场景，你**何时会跳过核查直接采纳**？是任务低风险、还是 AI 历史可靠、还是单纯没时间？
+> - 在 [trip-structure skill](/kb/ai-协作方法论/trip-structure-skill/) 或代码 diff 场景，你**何时会跳过核查直接采纳**？是任务低风险、还是 AI 历史可靠、还是单纯没时间？
 > - 你有没有过 `T-直采` 后发现 AI 错了的具体一次？那次之后你的核查行为变了吗？
 > - 反向：你 `T-否决` 过一个事后证明 AI 其实对的建议吗？（undertrust 的代价）
 > - 引导问题（对照 Bansal et al. 2021 的反直觉发现：AI 给解释会**无条件**抬高人类采纳率，不管对错）：当 AI 给出"看起来很有道理的解释"时，你是更容易采纳了，还是反而更警惕？
@@ -274,10 +274,10 @@ Polanyi 的核心命题"我们知道的比我们能说出的多"（we know more 
 ## 关联节点
 
 **核心（必读）**
-- [trip-structure skill](/kb/工具/trip-structure-skill/) — 决策轴的一手数据源（skill 迭代史 = 决策事件流）
+- [trip-structure skill](/kb/ai-协作方法论/trip-structure-skill/) — 决策轴的一手数据源（skill 迭代史 = 决策事件流）
 - [Claude routines 调研与 memory allowlist 设计](/kb/产品/claude-routines-调研与-memory-allowlist-设计/) — 信任轴 + 筛选轴的关键决策事件
 - [AI 记忆过拟合与泛化能力](/kb/基础知识库/ai-记忆过拟合与泛化能力/) — 信任轴的元层干预案例
-- [AI PM 知识图谱框架设计](/kb/产品/ai-pm-知识图谱框架设计/) — 决策轴的 prompt 改写证据
+- [AI PM 知识图谱框架设计](/kb/ai-pm-知识图谱/ai-pm-知识图谱框架设计/) — 决策轴的 prompt 改写证据
 - [Polanyi 默会知识与提示工程的认识论张力](/kb/基础知识库/polanyi-默会知识与提示工程的认识论张力/) — §6 跨域呼应的同构节点
 - [Skill 系统的本质](/kb/ai-协作方法论/skill-系统的本质/) — 决策轴数据源的概念基础
 
