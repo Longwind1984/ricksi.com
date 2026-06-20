@@ -21,12 +21,14 @@
 - **凭证用文件 store 而非 keychain**：launchd 非交互环境下 keychain 可能 ACL/锁定挂起；文件式 store 确定可用——已用 `env -i`（模拟 launchd 剥离环境 + plist 代理）`push --dry-run` 实测通过，不靠推断。
 - **HTTPS 而非改 Clash 放行 SSH**：改代理 app 配置脆且在仓库外；HTTPS 是仓库内根治（且 GitHub SSH 在国内本就不稳，才需要代理）。
 
-### 当前状态：能跑什么
-- `node --check sync.mjs` 通过；osascript 通知实测弹出；`env -i` launchd 环境 `push --dry-run` 实测认证+传输通过（这是「launchd 能不能推」的硬验证）。
-- remote=HTTPS、credential store 已配；分叉已清（local main rebased）。
-- 待办验证（本会话继续）：完整 `npm run sync` 真跑一次 + 手动触发 GH Action 看变绿。
+### 当前状态：能跑什么（全部已实测）
+- `env -i` 模拟 launchd 剥离环境 + plist 代理 `push --dry-run` 认证+传输通过（「launchd 能不能推」硬验证）；多次真实 HTTPS push 成功。
+- GH Action 手动触发 **变绿**（run 27860961266，此前 8/8 必挂），P4 修复确认。
+- `launchctl kickstart` 真跑完整 sync：6 采集器全部出数据（activity/usage/vault 重建/weread/books/frontier 13/13 梳理），osascript 失败通知实测弹出。
+- 线上数据：06-19 + 06-20 全量已上线（origin/main=ab058cf）；分叉已清。
 
 ### 未尽事项与已知问题
+- **GH Action(06:17) 与本地 sync(21:30) 正常不重叠**；但若 origin 在 sync 运行中途被推进（本次实测同时触发二者复现），sync 的 `pull --rebase` 会在 `data/activity.json` 冲突 → 按设计 `rebase --abort`（commit 保留、弹通知、exit 1），下次 sync 重采集后干净推上（已实测此路径正确，本次手动 `rebase -X theirs` 补推 06-20）。属罕见、自愈，未做自动冲突合并。
 - 缓解非治本的「云端兜底」按用户决定不做；Mac 关机当天仍不更新（用户接受）。
 - gh OAuth token 若轮换失效→推送失败（有通知），需重新 seed 或换 fine-grained PAT。
 - 前沿限流的「次日补做」依赖每日 run 成功——现在 push 修好后即生效。
