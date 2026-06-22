@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-06-22T05:41:44.694Z",
+ "generated_at": "2026-06-22T06:27:33.719Z",
  "rollingDays": 90,
  "domains": {
   "lab": "前沿实验室",
@@ -473,13 +473,14 @@
   "totalEntries": 338,
   "totalAllTime": 436,
   "lastRun": {
-   "at": "2026-06-22T05:41:44.695Z",
+   "at": "2026-06-22T06:27:33.719Z",
    "fetched": 12,
-   "processed": 9,
-   "added": 5,
+   "processed": 0,
+   "added": 0,
    "llmFailed": 0,
    "rateLimited": false,
    "skippedSources": [
+    "youtube:karpathy",
     "x:yann-lecun@ylecun"
    ]
   }
