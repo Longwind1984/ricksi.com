@@ -23,10 +23,20 @@ export function loadSiteData() {
   };
 }
 
-/* 把 ISO 时间渲染为「6月10日 14:30」风格的更新戳 */
+/* 把 ISO 时间渲染为「6月10日 14:30」风格的更新戳。
+   固定按北京时间（Asia/Shanghai）格式化——不依赖构建服务器时区：EdgeOne 与 Vercel 的
+   默认时区可能不同，用 getHours() 会让同一份数据在两平台显示不同（甚至差 8 小时）。
+   generated_at 由采集脚本以真实 UTC（new Date().toISOString()）写入，这里转成北京墙钟时间。 */
 export function stamp(iso) {
   if (!iso) return null;
   const d = new Date(iso);
   if (isNaN(d)) return null;
-  return `${d.getMonth() + 1}月${d.getDate()}日 ${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
+  const p = Object.fromEntries(
+    new Intl.DateTimeFormat('en-US', {
+      timeZone: 'Asia/Shanghai',
+      month: 'numeric', day: 'numeric',
+      hour: '2-digit', minute: '2-digit', hourCycle: 'h23',
+    }).formatToParts(d).map((x) => [x.type, x.value])
+  );
+  return `${p.month}月${p.day}日 ${p.hour}:${p.minute}`;
 }

@@ -119,7 +119,9 @@ git config --local credential.helper '' && git config --local --add credential.h
 plist 已注入 `HTTPS_PROXY=127.0.0.1:7897`，HTTPS 443 走代理可达。`sync.mjs` 自抓 GitHub 贡献（gh 维度，让本地
 `data/activity.json` 完整），push 前 `pull --rebase --autostash -X theirs`——防分叉、且 activity.json 与 GH Action
 （06:17 也写 gh 维度）抢写时以本地完整版为准，根治每天 21:30 的 rebase 冲突。任一致命步骤失败弹 macOS 通知（不再静默）。
-**每次运行结果**追加一行到 `~/Library/Logs/workbench-sync.log`（`✓pushed`/`⊙no-changes`/`✗failed`+耗时），详细 stdout/stderr 同目录。
+**每次运行结果**追加一行到 `~/Library/Logs/workbench-sync.log`（`✓pushed`/`⊙no-changes`/`✗failed`+耗时），详细 stdout/stderr 同目录；
+更详细的结构化记录（Token 今日/累计、本次新增前沿标题、活动/图谱/阅读计数）写进 Obsidian 库 `00Meta/工作台同步日志/YYYY-MM.md`（该域不发布、不计活动）。
+前端「更新于」时间按 `Asia/Shanghai` 显式格式化（不依赖构建机时区，EdgeOne/Vercel 一致）。
 gh OAuth token 若轮换失效会推送失败（有通知），重跑上面最后一行重新 seed，或换成自建 fine-grained PAT（`contents: read/write`）。
 
 **隐私**：`scripts/config.mjs` 的 `excludeClusters` 默认排除求职/待解问题文件夹；

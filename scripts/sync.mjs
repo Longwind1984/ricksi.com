@@ -16,6 +16,7 @@ import { execFileSync, execSync } from 'node:child_process';
 import { appendFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { homedir } from 'node:os';
 import { join } from 'node:path';
+import { writeVaultJournal } from './lib/sync-journal.mjs';
 
 const noPush = process.argv.includes('--no-push');
 const run = (cmd, args, opts) => execFileSync(cmd, args, { stdio: 'inherit', ...opts });
@@ -25,6 +26,7 @@ const gitOut = (args) => execSync(`git ${args}`, { encoding: 'utf8' });
 const LOG_DIR = join(homedir(), 'Library', 'Logs');
 const RUN_LOG = join(LOG_DIR, 'workbench-sync.log');
 const startedAt = Date.now();
+const durSec = () => Math.round((Date.now() - startedAt) / 1000);
 
 // 每次运行追加一行：时间 · 结果 · 耗时。持久（不在 /tmp，重启不丢），便于回看「哪天没更新、为什么」。
 function logRun(status) {
@@ -95,6 +97,7 @@ async function main() {
     console.log('✓ 数据无变化，无需提交');
     markOk();
     logRun('⊙ no changes');
+    writeVaultJournal({ outcome: '⊙ 无变化' });
     return;
   }
   const fileCount = status.trim().split('\n').length;
@@ -105,6 +108,7 @@ async function main() {
     console.log('✓ 已提交（尚未配置远程仓库，跳过 push）');
     markOk();
     logRun(`⊙ committed, no remote (${fileCount} files)`);
+    writeVaultJournal({ outcome: '⊙ 已提交（无远程）', fileCount, durSec: durSec() });
     return;
   }
 
@@ -121,6 +125,7 @@ async function main() {
   console.log('✓ 已推送，EdgeOne / Vercel 将自动重新部署');
   markOk();
   logRun(`✓ pushed ${head} (${fileCount} files)`);
+  writeVaultJournal({ outcome: '✓ 推送', head, fileCount, durSec: durSec() });
 }
 
 main().catch((e) => {
@@ -128,5 +133,6 @@ main().catch((e) => {
   console.error('✗ 同步失败：', detail);
   notifyFail(detail);
   logRun(`✗ failed: ${detail.replace(/\s+/g, ' ').slice(0, 160)}`);
+  writeVaultJournal({ outcome: '✗ 失败', error: detail, durSec: durSec() });
   process.exit(1);
 });

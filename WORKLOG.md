@@ -1,5 +1,28 @@
 # WORKLOG（append-only，倒金字塔：结论在前、清单沉底）
 
+## 2026-06-22 · 同步富日志写入 Obsidian 库 + 前端「更新于」按真实时区显示
+
+### 体验影响（着重 · 先看）
+- **前端「更新于」时间现在按北京时间真实显示**：之前 `stamp()` 用 `getHours()` 取**构建服务器**时区——EdgeOne（北京时区）显示 21:30、Vercel（UTC）同一份数据会显示 13:30，两平台不一致且脆。改成显式 `Asia/Shanghai` 格式化：跨平台一致、真实反映采集时刻（今天 13:36 跑就显示「6月22日 13:36」，不再像「永远 21:30」）。用户感知的「写死 21:30」真因＝时区取自构建机 + 恰好北京时区 + 定时 21:30，看着像写死。
+- **每次同步在 Obsidian 库留一份详细日志**：`00Meta/工作台同步日志/YYYY-MM.md`，每次运行追加一节——Token 今日/累计、**本次新增的前沿标题逐条**、活动/图谱/阅读各维度计数、结果与耗时。与一行式 `~/Library/Logs/workbench-sync.log` 互补（那是机器流水，这是可在 Obsidian 翻阅的详记）。
+
+### 做了什么
+1. `src/lib/site-data.mjs` 的 `stamp()`：`getHours()`（构建机时区）→ `Intl.DateTimeFormat` 显式 `timeZone:'Asia/Shanghai'`、`hourCycle:'h23'`，把真实 UTC 的 generated_at 转北京墙钟。
+2. 新增 `scripts/lib/sync-journal.mjs`：读 data/*.json 组结构化 markdown，追加到库；`sync.mjs` 在 成功/无变化/失败 各终态调用 `writeVaultJournal`。
+
+### 关键决策
+- **库日志落点选 00Meta**：它在 config 同时是 `vaultActivityExclude`（不 inflate 笔记数）+ `privacyMigration.hiddenFolders`（连标题都不发）——含 Token 的私有日志确定不泄到公开站。
+- **stamp 改显式时区而非依赖构建机**：根治跨 EdgeOne/Vercel 不一致 + 真实反映任意时刻采集，不再「看着像写死」。
+
+### 当前状态：能跑什么
+- `stamp()` 实测：13:30Z→6月20日21:30、05:36Z→6月22日13:36、跨午夜16:05Z→6月22日00:05，全对。
+- 库日志 isolation 实测：生成月度文件含 Token/新增前沿标题/各维度计数，格式如期（自检条目已清，首条真实记录待下次 sync）。
+
+### 文件级变更清单
+- `src/lib/site-data.mjs`：`stamp()` 固定北京时间。
+- `scripts/lib/sync-journal.mjs`：新增——富日志写入 Obsidian 00Meta。
+- `scripts/sync.mjs`：import + 各终态调用 `writeVaultJournal`。
+
 ## 2026-06-22 · 同步每日失败的真因修复（activity.json 两写者冲突）+ 持久运行日志
 
 ### 体验影响（着重 · 先看）
