@@ -1,11 +1,11 @@
 {
- "generated_at": "2026-06-22T06:27:00.428Z",
- "today": 96033275,
- "today_out": 405581,
- "today_cache_share": 89,
- "week": "1.1B",
- "cumulative": "4.4B",
- "cumulative_code": "4.3B",
+ "generated_at": "2026-06-22T13:30:08.371Z",
+ "today": 339905233,
+ "today_out": 977366,
+ "today_cache_share": 88,
+ "week": "1.3B",
+ "cumulative": "4.6B",
+ "cumulative_code": "4.5B",
  "cumulative_web": "104M",
  "models": [
   [
@@ -14,11 +14,11 @@
   ],
   [
    "Fable",
-   18
+   17
   ],
   [
    "Haiku",
-   3
+   2
   ],
   [
    "Sonnet",
@@ -52,7 +52,7 @@
   },
   {
    "d": "今天",
-   "v": 96.03
+   "v": 339.91
   }
  ],
  "series": {
@@ -634,14 +634,21 @@
    }
   },
   "2026-06-22": {
-   "total": 96033275,
+   "total": 339905233,
    "models": {
     "opus-4-8": {
-     "in": 1296764,
-     "out": 371677,
-     "cw": 8190664,
-     "cr": 80983516,
-     "total": 90842621
+     "in": 5860125,
+     "out": 832564,
+     "cw": 31696458,
+     "cr": 276227653,
+     "total": 314616800
+    },
+    "sonnet-4-6": {
+     "in": 101449,
+     "out": 144802,
+     "cw": 2383087,
+     "cr": 22659095,
+     "total": 25288433
     },
     "<synthetic>": {
      "in": 0,
@@ -649,13 +656,6 @@
      "cw": 0,
      "cr": 0,
      "total": 0
-    },
-    "sonnet-4-6": {
-     "in": 24612,
-     "out": 33904,
-     "cw": 516520,
-     "cr": 4615618,
-     "total": 5190654
     }
    }
   },
@@ -713,7 +713,7 @@
   "real_window": "2026-05-27 起（Claude Code 本地日志，按消息去重，含输入/输出/缓存读写全口径）",
   "real_days": 24,
   "estimated_days": 12,
-  "estimated_share": "10%",
+  "estimated_share": "9%",
   "web_estimate": {
    "total": "104M",
    "since": "2025-07-01",
@@ -728,8 +728,8 @@
     {
      "from": "2026-01-01",
      "to": "2026-06-22",
-     "days": 173,
-     "tokens": 81804286
+     "days": 174,
+     "tokens": 82277143
     }
    ]
   },
