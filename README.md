@@ -116,9 +116,11 @@ git config --local credential.helper '' && git config --local --add credential.h
 { printf 'protocol=https\nhost=github.com\nusername=x-access-token\npassword='; gh auth token; printf '\n'; } | git credential approve   # 写入 ~/.git-credentials(600)
 ```
 
-plist 已注入 `HTTPS_PROXY=127.0.0.1:7897`，HTTPS 443 走代理可达。`sync.mjs` push 前 `pull --rebase --autostash`
-防分叉；任一致命步骤失败弹 macOS 通知（不再静默）。gh OAuth token 若轮换失效会推送失败（有通知），重跑上面
-最后一行重新 seed，或换成自建 fine-grained PAT（`contents: read/write`）。
+plist 已注入 `HTTPS_PROXY=127.0.0.1:7897`，HTTPS 443 走代理可达。`sync.mjs` 自抓 GitHub 贡献（gh 维度，让本地
+`data/activity.json` 完整），push 前 `pull --rebase --autostash -X theirs`——防分叉、且 activity.json 与 GH Action
+（06:17 也写 gh 维度）抢写时以本地完整版为准，根治每天 21:30 的 rebase 冲突。任一致命步骤失败弹 macOS 通知（不再静默）。
+**每次运行结果**追加一行到 `~/Library/Logs/workbench-sync.log`（`✓pushed`/`⊙no-changes`/`✗failed`+耗时），详细 stdout/stderr 同目录。
+gh OAuth token 若轮换失效会推送失败（有通知），重跑上面最后一行重新 seed，或换成自建 fine-grained PAT（`contents: read/write`）。
 
 **隐私**：`scripts/config.mjs` 的 `excludeClusters` 默认排除求职/待解问题文件夹；
 单篇笔记 front-matter `publish: false` 可排除；`data/kb-manifest.json` 是全量发布清单，推公开仓库前请过目。

@@ -39,9 +39,10 @@
     <key>Minute</key>
     <integer>30</integer>
   </dict>
+  <!-- 持久日志（不在 /tmp，重启不丢）。简要「每次运行结果」见 ~/Library/Logs/workbench-sync.log（由 sync.mjs 追加）。 -->
   <key>StandardOutPath</key>
-  <string>/tmp/workbench-sync.log</string>
+  <string>/Users/rick/Library/Logs/workbench-sync.stdout.log</string>
   <key>StandardErrorPath</key>
-  <string>/tmp/workbench-sync.err</string>
+  <string>/Users/rick/Library/Logs/workbench-sync.stderr.log</string>
 </dict>
 </plist>

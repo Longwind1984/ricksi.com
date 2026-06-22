@@ -1,5 +1,32 @@
 # WORKLOG（append-only，倒金字塔：结论在前、清单沉底）
 
+## 2026-06-22 · 同步每日失败的真因修复（activity.json 两写者冲突）+ 持久运行日志
+
+### 体验影响（着重 · 先看）
+- **06-21 没更新的真因找到并修了——不是偶发，是每天必挂**：GH Action（06:17 写 `data/activity.json` 的 gh 维度）和本地 sync（21:30 写全维度）抢写同一文件；本地 sync 工作树总落后 origin 一个 GH 提交 → 它的 `pull --rebase` **每天**在 activity.json 撞车 → abort → 当天数据卡本地不上线。06-20 能成只因我手动对齐过、且那次 21:30 前无 GH 提交插入。**上一轮我判「罕见、自愈」是错的，在此更正。**
+- **现在每次运行都留一行日志**：`~/Library/Logs/workbench-sync.log`（持久、不在 /tmp），一行一次（`✓ pushed <hash>` / `⊙ no changes` / `✗ failed: 原因` + 耗时），「哪天没更新、为什么」一眼可查。
+
+### 做了什么
+1. 真因＝activity.json 两个写者无协调。修：① 本地 sync 自己也抓 gh 维度（`fetch-github`，token 由 `gh auth token` 提供），让本地 activity.json **完整且新**；② push 前 `pull --rebase --autostash -X theirs`——activity.json 冲突一律以本地完整版为准（gh 已自抓、不丢数据）。两者合力，每天 rebase 不再撞车、不再卡。
+2. 持久运行日志：sync.mjs 每次运行追加结果行到 `~/Library/Logs/workbench-sync.log`；launchd 详细 stdout/stderr 也从 /tmp（重启即丢）移到 `~/Library/Logs/workbench-sync.{stdout,stderr}.log`。
+3. 补回卡住的 06-21 数据（手动 `rebase -X theirs` 推上线）。
+
+### 关键决策与被否决
+- **本地 sync 自抓 gh + `-X theirs`，而非 start-pull**：start-pull（开跑前先 pull）一旦遇上一天卡住的 commit 仍会冲突、且更绕。自抓 gh + 冲突恒以本地完整版为准，是单点、确定、不丢数据的解。
+- **保留 GH Action**：它是 Mac 关机当天 gh 维度的唯一兜底；`-X theirs` 让二者无冲突共存（GH 的 commit 当天被 sync 完整版覆盖，无害）。嫌 commit 噪声可日后停其 schedule。
+
+### 当前状态：能跑什么
+- 06-21 数据已补上线（origin=97c1d25→后续）；sync.mjs + plist 已改、launchd 已重载（新日志路径已生效确认）；fetch-github 本地实测可跑（合并 26 天贡献）；run-log 写入实测。
+- 回归测试（本会话继续）：触发 GH Action 制造 activity.json 抢写 → 跑一次完整 sync 确认 `-X theirs` 自动化解、干净推上（即 06-21 故障的复现回归）。
+
+### 未尽事项与已知问题
+- GH Action 每天提交一次被 sync 覆盖，冗余但无害（保留为 Mac-off 兜底）。
+- 其余同 06-20 条目（gh token 轮换→推送失败有通知、Mac 关机当天不更新等）。
+
+### 文件级变更清单
+- `scripts/sync.mjs`：加 fetch-github 步（自抓 gh）；rebase 改 `-X theirs`；每次运行写 `~/Library/Logs/workbench-sync.log`。
+- `scripts/com.ricksi.workbench-sync.plist`：stdout/stderr 从 /tmp 移到 ~/Library/Logs（持久）；已 cp 到 ~/Library/LaunchAgents 并 reload。
+
 ## 2026-06-20 · 同步机制最小可靠化：发布链 SSH→HTTPS + 防分叉 + 失败告警
 
 ### 体验影响（着重 · 先看）
