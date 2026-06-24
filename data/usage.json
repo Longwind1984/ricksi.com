@@ -1,9 +1,9 @@
 {
- "generated_at": "2026-06-24T05:36:28.258Z",
- "today": 491636,
- "today_out": 10518,
- "today_cache_share": 84,
- "week": "742M",
+ "generated_at": "2026-06-24T06:25:10.594Z",
+ "today": 13549272,
+ "today_out": 113798,
+ "today_cache_share": 97,
+ "week": "755M",
  "cumulative": "4.8B",
  "cumulative_code": "4.7B",
  "cumulative_web": "105M",
@@ -52,7 +52,7 @@
   },
   {
    "d": "今天",
-   "v": 0.49
+   "v": 13.55
   }
  ],
  "series": {
@@ -686,14 +686,14 @@
    }
   },
   "2026-06-24": {
-   "total": 491636,
+   "total": 13549272,
    "models": {
     "opus-4-8": {
-     "in": 20480,
-     "out": 10518,
-     "cw": 45735,
-     "cr": 414903,
-     "total": 491636
+     "in": 23043,
+     "out": 113798,
+     "cw": 276593,
+     "cr": 13135838,
+     "total": 13549272
     }
    }
   },
