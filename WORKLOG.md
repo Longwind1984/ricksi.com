@@ -1,5 +1,35 @@
 # WORKLOG（append-only，倒金字塔：结论在前、清单沉底）
 
+## 2026-06-24 · 手动同步救回卡住的更新 + 书架上新 4 本 + 代理自适应根治自动更新
+
+### 体验影响（着重 · 先看）
+- **dashboard「更新于」从 6/22 推进到 6/24**：6/23 21:30 的自动同步在本地 commit 了却没推上去（详见真因），线上一直停在 6/22。本次手动 `npm run sync` 把卡住的 6/23 daily sync 连同新的 6/24 一起 rebase 推上线。⚠️ 注意：**本次前沿追踪是「时间戳新、内容旧」**——跑的时候 Clash 没开，外网源全抓不到，沿用上次 331 条；其余维度（git/Obsidian/Claude 日志/GitHub 贡献/用量/阅读）都是真新数据。
+- **书架新增「Work Agent」主题 4 本，全部可在站内阅读器翻开**：Work Agent 赛道 / 待细分还是待创造 / 被聚合的聚合者 / 让 AI 替你上班，之后呢。副标题取自各书封面原文。截图实测：封面正常、`/reading/<id>/read/` 阅读器路由全 200。
+
+### 做了什么
+1. **手动同步**：诊断出 6/23 自动更新失败＝launchd 把 git push 写死走 Clash 代理（127.0.0.1:7897），而那时 Clash 没开 → push 失败、commit 卡本地。直连 GitHub 实测可达，手动 push 救回（`84b2069..12486d4`）。
+2. **书架上新**：30书架（`~/Documents/30书架`）已是配置好的源（config.bookshelfDir），缺的是 local-books.json 登记。新增 work-agent 话题 4 本 → `merge-local-books` 拉 epub + 从 epub 内提封面（500×800）→ 合入 reading.json。
+3. **代理自适应（根治）**：人在新加坡无 GFW，实测 6/23 全挂的源直连全可达——故障真因是 launchd **强制**走死代理。新增 `scripts/lib/proxy.mjs` TCP 探针；collect-frontier 与 sync 都改为「探测代理可达才用，否则直连」。实测 collect-frontier 直连 19 源通 18（仅 yann-lecun 源自身 HTTP 400）。
+
+### 关键决策与被否决备选
+- **代理修复选「自动探测」而非「写死直连」**：写死直连会让回国 Clash 又成必需时再次挂。探测方案三环境自适应（新加坡直连 / 回国 Clash 开走代理 / Clash 没开直连），无需手动切。
+- **上一轮（6/22）判「git push 经代理」只是 git 的事——漏看了**：collect-frontier 另有一套从 config 写死的代理（self-re-exec），才是前沿抓取也跟着挂的真凶。本轮一并修。
+- **前沿没等它跑完**：直连验证通过后即停，省订阅 token；frontier 内容刷新留给下次 sync。
+
+### 当前状态：能跑什么
+- 线上：已推 `003d676`，EdgeOne/Vercel 重建中，几分钟后 dashboard 显 6/24 + 书架见 4 本新书。
+- 自动更新：**今晚 21:30 launchd 跑的是工作树脚本（已改），即使不依赖本次 push 也会用新逻辑**——Clash 开不开都能正常同步。
+- 仍无解的边界：回国 + Clash 没开 → 外网与 GitHub 皆墙，直连必败（物理限制，会优雅降级不崩）。
+
+### 文件级变更清单
+- `scripts/lib/proxy.mjs`：新增——代理 TCP 可达性探针（1.2s 快失败）。
+- `scripts/collect-frontier.mjs`：代理探测可达才用（原 config 写死强用）；runClaude 同步改用探测结果。
+- `scripts/sync.mjs`：开跑探测 launchd 注入的代理，连不上清掉代理 env 让 git 直连。
+- `data/local-books.json`：新增 work-agent 话题 4 本登记。
+- `data/reading.json`：合入上述 4 本（merge-local-books 生成）。
+- `public/assets/books/epub/{work-agent-track,work-agent-market,aggregated-aggregator,ai-after-work}.epub` + 同名 `epub-covers/*.png`：从 30书架同步的 epub 与提取封面。
+- 推送提交：`12486d4`（手动 daily sync 6/24，含救回的 6/23）、`48b962f`（代理自适应）、`003d676`（书架 4 本）。
+
 ## 2026-06-22 · 同步富日志写入 Obsidian 库 + 前端「更新于」按真实时区显示
 
 ### 体验影响（着重 · 先看）
