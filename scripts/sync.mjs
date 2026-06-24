@@ -17,6 +17,7 @@ import { appendFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { homedir } from 'node:os';
 import { join } from 'node:path';
 import { writeVaultJournal } from './lib/sync-journal.mjs';
+import { isProxyReachable } from './lib/proxy.mjs';
 
 const noPush = process.argv.includes('--no-push');
 const run = (cmd, args, opts) => execFileSync(cmd, args, { stdio: 'inherit', ...opts });
@@ -47,6 +48,14 @@ function markOk() {
 }
 
 async function main() {
+  // 代理自适应：launchd 注入了 HTTPS_PROXY（国内 Clash 用），但代理可能没开——人在新加坡等无 GFW 环境根本不需要它。
+  // 探测一次：连不上就把代理 env 全清掉，让 git push 与子采集脚本走直连，而不是被死代理拖到「整条同步挂」（6/23 事故）。
+  const envProxy = process.env.HTTPS_PROXY || process.env.https_proxy;
+  if (envProxy && !(await isProxyReachable(envProxy))) {
+    for (const k of ['HTTPS_PROXY', 'HTTP_PROXY', 'https_proxy', 'http_proxy']) delete process.env[k];
+    console.log(`── 0/6 代理 ${envProxy} 不可达 → 本次全程直连（无 GFW 环境无需 Clash）`);
+  }
+
   console.log('── 1/6 活动热力图（git + Obsidian + Claude 日志）');
   run('node', ['scripts/collect-activity.mjs']);
 

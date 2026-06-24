@@ -9,6 +9,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { CONFIG } from './config.mjs';
 import { readJson, writeJson, dayKey } from './lib/util.mjs';
+import { resolveProxy } from './lib/proxy.mjs';
 
 const F = CONFIG.frontier;
 const OUT = path.join(CONFIG.dataDir, 'frontier.json');
@@ -20,19 +21,30 @@ const UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (
    详见 docs/frontier-routine.md。本地 LaunchAgent 不传此标志，走完整管线（含 X 镜像 + 本机代理）。 */
 const REMOTE = process.argv.includes('--remote') || process.env.FRONTIER_REMOTE === '1';
 
-/* ── 代理：Node 的内置 fetch 不读 http_proxy，需 NODE_USE_ENV_PROXY=1；
-   配置了代理且未生效时，注入 env 自我重执行（LaunchAgent 环境下也成立）。REMOTE 直连，跳过 ── */
-if (F.proxy && !REMOTE && process.env.NODE_USE_ENV_PROXY !== '1') {
-  const r = spawnSync(process.execPath, [process.argv[1], ...process.argv.slice(2)], {
-    stdio: 'inherit',
-    env: {
-      ...process.env,
-      NODE_USE_ENV_PROXY: '1',
-      HTTPS_PROXY: F.proxy, HTTP_PROXY: F.proxy,
-      https_proxy: F.proxy, http_proxy: F.proxy,
-    },
-  });
-  process.exit(r.status ?? 1);
+/* ── 代理：Node 的内置 fetch 不读 http_proxy，需 NODE_USE_ENV_PROXY=1；配了代理且未生效时注入 env 自我重执行。
+   关键：代理先探测可达再用——人在新加坡等无 GFW 环境 Clash 没开时，连不上就直连，而不是死等代理把整条管线拖挂。
+   PROXY 是本次唯一的代理真值来源（null = 直连）；REMOTE 永远直连。 ── */
+let PROXY = null;
+if (REMOTE) {
+  PROXY = null;
+} else if (process.env.NODE_USE_ENV_PROXY === '1') {
+  PROXY = process.env.HTTPS_PROXY || null; // 已是重执行后的子进程，代理已在 env 里生效
+} else if (F.proxy) {
+  PROXY = await resolveProxy(F.proxy); // 探测：可达才用
+  if (PROXY) {
+    const r = spawnSync(process.execPath, [process.argv[1], ...process.argv.slice(2)], {
+      stdio: 'inherit',
+      env: {
+        ...process.env,
+        NODE_USE_ENV_PROXY: '1',
+        HTTPS_PROXY: PROXY, HTTP_PROXY: PROXY,
+        https_proxy: PROXY, http_proxy: PROXY,
+      },
+    });
+    process.exit(r.status ?? 1);
+  } else {
+    console.warn(`[frontier] 代理 ${F.proxy} 不可达 → 直连（无 GFW 环境如新加坡属正常）`);
+  }
 }
 
 /* ════ 抓取层 ════ */
@@ -243,7 +255,7 @@ ${item.text || '（仅有标题）'}`;
 
 function runClaude(prompt) {
   const env = { ...process.env };
-  if (F.proxy && !REMOTE) Object.assign(env, { HTTPS_PROXY: F.proxy, HTTP_PROXY: F.proxy, https_proxy: F.proxy, http_proxy: F.proxy });
+  if (PROXY) Object.assign(env, { HTTPS_PROXY: PROXY, HTTP_PROXY: PROXY, https_proxy: PROXY, http_proxy: PROXY });
   const r = spawnSync(
     REMOTE ? 'claude' : F.claude.bin,
     ['-p', '--output-format', 'json', '--json-schema', JSON.stringify(OUTPUT_SCHEMA),
