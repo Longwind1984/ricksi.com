@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-06-24T06:36:56.212Z",
+ "generated_at": "2026-06-24T13:32:14.980Z",
  "rollingDays": 90,
  "domains": {
   "lab": "前沿实验室",
@@ -470,18 +470,16 @@
   }
  ],
  "stats": {
-  "totalEntries": 349,
-  "totalAllTime": 454,
+  "totalEntries": 351,
+  "totalAllTime": 456,
   "lastRun": {
-   "at": "2026-06-24T06:36:56.212Z",
-   "fetched": 23,
-   "processed": 20,
-   "added": 18,
+   "at": "2026-06-24T13:32:14.980Z",
+   "fetched": 24,
+   "processed": 2,
+   "added": 2,
    "llmFailed": 0,
    "rateLimited": false,
-   "skippedSources": [
-    "x:yann-lecun@ylecun"
-   ]
+   "skippedSources": []
   }
  },
  "entries": [
@@ -510,6 +508,66 @@
    "insufficientContext": false,
    "addedAt": "2026-06-16",
    "backfill": true
+  },
+  {
+   "id": "4365ec83883717be",
+   "date": "2026-06-24",
+   "person": "yann-lecun",
+   "topicSource": null,
+   "sourceName": "X @ylecun",
+   "sourceType": "x",
+   "contentType": "statement",
+   "titleZh": "Yann LeCun 转发联合国开源周 2026 演讲：开源 AI 与新兴技术",
+   "titleOriginal": "webtv.un.org/en/asset/k14/k1…",
+   "verdict": "LeCun 无附言转发联合国开源周视频，呼应开源作为可持续 AI 未来路径的议题，实际内容不可知。",
+   "summaryZh": "Yann LeCun 在 X 上转发了联合国 2026 年开源周（UN Open Source Week 2026）活动视频链接，主题为\"开源与 AI 及新兴技术\"（第一部分）。活动描述称该讨论聚焦于开源作为构建可持续 AI 未来的路径，涵盖 AI 治理与技术可及性等议题。LeCun 未附加任何个人评论，仅转发链接。由于原材料仅为一条推文链接，视频实际论点、嘉宾观点与结论均不可知，无法评估其实质内容。",
+   "tags": [
+    "AI治理",
+    "开源模型",
+    "AI政策"
+   ],
+   "url": "https://x.com/ylecun/status/2069765820121485385",
+   "excerpt": "webtv.un.org/en/asset/k14/k1…\nLink\nOpen Source for AI and Emerging Technologies - UN Open Source Week 2026 (Part 1)\nOpen Source for AI and Emerging Technologies (Open Source x AI) assesses the potential of open source as a gateway to establishing a sustainable AI future. Through the examination of topics such as...\nwebtv.un.org",
+   "apparent": 2,
+   "absolute": 2,
+   "importance": 2,
+   "gravity": false,
+   "periodic": false,
+   "singularity": false,
+   "rationale": "知名人士无评论转发链接，视频内容不可知；声量因 LeCun 影响力略有，但分量因缺乏实质信息偏低。",
+   "insufficientContext": true,
+   "addedAt": "2026-06-24"
+  },
+  {
+   "id": "1a015f5dfa42958d",
+   "date": "2026-06-24",
+   "person": null,
+   "topicSource": "openai",
+   "sourceName": "openai.com",
+   "sourceType": "rss",
+   "contentType": "action",
+   "titleZh": "OpenAI 与 Broadcom 推出 Jalapeño：专为 LLM 推理优化的定制 AI 芯片",
+   "titleOriginal": "OpenAI and Broadcom unveil LLM-optimized inference chip",
+   "verdict": "OpenAI 自研定制推理芯片首度亮相，标志其在 AI 硬件基础设施层启动独立布局，但技术细节尚未披露。",
+   "summaryZh": "OpenAI 与博通（Broadcom）联合发布名为 Jalapeño 的定制 AI 芯片，专为大语言模型（LLM）推理任务设计，目标是提升 AI 系统的性能、效率与大规模部署能力。这是 OpenAI 在芯片层面的重要战略行动。然而当前公开信息极为有限，具体技术规格、性能基准、量产时间表及与现有推理硬件的对比均未披露，真实能力影响有待后续。",
+   "tags": [
+    "OpenAI",
+    "推理加速",
+    "企业AI",
+    "合作动态",
+    "AI硬件"
+   ],
+   "url": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip",
+   "excerpt": "OpenAI and Broadcom introduce Jalapeño, a custom AI chip built for LLM inference to improve performance, efficiency, and scale across AI systems.",
+   "apparent": 4,
+   "absolute": 3,
+   "importance": 3,
+   "gravity": false,
+   "periodic": false,
+   "singularity": false,
+   "rationale": "OpenAI+Broadcom 联合发布定制芯片声量高（apparent 4）；战略意义实质存在，但信息极少无法验证实际能力提升，按实质保守取 3。",
+   "insufficientContext": true,
+   "addedAt": "2026-06-24"
   },
   {
    "id": "945660f0a26c01a0",
