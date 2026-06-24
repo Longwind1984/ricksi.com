@@ -50,6 +50,70 @@
           "highlights": []
         }
       ]
+    },
+    {
+      "id": "work-agent",
+      "topic": "Work Agent",
+      "blurb": "当「把活交给 AI」成为产品命题——四本从需求闸门、市场细分、平台范式到落地 UX，拆解真正敢把工作交出去之前的每一道坎。",
+      "graphFocus": null,
+      "books": [
+        {
+          "id": "CB_local_work-agent-track",
+          "title": "Work Agent 赛道",
+          "author": "Rick's Opus 4.8 Extra",
+          "subtitle": "从「它能干什么」到「我敢把活交给它」",
+          "sourceFile": "Work Agent 赛道：从「它能干什么」到「我敢把活交给它」.epub",
+          "cover": "/assets/books/epub-covers/work-agent-track.png",
+          "epub": "/assets/books/epub/work-agent-track.epub",
+          "progress": 0,
+          "finished": false,
+          "notes": 0,
+          "lastRead": 0,
+          "highlights": []
+        },
+        {
+          "id": "CB_local_work-agent-market",
+          "title": "待细分，还是待创造",
+          "author": "Rick's Opus 4.8 Extra",
+          "subtitle": "Work Agent 的市场、用户与场景",
+          "sourceFile": "待细分，还是待创造：Work Agent 的市场、用户与场景.epub",
+          "cover": "/assets/books/epub-covers/work-agent-market.png",
+          "epub": "/assets/books/epub/work-agent-market.epub",
+          "progress": 0,
+          "finished": false,
+          "notes": 0,
+          "lastRead": 0,
+          "highlights": []
+        },
+        {
+          "id": "CB_local_aggregated-aggregator",
+          "title": "被聚合的聚合者",
+          "author": "Rick's Opus 4.8 Extra",
+          "subtitle": "出行平台在 Agentic 时代的重构、变现与入口保卫战",
+          "sourceFile": "被聚合的聚合者.epub",
+          "cover": "/assets/books/epub-covers/aggregated-aggregator.png",
+          "epub": "/assets/books/epub/aggregated-aggregator.epub",
+          "progress": 0,
+          "finished": false,
+          "notes": 0,
+          "lastRead": 0,
+          "highlights": []
+        },
+        {
+          "id": "CB_local_ai-after-work",
+          "title": "让 AI 替你上班，之后呢",
+          "author": "Rick's Opus 4.8 Extra",
+          "subtitle": "从用户体验设计与竞争格局，拆解腾讯 WorkBuddy 的分发赌注与验证鸿沟",
+          "sourceFile": "让 AI 替你上班，之后呢.epub",
+          "cover": "/assets/books/epub-covers/ai-after-work.png",
+          "epub": "/assets/books/epub/ai-after-work.epub",
+          "progress": 0,
+          "finished": false,
+          "notes": 0,
+          "lastRead": 0,
+          "highlights": []
+        }
+      ]
     }
   ]
 }
