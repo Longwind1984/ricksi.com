@@ -1,12 +1,12 @@
 {
- "generated_at": "2026-06-26T13:30:24.418Z",
- "today": 5054126,
- "today_out": 24816,
- "today_cache_share": 83,
- "week": "595M",
+ "generated_at": "2026-06-27T13:36:52.393Z",
+ "today": 0,
+ "today_out": 0,
+ "today_cache_share": 0,
+ "week": "529M",
  "cumulative": "4.8B",
  "cumulative_code": "4.7B",
- "cumulative_web": "106M",
+ "cumulative_web": "107M",
  "models": [
   [
    "Opus",
@@ -26,10 +26,6 @@
   ]
  ],
  "days7": [
-  {
-   "d": "周六",
-   "v": 66.88
-  },
   {
    "d": "周日",
    "v": 0
@@ -51,8 +47,12 @@
    "v": 0
   },
   {
-   "d": "今天",
+   "d": "周五",
    "v": 5.05
+  },
+  {
+   "d": "今天",
+   "v": 0
   }
  ],
  "series": {
@@ -716,6 +716,10 @@
     }
    }
   },
+  "2026-06-27": {
+   "total": 0,
+   "models": {}
+  },
   "2026-05-13": {
    "total": 23925900,
    "estimated": true
@@ -772,7 +776,7 @@
   "estimated_days": 12,
   "estimated_share": "8%",
   "web_estimate": {
-   "total": "106M",
+   "total": "107M",
    "since": "2025-07-01",
    "basis": "无日志依据的参数化粗估（日均对话数 × 单对话均量 + 长文共创），参数见 docs/token-estimation.md",
    "breakdown": [
@@ -784,9 +788,9 @@
     },
     {
      "from": "2026-01-01",
-     "to": "2026-06-26",
-     "days": 178,
-     "tokens": 84168571
+     "to": "2026-06-27",
+     "days": 179,
+     "tokens": 84641429
     }
    ]
   },
