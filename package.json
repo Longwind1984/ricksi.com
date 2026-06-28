@@ -22,6 +22,7 @@
     "@astrojs/rss": "^4.0.18",
     "@astrojs/sitemap": "^3.7.3",
     "@astrojs/vercel": "^8.2.11",
+    "@edgeone/astro": "^1.1.2",
     "astro": "^5.0.0",
     "d3-force": "^3.0.0",
     "d3-force-3d": "^3.0.6",
