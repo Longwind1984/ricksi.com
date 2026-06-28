@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-06-27T15:04:49.217Z",
+ "generated_at": "2026-06-28T13:31:05.306Z",
  "rollingDays": 90,
  "domains": {
   "lab": "前沿实验室",
@@ -473,10 +473,10 @@
   "totalEntries": 368,
   "totalAllTime": 483,
   "lastRun": {
-   "at": "2026-06-27T15:04:49.218Z",
-   "fetched": 21,
-   "processed": 18,
-   "added": 17,
+   "at": "2026-06-28T13:31:05.306Z",
+   "fetched": 18,
+   "processed": 1,
+   "added": 0,
    "llmFailed": 0,
    "rateLimited": false,
    "skippedSources": []
