@@ -2,7 +2,7 @@
 title: A01 Agent 概念史与语义流变
 cluster: 专题 · 安全对齐与失败
 created: '2026-05-18'
-updated: '2026-06-12'
+updated: '2026-06-29'
 provenance: ai
 facet: Agent
 ---
