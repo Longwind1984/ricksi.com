@@ -1,9 +1,9 @@
 {
- "generated_at": "2026-06-29T13:30:09.939Z",
- "today": 12092266,
- "today_out": 164333,
- "today_cache_share": 74,
- "week": "284M",
+ "generated_at": "2026-06-30T13:30:16.095Z",
+ "today": 0,
+ "today_out": 0,
+ "today_cache_share": 0,
+ "week": "182M",
  "cumulative": "4.9B",
  "cumulative_code": "4.8B",
  "cumulative_web": "108M",
@@ -27,10 +27,6 @@
  ],
  "days7": [
   {
-   "d": "周二",
-   "v": 102.5
-  },
-  {
    "d": "周三",
    "v": 14.86
   },
@@ -51,8 +47,12 @@
    "v": 116.09
   },
   {
-   "d": "今天",
+   "d": "周一",
    "v": 12.09
+  },
+  {
+   "d": "今天",
+   "v": 0
   }
  ],
  "series": {
@@ -774,7 +774,7 @@
    }
   },
   "2026-05-13": {
-   "total": 20564603,
+   "total": 20665409,
    "estimated": true
   },
   "2026-05-14": {
@@ -782,7 +782,7 @@
    "estimated": true
   },
   "2026-05-15": {
-   "total": 8964058,
+   "total": 9007999,
    "estimated": true
   },
   "2026-05-16": {
@@ -790,35 +790,35 @@
    "estimated": true
   },
   "2026-05-17": {
-   "total": 7382165,
+   "total": 7418352,
    "estimated": true
   },
   "2026-05-18": {
-   "total": 22146495,
+   "total": 22255056,
    "estimated": true
   },
   "2026-05-19": {
-   "total": 5272975,
+   "total": 5298823,
    "estimated": true
   },
   "2026-05-20": {
-   "total": 41656503,
+   "total": 41860701,
    "estimated": true
   },
   "2026-05-21": {
-   "total": 55893535,
+   "total": 56167523,
    "estimated": true
   },
   "2026-05-22": {
-   "total": 34274338,
+   "total": 34442349,
    "estimated": true
   },
   "2026-05-23": {
-   "total": 3163785,
+   "total": 3179294,
    "estimated": true
   },
   "2026-05-26": {
-   "total": 1581893,
+   "total": 1589647,
    "estimated": true
   }
  },
@@ -841,9 +841,9 @@
     },
     {
      "from": "2026-01-01",
-     "to": "2026-06-29",
-     "days": 181,
-     "tokens": 85587143
+     "to": "2026-06-30",
+     "days": 182,
+     "tokens": 86060000
     }
    ]
   },
