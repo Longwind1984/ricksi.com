@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-07-03T13:36:38.233Z",
+ "generated_at": "2026-07-04T13:30:42.461Z",
  "rollingDays": 90,
  "domains": {
   "lab": "前沿实验室",
@@ -470,15 +470,15 @@
   }
  ],
  "stats": {
-  "totalEntries": 385,
+  "totalEntries": 384,
   "totalAllTime": 515,
   "lastRun": {
-   "at": "2026-07-03T13:36:38.234Z",
-   "fetched": 19,
+   "at": "2026-07-04T13:30:42.461Z",
+   "fetched": 17,
    "processed": 9,
-   "added": 8,
+   "added": 0,
    "llmFailed": 0,
-   "rateLimited": false,
+   "rateLimited": true,
    "skippedSources": [
     "x:yann-lecun@ylecun"
    ]
@@ -11252,32 +11252,6 @@
    "gravity": false,
    "periodic": false,
    "singularity": false,
-   "rationale": "",
-   "insufficientContext": false,
-   "addedAt": "2026-06-16",
-   "backfill": true
-  },
-  {
-   "id": "f1e749a13cbf7fa9",
-   "date": "2026-04-04",
-   "person": "karpathy",
-   "topicSource": null,
-   "sourceName": "Medium (Vishal Mysore)",
-   "sourceType": "web",
-   "contentType": "authored",
-   "titleZh": "发布 'LLM Wiki' gist：以 LLM 自维护的结构化知识库替代 RAG",
-   "titleOriginal": "发布 'LLM Wiki' gist：以 LLM 自维护的结构化知识库替代 RAG",
-   "verdict": "一页范式贴文获约 1600 万次浏览、两周破 5000 star，引出大量复现与商业化；medium 起声量但有实质模式价值。",
-   "summaryZh": "一页范式贴文获约 1600 万次浏览、两周破 5000 star，引出大量复现与商业化；medium 起声量但有实质模式价值。",
-   "tags": [],
-   "url": "https://medium.com/@visrow/what-is-andrej-karpathys-llm-wiki-and-how-can-you-extend-it-08e967d25321",
-   "excerpt": "",
-   "apparent": 4,
-   "absolute": 3,
-   "importance": 3,
-   "gravity": false,
-   "periodic": false,
-   "canon": false,
    "rationale": "",
    "insufficientContext": false,
    "addedAt": "2026-06-16",
