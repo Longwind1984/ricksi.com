@@ -1,20 +1,20 @@
 {
- "generated_at": "2026-07-04T13:30:13.100Z",
- "today": 494803840,
- "today_out": 1262776,
- "today_cache_share": 98,
- "week": "783M",
- "cumulative": "5.3B",
- "cumulative_code": "5.2B",
- "cumulative_web": "110M",
+ "generated_at": "2026-07-05T13:30:11.982Z",
+ "today": 415126903,
+ "today_out": 720175,
+ "today_cache_share": 96,
+ "week": "1.2B",
+ "cumulative": "5.8B",
+ "cumulative_code": "5.7B",
+ "cumulative_web": "111M",
  "models": [
   [
    "Opus",
-   79
+   81
   ],
   [
    "Fable",
-   17
+   15
   ],
   [
    "Sonnet",
@@ -26,10 +26,6 @@
   ]
  ],
  "days7": [
-  {
-   "d": "周日",
-   "v": 116.09
-  },
   {
    "d": "周一",
    "v": 12.09
@@ -51,8 +47,12 @@
    "v": 37.07
   },
   {
+   "d": "周六",
+   "v": 575.81
+  },
+  {
    "d": "今天",
-   "v": 494.8
+   "v": 415.13
   }
  ],
  "series": {
@@ -824,14 +824,14 @@
    }
   },
   "2026-07-04": {
-   "total": 494803840,
+   "total": 575809532,
    "models": {
     "opus-4-8": {
-     "in": 368882,
-     "out": 1125359,
-     "cw": 5228743,
-     "cr": 443824653,
-     "total": 450547637
+     "in": 399103,
+     "out": 1345204,
+     "cw": 8165312,
+     "cr": 521643710,
+     "total": 531553329
     },
     "haiku-4-5-20251001": {
      "in": 3796,
@@ -846,6 +846,25 @@
      "cw": 1923005,
      "cr": 34914832,
      "total": 37022215
+    },
+    "<synthetic>": {
+     "in": 0,
+     "out": 0,
+     "cw": 0,
+     "cr": 0,
+     "total": 0
+    }
+   }
+  },
+  "2026-07-05": {
+   "total": 415126903,
+   "models": {
+    "opus-4-8": {
+     "in": 1233415,
+     "out": 720175,
+     "cw": 13409155,
+     "cr": 399764158,
+     "total": 415126903
     },
     "<synthetic>": {
      "in": 0,
@@ -908,11 +927,11 @@
  "method": {
   "version": 2,
   "real_window": "2026-05-27 起（Claude Code 本地日志，按消息去重，含输入/输出/缓存读写全口径）",
-  "real_days": 34,
+  "real_days": 35,
   "estimated_days": 12,
   "estimated_share": "3%",
   "web_estimate": {
-   "total": "110M",
+   "total": "111M",
    "since": "2025-07-01",
    "basis": "无日志依据的参数化粗估（日均对话数 × 单对话均量 + 长文共创），参数见 docs/token-estimation.md",
    "breakdown": [
@@ -924,9 +943,9 @@
     },
     {
      "from": "2026-01-01",
-     "to": "2026-07-04",
-     "days": 186,
-     "tokens": 87951429
+     "to": "2026-07-05",
+     "days": 187,
+     "tokens": 88424286
     }
    ]
   },
