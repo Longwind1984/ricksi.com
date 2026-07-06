@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-07-05T13:36:14.490Z",
+ "generated_at": "2026-07-06T13:32:34.130Z",
  "rollingDays": 90,
  "domains": {
   "lab": "前沿实验室",
@@ -470,13 +470,13 @@
   }
  ],
  "stats": {
-  "totalEntries": 391,
-  "totalAllTime": 523,
+  "totalEntries": 394,
+  "totalAllTime": 526,
   "lastRun": {
-   "at": "2026-07-05T13:36:14.490Z",
-   "fetched": 16,
-   "processed": 12,
-   "added": 8,
+   "at": "2026-07-06T13:32:34.131Z",
+   "fetched": 14,
+   "processed": 4,
+   "added": 3,
    "llmFailed": 0,
    "rateLimited": false,
    "skippedSources": [
@@ -510,6 +510,91 @@
    "insufficientContext": false,
    "addedAt": "2026-06-16",
    "backfill": true
+  },
+  {
+   "id": "b437cfcb8f40c7d2",
+   "date": "2026-07-06",
+   "person": "simon-willison",
+   "topicSource": null,
+   "sourceName": "simonwillison.net",
+   "sourceType": "rss",
+   "contentType": "authored",
+   "titleZh": "sqlite-utils 4.0rc3发布：AI辅助处理积压issue催生新候选版",
+   "titleOriginal": "sqlite-utils 4.0rc3",
+   "verdict": "常规开源工具版本迭代，附带AI辅助编程的实践细节，非行业级突破",
+   "summaryZh": "Simon Willison发布sqlite-utils 4.0rc3。他原计划本周末发布4.0正式版，但在使用Claude Fable 5和GPT-5.5处理积压的issue和PR过程中，changelog持续增长，因此先出候选版。最大新特性是支持复合外键(compound foreign keys)的内省与创建，涉及对table.foreign_keys的一处细微破坏性变更，需随4.0正式版落地。此外sqlite-utils现在遵循SQLite对列名大小写不敏感的约定，该改动波及代码库多处。",
+   "tags": [
+    "AI辅助编程",
+    "Datasette",
+    "LLM",
+    "coding agent"
+   ],
+   "url": "https://simonwillison.net/2026/Jul/6/sqlite-utils",
+   "excerpt": "Release: sqlite-utils 4.0rc3\nI hoped to release sqlite-utils 4.0 stable this weekend, but as I worked through the backlog of issues and PRs with a combination of Claude Fable 5 and GPT-5.5 the changelog since rc2 kept getting bigger .\nThe biggest new feature is support for introspecting and creating compound foreign keys - a feature that involves a subtle breaking change to table.foreign_keys and hence needed to land for the 4.0 stable release.\nsqlite-utils also now follows SQLite's convention f",
+   "apparent": 2,
+   "absolute": 2,
+   "importance": 2,
+   "gravity": false,
+   "periodic": false,
+   "singularity": false,
+   "rationale": "常规开源工具版本发布，功能改进扎实但不改写AI能力边界，声量局限于开发者圈层",
+   "insufficientContext": false,
+   "addedAt": "2026-07-06"
+  },
+  {
+   "id": "b05766f5d7d6cb92",
+   "date": "2026-07-06",
+   "person": "francois-chollet",
+   "topicSource": null,
+   "sourceName": "X @fchollet",
+   "sourceType": "x",
+   "contentType": "statement",
+   "titleZh": "Chollet：现实皆可编程，关键在于建模",
+   "titleOriginal": "All of reality is programmable. You just have to figure out how. And the way to do that is to model it.",
+   "verdict": "纯个人哲学式感悟推文，无具体技术内容或数据支撑",
+   "summaryZh": "François Chollet在X发文称\"现实皆可编程，你只需弄清方法，而做到这一点的途径是对其建模\"。材料仅为一句格言式表述，未附带任何技术细节、数据或具体论证，无法判断其指向的具体研究方向或产品动态。",
+   "tags": [
+    "François Chollet"
+   ],
+   "url": "https://x.com/fchollet/status/2073927440779694477",
+   "excerpt": "All of reality is programmable. You just have to figure out how. And the way to do that is to model it.",
+   "apparent": 2,
+   "absolute": 1,
+   "importance": 1,
+   "gravity": false,
+   "periodic": false,
+   "singularity": false,
+   "rationale": "仅为无实质内容的格言式个人感悟，未见明显传播热度迹象，亦无新方法或新结果，分量与声量均低",
+   "insufficientContext": true,
+   "addedAt": "2026-07-06"
+  },
+  {
+   "id": "b5aa80f0af4cdc7f",
+   "date": "2026-07-06",
+   "person": "francois-chollet",
+   "topicSource": null,
+   "sourceName": "X @fchollet",
+   "sourceType": "x",
+   "contentType": "statement",
+   "titleZh": "Chollet：未来将出现研究模型权重的\"潜空间考古学家\"",
+   "titleOriginal": "In the future, there will be \"Latent Space Archaeologists\" who investigate the model weights of the 21st century to reconstruct a long extinct culture.",
+   "verdict": "一句富有想象力的调侃式预言，无具体技术内容，纯属思维启发",
+   "summaryZh": "François Chollet在X上发布一条推测性/调侃性言论：设想未来会出现\"潜空间考古学家\"这一角色，专门研究21世纪模型权重，以此重建一个早已消亡的文化。内容为即兴观点，未附带具体技术细节、数据或论证。",
+   "tags": [
+    "François Chollet",
+    "LLM"
+   ],
+   "url": "https://x.com/fchollet/status/2073873983729287317",
+   "excerpt": "In the future, there will be \"Latent Space Archaeologists\" who investigate the model weights of the 21st century to reconstruct a long extinct culture.",
+   "apparent": 2,
+   "absolute": 1,
+   "importance": 1,
+   "gravity": false,
+   "periodic": false,
+   "singularity": false,
+   "rationale": "纯属富有想象力的调侃式类比，无具体技术内容或数据支撑，不构成实质性推进，材料中也无迹象显示广泛传播",
+   "insufficientContext": false,
+   "addedAt": "2026-07-06"
   },
   {
    "id": "f2aca3c59c5e3a3f",
