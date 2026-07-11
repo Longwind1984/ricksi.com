@@ -1,18 +1,18 @@
 {
- "generated_at": "2026-07-11T10:07:58.932Z",
- "today": 332538113,
- "today_out": 1599084,
+ "generated_at": "2026-07-11T13:30:11.143Z",
+ "today": 505147657,
+ "today_out": 2643317,
  "today_cache_share": 97,
- "week": "2.4B",
- "cumulative": "7.2B",
- "cumulative_code": "6.8B",
+ "week": "2.6B",
+ "cumulative": "7.3B",
+ "cumulative_code": "7.0B",
  "cumulative_zcode": "139M",
- "cumulative_hermes": "98M",
+ "cumulative_hermes": "108M",
  "cumulative_web": "113M",
  "models": [
   [
    "Opus",
-   76
+   75
   ],
   [
    "Fable",
@@ -58,7 +58,7 @@
   },
   {
    "d": "今天",
-   "v": 332.54
+   "v": 505.15
   }
  ],
  "series": {
@@ -984,7 +984,7 @@
    }
   },
   "2026-07-11": {
-   "total": 259338643,
+   "total": 421569377,
    "models": {
     "sonnet-5": {
      "in": 66595,
@@ -994,18 +994,18 @@
      "total": 1011098
     },
     "opus-4-8": {
-     "in": 611805,
-     "out": 580676,
-     "cw": 3542956,
-     "cr": 137899720,
-     "total": 142635157
+     "in": 741363,
+     "out": 847610,
+     "cw": 6661995,
+     "cr": 216167984,
+     "total": 224418952
     },
     "fable-5": {
-     "in": 128380,
-     "out": 431471,
-     "cw": 3389277,
-     "cr": 96292806,
-     "total": 100241934
+     "in": 164895,
+     "out": 558415,
+     "cw": 3945237,
+     "cr": 139351220,
+     "total": 144019767
     },
     "<synthetic>": {
      "in": 0,
@@ -1015,18 +1015,18 @@
      "total": 0
     },
     "glm-5.2": {
-     "in": 469086,
-     "out": 256456,
+     "in": 1529924,
+     "out": 863836,
      "cw": 0,
-     "cr": 14651072,
-     "total": 15376614
+     "cr": 49459840,
+     "total": 51853600
     },
     "haiku-4-5-20251001": {
-     "in": 50,
-     "out": 7,
-     "cw": 18599,
-     "cr": 55184,
-     "total": 73840
+     "in": 132,
+     "out": 20,
+     "cw": 48012,
+     "cr": 217796,
+     "total": 265960
     }
    }
   },
@@ -1082,8 +1082,8 @@
  "sources": {
   "claude_code": {
    "label": "Claude Code",
-   "tokens": 6819044074,
-   "compact": "6.8B"
+   "tokens": 6981274808,
+   "compact": "7.0B"
   },
   "zcode": {
    "label": "ZCode",
@@ -1159,8 +1159,8 @@
   },
   "hermes": {
    "label": "Hermes",
-   "tokens": 97597823,
-   "compact": "98M",
+   "tokens": 107976633,
+   "compact": "108M",
    "days": 2,
    "series": {
     "2026-07-10": {
@@ -1173,13 +1173,13 @@
      }
     },
     "2026-07-11": {
-     "total": 73199470,
-     "out": 308912,
-     "cr": 71320256,
+     "total": 83578280,
+     "out": 351874,
+     "cr": 81549056,
      "models": {
       "claude-opus-4-8": 59004,
       "deepseek-v4-pro": 3532782,
-      "glm-5-2-260617": 64245592,
+      "glm-5-2-260617": 74624402,
       "glm-5.2": 5362092
      }
     }
@@ -1187,7 +1187,7 @@
   },
   "web": {
    "label": "claude.ai 网页",
-   "tokens": 112868571,
+   "tokens": 113341429,
    "compact": "113M",
    "estimated": true
   }
@@ -1199,9 +1199,9 @@
   "estimated_days": 12,
   "estimated_share": "5%",
   "harness_split": {
-   "claude_code": "6.8B",
+   "claude_code": "7.0B",
    "zcode": "139M",
-   "hermes": "98M",
+   "hermes": "108M",
    "web": "113M",
    "note": "Token 用量按 harness 分源汇总；Hermes 已排除经 claude-proxy(localhost) 的会话（那些 claude -p 已计入 Claude Code），避免重复计。全口径含缓存读写。"
   },
@@ -1219,8 +1219,8 @@
     {
      "from": "2026-01-01",
      "to": "2026-07-11",
-     "days": 192,
-     "tokens": 90788571
+     "days": 193,
+     "tokens": 91261429
     }
    ]
   },
