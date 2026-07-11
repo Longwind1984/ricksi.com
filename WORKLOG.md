@@ -24,10 +24,10 @@
 ### 当前状态：能跑什么、怎么跑
 - `npm run collect:usage` 已实测跑通：累计 7.1B（Claude Code 6.8B 实测41+估算12天 · ZCode 139M/8天 · Hermes 97M/2天 · 网页 113M）。
 - `npm run dev` → localhost:4321，展开数据看板：主数 7.1B、模型条 GLM 青、口径 v3 分源注脚，均已浏览器预览核对、零 console 报错。
-- **未 commit、未推线上。** usage.json 已被本次 collect 重写（下次 sync 会幂等重算）。
+- **已定稿并上线**：feature commit `64d3987`，push 前 merge 远端 nightly 数据提交 `ded91a6`（只改 activity.json，无冲突），已推 main → 触发 EdgeOne + Vercel 生产重建。别人的在制品（liquid-glass/trae-solo 等）按 hunk 隔离、未卷入本提交。usage.json 已入库（下次 sync 幂等重算）。
 
 ### 未尽事项与已知问题
-- **待 Rick 确认 UI 定稿**（用户可见层）：主数改 7.1B、模型条加 GLM 是否照此发布。
+- （已完成）UI 定稿 + 上线由 Rick 2026-07-11 确认：主数全口径 7.1B、模型条纳入 GLM，照此发布。
 - DeepSeek 占比 ≈0.05%，模型条四舍五入归零不显示（分源注脚/Hermes 明细里仍在）。
 - 正式 `npm run build` 未跑（社交图全量重画耗时，且本次改动不涉出图管线）；CI 分源回退路径（读已提交 `sources.*.series`）已设计但未在真 CI 验证。
 - Hermes 数据才 2 天（7/10 起、state.db 新上线）；量会随用增长。
