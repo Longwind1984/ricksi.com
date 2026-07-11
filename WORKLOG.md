@@ -1,5 +1,153 @@
 # WORKLOG（append-only，倒金字塔：结论在前、清单沉底）
 
+## 2026-07-11 · Token 用量口径 v3：多 harness 分源（Claude Code + ZCode + Hermes）
+
+### 体验影响（着重 · 先看）
+- **首页「累计 tokens」主数变了：6.7B → 7.1B。** 口径从「仅 Claude Code」升为「全 harness 合计」——Rick 现在同时在用 ZCode、Hermes、Claude Code(底层可切 GLM/DeepSeek)，v2 只算了 Claude Code 一个。新主数 = Claude Code 6.8B + ZCode 139M + Hermes 97M + 网页粗估 113M。这是求职 proof-of-work 页的头号数字，**用户可见层，待 Rick 确认定稿**。
+- **模型分布条新增 GLM 切片（4%，青色）**：Claude 本家（Opus/Fable/Haiku/Sonnet）保持钴蓝阶梯，GLM 用独立青色 `oklch(0.74 0.12 174)`、DeepSeek 独立紫（当前占比≈0.05% 四舍五入归零不显示），一眼分厂商。配色按家族名而非 index，跨渲染稳定；青/紫刻意避开人机光谱 `--prov-co(175)/--prov-ai(295)` 语义值。
+- **口径注脚升 v3、改分源**：「全 harness 合计 7.1B —— Claude Code 6.8B（实测41天+估算12天）· ZCode 139M · Hermes 97M · 网页端粗估 113M」。14 日趋势也改全源逐日合计。
+- 方向由 Rick 拍板：AskUserQuestion 选「合并全口径+分源注脚」（非「主数不变+独立卡」）。
+
+### 做了什么
+1. `scripts/lib/agent-usage.mjs`（新）：经系统 `sqlite3` 读 ZCode(`~/.zcode/cli/db/db.sqlite` model_usage，毫秒) + Hermes(`~/.hermes/state.db` sessions，秒) 分源用量；缺库/无 CLI 静默跳过（CI 用已提交历史）。
+2. `scripts/collect-usage.mjs`：三源合并进 `usage.json`——主数改全 harness 合计、新增 `cumulative_zcode/hermes` 与 `sources.{zcode,hermes}.series`（真实日永不回退持久化）、模型条纳入 GLM/DeepSeek、口径升 v3。
+3. `scripts/lib/claude-logs.mjs`：`modelFamily` 提取导出，家族加 GLM/DeepSeek。
+4. UI：`WorkbenchBoard.astro` 模型条按厂商配色 + 口径注脚分源；`glass.css` 加 `--mseg-glm/ds/other`；`index.astro` 14 日趋势改全源。
+5. `docs/token-estimation.md`：升 v3，加 D 段（ZCode/Hermes 分源 + proxy 去重口径）。
+
+### 关键决策与被否决备选
+- **按 harness 归属**（Claude Code / ZCode / Hermes），非按模型账户/计费主体——匹配 Rick「我用了哪些工具」的心智。
+- **去重**：Hermes 经 claude-proxy(localhost:8085) 的 `claude -p` 已落 Claude JSONL、计入 Claude Code；Hermes 侧按 `billing_base_url LIKE '%localhost%'` 排除（当前 1 会话 16M），避免与 Claude Code 重复。ZCode 只写自己 sqlite、无交叉。
+- **架构：两消费端各自直读原始库，不建跨 repo 共享产物**——避开主页 sync(21:30) 与飞书日报(08:30) 的时序耦合；ZCode/Hermes 的 SQL 各 ~15 行，重复成本低于时序耦合风险。（飞书侧 Claude Code 例外：读主页已同步的 usage.json，避免在 Python 里重实现 JSONL 去重扫描。）
+- **模型条按家族名上色**（非按 rank 渐变），换取 GLM/DeepSeek 作为不同厂商可辨；否决纯钴蓝渐变（含 GLM 但看不出是别家）。
+
+### 当前状态：能跑什么、怎么跑
+- `npm run collect:usage` 已实测跑通：累计 7.1B（Claude Code 6.8B 实测41+估算12天 · ZCode 139M/8天 · Hermes 97M/2天 · 网页 113M）。
+- `npm run dev` → localhost:4321，展开数据看板：主数 7.1B、模型条 GLM 青、口径 v3 分源注脚，均已浏览器预览核对、零 console 报错。
+- **未 commit、未推线上。** usage.json 已被本次 collect 重写（下次 sync 会幂等重算）。
+
+### 未尽事项与已知问题
+- **待 Rick 确认 UI 定稿**（用户可见层）：主数改 7.1B、模型条加 GLM 是否照此发布。
+- DeepSeek 占比 ≈0.05%，模型条四舍五入归零不显示（分源注脚/Hermes 明细里仍在）。
+- 正式 `npm run build` 未跑（社交图全量重画耗时，且本次改动不涉出图管线）；CI 分源回退路径（读已提交 `sources.*.series`）已设计但未在真 CI 验证。
+- Hermes 数据才 2 天（7/10 起、state.db 新上线）；量会随用增长。
+
+### 文件级变更清单
+- `scripts/lib/agent-usage.mjs`（新）——ZCode/Hermes sqlite 分源读取
+- `scripts/collect-usage.mjs`——三源合并、主数全口径、sources 持久化、口径 v3
+- `scripts/lib/claude-logs.mjs`——导出 modelFamily、家族加 GLM/DeepSeek
+- `scripts/config.mjs`——新增 `agentUsage`（zcodeDb/hermesDb/hermesExcludeUrlLike）
+- `src/components/WorkbenchBoard.astro`——模型条厂商配色 + 口径注脚分源 + summary v3
+- `src/styles/glass.css`——`--mseg-glm/ds/other`
+- `src/pages/index.astro`——`days14From` 改全源合计
+- `docs/token-estimation.md`——升 v3 + D 段
+- `data/usage.json`——本次 collect 产物（主数 7.1B、sources 分源）
+
+## 2026-07-01 · Liquid Glass 调研重设 + P3 正确性（引擎检测替 UA 嗅探）
+
+### 体验影响（着重 · 先看）
+- **调研结论：现有玻璃架构基本正确，精修而非重建。** 用 workflow 精读 8 个头部开源 Liquid Glass 实现 + 对抗验证 3 个承重论断，坐实三点：① `backdrop-filter:url(#svg)` 真折射至今仅 Blink 支持（WebKit Bug 245510 近 4 年 NEW、Firefox 未排期）；② 所谓"跨浏览器真折射"（PallavAg/samasante）折射的是元素自身像素、非背景，要折射那张 fixed 照片须喂全屏副本→撞 Safari 源尺寸上限 + O(N)，**否决**；③ WebGL（liquid-glass-studio/liquidGL）最高保真但绑框架/依赖 html2canvas ~200KB/忽略 fixed 元素/移动最脆，**整包否决、只借数学**。→ 我近两阶段做的（边缘光弧/screen 高光/追光/光晕/reveal/nav velocity 拉伸）全部保留，是降级态承重件，无一废弃。完整报告见 `docs/design-system/liquid-glass-tech-redesign.md`。
+- **P3 修了折射门控的鲁棒性**：`nav.js` 开真折射的判定从 `/Chrome\//` UA 嗅探改为**引擎检测**——首选 `navigator.userAgentData.brands`（仅 Blink 暴露，Safari/FF 及 iOS 上所有 WebKit 套壳均无），老 Blink 回退「Chrome/ 且排除 CriOS/FxiOS/EdgiOS/OPiOS/iP*」。**能挡住 iOS in-app webview 伪装 Chrome/ 却开了折射反而裸态的边缘情况**。
+  - 诚实更正：研究报告说的"`/Chrome\//` 会误判 iOS Chrome"**不精确**——iOS Chrome 的 UA token 是 `CriOS` 不含 `Chrome/`，现状其实不误判它。改动真正价值是引擎检测更稳、且挡住上面那类伪装 webview，不是修一个"正在发生的 iOS Chrome bug"。
+- **四档降级已验证**：L0 Chromium（`url(#lg-lens)` 真折射，Preview 实测 `backdrop-filter: url("#lg-lens")` 生效）/ L1 Safari（去 `.lg-refract` → 回退 `blur(6px)`，实测 nav-pill 与 hero 卡仍读作玻璃、不塌）/ L2 无 backdrop（`@supports not` 块实色 tint + 关伪元素，代码核完整）/ L3 a11y（reduced-motion/transparency，现存）。零 console 报错。
+
+### 做了什么
+1. 调研 workflow（12 agent，8 精读 + 3 对抗验证 + 合成），产出重设报告并存 `docs/design-system/liquid-glass-tech-redesign.md`。
+2. `scripts/nav.js`：`supportsLensRefraction()` 引擎检测替换 `/Chrome\//` UA 嗅探。
+3. 重排后续分期为 P3(正确性/降级，本次)→P4(边缘光学升级)→P5(真折射受控扩位+移动加固)，替换原 Phase 3–5。
+
+### 关键决策与被否决备选
+- **主路线维持 A(backdrop-filter:url Chromium 真折射) + D(纯 CSS 近似降级)**，否决 B(内容/背景克隆折射)与 C(WebGL 全站)——理由见报告第 2 节，均有对抗验证支撑。
+- **Safari 确定放弃真折射**：目标改为"优雅的假玻璃"(blur+边缘光+screen 高光+描边)，读作玻璃即达标。这是双重验证后的最优解，非妥协话术。
+- **未盲从报告的"iOS Chrome bug"说法**：核对 UA 机制后发现不精确，如实更正并改做更有价值的引擎检测。
+
+### 当前状态：能跑什么、怎么跑
+- `npm run dev` → localhost:4321，L0 生效；Preview 已验证 L0/L1 观感与 L2 代码完整。
+- **未 commit、未推线上。** 下一步 P4 边缘光学升级（会给 2 个方向草案过目——用户可见层硬确认）。
+
+### 未尽事项与已知问题
+- L1/L2 仅在 Chromium 里"模拟"验证（去类/读 @supports）；真 Safari/Firefox/iOS 真机未核对。
+- P4（边缘剖面光学，2 方向待选）、P5（hero 真折射评估 + 移动加固 + 正式 build）未开始。
+- 正式 production build 仍未跑（并到 P5）。
+
+### 文件级变更清单
+- `docs/design-system/liquid-glass-tech-redesign.md`：新增——重设技术方案报告（对比表/逐区块/防坑/分期）。
+- `src/scripts/nav.js`：`/Chrome\//` UA 嗅探 → `supportsLensRefraction()` 引擎检测（userAgentData 优先 + iOS-排除 UA 回退）。
+
+## 2026-07-01 · Liquid Glass 视觉升级 Phase 2：指针追光 + 入场编排 + 按压光晕（待确认）
+
+### 体验影响（着重 · 先看）
+- **玻璃面上的镜面高光现在会跟随鼠标**：在各 `.sec` / hero 卡上移动鼠标，高光随指针游走并轻微增亮（`--specular-hover` 0.55），离开归位；玻璃从「静止的光」变「活的光」。**仅桌面 hover + 允许动效**时启用，触屏 / `prefers-reduced-motion` 下静默，保留 Phase 1 的静止高光。
+- **主 CTA 按下时一圈光从指尖散开（按压光晕）**：`.btn-accent`（下载简历等）与 `.wb-expand`（展开数据看板）按下即发光，延续「按压只提亮不压暗」语言。reduced-motion 下 JS 不生成。
+- **入场更「液态」+ 项目区行分批浮现**：原本整段 section 一次淡入，改为 spring 缓动 + 轻微缩放；`#projects` 试点做「外层不动、sec-head 与各 proj-row 错峰浮现」（60–310ms 阶梯）。整段仍在 `prefers-reduced-motion: no-preference` 内，减弱动效者不受影响。
+- ⚠️ **偏离计划的两点（着重）**：① 指针追光 + 按压光晕做成**站内全局**模块（`glass-motion.js`，随 `nav.js` 在 `Glass.astro` 加载），而非仅首页试点——因 Phase 1 静止高光已全站，交互层若只在首页会「静态全站、活的只有首页」不一致。入场 stagger 仍**仅 #projects 试点**。② **未跑 production build**：见决策。
+- Phase 1 强度按 Rick「再明显一点」已上调（光弧更亮更厚 + 高光 0.30→0.42）。
+
+### 做了什么
+1. 新增 `src/scripts/glass-motion.js`：指针追光（pointermove 写 `--mx/--my`，仅鼠标、rAF 节流、reduced-motion 早退）+ 按压光晕（委托 pointerdown 生成 `.lg-bloom`）；`astro:page-load` 重建 + AbortController 清理，与 `nav.js` 同构。
+2. `layouts/Glass.astro`：`nav.js` 之后加载 `glass-motion.js`（全站）。
+3. `styles/glass.css`：`:hover::after` 追光增亮（含 `@media (hover:hover)` 守卫）；`.lg-bloom` 光晕样式 + keyframes；`.btn-accent/.wb-expand` 加 `position:relative;overflow:hidden`；`.reveal` 缓动升级为 spring+scale；`#projects` `.reveal-children` 子项错峰 CSS。
+4. `tokens/radius-motion.css`：+`--specular-hover`。
+5. `pages/index.astro`：`#projects` 外层 `div.reveal` → `reveal reveal-children`。
+
+### 关键决策与被否决备选
+- **交互层全站而非首页试点**：与「静止高光已全站」保持一致，避免半成品观感；成本极低（一个 ~1KB 模块 + 委托事件）。入场 stagger 因涉及各 section 异构子结构，只在 #projects 试点，其余留 Phase 5。
+- **入场 stagger 用「外层不位移 + 子项错峰」而非嵌套动画**：`.reveal-children` 让外层 opacity/transform 归位、只让 sec-head/proj-row 各自错峰过渡，避免父子 transform 叠加导致的「糊」。
+- **未跑 production build（偏离计划的「每期跑 build」）**：本期只是装饰 CSS + 一个小客户端模块，dev 用的是同一套 Vite/Astro 管线、已实时编译运行无报错，`node --check glass-motion.js` 通过；且这些改动**不触碰 `share-card.mjs`**，社交图 ~1318 张的 O(N) 构建成本不可能变。为不在每个装饰阶段重复烧 ~5min/1318 图，把正式构建计时**并到 Phase 5 一次跑**（性能纪律：避免无信号的 O(N) 构建）。需要可随时补跑。
+
+### 当前状态：能跑什么、怎么跑
+- `npm run dev` → localhost:4321。鼠标在区块上移动看追光；点「下载简历/展开数据看板」看光晕；刷新看项目区分批浮现。
+- 已用 Preview eval 验证：pointermove 后 `--mx/--my` 被写入（50%/40%）、pointerdown 后 `.lg-bloom` 生成、无 console 报错、`.reveal-children` 到位。
+- **未 commit、未推线上**——等 Rick 确认 Phase 2 观感后再续 Phase 3。
+
+### 未尽事项与已知问题
+- 追光增亮与入场 stagger 属动效，静态截图难完整呈现（已用 eval + 移动高光截图佐证）。
+- Safari/Firefox 与触屏真机未核对（dev 为 Chromium）。
+- 未跑正式 build（见决策）。
+- 入场 stagger 仅 #projects；其余 4 section 的分批入场留 Phase 5 全站铺开。
+- Phase 3（液态形变——注意 nav.js 已含胶囊 velocity→拉伸+折射，主要是复用/微调 + 真折射外扩）、Phase 4、5 未开始。
+
+### 文件级变更清单
+- `src/scripts/glass-motion.js`：新增——指针追光 + 按压光晕。
+- `src/layouts/Glass.astro`：加载 `glass-motion.js`。
+- `src/styles/glass.css`：+ Phase 2 交互层（`:hover::after` 增亮、`.lg-bloom` + keyframes、按钮 `position/overflow`）；`.reveal` 缓动升级；`#projects .reveal-children` 错峰。
+- `src/styles/tokens/radius-motion.css`：+`--specular-hover`。
+- `src/pages/index.astro`：`#projects` 外层加 `reveal-children`。
+
+## 2026-07-01 · Liquid Glass 视觉升级 Phase 1：边缘透镜 + 静止镜面高光（待确认）
+
+### 体验影响（着重 · 先看）
+- **全站玻璃表面（各 .sec 区块 + hero 工作台卡 + hero 目录卡 + 导航胶囊）新增「边缘透镜」光弧描边与静止镜面高光**：把原来扁平的 1px inset 亮线换成有方向的镜面光弧（左上主光源），玻璃边缘读作放大镜边缘而非画上去的线，并在顶部叠一层克制的镜面 sheen。dev 预览实测：在钴蓝 .sec 区块上边缘明显、克制（「中等」基调）；在 hero 卡上因背后是亮天空对比偏弱。
+- ⚠️ **偏离计划的地方（着重）**：计划说「首期只在 #projects 一个 section 试点」，实际把边缘透镜层一次铺到了**所有 .sec + hero 卡 + 导航**——因为只做一个 section 会让它和其余 section 明显不一致、像 bug。风险由「本期只上零 JS 的静态层 + 强度可一键调（`--lens-strength`/`--specular-rest` 归 0 即关）」兜底。按钮（.btn-accent）的静态处理**延到 Phase 2**（其已有顶部 sheen，先不叠）。
+- **强度可调、可秒退**：`--lens-strength`（默认 1）、`--specular-rest`（默认 0.30）两个 token 控总强弱，设 0 即完全关闭，零风险回退。
+- **无障碍降级已带**：`prefers-reduced-transparency: reduce` 与「不支持 backdrop-filter」两档下自动 `display:none` 关掉透镜/高光，保对比度。
+- **性能**：纯 CSS、静态渐变、不动 blur 半径、不新增 JS/依赖 → 零构建成本、不碰社交图管线；`.sec` 沿用既有 `translateZ(0)` 合成层，卡片新增 `isolation:isolate` 收敛 screen 混合。
+
+### 做了什么
+1. `tokens/colors.css`：加 `--lens-rim-hi/-lo`（透镜光弧色）。
+2. `tokens/radius-motion.css`：加 `--lens-strength`、`--specular-rest`（中等基调，可调）。
+3. `styles/glass.css`：给 `.sec/.hero-wb.glass/.hero-index.glass/.site-head` 加 `::before`（mask-composite 光弧环）+ `::after`（radial 镜面高光，screen 混合，位置留 `--mx/--my` 供 Phase 2 指针追光）；卡片加 `position:relative + isolation`；两档无障碍降级块内关闭伪元素。
+
+### 关键决策与被否决备选
+- **边缘透镜用 CSS `mask-composite` 光弧环，而非 SVG feDisplacement**：后者是 Chromium-only（已用于 nav-pill），大面积 .sec 上会炸合成预算且 Safari 裸态。CSS 光弧环跨浏览器、零 JS，作为全站基线；真折射留 Phase 3 只点缀 hero/按钮 hover。
+- **静态镜面高光 screen 混合叠在内容之上**：Apple 的镜面反光本就微微掠过前景；实测顶部 sheen 对大数字/正文可读性无损（screen 只提亮）。
+- **未跑 production build**：本期纯 CSS，dev 端 Vite/Astro 已编译通过（DOM computed 确认伪元素生效），且 CSS 不可能改变社交图构建逻辑（~1318 张成本不变）；为省一次约 5min/1318 图的构建，把 build 校验并到 Phase 2（引入 JS 时更该跑）。需要可随时补跑。
+
+### 当前状态：能跑什么、怎么跑
+- `npm run dev` → localhost:4321，Phase 1 效果实时可见（预览已截 desktop before/after + mobile 390）。
+- **未 commit、未推线上**——等 Rick 确认「中等」强度与铺开范围后再定稿/续 Phase 2。
+
+### 未尽事项与已知问题
+- hero 卡在亮天空背景上透镜对比偏弱（白光弧 vs 亮底）；若要在亮背景也「明显」，需补一条极淡的暗侧折射线（依需再议）。
+- 强度是否合「中等」预期、是否接受「全站铺开而非单 section」——待 Rick 拍板。
+- Safari/Firefox 的 mask-composite 与 screen 表现未在真机核对（dev 为 Chromium）。
+- Phase 2–5（指针追光/入场编排/按压光晕、液态形变+真折射、空间纵深、全站收尾）未开始。
+
+### 文件级变更清单
+- `src/styles/tokens/colors.css`：+`--lens-rim-hi`、`--lens-rim-lo`。
+- `src/styles/tokens/radius-motion.css`：+`--lens-strength`、`--specular-rest`。
+- `src/styles/glass.css`：+ 边缘透镜/镜面高光 `::before`/`::after` 层（4 选择器）；`.sec/.hero-wb.glass/.hero-index.glass` 加 `position:relative`，卡片加 `isolation:isolate`；`prefers-reduced-transparency` 与 `@supports not backdrop-filter` 两块内关闭伪元素。
+
 ## 2026-06-24 · 手动同步救回卡住的更新 + 书架上新 4 本 + 代理自适应根治自动更新
 
 ### 体验影响（着重 · 先看）

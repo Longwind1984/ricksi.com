@@ -77,23 +77,28 @@ const usageStamp = usage ? stamp(usage.generated_at) : null;
 const compact = (n: number) =>
   n >= 1e9 ? (n / 1e9).toFixed(1) + 'B' : n >= 1e6 ? (n / 1e6).toFixed(1) + 'M' : n >= 1e3 ? Math.round(n / 1e3) + 'K' : String(n);
 
-/* 近 14 日趋势：从 usage.series 派生（实测/估算逐日标记） */
-function days14From(series: Record<string, { total?: number; estimated?: boolean }>) {
+/* 近 14 日趋势：全源逐日合计（Claude Code + ZCode + Hermes；实测/估算标记取自 Claude series，
+   ZCode/Hermes 近日均为实测，不影响该标记） */
+function days14From(u: { series?: Record<string, { total?: number; estimated?: boolean }>; sources?: any }) {
+  const series = u.series || {};
+  const zSeries = u.sources?.zcode?.series || {};
+  const hSeries = u.sources?.hermes?.series || {};
   const out = [];
   for (let i = 13; i >= 0; i--) {
     const dt = new Date();
     dt.setDate(dt.getDate() - i);
     const k = `${dt.getFullYear()}-${String(dt.getMonth() + 1).padStart(2, '0')}-${String(dt.getDate()).padStart(2, '0')}`;
     const rec = series[k];
+    const total = (rec?.total || 0) + (zSeries[k]?.total || 0) + (hSeries[k]?.total || 0);
     out.push({
       label: i === 0 ? '今天' : `${dt.getMonth() + 1}/${dt.getDate()}`,
-      v: Math.round(((rec?.total || 0) / 1e6) * 100) / 100,
+      v: Math.round((total / 1e6) * 100) / 100,
       estimated: !!rec?.estimated,
     });
   }
   return out;
 }
-const days14 = usage?.series ? days14From(usage.series) : SAMPLE_DAYS14;
+const days14 = usage?.series ? days14From(usage) : SAMPLE_DAYS14;
 
 /* ---- 工作台 · 活动热力图（真实 activity.json 或 seed 5 样例） ---- */
 type Cell = { l: number; d?: string; n?: number; b?: Record<string, number> };

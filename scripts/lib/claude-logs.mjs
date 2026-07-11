@@ -71,13 +71,25 @@ export async function scanClaudeLogs(projectsDir) {
   return { days, files: files.length, parsedLines };
 }
 
-/* 模型名归并为 Opus/Sonnet/Haiku 家族占比 */
+/* 模型名 → 家族（跨 harness 通用：Claude 四档 + 国产 GLM/DeepSeek）。
+   glm-5-2-260617 / glm-5.2 → GLM；deepseek-v4-pro → DeepSeek */
+export function modelFamily(m) {
+  return /opus/i.test(m) ? 'Opus'
+    : /sonnet/i.test(m) ? 'Sonnet'
+    : /haiku/i.test(m) ? 'Haiku'
+    : /fable/i.test(m) ? 'Fable'
+    : /glm/i.test(m) ? 'GLM'
+    : /deepseek/i.test(m) ? 'DeepSeek'
+    : '其他';
+}
+
+/* 模型名归并为家族占比（可传多源合并后的 days） */
 export function modelShare(days) {
   const fam = {};
   let total = 0;
   for (const v of Object.values(days)) {
     for (const [m, t] of Object.entries(v.models || {})) {
-      const f = /opus/i.test(m) ? 'Opus' : /sonnet/i.test(m) ? 'Sonnet' : /haiku/i.test(m) ? 'Haiku' : /fable/i.test(m) ? 'Fable' : '其他';
+      const f = modelFamily(m);
       fam[f] = (fam[f] || 0) + t.total;
       total += t.total;
     }

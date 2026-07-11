@@ -1,13 +1,15 @@
-# Token 累计用量：估算口径 v2
+# Token 累计用量：估算口径 v3
 
 > 写给三个月后没有上下文的 Rick。站点工作台「累计 tokens」数字的全部来源、公式与可调参数都在这里。
-> 实现：`scripts/collect-usage.mjs`（参数集中在文件顶部 `EST` 块）。
+> 实现：`scripts/collect-usage.mjs`（参数集中在文件顶部 `EST` 块）+ `scripts/lib/agent-usage.mjs`（ZCode/Hermes 分源读库）。
 
 ## 一句话版本
 
-**累计 = A 段 Claude Code 实测 + B 段 Claude Code 起用期估算 + C 段 claude.ai 网页端粗估**，三段分列、估算与粗估在页面上明确标注，真实日数据一旦入库永不回退。
+**累计 = 全 harness 合计**：A 段 Claude Code 实测 + B 段 Claude Code 起用期估算 + C 段 claude.ai 网页端粗估 **+ D 段 ZCode / Hermes 分源实测**。各段分列、估算与粗估在页面上明确标注，真实日数据一旦入库永不回退。
 
-当前值（2026-06-12 首跑）：累计 ≈ 2.0B = Code 1.9B（实测 17 天 + 估算 12 天）+ 网页粗估 99M。
+当前值（2026-07-11，口径 v3 首跑）：累计 ≈ 7.1B = Claude Code 6.8B（实测 41 天 + 估算 12 天）+ ZCode 139M（8 天）+ Hermes 97M（2 天）+ 网页粗估 113M。
+
+> v2→v3（2026-07-11）：v2 只统计 Claude Code 一个 harness；Rick 同时在用 ZCode、Hermes（多来源 LLM API，含火山 token Plan / z.ai / DeepSeek）、以及 Claude Code（底层可切 GLM/DeepSeek）。v3 把用量按 **harness 分源汇总**，主数改为全 harness 合计，模型分布条纳入 GLM/DeepSeek。
 
 ## A 段 · Claude Code 实测（硬数据）
 
@@ -40,6 +42,21 @@
 当前结果 ≈ 99M。如果你觉得偏低/偏高，改 `EST.web` 的参数重跑 `npm run sync` 即可，页面与本档案同步更新。
 
 **不确定区间**：单对话均量是最大的不确定源（5K~50K 都说得通），整段 C 的合理区间约 40M ~ 250M。它对累计值的影响 <10%，结论：**网页端是叙事意义大于数量意义的一段**——它解释「我从什么时候开始活在 Claude 里」，不显著改变总量。
+
+## D 段 · 其他 harness 分源实测（ZCode / Hermes，2026-07-11 新增）
+
+Claude Code 之外，Rick 还用两个 Agent harness，各自有本地用量库，`scripts/lib/agent-usage.mjs` 通过系统 `sqlite3` 直读（缺库/无 CLI 静默跳过，CI 用已提交的历史分源数据）：
+
+| 源 | 库 | 表 | 时间单位 | 全口径 total | 内容 |
+|---|---|---|---|---|---|
+| **ZCode** | `~/.zcode/cli/db/db.sqlite` | `model_usage` | 毫秒 | `computed_total_tokens`（provider 权威） | 全是 z.ai GLM-5.2（coding-plan + start-plan） |
+| **Hermes** | `~/.hermes/state.db` | `sessions` | 秒 | in+out+cache_write+cache_read+reasoning | 跨网关（feishu/weixin/desktop/cron），GLM / Claude / DeepSeek 混合 |
+
+**去重（关键）**：Hermes 的 `custom:claude-sub` 提供方走 `claude-proxy`（localhost:8085），本质是本地跑 `claude -p` ——那些会话**已写进 Claude JSONL、计入 A 段**。若不排除会与 Claude Code 重复计。故 Hermes 侧按 `billing_base_url LIKE '%localhost%'` 排除（`config.mjs → agentUsage.hermesExcludeUrlLike`）。ZCode 只写自己的 sqlite、不落 Claude JSONL，无交叉。
+
+**持久化**：与 A 段一样「真实日永不回退」——分源日序列存进 `usage.json → sources.{zcode,hermes}.series`，本机 DB 被清也不丢。
+
+**口径一致性**：三源都用「全口径含缓存读写」。Hermes/ZCode 同样 cache read 占大头（典型日 90%+），与 Claude Code 一致；页面的「今日缓存读 %」「模型输出」两个注脚是三源合并后的诚实分解。
 
 ## v1 口径为什么失真（2026-06-12 废止，数字留档）
 

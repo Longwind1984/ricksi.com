@@ -33,6 +33,13 @@ const {
 const compact = (n: number) =>
   n >= 1e9 ? (n / 1e9).toFixed(1) + 'B' : n >= 1e6 ? (n / 1e6).toFixed(1) + 'M' : n >= 1e3 ? Math.round(n / 1e3) + 'K' : String(n);
 const models: [string, number][] = u.models ?? [];
+/* 模型条按「厂商」配色（口径 v3 多源）：Claude 本家四档走钴蓝阶梯，GLM/DeepSeek 各自独立色一眼分厂商；
+   按家族名取色（顺序无关，跨渲染稳定）。青/紫刻意避开人机光谱的 --prov-co(175)/--prov-ai(295) 语义值。 */
+const SEG: Record<string, string> = {
+  Opus: '--mseg-0', Sonnet: '--mseg-1', Haiku: '--mseg-2', Fable: '--mseg-3',
+  GLM: '--mseg-glm', DeepSeek: '--mseg-ds',
+};
+const segVar = (m: string) => SEG[m] ?? '--mseg-other';
 ---
 
 <div class="wb-board" id="wb-board" role="dialog" aria-modal="true" aria-labelledby="wb-board-title" hidden>
@@ -66,11 +73,11 @@ const models: [string, number][] = u.models ?? [];
       <section class="wb-tile wb-tile-models">
         <div class="mono wb-label">模型分布{isUsageSample && <em class="sample-badge">样例</em>}</div>
         <div class="wb-modelbar" role="img" aria-label={'模型分布：' + models.map(([m, p]) => `${m} ${p}%`).join('，')}>
-          {models.map(([m, p], i) => (<span class="wb-modelseg" style={`flex:${p}; background:var(--mseg-${Math.min(i, 3)})`}></span>))}
+          {models.map(([m, p]) => (<span class="wb-modelseg" style={`flex:${p}; background:var(${segVar(m)})`}></span>))}
         </div>
         <div class="wb-modellegend">
-          {models.map(([m, p], i) => (
-            <span class="mono wb-modelleg"><span class="wb-modeldot" style={`background:var(--mseg-${Math.min(i, 3)})`}></span>{m} <b>{p}%</b></span>
+          {models.map(([m, p]) => (
+            <span class="mono wb-modelleg"><span class="wb-modeldot" style={`background:var(${segVar(m)})`}></span>{m} <b>{p}%</b></span>
           ))}
         </div>
       </section>
@@ -135,12 +142,15 @@ const models: [string, number][] = u.models ?? [];
 
       <!-- 口径最小化入口 -->
       <details class="wb-method">
-        <summary class="mono"><span class="wb-method-dot" aria-hidden="true"></span>口径 v2 · 数据怎么来的</summary>
+        <summary class="mono"><span class="wb-method-dot" aria-hidden="true"></span>口径 v3 · 数据怎么来的</summary>
         <div class="wb-method-body">
           <p>
-            Token：5 月底以来逐日实测{methodReal ? `（实测 ${methodReal} 天` : ''}{methodEst ? ` + 起用期估算 ${methodEst} 天）` : methodReal ? '）' : ''}；
-            {u.cumulative_code && (<>Code 实测+估算 {u.cumulative_code} · 网页端粗估 {u.cumulative_web}；</>)}
-            全口径含缓存读写 {u.today_cache_share}%，模型输出 {compact(u.today_out ?? 0)}。
+            Token：全 harness 合计 <b>{u.cumulative}</b> ——
+            Claude Code {u.cumulative_code}{methodReal ? `（实测 ${methodReal} 天` : ''}{methodEst ? ` + 起用期估算 ${methodEst} 天）` : methodReal ? '）' : ''}
+            {u.cumulative_zcode && (<> · ZCode {u.cumulative_zcode}</>)}
+            {u.cumulative_hermes && (<> · Hermes {u.cumulative_hermes}</>)}
+            {u.cumulative_web && (<> · 网页端粗估 {u.cumulative_web}</>)}；
+            全口径含缓存读写，今日缓存读 {u.today_cache_share}%、模型输出 {compact(u.today_out ?? 0)}。
             <a href="https://github.com/Longwind1984/ricksi.com/blob/main/docs/token-estimation.md" target="_blank" rel="noreferrer">估算方法 ↗</a>
           </p>
           <p>活跃：多源统计涵盖代码提交（git）、笔记更新（Obsidian）、AI 会话与 GitHub 贡献，可按上方维度切换查看各来源分布。</p>

@@ -111,6 +111,16 @@ export const CONFIG = {
   /* Claude Code 本地会话日志 */
   claudeProjects: path.join(HOME, '.claude', 'projects'),
 
+  /* 其他 Agent harness 的本地用量库（口径 v3：Token 用量按 harness 分源汇总）。
+     缺库（如 CI、未装该工具）自动跳过——已提交的 usage.json 里的历史分源数据照用。
+     去重：Hermes 经 claude-proxy(localhost) 跑的 `claude -p` 已落 Claude JSONL、计入 Claude Code，
+           故 Hermes 侧按 billing_base_url 含 localhost 排除，避免与 Claude Code 重复计。 */
+  agentUsage: {
+    zcodeDb: path.join(HOME, '.zcode', 'cli', 'db', 'db.sqlite'), // model_usage 表，started_at=毫秒
+    hermesDb: path.join(HOME, '.hermes', 'state.db'),             // sessions 表，started_at=秒(REAL)
+    hermesExcludeUrlLike: '%localhost%',                          // claude-proxy 去重
+  },
+
   /* 自制 ePub 书架源（30书架）：merge-local-books.mjs 每次同步从这里拉最新 epub + 缺失时提取封面。
      本地有此目录才同步；CI / 无目录静默跳过（已提交的产物照用）。
      新增一本：epub 放进此目录 → 在 data/local-books.json 登记一条（含 sourceFile=此处文件名、epub=目标路径）。 */
