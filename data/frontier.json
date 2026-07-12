@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-07-11T13:33:20.061Z",
+ "generated_at": "2026-07-12T13:32:05.556Z",
  "rollingDays": 90,
  "domains": {
   "lab": "前沿实验室",
@@ -470,13 +470,13 @@
   }
  ],
  "stats": {
-  "totalEntries": 389,
+  "totalEntries": 388,
   "totalAllTime": 537,
   "lastRun": {
-   "at": "2026-07-11T13:33:20.062Z",
-   "fetched": 22,
-   "processed": 20,
-   "added": 4,
+   "at": "2026-07-12T13:32:05.557Z",
+   "fetched": 15,
+   "processed": 12,
+   "added": 0,
    "llmFailed": 0,
    "rateLimited": true,
    "skippedSources": []
@@ -11427,32 +11427,6 @@
    "gravity": false,
    "periodic": false,
    "canon": false,
-   "rationale": "",
-   "insufficientContext": false,
-   "addedAt": "2026-06-16",
-   "backfill": true
-  },
-  {
-   "id": "b1f2062f3287e341",
-   "date": "2026-04-12",
-   "person": null,
-   "topicSource": "minimax",
-   "sourceName": "凤凰网财经",
-   "sourceType": "web",
-   "contentType": "action",
-   "titleZh": "MiniMax M2.7正式开源全球发布",
-   "titleOriginal": "MiniMax M2.7正式开源全球发布",
-   "verdict": "策略性开源释放，同日完成与华为昇腾、英伟达等芯片厂与推理平台适配，标志生态扩张关键节点，但引发开源许可争议。",
-   "summaryZh": "策略性开源释放，同日完成与华为昇腾、英伟达等芯片厂与推理平台适配，标志生态扩张关键节点，但引发开源许可争议。",
-   "tags": [],
-   "url": "https://finance.ifeng.com/c/8sHVPZu8oHB",
-   "excerpt": "",
-   "apparent": 4,
-   "absolute": 4,
-   "importance": 4,
-   "gravity": false,
-   "periodic": false,
-   "singularity": false,
    "rationale": "",
    "insufficientContext": false,
    "addedAt": "2026-06-16",

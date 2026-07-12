@@ -1,18 +1,18 @@
 {
- "generated_at": "2026-07-11T13:30:11.143Z",
- "today": 505147657,
- "today_out": 2643317,
- "today_cache_share": 97,
- "week": "2.6B",
- "cumulative": "7.3B",
- "cumulative_code": "7.0B",
+ "generated_at": "2026-07-12T13:30:15.461Z",
+ "today": 399178272,
+ "today_out": 1603603,
+ "today_cache_share": 96,
+ "week": "2.8B",
+ "cumulative": "8.1B",
+ "cumulative_code": "7.7B",
  "cumulative_zcode": "139M",
- "cumulative_hermes": "108M",
- "cumulative_web": "113M",
+ "cumulative_hermes": "123M",
+ "cumulative_web": "114M",
  "models": [
   [
    "Opus",
-   75
+   74
   ],
   [
    "Fable",
@@ -20,11 +20,11 @@
   ],
   [
    "GLM",
-   4
+   5
   ],
   [
    "Haiku",
-   2
+   1
   ],
   [
    "Sonnet",
@@ -32,10 +32,6 @@
   ]
  ],
  "days7": [
-  {
-   "d": "周日",
-   "v": 521.56
-  },
   {
    "d": "周一",
    "v": 166.97
@@ -54,11 +50,15 @@
   },
   {
    "d": "周五",
-   "v": 229.97
+   "v": 230.42
+  },
+  {
+   "d": "周六",
+   "v": 831.79
   },
   {
    "d": "今天",
-   "v": 505.15
+   "v": 399.18
   }
  ],
  "series": {
@@ -217,21 +217,21 @@
    }
   },
   "2026-06-10": {
-   "total": 134415132,
+   "total": 134202293,
    "models": {
     "fable-5": {
-     "in": 186523,
-     "out": 592667,
-     "cw": 2497017,
-     "cr": 119965853,
-     "total": 123242060
+     "in": 168993,
+     "out": 591571,
+     "cw": 2474552,
+     "cr": 119880931,
+     "total": 123116047
     },
     "opus-4-8": {
-     "in": 22465,
-     "out": 46804,
-     "cw": 806335,
-     "cr": 10297468,
-     "total": 11173072
+     "in": 22461,
+     "out": 45214,
+     "cw": 782538,
+     "cr": 10236033,
+     "total": 11086246
     },
     "<synthetic>": {
      "in": 0,
@@ -362,7 +362,7 @@
    }
   },
   "2026-06-11": {
-   "total": 308456989,
+   "total": 308363860,
    "models": {
     "haiku-4-5-20251001": {
      "in": 1560,
@@ -379,11 +379,11 @@
      "total": 128549068
     },
     "opus-4-8": {
-     "in": 847523,
-     "out": 454910,
-     "cw": 4708609,
-     "cr": 169236546,
-     "total": 175247588
+     "in": 847475,
+     "out": 453074,
+     "cw": 4705453,
+     "cr": 169148457,
+     "total": 175154459
     },
     "<synthetic>": {
      "in": 0,
@@ -984,7 +984,7 @@
    }
   },
   "2026-07-11": {
-   "total": 421569377,
+   "total": 735013137,
    "models": {
     "sonnet-5": {
      "in": 66595,
@@ -994,18 +994,25 @@
      "total": 1011098
     },
     "opus-4-8": {
-     "in": 741363,
-     "out": 847610,
-     "cw": 6661995,
-     "cr": 216167984,
-     "total": 224418952
+     "in": 993303,
+     "out": 1215782,
+     "cw": 10125087,
+     "cr": 395734529,
+     "total": 408068701
     },
     "fable-5": {
-     "in": 164895,
-     "out": 558415,
-     "cw": 3945237,
-     "cr": 139351220,
-     "total": 144019767
+     "in": 533362,
+     "out": 907575,
+     "cw": 6936556,
+     "cr": 242995917,
+     "total": 251373410
+    },
+    "haiku-4-5-20251001": {
+     "in": 216,
+     "out": 42,
+     "cw": 68275,
+     "cr": 284645,
+     "total": 353178
     },
     "<synthetic>": {
      "in": 0,
@@ -1015,75 +1022,101 @@
      "total": 0
     },
     "glm-5.2": {
-     "in": 1529924,
-     "out": 863836,
+     "in": 1968880,
+     "out": 1131502,
      "cw": 0,
-     "cr": 49459840,
-     "total": 51853600
+     "cr": 71106368,
+     "total": 74206750
+    }
+   }
+  },
+  "2026-07-12": {
+   "total": 397743987,
+   "models": {
+    "opus-4-8": {
+     "in": 962171,
+     "out": 921702,
+     "cw": 9712781,
+     "cr": 299232301,
+     "total": 310828955
     },
-    "haiku-4-5-20251001": {
-     "in": 132,
-     "out": 20,
-     "cw": 48012,
-     "cr": 217796,
-     "total": 265960
+    "fable-5": {
+     "in": 379977,
+     "out": 157130,
+     "cw": 2385950,
+     "cr": 42905440,
+     "total": 45828497
+    },
+    "<synthetic>": {
+     "in": 0,
+     "out": 0,
+     "cw": 0,
+     "cr": 0,
+     "total": 0
+    },
+    "glm-5.2": {
+     "in": 867674,
+     "out": 504685,
+     "cw": 0,
+     "cr": 39714176,
+     "total": 41086535
     }
    }
   },
   "2026-05-13": {
-   "total": 18355208,
+   "total": 18792025,
    "estimated": true
   },
   "2026-05-14": {
-   "total": 96011856,
+   "total": 111422255,
    "estimated": true
   },
   "2026-05-15": {
-   "total": 8000988,
+   "total": 8191396,
    "estimated": true
   },
   "2026-05-16": {
-   "total": 96011856,
+   "total": 111422255,
    "estimated": true
   },
   "2026-05-17": {
-   "total": 6589049,
+   "total": 6745855,
    "estimated": true
   },
   "2026-05-18": {
-   "total": 19767147,
+   "total": 20237566,
    "estimated": true
   },
   "2026-05-19": {
-   "total": 4706464,
+   "total": 4818468,
    "estimated": true
   },
   "2026-05-20": {
-   "total": 37181062,
+   "total": 38065897,
    "estimated": true
   },
   "2026-05-21": {
-   "total": 49888513,
+   "total": 51075761,
    "estimated": true
   },
   "2026-05-22": {
-   "total": 30592013,
+   "total": 31320042,
    "estimated": true
   },
   "2026-05-23": {
-   "total": 2823878,
+   "total": 2891081,
    "estimated": true
   },
   "2026-05-26": {
-   "total": 1411939,
+   "total": 1445540,
    "estimated": true
   }
  },
  "sources": {
   "claude_code": {
    "label": "Claude Code",
-   "tokens": 6981274808,
-   "compact": "7.0B"
+   "tokens": 7727244755,
+   "compact": "7.7B"
   },
   "zcode": {
    "label": "ZCode",
@@ -1159,54 +1192,64 @@
   },
   "hermes": {
    "label": "Hermes",
-   "tokens": 107976633,
-   "compact": "108M",
-   "days": 2,
+   "tokens": 123051344,
+   "compact": "123M",
+   "days": 3,
    "series": {
     "2026-07-10": {
-     "total": 24398353,
-     "out": 82994,
-     "cr": 23713984,
+     "total": 24839889,
+     "out": 83537,
+     "cr": 23863872,
      "models": {
+      "deepseek-v4-pro": 10151496,
       "glm-5-2-260617": 5896417,
-      "glm-5.2": 18501936
+      "glm-5.2": 8791976
      }
     },
     "2026-07-11": {
-     "total": 83578280,
-     "out": 351874,
-     "cr": 81549056,
+     "total": 96777170,
+     "out": 377065,
+     "cr": 94337600,
      "models": {
       "claude-opus-4-8": 59004,
       "deepseek-v4-pro": 3532782,
-      "glm-5-2-260617": 74624402,
-      "glm-5.2": 5362092
+      "doubao-seed-2-1-pro-260628": 1882925,
+      "glm-5-2-260617": 85919083,
+      "glm-5.2": 5383376
+     }
+    },
+    "2026-07-12": {
+     "total": 1434285,
+     "out": 20086,
+     "cr": 1348864,
+     "models": {
+      "glm-5-2-260617": 1434285
      }
     }
    }
   },
   "web": {
    "label": "claude.ai 网页",
-   "tokens": 113341429,
-   "compact": "113M",
+   "tokens": 113814286,
+   "compact": "114M",
    "estimated": true
   }
  },
  "method": {
   "version": 3,
   "real_window": "2026-05-27 起（Claude Code 本地日志，按消息去重，含输入/输出/缓存读写全口径）",
-  "real_days": 41,
+  "real_days": 42,
   "estimated_days": 12,
   "estimated_share": "5%",
   "harness_split": {
-   "claude_code": "7.0B",
+   "claude_code": "7.7B",
    "zcode": "139M",
-   "hermes": "108M",
-   "web": "113M",
+   "hermes": "123M",
+   "web": "114M",
    "note": "Token 用量按 harness 分源汇总；Hermes 已排除经 claude-proxy(localhost) 的会话（那些 claude -p 已计入 Claude Code），避免重复计。全口径含缓存读写。"
   },
   "web_estimate": {
-   "total": "113M",
+   "total": "114M",
    "since": "2025-07-01",
    "basis": "无日志依据的参数化粗估（日均对话数 × 单对话均量 + 长文共创），参数见 docs/token-estimation.md",
    "breakdown": [
@@ -1218,9 +1261,9 @@
     },
     {
      "from": "2026-01-01",
-     "to": "2026-07-11",
-     "days": 193,
-     "tokens": 91261429
+     "to": "2026-07-12",
+     "days": 194,
+     "tokens": 91734286
     }
    ]
   },
