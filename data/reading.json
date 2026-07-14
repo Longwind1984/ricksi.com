@@ -57,7 +57,8 @@
      "lastRead": 1780646908,
      "highlights": [],
      "intro": "谈 AI 记忆，业内习惯把它当成一个东西——要么等于上下文窗口，要么等于一个向量库。这本小书拒绝这种偷懒，把「记忆」拆成四种不同的耦合方式：从训练进权重的、活在上下文里的、外挂检索回来的，到沉淀成结构化图谱的，各自有各自的写入代价、遗忘机制和失效模式，混为一谈正是多数记忆方案做不对的根因。它要回答的不是「怎么加记忆」，而是「你说的记忆到底落在哪一层、该用哪种耦合」。给做 Agent 和记忆系统的人当一张分层解剖图：先分清层次，再谈选型，比直接抄某个架构更省事。是 Rick 与 Claude 共写、专拆「AI 记忆」这一个问题的三本里的一本。",
-     "subtitle": "AI 记忆机制的分层解剖——从权重到图谱"
+     "subtitle": "AI 记忆机制的分层解剖——从权重到图谱",
+     "epub": "/assets/books/epub/memory-coupling.epub"
     },
     {
      "id": "CB_43523D20VGaf74D75cFum4Wr",
@@ -272,7 +273,7 @@
   {
    "id": "work-agent",
    "topic": "Work Agent",
-   "blurb": "当「把活交给 AI」成为产品命题——四本从需求闸门、市场细分、平台范式到落地 UX，拆解真正敢把工作交出去之前的每一道坎。",
+   "blurb": "当「把活交给 AI」成为产品命题——六本从赛道地图、市场测算、需求闸门、平台范式到落地 UX，拆解真正敢把工作交出去之前的每一道坎。",
    "graphFocus": null,
    "books": [
     {
@@ -330,6 +331,36 @@
      "notes": 0,
      "lastRead": 0,
      "highlights": []
+    },
+    {
+     "id": "CB_local_delegate-a-task",
+     "title": "代劳一段活",
+     "author": "Rick's Opus 4.8 Extra",
+     "subtitle": "从「补全副驾」到「代劳一段活」——四家 Work Agent 的赛道地图",
+     "sourceFile": "代劳一段活.epub",
+     "cover": "/assets/books/epub-covers/delegate-a-task.png",
+     "epub": "/assets/books/epub/delegate-a-task.epub",
+     "progress": 0,
+     "finished": false,
+     "notes": 0,
+     "lastRead": 0,
+     "highlights": [],
+     "intro": "当 AI 从「补全你下一行」升级到「替你干完一整段活」，赛道的评判标准也随之改写。这本小书用两条能力轴把 Work Agent 这条赛道切开，把 Trae、Kimi、WorkBuddy、ZCode 四家放进同一张地图逐一对位——谁靠全免费加 SOLO 冲国民级，谁把「模型即 Agent」长成三层，谁把 agent 卖给不写代码的职场人，谁用自研内核押注长程目标。往下它算两笔账：定价模型背后的「token 税」，以及价值到底沉淀在技术栈的哪一层、护城河守不守得住。给在这条线上做立项或选型判断的人，它给的不是结论，是一套能对着四家反复验的坐标系。"
+    },
+    {
+     "id": "CB_local_work-agent-stp",
+     "title": "两个盘子",
+     "author": "Rick's Opus 4.8 Extra",
+     "subtitle": "Work Agent 市场的 TAM/SAM/SOM 与 STP 定位",
+     "sourceFile": "两个盘子·Work-Agent市场STP.epub",
+     "cover": "/assets/books/epub-covers/work-agent-stp.png",
+     "epub": "/assets/books/epub/work-agent-stp.epub",
+     "progress": 0,
+     "finished": false,
+     "notes": 0,
+     "lastRead": 0,
+     "highlights": [],
+     "intro": "市场规模张口就来，往往是因为没分清在数哪个盘子。这本小书先立口径——把 Work Agent 市场拆成「两个盘子、三等数字」，用 TAM/SAM/SOM 两路夹逼给出可被质疑的量级，而非一个拍脑袋的大数。再往下是一套能落到定价的切法：用两条轴做 Segmentation，用采用率、付费意愿、使用频率给用户画像做定量切片，看钱和频率到底落在哪些活上；最后用打分给各家做 Targeting 与 Positioning，看清谁在抢谁、各自站在哪。给要对外引用市场数字、对内定义打法的产品人：它逼你把「市场很大」翻译成「哪个 segment、值多少、凭什么」。"
     }
    ]
   }

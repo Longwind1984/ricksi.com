@@ -54,7 +54,7 @@
     {
       "id": "work-agent",
       "topic": "Work Agent",
-      "blurb": "当「把活交给 AI」成为产品命题——四本从需求闸门、市场细分、平台范式到落地 UX，拆解真正敢把工作交出去之前的每一道坎。",
+      "blurb": "当「把活交给 AI」成为产品命题——六本从赛道地图、市场测算、需求闸门、平台范式到落地 UX，拆解真正敢把工作交出去之前的每一道坎。",
       "graphFocus": null,
       "books": [
         {
@@ -107,6 +107,34 @@
           "sourceFile": "让 AI 替你上班，之后呢.epub",
           "cover": "/assets/books/epub-covers/ai-after-work.png",
           "epub": "/assets/books/epub/ai-after-work.epub",
+          "progress": 0,
+          "finished": false,
+          "notes": 0,
+          "lastRead": 0,
+          "highlights": []
+        },
+        {
+          "id": "CB_local_delegate-a-task",
+          "title": "代劳一段活",
+          "author": "Rick's Opus 4.8 Extra",
+          "subtitle": "从「补全副驾」到「代劳一段活」——四家 Work Agent 的赛道地图",
+          "sourceFile": "代劳一段活.epub",
+          "cover": "/assets/books/epub-covers/delegate-a-task.png",
+          "epub": "/assets/books/epub/delegate-a-task.epub",
+          "progress": 0,
+          "finished": false,
+          "notes": 0,
+          "lastRead": 0,
+          "highlights": []
+        },
+        {
+          "id": "CB_local_work-agent-stp",
+          "title": "两个盘子",
+          "author": "Rick's Opus 4.8 Extra",
+          "subtitle": "Work Agent 市场的 TAM/SAM/SOM 与 STP 定位",
+          "sourceFile": "两个盘子·Work-Agent市场STP.epub",
+          "cover": "/assets/books/epub-covers/work-agent-stp.png",
+          "epub": "/assets/books/epub/work-agent-stp.epub",
           "progress": 0,
           "finished": false,
           "notes": 0,
