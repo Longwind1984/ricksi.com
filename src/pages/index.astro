@@ -441,19 +441,19 @@ const numbered = (list: typeof PROJECTS, offset = 0) =>
 
               {readableBooks.length > 0 && (
                 <div class="rd-teaser-readable">
-                  <span class="mono rd-teaser-tag">可在线阅读</span>
-                  <div class="rd-ai-strip">
+                  <span class="mono rd-teaser-tag">可在线阅读 · {readableBooks.length} 本</span>
+                  <div class="rd-rail">
                     {readableBooks.map((b: any) => (
-                      <a class="rd-aibook rd-aibook-sm rd-aibook-read" href={`/reading/${b.id}/read/`} title={`在线阅读《${b.title}》· ${b.topic}`}>
+                      <a class="rd-railbook" href={`/reading/${b.id}/read/`} title={`在线阅读《${b.title}》· ${b.topic}`}>
                         {b.cover ? (
-                          <img class="rd-aibook-img" src={b.cover} alt={`《${b.title}》封面`} loading="lazy" />
+                          <img class="rd-railbook-img" src={b.cover} alt={`《${b.title}》封面`} loading="lazy" />
                         ) : (
-                          <div class="rd-aibook-cover">
+                          <div class="rd-railbook-img rd-aibook-cover">
                             <span class="mono rd-aibook-badge">AI 共创</span>
                             <span class="rd-aibook-title">{b.title}</span>
                           </div>
                         )}
-                        <div class="mono rd-aibook-topic rd-aibook-readlabel">开始阅读 →</div>
+                        <div class="rd-railbook-name">{b.title}</div>
                       </a>
                     ))}
                   </div>
@@ -469,18 +469,18 @@ const numbered = (list: typeof PROJECTS, offset = 0) =>
                       <span class="rd-more-chev" aria-hidden="true">▾</span>
                     </span>
                   </summary>
-                  <div class="rd-ai-strip">
+                  <div class="rd-rail">
                     {restBooks.map((b: any) => (
-                      <a class="rd-aibook rd-aibook-sm" href={`/reading/${b.id}/`} title={`《${b.title}》· ${b.topic}${(b.highlights ?? []).length ? ` · ${b.highlights.length} 条划线` : ''}`}>
+                      <a class="rd-railbook" href={`/reading/${b.id}/`} title={`《${b.title}》· ${b.topic}${(b.highlights ?? []).length ? ` · ${b.highlights.length} 条划线` : ''}`}>
                         {b.cover ? (
-                          <img class="rd-aibook-img" src={b.cover} alt={`《${b.title}》封面`} loading="lazy" />
+                          <img class="rd-railbook-img" src={b.cover} alt={`《${b.title}》封面`} loading="lazy" />
                         ) : (
-                          <div class="rd-aibook-cover">
+                          <div class="rd-railbook-img rd-aibook-cover">
                             <span class="mono rd-aibook-badge">AI 共创</span>
                             <span class="rd-aibook-title">{b.title}</span>
                           </div>
                         )}
-                        <div class="mono rd-aibook-topic">{b.topic}</div>
+                        <div class="rd-railbook-name">{b.title}</div>
                       </a>
                     ))}
                   </div>

@@ -1,5 +1,90 @@
 # WORKLOG（append-only，倒金字塔：结论在前、清单沉底）
 
+## 2026-07-16 · 首页阅读卡片重构：尺寸层级倒挂修正，Rick 拍板 A 方案（滑轨）PR 上线
+
+### 体验影响（着重 · 先看）
+- **阅读区此前尺寸层级倒挂**：AI 共创卡最小（78px 小卡挤成两行）、微信书架的公版书封面反而全区最大（grid 1fr 拉伸到 ~117px）、最近在读 118px——三种尺寸混装，视觉权重与「AI 共创优先」的定位相反。本次重构为**两档制**：自制书主档 124px、微信书目（最近在读 + 书架）统一次档 96px 封顶。
+- **两方向草案出可预览版（截图发会话）后，Rick 拍板选 A**：
+  - **A「主推台横滑轨道」（定稿）**：16 本可在线读的自制书单行大封面横滑（桌面约见 7 本半、末尾封面裁切即滑动暗示），封面下书名两行省略；标签升「可在线阅读 · 16 本」。
+  - **B「精选特写 + 均一网格」（代码已回退）**：最近读的一本做大特写卡（封面 148px + 副题 + 导言摘录 3 行 + 开始阅读），其余 15 本 108px 均一网格全铺两行。选 B 可按本会话记录快速复原。
+- **连带影响 /reading/ 阅读页**（共享 CSS 类）：书架封面从 1fr 拉伸改 96px 封顶、最近在读封面 118→96，同样受益于两档制。
+- 每卡重复的「开始阅读 →」文案删除，改为封面下书名（组标签已说明可读；点封面即进阅读器）。
+- **悬停「光晕」移除（Rick 明确否掉）**：阅读模块全部封面卡（rd-railbook / rd-aibook / rd-book / rd-readable-cover 共 5 条 hover 规则）原本悬停时投影加深放大（0 10px 26px/0.55 → 0 16px 34px/0.65），在云海亮背景上读成一圈暗晕；现 hover 只保留 4px 浮起，投影恒定不变。
+
+### 做了什么
+1. 首页 index.astro 阅读区 AI 共创块标记重写：`rd-ai-strip` 78px 小卡 → `rd-rail` 124px 大封面横滑轨道；折叠框（1 本无 epub）内沿用同款卡。
+2. glass.css：新增 `.rd-rail / .rd-railbook*` 轨道规则（桌面 124px / 窄屏 104px，scroll-snap，隐藏滚动条）；`.rd-cover-lg` 118→96；`.rd-shelf` `minmax(96px,1fr)`→`minmax(84px,96px)`（封顶防公版书撑最大）。
+3. B 稿完整实现过一遍（特写卡 + 均一网格 + 移动端塌横滑条），四组截图（A/B × 桌面/375 移动）后回退，工作区留 A。
+4. 死代码清理：`.rd-ai-strip / .rd-aibook-sm / .rd-aibook-read* / .rd-aibook-topic` 全仓 grep 确认无引用后删除。
+
+### 关键决策与被否决备选
+- **尺寸两档制而非三档**：最近在读虽是「精选单品」，也压回 96 次档——主档只留给 AI 共创，避免再造第三种尺寸。
+- **横滑轨道 vs 全铺网格**：A 用横滑保住 teaser 的纵向克制（AI 块 ~260px 高），代价是尾部书要滑才看到；B 全铺无交互成本但 AI 块高 ~560px。判断留给 Rick。
+- **折叠框保留**：仅 1 本（《记忆 一个词的解剖》无 epub），曾考虑并进轨道用不同落点区分，为不推翻「有 epub 主推」的既有决策而保留折叠。
+- **B 稿踩坑记录**：特写卡 flex 默认 `align-items: stretch` 会把封面拉高、破坏 5/8 比例致 object-fit 横裁标题，修法 `align-items: flex-start`（已随 B 回退，复原 B 时别忘）。
+- 预览环境两坑（已知重申）：内置浏览器面板 JS 滚动后截图黑屏（合成假象，量测以 DOM 为准）；本次改用 Playwright 截图落盘。
+
+### 当前状态：能跑什么、怎么跑
+- **A 稿经 PR（squash）合入 main**，EdgeOne + Vercel 自动重建部署（约 10–20 分钟）。PR 以 hunk 级拆分只含本次阅读区改动（另一会话「Liquid Glass 增强层」等大片未提交重设计保持原样留在工作区，未混提）；顺带补交了上一会话漏提交的 07-15 WORKLOG 条目（纯文档补账，对应工作已上线）。
+- dev server（4321）运行中：`npm run dev` 后首页 #reading 即 A 稿；/reading/ 页可看连带的书架统一档位。
+- 验证已做：桌面 1280 / 移动 375 DOM 量测（轨道 124/104、书架 96/76、无横向溢出）+ Playwright 截图四组 + dev server 与 console 零报错 + PR 树（不含另一会话 WIP）单独起 dev 渲染复核。未跑全量 `npm run build`（十几分钟社交图，纯 CSS/标记改动不触发出图管线）。
+
+### 未尽事项与已知问题
+- **「光晕」语义待确认**：本次移除的是阅读卡 hover 投影加深；另一会话未提交的玻璃增强层里还有 section 悬停镜面光斑（`.sec:hover::after` 径向白光），若 Rick 指的其实是那个，由该会话处理（它不在本 PR、不会随部署上线）。
+- 最近在读《二手时间》无本地封面（reading.json 只有远程 `coverUrl` 字段，组件只认 `cover`），仍为占位色块——要不要接远程封面或补生成封面，另议（Rick 截图里就已如此，非本次引入）。
+- /reading/ 页 AI 共创区（rd-readable-card 310px 横卡网格）未动——它有副题/CTA 是另一套信息密度，是否也要对齐两档制待定。
+
+### 文件级变更清单
+- `src/pages/index.astro`：阅读区「可在线阅读」与「更多共创书」块标记重写（rd-rail / rd-railbook）
+- `src/styles/glass.css`：+`.rd-rail/.rd-railbook/.rd-railbook-img/.rd-railbook-name`（含 ≤1000 窄屏档）；`.rd-cover-lg` 96px；`.rd-shelf` minmax(84px,96px)；−`.rd-ai-strip/.rd-aibook-sm/.rd-aibook-read 读标/.rd-aibook-topic`
+- 未入库：A/B 四组截图（variant-{a,b}-{desktop,mobile}.png，已发会话）
+
+## 2026-07-15 · 上架 9 本 deep-survey 小书（含 claude.ai 云端下载 6 本）+ 核验自动更新链路
+
+### 体验影响（着重 · 先看）
+- **阅读区一举补齐到 16 本可在线读的自制 ePub**（此前 7 本 harness/work-agent + 本次 9 本）。全站仅剩《记忆 一个词的解剖》1 本无 epub。用户可见层，Rick 已确认「上架」。
+- **第二轮关键更正**：先前判断「记忆/评测/自主系列 7 本源文件已删、无法补」——错。这些书是在 **claude.ai 网页版（cloud chat）**生成的，云端会话里仍挂着可下载的 epub 附件。用 Claude in Chrome 逐个会话找到并下载了 6 本：**记忆的梯度 / 自主的尺度 / 分数之外 / 提示词工程 / 信号的阶梯 / 当分数成为目标**，归档进 30书架并全部接上「开始阅读」。
+  - 仅《记忆 一个词的解剖》没找到成品 epub——它在 epub-builder skill 开发那条会话里被当「风格基准/否掉的范例」，云端无干净成品；WORKLOG 早先也标它 low 置信。仍停在「仅导言+封面」。
+- **第一轮上架 3 本**（用户可见层，Rick 确认）：
+  - **《记忆的四种耦合》**（记忆机制专题）：补接磁盘仅存的那本 epub。
+  - **《代劳一段活》《两个盘子》**（新入 Work Agent 专题，4→6 本）：deep-survey-redesign 测试期产出的两本成品，题材与既有「Work Agent 赛道 / 待细分」有重叠，Rick 拍板照样上架并列。
+- **两本新书的导言是我据书内 TOC 起草的草案**（各 ~275 字），封面为 merge 脚本从 epub 内封面自动提取（非重绘 SVG，风格与 harness/codex 的提取封面一致）。**导言待 Rick 过目精修**；authored 源、survive sync，改 `book-extras.json` 即可、不会被覆写。
+
+### 做了什么
+**第一轮（磁盘盘点 + 上架 3 本）**
+1. 盘点磁盘上的 deep-survey epub，确认磁盘可上架的只有 3 本。
+2. 3 本 epub 归档进 `~/Documents/30书架`；记忆的四种耦合走 byTitle 补 epub，代劳一段活/两个盘子走 `local-books.json` 新增 + byId 导言。
+3. `merge-local-books.mjs` 合入 → dev 预览逐本核对（「开始阅读」亮、epubjs 载入、零报错）→ surgical commit `53ce701` push。
+
+**第二轮（claude.ai 云端下载 6 本）— Rick 更正后**
+4. 用 Claude in Chrome 连本机已登录的 claude.ai，逐个 deep-survey 会话搜索（记忆/分数/提示词/信号/自主），用 find 定位 epub 附件卡、点 Download。
+5. 6 本落 `~/Downloads`（Chrome Default profile），逐本 `unzip -t` 校验 + 内部标题/章数核对（8–11 章），去重。
+6. 归档进 30书架（共 16 本）→ 复制到 `public/assets/books/epub/<slug>.epub`（slug 对齐既有封面 SVG 名）→ 6 个 byTitle 加 `epub` → `merge-local-books.mjs` 盖入 reading.json（6/6 亮）。
+7. dev 预览抽验《提示词工程》（最大，1.6MB/10章）阅读器正常载入、零 console 报错 → commit `f5d4c2c` push。
+
+### 关键决策与被否决备选
+- **surgical commit 而非跑全量 `npm run sync`**：两轮都只提交书相关文件，隔离在制的 src 重设计；全量 sync 会把今晚 frontier/vault 采集一并提交、autostash 需绕过大片未提交重设计，风险与耗时都更高。
+- **第一轮判断被推翻**：先前以为「源已删=无法补」，实为书在 claude.ai 云端会话里、附件仍可下载。教训：deep-survey 小书的成品 epub 优先去 **cloud chat** 找，不是只看本地磁盘。
+- **《记忆 一个词的解剖》不硬凑**：云端也无成品（被否草案），不伪造、不占位假「开始阅读」，如实保留「仅导言+封面」。
+
+### 当前状态：能跑什么、怎么跑
+- 已 push `53ce701` → EdgeOne + Vercel 生产重建中（构建约 10–20 分钟，含 1,318 张社交图）。
+- **自动更新链路核验为通**：launchd `com.ricksi.workbench-sync` 已加载、`~/Library/Logs/workbench-sync.log` 连续 12 晚成功推送（含 07-14 晚 21:33）；merge-local-books 本次跑通；commit→push→部署本次手动走通。唯一没在本环境验到的是 ricksi.com 线上渲染——本机 Clash fake-ip（198.18.0.169）黑洞了 ricksi.com，此 shell 探不到（baidu 直连 200，是路由问题非站点问题）。
+- 复核方式：部署完成后浏览器开 https://ricksi.com/reading/CB_local_delegate-a-task/ 应见「开始阅读」。
+
+### 未尽事项与已知问题
+- **《记忆 一个词的解剖》仍无 epub**（云端为被否草案，无成品），落地页停留「仅导言+封面」；如要补须重新生成一本。全站 16 读 / 1 未读。
+- 《代劳一段活》《两个盘子》**导言仍是我起草的草案，待 Rick 精修**（改 `data/book-extras.json` byId）；封面为 epub 内提取版，嫌风格不齐可重绘 SVG。
+- 云端下载的 6 本沿用其自带封面/reading.json 既有重绘 SVG 封面，未改；导言用的是先前 book-extras 里已有的（部分先前标 low 置信，可再精修）。
+- 两轮均未跑全量 sync；今晚 21:30 launchd 仍照常全量采集+推送（幂等，书变更零重复 diff）。
+- 线上渲染未在本环境验证：本机 Clash fake-ip 黑洞 ricksi.com，此 shell 探不到（baidu 直连 200，路由问题非站点问题）；部署完开 https://ricksi.com/reading/ 复核。
+
+### 文件级变更清单
+- 第一轮 `53ce701`：改 `data/local-books.json`（Work Agent 四→六本 + 代劳一段活/两个盘子）、`data/book-extras.json`（记忆的四种耦合 byTitle epub + 两本 byId 导言）、`data/reading.json`；新增 `public/assets/books/epub/{memory-coupling,delegate-a-task,work-agent-stp}.epub` + `epub-covers/{delegate-a-task,work-agent-stp}.png`
+- 第二轮 `f5d4c2c`：改 `data/book-extras.json`（6 个 byTitle 加 epub）、`data/reading.json`；新增 `public/assets/books/epub/{memory-gradient,autonomy-scale,beyond-score,prompt-engineering,signal-ladder,score-goal}.epub`
+- 归档（仓库外，30书架 共 16 本 epub）：新增《记忆的四种耦合 / 代劳一段活 / 两个盘子 / 记忆的梯度 / 自主的尺度 / 分数之外 / 提示词工程 / 信号的阶梯 / 当分数成为目标》9 本
+- 提交：`53ce701`、`f5d4c2c`（均已 push main）
+
 ## 2026-07-11 · Token 用量口径 v3：多 harness 分源（Claude Code + ZCode + Hermes）
 
 ### 体验影响（着重 · 先看）
