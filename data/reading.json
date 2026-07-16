@@ -1,14 +1,14 @@
 {
- "generated_at": "2026-07-15T13:30:18.117Z",
+ "generated_at": "2026-07-16T13:31:38.306Z",
  "source": "weread-official-gateway",
  "stats": {
-  "total": 424,
+  "total": 425,
   "ebooks": 343,
   "audiobooks": 0,
   "finished": 24,
   "reading": 73,
-  "notes": 3424,
-  "readDays": 573,
+  "notes": 3431,
+  "readDays": 574,
   "hours": 222
  },
  "current": {
