@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>三峡溃坝洪水演进 · 3D 地理模拟</title>
+<style>
+:root{
+  --bg:#0d1117; --panel:rgba(18,23,31,.88); --panel2:rgba(28,35,48,.9);
+  --border:#2b3340; --border2:#3a4354; --text:#e6edf3; --muted:#8b949e; --dim:#6e7681;
+  --red:#f85149; --orange:#f0883e; --yellow:#e3b341; --blue:#58a6ff; --blue-dim:#1f6feb; --green:#3fb950;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",sans-serif;
+  color:var(--text);-webkit-font-smoothing:antialiased;}
+.num{font-variant-numeric:tabular-nums;}
+#scene{position:fixed;inset:0;display:block;}
+
+/* ---------- 顶部 HUD ---------- */
+.hud-top{
+  position:fixed;top:0;left:0;right:0;z-index:10;
+  background:linear-gradient(180deg,rgba(13,17,23,.94),rgba(13,17,23,.78) 70%,transparent);
+  padding:12px 20px 26px;pointer-events:none;
+}
+.hud-top>*{pointer-events:auto;}
+.hud-title-row{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;}
+.hud-title{font-size:19px;font-weight:800;letter-spacing:.02em;}
+.hud-title small{font-size:11px;font-weight:400;color:var(--muted);letter-spacing:.2em;margin-left:8px;}
+.ver-switch{
+  font-size:11.5px;color:var(--blue);text-decoration:none;border:1px solid rgba(88,166,255,.4);
+  border-radius:999px;padding:2px 10px;background:rgba(31,111,235,.1);
+}
+.ver-switch:hover{background:rgba(31,111,235,.25);}
+.hud-tag{font-size:11px;color:var(--yellow);border:1px solid rgba(227,179,65,.4);border-radius:999px;padding:2px 10px;}
+.hud-controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:10px;}
+.btn{
+  font-family:inherit;font-size:12.5px;font-weight:600;color:var(--text);
+  background:var(--panel2);border:1px solid var(--border2);border-radius:8px;
+  padding:6px 12px;cursor:pointer;transition:all .2s;
+}
+.btn:hover{border-color:var(--blue);color:#fff;}
+.btn.scen.active{background:rgba(248,81,73,.16);border-color:var(--red);color:#ffb1ac;}
+.btn-play{min-width:82px;background:var(--blue-dim);border-color:var(--blue-dim);color:#fff;}
+.btn-play:hover{background:#2b7bf0;}
+.speed-group{display:flex;gap:5px;align-items:center;font-size:11.5px;color:var(--muted);}
+.speed-group .btn{padding:4px 8px;font-size:11.5px;}
+.speed-group .btn.active{background:rgba(31,111,235,.18);border-color:var(--blue);color:#9ecbff;}
+.sim-clock{font-size:12.5px;color:var(--muted);display:flex;align-items:baseline;gap:6px;}
+.sim-clock b{font-size:22px;color:var(--red);font-weight:800;min-width:70px;display:inline-block;}
+.timeline-box{display:flex;align-items:center;gap:10px;flex:1;min-width:220px;max-width:520px;}
+input[type=range].timeline{
+  flex:1;appearance:none;-webkit-appearance:none;height:6px;border-radius:5px;
+  background:linear-gradient(90deg,#1f6feb,#f0883e,#f85149);outline:none;cursor:pointer;
+}
+input[type=range].timeline::-webkit-slider-thumb{
+  -webkit-appearance:none;width:18px;height:18px;border-radius:50%;
+  background:#e6edf3;border:3px solid #0d1117;box-shadow:0 0 0 2px #58a6ff,0 3px 10px rgba(0,0,0,.5);
+}
+input[type=range].timeline::-moz-range-thumb{
+  width:12px;height:12px;border-radius:50%;background:#e6edf3;border:3px solid #0d1117;
+  box-shadow:0 0 0 2px #58a6ff;
+}
+.timeline-box span{font-size:11px;color:var(--dim);white-space:nowrap;}
+
+/* ---------- 日志面板 ---------- */
+.hud-log{
+  position:fixed;right:14px;top:118px;z-index:10;width:288px;max-height:calc(100vh - 240px);
+  overflow-y:auto;background:var(--panel);border:1px solid var(--border);border-radius:12px;
+  padding:14px;backdrop-filter:blur(6px);
+}
+.hud-log h4{font-size:12px;letter-spacing:.1em;color:var(--muted);margin-bottom:8px;}
+.scen-desc{
+  font-size:11.5px;color:#c8d3e0;background:var(--panel2);border-left:3px solid var(--red);
+  border-radius:6px;padding:8px 10px;line-height:1.65;margin-bottom:10px;
+}
+.arrival-list{list-style:none;display:flex;flex-direction:column;gap:6px;}
+.arrival-list li{
+  background:var(--panel2);border:1px solid var(--border);border-left:3px solid var(--red);
+  border-radius:6px;padding:7px 10px;font-size:11.5px;line-height:1.55;
+  animation:slidein .4s cubic-bezier(.2,.9,.3,1.2);
+}
+@keyframes slidein{from{opacity:0;transform:translateX(14px);}to{opacity:1;transform:none;}}
+.arrival-list .city{font-weight:700;font-size:12.5px;}
+.arrival-list .t{color:var(--red);font-weight:700;}
+.arrival-list .d{color:var(--muted);}
+.arrival-empty{font-size:11.5px;color:var(--dim);border:1px dashed var(--border);border-radius:6px;padding:10px;text-align:center;}
+
+/* ---------- 底部免责 ---------- */
+.hud-note{
+  position:fixed;left:14px;bottom:12px;z-index:10;max-width:660px;
+  font-size:11px;color:#d9b98a;background:rgba(23,20,16,.85);border:1px solid rgba(227,179,65,.3);
+  border-radius:8px;padding:8px 12px;line-height:1.6;backdrop-filter:blur(6px);
+}
+.hud-note b{color:var(--yellow);}
+.hud-help{
+  position:fixed;right:14px;bottom:12px;z-index:10;font-size:11px;color:var(--dim);
+  background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:7px 11px;
+}
+@media (max-width:900px){
+  .hud-log{display:none;}
+  .hud-note{max-width:calc(100vw - 28px);}
+}
+</style>
+</head>
+<body>
+
+<div class="hud-top">
+  <div class="hud-title-row">
+    <div class="hud-title">三峡溃坝洪水演进 · 3D 地理模拟<small>TERRAIN × FLOOD</small></div>
+    <a class="ver-switch" href="2d.html">◂ 切换到 2D 示意版</a>
+    <span class="hud-tag">科普示意 · 非工程结论</span>
+  </div>
+  <div class="hud-controls">
+    <div class="scenario-group" id="scenarioBtns">
+      <button class="btn scen active" data-s="A">A · 瞬时全溃 @180.4 m</button>
+      <button class="btn scen" data-s="B">B · 局部溃口 @175 m</button>
+      <button class="btn scen" data-s="C">C · 预泄后溃坝 @145 m</button>
+    </div>
+    <button class="btn btn-play" id="btnPlay">▶ 播放</button>
+    <button class="btn" id="btnReset">↺ 重置</button>
+    <div class="speed-group" id="speedBtns">
+      速度
+      <button class="btn" data-v="0.5">0.5×</button>
+      <button class="btn active" data-v="1">1×</button>
+      <button class="btn" data-v="2">2×</button>
+      <button class="btn" data-v="4">4×</button>
+    </div>
+    <div class="sim-clock num">T+<b id="clockDisplay">0.0</b>h<span id="simMaxLabel">/ 72 h</span></div>
+    <div class="timeline-box">
+      <span>0h</span>
+      <input type="range" class="timeline num" id="timeSlider" min="0" max="72" step="0.1" value="0">
+      <span id="tlMaxLabel">72h</span>
+    </div>
+  </div>
+</div>
+
+<aside class="hud-log">
+  <h4>当前情景</h4>
+  <div class="scen-desc" id="scenDesc"></div>
+  <h4>洪峰到达记录</h4>
+  <ul class="arrival-list num" id="arrivalList"></ul>
+  <div class="arrival-empty" id="arrivalEmpty">点击 ▶ 播放，波前经过的城市将在此依次记录</div>
+</aside>
+
+<div class="hud-note">
+  <b>免责声明</b>：本页为科普示意。地形为 <b>Mapzen Terrarium z9 真实高程</b>（约 1.3 km 网格，垂直夸张 4×）；河道与湖泊为 <b>Natural Earth 1:10m 真实矢量</b>；山脉与地名标注为<b>约略位置</b>；到达时间与水深仍为基于公开溃坝模型试验量级的<b>示意性估算</b>，非工程计算成果。三峡大坝按千年一遇设计、万年一遇（＋10%）校核，「瞬时全溃」仅为防护研究的极端假设情景。
+</div>
+<div class="hud-help">左键旋转 · 滚轮缩放 · 右键平移</div>
+
+<script src="lib/three.min.js"></script>
+<script src="lib/OrbitControls.js"></script>
+<script src="data/terrain.js"></script>
+<script src="data/geo.js"></script>
+<script>
+(function(){
+'use strict';
+
+/* ================= 常量与数据 ================= */
+var T = window.TGD_TERRAIN;
+var LONC = 114.4, LATC = 30.8;          // 场景原点（区域中心 106–122.8°E / 27.6–34°N）
+var KX = 95.6, KZ = 110.9;              // 30.8°N 处每度经纬 ≈ km
+var EX = 4;                             // 高程垂直夸张系数
+var W_KM = (T.lon1 - T.lon0) * KX;      // 16.8°×95.6 ≈ 1606 km
+var H_KM = (T.lat1 - T.lat0) * KZ;      // 6.4°×110.9 ≈ 710 km
+
+function sx(lon){ return (lon - LONC) * KX; }
+function sz(lat){ return (LATC - lat) * KZ; }
+
+/* 解码 base64 → Int16Array（米） */
+var raw = atob(T.base64);
+var buf = new ArrayBuffer(raw.length);
+var u8 = new Uint8Array(buf);
+for (var i = 0; i < raw.length; i++) u8[i] = raw.charCodeAt(i);
+var ELEV = new Int16Array(buf);   // 行 0 = 北缘（lat1）
+
+function elevAt(lon, lat){
+  var fx = (lon - T.lon0) / (T.lon1 - T.lon0) * T.w - 0.5;
+  var fy = (T.lat1 - lat) / (T.lat1 - T.lat0) * T.h - 0.5;
+  var x0 = Math.max(0, Math.min(T.w - 2, Math.floor(fx)));
+  var y0 = Math.max(0, Math.min(T.h - 2, Math.floor(fy)));
+  var ax = Math.min(1, Math.max(0, fx - x0)), ay = Math.min(1, Math.max(0, fy - y0));
+  var i00 = y0 * T.w + x0, i10 = i00 + 1, i01 = i00 + T.w, i11 = i01 + 1;
+  return ELEV[i00] * (1 - ax) * (1 - ay) + ELEV[i10] * ax * (1 - ay)
+       + ELEV[i01] * (1 - ax) * ay + ELEV[i11] * ax * ay;
+}
+/* 河谷取低：3×3 网格最小值（河面高程采样用，避免格点落在山坡） */
+function elevMin(lon, lat){
+  var d = 0.5 * (T.lon1 - T.lon0) / T.w, e = elevAt(lon, lat);
+  e = Math.min(e, elevAt(lon - d, lat), elevAt(lon + d, lat),
+                  elevAt(lon, lat - d), elevAt(lon, lat + d));
+  return e;
+}
+
+/* 长江主泓中心线（Natural Earth 1:10m 真实矢量，拼链裁剪，三峡 → 上海）
+   城市：精确坐标 + 真实河道投影里程 km；t=A 情景到达 h；depth=A 情景水深 m */
+var GEO = window.TGD_GEO;
+var RIVER = GEO.river;
+var CITIES = GEO.cities;
+var DAM = GEO.dam;
+
+var SCENARIOS = {
+  A: { tMult:1,   dMult:1,    maxT:72,
+       desc:'极端假设：在校核洪水位 180.4 m 下大坝瞬时整体溃决——历史防护模型试验的极限情景。约 450 亿 m³ 库水极短时间下泄，坝址洪峰量级可达自然洪水十倍以上。' },
+  B: { tMult:1.8, dMult:0.5,  maxT:130,
+       desc:'局部溃口（如单个坝段损毁）发生在正常蓄水位 175 m：下泄流量受溃口尺寸限制，洪峰量级约为情景 A 的一半，传播更慢（约 ×1.8），水深约减半。' },
+  C: { tMult:2.5, dMult:0.25, maxT:180,
+       desc:'临灾预警期内已预泄（泄流能力约 11 万 m³/s），库水位消落至 145 m 后溃坝：可泄水量大减，到达时间约为 A 的 2–3 倍，中下游水深大幅削减。' }
+};
+
+/* 里程 → A 情景到达时间 / 水深（线性插值） */
+function interp(table, mile){
+  if (mile <= table[0][0]) return table[0][1];
+  for (var i = 1; i < table.length; i++){
+    if (mile <= table[i][0]){
+      var m0 = table[i-1], m1 = table[i];
+      return m0[1] + (m1[1] - m0[1]) * (mile - m0[0]) / (m1[0] - m0[0]);
+    }
+  }
+  return table[table.length-1][1];
+}
+var T_TAB = CITIES.map(function(c){ return [c.km, c.t]; });
+var D_TAB = [[GEO.dam.km, 35]].concat(CITIES.map(function(c){ return [c.km, c.depth]; }));
+
+/* ================= 河流细分 + 河面高程 ================= */
+var rPts = [];   // {lon, lat, mile, elev(米, 平滑单调后)}
+(function buildRiver(){
+  var pts = [], mile = 0;
+  for (var s = 0; s < RIVER.length - 1; s++){
+    var a = RIVER[s], b = RIVER[s+1];
+    var segLen = Math.hypot((b[0]-a[0])*KX, (b[1]-a[1])*KZ);
+    var n = Math.max(1, Math.round(segLen / 4));
+    for (var k = (s === 0 ? 0 : 1); k <= n; k++){
+      var f = k / n;
+      pts.push({ lon: a[0]+(b[0]-a[0])*f, lat: a[1]+(b[1]-a[1])*f, mile: mile + segLen * f });
+    }
+    mile += segLen;
+  }
+  /* 高程采样（河谷取低）+ 滑动平均 + 单调化（河面必沿程下降） */
+  var es = pts.map(function(p){ return elevMin(p.lon, p.lat); });
+  var win = 9, sm = [];
+  for (var i = 0; i < es.length; i++){
+    var acc = 0, cnt = 0;
+    for (var j = Math.max(0, i-win); j <= Math.min(es.length-1, i+win); j++){ acc += es[j]; cnt++; }
+    sm.push(acc / cnt);
+  }
+  for (var m = 1; m < sm.length; m++) sm[m] = Math.min(sm[m], sm[m-1]);
+  pts.forEach(function(p, i){ p.elev = sm[i]; });
+  rPts = pts;
+})();
+
+/* 按里程取河面高程（米） */
+function riverElevAt(mile){
+  if (mile <= 0) return rPts[0].elev;
+  var lo = 0, hi = rPts.length - 1;
+  while (lo < hi - 1){ var mid = (lo + hi) >> 1; if (rPts[mid].mile <= mile) lo = mid; else hi = mid; }
+  var a = rPts[lo], b = rPts[hi];
+  return a.elev + (b.elev - a.elev) * (mile - a.mile) / Math.max(0.01, b.mile - a.mile);
+}
+
+/* 顶点 (lon,lat) → 最近河流点 {mile, dist(km)} */
+function nearestRiver(lon, lat){
+  var best = 1e18, bm = 0;
+  var px = sx(lon), pz = sz(lat);
+  for (var i = 0; i < rPts.length; i++){
+    var dx = sx(rPts[i].lon) - px, dz = sz(rPts[i].lat) - pz;
+    var d2 = dx*dx + dz*dz;
+    if (d2 < best){ best = d2; bm = rPts[i].mile; }
+  }
+  return { mile: bm, dist: Math.sqrt(best) };
+}
+
+/* ================= Three.js 场景 ================= */
+var scene = new THREE.Scene();
+scene.fog = new THREE.Fog(0x0d1117, 1500, 3900);
+
+var camera = new THREE.PerspectiveCamera(48, innerWidth / innerHeight, 5, 8000);
+camera.position.set(730, 700, 1050);
+
+var renderer = new THREE.WebGLRenderer({ antialias:true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.setSize(innerWidth, innerHeight);
+renderer.setClearColor(0x0d1117);
+renderer.domElement.id = 'scene';
+document.body.appendChild(renderer.domElement);
+
+var controls = new THREE.OrbitControls(camera, renderer.domElement);
+controls.target.set(sx(115.4), 0, sz(30.5));
+controls.enableDamping = true;
+controls.dampingFactor = 0.08;
+controls.maxPolarAngle = Math.PI * 0.49;
+controls.minDistance = 60;
+controls.maxDistance = 4200;
+controls.update();
+
+scene.add(new THREE.AmbientLight(0x9db4d0, 0.75));
+var sun = new THREE.DirectionalLight(0xfff0dd, 1.15);
+sun.position.set(600, 900, 500);
+scene.add(sun);
+var back = new THREE.DirectionalLight(0x33445e, 0.5);
+back.position.set(-500, 400, -600);
+scene.add(back);
+
+/* ---------- 地形 mesh（1023×399 段 ≈ 81.6 万三角形，≤130 万约束） ---------- */
+var SEG_X = 1023, SEG_Z = 399;
+var terraGeo = new THREE.PlaneGeometry(W_KM, H_KM, SEG_X, SEG_Z);
+terraGeo.rotateX(-Math.PI / 2);
+
+/* 顶点色（高程渐变；≤2.5 m 视为水域） */
+function colorRamp(e){
+  var stops = [ [2.5,0x12,0x33,0x52], [45,0x2e,0x5e,0x35], [150,0x6e,0x6e,0x36],
+                [500,0x6e,0x52,0x3a], [1500,0x63,0x63,0x6b], [2800,0x8a,0x8a,0x94] ];
+  if (e <= stops[0][0]) return [stops[0][1]/255, stops[0][2]/255, stops[0][3]/255];
+  for (var i = 1; i < stops.length; i++){
+    if (e <= stops[i][0]){
+      var a = stops[i-1], b = stops[i], f = (e - a[0]) / (b[0] - a[0]);
+      return [ (a[1]+(b[1]-a[1])*f)/255, (a[2]+(b[2]-a[2])*f)/255, (a[3]+(b[3]-a[3])*f)/255 ];
+    }
+  }
+  var l = stops[stops.length-1];
+  return [l[1]/255, l[2]/255, l[3]/255];
+}
+
+var tPos = terraGeo.attributes.position;
+var vCount = tPos.count;
+var colors = new Float32Array(vCount * 3);
+
+for (var vi = 0; vi < vCount; vi++){
+  var x = tPos.getX(vi), z = tPos.getZ(vi);
+  var lon = LONC + x / KX, lat = LATC - z / KZ;
+  var e = elevAt(lon, lat);
+  tPos.setY(vi, e * EX / 1000);
+  var c = colorRamp(e);
+  colors[vi*3] = c[0]; colors[vi*3+1] = c[1]; colors[vi*3+2] = c[2];
+}
+tPos.needsUpdate = true;
+terraGeo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+terraGeo.computeVertexNormals();
+
+var terrain = new THREE.Mesh(terraGeo, new THREE.MeshLambertMaterial({ vertexColors:true }));
+scene.add(terrain);
+
+/* ---------- 洪水 overlay（独立子网格：仅坝址以东 lon ≥ 110.6°E，512×200 段） ---------- */
+var F_LON0 = 110.6, F_SEGX = 512, F_SEGZ = 200;
+var F_W = (T.lon1 - F_LON0) * KX;
+var F_CX = sx((F_LON0 + T.lon1) / 2);          // 子网格中心的世界 x
+var floodGeo = new THREE.PlaneGeometry(F_W, H_KM, F_SEGX, F_SEGZ);
+floodGeo.rotateX(-Math.PI / 2);
+var fPosA = floodGeo.attributes.position;
+var fN = fPosA.count;
+var fArrive = new Float32Array(fN);
+var fRiverY = new Float32Array(fN);
+var fDepth  = new Float32Array(fN);
+var fDist   = new Float32Array(fN);
+for (var fi = 0; fi < fN; fi++){
+  var wx = fPosA.getX(fi) + F_CX, wz = fPosA.getZ(fi);
+  var flon = LONC + wx / KX, flat = LATC - wz / KZ;
+  var nr = nearestRiver(flon, flat);
+  fArrive[fi] = interp(T_TAB, nr.mile);
+  fRiverY[fi] = riverElevAt(nr.mile) * EX / 1000;
+  fDepth[fi]  = interp(D_TAB, nr.mile) * EX / 1000;
+  fDist[fi]   = nr.dist <= 60 ? nr.dist : 999;
+}
+floodGeo.setAttribute('aArrive', new THREE.BufferAttribute(fArrive, 1));
+floodGeo.setAttribute('aRiverY', new THREE.BufferAttribute(fRiverY, 1));
+floodGeo.setAttribute('aDepth',  new THREE.BufferAttribute(fDepth, 1));
+floodGeo.setAttribute('aDist',   new THREE.BufferAttribute(fDist, 1));
+
+var floodMat = new THREE.ShaderMaterial({
+  uniforms: {
+    uTime:  { value: 0 },
+    uTMult: { value: 1 },
+    uDMult: { value: 1 }
+  },
+  vertexShader: [
+    'attribute float aArrive; attribute float aRiverY; attribute float aDepth; attribute float aDist;',
+    'uniform float uTMult; uniform float uDMult;',
+    'varying float vT; varying float vD;',
+    'void main(){',
+    '  vT = aArrive * uTMult; vD = aDist;',
+    '  vec3 p = vec3(position.x, aRiverY + aDepth * uDMult + 0.012, position.z);',
+    '  gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0);',
+    '}'
+  ].join('\n'),
+  fragmentShader: [
+    'uniform float uTime;',
+    'varying float vT; varying float vD;',
+    'void main(){',
+    '  if (vD > 60.0 || uTime < vT) discard;',
+    '  float dt = uTime - vT;',
+    '  float edge = 1.0 - smoothstep(42.0, 60.0, vD);',
+    '  vec3 col = vec3(0.10, 0.42, 0.95);',
+    '  float a = 0.60 * edge;',
+    '  if (dt < 0.9) { float k = dt / 0.9; col = mix(vec3(0.85, 0.95, 1.0), col, k); a = mix(0.95, a, k); }',
+    '  gl_FragColor = vec4(col, a);',
+    '}'
+  ].join('\n'),
+  transparent: true,
+  depthWrite: false,
+  side: THREE.DoubleSide
+});
+var flood = new THREE.Mesh(floodGeo, floodMat);
+flood.position.x = F_CX;   // 子网格平移到坝址以东
+flood.renderOrder = 5;
+scene.add(flood);
+
+/* ---------- 河流水面 ribbon（通用构建：干流 / 水库段 / 支流） ---------- */
+function buildRibbon(pts, halfW, opt){
+  opt = opt || {};
+  var useRiverElev = opt.riverElev !== false;   // 干流：河面高程；支流：贴地形
+  var n = pts.length;
+  var pos = new Float32Array(n * 2 * 3);
+  var idx = [];
+  for (var i = 0; i < n; i++){
+    var p = pts[i];
+    var q = pts[Math.min(n-1, i+1)], q0 = pts[Math.max(0, i-1)];
+    var dx = sx(q.lon) - sx(q0.lon), dz = sz(q.lat) - sz(q0.lat);
+    var len = Math.hypot(dx, dz) || 1;
+    var nx = -dz / len, nz = dx / len;
+    var base = useRiverElev && p.elev !== undefined
+      ? Math.max(p.elev, elevAt(p.lon, p.lat) + 1.5)
+      : elevAt(p.lon, p.lat) + (opt.yOff !== undefined ? opt.yOff : 2);
+    var y = base * EX / 1000 + 0.008;
+    pos[(i*2)*3]   = sx(p.lon) + nx * halfW; pos[(i*2)*3+1] = y; pos[(i*2)*3+2] = sz(p.lat) + nz * halfW;
+    pos[(i*2+1)*3] = sx(p.lon) - nx * halfW; pos[(i*2+1)*3+1] = y; pos[(i*2+1)*3+2] = sz(p.lat) - nz * halfW;
+    if (i < n - 1){
+      var a = i*2, b = i*2+1, c = i*2+2, d = i*2+3;
+      idx.push(a, b, c, b, d, c);
+    }
+  }
+  var g = new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+  g.setIndex(idx);
+  g.computeVertexNormals();
+  var m = new THREE.Mesh(g, new THREE.MeshBasicMaterial({
+    color: opt.color || 0x2a7fff, transparent: true,
+    opacity: opt.opacity !== undefined ? opt.opacity : 0.75,
+    side: THREE.DoubleSide, depthWrite: false
+  }));
+  m.renderOrder = opt.renderOrder !== undefined ? opt.renderOrder : 3;
+  scene.add(m);
+  return m;
+}
+
+/* 干流全程（库区段 + 下游） */
+buildRibbon(rPts, 2.4, { color: 0x2a7fff, opacity: 0.75 });
+/* 三峡水库段：坝 → 重庆，加宽（mile ≤ 坝里程） */
+(function buildReservoir(){
+  var seg = rPts.filter(function(p){ return p.mile <= GEO.dam.km + 4; });
+  if (seg.length > 1) buildRibbon(seg, 5.5, { color: 0x4a9fff, opacity: 0.45, renderOrder: 2 });
+})();
+/* 支流（细蓝带，贴地形） */
+GEO.tributaries.forEach(function(tb){
+  tb.lines.forEach(function(line){
+    var pts = line.map(function(p){ return { lon: p[0], lat: p[1] }; });
+    buildRibbon(pts, 0.7, { color: 0x3a8fff, opacity: 0.55, riverElev: false, yOff: 2.5, renderOrder: 2 });
+  });
+});
+
+/* ---------- 湖泊（Natural Earth 真实多边形） ---------- */
+function addLake(ring, name){
+  var shape = new THREE.Shape();
+  ring.forEach(function(p, i){ if (i === 0) shape.moveTo(p[0], p[1]); else shape.lineTo(p[0], p[1]); });
+  var g = new THREE.ShapeGeometry(shape, 4);
+  /* Shape 在经纬度平面构建 → 转到场景 xz 平面 */
+  var pos = g.attributes.position;
+  var cx = 0, cz = 0;
+  for (var i = 0; i < pos.count; i++){
+    var lon = pos.getX(i), lat = pos.getY(i);
+    cx += lon; cz += lat;
+    pos.setXYZ(i, sx(lon), 0, sz(lat));
+  }
+  cx /= pos.count; cz /= pos.count;
+  g.computeVertexNormals();
+  var y = (elevAt(cx, cz) + 2) * EX / 1000 + 0.012;
+  var m = new THREE.Mesh(g, new THREE.MeshBasicMaterial({
+    color: 0x2a7fff, transparent: true, opacity: 0.6, side: THREE.DoubleSide, depthWrite: false
+  }));
+  m.position.y = y;
+  m.renderOrder = 2;
+  scene.add(m);
+  return { cx: cx, cz: cz, y: y };
+}
+var lakeCenters = {};
+GEO.lakes.forEach(function(lk){ lakeCenters[lk.name] = addLake(lk.ring, lk.name); });
+
+/* ---------- 城市标注（canvas sprite + 立柱；sprite 屏幕尺寸恒定） ---------- */
+function makeLabelSprite(text, color){
+  var cv = document.createElement('canvas');
+  cv.width = 384; cv.height = 112;
+  var ctx = cv.getContext('2d');
+  ctx.font = '700 62px "PingFang SC","Microsoft YaHei",sans-serif';
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.lineWidth = 10; ctx.strokeStyle = 'rgba(6,10,16,0.92)';
+  ctx.strokeText(text, 192, 56);
+  ctx.fillStyle = color || '#ffffff';
+  ctx.fillText(text, 192, 56);
+  var tex = new THREE.CanvasTexture(cv);
+  tex.minFilter = THREE.LinearFilter;
+  var sp = new THREE.Sprite(new THREE.SpriteMaterial({
+    map: tex, depthTest: true, transparent: true, sizeAttenuation: false
+  }));
+  var w = text.length * 0.046 + 0.02;   // NDC 比例宽度
+  sp.scale.set(w, w * 112 / 384, 1);
+  return sp;
+}
+function addCityMarker(lon, lat, name, color, lh, xoff){
+  var x = sx(lon), z = sz(lat);
+  var gy = elevAt(lon, lat) * EX / 1000;
+  var topY = gy + (lh || 30);
+  var lg = new THREE.BufferGeometry().setFromPoints(
+    [new THREE.Vector3(x, gy, z), new THREE.Vector3(x, topY, z)]);
+  scene.add(new THREE.Line(lg, new THREE.LineBasicMaterial({ color: color || 0x9ecbff, transparent:true, opacity:.8 })));
+  var dot = new THREE.Mesh(new THREE.SphereGeometry(2.2, 10, 10),
+    new THREE.MeshBasicMaterial({ color: color || 0x9ecbff }));
+  dot.position.set(x, gy + 1, z);
+  scene.add(dot);
+  var sp = makeLabelSprite(name, color ? '#ff8a80' : '#ffffff');
+  sp.position.set(x + (xoff || 0), topY + 5, z);
+  scene.add(sp);
+}
+/* lh=立柱高 km；ox=标注横向偏移 km（密集区防重叠） */
+var CITY_LH = {
+  '宜昌':        { lh:30, ox: 20 },
+  '枝城':        { lh:58, ox:-16 },
+  '荆州（沙市）': { lh:30 },
+  '岳阳（城陵矶）':{ lh:48 },
+  '武汉':        { lh:22 },
+  '九江':        { lh:46 },
+  '安庆':        { lh:26 },
+  '南京':        { lh:44 },
+  '上海':        { lh:26 }
+};
+CITIES.forEach(function(c){
+  var o = CITY_LH[c.name] || {};
+  addCityMarker(c.lon, c.lat, c.name.replace(/（.*）/, ''), undefined, o.lh || 30, o.ox || 0);
+});
+addCityMarker(DAM.lon, DAM.lat, DAM.name, 0xff5147, 72);
+
+/* ---------- 湖泊名称标注（多边形质心） ---------- */
+function makeSmallSprite(text, color){
+  var cv = document.createElement('canvas');
+  cv.width = 320; cv.height = 96;
+  var ctx = cv.getContext('2d');
+  ctx.font = '700 46px "PingFang SC","Microsoft YaHei",sans-serif';
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.lineWidth = 8; ctx.strokeStyle = 'rgba(6,10,16,0.9)';
+  ctx.strokeText(text, 160, 48);
+  ctx.fillStyle = color;
+  ctx.fillText(text, 160, 48);
+  var tex = new THREE.CanvasTexture(cv);
+  tex.minFilter = THREE.LinearFilter;
+  var sp = new THREE.Sprite(new THREE.SpriteMaterial({
+    map: tex, depthTest: true, transparent: true, sizeAttenuation: false
+  }));
+  var w = text.length * 0.030 + 0.016;
+  sp.scale.set(w, w * 96 / 320, 1);
+  return sp;
+}
+['洞庭湖', '鄱阳湖', '太湖', '巢湖', '洪泽湖'].forEach(function(nm){
+  var c = lakeCenters[nm];
+  if (!c) return;
+  var sp = makeSmallSprite(nm, '#9ecbff');
+  sp.position.set(sx(c.cx), c.y + 12, sz(c.cz));
+  scene.add(sp);
+});
+
+/* ---------- 经纬网格（每 1°，贴地形表面） + 边角经纬度标注 ---------- */
+(function addGraticule(){
+  function gpt(lon, lat){
+    return new THREE.Vector3(sx(lon), (elevAt(lon, lat) + 0.6) * EX / 1000 + 0.006, sz(lat));
+  }
+  var verts = [];
+  for (var lon = 106; lon <= 122; lon++)
+    for (var k = 0; k < 80; k++){
+      var la1 = 27.6 + 6.4 * k / 80, la2 = 27.6 + 6.4 * (k + 1) / 80;
+      verts.push(gpt(lon, la1), gpt(lon, la2));
+    }
+  for (var lat = 28; lat <= 34; lat++)
+    for (var q = 0; q < 160; q++){
+      var lo1 = 106.0 + 16.8 * q / 160, lo2 = 106.0 + 16.8 * (q + 1) / 160;
+      verts.push(gpt(lo1, lat), gpt(lo2, lat));
+    }
+  var g = new THREE.BufferGeometry().setFromPoints(verts);
+  scene.add(new THREE.LineSegments(g, new THREE.LineBasicMaterial({
+    color: 0x5a6a7a, transparent: true, opacity: 0.28
+  })));
+  /* 边角标注：南缘每 2° 经度，西缘每 1° 纬度 */
+  for (var el = 106; el <= 122; el += 2){
+    var sp1 = makeSmallSprite(el + '°E', '#7d8fa3');
+    sp1.position.set(sx(el), (elevAt(el, 27.85) + 2) * EX / 1000 + 0.012, sz(27.85));
+    scene.add(sp1);
+  }
+  for (var nl = 28; nl <= 34; nl++){
+    var sp2 = makeSmallSprite(nl + '°N', '#7d8fa3');
+    sp2.position.set(sx(106.25), (elevAt(106.25, nl) + 2) * EX / 1000 + 0.012, sz(nl));
+    scene.add(sp2);
+  }
+})();
+
+/* ---------- 地理标注：山脉/山峰（▲）、峡谷（斜体）、上游城市、工程 ---------- */
+function makeGeoSprite(text, color, italic){
+  var cv = document.createElement('canvas');
+  cv.width = 512; cv.height = 96;
+  var ctx = cv.getContext('2d');
+  ctx.font = (italic ? 'italic ' : '') + '700 44px "PingFang SC","Microsoft YaHei",sans-serif';
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.lineWidth = 8; ctx.strokeStyle = 'rgba(6,10,16,0.9)';
+  ctx.strokeText(text, 256, 48);
+  ctx.fillStyle = color;
+  ctx.fillText(text, 256, 48);
+  var tex = new THREE.CanvasTexture(cv);
+  tex.minFilter = THREE.LinearFilter;
+  var sp = new THREE.Sprite(new THREE.SpriteMaterial({
+    map: tex, depthTest: true, transparent: true, sizeAttenuation: false
+  }));
+  var w = text.length * 0.0125 + 0.012;
+  sp.scale.set(w, w * 96 / 512, 1);
+  return sp;
+}
+function addGeoLabel(text, lon, lat, color, italic, yOff){
+  var sp = makeGeoSprite(text, color, italic);
+  sp.position.set(sx(lon), elevAt(lon, lat) * EX / 1000 + (yOff || 22), sz(lat));
+  scene.add(sp);
+}
+/* 上游山系 */
+var PEAKS = [
+  ['▲ 神农架·神农顶 3105m', 110.15, 31.98, 60],
+  ['▲ 大巴山脉', 108.8, 32.1, 32],
+  ['▲ 武当山 1612m', 110.9, 32.5, 100],
+  ['▲ 巫山山脉', 110.3, 31.15, 30],
+  ['▲ 武陵山脉', 109.3, 29.3, 26],
+  ['▲ 雪峰山', 110.4, 27.9, 26],
+  ['▲ 大别山', 115.4, 31.1, 26],
+  ['▲ 幕阜山', 113.9, 29.25, 24],
+  ['▲ 庐山 1474m', 116.0, 29.56, 24],
+  ['▲ 黄山 1864m', 118.17, 30.13, 26],
+  ['▲ 九华山', 117.8, 30.48, 24]
+];
+PEAKS.forEach(function(p){ addGeoLabel(p[0], p[1], p[2], '#e0b37e', false, p[3]); });
+/* 峡谷（斜体青） */
+var GORGES = [ ['瞿塘峡', 109.62, 31.04], ['巫峡', 110.15, 30.98], ['西陵峡', 110.85, 30.88] ];
+GORGES.forEach(function(p){ addGeoLabel(p[0], p[1], p[2], '#7fd4d9', true, 34); });
+/* 上游沿江城市（白色小字） */
+var RIVER_TOWNS = [
+  ['秭归', 110.71, 30.83], ['巴东', 110.34, 31.04], ['巫山', 109.88, 31.07],
+  ['奉节', 109.46, 31.02], ['万州', 108.41, 30.81], ['涪陵', 107.39, 29.70],
+  ['重庆', 106.55, 29.56]
+];
+RIVER_TOWNS.forEach(function(p){ addGeoLabel(p[0], p[1], p[2], '#cfd8e3', false, 22); });
+/* 工程与水库标注 */
+addGeoLabel('葛洲坝', 111.28, 30.74, '#ffb1ac', false, 14);
+addGeoLabel('库区回水末端 ≈600km', 107.1, 29.9, '#e3b341', false, 24);
+addGeoLabel('三 峡 水 库', 108.9, 30.35, '#9ecbff', false, 28);
+
+/* ================= 模拟控制（与 2D 版同逻辑） ================= */
+var sim = { t: 0, playing: false, speed: 1, scen: 'A', arrived: {} };
+var clockDisplay = document.getElementById('clockDisplay');
+var simMaxLabel = document.getElementById('simMaxLabel');
+var tlMaxLabel = document.getElementById('tlMaxLabel');
+var timeSlider = document.getElementById('timeSlider');
+var scenDesc = document.getElementById('scenDesc');
+var arrivalList = document.getElementById('arrivalList');
+var arrivalEmpty = document.getElementById('arrivalEmpty');
+var btnPlay = document.getElementById('btnPlay');
+var BASE_HPS = 1.8;
+
+function scen(){ return SCENARIOS[sim.scen]; }
+function fmtT(t){ return t < 10 ? t.toFixed(1) : String(Math.round(t)); }
+function fmtDepth(v){ return v < 2 ? String(Math.round(v*10)/10) : String(Math.round(v)); }
+
+function render(){
+  var sc = scen();
+  clockDisplay.textContent = sim.t.toFixed(1);
+  timeSlider.value = sim.t;
+  floodMat.uniforms.uTime.value = sim.t;
+  CITIES.forEach(function(c, i){
+    if (!sim.arrived[i] && sim.t >= c.t * sc.tMult){
+      sim.arrived[i] = true;
+      arrivalEmpty.style.display = 'none';
+      var li = document.createElement('li');
+      li.innerHTML = '<span class="city">' + c.name + '</span>　<span class="t">T+' + fmtT(c.t * sc.tMult) + ' h</span><br>' +
+        '<span class="d">距坝址约 ' + Math.round(c.km - GEO.dam.km) + ' km · 近江最大水深约 ' +
+        fmtDepth(c.depth * sc.dMult) + ' m（示意）</span>';
+      arrivalList.appendChild(li);
+    }
+  });
+}
+
+function setPlaying(p){ sim.playing = p; btnPlay.textContent = p ? '⏸ 暂停' : '▶ 播放'; }
+
+function resetSim(){
+  sim.t = 0; sim.arrived = {};
+  arrivalList.innerHTML = '';
+  arrivalEmpty.style.display = '';
+  render();
+}
+
+function setScenario(key){
+  sim.scen = key;
+  var sc = scen();
+  floodMat.uniforms.uTMult.value = sc.tMult;
+  floodMat.uniforms.uDMult.value = sc.dMult;
+  scenDesc.textContent = sc.desc;
+  simMaxLabel.textContent = '/ ' + sc.maxT + ' h';
+  tlMaxLabel.textContent = sc.maxT + 'h';
+  timeSlider.max = sc.maxT;
+  document.querySelectorAll('#scenarioBtns .btn').forEach(function(b){
+    b.classList.toggle('active', b.dataset.s === key);
+  });
+  resetSim();
+}
+
+btnPlay.addEventListener('click', function(){
+  if (!sim.playing && sim.t >= scen().maxT) resetSim();
+  setPlaying(!sim.playing);
+});
+document.getElementById('btnReset').addEventListener('click', function(){ setPlaying(false); resetSim(); });
+document.getElementById('scenarioBtns').addEventListener('click', function(e){
+  var b = e.target.closest('.btn'); if (b) setScenario(b.dataset.s);
+});
+document.getElementById('speedBtns').addEventListener('click', function(e){
+  var b = e.target.closest('.btn'); if (!b) return;
+  sim.speed = parseFloat(b.dataset.v);
+  document.querySelectorAll('#speedBtns .btn').forEach(function(x){ x.classList.toggle('active', x === b); });
+});
+timeSlider.addEventListener('input', function(){
+  setPlaying(false);
+  sim.t = parseFloat(timeSlider.value);
+  sim.arrived = {};
+  arrivalList.innerHTML = '';
+  arrivalEmpty.style.display = '';
+  render();
+});
+
+/* ================= 主循环 ================= */
+var last = null;
+function frame(ts){
+  requestAnimationFrame(frame);
+  if (sim.playing){
+    if (last === null) last = ts;
+    sim.t += (ts - last) / 1000 * BASE_HPS * sim.speed;
+    last = ts;
+    if (sim.t >= scen().maxT){ sim.t = scen().maxT; setPlaying(false); }
+    render();
+  } else {
+    last = null;
+  }
+  controls.update();
+  renderer.render(scene, camera);
+}
+
+addEventListener('resize', function(){
+  camera.aspect = innerWidth / innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth, innerHeight);
+});
+
+setScenario('A');
+requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
