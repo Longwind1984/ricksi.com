@@ -71,8 +71,10 @@ export async function scanClaudeLogs(projectsDir) {
   return { days, files: files.length, parsedLines };
 }
 
-/* 模型名 → 家族（跨 harness 通用：Claude 四档 + 国产 GLM/DeepSeek）。
-   glm-5-2-260617 / glm-5.2 → GLM；deepseek-v4-pro → DeepSeek */
+/* 模型名 → 家族（跨 harness 通用：Claude 四档 + 国产 GLM/DeepSeek/Kimi）。
+   glm-5-2-260617 / glm-5.2 → GLM；deepseek-v4-pro → DeepSeek；
+   Kimi 三种写法都要收：kimi-code/k3、kimi-code/kimi-for-coding（Kimi Code CLI）、k3（Hermes 调 api.kimi.com）、k2p6（OpenClaw）。
+   ⚠ /^k\d/ 这条要放在 Claude 四档之后——它只用于兜住 Kimi 的裸模型名（k3/k2p6），本机无其他 k+数字 开头的模型。 */
 export function modelFamily(m) {
   return /opus/i.test(m) ? 'Opus'
     : /sonnet/i.test(m) ? 'Sonnet'
@@ -80,6 +82,7 @@ export function modelFamily(m) {
     : /fable/i.test(m) ? 'Fable'
     : /glm/i.test(m) ? 'GLM'
     : /deepseek/i.test(m) ? 'DeepSeek'
+    : /kimi/i.test(m) || /^k\d/i.test(m) ? 'Kimi'
     : '其他';
 }
 

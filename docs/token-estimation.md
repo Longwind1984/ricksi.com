@@ -1,15 +1,17 @@
-# Token 累计用量：估算口径 v3
+# Token 累计用量：估算口径 v4
 
 > 写给三个月后没有上下文的 Rick。站点工作台「累计 tokens」数字的全部来源、公式与可调参数都在这里。
-> 实现：`scripts/collect-usage.mjs`（参数集中在文件顶部 `EST` 块）+ `scripts/lib/agent-usage.mjs`（ZCode/Hermes 分源读库）。
+> 实现：`scripts/collect-usage.mjs`（参数集中在文件顶部 `EST` 块）+ `scripts/lib/agent-usage.mjs`（ZCode/Hermes/Kimi Code/OpenClaw 分源读取）。
 
 ## 一句话版本
 
-**累计 = 全 harness 合计**：A 段 Claude Code 实测 + B 段 Claude Code 起用期估算 + C 段 claude.ai 网页端粗估 **+ D 段 ZCode / Hermes 分源实测**。各段分列、估算与粗估在页面上明确标注，真实日数据一旦入库永不回退。
+**累计 = 全 harness 合计**：A 段 Claude Code 实测 + B 段 Claude Code 起用期估算 + C 段 claude.ai 网页端粗估 **+ D 段 ZCode / Hermes / Kimi Code / OpenClaw 分源实测**。各段分列、估算与粗估在页面上明确标注，真实日数据一旦入库永不回退。
 
-当前值（2026-07-11，口径 v3 首跑）：累计 ≈ 7.1B = Claude Code 6.8B（实测 41 天 + 估算 12 天）+ ZCode 139M（8 天）+ Hermes 97M（2 天）+ 网页粗估 113M。
+当前值（2026-07-17，口径 v4 首跑）：累计 ≈ 12B = Claude Code 11B（实测 47 天 + 估算 12 天）+ ZCode 146M（9 天）+ Hermes 192M（7 天）+ Kimi Code 11M（1 天）+ OpenClaw 3.3M（1 天）+ 网页粗估 116M。
 
-> v2→v3（2026-07-11）：v2 只统计 Claude Code 一个 harness；Rick 同时在用 ZCode、Hermes（多来源 LLM API，含火山 token Plan / z.ai / DeepSeek）、以及 Claude Code（底层可切 GLM/DeepSeek）。v3 把用量按 **harness 分源汇总**，主数改为全 harness 合计，模型分布条纳入 GLM/DeepSeek。
+> v3→v4（2026-07-17）：并入 **Kimi 订阅**。Kimi 订阅被三个 harness 同时消耗——Kimi Code CLI、OpenClaw（跑 k2p6）、Hermes（调 api.kimi.com 的 k3，此前已计入 Hermes 但模型家族被归进「其他」）。v4 新增前两个源、并让 `modelFamily` 认识 Kimi（三者一并正名）。**Kimi 订阅总消耗**看模型条的 Kimi 家族（跨 harness 加总），**各工具消耗**看分源注脚。
+>
+> v2→v3（2026-07-11）：v2 只统计 Claude Code 一个 harness；v3 把用量按 **harness 分源汇总**，主数改为全 harness 合计，模型分布条纳入 GLM/DeepSeek。
 
 ## A 段 · Claude Code 实测（硬数据）
 
@@ -43,16 +45,26 @@
 
 **不确定区间**：单对话均量是最大的不确定源（5K~50K 都说得通），整段 C 的合理区间约 40M ~ 250M。它对累计值的影响 <10%，结论：**网页端是叙事意义大于数量意义的一段**——它解释「我从什么时候开始活在 Claude 里」，不显著改变总量。
 
-## D 段 · 其他 harness 分源实测（ZCode / Hermes，2026-07-11 新增）
+## D 段 · 其他 harness 分源实测（ZCode / Hermes / Kimi Code / OpenClaw）
 
-Claude Code 之外，Rick 还用两个 Agent harness，各自有本地用量库，`scripts/lib/agent-usage.mjs` 通过系统 `sqlite3` 直读（缺库/无 CLI 静默跳过，CI 用已提交的历史分源数据）：
+Claude Code 之外，Rick 还用四个 Agent harness，各自有本地用量记录，`scripts/lib/agent-usage.mjs` 直读（缺源静默跳过，CI 用已提交的历史分源数据）：
 
-| 源 | 库 | 表 | 时间单位 | 全口径 total | 内容 |
+| 源 | 位置 | 形态 | 时间单位 | 全口径 total | 内容 |
 |---|---|---|---|---|---|
-| **ZCode** | `~/.zcode/cli/db/db.sqlite` | `model_usage` | 毫秒 | `computed_total_tokens`（provider 权威） | 全是 z.ai GLM-5.2（coding-plan + start-plan） |
-| **Hermes** | `~/.hermes/state.db` | `sessions` | 秒 | in+out+cache_write+cache_read+reasoning | 跨网关（feishu/weixin/desktop/cron），GLM / Claude / DeepSeek 混合 |
+| **ZCode** | `~/.zcode/cli/db/db.sqlite` | sqlite `model_usage` | 毫秒 | `computed_total_tokens`（provider 权威） | 全是 z.ai GLM-5.2（coding-plan + start-plan） |
+| **Hermes** | `~/.hermes/state.db` | sqlite `sessions` | 秒 | in+out+cache_write+cache_read+reasoning | 跨网关（feishu/weixin/desktop/cron），GLM / Claude / DeepSeek / **Kimi(k3)** 混合 |
+| **Kimi Code** | `~/.kimi-code/sessions/**/agents/*/wire.jsonl` | JSONL `usage.record` | 毫秒 | inputOther+output+inputCacheRead+inputCacheCreation | Kimi 订阅（`kimi-code/k3`、`kimi-code/kimi-for-coding`） |
+| **OpenClaw** | `~/.kimi_openclaw/agents/main/sessions/*.jsonl` | JSONL `message.usage` | ISO | input+output+cacheRead+cacheWrite | 跑 Kimi 模型（`k2p6`） |
 
-**去重（关键）**：Hermes 的 `custom:claude-sub` 提供方走 `claude-proxy`（localhost:8085），本质是本地跑 `claude -p` ——那些会话**已写进 Claude JSONL、计入 A 段**。若不排除会与 Claude Code 重复计。故 Hermes 侧按 `billing_base_url LIKE '%localhost%'` 排除（`config.mjs → agentUsage.hermesExcludeUrlLike`）。ZCode 只写自己的 sqlite、不落 Claude JSONL，无交叉。
+**两处去重（关键，都踩过）**：
+1. **Hermes ↔ Claude Code**：Hermes 的 `custom:claude-sub` 走 `claude-proxy`（localhost:8085），本质是本地跑 `claude -p`——那些会话**已写进 Claude JSONL、计入 A 段**。故 Hermes 侧按 `billing_base_url LIKE '%localhost%'` 排除（`config.mjs → agentUsage.hermesExcludeUrlLike`）。
+2. **Kimi Code 自身**：同一次调用被记两遍——`usage.record`（带 model）与 `context.append_loop_event/step.end`（带 messageId），**数值完全相同**（2026-07-17 实测两边均为 10,566,716）。**只读 `usage.record`**，两个都读直接翻倍。
+
+**无交叉的**：ZCode 只写自己 sqlite；Hermes 调 `api.kimi.com` 的 k3 是**远程直连**、不经本机 Kimi CLI，故归 Hermes，与 Kimi Code 不重复。
+
+**Kimi 订阅的两种看法**：订阅总消耗 = 模型条的 **Kimi 家族**（Kimi Code + OpenClaw + Hermes 的 k3 跨 harness 加总，2026-07-17 为 17.8M）；各工具消耗 = 分源注脚。注意 Kimi 占全量仅 0.16%，模型条会四舍五入成 0% 而不显示——这是预期，不是 bug（与 DeepSeek 同理）。
+
+**CodexBar 为什么没用上**：CodexBar（菜单栏应用）能显示 Kimi 的**订阅额度百分比**，但它的 `widget-snapshot.json` 里 Kimi 的 `tokenUsage` 与 `dailyUsage` 都是空的——它的 Claude token 是自己解析 `~/.claude` JSONL 得来，没给 Kimi 写解析器。**百分比换算不出 token**，故直读 Kimi 本地日志（更准且不依赖别人 App 的版本）。若future 想要「额度还剩多少」，那是另一个功能。
 
 **持久化**：与 A 段一样「真实日永不回退」——分源日序列存进 `usage.json → sources.{zcode,hermes}.series`，本机 DB 被清也不丢。
 

@@ -1,10 +1,13 @@
-// Token 用量采集 · 口径 v3（2026-07-11）
+// Token 用量采集 · 口径 v4（2026-07-17）
 // 方法全文见 docs/token-estimation.md。主数 cumulative = 全 harness 合计：
 //   A 实测：Claude Code 本地 JSONL（2026-05-27 起保留），按消息去重，逐日固化入库永不回退
 //   B 估算：Claude Code 起用期 2026-05-01 ~ 实测窗口前一天，按当日活跃度相对实测中位日折算（标 estimated）
 //   C 粗估：claude.ai 网页端（无任何日志依据），分两期参数化估算，独立成流、不进日序列
-//   D 分源：ZCode(~/.zcode model_usage) + Hermes(~/.hermes state.db) 本地用量库，按 harness 汇总（scripts/lib/agent-usage.mjs）
-//           去重：Hermes 排除经 claude-proxy(localhost) 的会话——那些 claude -p 已计入 A 段，不排除会重复。
+//   D 分源：ZCode(~/.zcode model_usage) + Hermes(~/.hermes state.db) + Kimi Code(~/.kimi-code wire.jsonl)
+//           + OpenClaw(~/.kimi_openclaw sessions) 本地用量，按 harness 汇总（scripts/lib/agent-usage.mjs）
+//           去重①：Hermes 排除经 claude-proxy(localhost) 的会话——那些 claude -p 已计入 A 段，不排除会重复。
+//           去重②：Kimi Code 只读 usage.record——同一次调用另有 step.end 记录、数值相同，都读会翻倍。
+// v3→v4：并入 Kimi 订阅（Kimi Code + OpenClaw 两个 harness；Hermes 的 k3 原已计入、本次仅把模型家族正名为 Kimi）。
 // v2→v3：v2 仅统计 Claude Code；v3 加 ZCode/Hermes 分源，主数改全 harness 合计。
 // v1 的错误（已纠正并在 method 里留档）：把 2023-2025 三年 git/笔记活动当低强度 AI 用量摊薄回填。
 import path from 'node:path';
@@ -99,8 +102,8 @@ function webEstimate() {
 }
 const web = webEstimate();
 
-/* ---------- 分源：其他 Agent harness 用量（ZCode / Hermes；缺库自动跳过、CI 用已提交历史） ---------- */
-const agent = scanAgentUsage(CONFIG.agentUsage);
+/* ---------- 分源：其他 Agent harness 用量（ZCode / Hermes / Kimi Code / OpenClaw；缺源自动跳过、CI 用已提交历史） ---------- */
+const agent = await scanAgentUsage(CONFIG.agentUsage);
 /* 分源日序列：真实日永不回退——fresh 覆盖 + 继承历史存档（本机 DB 被清也不丢，CI 直接用已提交数据）。
    持久化的 models 简化为 {模型名: total}（够画模型条 + 分源趋势）。 */
 function foldSourceSeries(prevSeries, fresh) {
@@ -115,17 +118,23 @@ function foldSourceSeries(prevSeries, fresh) {
 const prevSources = prev.sources || {};
 const zcodeSeries = foldSourceSeries(prevSources.zcode?.series, agent.zcode);
 const hermesSeries = foldSourceSeries(prevSources.hermes?.series, agent.hermes);
+const kimiSeries = foldSourceSeries(prevSources.kimi_code?.series, agent.kimi_code);
+const openclawSeries = foldSourceSeries(prevSources.openclaw?.series, agent.openclaw);
+/* 除 Claude 外的全部分源序列（新增源只需加进这个数组，下面的合计/趋势/模型条自动带上） */
+const agentSeriesList = [zcodeSeries, hermesSeries, kimiSeries, openclawSeries];
 const sumSeries = (s) => Object.values(s).reduce((a, v) => a + (v.total || 0), 0);
 const cumulativeZcode = sumSeries(zcodeSeries);
 const cumulativeHermes = sumSeries(hermesSeries);
+const cumulativeKimi = sumSeries(kimiSeries);
+const cumulativeOpenclaw = sumSeries(openclawSeries);
 
 /* ---------- 展示聚合（全 harness 合计） ---------- */
 const todayKey = dayKey(new Date());
 /* 今日全口径分解：三源合并的模型输出 / 缓存读占比（全口径大数的两个注脚） */
 let todayOut = 0, todayCr = 0;
 for (const t of Object.values(series[todayKey]?.models || {})) { todayOut += t.out || 0; todayCr += t.cr || 0; }
-for (const s of [zcodeSeries, hermesSeries]) { const d = s[todayKey]; if (d) { todayOut += d.out || 0; todayCr += d.cr || 0; } }
-const perDayGrand = (k) => (series[k]?.total || 0) + (zcodeSeries[k]?.total || 0) + (hermesSeries[k]?.total || 0);
+for (const s of agentSeriesList) { const d = s[todayKey]; if (d) { todayOut += d.out || 0; todayCr += d.cr || 0; } }
+const perDayGrand = (k) => (series[k]?.total || 0) + agentSeriesList.reduce((a, s) => a + (s[k]?.total || 0), 0);
 const today = perDayGrand(todayKey);
 const todayCacheShare = today ? Math.round((todayCr / today) * 100) : 0;
 
@@ -133,7 +142,8 @@ let week = 0;
 for (let i = 0; i < 7; i++) week += perDayGrand(dayKey(addDays(new Date(), -i)));
 
 const cumulativeCode = Object.values(series).reduce((s, v) => s + (v.total || 0), 0);
-const cumulative = cumulativeCode + cumulativeZcode + cumulativeHermes + web.total;
+const cumulativeAgents = agentSeriesList.reduce((a, s) => a + sumSeries(s), 0);
+const cumulative = cumulativeCode + cumulativeAgents + web.total;
 
 /* 近 7 日柱状（百万 token，三源合计） */
 const days7 = [];
@@ -145,12 +155,15 @@ for (let i = 6; i >= 0; i--) {
   });
 }
 
-/* 模型占比：三源合并（Claude 仅真实日 + ZCode/Hermes 全序列；家族含 GLM/DeepSeek） */
+/* 模型占比：全源合并（Claude 仅真实日 + 各 agent 源全序列；家族含 GLM/DeepSeek/Kimi） */
 const familyDays = {};
 let fi = 0;
 for (const v of Object.values(series)) if (!v.estimated && v.models) familyDays['c' + fi++] = { models: v.models };
-for (const [k, v] of Object.entries(zcodeSeries)) familyDays['z' + k] = { models: Object.fromEntries(Object.entries(v.models || {}).map(([m, t]) => [m, { total: t }])) };
-for (const [k, v] of Object.entries(hermesSeries)) familyDays['h' + k] = { models: Object.fromEntries(Object.entries(v.models || {}).map(([m, t]) => [m, { total: t }])) };
+for (const s of agentSeriesList) {
+  for (const [k, v] of Object.entries(s)) {
+    familyDays['a' + fi++ + k] = { models: Object.fromEntries(Object.entries(v.models || {}).map(([m, t]) => [m, { total: t }])) };
+  }
+}
 const models = modelShare(familyDays);
 
 const estimatedTotal = Object.values(series).filter((v) => v.estimated).reduce((s, v) => s + v.total, 0);
@@ -169,19 +182,23 @@ const out = {
   cumulative_code: fmtCompact(cumulativeCode),
   cumulative_zcode: fmtCompact(cumulativeZcode),
   cumulative_hermes: fmtCompact(cumulativeHermes),
+  cumulative_kimi_code: fmtCompact(cumulativeKimi),
+  cumulative_openclaw: fmtCompact(cumulativeOpenclaw),
   cumulative_web: fmtCompact(web.total),
   models: models.length ? models : [['Fable', 100]],
   days7,
   series,
-  /* 分源汇总（口径 v3）：主数 cumulative = 四源之和，此处给分源明细供 UI 分列注脚 */
+  /* 分源汇总（口径 v4）：主数 cumulative = 全 harness + 网页粗估之和，此处给分源明细供 UI 分列注脚 */
   sources: {
     claude_code: { label: 'Claude Code', tokens: cumulativeCode, compact: fmtCompact(cumulativeCode) },
     zcode: { label: 'ZCode', tokens: cumulativeZcode, compact: fmtCompact(cumulativeZcode), days: Object.keys(zcodeSeries).length, series: zcodeSeries },
     hermes: { label: 'Hermes', tokens: cumulativeHermes, compact: fmtCompact(cumulativeHermes), days: Object.keys(hermesSeries).length, series: hermesSeries },
+    kimi_code: { label: 'Kimi Code', tokens: cumulativeKimi, compact: fmtCompact(cumulativeKimi), days: Object.keys(kimiSeries).length, series: kimiSeries },
+    openclaw: { label: 'OpenClaw', tokens: cumulativeOpenclaw, compact: fmtCompact(cumulativeOpenclaw), days: Object.keys(openclawSeries).length, series: openclawSeries },
     web: { label: 'claude.ai 网页', tokens: web.total, compact: fmtCompact(web.total), estimated: true },
   },
   method: {
-    version: 3,
+    version: 4,
     real_window: `${firstRealDay || '—'} 起（Claude Code 本地日志，按消息去重，含输入/输出/缓存读写全口径）`,
     real_days: realDays.length,
     estimated_days: backfilled,
@@ -190,8 +207,13 @@ const out = {
       claude_code: fmtCompact(cumulativeCode),
       zcode: fmtCompact(cumulativeZcode),
       hermes: fmtCompact(cumulativeHermes),
+      kimi_code: fmtCompact(cumulativeKimi),
+      openclaw: fmtCompact(cumulativeOpenclaw),
       web: fmtCompact(web.total),
-      note: 'Token 用量按 harness 分源汇总；Hermes 已排除经 claude-proxy(localhost) 的会话（那些 claude -p 已计入 Claude Code），避免重复计。全口径含缓存读写。',
+      note:
+        'Token 用量按 harness 分源汇总；两处去重：① Hermes 排除经 claude-proxy(localhost) 的会话（那些 claude -p 已计入 Claude Code）；' +
+        '② Kimi Code 只读 usage.record（同一次调用另有 step.end 记录，两者数值相同，都读会翻倍）。' +
+        'Kimi 订阅被 Kimi Code / OpenClaw / Hermes(调 api.kimi.com) 三个 harness 消耗，按 harness 分列；其订阅总消耗可从模型条的 Kimi 家族看。全口径含缓存读写。',
     },
     web_estimate: {
       total: fmtCompact(web.total),
@@ -201,8 +223,9 @@ const out = {
     },
     v1_cumulative: v1Cumulative,
     note:
-      'v3 口径（2026-07-11）：在 v2（Claude Code 实测+起用估算+网页粗估）基础上，Token 用量按 harness 分源汇总（Claude Code + ZCode + Hermes + 网页），主数为全 harness 合计；' +
-      'v2 仅统计 Claude Code。v1 曾把 2023-2025 的 git/笔记活动按低强度 AI 用量回填（已纠正，v1 数字留档于 v1_cumulative）',
+      'v4 口径（2026-07-17）：在 v3 基础上并入 Kimi 订阅——新增 Kimi Code CLI 与 OpenClaw 两个 harness 源，模型家族识别 Kimi（Hermes 里原归「其他」的 k3 一并正名）。' +
+      'v3（2026-07-11）：Token 用量按 harness 分源汇总（Claude Code + ZCode + Hermes + 网页），主数改为全 harness 合计；v2 仅统计 Claude Code。' +
+      'v1 曾把 2023-2025 的 git/笔记活动按低强度 AI 用量回填（已纠正，v1 数字留档于 v1_cumulative）',
   },
 };
 
@@ -212,6 +235,8 @@ console.log(
     `\n[usage] 累计=${out.cumulative} = Claude Code ${fmtCompact(cumulativeCode)}（实测${realDays.length}天+估算${backfilled}天）` +
     ` + ZCode ${fmtCompact(cumulativeZcode)}（${Object.keys(zcodeSeries).length}天）` +
     ` + Hermes ${fmtCompact(cumulativeHermes)}（${Object.keys(hermesSeries).length}天）` +
+    ` + Kimi Code ${fmtCompact(cumulativeKimi)}（${Object.keys(kimiSeries).length}天）` +
+    ` + OpenClaw ${fmtCompact(cumulativeOpenclaw)}（${Object.keys(openclawSeries).length}天）` +
     ` + 网页粗估 ${fmtCompact(web.total)}` +
     `\n[usage] 模型=${JSON.stringify(out.models)} → ${OUT}`
 );

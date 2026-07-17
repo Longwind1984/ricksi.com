@@ -1,5 +1,47 @@
 # WORKLOG（append-only，倒金字塔：结论在前、清单沉底）
 
+## 2026-07-17 · Token 口径 v4：并入 Kimi 订阅（Kimi Code + OpenClaw）
+
+### 体验影响（着重 · 先看）
+- **主数几乎没动，这是补口径不是刷数字。** Kimi 新增 ~14M ÷ 全量 12B = **0.16%**。（主数从 7.2B 涨到 12B 与本次无关——是 6 天里 Claude Code 从 6.98B 烧到 11B，CodexBar 显示 07-16 单日 1.75B。）
+- **模型条仍看不到 Kimi**：Kimi 家族合计 17.8M = 0.162% → 四舍五入 0% 被滤掉（与 DeepSeek 同）。**这是预期、非 bug**，事前已向 Rick 说明并获认可。颜色 `--mseg-kimi: oklch(0.72 0.13 350)`（玫红，避开钴蓝263/青174/紫312/金86 与人机光谱语义值）已备好，Kimi 长大即自动显现。
+- **Kimi 在主页唯一可见处 = 口径注脚**：「… · Kimi Code 11M · OpenClaw 3.3M · 网页端粗估 116M」。真正见效在飞书日报（能看到 Kimi 每天烧多少）。
+- 口径 summary 升 **v4**。
+
+### 做了什么
+1. 调研：**CodexBar 读不到 Kimi token**（`widget-snapshot.json` 里 Kimi 的 `tokenUsage`/`dailyUsage` 全空，只有额度%）→ 弃用，改直读 Kimi 本地日志。
+2. `scripts/lib/agent-usage.mjs`：新增 `scanKimiCodeUsage`（`~/.kimi-code/**/wire.jsonl`）与 `scanOpenclawUsage`（`~/.kimi_openclaw/agents/main/sessions/*.jsonl`）两个 JSONL 流式读取器；`scanAgentUsage` 改 async。
+3. `scripts/lib/claude-logs.mjs`：`modelFamily` 加 Kimi（`/kimi/` 或 `/^k\d/` → Kimi），把 Hermes 里原归「其他」的 `k3` 正名。
+4. `collect-usage.mjs`：引入 `agentSeriesList` 数组，合计/趋势/模型条/今日分解全部改为遍历——**以后加 harness 只需往数组加一项**。
+5. UI/文档：模型条 Kimi 配色、口径注脚加两源、`docs/token-estimation.md` 升 v4（含 CodexBar 结论与两处去重）。
+
+### 关键决策与被否决备选
+- **只读 `usage.record`，不读 `step.end`**：Kimi Code 把同一次调用记两遍、数值完全相同（实测两边均 10,566,716），**都读直接翻倍**。选 `usage.record` 因它带 `model`；去重键用 `time|model|四项用量`（该记录无 id）。
+- **OpenClaw 单列成 harness**（Rick 拍板）：它是独立工具、只是恰好跑 Kimi。「Kimi 订阅总消耗」从模型条 Kimi 家族跨 harness 加总看（17.8M）。
+- **Hermes 的 k3 不算进 Kimi Code**：它走 `api.kimi.com` 远程直连、不经本机 CLI，按 harness 归 Hermes，无重复（对比 claude-proxy 是 localhost 才需排除）。
+- **被否决**：读 CodexBar 拿 token（数据根本是空的）；做订阅额度%（Rick 定：这轮不做）。
+
+### 当前状态：能跑什么、怎么跑
+- `npm run collect:usage` 实测：累计 12B = Claude Code 11B（实测47+估算12天）+ ZCode 146M + Hermes 192M + **Kimi Code 11M** + **OpenClaw 3.3M** + 网页 116M。
+- 翻倍检查已做：原始 `usage.record` 与 `step.end` 各 10,566,716，usage.json 记录 10,566,716（未翻倍）。
+- `npm run dev` 预览核对：口径 v4、注脚含两源、零 console 报错。
+- 飞书侧已实发验证（全源表自动从 7 列升到 9 列，历史无错位）。
+
+### 未尽事项与已知问题
+- Kimi 数据仅 1 天（07-17 起）；模型条要等它占比 ≥0.5% 才显现。
+- `~/.kimi/`、`~/.kimi-work/`、`~/.kimi-webbridge/` 三处已查，无用量记录；若将来它们开始记账需补源。
+- 订阅额度%（CodexBar 的 8%/38%）未接入——需另调 Kimi 接口或读 CodexBar 缓存（后者随其升级会坏）。
+- 正式 `npm run build` 未跑（不涉出图管线）。
+
+### 文件级变更清单
+- `scripts/lib/agent-usage.mjs`——新增 Kimi Code / OpenClaw 两个 JSONL 读取器 + `addUsage`/`jsonlLines` helper；`scanAgentUsage` 改 async
+- `scripts/lib/claude-logs.mjs`——`modelFamily` 加 Kimi 家族
+- `scripts/config.mjs`——`agentUsage` 加 `kimiCodeSessions` / `openclawSessions`
+- `scripts/collect-usage.mjs`——`agentSeriesList` 泛化；新增 `cumulative_kimi_code` / `cumulative_openclaw` 与 `sources.{kimi_code,openclaw}`；口径升 v4
+- `src/components/WorkbenchBoard.astro`——SEG 加 Kimi；注脚加两源；summary v4
+- `src/styles/glass.css`——`--mseg-kimi`
+- `docs/token-estimation.md`——升 v4（D 段五源表、两处去重、CodexBar 结论）
+
 ## 2026-07-16 · 首页阅读卡片重构：尺寸层级倒挂修正，Rick 拍板 A 方案（滑轨）PR 上线
 
 ### 体验影响（着重 · 先看）

@@ -119,6 +119,11 @@ export const CONFIG = {
     zcodeDb: path.join(HOME, '.zcode', 'cli', 'db', 'db.sqlite'), // model_usage 表，started_at=毫秒
     hermesDb: path.join(HOME, '.hermes', 'state.db'),             // sessions 表，started_at=秒(REAL)
     hermesExcludeUrlLike: '%localhost%',                          // claude-proxy 去重
+    /* Kimi 订阅（2026-07-17 起）被两个本机 harness 消耗，各自记 JSONL：
+       Kimi Code CLI 的 wire.jsonl（只读 usage.record，详见 agent-usage.mjs 的翻倍坑注释）；
+       OpenClaw 跑 Kimi 模型（k2p6）。Hermes 调 api.kimi.com 的 k3 是远程直连，仍归 Hermes、不在此重复。 */
+    kimiCodeSessions: path.join(HOME, '.kimi-code', 'sessions'),
+    openclawSessions: path.join(HOME, '.kimi_openclaw', 'agents', 'main', 'sessions'),
   },
 
   /* 自制 ePub 书架源（30书架）：merge-local-books.mjs 每次同步从这里拉最新 epub + 缺失时提取封面。
