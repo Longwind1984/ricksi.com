@@ -1,5 +1,41 @@
 # WORKLOG（append-only，倒金字塔：结论在前、清单沉底）
 
+## 2026-07-17 · 液态之夜背景模块：WebGL 流场抽成可复用组件
+
+### 体验影响（着重 · 先看）
+- **线上零变化**：组件不进任何默认布局/现有页面，全站唯一落点是未链接的预览页 /liquid-night/。本次是把 ai-health 拆解页 v3 验收定稿的「液态之夜」背景资产化，供后续任意页面按需 opt-in。
+- 预览页可见完整效果：钴蓝域扭曲流场全屏涌动、金色「不确定信号」矿脉丝、整体随心电图节律（P→QRS→T，1.05s ≈ 57 bpm）轻涌；鼠标视差仅 hover 设备生效。
+- 两段 JS **逐字提取**自 `.private/ai-health-teardown-v3.html`（119,550 字节验收版），逻辑与全部参数零改动；脚本级 diff 校验确认仅 2 处指定适配改动（见下）。
+
+### 做了什么
+1. `src/components/LiquidNight.astro`：自包含组件——`<canvas class="liquid-night">`（fixed / inset 0 / z-index -1 / pointer-events none / aria-hidden）+ `is:inline` 内联脚本 + `.orb-fallback` 全局样式（回退画布由 JS 动态插入 body，scoped 样式匹配不到，必须 `is:global`）。
+2. 脚本合并：两段 JS 包进一个外 IIFE，`initOrbFallback` 由全局函数改为 IIFE 内函数，零全局泄漏；`window.__liquidNightInit` 幂等守卫防重复初始化。
+3. 指定适配仅 2 处：`getElementById('liquid-night')` → `document.querySelector('canvas.liquid-night')`；查不到画布直接 return（原文件行为是触发回退，组件语义下改为静默退出）。
+4. `src/pages/liquid-night.astro`：极简预览页（未被任何页面链接），一句居中小字「Liquid Night 背景组件预览」，即测试面。
+5. `docs/liquid-night-bg.md`：使用文档（opt-in 方法、性能设计、调色语义）。
+
+### 关键决策与被否决备选
+- **`is:inline` 而非默认打包**：源码需逐字内联（打包/压缩属于改写），且脚本紧随 canvas 输出、解析到即执行；配合幂等守卫，组件重复挂载、多页面使用都安全。Astro 默认脚本去重虽也能「一页一次」，但要过 Vite 处理链，不符合「逐字」硬约束。
+- **保留嵌套 IIFE 而非拍平**：源 IIFE 函数体整段原样搬入外 IIFE（仅缩进 +2），杜绝拍平时变量同域（reduce/cv/W/H/mX 等）潜在碰撞与意外改动。
+- **不进 Glass.astro / 默认布局**（仓库先例：three.js 3D 图谱也只按需加载）：全屏 WebGL 每页都跑 GPU 不划算，谁用谁引。
+- **被否决**：把效果参数化（props 传色/节律）——违反「逐字提取、不重写」；给预览页加导航链接——任务定义为未链接纯验证页。
+
+### 当前状态：能跑什么、怎么跑
+- `npm run build` 全量通过：707 页 / 343.63s（含 ~1,300 张社交图，远超任务预估的 80-90s，系出图管线）；`dist/liquid-night/index.html` 产出，含 canvas.liquid-night、GLSL 着色器（GL_FRAGMENT_PRECISION_HIGH / gl_FragColor / fbm）与 __liquidNightInit 守卫。
+- `npm run dev`（4321）实测 `/liquid-night/` HTTP 200、页面含组件标记 ×2；dev 进程已杀、端口已释放、无后台残留。
+- 逐字校验：脚本对源文件两 `<script>` 块 diff——液态之夜 IIFE 仅 2 处指定改动、initOrbFallback 0 差异（校验脚本 `.private/verify-liquid-night.py`，未入库）。
+
+### 未尽事项与已知问题
+- 未在任何真实页面启用；要上线某页背景需该页自行 import（一行），建议先用于暗色页面。
+- reduced-motion 静态帧与 WebGL 失败回退粒子球为代码路径，本机只走了主路径（WebGL 可用、非 reduced-motion）；回退与静态帧未在浏览器实测。
+- 源文件仍是效果唯一事实来源：未来调效果先改 `.private/ai-health-teardown-v3.html` 再重新提取，勿在组件里直接调参。
+
+### 文件级变更清单
+- `src/components/LiquidNight.astro`——新增，组件本体（canvas + 合并 IIFE 内联脚本 + orb-fallback 全局样式）
+- `src/pages/liquid-night.astro`——新增，未链接预览/验证页
+- `docs/liquid-night-bg.md`——新增，使用文档
+- `WORKLOG.md`——本条目
+
 ## 2026-07-17 · Token 口径 v4：并入 Kimi 订阅（Kimi Code + OpenClaw）
 
 ### 体验影响（着重 · 先看）
