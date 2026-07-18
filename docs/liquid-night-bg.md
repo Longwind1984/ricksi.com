@@ -1,6 +1,6 @@
 # Liquid Night 背景组件（液态之夜）
 
-全屏 WebGL 背景：钴蓝域扭曲流场为体，金色矿脉丝是「不确定信号」，整体亮度与扭曲随 ECG 心电图节律（P→QRS→T，1.05s ≈ 57 bpm 静息心率）涌动。效果与参数逐字提取自已验收定稿的 `.private/ai-health-teardown-v3.html`（ai-health 拆解页 v3），零重写、零「优化」。
+全屏 WebGL 背景：钴蓝域扭曲流场为体，金色矿脉丝是「不确定信号」，整体亮度与扭曲随 ECG 心电图节律（P→QRS→T，3.15s 一拍）涌动。效果与参数逐字提取自已验收定稿的 `.private/ai-health-teardown-v3.html`（ai-health 拆解页 v3），零重写、零「优化」。
 
 ## 怎么在任意页面 opt-in
 
@@ -28,7 +28,7 @@ import LiquidNight from '../components/LiquidNight.astro';
 
 - **钴蓝流场**（`base #07182f → cobalt → elec`）：液明之夜的本体，域扭曲 fbm 流。
 - **金色矿脉丝**（`gold #e0b961`）：流场中的「不确定信号」，随 beat 增强（`0.80+0.45*u_beat`）。
-- **ECG 节律**：`beat()` 以高斯组合逼近 P 小波 → QRS 尖峰 → T 中波，驱动整体亮度（`col*=1.0+u_beat*0.07`）、电蓝丝亮度与金色矿脉强弱——背景像静息心电一样每分钟约 57 次轻涌。
+- **ECG 节律**：`beat()` 以高斯组合逼近 P 小波 → QRS 尖峰 → T 中波，驱动整体亮度（`col*=1.0+u_beat*0.07`）、电蓝丝亮度与金色矿脉强弱——背景以约 3 秒一拍的心电波形轻涌，闪光间隔落在「可感脉搏」而非「频闪」区间。
 
 ## 文件
 
