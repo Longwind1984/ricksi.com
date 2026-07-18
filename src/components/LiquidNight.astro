@@ -3,7 +3,7 @@
  * 液态之夜 · Liquid Night —— 全屏背景组件（按需引入，不进默认布局）
  *
  * 两段 JS 逐字提取自已验收定稿的 .private/ai-health-teardown-v3.html：
- *   1) WebGL 域扭曲流场（钴蓝流明为体，金色矿脉是「不确定信号」，缓慢呼吸节律 beat()）
+ *   1) WebGL 域扭曲流场（钴蓝流明为体，金色矿脉是「不确定信号」，ECG 节律 beat()）
  *   2) initOrbFallback()：WebGL 不可用时的 Canvas 2D 粒子球回退
  * 仅两处适配性改动（逻辑与参数零改动）：
  *   - canvas 查找 getElementById('liquid-night') → querySelector('canvas.liquid-night')，查不到直接 return
@@ -29,7 +29,7 @@
   window.__liquidNightInit = true;
 
   /* —— 体征之球 · Vital Orb —— WebGL 不可用时的回退背景：
-     880 光点的斐波那契球面，缓慢自转 + 呼吸起伏；
+     880 光点的斐波那契球面，缓慢自转 + 静息心率呼吸；
      ~6% 金色「不确定信号」随机闪烁、衰减、复归。 */
   function initOrbFallback(){
     'use strict';
@@ -68,9 +68,12 @@
       }, {passive:true});
     }
 
-    /* 缓慢呼吸节律：6s 正弦慢波 */
+    /* 心电图节律：P→QRS→T，1.05s ≈ 57 bpm */
     function heartbeat(t){
-      return 1 + (0.5+0.5*Math.sin(6.28318*(t/6.0)-1.5708))*0.03;
+      var p = (t % 1.05)/1.05;
+      function g(c,w,a){ var d=(p-c)/w; return a*Math.exp(-d*d); }
+      var v = g(0.14,0.030,0.14)+g(0.30,0.009,-0.10)+g(0.33,0.013,1.00)+g(0.37,0.010,-0.18)+g(0.58,0.050,0.24);
+      return 1 + Math.max(0,Math.min(1,v))*0.03;
     }
 
     function render(t){
@@ -138,13 +141,20 @@
 
   /* —— 液态之夜 · Liquid Night ——
      WebGL 域扭曲流场：钴蓝流明为体，金色矿脉是「不确定信号」；
-     亮度与扭曲随 6 秒一轮的缓慢呼吸涌动。WebGL 不可用时回退体征之球。 */
+     亮度与扭曲随心电图节律（P→QRS→T）涌动。WebGL 不可用时回退体征之球。 */
   (function(){
     'use strict';
     var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    /* 缓慢呼吸节律：6s 正弦慢波——雾在呼吸，均匀起伏，不再心跳 */
+    /* 心电图节律：P 小波 → QRS 尖峰 → T 中波，1.05s ≈ 57 bpm 静息心率 */
     function beat(t){
-      return 0.5+0.5*Math.sin(6.28318*(t/6.0)-1.5708);
+      var p = (t % 1.05)/1.05;
+      function g(c,w,a){ var d=(p-c)/w; return a*Math.exp(-d*d); }
+      var v = g(0.14,0.030,0.14)   /* P */
+            + g(0.30,0.009,-0.10)  /* Q */
+            + g(0.33,0.013,1.00)   /* R */
+            + g(0.37,0.010,-0.18)  /* S */
+            + g(0.58,0.050,0.24);  /* T */
+      return Math.max(0, Math.min(1, v));
     }
     var cv = document.querySelector('canvas.liquid-night');
     if (!cv){ return; }
