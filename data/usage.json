@@ -1,20 +1,20 @@
 {
- "generated_at": "2026-07-18T13:30:14.128Z",
- "today": 291231049,
- "today_out": 1320000,
+ "generated_at": "2026-07-19T13:30:13.170Z",
+ "today": 334353384,
+ "today_out": 1223787,
  "today_cache_share": 96,
  "week": "4.6B",
- "cumulative": "12B",
+ "cumulative": "13B",
  "cumulative_code": "12B",
  "cumulative_zcode": "146M",
- "cumulative_hermes": "196M",
- "cumulative_kimi_code": "49M",
- "cumulative_openclaw": "4.2M",
+ "cumulative_hermes": "200M",
+ "cumulative_kimi_code": "175M",
+ "cumulative_openclaw": "1.6M",
  "cumulative_web": "117M",
  "models": [
   [
    "Opus",
-   76
+   75
   ],
   [
    "Fable",
@@ -23,6 +23,10 @@
   [
    "GLM",
    4
+  ],
+  [
+   "Kimi",
+   1
   ],
   [
    "Sonnet",
@@ -35,12 +39,8 @@
  ],
  "days7": [
   {
-   "d": "周日",
-   "v": 399.18
-  },
-  {
    "d": "周一",
-   "v": 20.57
+   "v": 21.26
   },
   {
    "d": "周二",
@@ -56,11 +56,15 @@
   },
   {
    "d": "周五",
-   "v": 817.4
+   "v": 814.78
+  },
+  {
+   "d": "周六",
+   "v": 354.8
   },
   {
    "d": "今天",
-   "v": 291.23
+   "v": 334.35
   }
  ],
  "series": {
@@ -506,14 +510,14 @@
    }
   },
   "2026-06-19": {
-   "total": 165899035,
+   "total": 165857078,
    "models": {
     "opus-4-8": {
-     "in": 809735,
-     "out": 722897,
-     "cw": 6893497,
+     "in": 805121,
+     "out": 722579,
+     "cw": 6867202,
      "cr": 157141934,
-     "total": 165568063
+     "total": 165536836
     },
     "<synthetic>": {
      "in": 0,
@@ -523,11 +527,11 @@
      "total": 0
     },
     "haiku-4-5-20251001": {
-     "in": 6710,
-     "out": 208,
-     "cw": 76632,
+     "in": 6700,
+     "out": 14,
+     "cw": 66106,
      "cr": 247422,
-     "total": 330972
+     "total": 320242
     }
    }
   },
@@ -1238,14 +1242,14 @@
    }
   },
   "2026-07-18": {
-   "total": 288885546,
+   "total": 324022030,
    "models": {
     "opus-4-8": {
-     "in": 91473,
-     "out": 1247266,
-     "cw": 7172344,
-     "cr": 263879406,
-     "total": 272390489
+     "in": 112717,
+     "out": 1344541,
+     "cw": 8100355,
+     "cr": 286935643,
+     "total": 296493256
     },
     "haiku-4-5-20251001": {
      "in": 208,
@@ -1262,11 +1266,11 @@
      "total": 709437
     },
     "fable-5": {
-     "in": 37,
-     "out": 20370,
-     "cw": 1430567,
-     "cr": 13216396,
-     "total": 14667370
+     "in": 602,
+     "out": 34074,
+     "cw": 2399285,
+     "cr": 23267126,
+     "total": 25701087
     },
     "<synthetic>": {
      "in": 0,
@@ -1274,6 +1278,39 @@
      "cw": 0,
      "cr": 0,
      "total": 0
+    }
+   }
+  },
+  "2026-07-19": {
+   "total": 233729440,
+   "models": {
+    "opus-4-8": {
+     "in": 63225,
+     "out": 459944,
+     "cw": 4800930,
+     "cr": 129098724,
+     "total": 134422823
+    },
+    "fable-5": {
+     "in": 6202,
+     "out": 217490,
+     "cw": 2841903,
+     "cr": 88764998,
+     "total": 91830593
+    },
+    "sonnet-5": {
+     "in": 6377,
+     "out": 10506,
+     "cw": 194422,
+     "cr": 7065757,
+     "total": 7277062
+    },
+    "haiku-4-5-20251001": {
+     "in": 60,
+     "out": 1224,
+     "cw": 81934,
+     "cr": 115744,
+     "total": 198962
     }
    }
   },
@@ -1329,7 +1366,7 @@
  "sources": {
   "claude_code": {
    "label": "Claude Code",
-   "tokens": 11648109911,
+   "tokens": 11916933878,
    "compact": "12B"
   },
   "zcode": {
@@ -1414,9 +1451,9 @@
   },
   "hermes": {
    "label": "Hermes",
-   "tokens": 196469395,
-   "compact": "196M",
-   "days": 8,
+   "tokens": 200199194,
+   "compact": "200M",
+   "days": 9,
    "series": {
     "2026-07-10": {
      "total": 24839889,
@@ -1449,11 +1486,11 @@
      }
     },
     "2026-07-13": {
-     "total": 16664280,
-     "out": 85065,
-     "cr": 15389056,
+     "total": 17349388,
+     "out": 85707,
+     "cr": 15845120,
      "models": {
-      "glm-5-2-260617": 16664280
+      "glm-5-2-260617": 17349388
      }
     },
     "2026-07-15": {
@@ -1488,14 +1525,22 @@
      "models": {
       "glm-5-2-260617": 474116
      }
+    },
+    "2026-07-19": {
+     "total": 3044691,
+     "out": 28128,
+     "cr": 2872256,
+     "models": {
+      "glm-5-2-260617": 3044691
+     }
     }
    }
   },
   "kimi_code": {
    "label": "Kimi Code",
-   "tokens": 49376275,
-   "compact": "49M",
-   "days": 2,
+   "tokens": 175384094,
+   "compact": "175M",
+   "days": 3,
    "series": {
     "2026-07-17": {
      "total": 48387692,
@@ -1507,27 +1552,35 @@
      }
     },
     "2026-07-18": {
-     "total": 988583,
-     "out": 20784,
-     "cr": 837376,
+     "total": 29417149,
+     "out": 311272,
+     "cr": 27757437,
      "models": {
-      "kimi-code/k3": 988583
+      "kimi-code/k3": 29417149
+     }
+    },
+    "2026-07-19": {
+     "total": 97579253,
+     "out": 506495,
+     "cr": 93448876,
+     "models": {
+      "kimi-code/k3": 97579253
      }
     }
    }
   },
   "openclaw": {
    "label": "OpenClaw",
-   "tokens": 4210438,
-   "compact": "4.2M",
+   "tokens": 1588673,
+   "compact": "1.6M",
    "days": 2,
    "series": {
     "2026-07-17": {
-     "total": 3327634,
-     "out": 16287,
-     "cr": 3128054,
+     "total": 705869,
+     "out": 2114,
+     "cr": 628096,
      "models": {
-      "k2p6": 3327634
+      "k2p6": 705869
      }
     },
     "2026-07-18": {
@@ -1542,7 +1595,7 @@
   },
   "web": {
    "label": "claude.ai 网页",
-   "tokens": 116651429,
+   "tokens": 117124286,
    "compact": "117M",
    "estimated": true
   }
@@ -1550,15 +1603,15 @@
  "method": {
   "version": 4,
   "real_window": "2026-05-27 起（Claude Code 本地日志，按消息去重，含输入/输出/缓存读写全口径）",
-  "real_days": 48,
+  "real_days": 49,
   "estimated_days": 12,
   "estimated_share": "3%",
   "harness_split": {
    "claude_code": "12B",
    "zcode": "146M",
-   "hermes": "196M",
-   "kimi_code": "49M",
-   "openclaw": "4.2M",
+   "hermes": "200M",
+   "kimi_code": "175M",
+   "openclaw": "1.6M",
    "web": "117M",
    "note": "Token 用量按 harness 分源汇总；两处去重：① Hermes 排除经 claude-proxy(localhost) 的会话（那些 claude -p 已计入 Claude Code）；② Kimi Code 只读 usage.record（同一次调用另有 step.end 记录，两者数值相同，都读会翻倍）。Kimi 订阅被 Kimi Code / OpenClaw / Hermes(调 api.kimi.com) 三个 harness 消耗，按 harness 分列；其订阅总消耗可从模型条的 Kimi 家族看。全口径含缓存读写。"
   },
@@ -1575,9 +1628,9 @@
     },
     {
      "from": "2026-01-01",
-     "to": "2026-07-18",
-     "days": 200,
-     "tokens": 94571429
+     "to": "2026-07-19",
+     "days": 201,
+     "tokens": 95044286
     }
    ]
   },
