@@ -1,5 +1,83 @@
 # WORKLOG（append-only，倒金字塔：结论在前、清单沉底）
 
+## 2026-07-18 · 液态之夜：心电节奏放慢三倍（1.05s → 3.15s）
+
+**体验影响**：R 峰闪光从每秒一次降为约每 3 秒一次，「抽搐感」消失；心电波形（P→QRS→T）与全部幅度参数不变，只改时间轴。
+
+**做了什么**：用户反馈「太抽搐了，微调节奏」。将 `beat()`/`heartbeat()` 的周期常量 1.05 → 3.15——波形形状、相位比例、幅度、基线安静段完全不变；注释与 docs 同步；v3 源文件与组件同改，逐字校验通过。数值验证：R 峰 1.000（相位 0.33 不变）、安静段 0.000、P 0.140、T 0.240。
+
+**关键决策与被否决备选**：只动节奏不动幅度——用户指令是「微调节奏」，幅度类旋钮（0.07 闪光、0.45 金脉、0.25 丝流）保持验收值。被否决：不均匀拉伸（只拉基线段）——会改变 P/QRS/T 相对比例，偏离验收波形；3 倍取值让闪光间隔落在「可感脉搏」而非「频闪」区间。
+
+**当前状态**：feat/liquid-night-bg 第 4 个提交；PR #5 待用户 review 后合并（未合并）。
+
+**未尽事项**：若节奏仍不合适，`beat()`/`heartbeat()` 中两处 `3.15` 是唯一旋钮；组件版 prefers-reduced-motion 与 WebGL 回退分支仍未实机验证；本提交未重跑全量 build（纯常量与文档改动）。
+
+**文件级变更清单**：M `src/components/LiquidNight.astro`（周期常量 2 处 + 注释 2 处）；M `docs/liquid-night-bg.md`（节奏描述 2 处）；M `WORKLOG.md`（本条目）。
+
+## 2026-07-18 · 液态之夜：恢复 ECG 心电节律——用户明确「上一版」即心电版
+
+**体验影响**：背景恢复为真实心电图节律（P 小波 → QRS 尖峰 → T 中波，1.05s ≈ 57 bpm 静息心率）：雾面大部分时间在基线安静流淌，R 峰每拍一次短促「一闪」，金丝与丝流随 ECG 曲线明灭。当日早些时候的 6s 正弦慢波版被取代。
+
+**做了什么**：用户 09:18 明确指定目标版本为心电版（引用 07-17 21:49 验收消息原文）。经会话 wire 记录逐行比对确认：c383f02 的代码即该验收版（07-17 22:12 的回滚编辑曾完整还原过它），故采用 git 级精确还原——组件与 docs 直接 `git checkout c383f02 --` 恢复，零转写误差；v3 源文件 `.private/ai-health-teardown-v3.html` 手工反向编辑（beat/heartbeat 函数体 + 注释），经逐字校验脚本证明与 c383f02 一致。数值验证波形：R 峰 0.999 @1.397s、基线 0.000、P 波 0.140、T 波 0.240，与验收消息描述一致。
+
+**关键决策与被否决备选**：精确还原验收版优于任何「再压幅度」的自由发挥——用户引用的是该版验收消息原文，逐字还原最贴近其指定；00:52 的正弦慢波版完整保留在 git 历史（1bac8e2），如需回切一行命令即可。被否决：在 ECG 版上继续调参（无用户新输入，不动验收参数）。
+
+**当前状态**：feat/liquid-night-bg 新增本提交（第 3 个）；PR #5 待用户 review 后合并（未合并）。
+
+**未尽事项**：R 峰强度/宽度旋钮——`col*=1.0+u_beat*0.07` 的 0.07（全场闪光）、R 高斯宽度 0.013（峰宽）、u_beat 各联动系数（0.25 丝流 / 0.45 金脉 / 0.3 扭曲）；组件版 prefers-reduced-motion 与 WebGL 回退分支仍未实机验证（同前两个提交）；本提交未重跑全量 build——组件代码与已验证过的 c383f02 逐字一致，docs/WORKLOG 为纯文档改动。
+
+**文件级变更清单**：M `src/components/LiquidNight.astro`（恢复至 c383f02 逐字）；M `docs/liquid-night-bg.md`（同上）；M `WORKLOG.md`（本条目）。
+
+## 2026-07-18 · 液态之夜背景回滚：ECG 心电节律 → 雾气缓慢呼吸
+
+**体验影响**：`/liquid-night/` 与任何 opt-in 页面的背景，从「每秒一次心电尖峰脉冲」回滚为「6 秒一轮的雾气缓慢呼吸」。尖峰闪光与急促心跳感消失，雾面在丝缕与涌动之间均匀起伏，不再喧宾夺主。
+
+**做了什么**：用户验收发现此前对「回滚到上一版」（07-17 22:08 指令）执行到了错误目标——回成了 ECG 全场脉冲版而非雾气版。本次把源文件 `.private/ai-health-teardown-v3.html` 与组件 `LiquidNight.astro` 的 `beat()`/`heartbeat()` 由高斯组合 ECG（P→QRS→T，1.05s ≈ 57 bpm）替换为 6s 正弦慢波；着色器与回退粒子的其余参数、配色、语义逐字保留；docs 同步更正 3 处描述。
+
+**关键决策与被否决备选**：雾气版无磁盘备份（.private 不进 git），靠截图证据重建：/tmp/liquid-*.png（雾气版）与 /tmp/ecg-*.png（ECG 版）逐张比对，确认两版静态画面几乎一致、差异只在节律形状，因此只换节律函数、其余逐字不动。被否决：完全去掉脉冲（上一版本身带脉冲，用户已接受）；ECG 仅降速（慢速尖峰仍是心跳感）。
+
+**当前状态**：feat/liquid-night-bg 分支新增本提交；PR #5 待用户 review 后合并（未合并）。
+
+**未尽事项**：6s 周期为重建取值（原版周期无备份可查），若觉快慢不合适只需调 `beat()` 中 `t/6.0` 一处；组件版 prefers-reduced-motion 与 WebGL 回退分支仍未实机验证（同上一提交）。本提交已经全量 build 验证（707 页 / 341.47s）。
+
+**文件级变更清单**：M `src/components/LiquidNight.astro`（beat/heartbeat 函数体 + 注释共 4 处）；M `docs/liquid-night-bg.md`（ECG 描述更正 3 处）；M `WORKLOG.md`（本条目）。
+
+## 2026-07-17 · 液态之夜背景模块：WebGL 流场抽成可复用组件
+
+### 体验影响（着重 · 先看）
+- **线上零变化**：组件不进任何默认布局/现有页面，全站唯一落点是未链接的预览页 /liquid-night/。本次是把 ai-health 拆解页 v3 验收定稿的「液态之夜」背景资产化，供后续任意页面按需 opt-in。
+- 预览页可见完整效果：钴蓝域扭曲流场全屏涌动、金色「不确定信号」矿脉丝、整体随心电图节律（P→QRS→T，1.05s ≈ 57 bpm）轻涌；鼠标视差仅 hover 设备生效。
+- 两段 JS **逐字提取**自 `.private/ai-health-teardown-v3.html`（119,550 字节验收版），逻辑与全部参数零改动；脚本级 diff 校验确认仅 2 处指定适配改动（见下）。
+
+### 做了什么
+1. `src/components/LiquidNight.astro`：自包含组件——`<canvas class="liquid-night">`（fixed / inset 0 / z-index -1 / pointer-events none / aria-hidden）+ `is:inline` 内联脚本 + `.orb-fallback` 全局样式（回退画布由 JS 动态插入 body，scoped 样式匹配不到，必须 `is:global`）。
+2. 脚本合并：两段 JS 包进一个外 IIFE，`initOrbFallback` 由全局函数改为 IIFE 内函数，零全局泄漏；`window.__liquidNightInit` 幂等守卫防重复初始化。
+3. 指定适配仅 2 处：`getElementById('liquid-night')` → `document.querySelector('canvas.liquid-night')`；查不到画布直接 return（原文件行为是触发回退，组件语义下改为静默退出）。
+4. `src/pages/liquid-night.astro`：极简预览页（未被任何页面链接），一句居中小字「Liquid Night 背景组件预览」，即测试面。
+5. `docs/liquid-night-bg.md`：使用文档（opt-in 方法、性能设计、调色语义）。
+
+### 关键决策与被否决备选
+- **`is:inline` 而非默认打包**：源码需逐字内联（打包/压缩属于改写），且脚本紧随 canvas 输出、解析到即执行；配合幂等守卫，组件重复挂载、多页面使用都安全。Astro 默认脚本去重虽也能「一页一次」，但要过 Vite 处理链，不符合「逐字」硬约束。
+- **保留嵌套 IIFE 而非拍平**：源 IIFE 函数体整段原样搬入外 IIFE（仅缩进 +2），杜绝拍平时变量同域（reduce/cv/W/H/mX 等）潜在碰撞与意外改动。
+- **不进 Glass.astro / 默认布局**（仓库先例：three.js 3D 图谱也只按需加载）：全屏 WebGL 每页都跑 GPU 不划算，谁用谁引。
+- **被否决**：把效果参数化（props 传色/节律）——违反「逐字提取、不重写」；给预览页加导航链接——任务定义为未链接纯验证页。
+
+### 当前状态：能跑什么、怎么跑
+- `npm run build` 全量通过：707 页 / 343.63s（含 ~1,300 张社交图，远超任务预估的 80-90s，系出图管线）；`dist/liquid-night/index.html` 产出，含 canvas.liquid-night、GLSL 着色器（GL_FRAGMENT_PRECISION_HIGH / gl_FragColor / fbm）与 __liquidNightInit 守卫。
+- `npm run dev`（4321）实测 `/liquid-night/` HTTP 200、页面含组件标记 ×2；dev 进程已杀、端口已释放、无后台残留。
+- 逐字校验：脚本对源文件两 `<script>` 块 diff——液态之夜 IIFE 仅 2 处指定改动、initOrbFallback 0 差异（校验脚本 `.private/verify-liquid-night.py`，未入库）。
+
+### 未尽事项与已知问题
+- 未在任何真实页面启用；要上线某页背景需该页自行 import（一行），建议先用于暗色页面。
+- reduced-motion 静态帧与 WebGL 失败回退粒子球为代码路径，本机只走了主路径（WebGL 可用、非 reduced-motion）；回退与静态帧未在浏览器实测。
+- 源文件仍是效果唯一事实来源：未来调效果先改 `.private/ai-health-teardown-v3.html` 再重新提取，勿在组件里直接调参。
+
+### 文件级变更清单
+- `src/components/LiquidNight.astro`——新增，组件本体（canvas + 合并 IIFE 内联脚本 + orb-fallback 全局样式）
+- `src/pages/liquid-night.astro`——新增，未链接预览/验证页
+- `docs/liquid-night-bg.md`——新增，使用文档
+- `WORKLOG.md`——本条目
+
 ## 2026-07-17 · Token 口径 v4：并入 Kimi 订阅（Kimi Code + OpenClaw）
 
 ### 体验影响（着重 · 先看）

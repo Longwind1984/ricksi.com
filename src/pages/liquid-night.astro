@@ -1,0 +1,20 @@
+---
+// Liquid Night 背景组件预览页 —— 纯验证用，未被任何页面链接。
+// 测试面：/liquid-night/ 应看到钴蓝域扭曲流场全屏背景 + ECG 节律涌动。
+import LiquidNight from '../components/LiquidNight.astro';
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Liquid Night 背景组件预览</title>
+  </head>
+  <body style="margin:0;background:#070d1f;">
+    <p style="position:fixed;inset:0;display:flex;align-items:center;justify-content:center;margin:0;font:12px/1.6 system-ui,sans-serif;color:rgba(180,200,255,0.5);letter-spacing:0.12em;pointer-events:none;">
+      Liquid Night 背景组件预览
+    </p>
+    <LiquidNight />
+  </body>
+</html>

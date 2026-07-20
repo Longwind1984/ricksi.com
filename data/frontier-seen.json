@@ -1303,5 +1303,30 @@
   "firstSeen": "2026-07-17",
   "attempts": 0,
   "status": "published"
+ },
+ "0593bd41b25d455d": {
+  "firstSeen": "2026-07-18",
+  "attempts": 0,
+  "status": "published"
+ },
+ "e2319b9446f4c3ed": {
+  "firstSeen": "2026-07-18",
+  "attempts": 0,
+  "status": "excluded"
+ },
+ "450afe6553ea2068": {
+  "firstSeen": "2026-07-18",
+  "attempts": 0,
+  "status": "published"
+ },
+ "5f3d53932c9822f0": {
+  "firstSeen": "2026-07-19",
+  "attempts": 0,
+  "status": "published"
+ },
+ "dbd57b2637da08ce": {
+  "firstSeen": "2026-07-19",
+  "attempts": 0,
+  "status": "published"
  }
 }

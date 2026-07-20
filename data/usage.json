@@ -1,28 +1,32 @@
 {
- "generated_at": "2026-07-17T13:30:12.555Z",
- "today": 776414109,
- "today_out": 2283382,
- "today_cache_share": 96,
- "week": "5.1B",
- "cumulative": "12B",
- "cumulative_code": "11B",
+ "generated_at": "2026-07-20T08:58:54.456Z",
+ "today": 267438032,
+ "today_out": 1027527,
+ "today_cache_share": 95,
+ "week": "4.9B",
+ "cumulative": "13B",
+ "cumulative_code": "12B",
  "cumulative_zcode": "146M",
- "cumulative_hermes": "195M",
- "cumulative_kimi_code": "45M",
- "cumulative_openclaw": "3.3M",
- "cumulative_web": "116M",
+ "cumulative_hermes": "200M",
+ "cumulative_kimi_code": "178M",
+ "cumulative_openclaw": "1.6M",
+ "cumulative_web": "117M",
  "models": [
   [
    "Opus",
-   76
+   74
   ],
   [
    "Fable",
-   17
+   18
   ],
   [
    "GLM",
    4
+  ],
+  [
+   "Kimi",
+   1
   ],
   [
    "Sonnet",
@@ -34,18 +38,6 @@
   ]
  ],
  "days7": [
-  {
-   "d": "周六",
-   "v": 851.09
-  },
-  {
-   "d": "周日",
-   "v": 399.18
-  },
-  {
-   "d": "周一",
-   "v": 19.67
-  },
   {
    "d": "周二",
    "v": 349.46
@@ -59,8 +51,20 @@
    "v": 1752.73
   },
   {
+   "d": "周五",
+   "v": 814.78
+  },
+  {
+   "d": "周六",
+   "v": 354.8
+  },
+  {
+   "d": "周日",
+   "v": 349.62
+  },
+  {
    "d": "今天",
-   "v": 776.41
+   "v": 267.44
   }
  ],
  "series": {
@@ -506,14 +510,14 @@
    }
   },
   "2026-06-19": {
-   "total": 165899035,
+   "total": 165857078,
    "models": {
     "opus-4-8": {
-     "in": 809735,
-     "out": 722897,
-     "cw": 6893497,
+     "in": 805121,
+     "out": 722579,
+     "cw": 6867202,
      "cr": 157141934,
-     "total": 165568063
+     "total": 165536836
     },
     "<synthetic>": {
      "in": 0,
@@ -523,11 +527,11 @@
      "total": 0
     },
     "haiku-4-5-20251001": {
-     "in": 6710,
-     "out": 208,
-     "cw": 76632,
+     "in": 6700,
+     "out": 14,
+     "cw": 66106,
      "cr": 247422,
-     "total": 330972
+     "total": 320242
     }
    }
   },
@@ -1184,21 +1188,21 @@
    }
   },
   "2026-07-17": {
-   "total": 721434072,
+   "total": 758567611,
    "models": {
     "opus-4-8": {
-     "in": 229103,
-     "out": 1380730,
-     "cw": 15728195,
-     "cr": 481712930,
-     "total": 499050958
+     "in": 229542,
+     "out": 1607813,
+     "cw": 17049172,
+     "cr": 513409184,
+     "total": 532295711
     },
     "sonnet-5": {
-     "in": 400635,
-     "out": 84754,
-     "cw": 1574080,
-     "cr": 31076800,
-     "total": 33136269
+     "in": 414959,
+     "out": 85426,
+     "cw": 1590252,
+     "cr": 31099762,
+     "total": 33190399
     },
     "haiku-4-5-20251001": {
      "in": 414,
@@ -1207,12 +1211,12 @@
      "cr": 922020,
      "total": 1530571
     },
-    "fable-5": {
-     "in": 3996,
-     "out": 346492,
-     "cw": 8958092,
-     "cr": 174475949,
-     "total": 183784529
+    "opus-4-6": {
+     "in": 59,
+     "out": 54341,
+     "cw": 217503,
+     "cr": 3925902,
+     "total": 4197805
     },
     "<synthetic>": {
      "in": 0,
@@ -1221,12 +1225,12 @@
      "cr": 0,
      "total": 0
     },
-    "opus-4-6": {
-     "in": 20,
-     "out": 1356,
-     "cw": 90391,
-     "cr": 271382,
-     "total": 363149
+    "fable-5": {
+     "in": 3996,
+     "out": 346492,
+     "cw": 8958092,
+     "cr": 174475949,
+     "total": 183784529
     },
     "glm-5.2": {
      "in": 382255,
@@ -1237,60 +1241,180 @@
     }
    }
   },
+  "2026-07-18": {
+   "total": 324022030,
+   "models": {
+    "opus-4-8": {
+     "in": 112717,
+     "out": 1344541,
+     "cw": 8100355,
+     "cr": 286935643,
+     "total": 296493256
+    },
+    "haiku-4-5-20251001": {
+     "in": 208,
+     "out": 6667,
+     "cw": 168548,
+     "cr": 942827,
+     "total": 1118250
+    },
+    "sonnet-5": {
+     "in": 192837,
+     "out": 5209,
+     "cw": 201460,
+     "cr": 309931,
+     "total": 709437
+    },
+    "fable-5": {
+     "in": 602,
+     "out": 34074,
+     "cw": 2399285,
+     "cr": 23267126,
+     "total": 25701087
+    },
+    "<synthetic>": {
+     "in": 0,
+     "out": 0,
+     "cw": 0,
+     "cr": 0,
+     "total": 0
+    }
+   }
+  },
+  "2026-07-19": {
+   "total": 248288583,
+   "models": {
+    "opus-4-8": {
+     "in": 63269,
+     "out": 460693,
+     "cw": 5158977,
+     "cr": 130504511,
+     "total": 136187450
+    },
+    "fable-5": {
+     "in": 15476,
+     "out": 281567,
+     "cw": 3858424,
+     "cr": 100469642,
+     "total": 104625109
+    },
+    "sonnet-5": {
+     "in": 6377,
+     "out": 10506,
+     "cw": 194422,
+     "cr": 7065757,
+     "total": 7277062
+    },
+    "haiku-4-5-20251001": {
+     "in": 60,
+     "out": 1224,
+     "cw": 81934,
+     "cr": 115744,
+     "total": 198962
+    }
+   }
+  },
+  "2026-07-20": {
+   "total": 265202121,
+   "models": {
+    "opus-4-8": {
+     "in": 145770,
+     "out": 486942,
+     "cw": 3409689,
+     "cr": 75329013,
+     "total": 79371414
+    },
+    "haiku-4-5-20251001": {
+     "in": 20,
+     "out": 180,
+     "cw": 27756,
+     "cr": 34114,
+     "total": 62070
+    },
+    "fable-5": {
+     "in": 9373,
+     "out": 505080,
+     "cw": 7571923,
+     "cr": 174380458,
+     "total": 182466834
+    },
+    "<synthetic>": {
+     "in": 0,
+     "out": 0,
+     "cw": 0,
+     "cr": 0,
+     "total": 0
+    },
+    "sonnet-5": {
+     "in": 462,
+     "out": 2170,
+     "cw": 171372,
+     "cr": 1629724,
+     "total": 1803728
+    },
+    "opus-4-6": {
+     "in": 1329,
+     "out": 11931,
+     "cw": 48426,
+     "cr": 1436389,
+     "total": 1498075
+    }
+   }
+  },
   "2026-05-13": {
-   "total": 16852782,
+   "total": 14459110,
    "estimated": true
   },
   "2026-05-14": {
-   "total": 110450539,
+   "total": 113448404,
    "estimated": true
   },
   "2026-05-15": {
-   "total": 7346084,
+   "total": 6302689,
    "estimated": true
   },
   "2026-05-16": {
-   "total": 110450539,
+   "total": 113448404,
    "estimated": true
   },
   "2026-05-17": {
-   "total": 6049717,
+   "total": 5190450,
    "estimated": true
   },
   "2026-05-18": {
-   "total": 18149150,
+   "total": 15571350,
    "estimated": true
   },
   "2026-05-19": {
-   "total": 4321226,
+   "total": 3707464,
    "estimated": true
   },
   "2026-05-20": {
-   "total": 34137686,
+   "total": 29288967,
    "estimated": true
   },
   "2026-05-21": {
-   "total": 45804997,
+   "total": 39299120,
    "estimated": true
   },
   "2026-05-22": {
-   "total": 28087970,
+   "total": 24098517,
    "estimated": true
   },
   "2026-05-23": {
-   "total": 2592736,
+   "total": 2224479,
    "estimated": true
   },
   "2026-05-26": {
-   "total": 1296368,
+   "total": 1112239,
    "estimated": true
   }
  },
  "sources": {
   "claude_code": {
    "label": "Claude Code",
-   "tokens": 11331773282,
-   "compact": "11B"
+   "tokens": 12188988997,
+   "compact": "12B"
   },
   "zcode": {
    "label": "ZCode",
@@ -1374,9 +1498,9 @@
   },
   "hermes": {
    "label": "Hermes",
-   "tokens": 195089907,
-   "compact": "195M",
-   "days": 7,
+   "tokens": 200284198,
+   "compact": "200M",
+   "days": 10,
    "series": {
     "2026-07-10": {
      "total": 24839889,
@@ -1409,11 +1533,11 @@
      }
     },
     "2026-07-13": {
-     "total": 15758908,
-     "out": 84355,
-     "cr": 14708544,
+     "total": 17349388,
+     "out": 85707,
+     "cr": 15845120,
      "models": {
-      "glm-5-2-260617": 15758908
+      "glm-5-2-260617": 17349388
      }
     },
     "2026-07-15": {
@@ -1440,66 +1564,122 @@
       "glm-5-2-260617": 3200533,
       "k3": 3916133
      }
+    },
+    "2026-07-18": {
+     "total": 474116,
+     "out": 18191,
+     "cr": 395904,
+     "models": {
+      "glm-5-2-260617": 474116
+     }
+    },
+    "2026-07-19": {
+     "total": 3044691,
+     "out": 28128,
+     "cr": 2872256,
+     "models": {
+      "glm-5-2-260617": 3044691
+     }
+    },
+    "2026-07-20": {
+     "total": 85004,
+     "out": 4111,
+     "cr": 65216,
+     "models": {
+      "glm-5-2-260617": 85004
+     }
     }
    }
   },
   "kimi_code": {
    "label": "Kimi Code",
-   "tokens": 44535737,
-   "compact": "45M",
-   "days": 1,
+   "tokens": 178247436,
+   "compact": "178M",
+   "days": 4,
    "series": {
     "2026-07-17": {
-     "total": 44535737,
-     "out": 261208,
-     "cr": 43339678,
+     "total": 48387692,
+     "out": 271103,
+     "cr": 47025387,
      "models": {
-      "kimi-code/k3": 36727497,
+      "kimi-code/k3": 40579452,
       "kimi-code/kimi-for-coding": 7808240
+     }
+    },
+    "2026-07-18": {
+     "total": 29417149,
+     "out": 311272,
+     "cr": 27757437,
+     "models": {
+      "kimi-code/k3": 29417149
+     }
+    },
+    "2026-07-19": {
+     "total": 98291688,
+     "out": 508475,
+     "cr": 94026412,
+     "models": {
+      "kimi-code/k3": 98291688
+     }
+    },
+    "2026-07-20": {
+     "total": 2150907,
+     "out": 17113,
+     "cr": 1879040,
+     "models": {
+      "kimi-code/k3": 2150907
      }
     }
    }
   },
   "openclaw": {
    "label": "OpenClaw",
-   "tokens": 3327634,
-   "compact": "3.3M",
-   "days": 1,
+   "tokens": 1588673,
+   "compact": "1.6M",
+   "days": 2,
    "series": {
     "2026-07-17": {
-     "total": 3327634,
-     "out": 16287,
-     "cr": 3128054,
+     "total": 705869,
+     "out": 2114,
+     "cr": 628096,
      "models": {
-      "k2p6": 3327634
+      "k2p6": 705869
+     }
+    },
+    "2026-07-18": {
+     "total": 882804,
+     "out": 1513,
+     "cr": 816151,
+     "models": {
+      "k2p6": 882804
      }
     }
    }
   },
   "web": {
    "label": "claude.ai 网页",
-   "tokens": 116178571,
-   "compact": "116M",
+   "tokens": 117124286,
+   "compact": "117M",
    "estimated": true
   }
  },
  "method": {
   "version": 4,
   "real_window": "2026-05-27 起（Claude Code 本地日志，按消息去重，含输入/输出/缓存读写全口径）",
-  "real_days": 47,
+  "real_days": 50,
   "estimated_days": 12,
   "estimated_share": "3%",
   "harness_split": {
-   "claude_code": "11B",
+   "claude_code": "12B",
    "zcode": "146M",
-   "hermes": "195M",
-   "kimi_code": "45M",
-   "openclaw": "3.3M",
-   "web": "116M",
+   "hermes": "200M",
+   "kimi_code": "178M",
+   "openclaw": "1.6M",
+   "web": "117M",
    "note": "Token 用量按 harness 分源汇总；两处去重：① Hermes 排除经 claude-proxy(localhost) 的会话（那些 claude -p 已计入 Claude Code）；② Kimi Code 只读 usage.record（同一次调用另有 step.end 记录，两者数值相同，都读会翻倍）。Kimi 订阅被 Kimi Code / OpenClaw / Hermes(调 api.kimi.com) 三个 harness 消耗，按 harness 分列；其订阅总消耗可从模型条的 Kimi 家族看。全口径含缓存读写。"
   },
   "web_estimate": {
-   "total": "116M",
+   "total": "117M",
    "since": "2025-07-01",
    "basis": "无日志依据的参数化粗估（日均对话数 × 单对话均量 + 长文共创），参数见 docs/token-estimation.md",
    "breakdown": [
@@ -1511,9 +1691,9 @@
     },
     {
      "from": "2026-01-01",
-     "to": "2026-07-17",
-     "days": 199,
-     "tokens": 94098571
+     "to": "2026-07-20",
+     "days": 201,
+     "tokens": 95044286
     }
    ]
   },
