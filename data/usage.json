@@ -1,24 +1,24 @@
 {
- "generated_at": "2026-07-19T13:30:13.170Z",
- "today": 334353384,
- "today_out": 1223787,
- "today_cache_share": 96,
- "week": "4.6B",
+ "generated_at": "2026-07-20T08:58:54.456Z",
+ "today": 267438032,
+ "today_out": 1027527,
+ "today_cache_share": 95,
+ "week": "4.9B",
  "cumulative": "13B",
  "cumulative_code": "12B",
  "cumulative_zcode": "146M",
  "cumulative_hermes": "200M",
- "cumulative_kimi_code": "175M",
+ "cumulative_kimi_code": "178M",
  "cumulative_openclaw": "1.6M",
  "cumulative_web": "117M",
  "models": [
   [
    "Opus",
-   75
+   74
   ],
   [
    "Fable",
-   17
+   18
   ],
   [
    "GLM",
@@ -38,10 +38,6 @@
   ]
  ],
  "days7": [
-  {
-   "d": "周一",
-   "v": 21.26
-  },
   {
    "d": "周二",
    "v": 349.46
@@ -63,8 +59,12 @@
    "v": 354.8
   },
   {
+   "d": "周日",
+   "v": 349.62
+  },
+  {
    "d": "今天",
-   "v": 334.35
+   "v": 267.44
   }
  ],
  "series": {
@@ -1282,21 +1282,21 @@
    }
   },
   "2026-07-19": {
-   "total": 233729440,
+   "total": 248288583,
    "models": {
     "opus-4-8": {
-     "in": 63225,
-     "out": 459944,
-     "cw": 4800930,
-     "cr": 129098724,
-     "total": 134422823
+     "in": 63269,
+     "out": 460693,
+     "cw": 5158977,
+     "cr": 130504511,
+     "total": 136187450
     },
     "fable-5": {
-     "in": 6202,
-     "out": 217490,
-     "cw": 2841903,
-     "cr": 88764998,
-     "total": 91830593
+     "in": 15476,
+     "out": 281567,
+     "cw": 3858424,
+     "cr": 100469642,
+     "total": 104625109
     },
     "sonnet-5": {
      "in": 6377,
@@ -1314,59 +1314,106 @@
     }
    }
   },
+  "2026-07-20": {
+   "total": 265202121,
+   "models": {
+    "opus-4-8": {
+     "in": 145770,
+     "out": 486942,
+     "cw": 3409689,
+     "cr": 75329013,
+     "total": 79371414
+    },
+    "haiku-4-5-20251001": {
+     "in": 20,
+     "out": 180,
+     "cw": 27756,
+     "cr": 34114,
+     "total": 62070
+    },
+    "fable-5": {
+     "in": 9373,
+     "out": 505080,
+     "cw": 7571923,
+     "cr": 174380458,
+     "total": 182466834
+    },
+    "<synthetic>": {
+     "in": 0,
+     "out": 0,
+     "cw": 0,
+     "cr": 0,
+     "total": 0
+    },
+    "sonnet-5": {
+     "in": 462,
+     "out": 2170,
+     "cw": 171372,
+     "cr": 1629724,
+     "total": 1803728
+    },
+    "opus-4-6": {
+     "in": 1329,
+     "out": 11931,
+     "cw": 48426,
+     "cr": 1436389,
+     "total": 1498075
+    }
+   }
+  },
   "2026-05-13": {
-   "total": 15662730,
+   "total": 14459110,
    "estimated": true
   },
   "2026-05-14": {
-   "total": 111422255,
+   "total": 113448404,
    "estimated": true
   },
   "2026-05-15": {
-   "total": 6827344,
+   "total": 6302689,
    "estimated": true
   },
   "2026-05-16": {
-   "total": 111422255,
+   "total": 113448404,
    "estimated": true
   },
   "2026-05-17": {
-   "total": 5622519,
+   "total": 5190450,
    "estimated": true
   },
   "2026-05-18": {
-   "total": 16867556,
+   "total": 15571350,
    "estimated": true
   },
   "2026-05-19": {
-   "total": 4016085,
+   "total": 3707464,
    "estimated": true
   },
   "2026-05-20": {
-   "total": 31727069,
+   "total": 29288967,
    "estimated": true
   },
   "2026-05-21": {
-   "total": 42570498,
+   "total": 39299120,
    "estimated": true
   },
   "2026-05-22": {
-   "total": 26104551,
+   "total": 24098517,
    "estimated": true
   },
   "2026-05-23": {
-   "total": 2409651,
+   "total": 2224479,
    "estimated": true
   },
   "2026-05-26": {
-   "total": 1204825,
+   "total": 1112239,
    "estimated": true
   }
  },
  "sources": {
   "claude_code": {
    "label": "Claude Code",
-   "tokens": 11916933878,
+   "tokens": 12188988997,
    "compact": "12B"
   },
   "zcode": {
@@ -1451,9 +1498,9 @@
   },
   "hermes": {
    "label": "Hermes",
-   "tokens": 200199194,
+   "tokens": 200284198,
    "compact": "200M",
-   "days": 9,
+   "days": 10,
    "series": {
     "2026-07-10": {
      "total": 24839889,
@@ -1533,14 +1580,22 @@
      "models": {
       "glm-5-2-260617": 3044691
      }
+    },
+    "2026-07-20": {
+     "total": 85004,
+     "out": 4111,
+     "cr": 65216,
+     "models": {
+      "glm-5-2-260617": 85004
+     }
     }
    }
   },
   "kimi_code": {
    "label": "Kimi Code",
-   "tokens": 175384094,
-   "compact": "175M",
-   "days": 3,
+   "tokens": 178247436,
+   "compact": "178M",
+   "days": 4,
    "series": {
     "2026-07-17": {
      "total": 48387692,
@@ -1560,11 +1615,19 @@
      }
     },
     "2026-07-19": {
-     "total": 97579253,
-     "out": 506495,
-     "cr": 93448876,
+     "total": 98291688,
+     "out": 508475,
+     "cr": 94026412,
      "models": {
-      "kimi-code/k3": 97579253
+      "kimi-code/k3": 98291688
+     }
+    },
+    "2026-07-20": {
+     "total": 2150907,
+     "out": 17113,
+     "cr": 1879040,
+     "models": {
+      "kimi-code/k3": 2150907
      }
     }
    }
@@ -1603,14 +1666,14 @@
  "method": {
   "version": 4,
   "real_window": "2026-05-27 起（Claude Code 本地日志，按消息去重，含输入/输出/缓存读写全口径）",
-  "real_days": 49,
+  "real_days": 50,
   "estimated_days": 12,
   "estimated_share": "3%",
   "harness_split": {
    "claude_code": "12B",
    "zcode": "146M",
    "hermes": "200M",
-   "kimi_code": "175M",
+   "kimi_code": "178M",
    "openclaw": "1.6M",
    "web": "117M",
    "note": "Token 用量按 harness 分源汇总；两处去重：① Hermes 排除经 claude-proxy(localhost) 的会话（那些 claude -p 已计入 Claude Code）；② Kimi Code 只读 usage.record（同一次调用另有 step.end 记录，两者数值相同，都读会翻倍）。Kimi 订阅被 Kimi Code / OpenClaw / Hermes(调 api.kimi.com) 三个 harness 消耗，按 harness 分列；其订阅总消耗可从模型条的 Kimi 家族看。全口径含缓存读写。"
@@ -1628,7 +1691,7 @@
     },
     {
      "from": "2026-01-01",
-     "to": "2026-07-19",
+     "to": "2026-07-20",
      "days": 201,
      "tokens": 95044286
     }
