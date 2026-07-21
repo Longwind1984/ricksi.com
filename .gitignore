@@ -16,3 +16,4 @@ scripts/.frontier-refs/
 data/title-review.json
 
 .claude/
+.worktrees/
