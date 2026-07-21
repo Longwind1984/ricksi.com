@@ -37,7 +37,7 @@ const models: [string, number][] = u.models ?? [];
    按家族名取色（顺序无关，跨渲染稳定）。青/紫刻意避开人机光谱的 --prov-co(175)/--prov-ai(295) 语义值。 */
 const SEG: Record<string, string> = {
   Opus: '--mseg-0', Sonnet: '--mseg-1', Haiku: '--mseg-2', Fable: '--mseg-3',
-  GLM: '--mseg-glm', DeepSeek: '--mseg-ds', Kimi: '--mseg-kimi',
+  Codex: '--mseg-codex', GLM: '--mseg-glm', DeepSeek: '--mseg-ds', Kimi: '--mseg-kimi',
 };
 const segVar = (m: string) => SEG[m] ?? '--mseg-other';
 ---
@@ -142,11 +142,12 @@ const segVar = (m: string) => SEG[m] ?? '--mseg-other';
 
       <!-- 口径最小化入口 -->
       <details class="wb-method">
-        <summary class="mono"><span class="wb-method-dot" aria-hidden="true"></span>口径 v4 · 数据怎么来的</summary>
+        <summary class="mono"><span class="wb-method-dot" aria-hidden="true"></span>口径 v5 · 数据怎么来的</summary>
         <div class="wb-method-body">
           <p>
             Token：全 harness 合计 <b>{u.cumulative}</b> ——
             Claude Code {u.cumulative_code}{methodReal ? `（实测 ${methodReal} 天` : ''}{methodEst ? ` + 起用期估算 ${methodEst} 天）` : methodReal ? '）' : ''}
+            {u.cumulative_codex && (<> · Codex {u.cumulative_codex}</>)}
             {u.cumulative_zcode && (<> · ZCode {u.cumulative_zcode}</>)}
             {u.cumulative_hermes && (<> · Hermes {u.cumulative_hermes}</>)}
             {u.cumulative_kimi_code && (<> · Kimi Code {u.cumulative_kimi_code}</>)}

@@ -33,7 +33,7 @@ function bj(d = new Date()) {
 }
 
 /**
- * @param {{outcome:string, head?:string, fileCount?:number, durSec?:number, error?:string}} info
+ * @param {{outcome:string, head?:string, fileCount?:number, durSec?:number, error?:string, warnings?:Array<{name:string,message:string}>}} info
  * outcome 形如 '✓ 推送' / '⊙ 无变化' / '✗ 失败'
  */
 export function writeVaultJournal(info) {
@@ -52,6 +52,9 @@ export function writeVaultJournal(info) {
       L.push('- 结果：数据无变化，未提交');
     } else {
       L.push(`- 结果：${info.fileCount != null ? info.fileCount + ' 文件改动' : '已提交'}${info.durSec != null ? `，耗时 ${info.durSec}s` : ''}`);
+    }
+    for (const warning of info.warnings || []) {
+      L.push(`- 可恢复失败：${warning.name} — ${String(warning.message).replace(/\s+/g, ' ').slice(0, 180)}（沿用上次数据）`);
     }
 
     // Token 用量
@@ -75,7 +78,12 @@ export function writeVaultJournal(info) {
 
     // 活动 / 图谱 / 阅读
     const a = readJson('activity.json');
-    if (a && a.sources) L.push(`- 活动：git ${a.sources.git?.commits ?? '?'} 提交 / ${a.sources.git?.repos ?? '?'} 仓 · 笔记 ${a.sources.notes?.total ?? '?'} · AI 文件 ${a.sources.ai?.files ?? '?'}`);
+    if (a && a.sources) {
+      const split = a.sources.ai?.claude || a.sources.ai?.codex
+        ? `（Claude ${a.sources.ai?.claude?.files ?? 0} / Codex ${a.sources.ai?.codex?.files ?? 0}）`
+        : '';
+      L.push(`- 活动：git ${a.sources.git?.commits ?? '?'} 提交 / ${a.sources.git?.repos ?? '?'} 仓 · 笔记 ${a.sources.notes?.total ?? '?'} · AI 文件 ${a.sources.ai?.files ?? '?'}${split}`);
+    }
     const g = readJson('graph.json');
     if (g && g.stats) L.push(`- 图谱：${g.stats.notes ?? '?'} 篇 / ${g.stats.links ?? '?'} 双链`);
     const r = readJson('reading.json');

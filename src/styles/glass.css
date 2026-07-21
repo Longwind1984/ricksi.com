@@ -362,9 +362,9 @@ html.wb-open .wb-glance { visibility: hidden; }
 .wb-close:focus-visible { outline: 2px solid rgba(255,255,255,0.7); outline-offset: 2px; }
 
 .wb-board { --mseg-0: oklch(0.50 0.17 263); --mseg-1: oklch(0.63 0.18 263); --mseg-2: oklch(0.74 0.13 255); --mseg-3: oklch(0.83 0.09 250);
-  /* 口径 v4 多源：Claude 本家走上面钴蓝阶梯；GLM/DeepSeek/Kimi 各自独立厂商色（等明度、克制），其他归灰。
+  /* 口径 v5 多源：Claude 本家走上面钴蓝阶梯；Codex/GLM/DeepSeek/Kimi 各自独立厂商色，其他归灰。
      色相刻意互相拉开、且避开人机光谱语义值 --prov-co(175)/--prov-ai(295) 与太阳金(86) */
-  --mseg-glm: oklch(0.74 0.12 174); --mseg-ds: oklch(0.72 0.13 312);
+  --mseg-codex: oklch(0.76 0.11 205); --mseg-glm: oklch(0.74 0.12 174); --mseg-ds: oklch(0.72 0.13 312);
   --mseg-kimi: oklch(0.72 0.13 350); --mseg-other: oklch(0.68 0.03 260); }
 .wb-board-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
 .wb-tile {

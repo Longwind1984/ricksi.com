@@ -4,10 +4,10 @@
   每日自动同步数据到仓库（本地数据源只在这台 Mac 上，所以用 launchd 而非云端 cron）
   安装：
     cp scripts/com.ricksi.workbench-sync.plist ~/Library/LaunchAgents/
-    launchctl load ~/Library/LaunchAgents/com.ricksi.workbench-sync.plist
+    launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.ricksi.workbench-sync.plist
   卸载：
-    launchctl unload ~/Library/LaunchAgents/com.ricksi.workbench-sync.plist
-  注意：WorkingDirectory 如果移动了仓库位置需要同步修改。
+    launchctl bootout gui/$(id -u)/com.ricksi.workbench-sync
+  注意：WorkingDirectory 固定指向 main 专用生产 worktree，不能改回日常开发 checkout。
 -->
 <plist version="1.0">
 <dict>
@@ -20,11 +20,11 @@
     <string>sync</string>
   </array>
   <key>WorkingDirectory</key>
-  <string>/Users/rick/Claude_Code/Rick's Personal/rick-homepage</string>
+  <string>/Users/rick/Claude_Code/Rick's Personal/rick-homepage-sync</string>
   <key>EnvironmentVariables</key>
   <dict>
     <!-- launchd 环境没有交互 shell 的 PATH 与代理 alias：
-         PATH 让 npm/node/git/claude 可寻址；代理变量供 collect-frontier 抓外网与 claude CLI 使用 -->
+         PATH 让 npm/node/git/gh 可寻址；Codex 使用配置中的 App 内绝对路径；代理供抓取与 GitHub 使用 -->
     <key>PATH</key>
     <string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
     <key>HTTPS_PROXY</key>

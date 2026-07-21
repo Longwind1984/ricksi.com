@@ -77,8 +77,8 @@ const usageStamp = usage ? stamp(usage.generated_at) : null;
 const compact = (n: number) =>
   n >= 1e9 ? (n / 1e9).toFixed(1) + 'B' : n >= 1e6 ? (n / 1e6).toFixed(1) + 'M' : n >= 1e3 ? Math.round(n / 1e3) + 'K' : String(n);
 
-/* 近 14 日趋势：全源逐日合计（Claude Code + ZCode + Hermes；实测/估算标记取自 Claude series，
-   ZCode/Hermes 近日均为实测，不影响该标记） */
+/* 近 14 日趋势：全源逐日合计（Claude Code + Codex + 其他 harness；实测/估算标记取自 Claude series，
+   其他分源近日均为实测，不影响该标记） */
 function days14From(u: { series?: Record<string, { total?: number; estimated?: boolean }>; sources?: any }) {
   const series = u.series || {};
   /* 除 Claude Code（逐日在顶层 series）外的全部分源：凡带 series 的都算——

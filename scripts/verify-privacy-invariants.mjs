@@ -3,7 +3,7 @@
 // 退出码 0 = 全过；非 0 = 有不变量被破坏（逐条打印 ✓/✗）。
 //
 // 校验项（对照用户 2026-06-15 签字的保守发布约束）：
-//   ① full 节点仍 598 且都带 slug
+//   ① full 节点数与 graph.stats / content/kb 动态一致，且都带 slug
 //   ② stub 节点无一带 slug，字段集 ⊆ {id,title,cluster,deg,tier,links}
 //   ③ 全部 stub 标题跑政治正则命中 = 0（备案红线）
 //   ④ content/kb 的 .md 文件数 = full 节点数（stub 不写盘，仍仅 full）
@@ -28,9 +28,10 @@ const nodes = graph.nodes || [];
 const fullNodes = nodes.filter((n) => n.tier === 'full');
 const stubNodes = nodes.filter((n) => n.tier === 'stub');
 
-/* ① full = 598 且都带 slug */
+/* ① 不锁死内容快照：条目增长是正常的，校验生成器声明与实际产物动态一致 */
 const fullNoSlug = fullNodes.filter((n) => !n.slug);
-check(fullNodes.length === 598, '① full 节点 = 598', `实际 ${fullNodes.length}`);
+check(fullNodes.length > 0, '① full 节点非空', `实际 ${fullNodes.length}`);
+check(graph.stats?.notes === fullNodes.length, '① graph.stats.notes = full 节点数', `stats ${graph.stats?.notes ?? '缺失'} vs full ${fullNodes.length}`);
 check(fullNoSlug.length === 0, '① full 节点都带 slug', `缺 slug ${fullNoSlug.length} 个`);
 
 /* ② stub 无 slug，字段集 ⊆ {id,title,cluster,deg,tier,links} */

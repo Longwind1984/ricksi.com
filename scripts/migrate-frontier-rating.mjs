@@ -1,18 +1,18 @@
 // 一次性迁移：给 frontier.json 存量条目补「星图」三维评级
-// 旧 importance 时代抓的条目只有单一分数；本脚本调 claude 仅评级（基于已梳理好的
+// 旧 importance 时代抓的条目只有单一分数；本脚本调 Codex 仅评级（基于已梳理好的
 // titleZh+verdict+summaryZh，不改任何内容），补 apparent/absolute/gravity/periodic/singularity。
 // 口径与新采集（collect-frontier）统一（评级措辞逐字对齐）。已有 absolute 的条目自动跳过。幂等，可重跑。
-// 仅本地一次性运行（依赖本机 claude + 代理）；不用于云端 Routine——云端只跑 collect-frontier --remote。
+// 仅本地一次性运行（依赖本机 Codex + 代理）。
 import { spawnSync } from 'node:child_process';
-import os from 'node:os';
 import path from 'node:path';
 import { CONFIG } from './config.mjs';
 import { readJson, writeJson } from './lib/util.mjs';
+import { runCodexStructured } from './lib/codex-runner.mjs';
 
 const F = CONFIG.frontier;
 const OUT = path.join(CONFIG.dataDir, 'frontier.json');
 
-/* 代理自重执行（Node fetch/claude 都需要） */
+/* 代理自重执行（Codex 也继承这些环境变量） */
 if (F.proxy && process.env.NODE_USE_ENV_PROXY !== '1') {
   const r = spawnSync(process.execPath, [process.argv[1], ...process.argv.slice(2)], {
     stdio: 'inherit',
@@ -48,16 +48,7 @@ function rate(e) {
 摘要：${e.summaryZh}`;
   const env = { ...process.env };
   if (F.proxy) Object.assign(env, { HTTPS_PROXY: F.proxy, HTTP_PROXY: F.proxy, https_proxy: F.proxy, http_proxy: F.proxy });
-  const r = spawnSync(
-    F.claude.bin,
-    ['-p', '--output-format', 'json', '--json-schema', JSON.stringify(SCHEMA),
-     '--no-session-persistence', '--model', F.claude.model,
-     '--disallowedTools', 'Bash', 'Edit', 'Write', 'WebFetch', 'WebSearch', 'Task', 'NotebookEdit'],
-    { input: prompt, encoding: 'utf8', timeout: F.claude.timeoutMs, killSignal: 'SIGKILL', maxBuffer: 16 * 1024 * 1024, cwd: os.homedir(), env }
-  );
-  if (r.status !== 0) throw new Error((r.stderr || r.stdout || '').slice(0, 200));
-  const env2 = JSON.parse(r.stdout);
-  return env2.structured_output ?? env2.structuredOutput ?? JSON.parse(env2.result.match(/\{[\s\S]*\}/)[0]);
+  return runCodexStructured(prompt, SCHEMA, F.codex, { env });
 }
 
 const FORCE = process.argv.includes('--force'); // 重评所有条目（prompt 调整后覆盖旧评级）

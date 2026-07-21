@@ -111,6 +111,9 @@ export const CONFIG = {
   /* Claude Code 本地会话日志 */
   claudeProjects: path.join(HOME, '.claude', 'projects'),
 
+  /* Codex 本地 rollout 日志（event_msg/token_count 为文件内累计值，采集器按增量计数） */
+  codexSessions: path.join(HOME, '.codex', 'sessions'),
+
   /* 其他 Agent harness 的本地用量库（口径 v3：Token 用量按 harness 分源汇总）。
      缺库（如 CI、未装该工具）自动跳过——已提交的 usage.json 里的历史分源数据照用。
      去重：Hermes 经 claude-proxy(localhost) 跑的 `claude -p` 已落 Claude JSONL、计入 Claude Code，
@@ -142,7 +145,7 @@ export const CONFIG = {
   heatmapWeeks: 22,
 
   /* ── 前沿追踪 ──────────────────────────────────────────────
-     每日抓取选定 AI 学者/信息源的公开动态 → claude 无头梳理 → data/frontier.json
+     每日抓取选定 AI 学者/信息源的公开动态 → Codex 无头梳理 → data/frontier.json
      源 URL 验证于 2026-06-12（全部 200）；X 走镜像池，失效即从 xMirrors 删并补新实例 */
   frontier: {
     /* 本地代理（nitter/arXiv/官方博客直连大概率不通）；null = 直连 */
@@ -162,10 +165,10 @@ export const CONFIG = {
     rollingDays: 90,      // frontier.json 只留最近 90 天，更早滚入 data/frontier/archive-YYYY-MM.json
     seenTtlDays: 180,     // 去重账本条目过期天数
 
-    /* claude CLI 无头调用（用现有订阅，不走 API key；LaunchAgent 下无 alias 必须绝对路径） */
-    claude: {
-      bin: '/opt/homebrew/bin/claude',
-      model: 'sonnet',
+    /* Codex CLI 无头调用（用现有登录，不走 API key；--ephemeral 不污染 usage/activity） */
+    codex: {
+      bin: '/Applications/ChatGPT.app/Contents/Resources/codex',
+      model: 'gpt-5.6-terra',
       timeoutMs: 120000,
       retries: 1,
     },

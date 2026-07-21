@@ -57,4 +57,4 @@
 
 - **顶档稀缺**：奇点 / 超新星 / 黑洞 命中须在 `rationale` 给理由；prompt 里 `gravity`/`singularity` 措辞极严（任何公开可读的内容一律 `gravity=false`；奇点仅限重定义时代的分水岭）——曾因措辞太松导致黑洞通胀，已收紧。
 - **向下取整**：`absolute` 拿不准取低；在「炒作」与「实质」间犹豫，按实质打 `absolute`、把热度交给 `apparent`。
-- **存量迁移**：`scripts/migrate-frontier-rating.mjs` 调 claude 仅评级补存量三维分（不碰已发布内容），口径与新采集统一。
+- **存量迁移**：`scripts/migrate-frontier-rating.mjs` 调 ephemeral Codex 仅评级补存量三维分（不碰已发布内容），口径与新采集统一。

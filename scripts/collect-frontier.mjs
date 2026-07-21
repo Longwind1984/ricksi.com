@@ -1,15 +1,15 @@
-// 前沿追踪采集 —— 学者/信息源公开动态 → claude 无头梳理 → data/frontier.json
-// 流程：抓取(rss/arxiv/x/youtube) → lookback+去重+预过滤 → claude -p 逐条加工 → 滚动 90 天落盘
-// 凭证：无（claude CLI 走本机订阅授权；--no-session-persistence 防止污染 usage/activity 统计）
+// 前沿追踪采集 —— 学者/信息源公开动态 → Codex 无头梳理 → data/frontier.json
+// 流程：抓取(rss/arxiv/x/youtube) → lookback+去重+预过滤 → codex exec 逐条加工 → 滚动 90 天落盘
+// 凭证：无（Codex CLI 走本机登录；--ephemeral 防止污染 usage/activity 统计）
 // 单源/单条失败不阻塞整体；X 镜像全败 = 该源本次缺失，计入 stats.lastRun.skippedSources
 import { spawnSync } from 'node:child_process';
 import crypto from 'node:crypto';
 import fs from 'node:fs';
-import os from 'node:os';
 import path from 'node:path';
 import { CONFIG } from './config.mjs';
 import { readJson, writeJson, dayKey } from './lib/util.mjs';
 import { resolveProxy } from './lib/proxy.mjs';
+import { runCodexStructured } from './lib/codex-runner.mjs';
 
 const F = CONFIG.frontier;
 const OUT = path.join(CONFIG.dataDir, 'frontier.json');
@@ -17,8 +17,8 @@ const SEEN = path.join(CONFIG.dataDir, 'frontier-seen.json');
 const ARCHIVE_DIR = path.join(CONFIG.dataDir, 'frontier');
 const UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36';
 
-/* 云端 Routine 兜底模式（--remote / FRONTIER_REMOTE=1）：直连不走代理、跳过被墙的 X 源、claude 走 PATH。
-   详见 docs/frontier-routine.md。本地 LaunchAgent 不传此标志，走完整管线（含 X 镜像 + 本机代理）。 */
+/* 云端兼容模式（--remote / FRONTIER_REMOTE=1）：直连不走代理、跳过被墙的 X 源、codex 走 PATH。
+   正式生产由本地 LaunchAgent 运行完整管线（含 X 镜像 + 本机代理）。 */
 const REMOTE = process.argv.includes('--remote') || process.env.FRONTIER_REMOTE === '1';
 
 /* ── 代理：Node 的内置 fetch 不读 http_proxy，需 NODE_USE_ENV_PROXY=1；配了代理且未生效时注入 env 自我重执行。
@@ -196,7 +196,7 @@ async function enhanceText(item) {
   item.text = item.text.slice(0, F.fullText.maxChars);
 }
 
-/* ════ claude 无头加工 ════ */
+/* ════ Codex 无头加工 ════ */
 
 const OUTPUT_SCHEMA = {
   type: 'object',
@@ -253,53 +253,20 @@ function buildPrompt(item) {
 ${item.text || '（仅有标题）'}`;
 }
 
-function runClaude(prompt) {
+function runCodex(prompt) {
   const env = { ...process.env };
   if (PROXY) Object.assign(env, { HTTPS_PROXY: PROXY, HTTP_PROXY: PROXY, https_proxy: PROXY, http_proxy: PROXY });
-  const r = spawnSync(
-    REMOTE ? 'claude' : F.claude.bin,
-    ['-p', '--output-format', 'json', '--json-schema', JSON.stringify(OUTPUT_SCHEMA),
-     '--no-session-persistence', '--model', F.claude.model,
-     '--disallowedTools', 'Bash', 'Edit', 'Write', 'WebFetch', 'WebSearch', 'Task', 'NotebookEdit'],
-    {
-      input: prompt, encoding: 'utf8',
-      timeout: F.claude.timeoutMs, killSignal: 'SIGKILL',
-      maxBuffer: 16 * 1024 * 1024,
-      cwd: os.homedir(), // 避开本仓库，防止自动加载项目 CLAUDE.md
-      env,
-    }
-  );
-  if (r.error) throw r.error;
-  if (r.status !== 0) {
-    const msg = (r.stderr || r.stdout || '').slice(0, 500);
-    const limited = /limit|rate|quota|usage/i.test(msg);
-    const err = new Error(`claude 退出码 ${r.status}: ${msg}`);
-    err.rateLimited = limited;
-    throw err;
-  }
-  let envelope;
-  try {
-    envelope = JSON.parse(r.stdout);
-  } catch {
-    throw new Error(`claude stdout 不是合法 JSON（前 200 字符）：${r.stdout.slice(0, 200)}`);
-  }
-  // --output-format json 的包络：结构化结果优先取 structured_output，回退解析 result 文本
-  const out = envelope.structured_output ?? envelope.structuredOutput ?? null;
-  if (out) return out;
-  if (typeof envelope.result === 'string') {
-    const m = envelope.result.match(/\{[\s\S]*\}/);
-    if (m) {
-      try { return JSON.parse(m[0]); } catch { /* 落到下面的统一报错 */ }
-    }
-  }
-  throw new Error('claude 输出中未找到结构化结果');
+  return runCodexStructured(prompt, OUTPUT_SCHEMA, {
+    ...F.codex,
+    bin: REMOTE ? 'codex' : F.codex.bin,
+  }, { env });
 }
 
 function enrichEntry(item) {
   let lastErr;
-  for (let i = 0; i <= F.claude.retries; i++) {
+  for (let i = 0; i <= F.codex.retries; i++) {
     try {
-      return runClaude(buildPrompt(item));
+      return runCodex(buildPrompt(item));
     } catch (e) {
       lastErr = e;
       if (e.rateLimited) throw e; // 限流不重试，直接上抛中止队列
@@ -351,7 +318,7 @@ const jobs = [];
 const srcOk = (s) => !REMOTE || s.type !== 'x'; // REMOTE：X 镜像被墙，云端跳过（详见 docs/frontier-routine.md）
 for (const p of F.people) for (const s of p.sources) if (srcOk(s)) jobs.push({ src: s, owner: p, person: p.slug, topicSource: null });
 for (const t of F.topics) for (const s of t.sources) if (srcOk(s)) jobs.push({ src: s, owner: t, person: null, topicSource: t.slug });
-if (REMOTE) console.log(`[frontier] REMOTE 模式：直连、claude 走 PATH，已过滤 X 源 job（剩 ${jobs.length} 个公网源待抓）`);
+if (REMOTE) console.log(`[frontier] REMOTE 模式：直连、codex 走 PATH，已过滤 X 源 job（剩 ${jobs.length} 个公网源待抓）`);
 
 console.log(`[frontier] ${F.people.length} 人 + ${F.topics.length} 话题，共 ${jobs.length} 个源`);
 
@@ -431,20 +398,20 @@ queue = queue.slice(0, F.maxNewPerRun);
 
 console.log(`[frontier] 抓到 ${fetched.length} 条，去重/过滤后待加工 ${queue.length} 条`);
 
-/* --dry-run：只看抓取/去重结果，不调 claude、不写任何文件 */
+/* --dry-run：只看抓取/去重结果，不调 Codex、不写任何文件 */
 if (process.argv.includes('--dry-run')) {
   for (const it of queue) console.log(`  · ${it.date} [${it.sourceType}] ${it.ownerName} — ${(it.title || it.text).slice(0, 70)}`);
-  console.log(`[frontier] dry-run 结束（未调用 claude、未写盘）`);
+  console.log(`[frontier] dry-run 结束（未调用 Codex、未写盘）`);
   process.exit(0);
 }
 
-/* claude 逐条加工（串行；限流即中止剩余，未处理条目不标 seen 次日补做） */
+/* Codex 逐条加工（串行；限流即中止剩余，未处理条目不标 seen 次日补做） */
 const newEntries = [];
 let llmFailed = 0;
 let rateLimited = false;
 for (const [idx, item] of queue.entries()) {
   await enhanceText(item);
-  process.stdout.write(`[frontier] claude ${idx + 1}/${queue.length} ${item.ownerName} … `);
+  process.stdout.write(`[frontier] Codex ${idx + 1}/${queue.length} ${item.ownerName} … `);
   try {
     const out = enrichEntry(item);
     if (!out.relevant) {

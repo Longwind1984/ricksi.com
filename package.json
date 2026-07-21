@@ -12,7 +12,6 @@
     "collect:activity": "node scripts/collect-activity.mjs",
     "collect:usage": "node scripts/collect-usage.mjs",
     "collect:frontier": "node scripts/collect-frontier.mjs",
-    "collect:frontier:remote": "node scripts/collect-frontier.mjs --remote",
     "frontier:portraits": "node scripts/generate-frontier-portraits.mjs",
     "sync:vault": "node scripts/sync-vault.mjs --migrate",
     "sync:vault:migrate-dry-run": "node scripts/sync-vault.mjs --migrate-dry-run",

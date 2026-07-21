@@ -1,1426 +1,2374 @@
 {
- "generated_at": "2026-07-20T23:18:01.650Z",
+ "generated_at": "2026-07-21T16:01:40.799Z",
  "days": {
   "2026-05-31": {
    "git": 16,
    "notes": 0,
    "ai": 102,
+   "ai_split": {
+    "claude": 102,
+    "codex": 0
+   },
    "gh": 0
   },
   "2026-06-10": {
    "git": 9,
    "notes": 0,
    "ai": 560,
+   "ai_split": {
+    "claude": 560,
+    "codex": 0
+   },
    "gh": 2
   },
   "2026-06-06": {
    "git": 20,
    "notes": 71,
    "ai": 2430,
+   "ai_split": {
+    "claude": 2430,
+    "codex": 0
+   },
    "gh": 5
   },
   "2026-06-04": {
    "git": 6,
    "notes": 3,
-   "ai": 130,
+   "ai": 5511,
+   "ai_split": {
+    "claude": 130,
+    "codex": 5381
+   },
    "gh": 1
   },
   "2026-06-03": {
    "git": 4,
    "notes": 6,
    "ai": 292,
+   "ai_split": {
+    "claude": 292,
+    "codex": 0
+   },
    "gh": 1
   },
   "2026-05-23": {
    "git": 2,
    "notes": 0,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 2
   },
   "2026-05-22": {
    "git": 20,
    "notes": 5,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 7
   },
   "2026-06-07": {
    "git": 1,
    "notes": 217,
    "ai": 491,
+   "ai_split": {
+    "claude": 491,
+    "codex": 0
+   },
    "gh": 0
   },
   "2026-06-05": {
    "git": 9,
    "notes": 0,
-   "ai": 0,
+   "ai": 30,
+   "ai_split": {
+    "claude": 0,
+    "codex": 30
+   },
    "gh": 1
   },
   "2026-06-02": {
    "git": 1,
    "notes": 0,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 1
   },
   "2026-05-30": {
    "git": 1,
    "notes": 0,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 2
   },
   "2026-05-29": {
    "git": 2,
    "notes": 0,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 3
   },
   "2026-05-27": {
    "git": 1,
    "notes": 13,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2026-05-26": {
    "git": 1,
    "notes": 0,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2026-05-21": {
    "git": 33,
    "notes": 7,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 1
   },
   "2026-05-20": {
    "git": 26,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 1
   },
   "2023-03-22": {
    "git": 0,
    "notes": 10,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2023-03-30": {
    "git": 0,
    "notes": 51,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2026-05-16": {
    "git": 0,
    "notes": 346,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 3
   },
   "2026-05-14": {
    "git": 0,
    "notes": 557,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 7
   },
   "2026-05-18": {
    "git": 0,
    "notes": 42,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2026-05-17": {
    "git": 0,
    "notes": 14,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2026-05-19": {
    "git": 0,
    "notes": 10,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2026-05-15": {
    "git": 0,
    "notes": 17,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 9
   },
   "2024-10-09": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2025-09-25": {
    "git": 0,
    "notes": 3,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-02-26": {
    "git": 0,
    "notes": 2,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2025-07-02": {
    "git": 0,
    "notes": 2,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-01-22": {
    "git": 0,
    "notes": 2,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2023-11-20": {
    "git": 0,
    "notes": 6,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2023-04-11": {
    "git": 0,
    "notes": 4,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2023-04-24": {
    "git": 0,
    "notes": 4,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2023-05-08": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2023-05-22": {
    "git": 0,
    "notes": 2,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2023-05-30": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2023-06-05": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2023-06-16": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2023-06-20": {
    "git": 0,
    "notes": 2,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2023-07-05": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2023-07-10": {
    "git": 0,
    "notes": 2,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2023-07-25": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2023-08-01": {
    "git": 0,
    "notes": 2,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2023-08-07": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2023-08-10": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2023-08-13": {
    "git": 0,
    "notes": 3,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2023-08-22": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2023-08-28": {
    "git": 0,
    "notes": 3,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2023-09-07": {
    "git": 0,
    "notes": 2,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2023-09-12": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2023-09-18": {
    "git": 0,
    "notes": 2,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2023-10-08": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2023-10-13": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2023-10-20": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2023-10-24": {
    "git": 0,
    "notes": 4,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2023-10-30": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2023-11-08": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2023-11-13": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2023-11-27": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2023-12-04": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2023-12-11": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2023-12-18": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2023-12-26": {
    "git": 0,
    "notes": 2,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-03-04": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-03-11": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-03-19": {
    "git": 0,
    "notes": 2,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-03-25": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-04-01": {
    "git": 0,
    "notes": 2,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-04-08": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-04-15": {
    "git": 0,
    "notes": 4,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-04-17": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-04-23": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-05-06": {
    "git": 0,
    "notes": 2,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-01-09": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-05-13": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-05-20": {
    "git": 0,
    "notes": 2,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-06-04": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-06-11": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-06-14": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-06-25": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-07-01": {
    "git": 0,
    "notes": 3,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-07-08": {
    "git": 0,
    "notes": 2,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-07-15": {
    "git": 0,
    "notes": 4,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-01-15": {
    "git": 0,
    "notes": 5,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-07-29": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-08-05": {
    "git": 0,
    "notes": 2,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-08-13": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-08-19": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-08-27": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-09-02": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-09-04": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-09-17": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-09-26": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-10-08": {
    "git": 0,
    "notes": 4,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-10-17": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-10-21": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-10-28": {
    "git": 0,
    "notes": 2,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-11-08": {
    "git": 0,
    "notes": 2,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-11-18": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-11-25": {
    "git": 0,
    "notes": 2,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-11-27": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-01-29": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-12-09": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-12-16": {
    "git": 0,
    "notes": 2,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-12-20": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-03-07": {
    "git": 0,
    "notes": 3,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-02-18": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2025-03-04": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2025-03-10": {
    "git": 0,
    "notes": 2,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2025-03-18": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2025-03-24": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2025-04-07": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2025-04-22": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-12-30": {
    "git": 0,
    "notes": 2,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2025-05-15": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2025-05-22": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2025-05-27": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2025-06-09": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2025-06-16": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2025-06-26": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2025-07-28": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2025-07-31": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2025-08-13": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2025-08-29": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2025-09-08": {
    "git": 0,
    "notes": 2,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2025-09-18": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2025-09-24": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2025-01-22": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2025-02-08": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2025-02-14": {
    "git": 0,
    "notes": 2,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2025-02-17": {
    "git": 0,
    "notes": 2,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2023-11-21": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-01-23": {
    "git": 0,
    "notes": 2,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-03-08": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-08-06": {
    "git": 0,
    "notes": 2,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2025-07-03": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-01-12": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-02-19": {
    "git": 0,
    "notes": 2,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2025-02-24": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-08-01": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-04-16": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2023-12-20": {
    "git": 0,
    "notes": 3,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-08-08": {
    "git": 0,
    "notes": 9,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-07-31": {
    "git": 0,
    "notes": 2,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-03-01": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-08-14": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2025-09-10": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-03-26": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-03-13": {
    "git": 0,
    "notes": 2,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2023-03-27": {
    "git": 0,
    "notes": 3,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2023-04-04": {
    "git": 0,
    "notes": 3,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2023-04-13": {
    "git": 0,
    "notes": 2,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2023-04-23": {
    "git": 0,
    "notes": 4,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2023-04-25": {
    "git": 0,
    "notes": 2,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2023-04-26": {
    "git": 0,
    "notes": 6,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2023-04-27": {
    "git": 0,
    "notes": 2,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2023-11-10": {
    "git": 0,
    "notes": 3,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2023-11-22": {
    "git": 0,
    "notes": 3,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-01-19": {
    "git": 0,
    "notes": 3,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-10-13": {
    "git": 0,
    "notes": 4,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2025-02-27": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2025-10-03": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2023-04-17": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2023-04-02": {
    "git": 0,
    "notes": 12,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2023-12-21": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2023-03-23": {
    "git": 0,
    "notes": 7,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2023-04-21": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2023-03-20": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2023-04-14": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2023-04-18": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2023-03-31": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2023-05-24": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2023-07-27": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2023-03-24": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2023-12-01": {
    "git": 0,
    "notes": 4,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-12-06": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-01-31": {
    "git": 0,
    "notes": 3,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2025-03-21": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2025-02-21": {
    "git": 0,
    "notes": 2,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2023-03-21": {
    "git": 0,
    "notes": 14,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-01-16": {
    "git": 0,
    "notes": 3,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-11-24": {
    "git": 0,
    "notes": 4,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2026-06-09": {
    "git": 0,
    "notes": 3,
    "ai": 34,
+   "ai_split": {
+    "claude": 34,
+    "codex": 0
+   },
    "gh": 0
   },
   "2026-03-24": {
    "git": 0,
    "notes": 7,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2026-05-13": {
    "git": 0,
    "notes": 39,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 1
   },
   "2026-06-01": {
    "git": 0,
    "notes": 3,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2023-03-26": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2023-12-10": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2023-12-09": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2025-01-19": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2025-04-17": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2025-05-26": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2025-06-07": {
    "git": 0,
    "notes": 2,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-01-18": {
    "git": 0,
    "notes": 2,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-02-20": {
    "git": 0,
    "notes": 3,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2025-01-30": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2025-05-04": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2025-06-21": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2025-06-24": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2025-01-18": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2023-12-24": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-07-03": {
    "git": 0,
    "notes": 2,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-12-15": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2025-04-13": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2025-08-28": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2025-02-06": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2025-06-27": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-03-02": {
    "git": 0,
    "notes": 2,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2025-01-29": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2025-06-17": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2025-11-14": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2026-01-31": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2025-11-11": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2025-11-12": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-11-03": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2025-05-28": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2025-06-10": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2025-08-05": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2023-06-09": {
    "git": 0,
    "notes": 2,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2023-04-28": {
    "git": 0,
    "notes": 2,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2025-08-04": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2023-11-14": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2023-11-24": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2023-11-07": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-11-14": {
    "git": 0,
    "notes": 2,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2023-06-12": {
    "git": 0,
    "notes": 3,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2025-01-02": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2023-09-20": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2025-09-06": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2022-12-20": {
    "git": 0,
    "notes": 2,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-01-04": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2025-03-25": {
    "git": 0,
    "notes": 2,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2023-09-22": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-06-12": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2025-06-30": {
    "git": 0,
    "notes": 2,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2023-05-05": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2024-07-10": {
    "git": 0,
    "notes": 2,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2025-09-27": {
    "git": 0,
    "notes": 1,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 0
   },
   "2026-05-28": {
@@ -1439,60 +2387,100 @@
    "git": 11,
    "notes": 84,
    "ai": 4855,
+   "ai_split": {
+    "claude": 4855,
+    "codex": 0
+   },
    "gh": 0
   },
   "2026-06-12": {
    "git": 12,
    "notes": 187,
    "ai": 8105,
+   "ai_split": {
+    "claude": 8105,
+    "codex": 0
+   },
    "gh": 7
   },
   "2026-06-13": {
    "git": 8,
    "notes": 0,
    "ai": 555,
+   "ai_split": {
+    "claude": 555,
+    "codex": 0
+   },
    "gh": 8
   },
   "2026-06-15": {
    "git": 12,
    "notes": 0,
    "ai": 4670,
+   "ai_split": {
+    "claude": 4670,
+    "codex": 0
+   },
    "gh": 14
   },
   "2026-06-14": {
    "git": 1,
    "notes": 0,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 1
   },
   "2026-06-16": {
    "git": 16,
    "notes": 2,
    "ai": 7578,
+   "ai_split": {
+    "claude": 7578,
+    "codex": 0
+   },
    "gh": 16
   },
   "2026-06-17": {
    "git": 4,
    "notes": 0,
    "ai": 243,
+   "ai_split": {
+    "claude": 243,
+    "codex": 0
+   },
    "gh": 4
   },
   "2026-06-19": {
    "git": 15,
    "notes": 14,
    "ai": 2179,
+   "ai_split": {
+    "claude": 2179,
+    "codex": 0
+   },
    "gh": 2
   },
   "2026-06-18": {
    "git": 1,
    "notes": 0,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 1
   },
   "2026-06-20": {
    "git": 6,
    "notes": 2,
    "ai": 1500,
+   "ai_split": {
+    "claude": 1500,
+    "codex": 0
+   },
    "gh": 4
   },
   "2025-11-17": {
@@ -1517,12 +2505,20 @@
    "git": 8,
    "notes": 4,
    "ai": 10603,
+   "ai_split": {
+    "claude": 10603,
+    "codex": 0
+   },
    "gh": 5
   },
   "2026-06-21": {
    "git": 2,
    "notes": 0,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 1
   },
   "2026-04-09": {
@@ -1535,169 +2531,301 @@
    "git": 2,
    "notes": 515,
    "ai": 2497,
+   "ai_split": {
+    "claude": 2497,
+    "codex": 0
+   },
    "gh": 1
   },
   "2026-06-24": {
    "git": 7,
    "notes": 0,
    "ai": 214,
+   "ai_split": {
+    "claude": 214,
+    "codex": 0
+   },
    "gh": 6
   },
   "2026-06-26": {
    "git": 3,
    "notes": 0,
    "ai": 18,
+   "ai_split": {
+    "claude": 18,
+    "codex": 0
+   },
    "gh": 2
   },
   "2026-06-25": {
    "git": 2,
    "notes": 0,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 1
   },
   "2026-06-27": {
    "git": 2,
    "notes": 0,
    "ai": 2070,
+   "ai_split": {
+    "claude": 2070,
+    "codex": 0
+   },
    "gh": 1
   },
   "2026-06-28": {
    "git": 3,
    "notes": 0,
    "ai": 2658,
+   "ai_split": {
+    "claude": 2658,
+    "codex": 0
+   },
    "gh": 2
   },
   "2026-06-29": {
    "git": 2,
    "notes": 1,
    "ai": 374,
+   "ai_split": {
+    "claude": 374,
+    "codex": 0
+   },
    "gh": 1
   },
   "2026-06-30": {
    "git": 2,
    "notes": 0,
    "ai": 0,
+   "ai_split": {
+    "claude": 0,
+    "codex": 0
+   },
    "gh": 1
   },
   "2026-07-01": {
    "git": 2,
    "notes": 0,
    "ai": 557,
+   "ai_split": {
+    "claude": 557,
+    "codex": 0
+   },
    "gh": 1
   },
   "2026-07-02": {
    "git": 9,
    "notes": 0,
    "ai": 4127,
+   "ai_split": {
+    "claude": 4127,
+    "codex": 0
+   },
    "gh": 1
   },
   "2026-07-03": {
    "git": 3,
    "notes": 0,
    "ai": 1837,
+   "ai_split": {
+    "claude": 1837,
+    "codex": 0
+   },
    "gh": 1
   },
   "2026-07-04": {
    "git": 15,
    "notes": 0,
    "ai": 4083,
+   "ai_split": {
+    "claude": 4083,
+    "codex": 0
+   },
    "gh": 1
   },
   "2026-07-05": {
    "git": 15,
    "notes": 0,
    "ai": 3798,
+   "ai_split": {
+    "claude": 3798,
+    "codex": 0
+   },
    "gh": 1
   },
   "2026-07-06": {
    "git": 4,
    "notes": 0,
    "ai": 928,
+   "ai_split": {
+    "claude": 928,
+    "codex": 0
+   },
    "gh": 3
   },
   "2026-07-07": {
    "git": 12,
    "notes": 0,
    "ai": 1952,
+   "ai_split": {
+    "claude": 1952,
+    "codex": 0
+   },
    "gh": 10
   },
   "2026-07-08": {
    "git": 33,
    "notes": 0,
    "ai": 2440,
+   "ai_split": {
+    "claude": 2440,
+    "codex": 0
+   },
    "gh": 2
   },
   "2026-07-09": {
    "git": 18,
    "notes": 0,
    "ai": 4712,
+   "ai_split": {
+    "claude": 4712,
+    "codex": 0
+   },
    "gh": 1
   },
   "2026-07-10": {
    "git": 4,
    "notes": 0,
    "ai": 2430,
+   "ai_split": {
+    "claude": 2430,
+    "codex": 0
+   },
    "gh": 1
   },
   "2026-07-11": {
    "git": 28,
    "notes": 0,
    "ai": 7583,
+   "ai_split": {
+    "claude": 7583,
+    "codex": 0
+   },
    "gh": 6
   },
   "2026-07-12": {
    "git": 14,
    "notes": 0,
    "ai": 4405,
+   "ai_split": {
+    "claude": 4405,
+    "codex": 0
+   },
    "gh": 1
   },
   "2026-07-13": {
    "git": 3,
    "notes": 0,
    "ai": 98,
+   "ai_split": {
+    "claude": 98,
+    "codex": 0
+   },
    "gh": 1
   },
   "2026-07-14": {
    "git": 4,
    "notes": 0,
    "ai": 4254,
+   "ai_split": {
+    "claude": 4254,
+    "codex": 0
+   },
    "gh": 1
   },
   "2026-07-15": {
    "git": 59,
    "notes": 0,
    "ai": 9877,
+   "ai_split": {
+    "claude": 9877,
+    "codex": 0
+   },
    "gh": 13
   },
   "2026-07-16": {
    "git": 110,
    "notes": 0,
-   "ai": 16065,
+   "ai": 16070,
+   "ai_split": {
+    "claude": 16070,
+    "codex": 0
+   },
    "gh": 10
   },
   "2026-07-17": {
    "git": 119,
    "notes": 0,
    "ai": 9564,
+   "ai_split": {
+    "claude": 9564,
+    "codex": 0
+   },
    "gh": 7
   },
   "2026-07-18": {
    "git": 75,
    "notes": 0,
    "ai": 3507,
+   "ai_split": {
+    "claude": 3507,
+    "codex": 0
+   },
    "gh": 4
   },
   "2026-07-19": {
    "git": 54,
    "notes": 0,
    "ai": 3773,
+   "ai_split": {
+    "claude": 3773,
+    "codex": 0
+   },
    "gh": 1
   },
   "2026-07-20": {
-   "git": 58,
+   "git": 63,
    "notes": 0,
-   "ai": 4254,
+   "ai": 5548,
+   "ai_split": {
+    "claude": 5548,
+    "codex": 0
+   },
    "gh": 2
+  },
+  "2026-07-21": {
+   "git": 71,
+   "notes": 0,
+   "ai": 5745,
+   "ai_split": {
+    "claude": 5105,
+    "codex": 640
+   },
+   "gh": 0
+  },
+  "2026-07-22": {
+   "git": 0,
+   "notes": 0,
+   "ai": 4,
+   "ai_split": {
+    "claude": 0,
+    "codex": 4
+   },
+   "gh": 0
   }
  },
  "weeks": [
@@ -1868,6 +2996,10 @@
      "git": 0,
      "notes": 7,
      "ai": 0,
+     "ai_split": {
+      "claude": 0,
+      "codex": 0
+     },
      "gh": 0
     }
    },
@@ -2150,6 +3282,10 @@
      "git": 0,
      "notes": 39,
      "ai": 0,
+     "ai_split": {
+      "claude": 0,
+      "codex": 0
+     },
      "gh": 1
     }
    },
@@ -2161,6 +3297,10 @@
      "git": 0,
      "notes": 557,
      "ai": 0,
+     "ai_split": {
+      "claude": 0,
+      "codex": 0
+     },
      "gh": 7
     }
    },
@@ -2172,6 +3312,10 @@
      "git": 0,
      "notes": 17,
      "ai": 0,
+     "ai_split": {
+      "claude": 0,
+      "codex": 0
+     },
      "gh": 9
     }
    },
@@ -2183,6 +3327,10 @@
      "git": 0,
      "notes": 346,
      "ai": 0,
+     "ai_split": {
+      "claude": 0,
+      "codex": 0
+     },
      "gh": 3
     }
    }
@@ -2196,6 +3344,10 @@
      "git": 0,
      "notes": 14,
      "ai": 0,
+     "ai_split": {
+      "claude": 0,
+      "codex": 0
+     },
      "gh": 0
     }
    },
@@ -2207,6 +3359,10 @@
      "git": 0,
      "notes": 42,
      "ai": 0,
+     "ai_split": {
+      "claude": 0,
+      "codex": 0
+     },
      "gh": 0
     }
    },
@@ -2218,6 +3374,10 @@
      "git": 0,
      "notes": 10,
      "ai": 0,
+     "ai_split": {
+      "claude": 0,
+      "codex": 0
+     },
      "gh": 0
     }
    },
@@ -2229,6 +3389,10 @@
      "git": 26,
      "notes": 1,
      "ai": 0,
+     "ai_split": {
+      "claude": 0,
+      "codex": 0
+     },
      "gh": 1
     }
    },
@@ -2240,6 +3404,10 @@
      "git": 33,
      "notes": 7,
      "ai": 0,
+     "ai_split": {
+      "claude": 0,
+      "codex": 0
+     },
      "gh": 1
     }
    },
@@ -2251,6 +3419,10 @@
      "git": 20,
      "notes": 5,
      "ai": 0,
+     "ai_split": {
+      "claude": 0,
+      "codex": 0
+     },
      "gh": 7
     }
    },
@@ -2262,6 +3434,10 @@
      "git": 2,
      "notes": 0,
      "ai": 0,
+     "ai_split": {
+      "claude": 0,
+      "codex": 0
+     },
      "gh": 2
     }
    }
@@ -2285,6 +3461,10 @@
      "git": 1,
      "notes": 0,
      "ai": 0,
+     "ai_split": {
+      "claude": 0,
+      "codex": 0
+     },
      "gh": 0
     }
    },
@@ -2296,6 +3476,10 @@
      "git": 1,
      "notes": 13,
      "ai": 0,
+     "ai_split": {
+      "claude": 0,
+      "codex": 0
+     },
      "gh": 0
     }
    },
@@ -2318,6 +3502,10 @@
      "git": 2,
      "notes": 0,
      "ai": 0,
+     "ai_split": {
+      "claude": 0,
+      "codex": 0
+     },
      "gh": 3
     }
    },
@@ -2329,6 +3517,10 @@
      "git": 1,
      "notes": 0,
      "ai": 0,
+     "ai_split": {
+      "claude": 0,
+      "codex": 0
+     },
      "gh": 2
     }
    }
@@ -2342,6 +3534,10 @@
      "git": 16,
      "notes": 0,
      "ai": 102,
+     "ai_split": {
+      "claude": 102,
+      "codex": 0
+     },
      "gh": 0
     }
    },
@@ -2353,6 +3549,10 @@
      "git": 0,
      "notes": 3,
      "ai": 0,
+     "ai_split": {
+      "claude": 0,
+      "codex": 0
+     },
      "gh": 0
     }
    },
@@ -2364,6 +3564,10 @@
      "git": 1,
      "notes": 0,
      "ai": 0,
+     "ai_split": {
+      "claude": 0,
+      "codex": 0
+     },
      "gh": 1
     }
    },
@@ -2375,28 +3579,40 @@
      "git": 4,
      "notes": 6,
      "ai": 292,
+     "ai_split": {
+      "claude": 292,
+      "codex": 0
+     },
      "gh": 1
     }
    },
    {
     "d": "2026-06-04",
-    "n": 140,
-    "l": 2,
+    "n": 5521,
+    "l": 3,
     "b": {
      "git": 6,
      "notes": 3,
-     "ai": 130,
+     "ai": 5511,
+     "ai_split": {
+      "claude": 130,
+      "codex": 5381
+     },
      "gh": 1
     }
    },
    {
     "d": "2026-06-05",
-    "n": 10,
+    "n": 40,
     "l": 1,
     "b": {
      "git": 9,
      "notes": 0,
-     "ai": 0,
+     "ai": 30,
+     "ai_split": {
+      "claude": 0,
+      "codex": 30
+     },
      "gh": 1
     }
    },
@@ -2408,6 +3624,10 @@
      "git": 20,
      "notes": 71,
      "ai": 2430,
+     "ai_split": {
+      "claude": 2430,
+      "codex": 0
+     },
      "gh": 5
     }
    }
@@ -2421,6 +3641,10 @@
      "git": 1,
      "notes": 217,
      "ai": 491,
+     "ai_split": {
+      "claude": 491,
+      "codex": 0
+     },
      "gh": 0
     }
    },
@@ -2443,6 +3667,10 @@
      "git": 0,
      "notes": 3,
      "ai": 34,
+     "ai_split": {
+      "claude": 34,
+      "codex": 0
+     },
      "gh": 0
     }
    },
@@ -2454,6 +3682,10 @@
      "git": 9,
      "notes": 0,
      "ai": 560,
+     "ai_split": {
+      "claude": 560,
+      "codex": 0
+     },
      "gh": 2
     }
    },
@@ -2465,6 +3697,10 @@
      "git": 11,
      "notes": 84,
      "ai": 4855,
+     "ai_split": {
+      "claude": 4855,
+      "codex": 0
+     },
      "gh": 0
     }
    },
@@ -2476,6 +3712,10 @@
      "git": 12,
      "notes": 187,
      "ai": 8105,
+     "ai_split": {
+      "claude": 8105,
+      "codex": 0
+     },
      "gh": 7
     }
    },
@@ -2487,6 +3727,10 @@
      "git": 8,
      "notes": 0,
      "ai": 555,
+     "ai_split": {
+      "claude": 555,
+      "codex": 0
+     },
      "gh": 8
     }
    }
@@ -2500,6 +3744,10 @@
      "git": 1,
      "notes": 0,
      "ai": 0,
+     "ai_split": {
+      "claude": 0,
+      "codex": 0
+     },
      "gh": 1
     }
    },
@@ -2511,6 +3759,10 @@
      "git": 12,
      "notes": 0,
      "ai": 4670,
+     "ai_split": {
+      "claude": 4670,
+      "codex": 0
+     },
      "gh": 14
     }
    },
@@ -2522,6 +3774,10 @@
      "git": 16,
      "notes": 2,
      "ai": 7578,
+     "ai_split": {
+      "claude": 7578,
+      "codex": 0
+     },
      "gh": 16
     }
    },
@@ -2533,6 +3789,10 @@
      "git": 4,
      "notes": 0,
      "ai": 243,
+     "ai_split": {
+      "claude": 243,
+      "codex": 0
+     },
      "gh": 4
     }
    },
@@ -2544,6 +3804,10 @@
      "git": 1,
      "notes": 0,
      "ai": 0,
+     "ai_split": {
+      "claude": 0,
+      "codex": 0
+     },
      "gh": 1
     }
    },
@@ -2555,6 +3819,10 @@
      "git": 15,
      "notes": 14,
      "ai": 2179,
+     "ai_split": {
+      "claude": 2179,
+      "codex": 0
+     },
      "gh": 2
     }
    },
@@ -2566,6 +3834,10 @@
      "git": 6,
      "notes": 2,
      "ai": 1500,
+     "ai_split": {
+      "claude": 1500,
+      "codex": 0
+     },
      "gh": 4
     }
    }
@@ -2579,6 +3851,10 @@
      "git": 2,
      "notes": 0,
      "ai": 0,
+     "ai_split": {
+      "claude": 0,
+      "codex": 0
+     },
      "gh": 1
     }
    },
@@ -2590,6 +3866,10 @@
      "git": 8,
      "notes": 4,
      "ai": 10603,
+     "ai_split": {
+      "claude": 10603,
+      "codex": 0
+     },
      "gh": 5
     }
    },
@@ -2601,6 +3881,10 @@
      "git": 2,
      "notes": 515,
      "ai": 2497,
+     "ai_split": {
+      "claude": 2497,
+      "codex": 0
+     },
      "gh": 1
     }
    },
@@ -2612,6 +3896,10 @@
      "git": 7,
      "notes": 0,
      "ai": 214,
+     "ai_split": {
+      "claude": 214,
+      "codex": 0
+     },
      "gh": 6
     }
    },
@@ -2623,6 +3911,10 @@
      "git": 2,
      "notes": 0,
      "ai": 0,
+     "ai_split": {
+      "claude": 0,
+      "codex": 0
+     },
      "gh": 1
     }
    },
@@ -2634,6 +3926,10 @@
      "git": 3,
      "notes": 0,
      "ai": 18,
+     "ai_split": {
+      "claude": 18,
+      "codex": 0
+     },
      "gh": 2
     }
    },
@@ -2645,6 +3941,10 @@
      "git": 2,
      "notes": 0,
      "ai": 2070,
+     "ai_split": {
+      "claude": 2070,
+      "codex": 0
+     },
      "gh": 1
     }
    }
@@ -2653,11 +3953,15 @@
    {
     "d": "2026-06-28",
     "n": 2663,
-    "l": 3,
+    "l": 2,
     "b": {
      "git": 3,
      "notes": 0,
      "ai": 2658,
+     "ai_split": {
+      "claude": 2658,
+      "codex": 0
+     },
      "gh": 2
     }
    },
@@ -2669,6 +3973,10 @@
      "git": 2,
      "notes": 1,
      "ai": 374,
+     "ai_split": {
+      "claude": 374,
+      "codex": 0
+     },
      "gh": 1
     }
    },
@@ -2680,6 +3988,10 @@
      "git": 2,
      "notes": 0,
      "ai": 0,
+     "ai_split": {
+      "claude": 0,
+      "codex": 0
+     },
      "gh": 1
     }
    },
@@ -2691,6 +4003,10 @@
      "git": 2,
      "notes": 0,
      "ai": 557,
+     "ai_split": {
+      "claude": 557,
+      "codex": 0
+     },
      "gh": 1
     }
    },
@@ -2702,6 +4018,10 @@
      "git": 9,
      "notes": 0,
      "ai": 4127,
+     "ai_split": {
+      "claude": 4127,
+      "codex": 0
+     },
      "gh": 1
     }
    },
@@ -2713,6 +4033,10 @@
      "git": 3,
      "notes": 0,
      "ai": 1837,
+     "ai_split": {
+      "claude": 1837,
+      "codex": 0
+     },
      "gh": 1
     }
    },
@@ -2724,6 +4048,10 @@
      "git": 15,
      "notes": 0,
      "ai": 4083,
+     "ai_split": {
+      "claude": 4083,
+      "codex": 0
+     },
      "gh": 1
     }
    }
@@ -2737,6 +4065,10 @@
      "git": 15,
      "notes": 0,
      "ai": 3798,
+     "ai_split": {
+      "claude": 3798,
+      "codex": 0
+     },
      "gh": 1
     }
    },
@@ -2748,6 +4080,10 @@
      "git": 4,
      "notes": 0,
      "ai": 928,
+     "ai_split": {
+      "claude": 928,
+      "codex": 0
+     },
      "gh": 3
     }
    },
@@ -2759,6 +4095,10 @@
      "git": 12,
      "notes": 0,
      "ai": 1952,
+     "ai_split": {
+      "claude": 1952,
+      "codex": 0
+     },
      "gh": 10
     }
    },
@@ -2770,6 +4110,10 @@
      "git": 33,
      "notes": 0,
      "ai": 2440,
+     "ai_split": {
+      "claude": 2440,
+      "codex": 0
+     },
      "gh": 2
     }
    },
@@ -2781,6 +4125,10 @@
      "git": 18,
      "notes": 0,
      "ai": 4712,
+     "ai_split": {
+      "claude": 4712,
+      "codex": 0
+     },
      "gh": 1
     }
    },
@@ -2792,6 +4140,10 @@
      "git": 4,
      "notes": 0,
      "ai": 2430,
+     "ai_split": {
+      "claude": 2430,
+      "codex": 0
+     },
      "gh": 1
     }
    },
@@ -2803,6 +4155,10 @@
      "git": 28,
      "notes": 0,
      "ai": 7583,
+     "ai_split": {
+      "claude": 7583,
+      "codex": 0
+     },
      "gh": 6
     }
    }
@@ -2816,6 +4172,10 @@
      "git": 14,
      "notes": 0,
      "ai": 4405,
+     "ai_split": {
+      "claude": 4405,
+      "codex": 0
+     },
      "gh": 1
     }
    },
@@ -2827,6 +4187,10 @@
      "git": 3,
      "notes": 0,
      "ai": 98,
+     "ai_split": {
+      "claude": 98,
+      "codex": 0
+     },
      "gh": 1
     }
    },
@@ -2838,6 +4202,10 @@
      "git": 4,
      "notes": 0,
      "ai": 4254,
+     "ai_split": {
+      "claude": 4254,
+      "codex": 0
+     },
      "gh": 1
     }
    },
@@ -2849,17 +4217,25 @@
      "git": 59,
      "notes": 0,
      "ai": 9877,
+     "ai_split": {
+      "claude": 9877,
+      "codex": 0
+     },
      "gh": 13
     }
    },
    {
     "d": "2026-07-16",
-    "n": 16185,
+    "n": 16190,
     "l": 4,
     "b": {
      "git": 110,
      "notes": 0,
-     "ai": 16065,
+     "ai": 16070,
+     "ai_split": {
+      "claude": 16070,
+      "codex": 0
+     },
      "gh": 10
     }
    },
@@ -2871,6 +4247,10 @@
      "git": 119,
      "notes": 0,
      "ai": 9564,
+     "ai_split": {
+      "claude": 9564,
+      "codex": 0
+     },
      "gh": 7
     }
    },
@@ -2882,6 +4262,10 @@
      "git": 75,
      "notes": 0,
      "ai": 3507,
+     "ai_split": {
+      "claude": 3507,
+      "codex": 0
+     },
      "gh": 4
     }
    }
@@ -2895,31 +4279,57 @@
      "git": 54,
      "notes": 0,
      "ai": 3773,
+     "ai_split": {
+      "claude": 3773,
+      "codex": 0
+     },
      "gh": 1
     }
    },
    {
     "d": "2026-07-20",
-    "n": 4314,
+    "n": 5613,
     "l": 3,
     "b": {
-     "git": 58,
+     "git": 63,
      "notes": 0,
-     "ai": 4254,
+     "ai": 5548,
+     "ai_split": {
+      "claude": 5548,
+      "codex": 0
+     },
      "gh": 2
     }
    },
    {
     "d": "2026-07-21",
-    "n": 0,
-    "l": 0,
-    "future": true
+    "n": 5816,
+    "l": 3,
+    "b": {
+     "git": 71,
+     "notes": 0,
+     "ai": 5745,
+     "ai_split": {
+      "claude": 5105,
+      "codex": 640
+     },
+     "gh": 0
+    }
    },
    {
     "d": "2026-07-22",
-    "n": 0,
-    "l": 0,
-    "future": true
+    "n": 4,
+    "l": 1,
+    "b": {
+     "git": 0,
+     "notes": 0,
+     "ai": 4,
+     "ai_split": {
+      "claude": 0,
+      "codex": 4
+     },
+     "gh": 0
+    }
    },
    {
     "d": "2026-07-23",
@@ -2942,14 +4352,14 @@
   ]
  ],
  "coding": {
-  "commits": 910,
-  "streak": 56,
+  "commits": 986,
+  "streak": 58,
   "repos": 14
  },
  "sources": {
   "git": {
    "repos": 14,
-   "commits": 910,
+   "commits": 986,
    "repoList": [
     "30FeedPersonal",
     "40PopperInvestor",
@@ -2972,13 +4382,21 @@
    "icloudPlaceholders": 0
   },
   "ai": {
-   "files": 2924,
-   "daysCovered": 42
+   "files": 3081,
+   "daysCovered": 45,
+   "claude": {
+    "files": 3005,
+    "daysCovered": 43
+   },
+   "codex": {
+    "files": 76,
+    "daysCovered": 4
+   }
   },
   "gh": {
    "user": "Longwind1984",
    "daysWithContributions": 55,
-   "fetched_at": "2026-07-20T23:18:01.650Z"
+   "fetched_at": "2026-07-21T15:49:37.801Z"
   }
  }
 }

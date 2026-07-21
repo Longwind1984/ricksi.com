@@ -1,4 +1,4 @@
-// 多源活动采集：本地 git 全历史 + Obsidian 笔记时间线 + Claude 会话 + GitHub（可选）
+// 多源活动采集：本地 git 全历史 + Obsidian 笔记时间线 + Claude/Codex 会话 + GitHub（可选）
 // 产出 data/activity.json —— 仓库即存档：每次运行与既有数据合并，历史只增不减。
 import fs from 'node:fs';
 import path from 'node:path';
@@ -6,6 +6,8 @@ import { execFileSync } from 'node:child_process';
 import { CONFIG } from './config.mjs';
 import { readJson, writeJson, walk, dayKey, buildWeeks, currentStreak } from './lib/util.mjs';
 import { scanClaudeLogs } from './lib/claude-logs.mjs';
+import { scanCodexLogs } from './lib/codex-logs.mjs';
+import { mergeAiActivity } from './lib/activity-policy.mjs';
 
 const OUT = path.join(CONFIG.dataDir, 'activity.json');
 
@@ -89,6 +91,8 @@ const repos = findRepos();
 const git = gitCommitsByDay(repos);
 const notes = vaultNotesByDay();
 const claude = await scanClaudeLogs(CONFIG.claudeProjects);
+const codex = await scanCodexLogs(CONFIG.codexSessions);
+const ai = mergeAiActivity(claude, codex);
 
 const prev = readJson(OUT, { days: {} });
 
@@ -98,13 +102,17 @@ const days = { ...prev.days };
 const allKeys = new Set([
   ...Object.keys(git.days),
   ...Object.keys(notes.days),
-  ...Object.keys(claude.days),
+  ...Object.keys(ai.days),
 ]);
 for (const k of allKeys) {
   days[k] = {
     git: git.days[k] || 0,
     notes: notes.days[k] || 0,
-    ai: claude.days[k]?.msgs || 0,
+    ai: ai.days[k]?.total || 0,
+    ai_split: {
+      claude: ai.days[k]?.claude || 0,
+      codex: ai.days[k]?.codex || 0,
+    },
     gh: prev.days[k]?.gh || 0,
   };
 }
@@ -124,7 +132,12 @@ const out = {
   sources: {
     git: { repos: repos.length, commits: git.total, repoList: repos.map((r) => path.basename(r)) },
     notes: { total: notes.total, icloudPlaceholders: notes.icloudPlaceholders },
-    ai: { files: claude.files, daysCovered: Object.keys(claude.days).length },
+    ai: {
+      files: ai.files,
+      daysCovered: Object.keys(ai.days).length,
+      claude: { files: ai.claudeFiles, daysCovered: Object.keys(claude.days).length },
+      codex: { files: ai.codexFiles, daysCovered: Object.keys(codex.days).length },
+    },
     gh: prev.sources?.gh || { note: '由 GitHub Actions fetch-github.mjs 填充' },
   },
 };
@@ -132,7 +145,8 @@ const out = {
 writeJson(OUT, out);
 console.log(
   `[activity] repos=${repos.length} commits=${git.total} notes=${notes.total}` +
-    ` aiDays=${Object.keys(claude.days).length} streak=${out.coding.streak} → ${OUT}`
+    ` aiDays=${Object.keys(ai.days).length}（Claude ${Object.keys(claude.days).length} / Codex ${Object.keys(codex.days).length}）` +
+    ` streak=${out.coding.streak} → ${OUT}`
 );
 if (notes.icloudPlaceholders) {
   console.warn(`[activity] ⚠ ${notes.icloudPlaceholders} 个 iCloud 未下载占位文件（仅影响计数精度）`);

@@ -76,7 +76,8 @@ export async function scanClaudeLogs(projectsDir) {
    Kimi 三种写法都要收：kimi-code/k3、kimi-code/kimi-for-coding（Kimi Code CLI）、k3（Hermes 调 api.kimi.com）、k2p6（OpenClaw）。
    ⚠ /^k\d/ 这条要放在 Claude 四档之后——它只用于兜住 Kimi 的裸模型名（k3/k2p6），本机无其他 k+数字 开头的模型。 */
 export function modelFamily(m) {
-  return /opus/i.test(m) ? 'Opus'
+  return /^(?:gpt-|codex-)/i.test(m) ? 'Codex'
+    : /opus/i.test(m) ? 'Opus'
     : /sonnet/i.test(m) ? 'Sonnet'
     : /haiku/i.test(m) ? 'Haiku'
     : /fable/i.test(m) ? 'Fable'
