@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-07-20T13:34:46.074Z",
+ "generated_at": "2026-07-21T13:30:50.144Z",
  "rollingDays": 90,
  "domains": {
   "lab": "前沿实验室",
@@ -470,15 +470,15 @@
   }
  ],
  "stats": {
-  "totalEntries": 413,
+  "totalEntries": 412,
   "totalAllTime": 581,
   "lastRun": {
-   "at": "2026-07-20T13:34:46.074Z",
-   "fetched": 10,
-   "processed": 6,
-   "added": 6,
+   "at": "2026-07-21T13:30:50.144Z",
+   "fetched": 15,
+   "processed": 8,
+   "added": 0,
    "llmFailed": 0,
-   "rateLimited": false,
+   "rateLimited": true,
    "skippedSources": [
     "x:yann-lecun@ylecun"
    ]
@@ -12194,32 +12194,6 @@
    "apparent": 4,
    "absolute": 4,
    "importance": 4,
-   "gravity": false,
-   "periodic": false,
-   "singularity": false,
-   "rationale": "",
-   "insufficientContext": false,
-   "addedAt": "2026-06-16",
-   "backfill": true
-  },
-  {
-   "id": "c7d651eb8b60afe8",
-   "date": "2026-04-21",
-   "person": "melanie-mitchell",
-   "topicSource": null,
-   "sourceName": "Current Directions in Psychological Science",
-   "sourceType": "web",
-   "contentType": "authored",
-   "titleZh": "评估AI中的抽象与类比能力：从心理学到机器智能",
-   "titleOriginal": "评估AI中的抽象与类比能力：从心理学到机器智能",
-   "verdict": "两个案例研究对比AI与人类的抽象/类比能力，强调鲁棒性测试与可解释性必要性；推动科学评估范式。",
-   "summaryZh": "两个案例研究对比AI与人类的抽象/类比能力，强调鲁棒性测试与可解释性必要性；推动科学评估范式。",
-   "tags": [],
-   "url": "https://journals.sagepub.com/doi/10.1177/09637214261433528",
-   "excerpt": "",
-   "apparent": 2,
-   "absolute": 3,
-   "importance": 3,
    "gravity": false,
    "periodic": false,
    "singularity": false,
