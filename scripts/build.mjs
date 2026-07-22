@@ -17,7 +17,7 @@ fs.writeFileSync(paths.journal, '');
 
 const prefetch = await prefetchSocialImageCache({ buildId });
 if (prefetch.attempted) {
-  console.log(`[social-image-cache] prefetch local=${prefetch.local} fetched=${prefetch.fetched} failed=${prefetch.failed} total=${prefetch.total} duration=${(prefetch.durationMs / 1000).toFixed(2)}s${prefetch.reason ? ` reason=${prefetch.reason}` : ''}`);
+  console.log(`[social-image-cache] prefetch local=${prefetch.local} fetched=${prefetch.fetched} fallback=${prefetch.fallback || 0} failed=${prefetch.failed} total=${prefetch.total} duration=${(prefetch.durationMs / 1000).toFixed(2)}s${prefetch.reason ? ` reason=${prefetch.reason}` : ''}`);
 }
 
 const astro = path.resolve('node_modules/astro/astro.js');

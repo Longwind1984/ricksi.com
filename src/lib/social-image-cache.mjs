@@ -6,6 +6,7 @@ import path from 'node:path';
 
 export const SOCIAL_IMAGE_MANIFEST_VERSION = 1;
 export const SOCIAL_IMAGE_DEFAULT_BOOTSTRAP_URL = 'https://ricksi.com/social-image-cache-manifest.json';
+export const SOCIAL_IMAGE_DEFAULT_FALLBACK_ORIGIN = 'https://ricksi-com.vercel.app';
 const REMOTE_TIMEOUT_MS = 5_000;
 const REMOTE_CONCURRENCY = 8;
 const REMOTE_PREFETCH_CONCURRENCY = 8;
@@ -103,6 +104,12 @@ function bootstrapUrl() {
   if (configured?.toLowerCase() === 'off') return null;
   try {
     const url = new URL(configured || SOCIAL_IMAGE_DEFAULT_BOOTSTRAP_URL);
+    return ['http:', 'https:'].includes(url.protocol) ? url : null;
+  } catch { return null; }
+}
+function fallbackOrigin() {
+  try {
+    const url = new URL(process.env.SOCIAL_IMAGE_FALLBACK_ORIGIN || SOCIAL_IMAGE_DEFAULT_FALLBACK_ORIGIN);
     return ['http:', 'https:'].includes(url.protocol) ? url : null;
   } catch { return null; }
 }
@@ -224,18 +231,30 @@ export async function prefetchSocialImageCache({ buildId = BUILD_ID } = {}) {
 
   let cursor = 0;
   let fetched = 0;
+  let fallback = 0;
   let failed = 0;
+  const secondary = fallbackOrigin();
+  const fetchImage = async (source, route, entry) => {
+    const response = await fetch(new URL(route, source), {
+      signal: AbortSignal.timeout(REMOTE_PREFETCH_TIMEOUT_MS),
+      headers: { accept: 'image/*' },
+    });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const buffer = Buffer.from(await response.arrayBuffer());
+    if (!bufferMatches(buffer, entry)) throw new Error('digest mismatch');
+    return buffer;
+  };
   const workers = Array.from({ length: Math.min(REMOTE_PREFETCH_CONCURRENCY, pending.length) }, async () => {
     while (cursor < pending.length) {
       const [route, entry] = pending[cursor++];
       try {
-        const response = await fetch(new URL(route, url), {
-          signal: AbortSignal.timeout(REMOTE_PREFETCH_TIMEOUT_MS),
-          headers: { accept: 'image/*' },
-        });
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
-        const buffer = Buffer.from(await response.arrayBuffer());
-        if (!bufferMatches(buffer, entry)) throw new Error('digest mismatch');
+        let buffer;
+        try { buffer = await fetchImage(url, route, entry); }
+        catch (primaryError) {
+          if (!secondary || secondary.origin === url.origin) throw primaryError;
+          buffer = await fetchImage(secondary, route, entry);
+          fallback += 1;
+        }
         await writeObject(entry, buffer);
         ready.set(route, entry);
         fetched += 1;
@@ -257,6 +276,7 @@ export async function prefetchSocialImageCache({ buildId = BUILD_ID } = {}) {
     reason: null,
     local: ready.size - fetched,
     fetched,
+    fallback,
     failed,
     total: Object.keys(manifest.entries).length,
     durationMs: Date.now() - startedAt,

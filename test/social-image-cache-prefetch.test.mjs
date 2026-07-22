@@ -28,6 +28,7 @@ test('prefetch restores reusable images concurrently and requests each route onc
     }];
   }));
   const requests = new Map();
+  const fallbackRequests = new Map();
   const server = http.createServer((request, response) => {
     requests.set(request.url, (requests.get(request.url) || 0) + 1);
     if (request.url === '/manifest.json') {
@@ -45,23 +46,34 @@ test('prefetch restores reusable images concurrently and requests each route onc
   });
   await new Promise((resolve) => server.listen(0, '127.0.0.1', resolve));
   t.after(() => new Promise((resolve) => server.close(resolve)));
+  const fallbackServer = http.createServer((request, response) => {
+    fallbackRequests.set(request.url, (fallbackRequests.get(request.url) || 0) + 1);
+    if (images.has(request.url)) response.end(images.get(request.url));
+    else { response.statusCode = 404; response.end('missing'); }
+  });
+  await new Promise((resolve) => fallbackServer.listen(0, '127.0.0.1', resolve));
+  t.after(() => new Promise((resolve) => fallbackServer.close(resolve)));
   const address = server.address();
+  const fallbackAddress = fallbackServer.address();
   process.env.SOCIAL_IMAGE_CACHE_DIR = cacheDir;
   process.env.SOCIAL_IMAGE_BOOTSTRAP_URL = `http://127.0.0.1:${address.port}/manifest.json`;
+  process.env.SOCIAL_IMAGE_FALLBACK_ORIGIN = `http://127.0.0.1:${fallbackAddress.port}`;
   t.after(() => {
     delete process.env.SOCIAL_IMAGE_CACHE_DIR;
     delete process.env.SOCIAL_IMAGE_BOOTSTRAP_URL;
+    delete process.env.SOCIAL_IMAGE_FALLBACK_ORIGIN;
   });
 
   const cache = await import(`../src/lib/social-image-cache.mjs?prefetch-test=${Date.now()}`);
   const result = await cache.prefetchSocialImageCache({ buildId: 'test-build' });
-  assert.deepEqual({ fetched: result.fetched, failed: result.failed, total: result.total }, { fetched: 2, failed: 1, total: 3 });
+  assert.deepEqual({ fetched: result.fetched, fallback: result.fallback, failed: result.failed, total: result.total }, { fetched: 3, fallback: 1, failed: 0, total: 3 });
   assert.equal(requests.get('/manifest.json'), 1);
   assert.equal(requests.get('/og/a.png'), 1);
   assert.equal(requests.get('/share/b.jpg'), 1);
   assert.equal(requests.get('/share/fails.jpg'), 1);
+  assert.equal(fallbackRequests.get('/share/fails.jpg'), 1);
   const manifest = cache.readSocialImageManifest(path.join(cacheDir, 'manifest.json'));
-  assert.deepEqual(Object.keys(manifest.entries).sort(), ['/og/a.png', '/share/b.jpg']);
+  assert.deepEqual(Object.keys(manifest.entries).sort(), ['/og/a.png', '/share/b.jpg', '/share/fails.jpg']);
   for (const route of Object.keys(manifest.entries)) {
     const entry = manifest.entries[route];
     assert.deepEqual(fs.readFileSync(path.join(cacheDir, entry.file)), images.get(route));
