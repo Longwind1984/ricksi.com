@@ -1,7 +1,7 @@
 // 写作分享卡（玻璃明信片 · article 形态：文楷引文 = 人的声音）
 import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
-import { renderShareCard, mdExcerpt } from '../../../lib/share-card.mjs';
+import { renderCachedShareCard, mdExcerpt } from '../../../lib/share-card.mjs';
 import { imgHeaders } from '../../../lib/og-runtime.mjs';
 
 export async function getStaticPaths() {
@@ -27,7 +27,7 @@ export const GET: APIRoute = async ({ params, props }) => {
   const words = cjk + latin;
   const mins = Math.max(1, Math.round(words / 350));
 
-  const jpg = await renderShareCard({
+  const input = {
     variant: 'article',
     brand: 'RICK SI · 思考与写作',
     module: 'WRITING · ARTICLE',
@@ -41,6 +41,7 @@ export const GET: APIRoute = async ({ params, props }) => {
     url: 'ricksi.com/blog',
     qrUrl: `${SITE}/blog/${post.id}/`,
     hook: '扫码读全文 · 数据与决策可核查',
-  });
+  };
+  const jpg = await renderCachedShareCard(`/share/blog/${post.id}.jpg`, input);
   return new Response(jpg, { headers: imgHeaders('image/jpeg') });
 };

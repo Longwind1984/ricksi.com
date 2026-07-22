@@ -1,0 +1,64 @@
+---
+import { INSTRUMENTS } from '../data/instruments';
+import InstrumentCard from './InstrumentCard.astro';
+
+const playable = INSTRUMENTS.filter((item) => item.href);
+const upcoming = INSTRUMENTS.filter((item) => !item.href);
+const projectsCount = Astro.props.projectsCount ?? 0;
+---
+
+<div class="instruments" aria-labelledby="instruments-title">
+  <header class="instrument-head">
+    <div class="instrument-title-row">
+      <h2 id="instruments-title">装置</h2>
+      <span class="mono">· {INSTRUMENTS.length}</span>
+    </div>
+    <p>可供把玩的项目</p>
+  </header>
+
+  <div class="instrument-grid">
+    {playable.map((item) => <InstrumentCard instrument={item} />)}
+    {upcoming.map((item) => <InstrumentCard instrument={item} compact />)}
+  </div>
+
+  <div class="projects-transition" aria-label={`项目，共 ${projectsCount} 个`}>
+    <span class="mono projects-transition-title">项目 · {projectsCount}</span>
+    <span class="projects-transition-line" aria-hidden="true"></span>
+    <span class="projects-transition-copy">从可把玩体验，回到构建过程与产品判断</span>
+  </div>
+</div>
+
+<style>
+  /* 装置与项目共用同一玻璃语汇；卡片内部只做层级，不再用表格式分割线。 */
+  .instrument-head {
+    display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: baseline;
+    padding: 2px 2px 14px;
+  }
+  .instrument-title-row { display: flex; align-items: baseline; gap: 6px; }
+  .instrument-title-row h2,
+  .instrument-title-row span {
+    margin: 0; font-size: 12px; font-weight: 500; letter-spacing: .12em; color: rgba(240,245,255,.82);
+  }
+  .instrument-title-row h2 { font-family: var(--mono); }
+  .instrument-title-row span { color: rgba(220,232,255,.48); }
+  .instrument-head p { margin: 0; font-size: 12px; color: rgba(224,234,252,.50); }
+  .instrument-grid {
+    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px;
+  }
+  .projects-transition { display: grid; grid-template-columns: auto minmax(40px, 1fr) auto; align-items: center; gap: 18px; margin: 36px 2px 14px; }
+  .projects-transition-title { color: #fff; font-size: 12px; letter-spacing: .12em; white-space: nowrap; }
+  .projects-transition-line { height: 1px; background: linear-gradient(90deg, rgba(190,210,255,.34), rgba(190,210,255,.08)); }
+  .projects-transition-copy { color: rgba(224,234,252,.50); font-size: 12px; text-align: right; }
+  @media (max-width: 900px) {
+    .instrument-grid { gap: 14px; }
+  }
+  @media (max-width: 700px) {
+    .instrument-head { gap: 16px; padding-bottom: 12px; }
+    .instrument-title-row { gap: 6px; }
+    .instrument-title-row h2, .instrument-title-row span { font-size: 11px; }
+    .instrument-head p { font-size: 12px; }
+    .instrument-grid { grid-template-columns: 1fr; gap: 12px; }
+    .projects-transition { grid-template-columns: auto 1fr; gap: 10px; margin-top: 30px; }
+    .projects-transition-copy { grid-column: 1 / -1; text-align: left; font-size: 11.5px; }
+  }
+</style>

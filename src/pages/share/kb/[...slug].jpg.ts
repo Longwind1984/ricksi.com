@@ -1,7 +1,7 @@
 // 知识库节点分享卡（玻璃明信片 · node 形态，720×1280 JPEG）
 import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
-import { renderShareCard, mdExcerpt } from '../../../lib/share-card.mjs';
+import { renderCachedShareCard, mdExcerpt } from '../../../lib/share-card.mjs';
 import { loadSiteData } from '../../../lib/site-data.mjs';
 import { GRAPH_PALETTE } from '../../../lib/sample.js';
 import { imgHeaders } from '../../../lib/og-runtime.mjs';
@@ -32,15 +32,18 @@ export const GET: APIRoute = async ({ params, props }) => {
   const me = graph?.nodes?.find((n: any) => n.slug === note.id) ?? null;
 
   const created = note.data.created ? new Date(note.data.created) : null;
-  const days = created ? Math.max(1, Math.floor((Date.now() - created.getTime()) / 86400000)) : null;
+  const createdLabel = created && !Number.isNaN(created.getTime())
+    ? `${created.getFullYear()}.${String(created.getMonth() + 1).padStart(2, '0')}.${String(created.getDate()).padStart(2, '0')}`
+    : null;
   const prov = PROV[note.data.provenance as string] ?? null;
   const clusterColor = me ? GRAPH_PALETTE[me.cluster % GRAPH_PALETTE.length] : undefined;
 
-  const jpg = await renderShareCard({
+  const input = {
     variant: 'node',
     brand: 'RICK SI · 知识库',
     module: 'KNOWLEDGE · NODE',
-    kicker: days ? `节点 · 已沉淀 ${days} 天` : '知识库 · 节点',
+    // 不使用“距今天数”：否则没有内容变化时，全部知识卡仍会每天失效重绘。
+    kicker: createdLabel ? `节点 · 始于 ${createdLabel}` : '知识库 · 节点',
     title: note.data.title,
     excerpt: mdExcerpt(note.body),
     badges: prov ? [{ label: prov[0], color: prov[1] }] : [],
@@ -48,6 +51,7 @@ export const GET: APIRoute = async ({ params, props }) => {
     url: 'ricksi.com/kb',
     qrUrl: `${SITE}/kb/${note.id}/`,
     hook: me?.deg ? `扫码读全文 · 图谱里有 ${me.deg} 个相邻节点` : '扫码读全文',
-  });
+  };
+  const jpg = await renderCachedShareCard(`/share/kb/${note.id}.jpg`, input);
   return new Response(jpg, { headers: imgHeaders('image/jpeg') });
 };

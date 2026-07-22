@@ -1,5 +1,142 @@
 # WORKLOG（append-only，倒金字塔：结论在前、清单沉底）
 
+## 2026-07-22 · 装置 SVG 重绘、知识库恢复与 Token 显示校准
+
+### 做了什么
+
+按用户反馈撤回不合适的写实位图方向，三张装置图重新使用透明纯 SVG：Galaxy View 由多层银河旋臂、轨道和不同权重知识节点组成；前沿追踪用流星、恒星、超新星与人物方向锚点表达消息分量；历史知识台同时呈现多层时间轴、地理网格、地点路径和时空柱。三张资产均为 5.8–6.7KB，无文字、位图嵌入或外链；卡片框架、圆角玻璃语汇与已确认层级不变。
+
+把旧首页完整的知识库模块恢复到装置与阅读之间：保留真实图谱预览、笔记/双链/主题域统计、主题图例、搜索、`/kb/` 全部笔记入口与 `/graph` 全屏探索。首页目录同步恢复“知识库”锚点，后续阅读与写作编号顺延；旧前沿完整区块没有恢复，前沿追踪仍只通过装置进入独立页面。
+
+首页图谱继续只注入降采样后的 AI 知识库子图，进入视口附近才异步加载 3D 渲染器；WebGL 不可用、系统减少动态或加载失败时回退 2D。标题统一为“知识库”，文案明确 Galaxy View 是知识库采用的星系探索能力；Galaxy View 本身仍保留在装置区和项目列表中。修复了图谱依赖加载较慢时可能错过首次 `astro:page-load` 的真实回归，并用 DOM 节点身份防止补挂与正常事件造成双重初始化。
+
+工作台 Token 展示统一保留一位小数：累计 `14.0B`、今日 `3.0M`、本周 `4.3B`，各 harness 明细与趋势图同口径。采集器后续产出的压缩值与 UI 对旧 `14B` 数据的兼容格式同时校准，不要求先重跑采集才能生效。
+
+### 关键决策与被否决的备选
+
+- 恢复旧知识库的完整交互模块，而不是在装置区新增第四张知识库卡；知识内容系统与可复用的 Galaxy View 项目因此保持两个清楚层级。
+- 复用 HEAD 中已经验证过的降采样、懒加载与 2D 回退链，不重写图谱交互，也不改视觉 token 或资产。
+- 被否决：同时恢复旧前沿时间轴。前沿已经有高优先级装置入口，恢复会再次造成首页信息重复。
+- 被否决：继续使用本轮生成的写实位图。实际卡片中出现明显黑色矩形和风格跳脱，已删除全部被否决的 PNG/WebP，只保留透明 SVG 成品。
+- Token 的原始整数不直接加无意义的 `.0`；今日用量先压缩单位再显示为 `3.0M`，与累计和本周的阅读方式一致。
+
+### 当前状态：现在能跑什么、怎么跑
+
+- `astro sync` 与 `tsc --noEmit` 通过；Token 格式 5 项断言通过；`verify:privacy` 的全部知识库发布不变量通过；`git diff --check` 通过。
+- `npm run build` 通过：685 页，10.18 秒；社交图 `generated=0 / reused=1658 / removed=0`，本轮首页与 SVG 修改没有触发知识库/前沿图片重绘。
+- 浏览器真实验收通过：知识库 3D 图谱 1 个 canvas、17 个主题图例，无重复初始化；556px 窄屏三张装置卡 478px 宽、页面无横向溢出；工作台实显累计 `14.0B`、今日 `3.0M`、本周 `4.3B`。
+- 本地预览已在 `http://127.0.0.1:4321/` 重启并保持运行。
+
+### 未尽事项与已知问题
+
+- 知识库预览会恢复首页的图谱运行时开销，但 3D 仍为近视口动态加载、节点仍限制约 160 个，不进入首屏同步路径。
+- 恢复知识库后首页同步脚本由 5.4KB 回到 11.52KB；Three/OrbitControls 仍在近视口时动态加载，这是完整交互与首页包体之间的明确取舍。
+- 未提交、未推送、未部署。
+
+### 文件级变更清单
+
+- 新增：`public/assets/instruments/{galaxy,frontier,history}-rich.svg`、`src/lib/token-format.mjs`
+- 修改：`src/components/InstrumentCard.astro`、`src/components/WorkbenchGlance.astro`、`src/components/WorkbenchBoard.astro`、`src/components/TrendChart.astro`、`src/lib/sample.js`、`scripts/lib/util.mjs`、`src/pages/index.astro`、`src/scripts/home.js`、`README.md`、`design-qa.md`、`WORKLOG.md`
+
+## 2026-07-22 · 1658 张社交图改为持久化增量构建
+
+### 做了什么
+
+静态站的 623 张 OG 图与 1035 张 Share 图保留完整覆盖，但构建不再每次重画全部图片。新增的内容寻址缓存把模板版本/源码、最终渲染内容、字体与底图素材一起纳入缓存键；图片路由命中本地对象或上一部署的同路径图片时直接复用字节，只为新增或变化的卡片调用渲染器。构建结束统一发布 manifest、清理已删除路由及无引用对象，并报告 generated / reused / removed；同模板素材下的异常近全量重绘会告警。
+
+为适配 EdgeOne 没有承诺持久化任意 Astro 缓存目录的现实，clean workspace 可从当前线上 manifest 与图片 bootstrap。外部链路单请求 5 秒超时、最多 8 并发、单 URL 不重试；连续 3 次或累计 5 次失败立即熔断，剩余卡片回到本地生成，不会让 1658 个超时串成十几分钟。Vercel 动态图片路由保持按需渲染，不使用文件缓存。
+
+### 关键决策与被否决的备选
+
+- 选择「本地内容寻址对象 + 随部署发布 manifest + 可选远端 bootstrap」，而非假设 EdgeOne 会恢复 `.cache` 或 `.astro`；官方只明确了特定框架目录，无法据此承诺 Astro 任意目录跨部署存在。
+- 使用 `scripts/build.mjs` 父进程在 Astro 成功退出后唯一 finalize。冷构建取证证明 Astro CLI 没有触发原先的 `beforeExit`：1658 个对象已经写完，但 manifest 与 summary 均未出现，因此否决继续依赖进程退出钩子。
+- Vite 可能把 helper 放进不同 route bundle，运行态挂到 `globalThis[Symbol.for(...)]`；跨 realm/process 的最终结果仍以 JSONL journal 汇总，避免多条 summary、manifest 被最后一个路由组覆盖。
+- 知识卡原来的“已沉淀 N 天”依赖 `Date.now()`，会让 618 张卡在无内容变化时每天集体失效；改为稳定的创建日期“始于 YYYY.MM.DD”。
+
+### 当前状态：现在能跑什么、怎么跑
+
+- 冷构建：空缓存且 `SOCIAL_IMAGE_BOOTSTRAP_URL=off`，685 页成功，`real 607.33s`，生成 1658 张。
+- 本地热构建：`real 10.77s`，唯一 summary 为 `generated=0 reused=1658 removed=0`；manifest entries=1658。冷构建期间及之后只有首页装置视觉代码发生并行变化，随后仅 `touch src/pages/index.astro` 再构建为 `real 10.79s`，OG/Share 均 `generated=0`，满足首页-only 变更验收。
+- clean-bootstrap 模拟：从本机只读 HTTP 站点启动、使用全空 cache，`real 12.65s`，`remote=1658 generated=0 remote_disabled=false`。这只验证链路，尚未在 EdgeOne 真实生产构建实测。
+- 产物：OG 623、Share 1035；抽样 home OG / KB OG 为 1200×630 PNG，KB / frontier / site Share 为 720×1280 JPEG；Astro preview 下五条路由均 200 且 Content-Type 正确。
+- Vercel 回归：`VERCEL=1 npm run build` 成功，19.36 秒；5 条动态图片路由未静态展开，包装器未发布静态缓存 summary。
+
+### 未尽事项与已知问题
+
+- 首次含 manifest 的 EdgeOne 部署仍会冷生成；上线后需确认 `/social-image-cache-manifest.json` 可达，并用下一次真实构建日志验证 `remote>0` 或持久目录 `local>0`。
+- 618 张 KB Share 图的 kicker 因去除每日漂移字段发生预期视觉变化；其余 1040 张与改造前逐文件二进制一致，OG 623 张全部一致。
+- 本轮未修改 CI / 部署配置，未提交、未推送。
+
+### 文件级变更清单
+
+- 新增：`src/lib/social-image-cache.mjs`、`scripts/build.mjs`
+- 修改：`package.json`、`src/lib/og-image.mjs`、`src/lib/share-card.mjs`、7 个 `src/pages/og|share` 图片路由、`README.md`、`WORKLOG.md`
+
+## 2026-07-22 · 首页装置区视觉校准：主装置回到圆角玻璃卡
+
+### 做了什么
+
+把首页「装置」从无圆角的分栏表格改为与项目卡一致的圆角玻璃卡组：「装置 · 3」降为 12px 小节标签，不再与一级标题「项目」抢层级；Galaxy View 与前沿追踪改成并排、同尺寸的两张主卡，恢复它们作为站点核心可玩体验的可见面积与点击强调；历史知识台改为下方横向待上线卡，仍保留完整用途、能力标签与视觉资产，但不生成假链接。
+
+桌面端为“两张同级主卡 + 一张横向待上线卡”，手机端为三张独立圆角卡依次排列。卡片圆角、玻璃描边、内高光、悬停抬升和按压收缩均复用现有 Liquid Glass token；原有三张 WebP 图形继续复用，没有新增依赖或资产。
+
+### 关键决策与被否决的备选
+
+- 可直接进入的 Galaxy View 与前沿追踪优先于尚未部署的历史知识台：前两者同级、同面积，历史知识台足够完整但视觉更克制。被否决：继续让历史知识台占 2/3 主位、另两项挤在右侧——这会把已经可玩的核心能力降成附属入口。
+- 采用三张有间距的圆角玻璃卡，而非在一张大面板里画横竖分割线；前者与下方项目卡的 18px 圆角、描边和 hover 语言一致，也能让未来新增装置时保持一项一卡的清晰边界。
+- 装置编号按实际视觉顺序重排为 Galaxy 01、前沿 02、历史 03；避免页面从 02/03 跳回 01。
+
+### 当前状态：现在能跑什么、怎么跑
+
+- `npm run dev` 后打开首页 `#projects`：桌面可见两张 514×286 主卡、18px 间距与一张全宽历史卡；Galaxy `/graph`、前沿 `/frontier/` 为链接，历史知识台仍为无 `href` 的 `article`。
+- 390×844 真实渲染复核通过：三卡高度 250 / 250 / 278px，页面 `scrollWidth === clientWidth === 390`，无横向溢出；「装置」标签为 11px，桌面为 12px。
+- 静态验证通过：`astro sync` 完成内容与类型生成，`tsc --noEmit` 零错误。仓库未安装 `@astrojs/check`，因此没有临时加依赖；本轮按并行性能优化任务的约束未跑会触发全量社交图的 `astro build`。
+
+### 未尽事项与已知问题
+
+- 历史知识台上线后仍需在 `src/data/instruments.ts` 补真实 `href`，并复核它从待上线横卡切为可玩主卡时的排序。
+- 本轮只调整首页装置区视觉；社交图增量缓存、构建时长与部署链路由同一任务的独立实现继续处理。
+
+### 文件级变更清单
+
+- 修改：`src/components/InstrumentsPanel.astro`、`src/components/InstrumentCard.astro`、`src/data/instruments.ts`、`WORKLOG.md`
+
+## 2026-07-22 · 首页「装置」作为项目的可玩入口
+
+### 做了什么
+
+首页 Projects 区新增「装置」前置层：历史知识台作为 2/3 主入口，Galaxy View 与前沿追踪作为右侧次入口，随后用过渡条回到 7 个常规项目。三个入口共用现有钴蓝 Liquid Glass 语汇，不搬运各项目的整页截图；历史、星系、时间轴的低对比 alpha 图形分别由真实 WebP 资产承载。历史知识台尚未部署，首页明确显示「即将上线」且不生成假链接；Galaxy View 与前沿追踪分别进入 `/graph`、`/frontier/`。
+
+首页信息架构收束为「项目 / 阅读 / 写作」三个一级栏目，原知识库与前沿追踪大预览从首页移除，但 `/kb/`、`/graph`、`/frontier/` 独立页面完整保留。子页面顶部导航继续提供项目、知识库、前沿、阅读、写作五个直接入口，不再指向已经移除的首页锚点。工作台产出口径同步加入「3 个装置」，知识库链接改为独立页。
+
+### 关键决策与被否决的备选
+
+- 装置是项目的可直接体验形态，不是与项目并列的新一级频道；这样未来新增风格不同的工具时，只增加一张入口卡，不打散首页视觉，也不提前引入插件式抽象。
+- 历史知识台不使用临时 URL 或 GitHub 仓库替代真实体验地址；部署前保持不可点击，上线后只在 `src/data/instruments.ts` 补 `href`。
+- 被否决：在首页保留完整知识图谱和前沿时间轴预览——它们与装置入口重复，增加首屏之后的信息密度，也继续让首页加载图谱渲染依赖。
+- 可见图形使用独立 alpha WebP，不用 div/CSS 或手写 SVG 仿画；卡片 CSS 只负责布局、玻璃层与交互状态。
+
+### 当前状态：现在能跑什么、怎么跑
+
+- `npm run dev`：本地预览首页，桌面端为 2/3 + 1/3 非对称布局；900px 以下先变主卡 + 双次卡，700px 以下单列。
+- `npm run build`：最终修正版通过，685 页 / 485.08 秒；首页客户端 chunk 从改动前 11.30 kB 降到 5.40 kB（知识图谱首页渲染代码与静态依赖退出主页包）。构建仍会为全量知识库与前沿条目生成约 1,300 张社交图，这是当前总时长的主要来源，与本轮入口卡无关。
+- `npm run verify:privacy`：全部不变量通过（1148 节点、3520 边、618 个 full 页面与发布 Markdown 数量一致）。
+- 浏览器视觉终验：在 1487×1058 桌面与 390×844 手机视口完成真实渲染；修正了首版遗漏的「项目」总标题、去掉装置内部多余的圆角卡片，让三项装置回到参考稿的一体化分栏；桌面与手机均无横向溢出，控制台无 error / warning。
+- 交互终验：Galaxy View 跳转 `/graph`、前沿追踪跳转 `/frontier/`、项目展开状态与历史知识台不可点击状态均按预期；三张 alpha WebP 均加载成功。完整对照记录见根目录 `design-qa.md`。
+
+### 未尽事项与已知问题
+
+- 历史知识台只有在独立站实际部署后才会变为可点击；届时补真实地址，并做一次跨站返回与移动端真机验收。
+- 本轮未部署、未修改 CI。
+- 全量 build 的社交图生成耗时已超过 7 分钟；本轮已让首页运行时更轻，但没有改动构建管线，后续若继续增长应单独评估增量缓存。
+
+### 文件级变更清单
+
+- 新增：`src/data/instruments.ts`、`src/components/InstrumentsPanel.astro`、`src/components/InstrumentCard.astro`
+- 新增资产：`public/assets/instruments/history.webp`、`public/assets/instruments/galaxy.webp`、`public/assets/instruments/frontier.webp`
+- 修改：`src/pages/index.astro`、`src/layouts/Glass.astro`、`src/scripts/home.js`、`src/components/WorkbenchGlance.astro`、`src/components/WorkbenchBoard.astro`
+- 文档：`README.md`、`WORKLOG.md`
+
 ## 2026-07-18 · 液态之夜：心电节奏放慢三倍（1.05s → 3.15s）
 
 **体验影响**：R 峰闪光从每秒一次降为约每 3 秒一次，「抽搐感」消失；心电波形（P→QRS→T）与全部幅度参数不变，只改时间轴。
@@ -1525,3 +1662,59 @@ EdgeOne 部署失败、Vercel 成功。诊断：EdgeOne 纯静态构建把全部
 - 重写：`scripts/sync-vault.mjs`（04T 下钻 + 消毒管线）、`scripts/collect-usage.mjs`（口径 v2）、`src/scripts/graph-explore.js`（双引擎编排）、`src/data/projects.ts`（文案 + 图标 + 排序）、`src/components/ProjRow.astro`
 - 修改：`scripts/config.mjs`（sanitize/facetedClusters/wereadAiTopics）、`scripts/collect-weread.mjs`（白名单/划线/书架策展）、`src/layouts/Glass.astro`（reader chrome/分享弹层/简历链接/微信二维码/品牌名）、`src/pages/index.astro`（hero/口径 v2 展示/AI 共创阅读区/降采样图谱/样例徽章）、`src/pages/graph.astro`、`src/pages/kb/index.astro`（精选层）、`src/pages/kb/[...slug].astro`（reader/徽章/进度条）、`src/pages/blog/[...slug].astro`、`src/scripts/graph-view.js`（TDZ 修复 + ready + 大图静态布局）、`src/lib/sample.js`（18 色板）、`src/styles/glass.css`（reader/分享/AI 书/图标/断点/圆角修复等）、`content/posts/how-this-page-was-built.md`（去草稿声明/硬编码数字）、`README.md`、4 张项目 SVG（补 width/height）
 - 数据：`data/graph.json`（594 节点）、`data/usage.json`（v2）、`data/reading.json`（aiTopics/highlights/策展书架）、`data/kb-manifest.json`（消毒报告）、`content/kb/**` 全量重生成
+## 2026-07-22（续）· 装置定名、历史卡排版与知识库导航恢复
+
+### 做了什么
+
+- 三个首页装置正式定名为「知识图谱 Galaxy View」「AI 前沿追踪」「历史全景知识台」。
+- 历史卡两段正文统一为 `1.6` 行高，并把第二段段前距收紧到 `4px`；浏览器计算样式复核通过。
+- 首页桌面顶栏与移动底部 Dock 共用同一导航源，恢复「知识库」并指向 `#knowledge`；子页仍直接进入 `/kb/`。
+- 校正 README 中已经落后的 Vercel 静态部署说明，明确 EdgeOne 静态产物与 Vercel adapter 两条输出路径；移除根目录临时 Design QA 文档，结论保留在本日志。
+
+### 关键决策与被否决的备选
+
+- 历史站保持独立全栈服务，不把 245 MB 数据、FastAPI 查询与 5,023 张地图瓦片塞进主页静态构建。
+- 正式入口优先使用独立子域 `history.ricksi.com`；被否决的直接复制前端 `dist` 会让 `/api`、时间轴查询和地图瓦片全部失效。
+- 暂不预填假链接：历史仓库无 remote，也没有可用的公网容器目标；在宿主与授权确认前继续显示「即将上线」。
+
+### 当前状态
+
+- 本地首页可在 `http://127.0.0.1:4321/#projects` 预览；桌面实测无横向溢出，装置名称、知识库导航和历史段距均已生效。
+- `npm run verify:privacy` 通过；`node --test test/*.test.mjs` 17/17 通过；`npm run build` 完成 685 页，用时 11.22 秒。
+- 社交图热构建 `generated=0 reused=1658 removed=0`，本轮仅改首页没有重画知识库或前沿分享图。
+
+### 未尽事项与已知问题
+
+- 历史知识台部署被基础设施选择阻塞：需提供已有服务器/容器平台，或确认新开一个公网容器服务；完成后把首页入口改为正式地址并做全链路 smoke test。
+- 主页生产 worktree 比远端 `main` 落后一个仅修改 `data/activity.json` 的自动更新提交；正式发布前需先 `git pull --ff-only` 再提交本轮修改。
+- 首次把社交图 manifest 发布到 EdgeOne 仍是冷构建；线上第二次构建才能验证跨部署远端复用。
+
+### 文件级变更清单
+
+- 修改：`src/data/instruments.ts`、`src/components/InstrumentCard.astro`、`src/layouts/Glass.astro`、`README.md`、`WORKLOG.md`。
+- 移除：根目录临时 `design-qa.md`（结论已并入本日志）。
+
+## 2026-07-22 · 历史全景知识台正式上线并接入主页
+
+### 做了什么
+
+历史全景知识台已发布到 `https://history.ricksi.com/`，首页第三张装置卡从“即将上线”切换为可直接打开的正式入口；链接使用稳定自定义 HTTPS 域名，不使用 EdgeOne 带访问令牌的临时预览地址。主页 README 同步记录历史站的独立全栈边界。
+
+### 关键决策与被否决的备选
+
+- 历史站继续作为独立 EdgeOne 混合应用部署，主页只承担发现与跳转；不把其数据、API 和瓦片塞进主页静态构建。
+- 被否决：HTTP 地址或临时预览域名。正式入口等待自定义证书实际部署、两组公网 DNS 传播和 HTTPS/API smoke 全部通过后才发布。
+
+### 当前状态
+
+- `https://history.ricksi.com/` 与 `/api/meta/stats` 均返回 200；API 返回 7,396 实体 / 10,266 关系。
+- 本地主页构建通过，`dist/index.html` 已包含正式历史入口且不含“即将上线”；社交图 manifest 包含 623 张 OG 与 1,044 张 Share，共 1,667 项。
+- `git diff --check` 通过；推送 `main` 后由 EdgeOne 与 Vercel 自动部署。
+
+### 未尽事项与已知问题
+
+- 本次主页发布后仍需在生产域名复核装置链接、知识库底导、Token 一位小数，以及首次社交图 manifest 是否可下载；下一次真实构建再确认跨部署远端复用数。
+
+### 文件级变更清单
+
+- 修改：`src/data/instruments.ts`、`README.md`、`WORKLOG.md`（其余首页装置、知识库、Token 与增量社交图变更见本日此前记录）。

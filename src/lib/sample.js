@@ -75,7 +75,7 @@ export const SAMPLE_USAGE = {
   sample: true,
   today: 1247832,
   week: '8.7M',
-  cumulative: '142M',
+  cumulative: '142.0M',
   models: [['Opus', 38], ['Sonnet', 54], ['Haiku', 8]],
   days7: [
     { d: '周三', v: 0.9 }, { d: '周四', v: 1.4 }, { d: '周五', v: 2.2 },

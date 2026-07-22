@@ -2,9 +2,10 @@
 /* 工作台 · 展开态全宽 bento 数据看板（Board）
    从 Glance 卡原地展开的模态浮层（home.js 控制 open/close/焦点/ESC/scrim）。
    产出导向：主 tile 叙事 + 全宽多源热力图(#heatmap，home.js 直接复用) + 14 日趋势 +
-   模型分段条 + 产出联动 stat tiles（跨链 #projects/#knowledge/#blog）+ 口径最小化入口。
+   模型分段条 + 产出联动 stat tiles（项目/知识库/写作）+ 口径最小化入口。
    默认 hidden；数据同源 SSR，无客户端取数。 */
 import TrendChart from './TrendChart.astro';
+import { formatCompactToken } from '../lib/token-format.mjs';
 
 interface Day { label: string; v: number; estimated?: boolean }
 interface Props {
@@ -16,6 +17,7 @@ interface Props {
   hmDims: [string, string][];
   notesLabel: string;
   projectsCount: number;
+  instrumentsCount: number;
   postsCount: number;
   isUsageSample: boolean;
   isActivitySample: boolean;
@@ -26,12 +28,10 @@ interface Props {
 }
 const {
   u, coding, days14, heatmapCols, activity, hmDims,
-  notesLabel, projectsCount, postsCount,
+  notesLabel, projectsCount, instrumentsCount, postsCount,
   isUsageSample, isActivitySample, usageStamp, activityStamp, methodReal, methodEst,
 } = Astro.props;
 
-const compact = (n: number) =>
-  n >= 1e9 ? (n / 1e9).toFixed(1) + 'B' : n >= 1e6 ? (n / 1e6).toFixed(1) + 'M' : n >= 1e3 ? Math.round(n / 1e3) + 'K' : String(n);
 const models: [string, number][] = u.models ?? [];
 /* 模型条按「厂商」配色（口径 v3 多源）：Claude 本家四档走钴蓝阶梯，GLM/DeepSeek 各自独立色一眼分厂商；
    按家族名取色（顺序无关，跨渲染稳定）。青/紫刻意避开人机光谱的 --prov-co(175)/--prov-ai(295) 语义值。 */
@@ -59,12 +59,12 @@ const segVar = (m: string) => SEG[m] ?? '--mseg-other';
       <!-- 主 tile · 产出叙事 -->
       <section class="wb-tile wb-tile-hero">
         <p class="wb-hero-say">
-          累计 <b>{u.cumulative}</b> tokens 的真实 AI 协作，沉淀为
-          <a href="#projects">{projectsCount} 个项目</a>、<a href="#knowledge">{notesLabel} 篇笔记</a>、<a href="#blog">{postsCount} 篇写作</a>，以及这座主页本身。
+          累计 <b>{formatCompactToken(u.cumulative)}</b> tokens 的真实 AI 协作，沉淀为
+          <a href="#projects">{projectsCount} 个项目与 {instrumentsCount} 个装置</a>、<a href="/kb/">{notesLabel} 篇笔记</a>、<a href="#blog">{postsCount} 篇写作</a>，以及这座主页本身。
         </p>
         <div class="wb-hero-live">
-          <div class="wb-live-cell"><span class="mono stat-k">今日</span><span class="stat-v">{u.today.toLocaleString()}</span></div>
-          <div class="wb-live-cell"><span class="mono stat-k">本周</span><span class="stat-v">{u.week}</span></div>
+          <div class="wb-live-cell"><span class="mono stat-k">今日</span><span class="stat-v">{formatCompactToken(u.today)}</span></div>
+          <div class="wb-live-cell"><span class="mono stat-k">本周</span><span class="stat-v">{formatCompactToken(u.week)}</span></div>
           <div class="wb-live-cell"><span class="mono stat-k">连续活跃</span><span class="stat-v">{coding.streak}<span class="stat-unit">天</span></span></div>
         </div>
       </section>
@@ -127,7 +127,7 @@ const segVar = (m: string) => SEG[m] ?? '--mseg-other';
         <div class="wb-onum">{coding.commits.toLocaleString()}</div>
         <div class="wb-olabel">提交 <span class="wb-oarrow">→ 化为项目</span></div>
       </a>
-      <a class="wb-otile" href="#knowledge">
+      <a class="wb-otile" href="/kb/">
         <div class="wb-onum">{notesLabel}</div>
         <div class="wb-olabel">笔记 <span class="wb-oarrow">→ 进知识库</span></div>
       </a>
@@ -145,15 +145,15 @@ const segVar = (m: string) => SEG[m] ?? '--mseg-other';
         <summary class="mono"><span class="wb-method-dot" aria-hidden="true"></span>口径 v5 · 数据怎么来的</summary>
         <div class="wb-method-body">
           <p>
-            Token：全 harness 合计 <b>{u.cumulative}</b> ——
-            Claude Code {u.cumulative_code}{methodReal ? `（实测 ${methodReal} 天` : ''}{methodEst ? ` + 起用期估算 ${methodEst} 天）` : methodReal ? '）' : ''}
-            {u.cumulative_codex && (<> · Codex {u.cumulative_codex}</>)}
-            {u.cumulative_zcode && (<> · ZCode {u.cumulative_zcode}</>)}
-            {u.cumulative_hermes && (<> · Hermes {u.cumulative_hermes}</>)}
-            {u.cumulative_kimi_code && (<> · Kimi Code {u.cumulative_kimi_code}</>)}
-            {u.cumulative_openclaw && (<> · OpenClaw {u.cumulative_openclaw}</>)}
-            {u.cumulative_web && (<> · 网页端粗估 {u.cumulative_web}</>)}；
-            全口径含缓存读写，今日缓存读 {u.today_cache_share}%、模型输出 {compact(u.today_out ?? 0)}。
+            Token：全 harness 合计 <b>{formatCompactToken(u.cumulative)}</b> ——
+            Claude Code {formatCompactToken(u.cumulative_code)}{methodReal ? `（实测 ${methodReal} 天` : ''}{methodEst ? ` + 起用期估算 ${methodEst} 天）` : methodReal ? '）' : ''}
+            {u.cumulative_codex && (<> · Codex {formatCompactToken(u.cumulative_codex)}</>)}
+            {u.cumulative_zcode && (<> · ZCode {formatCompactToken(u.cumulative_zcode)}</>)}
+            {u.cumulative_hermes && (<> · Hermes {formatCompactToken(u.cumulative_hermes)}</>)}
+            {u.cumulative_kimi_code && (<> · Kimi Code {formatCompactToken(u.cumulative_kimi_code)}</>)}
+            {u.cumulative_openclaw && (<> · OpenClaw {formatCompactToken(u.cumulative_openclaw)}</>)}
+            {u.cumulative_web && (<> · 网页端粗估 {formatCompactToken(u.cumulative_web)}</>)}；
+            全口径含缓存读写，今日缓存读 {u.today_cache_share}%、模型输出 {formatCompactToken(u.today_out ?? 0)}。
             <a href="https://github.com/Longwind1984/ricksi.com/blob/main/docs/token-estimation.md" target="_blank" rel="noreferrer">估算方法 ↗</a>
           </p>
           <p>活跃：多源统计涵盖代码提交（git）、笔记更新（Obsidian）、AI 会话与 GitHub 贡献，可按上方维度切换查看各来源分布。</p>

@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1240 500" fill="none" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="h-time" x1="85" y1="0" x2="1164" y2="0" gradientUnits="userSpaceOnUse"><stop stop-color="#4268D5" stop-opacity="0"/><stop offset=".18" stop-color="#5A85E5" stop-opacity=".38"/><stop offset=".48" stop-color="#68DAEE" stop-opacity=".64"/><stop offset=".75" stop-color="#8579E7" stop-opacity=".38"/><stop offset="1" stop-color="#4268D5" stop-opacity="0"/></linearGradient>
+    <linearGradient id="h-column" x1="0" y1="118" x2="0" y2="439" gradientUnits="userSpaceOnUse"><stop stop-color="#FFF1BC" stop-opacity=".9"/><stop offset=".22" stop-color="#70E2F3" stop-opacity=".6"/><stop offset=".7" stop-color="#577EE5" stop-opacity=".34"/><stop offset="1" stop-color="#536CD2" stop-opacity="0"/></linearGradient>
+    <radialGradient id="h-node-cyan"><stop stop-color="#F0FEFF"/><stop offset=".28" stop-color="#73DDEA" stop-opacity=".86"/><stop offset="1" stop-color="#3F8FD6" stop-opacity="0"/></radialGradient>
+    <radialGradient id="h-node-gold"><stop stop-color="#FFF7DA"/><stop offset=".28" stop-color="#DCB15D" stop-opacity=".84"/><stop offset="1" stop-color="#BE8037" stop-opacity="0"/></radialGradient>
+    <linearGradient id="h-plane" x1="740" y1="282" x2="1008" y2="485" gradientUnits="userSpaceOnUse"><stop stop-color="#55D5E8" stop-opacity=".34"/><stop offset="1" stop-color="#5A68D6" stop-opacity=".08"/></linearGradient>
+    <filter id="h-glow" x="-120%" y="-120%" width="340%" height="340%"><feGaussianBlur stdDeviation="2.4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="h-soft" x="-100%" y="-30%" width="300%" height="160%"><feGaussianBlur stdDeviation="8"/></filter>
+    <clipPath id="h-map-clip"><path d="M699 316L1109 272L1200 446L772 478Z"/></clipPath>
+  </defs>
+
+  <!-- Three historical layers instead of one flat chronology. -->
+  <g stroke="url(#h-time)" stroke-linecap="round">
+    <path d="M73 135C302 112 513 115 706 148C885 178 1040 177 1175 142" stroke-width="1.2"/>
+    <path d="M68 207C299 183 505 194 700 225C876 253 1043 252 1178 212" stroke-width="1.8"/>
+    <path d="M88 278C285 264 464 271 648 301C790 324 924 329 1070 310" stroke-width="1" opacity=".68"/>
+  </g>
+  <g stroke="#94B6F5" stroke-opacity=".2" stroke-width="1">
+    <path d="M166 126V221M307 117V200M458 119V269M606 134V293M781 157V244M961 171V322M1104 158V229"/>
+  </g>
+
+  <!-- Event nodes carry different prominence and cross-layer relations. -->
+  <g filter="url(#h-glow)">
+    <circle cx="166" cy="126" r="13" fill="url(#h-node-cyan)"/><circle cx="166" cy="126" r="2.6" fill="#E8FCFF"/>
+    <circle cx="307" cy="196" r="10" fill="url(#h-node-cyan)"/><circle cx="307" cy="196" r="2.2" fill="#E8FCFF"/>
+    <circle cx="458" cy="119" r="14" fill="url(#h-node-gold)"/><circle cx="458" cy="119" r="2.8" fill="#FFF2C6"/>
+    <circle cx="606" cy="210" r="11" fill="url(#h-node-cyan)"/><circle cx="606" cy="210" r="2.4" fill="#E8FCFF"/>
+    <circle cx="781" cy="159" r="9" fill="url(#h-node-cyan)"/><circle cx="781" cy="159" r="2" fill="#E8FCFF"/>
+    <circle cx="961" cy="244" r="13" fill="url(#h-node-gold)"/><circle cx="961" cy="244" r="2.8" fill="#FFF2C6"/>
+    <circle cx="1104" cy="158" r="10" fill="url(#h-node-cyan)"/><circle cx="1104" cy="158" r="2.1" fill="#E8FCFF"/>
+  </g>
+  <g fill="#7EDFEB"><circle cx="235" cy="190" r="1.8"/><circle cx="384" cy="202" r="1.4"/><circle cx="529" cy="134" r="1.7"/><circle cx="689" cy="223" r="1.5"/><circle cx="866" cy="250" r="1.6"/><circle cx="1042" cy="188" r="1.5"/></g>
+
+  <!-- Cross-era causal threads. -->
+  <g stroke-width="1.1" stroke-dasharray="3 6" opacity=".42">
+    <path d="M166 126C244 154 360 145 458 119" stroke="#64D7E8"/>
+    <path d="M307 196C405 238 520 251 606 210" stroke="#6486E2"/>
+    <path d="M606 210C727 180 849 193 961 244" stroke="#9B79E7"/>
+    <path d="M781 159C884 136 1001 137 1104 158" stroke="#D5AD59"/>
+  </g>
+
+  <!-- Geographic plane: latitude/longitude, regions and routes. -->
+  <path d="M699 316L1109 272L1200 446L772 478Z" fill="#102554" fill-opacity=".16" stroke="#6B91E2" stroke-opacity=".16"/>
+  <g clip-path="url(#h-map-clip)" stroke="url(#h-plane)" stroke-width="1">
+    <path d="M729 300L809 485M794 292L867 480M861 286L928 475M931 279L991 469M1004 274L1056 464M1080 268L1122 458M1157 263L1190 450"/>
+    <path d="M684 337L1165 290M701 374L1180 329M719 410L1191 369M741 447L1203 410"/>
+  </g>
+  <g stroke="#6FD9E8" stroke-opacity=".34" stroke-width="1.4">
+    <path d="M787 405C851 351 914 348 972 389C1021 423 1083 412 1131 354"/>
+    <path d="M821 343C873 375 934 376 996 332"/>
+  </g>
+  <g filter="url(#h-glow)">
+    <circle cx="787" cy="405" r="11" fill="url(#h-node-cyan)"/><circle cx="787" cy="405" r="2.3" fill="#E7FCFF"/>
+    <circle cx="972" cy="389" r="13" fill="url(#h-node-gold)"/><circle cx="972" cy="389" r="2.7" fill="#FFF2C8"/>
+    <circle cx="1131" cy="354" r="10" fill="url(#h-node-cyan)"/><circle cx="1131" cy="354" r="2.1" fill="#E7FCFF"/>
+    <circle cx="821" cy="343" r="8" fill="url(#h-node-cyan)"/><circle cx="821" cy="343" r="1.8" fill="#E7FCFF"/>
+  </g>
+
+  <!-- The space-time column joins a timeline event to a real location. -->
+  <g>
+    <path d="M606 118V405" stroke="url(#h-column)" stroke-width="18" stroke-linecap="round" opacity=".14" filter="url(#h-soft)"/>
+    <path d="M606 118V405" stroke="url(#h-column)" stroke-width="2" stroke-linecap="round"/>
+    <ellipse cx="606" cy="118" rx="17" ry="6" stroke="#FFEAB2" stroke-opacity=".62"/>
+    <ellipse cx="606" cy="405" rx="23" ry="8" stroke="#6DDDEA" stroke-opacity=".44"/>
+    <path d="M606 405C665 418 725 415 787 405" stroke="#68D7E7" stroke-opacity=".36" stroke-dasharray="3 5"/>
+    <circle cx="606" cy="118" r="4" fill="#FFF3C2" filter="url(#h-glow)"/>
+  </g>
+
+  <!-- Quiet depth markers keep the long visual from feeling like a dashboard. -->
+  <g opacity=".28" fill="#AAC8FF">
+    <circle cx="101" cy="82" r=".9"/><circle cx="262" cy="321" r=".8"/><circle cx="403" cy="73" r=".7"/><circle cx="523" cy="354" r="1"/>
+    <circle cx="704" cy="77" r=".8"/><circle cx="873" cy="98" r="1"/><circle cx="1052" cy="91" r=".8"/><circle cx="1186" cy="238" r=".9"/>
+  </g>
+</svg>

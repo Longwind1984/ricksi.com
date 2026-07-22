@@ -1,0 +1,150 @@
+---
+import type { Instrument } from '../data/instruments';
+
+interface Props {
+  instrument: Instrument;
+  compact?: boolean;
+}
+
+const { instrument, compact = false } = Astro.props;
+const { no, title, nameEn, description, detail, tags, href, status, visual } = instrument;
+const Tag = href ? 'a' : 'article';
+const visualSizes = {
+  galaxy: [720, 480],
+  frontier: [720, 480],
+  history: [1240, 500],
+} as const;
+const visualSize = visualSizes[visual];
+---
+
+<Tag
+  class:list={['instrument-card', { featured: !compact, compact, unavailable: !href }]}
+  data-instrument={instrument.id}
+  href={href || undefined}
+  aria-label={href ? `${title}：${description}` : `${title}：${status}`}
+>
+  <div class="instrument-copy">
+    <span class="mono instrument-kicker">{nameEn}</span>
+    <span class="mono instrument-index" aria-hidden="true">{no}</span>
+    <div class="instrument-name-row">
+      <h3>{title}</h3>
+      {!href && status && <span class="mono instrument-status">{status}</span>}
+    </div>
+    <p>{description}</p>
+    {detail && <p class="instrument-detail">{detail}</p>}
+    {tags && (
+      <div class="instrument-tags" aria-label="能力标签">
+        {tags.map((tag) => <span class="mono">{tag}</span>)}
+      </div>
+    )}
+  </div>
+
+  <img
+    class:list={['instrument-visual', `${visual}-visual`]}
+    src={`/assets/instruments/${visual}-rich.svg`}
+    width={visualSize[0]}
+    height={visualSize[1]}
+    alt=""
+    aria-hidden="true"
+    loading="lazy"
+    decoding="async"
+  />
+
+  {href && <span class="mono instrument-action" aria-hidden="true">进入装置 ↗</span>}
+</Tag>
+
+<style>
+  .instrument-card {
+    position: relative; min-width: 0; overflow: hidden; isolation: isolate;
+    color: inherit;
+    background: linear-gradient(155deg, rgba(126,158,236,.13), rgba(20,38,92,.22));
+    border: 1px solid rgba(190,210,255,.18); border-radius: var(--r-row, 18px);
+    box-shadow: inset 0 1px 0 rgba(220,232,255,.14), 0 12px 30px rgba(2,8,28,.16);
+    transition: background-color .22s ease, border-color .22s ease, transform .35s var(--ease-liquid), box-shadow .22s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+  a.instrument-card { cursor: pointer; }
+  a.instrument-card:hover {
+    background-color: rgba(94,132,218,.18); border-color: rgba(205,222,255,.34);
+    box-shadow: inset 0 1px 0 rgba(235,242,255,.20), 0 16px 38px rgba(2,8,28,.26);
+    transform: translateY(-2px);
+  }
+  a.instrument-card:active { transform: scale(.99); background-color: rgba(94,132,218,.24); }
+  a.instrument-card:focus-visible { outline: 2px solid rgba(255,255,255,.78); outline-offset: 3px; }
+  .instrument-card.featured { min-height: 286px; padding: 30px 28px 26px; display: flex; flex-direction: column; }
+  .instrument-card.compact {
+    grid-column: 1 / -1; min-height: 178px; padding: 28px 30px;
+    display: grid; grid-template-columns: minmax(0, 1fr) minmax(240px, .72fr); align-items: center; gap: 26px;
+    background: linear-gradient(155deg, rgba(90,122,202,.09), rgba(18,34,82,.16));
+    border-color: rgba(190,210,255,.13); box-shadow: inset 0 1px 0 rgba(220,232,255,.10);
+  }
+  .instrument-copy { position: relative; z-index: 2; padding-left: 42px; }
+  .instrument-index { position: absolute; left: 0; top: 34px; color: var(--accent-text, rgba(221,236,255,.72)); font-size: 12px; letter-spacing: .12em; }
+  .instrument-kicker { display: block; margin-bottom: 16px; font-size: 10px; letter-spacing: .14em; color: rgba(203,218,255,.52); }
+  .instrument-name-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .instrument-name-row h3 { margin: 0; color: #fff; font-size: 25px; line-height: 1.25; letter-spacing: -.015em; }
+  .compact .instrument-name-row h3 { font-size: 22px; }
+  .instrument-status {
+    padding: 4px 10px; border: 1px dashed rgba(190,210,255,.30); border-radius: 999px;
+    color: rgba(232,239,255,.58); background: rgba(255,255,255,.04); font-size: 10px; letter-spacing: .08em;
+  }
+  .instrument-copy p { max-width: 330px; margin: 14px 0 0; color: rgba(235,242,255,.80); font-size: 14px; line-height: 1.75; text-wrap: pretty; }
+  .compact .instrument-copy p { max-width: 580px; margin-top: 10px; font-size: 13.5px; line-height: 1.7; color: rgba(229,238,255,.70); }
+  .instrument-copy .instrument-detail { max-width: 520px; margin-top: 7px; font-size: 12.5px; color: rgba(215,228,252,.52); }
+  .instrument-card[data-instrument='history-knowledge-desk'] .instrument-copy > p {
+    line-height: 1.6;
+  }
+  .instrument-card.compact[data-instrument='history-knowledge-desk'] .instrument-copy > .instrument-detail {
+    margin-top: 4px;
+  }
+  .instrument-tags { display: flex; gap: 7px; flex-wrap: wrap; margin-top: 22px; }
+  .instrument-tags span {
+    padding: 5px 11px; border: 1px solid rgba(190,210,255,.18); border-radius: 999px;
+    background: rgba(255,255,255,.05); color: rgba(229,238,255,.68); font-size: 10px; letter-spacing: .06em;
+  }
+  .instrument-action { position: absolute; z-index: 3; right: 24px; bottom: 22px; font-size: 11px; letter-spacing: .08em; color: rgba(226,237,255,.72); transition: color .2s, transform .2s; }
+  a.instrument-card:hover .instrument-action { color: #fff; transform: translateX(3px); }
+  .instrument-visual {
+    position: absolute; z-index: 1; pointer-events: none; display: block; object-fit: contain;
+    filter: saturate(.92) drop-shadow(0 12px 24px rgba(31, 100, 255, .12));
+  }
+  .featured .galaxy-visual {
+    right: -16px; bottom: -4px; width: 286px; height: 214px;
+    object-position: center; opacity: .92;
+  }
+  .featured .frontier-visual {
+    right: -14px; bottom: 2px; width: 286px; height: 214px;
+    object-position: center; opacity: .90;
+  }
+  .compact .history-visual {
+    position: relative; inset: auto; width: 108%; height: 160px;
+    object-position: center; opacity: .90;
+  }
+  @media (max-width: 900px) {
+    .instrument-card.featured { min-height: 276px; padding: 26px 22px 24px; }
+    .instrument-copy { padding-left: 34px; }
+    .instrument-name-row h3 { font-size: 22px; }
+    .instrument-copy p { font-size: 13.5px; }
+    .featured .galaxy-visual { width: 236px; height: 178px; opacity: .84; }
+    .featured .frontier-visual { width: 238px; height: 180px; opacity: .82; }
+  }
+  @media (max-width: 700px) {
+    .instrument-card.featured { min-height: 250px; padding: 24px 20px 22px; }
+    .instrument-card.compact { min-height: 278px; padding: 24px 20px 22px; display: block; }
+    .instrument-name-row h3, .compact .instrument-name-row h3 { font-size: 21px; }
+    .instrument-copy { padding-left: 0; }
+    .instrument-index { position: static; display: block; margin-bottom: 8px; font-size: 10px; }
+    .instrument-kicker { margin-bottom: 10px; }
+    .instrument-copy p { max-width: 74%; font-size: 13px; line-height: 1.65; }
+    .compact .instrument-copy p { max-width: none; }
+    .instrument-copy .instrument-detail { font-size: 12px; }
+    .instrument-tags { margin-top: 14px; }
+    .instrument-action { right: 18px; bottom: 18px; }
+    .featured .galaxy-visual { right: -18px; bottom: 0; width: 222px; height: 166px; opacity: .80; }
+    .featured .frontier-visual { right: -18px; bottom: 2px; width: 224px; height: 168px; opacity: .78; }
+    .compact .history-visual { position: absolute; right: -6%; bottom: -3px; width: 112%; height: 124px; opacity: .92; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .instrument-card { transition: none; }
+  }
+</style>

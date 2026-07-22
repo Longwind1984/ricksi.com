@@ -17,6 +17,11 @@ import satori from 'satori';
 import { Resvg } from '@resvg/resvg-js';
 import sharp from 'sharp';
 import QRCode from 'qrcode';
+import { cachedSocialImage } from './social-image-cache.mjs';
+
+export const SHARE_TEMPLATE_VERSION = 'glass-postcard-v2';
+const SHARE_TEMPLATE_FILES = ['src/lib/share-card.mjs'];
+const SHARE_ASSET_FILES = ['assets-src/fonts/MiSans-Regular.ttf', 'assets-src/fonts/MiSans-Semibold.ttf', 'assets-src/fonts/GeistMono-Regular.otf', 'assets-src/fonts/GeistMono-Medium.otf', 'assets-src/fonts/LXGWWenKai-Regular.ttf', 'assets-src/fonts/NotoSansCJKsc-Medium.otf', 'public/assets/hero-2200.jpg', 'public/assets/hero-blur.jpg'];
 
 const F = (p) => fs.readFileSync(path.resolve(p));
 const fonts = [
@@ -255,4 +260,8 @@ export async function renderShareCard({
     .composite([{ input: overlayPng, top: 0, left: 0 }])
     .jpeg({ quality: 82, mozjpeg: true })
     .toBuffer();
+}
+
+export function renderCachedShareCard(route, input) {
+  return cachedSocialImage({ route, mediaType: 'image/jpeg', templateVersion: SHARE_TEMPLATE_VERSION, templateFiles: SHARE_TEMPLATE_FILES, assetFiles: SHARE_ASSET_FILES, input, render: () => renderShareCard(input) });
 }

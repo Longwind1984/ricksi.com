@@ -1,6 +1,8 @@
 ---
 /* 近 N 日 token 用量趋势 —— 构建时渲染的 SVG 面积图
    estimated 日用虚线段 + 空心点区分；峰值标注；点位带 data-tip 由 home.js 挂悬浮明细 */
+import { formatMillionToken } from '../lib/token-format.mjs';
+
 interface Day {
   label: string;
   v: number; // 单位 M tokens
@@ -34,7 +36,6 @@ const area =
   ` L${pts[n - 1].x.toFixed(1)} ${(H - padB).toFixed(1)} Z`;
 
 const peakIdx = pts.reduce((m, p, i) => (p.v > pts[m].v ? i : m), 0);
-const fmtV = (v: number) => (v >= 100 ? Math.round(v) : v >= 10 ? v.toFixed(1) : v.toFixed(2)) + 'M';
 const hasEstimated = days.some((d) => d.estimated);
 ---
 
@@ -68,7 +69,7 @@ const hasEstimated = days.some((d) => d.estimated);
         fill={p.estimated ? 'rgba(10,20,38,0.9)' : 'var(--accent)'}
         stroke="var(--accent)"
         stroke-width={p.estimated ? 1.4 : 0}
-        data-tip={`${p.label} · ${fmtV(p.v)} tokens${p.estimated ? '（估算）' : ''}`}
+        data-tip={`${p.label} · ${formatMillionToken(p.v)} tokens${p.estimated ? '（估算）' : ''}`}
       ></circle>
     ))}
     <text
@@ -79,7 +80,7 @@ const hasEstimated = days.some((d) => d.estimated);
       font-weight="700"
       fill="#FFFFFF"
       style="font-family: var(--head)"
-    >{fmtV(pts[peakIdx].v)}</text>
+    >{formatMillionToken(pts[peakIdx].v)}</text>
     {pts.map((p, i) =>
       i % 3 === 0 || i === n - 1 ? (
         <text x={p.x} y={H - 7} text-anchor="middle" font-size="10.5" fill="rgba(240,245,252,0.55)" style="font-family: 'Geist Mono', 'JetBrains Mono', monospace">{p.label}</text>

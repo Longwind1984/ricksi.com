@@ -44,13 +44,21 @@ const ogAbs = new URL(ogImage, Astro.site ?? 'https://ricksi.com').href;
 /* 自指 canonical：按部署 trailingSlash 习惯取 pathname（去掉查询串/锚点） */
 const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://ricksi.com').href;
 
-const navItems = [
-  ['projects', '项目'],
-  ['knowledge', '知识库'],
-  ['frontier', '前沿'],
-  ['reading', '阅读'],
-  ['blog', '写作'],
+const homeNavItems = [
+  ['projects', '项目', '#projects'],
+  ['knowledge', '知识库', '#knowledge'],
+  ['reading', '阅读', '#reading'],
+  ['blog', '写作', '#blog'],
 ];
+/* 首页导航同时驱动桌面顶栏与移动端底部 Dock；子页直接进入各能力的完整页面。 */
+const subpageNavItems = [
+  ['projects', '项目', '/#projects'],
+  ['knowledge', '知识库', '/kb/'],
+  ['frontier', '前沿', '/frontier/'],
+  ['reading', '阅读', '/reading/'],
+  ['blog', '写作', '/blog/'],
+];
+const navItems = isHome ? homeNavItems : subpageNavItems;
 const scrollspyIds = navItems.map(([id]) => id).join(',');
 ---
 
@@ -123,8 +131,8 @@ const scrollspyIds = navItems.map(([id]) => id).join(',');
             data-active={!isHome && active ? active : undefined}
           >
             <span class="nav-pill" id="nav-pill"></span>
-            {navItems.map(([id, label]) => (
-              <a href={isHome ? `#${id}` : `/#${id}`} class="nav-link" data-tab={id}>{label}</a>
+            {navItems.map(([id, label, href]) => (
+              <a href={href} class="nav-link" data-tab={id}>{label}</a>
             ))}
             <button class="nav-search mono" type="button" aria-label="搜索（⌘K 或 /）" title="搜索（⌘K 或 /）">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.5" y2="16.5"></line></svg>

@@ -1,6 +1,6 @@
 // 整站名片分享卡（玻璃明信片 · site 形态：三格活数据条）
 import type { APIRoute } from 'astro';
-import { renderShareCard } from '../../lib/share-card.mjs';
+import { renderCachedShareCard } from '../../lib/share-card.mjs';
 import { loadSiteData } from '../../lib/site-data.mjs';
 
 export const GET: APIRoute = async () => {
@@ -10,7 +10,7 @@ export const GET: APIRoute = async () => {
     { label: '知识库节点', value: String(graph?.stats?.notes ?? '—') },
     { label: '连续活跃', value: activity?.coding?.streak ? `${activity.coding.streak} 天` : '—', gold: true },
   ];
-  const jpg = await renderShareCard({
+  const input = {
     variant: 'site',
     brand: 'RICK SI',
     module: 'WORKBENCH · LIVE',
@@ -20,6 +20,7 @@ export const GET: APIRoute = async () => {
     url: 'ricksi.com',
     qrUrl: 'https://ricksi.com/',
     hook: '扫码进入工作台 · 数据每日更新',
-  });
+  };
+  const jpg = await renderCachedShareCard('/share/site.jpg', input);
   return new Response(jpg, { headers: { 'Content-Type': 'image/jpeg' } });
 };

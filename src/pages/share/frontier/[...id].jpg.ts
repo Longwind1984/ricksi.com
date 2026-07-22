@@ -1,7 +1,7 @@
 // 前沿动态分享卡（玻璃明信片 · frontier 形态，720×1280 JPEG）
 // kicker = 星类(随星类色)，副文 = 一句话判断；人物为彩色徽章，类型/被低估为 chip。
 import type { APIRoute } from 'astro';
-import { renderShareCard } from '../../../lib/share-card.mjs';
+import { renderCachedShareCard } from '../../../lib/share-card.mjs';
 import { loadSiteData } from '../../../lib/site-data.mjs';
 import { SAMPLE_FRONTIER } from '../../../lib/sample.js';
 import { starOf, STAR_CLASS, DOMAIN_ACCENT, hypeLabel } from '../../../lib/frontier-ui.mjs';
@@ -46,7 +46,7 @@ export const GET: APIRoute = async ({ params, props }) => {
   const underrated = hypeLabel(e) === '被低估';
   const dd = (e.date || '').replace(/-/g, '.');
 
-  const jpg = await renderShareCard({
+  const input = {
     variant: 'frontier',
     brand: 'RICK SI · 前沿追踪',
     module: 'FRONTIER',
@@ -62,6 +62,7 @@ export const GET: APIRoute = async ({ params, props }) => {
     url: 'ricksi.com/frontier',
     qrUrl: `${SITE}/frontier/#e-${e.id}`,
     hook: `${dd} · 每日梳理 + 工作台判断`,
-  });
+  };
+  const jpg = await renderCachedShareCard(`/share/frontier/${e.id}.jpg`, input);
   return new Response(jpg, { headers: imgHeaders('image/jpeg') });
 };

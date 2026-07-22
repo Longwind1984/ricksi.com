@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 480" fill="none" aria-hidden="true" focusable="false">
+  <defs>
+    <radialGradient id="f-field" cx="0" cy="0" r="1" gradientTransform="translate(430 248) rotate(90) scale(202 282)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2C57CE" stop-opacity=".22"/><stop offset=".58" stop-color="#132B6A" stop-opacity=".09"/><stop offset="1" stop-color="#09142D" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="f-nova"><stop stop-color="#FFFBE8"/><stop offset=".14" stop-color="#8EF0FF" stop-opacity=".98"/><stop offset=".38" stop-color="#4E86F3" stop-opacity=".62"/><stop offset=".68" stop-color="#8B61E3" stop-opacity=".2"/><stop offset="1" stop-color="#6D4ECB" stop-opacity="0"/></radialGradient>
+    <linearGradient id="f-meteor" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#4A83EF" stop-opacity="0"/><stop offset=".7" stop-color="#71E4F4" stop-opacity=".72"/><stop offset="1" stop-color="#EAFDFF"/></linearGradient>
+    <linearGradient id="f-orbit" x1="151" y1="374" x2="649" y2="103" gradientUnits="userSpaceOnUse"><stop stop-color="#3F65D3" stop-opacity=".08"/><stop offset=".46" stop-color="#55C6E8" stop-opacity=".5"/><stop offset=".74" stop-color="#8B77ED" stop-opacity=".28"/><stop offset="1" stop-color="#4568D2" stop-opacity=".04"/></linearGradient>
+    <filter id="f-glow" x="-120%" y="-120%" width="340%" height="340%"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="f-blur" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="10"/></filter>
+  </defs>
+
+  <ellipse cx="430" cy="248" rx="282" ry="202" fill="url(#f-field)"/>
+  <g fill="#AFCBFF" opacity=".28">
+    <circle cx="172" cy="95" r=".9"/><circle cx="215" cy="351" r=".8"/><circle cx="275" cy="53" r=".7"/><circle cx="306" cy="421" r="1"/>
+    <circle cx="398" cy="67" r=".8"/><circle cx="484" cy="410" r=".9"/><circle cx="575" cy="52" r="1"/><circle cx="654" cy="271" r=".8"/>
+  </g>
+
+  <g stroke="url(#f-orbit)" stroke-linecap="round">
+    <path d="M133 355C249 190 445 107 654 142" stroke-width="1.4"/>
+    <path d="M158 393C281 271 456 213 655 243" stroke-width="1" opacity=".8"/>
+    <path d="M194 423C330 359 480 330 636 347" stroke-width="1.2" opacity=".66"/>
+    <path d="M200 117C335 144 452 210 548 341" stroke-width="1" opacity=".48"/>
+  </g>
+
+  <!-- Different people define different frontier directions. -->
+  <g stroke-width="1.2">
+    <g transform="translate(153 354)">
+      <circle r="23" fill="#0C1737" fill-opacity=".82" stroke="#61CCE8" stroke-opacity=".5"/>
+      <circle cy="-6" r="5" stroke="#C9F7FF" stroke-opacity=".72"/><path d="M-10 12C-8 3 8 3 10 12" stroke="#C9F7FF" stroke-opacity=".58"/>
+      <circle r="29" stroke="#4F8AE8" stroke-opacity=".16"/>
+    </g>
+    <g transform="translate(200 117)">
+      <circle r="20" fill="#0C1737" fill-opacity=".82" stroke="#788FF0" stroke-opacity=".48"/>
+      <circle cy="-5" r="4.5" stroke="#D9E2FF" stroke-opacity=".7"/><path d="M-9 11C-7 3 7 3 9 11" stroke="#D9E2FF" stroke-opacity=".54"/>
+    </g>
+    <g transform="translate(624 347)">
+      <circle r="21" fill="#0C1737" fill-opacity=".82" stroke="#B083EB" stroke-opacity=".48"/>
+      <circle cy="-5" r="4.5" stroke="#F0E5FF" stroke-opacity=".7"/><path d="M-9 11C-7 3 7 3 9 11" stroke="#F0E5FF" stroke-opacity=".54"/>
+    </g>
+    <g transform="translate(653 142)">
+      <circle r="18" fill="#0C1737" fill-opacity=".82" stroke="#D6AA58" stroke-opacity=".5"/>
+      <circle cy="-4" r="4" stroke="#FFF1C3" stroke-opacity=".72"/><path d="M-8 9C-6 2 6 2 8 9" stroke="#FFF1C3" stroke-opacity=".56"/>
+    </g>
+  </g>
+
+  <!-- Meteor: a fast signal. -->
+  <g transform="rotate(-24 324 186)" filter="url(#f-glow)">
+    <path d="M238 186H325" stroke="url(#f-meteor)" stroke-width="3" stroke-linecap="round"/>
+    <path d="M270 180H325" stroke="url(#f-meteor)" stroke-width="1" stroke-linecap="round" opacity=".7"/>
+    <circle cx="327" cy="186" r="4.2" fill="#E8FCFF"/><circle cx="327" cy="186" r="11" stroke="#64D9F0" stroke-opacity=".28"/>
+  </g>
+
+  <!-- Stars: recurring signals of medium weight. -->
+  <g filter="url(#f-glow)">
+    <g transform="translate(384 303)"><path d="M0-12L2.4-2.6L11 0L2.4 2.6L0 12L-2.4 2.6L-11 0L-2.4-2.6Z" fill="#83E8F6"/><circle r="3.1" fill="#F1FEFF"/></g>
+    <g transform="translate(451 152)"><path d="M0-9L2-2L9 0L2 2L0 9L-2 2L-9 0L-2-2Z" fill="#91A5FF"/><circle r="2.7" fill="#F4F6FF"/></g>
+    <g transform="translate(555 328)"><path d="M0-8L1.8-1.8L8 0L1.8 1.8L0 8L-1.8 1.8L-8 0L-1.8-1.8Z" fill="#D6B566"/><circle r="2.4" fill="#FFF5D8"/></g>
+  </g>
+
+  <!-- Supernova: the heaviest event. -->
+  <g transform="translate(526 229)">
+    <circle r="64" fill="url(#f-nova)" opacity=".32" filter="url(#f-blur)"/>
+    <circle r="46" stroke="#78DDEF" stroke-opacity=".14"/>
+    <circle r="31" stroke="#A68AF2" stroke-opacity=".22" stroke-dasharray="2 6"/>
+    <circle r="18" fill="url(#f-nova)"/>
+    <circle r="5" fill="#FAFFFF" filter="url(#f-glow)"/>
+    <g stroke-linecap="round">
+      <path d="M0-52V-24M0 24V52M-52 0H-24M24 0H52" stroke="#7EE9F5" stroke-opacity=".6"/>
+      <path d="M-32-32L-18-18M18 18L32 32M32-32L18-18M-18 18L-32 32" stroke="#AE8AF1" stroke-opacity=".42"/>
+    </g>
+  </g>
+
+  <!-- The people-to-event relationships remain visible but quiet. -->
+  <g stroke-width="1" stroke-dasharray="2 5" opacity=".42">
+    <path d="M176 341C252 302 310 288 374 300" stroke="#60D6EB"/>
+    <path d="M219 128C290 142 356 148 442 152" stroke="#7C91EE"/>
+    <path d="M606 335C580 304 560 277 541 250" stroke="#A47DE6"/>
+    <path d="M636 155C595 179 564 200 546 216" stroke="#D9B158"/>
+  </g>
+  <g fill="#CDEEFF">
+    <circle cx="284" cy="286" r="2"/><circle cx="342" cy="256" r="1.4"/><circle cx="424" cy="189" r="1.7"/>
+    <circle cx="482" cy="337" r="1.5"/><circle cx="595" cy="208" r="1.8"/><circle cx="331" cy="141" r="1.3"/>
+  </g>
+</svg>

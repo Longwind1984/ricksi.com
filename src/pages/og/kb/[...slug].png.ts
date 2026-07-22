@@ -1,6 +1,6 @@
 import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
-import { renderOg } from '../../../lib/og-image.mjs';
+import { renderCachedOg } from '../../../lib/og-image.mjs';
 import { imgHeaders } from '../../../lib/og-runtime.mjs';
 
 export async function getStaticPaths() {
@@ -16,7 +16,7 @@ export const GET: APIRoute = async ({ params, props }) => {
     note = notes.find((n: any) => n.id === params.slug);
   }
   if (!note) return new Response('Not found', { status: 404 });
-  const png = await renderOg({
+  const png = await renderCachedOg(`/og/kb/${note.id}.png`, {
     title: note.data.title,
     sub: '知识库',
     kind: note.data.cluster || '笔记',

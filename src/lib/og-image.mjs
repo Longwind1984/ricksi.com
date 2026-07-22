@@ -4,6 +4,11 @@ import fs from 'node:fs';
 import path from 'node:path';
 import satori from 'satori';
 import { Resvg } from '@resvg/resvg-js';
+import { cachedSocialImage } from './social-image-cache.mjs';
+
+export const OG_TEMPLATE_VERSION = 'cobalt-night-v2';
+const OG_TEMPLATE_FILES = ['src/lib/og-image.mjs'];
+const OG_ASSET_FILES = ['assets-src/fonts/MiSans-Regular.ttf', 'assets-src/fonts/MiSans-Semibold.ttf', 'assets-src/fonts/NotoSansCJKsc-Medium.otf'];
 
 const fontRegular = fs.readFileSync(path.resolve('assets-src/fonts/MiSans-Regular.ttf'));
 const fontSemibold = fs.readFileSync(path.resolve('assets-src/fonts/MiSans-Semibold.ttf'));
@@ -119,4 +124,8 @@ export async function renderOg({ title, sub, kind }) {
 
   const png = new Resvg(svg, { fitTo: { mode: 'width', value: 1200 } }).render().asPng();
   return png;
+}
+
+export function renderCachedOg(route, input) {
+  return cachedSocialImage({ route, mediaType: 'image/png', templateVersion: OG_TEMPLATE_VERSION, templateFiles: OG_TEMPLATE_FILES, assetFiles: OG_ASSET_FILES, input, render: () => renderOg(input) });
 }

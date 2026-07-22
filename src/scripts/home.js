@@ -8,6 +8,7 @@ import { webglOK } from './graph-mode.js';
 
 let homeAbort = null;
 let homeGraphCtl = null;
+let homeMountTarget = null;
 function initHome(sig) {
   if (!document.getElementById('site-data')) return; // 仅首页
   const siteData = (() => {
@@ -426,10 +427,24 @@ function renderSampleGraph(host) {
 
 }
 
-document.addEventListener('astro:page-load', () => {
+function mountHome() {
+  const target = document.getElementById('site-data');
+  if (target && target === homeMountTarget) return;
+  homeMountTarget = target;
   homeAbort?.abort();
-  homeAbort = new AbortController();
   homeGraphCtl?.destroy?.();
   homeGraphCtl = null;
+  if (!target) {
+    homeAbort = null;
+    return;
+  }
+  homeAbort = new AbortController();
   initHome(homeAbort.signal);
-});
+}
+
+document.addEventListener('astro:page-load', mountHome);
+/* 首次直达时，图谱依赖可能让该模块晚于 astro:page-load 才完成求值；
+   事件已错过则补挂一次，避免整页交互与知识库预览保持空白。 */
+setTimeout(() => {
+  if (!homeAbort && document.getElementById('site-data')) mountHome();
+}, 0);

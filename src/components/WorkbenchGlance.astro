@@ -4,17 +4,20 @@
    完整 14 日趋势 / 维度切换 / 口径在展开的 WorkbenchBoard 里。
    热力图为装饰性预览（aria-hidden）；可达数据走 Board 的可交互热力图。
    id="workbench" 承接全局导航锚点与 scrollspy（详见 layouts/Glass.astro）。 */
+import { formatCompactToken } from '../lib/token-format.mjs';
+
 interface Cell { l: number; future?: boolean }
 interface Props {
   u: any;
   heatmapCols: Cell[][];
   notesLabel: string;
   projectsCount: number;
+  instrumentsCount: number;
   postsCount: number;
   isSample: boolean;
   usageStamp?: string | null;
 }
-const { u, heatmapCols, notesLabel, projectsCount, postsCount, isSample, usageStamp } = Astro.props;
+const { u, heatmapCols, projectsCount, instrumentsCount, postsCount, isSample, usageStamp } = Astro.props;
 const weeks = heatmapCols.length;
 ---
 
@@ -25,8 +28,8 @@ const weeks = heatmapCols.length;
     {isSample && <em class="sample-badge">样例</em>}
   </div>
 
-  <div class="wb-glance-num">{u.cumulative}<span class="wb-glance-unit">tokens</span></div>
-  <p class="wb-glance-say">真实 AI 协作 → {projectsCount} 个项目 · 一座知识库 · {postsCount} 篇写作 · 这页本身</p>
+  <div class="wb-glance-num">{formatCompactToken(u.cumulative)}<span class="wb-glance-unit">tokens</span></div>
+  <p class="wb-glance-say">真实 AI 协作 → {projectsCount} 个项目 · {instrumentsCount} 个装置 · 一座知识库 · {postsCount} 篇写作 · 这页本身</p>
 
   <div class="wb-glance-heatwrap">
     <div class="mono wb-glance-heatlab">多源活跃 · 近 {weeks} 周</div>

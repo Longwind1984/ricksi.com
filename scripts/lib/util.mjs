@@ -97,12 +97,12 @@ export function currentStreak(days, totalOf) {
   return streak;
 }
 
-/* 1234567 → "1.2M"，888 → "888"，45678 → "45.7K" */
+/* 1234567 → "1.2M"，888 → "888.0"，45678 → "45.7K"；Token 展示统一一位小数 */
 export function fmtCompact(n) {
-  if (n >= 1e9) return (n / 1e9).toFixed(n >= 1e10 ? 0 : 1) + 'B';
-  if (n >= 1e6) return (n / 1e6).toFixed(n >= 1e7 ? 0 : 1) + 'M';
-  if (n >= 1e3) return (n / 1e3).toFixed(n >= 1e4 ? 0 : 1) + 'K';
-  return String(n);
+  if (n >= 1e9) return (n / 1e9).toFixed(1) + 'B';
+  if (n >= 1e6) return (n / 1e6).toFixed(1) + 'M';
+  if (n >= 1e3) return (n / 1e3).toFixed(1) + 'K';
+  return Number(n).toFixed(1);
 }
 
 export const WEEKDAY_CN = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
