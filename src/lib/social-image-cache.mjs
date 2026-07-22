@@ -8,7 +8,8 @@ export const SOCIAL_IMAGE_MANIFEST_VERSION = 1;
 export const SOCIAL_IMAGE_DEFAULT_BOOTSTRAP_URL = 'https://ricksi.com/social-image-cache-manifest.json';
 const REMOTE_TIMEOUT_MS = 5_000;
 const REMOTE_CONCURRENCY = 8;
-const REMOTE_PREFETCH_CONCURRENCY = 16;
+const REMOTE_PREFETCH_CONCURRENCY = 8;
+const REMOTE_PREFETCH_TIMEOUT_MS = 10_000;
 const REMOTE_MAX_CONSECUTIVE_FAILURES = 3;
 const REMOTE_MAX_FAILURES = 5;
 const IS_VERCEL = Boolean(process.env.VERCEL);
@@ -229,7 +230,7 @@ export async function prefetchSocialImageCache({ buildId = BUILD_ID } = {}) {
       const [route, entry] = pending[cursor++];
       try {
         const response = await fetch(new URL(route, url), {
-          signal: AbortSignal.timeout(REMOTE_TIMEOUT_MS),
+          signal: AbortSignal.timeout(REMOTE_PREFETCH_TIMEOUT_MS),
           headers: { accept: 'image/*' },
         });
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
