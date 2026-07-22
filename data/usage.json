@@ -1,33 +1,33 @@
 {
- "generated_at": "2026-07-21T16:01:46.134Z",
- "today": 3039827,
- "today_out": 7135,
- "today_cache_share": 94,
- "week": "4.3B",
- "cumulative": "14B",
- "cumulative_code": "13B",
- "cumulative_codex": "202M",
- "cumulative_zcode": "146M",
- "cumulative_hermes": "200M",
- "cumulative_kimi_code": "178M",
+ "generated_at": "2026-07-22T13:33:47.242Z",
+ "today": 4063666738,
+ "today_out": 9657311,
+ "today_cache_share": 97,
+ "week": "8.3B",
+ "cumulative": "17.6B",
+ "cumulative_code": "12.7B",
+ "cumulative_codex": "4.3B",
+ "cumulative_zcode": "145.7M",
+ "cumulative_hermes": "200.4M",
+ "cumulative_kimi_code": "178.2M",
  "cumulative_openclaw": "1.6M",
- "cumulative_web": "118M",
+ "cumulative_web": "117.6M",
  "models": [
   [
    "Opus",
-   73
-  ],
-  [
-   "Fable",
-   18
-  ],
-  [
-   "GLM",
-   4
+   56
   ],
   [
    "Codex",
-   2
+   25
+  ],
+  [
+   "Fable",
+   14
+  ],
+  [
+   "GLM",
+   3
   ],
   [
    "Kimi",
@@ -69,7 +69,7 @@
   },
   {
    "d": "今天",
-   "v": 3.04
+   "v": 4063.67
   }
  ],
  "series": {
@@ -1399,6 +1399,18 @@
     }
    }
   },
+  "2026-07-22": {
+   "total": 0,
+   "models": {
+    "<synthetic>": {
+     "in": 0,
+     "out": 0,
+     "cw": 0,
+     "cr": 0,
+     "total": 0
+    }
+   }
+  },
   "2026-05-13": {
    "total": 13701498,
    "estimated": true
@@ -1452,12 +1464,12 @@
   "claude_code": {
    "label": "Claude Code",
    "tokens": 12707882407,
-   "compact": "13B"
+   "compact": "12.7B"
   },
   "codex": {
    "label": "Codex",
-   "tokens": 202366964,
-   "compact": "202M",
+   "tokens": 4262923449,
+   "compact": "4.3B",
    "days": 4,
    "series": {
     "2026-06-04": {
@@ -1493,14 +1505,16 @@
      }
     },
     "2026-07-22": {
-     "total": 3039827,
-     "in": 3032692,
-     "out": 7135,
-     "cr": 2850048,
-     "rz": 2907,
+     "total": 4063596312,
+     "in": 4053944696,
+     "out": 9651616,
+     "cr": 3926898432,
+     "rz": 3517429,
      "models": {
-      "gpt-5.6-sol": 2903147,
-      "codex-auto-review": 136680
+      "gpt-5.6-sol": 3860030599,
+      "codex-auto-review": 111618129,
+      "gpt-5.6-terra": 781724,
+      "codex-unknown": 91165860
      }
     }
    }
@@ -1508,7 +1522,7 @@
   "zcode": {
    "label": "ZCode",
    "tokens": 145728671,
-   "compact": "146M",
+   "compact": "145.7M",
    "days": 9,
    "series": {
     "2026-06-16": {
@@ -1605,9 +1619,9 @@
   },
   "hermes": {
    "label": "Hermes",
-   "tokens": 200373153,
-   "compact": "200M",
-   "days": 11,
+   "tokens": 200443579,
+   "compact": "200.4M",
+   "days": 12,
    "series": {
     "2026-07-10": {
      "total": 24839889,
@@ -1725,13 +1739,23 @@
      "models": {
       "glm-5-2-260617": 88955
      }
+    },
+    "2026-07-22": {
+     "total": 70426,
+     "in": 15771,
+     "out": 5695,
+     "cr": 48960,
+     "rz": 0,
+     "models": {
+      "glm-5-2-260617": 70426
+     }
     }
    }
   },
   "kimi_code": {
    "label": "Kimi Code",
    "tokens": 178247436,
-   "compact": "178M",
+   "compact": "178.2M",
    "days": 4,
    "series": {
     "2026-07-17": {
@@ -1806,7 +1830,7 @@
   "web": {
    "label": "claude.ai 网页",
    "tokens": 117597143,
-   "compact": "118M",
+   "compact": "117.6M",
    "estimated": true
   }
  },
@@ -1818,17 +1842,17 @@
   "estimated_days": 12,
   "estimated_share": "3%",
   "harness_split": {
-   "claude_code": "13B",
-   "codex": "202M",
-   "zcode": "146M",
-   "hermes": "200M",
-   "kimi_code": "178M",
+   "claude_code": "12.7B",
+   "codex": "4.3B",
+   "zcode": "145.7M",
+   "hermes": "200.4M",
+   "kimi_code": "178.2M",
    "openclaw": "1.6M",
-   "web": "118M",
+   "web": "117.6M",
    "note": "Token 用量按 harness 分源汇总；Codex 按 rollout 文件内 token_count 的累计值做增量求和，cached_input_tokens 是 input_tokens 的子集、不重复相加。两处去重：① Hermes 排除经 claude-proxy(localhost) 的会话（那些 claude -p 已计入 Claude Code）；② Kimi Code 只读 usage.record（同一次调用另有 step.end 记录，两者数值相同，都读会翻倍）。Kimi 订阅被 Kimi Code / OpenClaw / Hermes(调 api.kimi.com) 三个 harness 消耗，按 harness 分列；其订阅总消耗可从模型条的 Kimi 家族看。全口径含缓存读写。"
   },
   "web_estimate": {
-   "total": "118M",
+   "total": "117.6M",
    "since": "2025-07-01",
    "basis": "无日志依据的参数化粗估（日均对话数 × 单对话均量 + 长文共创），参数见 docs/token-estimation.md",
    "breakdown": [

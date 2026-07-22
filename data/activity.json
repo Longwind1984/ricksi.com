@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-07-21T23:14:12.844Z",
+ "generated_at": "2026-07-22T13:32:16.669Z",
  "days": {
   "2026-05-31": {
    "git": 16,
@@ -2808,7 +2808,7 @@
    "gh": 2
   },
   "2026-07-21": {
-   "git": 71,
+   "git": 72,
    "notes": 0,
    "ai": 5745,
    "ai_split": {
@@ -2818,14 +2818,14 @@
    "gh": 4
   },
   "2026-07-22": {
-   "git": 0,
+   "git": 43,
    "notes": 0,
-   "ai": 4,
+   "ai": 6258,
    "ai_split": {
-    "claude": 0,
-    "codex": 4
+    "claude": 20,
+    "codex": 6238
    },
-   "gh": 0
+   "gh": 1
   }
  },
  "weeks": [
@@ -3399,7 +3399,7 @@
    {
     "d": "2026-05-21",
     "n": 41,
-    "l": 2,
+    "l": 1,
     "b": {
      "git": 33,
      "notes": 7,
@@ -3876,7 +3876,7 @@
    {
     "d": "2026-06-23",
     "n": 3015,
-    "l": 3,
+    "l": 2,
     "b": {
      "git": 2,
      "notes": 515,
@@ -4303,10 +4303,10 @@
    },
    {
     "d": "2026-07-21",
-    "n": 5820,
+    "n": 5821,
     "l": 3,
     "b": {
-     "git": 71,
+     "git": 72,
      "notes": 0,
      "ai": 5745,
      "ai_split": {
@@ -4318,9 +4318,18 @@
    },
    {
     "d": "2026-07-22",
-    "n": 0,
-    "l": 0,
-    "future": true
+    "n": 6302,
+    "l": 3,
+    "b": {
+     "git": 43,
+     "notes": 0,
+     "ai": 6258,
+     "ai_split": {
+      "claude": 20,
+      "codex": 6238
+     },
+     "gh": 1
+    }
    },
    {
     "d": "2026-07-23",
@@ -4343,14 +4352,14 @@
   ]
  ],
  "coding": {
-  "commits": 986,
-  "streak": 57,
+  "commits": 1030,
+  "streak": 58,
   "repos": 14
  },
  "sources": {
   "git": {
    "repos": 14,
-   "commits": 986,
+   "commits": 1030,
    "repoList": [
     "30FeedPersonal",
     "40PopperInvestor",
@@ -4373,21 +4382,21 @@
    "icloudPlaceholders": 0
   },
   "ai": {
-   "files": 3081,
+   "files": 3318,
    "daysCovered": 45,
    "claude": {
-    "files": 3005,
-    "daysCovered": 43
+    "files": 3015,
+    "daysCovered": 44
    },
    "codex": {
-    "files": 76,
+    "files": 303,
     "daysCovered": 4
    }
   },
   "gh": {
    "user": "Longwind1984",
-   "daysWithContributions": 56,
-   "fetched_at": "2026-07-21T23:14:12.844Z"
+   "daysWithContributions": 57,
+   "fetched_at": "2026-07-22T13:32:16.665Z"
   }
  }
 }
