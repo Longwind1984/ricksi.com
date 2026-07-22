@@ -154,26 +154,27 @@ npm run build     # 产出 dist/（当前 685 页；含社交图增量缓存）
 
 ### 社交图增量构建
 
-静态站仍完整生成 623 张横版 OG 图和 1035 张竖版 Share 图，但 `npm run build` 现在由
+静态站仍完整生成 623 张横版 OG 图和 1044 张竖版 Share 图，但 `npm run build` 现在由
 `scripts/build.mjs` 包装 Astro：缓存键同时包含**模板版本与模板源码哈希、最终渲染内容哈希、字体/底图素材哈希**。
 内容未变时仍走完全部静态路由以保证覆盖范围，但直接复用图片字节，不再重复执行 satori / resvg / sharp。
 构建末尾会输出唯一一行 `generated / reused / removed`，删除内容对应的 manifest 条目和无引用对象也会一并清理；
 同模板、同素材下发生近全量重绘会明确告警。
 
 - 本地持久目录默认是 `.astro/social-image-cache`，可用 `SOCIAL_IMAGE_CACHE_DIR` 覆盖。
-- clean workspace 会先读取上一版线上 `/social-image-cache-manifest.json`，再按原图片 URL 拉取哈希一致的产物；
-  可用 `SOCIAL_IMAGE_BOOTSTRAP_URL` 改源，或设为 `off` 强制冷构建。远端单请求 5 秒超时、并发上限 8、
-  不重试；连续 3 次或累计 5 次失败即熔断并回到本地渲染。
+- clean workspace 会先读取上一版线上 `/social-image-cache-manifest.json`，在 Astro 启动前以 8 路并发把哈希一致的
+  产物恢复到本地内容寻址目录；单图 10 秒超时，同一源不重试。EdgeOne 主源失败时只切换一次 Vercel 动态图片路由，
+  并再次校验字节摘要；两边都失败才本地渲染。可用 `SOCIAL_IMAGE_BOOTSTRAP_URL` 改主源、
+  `SOCIAL_IMAGE_FALLBACK_ORIGIN` 改备用源，或把主源设为 `off` 强制冷构建。
 - EdgeOne 没有公开承诺恢复 Astro 的任意缓存目录，所以不能只依赖 `.astro`。每次静态构建会把 manifest 发布到
   `dist/social-image-cache-manifest.json`，供下一次 clean 构建复用；如果控制台支持恢复自定义目录，也可额外持久化
   `SOCIAL_IMAGE_CACHE_DIR`。
 - Vercel 的动态图片路由保持按需生成，不读写这套文件缓存；包装器在 `VERCEL=1` 时只透传 Astro 构建。
 
-2026-07-22 实测：首个无缓存、关闭远端的冷构建为 **607.33 秒**；无内容变化的本地热构建为
-**10.77 秒**（`generated=0 reused=1658`）；仅触碰首页后为 **10.79 秒**，两类图片仍 `generated=0`。
-用本机只读 HTTP 服务模拟 clean workspace 从上一部署 bootstrap，结果为 **12.65 秒**、
-`remote=1658 generated=0`。这证明链路本身可用，但**尚未在 EdgeOne 的真实生产部署中实测**；首次发布仍应按冷构建预算，
-上线后再从下一次构建日志确认远端复用。
+2026-07-22 实测：本机无缓存冷构建 **607.33 秒**；本地热构建 **10.71–11.75 秒**，
+`generated=0 reused=1667`。EdgeOne 首次生产冷部署 **533 秒**，其中 Astro **476.07 秒**；旧版逐路由远端读取即使
+命中缓存仍需 **453 秒**，说明网络延迟仍随 1667 张图片线性增长。改为构建前并发预热后，最终生产部署 **188 秒**，
+主源恢复 1662 张、Vercel 备用源恢复 5 张，`generated=0 reused=1667 removed=0`；相对冷部署缩短 **65%**，
+相对旧热部署缩短 **58%**。图片覆盖范围、OG/Share 路由与分享功能均未减少。
 
 ## 部署（EdgeOne Pages + Vercel 双平台）
 

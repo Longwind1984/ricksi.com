@@ -1718,3 +1718,32 @@ EdgeOne 部署失败、Vercel 成功。诊断：EdgeOne 纯静态构建把全部
 ### 文件级变更清单
 
 - 修改：`src/data/instruments.ts`、`README.md`、`WORKLOG.md`（其余首页装置、知识库、Token 与增量社交图变更见本日此前记录）。
+
+## 2026-07-22 · EdgeOne 社交图生产构建从 533 秒降到 188 秒
+
+### 做了什么
+
+完成社交图增量缓存的真实生产校准。首次上线因旧版本没有 manifest，EdgeOne 冷部署耗时 533 秒；直接在每个 Astro 路由里远程取图的第一版热部署仍需 453 秒。现改为 Astro 启动前以 8 路并发恢复 1,667 张内容寻址对象，路由生成阶段只读本地缓存；EdgeOne 主源的少量超时只切换一次到同代码源的 Vercel 动态图片路由，并用 manifest 摘要校验字节。
+
+### 关键决策与被否决的备选
+
+- 被否决：只看 `reused` 数就宣称完成。第一版虽复用 1,664 张，实际总时长仍是 453 秒，并有 3 张重绘。
+- 被否决：继续提高并发或重试同一个 URL。16 路并发在 EdgeOne 出口产生 6 个失败；最终选择 8 路、10 秒超时和第二公开源故障切换。
+- 不减少 623 张 OG 与 1,044 张 Share，也不把构建优化伪装成删除路由；Vercel 动态图片模式保持不变。
+
+### 当前状态
+
+- 最终 EdgeOne 部署 `a91fff5` 成功：总时长 188 秒，Astro 685 页 50.56 秒；预热 84.58 秒，主源 1,662 张、备用源 5 张、失败 0。
+- 构建摘要：`generated=0 reused=1667 removed=0`；生产 manifest、`/og/home.png`、`/share/site.jpg` 均返回 200 与正确图片类型。
+- 相比冷部署 533 秒缩短 65%，相比旧热部署 453 秒缩短 58%；本地热构建 11.78 秒，零重绘。
+- 测试 18/18、隐私不变量、`git diff --check` 全部通过；预热测试明确断言主源与备用源各 URL 只请求一次。
+
+### 未尽事项与已知问题
+
+- EdgeOne clean build 每次仍需传输约 113 MB 既有图片，这是保留完整静态路由与平台不持久化任意 Astro 目录的成本；若未来平台提供可靠构建缓存，可直接恢复 `.astro/social-image-cache`，进一步省掉约 85 秒预热。
+- macOS 默认大小写不敏感、EdgeOne Linux 大小写敏感，30 篇旧 AI 路径在两端大小写不同；各平台连续构建均稳定，跨平台 clean 对比时需按各自产物验收，不能把大小写路径迁移误判为内容重绘。
+
+### 文件级变更清单
+
+- 修改：`src/lib/social-image-cache.mjs`、`scripts/build.mjs`、`README.md`、`WORKLOG.md`。
+- 新增：`test/social-image-cache-prefetch.test.mjs`。
