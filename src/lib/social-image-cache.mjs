@@ -8,6 +8,7 @@ export const SOCIAL_IMAGE_MANIFEST_VERSION = 1;
 export const SOCIAL_IMAGE_DEFAULT_BOOTSTRAP_URL = 'https://ricksi.com/social-image-cache-manifest.json';
 const REMOTE_TIMEOUT_MS = 5_000;
 const REMOTE_CONCURRENCY = 8;
+const REMOTE_PREFETCH_CONCURRENCY = 16;
 const REMOTE_MAX_CONSECUTIVE_FAILURES = 3;
 const REMOTE_MAX_FAILURES = 5;
 const IS_VERCEL = Boolean(process.env.VERCEL);
@@ -169,6 +170,96 @@ async function writeObject(entry, buffer) {
   await fs.promises.writeFile(temporary, buffer);
   try { await fs.promises.rename(temporary, target); }
   catch (error) { await fs.promises.unlink(temporary).catch(() => {}); if (!fs.existsSync(target)) throw error; }
+}
+
+// Clean CI workspaces must not fetch one image per Astro route: Astro expands the
+// routes mostly sequentially, so network latency would still scale with N even
+// when every image is reusable. Restore the previous deployment concurrently
+// before Astro starts, then let route handlers use the normal local-cache path.
+export async function prefetchSocialImageCache({ buildId = BUILD_ID } = {}) {
+  if (IS_VERCEL) return { attempted: false, reason: 'vercel', local: 0, fetched: 0, failed: 0, total: 0, durationMs: 0 };
+  const targetPaths = socialImageCachePaths(buildId);
+  const previous = readSocialImageManifest(targetPaths.localManifest);
+  if (previous) {
+    const localEntries = Object.values(previous.entries);
+    const complete = localEntries.length > 0 && localEntries.every((entry) => {
+      try { return fs.statSync(objectPath(entry)).size === entry.bytes; } catch { return false; }
+    });
+    if (complete) {
+      return { attempted: false, reason: 'local-complete', local: localEntries.length, fetched: 0, failed: 0, total: localEntries.length, durationMs: 0 };
+    }
+  }
+  const url = bootstrapUrl();
+  if (!url) return { attempted: false, reason: 'disabled', local: 0, fetched: 0, failed: 0, total: 0, durationMs: 0 };
+  const startedAt = Date.now();
+  let manifest;
+  try {
+    const response = await fetch(url, {
+      signal: AbortSignal.timeout(REMOTE_TIMEOUT_MS),
+      headers: { accept: 'application/json' },
+    });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    manifest = await response.json();
+    if (manifest?.version !== SOCIAL_IMAGE_MANIFEST_VERSION || !manifest.entries || typeof manifest.entries !== 'object') {
+      throw new Error('manifest 格式不兼容');
+    }
+  } catch (error) {
+    const reason = error instanceof Error ? error.message : String(error);
+    console.warn(`[social-image-cache] prefetch unavailable (${reason}); falling back to local render`);
+    return { attempted: true, reason, local: 0, fetched: 0, failed: 0, total: 0, durationMs: Date.now() - startedAt };
+  }
+
+  const ready = new Map();
+  const pending = [];
+  for (const [route, entry] of Object.entries(manifest.entries)) {
+    const local = previous?.entries?.[route];
+    let reusable = false;
+    if (local?.cacheKey === entry.cacheKey && local.digest === entry.digest && local.bytes === entry.bytes && local.file === entry.file) {
+      try { reusable = fs.statSync(objectPath(local)).size === local.bytes; } catch { reusable = false; }
+    }
+    if (reusable) ready.set(route, local);
+    else pending.push([route, entry]);
+  }
+
+  let cursor = 0;
+  let fetched = 0;
+  let failed = 0;
+  const workers = Array.from({ length: Math.min(REMOTE_PREFETCH_CONCURRENCY, pending.length) }, async () => {
+    while (cursor < pending.length) {
+      const [route, entry] = pending[cursor++];
+      try {
+        const response = await fetch(new URL(route, url), {
+          signal: AbortSignal.timeout(REMOTE_TIMEOUT_MS),
+          headers: { accept: 'image/*' },
+        });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const buffer = Buffer.from(await response.arrayBuffer());
+        if (!bufferMatches(buffer, entry)) throw new Error('digest mismatch');
+        await writeObject(entry, buffer);
+        ready.set(route, entry);
+        fetched += 1;
+      } catch {
+        // One bounded request per URL. Failed entries are rendered locally by
+        // the child build; do not retry the same remote URL in route handlers.
+        failed += 1;
+      }
+    }
+  });
+  await Promise.all(workers);
+  writeSocialImageManifest(targetPaths.localManifest, ready);
+  if (targetPaths.remoteManifest) {
+    fs.mkdirSync(path.dirname(targetPaths.remoteManifest), { recursive: true });
+    fs.writeFileSync(targetPaths.remoteManifest, JSON.stringify(manifest));
+  }
+  return {
+    attempted: true,
+    reason: null,
+    local: ready.size - fetched,
+    fetched,
+    failed,
+    total: Object.keys(manifest.entries).length,
+    durationMs: Date.now() - startedAt,
+  };
 }
 async function readRemote(route, expected) {
   if (state.remoteDisabled) return null;

@@ -4,6 +4,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { spawn } from 'node:child_process';
 import {
+  prefetchSocialImageCache,
   readSocialImageManifest,
   socialImageCachePaths,
   writeSocialImageManifest,
@@ -14,10 +15,19 @@ const paths = socialImageCachePaths(buildId);
 fs.mkdirSync(path.dirname(paths.journal), { recursive: true });
 fs.writeFileSync(paths.journal, '');
 
+const prefetch = await prefetchSocialImageCache({ buildId });
+if (prefetch.attempted) {
+  console.log(`[social-image-cache] prefetch local=${prefetch.local} fetched=${prefetch.fetched} failed=${prefetch.failed} total=${prefetch.total} duration=${(prefetch.durationMs / 1000).toFixed(2)}s${prefetch.reason ? ` reason=${prefetch.reason}` : ''}`);
+}
+
 const astro = path.resolve('node_modules/astro/astro.js');
+const childEnv = { ...process.env, SOCIAL_IMAGE_BUILD_ID: buildId };
+// Prefetch owns the single bounded remote attempt. Missing objects render
+// locally; route handlers must not retry failed remote URLs one-by-one.
+if (prefetch.attempted) childEnv.SOCIAL_IMAGE_BOOTSTRAP_URL = 'off';
 const child = spawn(process.execPath, [astro, 'build'], {
   stdio: 'inherit',
-  env: { ...process.env, SOCIAL_IMAGE_BUILD_ID: buildId },
+  env: childEnv,
 });
 const exitCode = await new Promise((resolve) => {
   child.once('error', () => resolve(1));
