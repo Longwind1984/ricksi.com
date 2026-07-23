@@ -1,5 +1,45 @@
 # WORKLOG（append-only，倒金字塔：结论在前、清单沉底）
 
+## 2026-07-24 · 修复 23 日 nightly 跳过与书架自动发现
+
+### 做了什么
+
+确认 7 月 23 日 21:30 的自动任务确实被 launchd 触发，但在第一步 `git pull --ff-only` 遇到 GitHub `SSL_ERROR_SYSCALL` 后退出，因而没有生成当天的生产数据。为 GitHub pull/push 增加有界网络重试：保留代理首次尝试，短暂 SSL/DNS/代理故障时切换直连再重试；分支分叉、权限、认证等确定性错误仍立即失败。
+
+修复本地书架管线：每次同步扫描 `~/Documents/30书架` 全部 EPUB，读取 OPF 元数据，按源文件名/规范化书名复用已有条目；未登记的新书自动生成稳定资源路径和 500×800 封面，归入「新近写作」，不再要求手动编辑 `local-books.json`。本次发现并上架《谁替你决定》《AI 如何重构 TikTok Shop》，两本均可进入站内阅读器。
+
+从旧 checkout 复制已有的微信读书 key 到生产 worktree 的已忽略路径并收紧为 600；接口随后返回 `upgrade_info`，按官方契约让微信读书子任务快速失败并记录一次 partial，不重复请求、不阻断其他数据。升级命令因安全策略拒绝执行，官方书架维持本次已取得的最新有效快照，待新版技能可安全安装后再重跑。
+
+手动重跑完整同步并正式推送：活动、Token、知识库、前沿和本地书架进入 `a2cbea2`；本次前沿新增 8 条，微信读书标记 partial。生产 main 与 origin/main 已对齐。
+
+### 关键决策与被否决的备选
+
+- 保留 `StartCalendarInterval` 21:30 调度，不改 LaunchAgent 触发策略；根因是网络瞬断而非调度器漏触发，脚本内重试可以覆盖此类故障且不引入重复任务风暴。
+- 采用“全量扫描 + 内容 SHA-256 判变”的书架发现，不缩小覆盖范围，也不把本地路径写进已有微信读书条目；新书进入「新近写作」作为可见但可后续整理的默认分组。
+- 被否决：猜测并硬编码微信读书新 `skill_version`，或绕过 `upgrade_info` 继续请求；接口要求升级，且当前安全策略不允许无确认安装外部第三方技能。
+
+### 当前状态：现在能跑什么、怎么跑
+
+- LaunchAgent `com.ricksi.workbench-sync` 仍加载在生产 worktree，每天 21:30 运行；安装 plist 与仓库版本一致。
+- 最近正式运行日志：`⚠ partial pushed a2cbea2: 微信读书`，耗时 367s；失败的 23 日运行已留有原始证据。
+- `node --test test/*.test.mjs`：23/23 通过；`npm run build`：689 页，首次 15.60s，热构建 9.90s；社交图热构建 `generated=0 / reused=1662 / removed=0`。
+- 当前公开书架包含 19 本可在线阅读自制书；新增两本的 EPUB、封面、导言页和阅读器路由均已生成。
+
+### 未尽事项与已知问题
+
+- EdgeOne 在本次推送后仍处于旧版本传播窗口，需等生产 `Last-Modified` 切换后再复核新增书籍路由；Vercel 已显示部署完成。
+- 微信读书 Agent API 当前强制要求新版技能；需要在安全可控的环境完成官方技能升级后，重新运行 `npm run sync` 才能继续刷新官方书架/划线统计。
+- 前沿 X 镜像源仍有若干 HTTP 400，已按既有策略跳过并继续 RSS/arXiv；不影响本次整体提交。
+
+### 文件级变更清单
+
+- `scripts/lib/sync-runtime.mjs`、`scripts/sync.mjs`、`test/sync-runtime.test.mjs`：Git 网络重试与确定性错误测试。
+- `scripts/merge-local-books.mjs`、`scripts/lib/local-epub.mjs`、`test/local-epub.test.mjs`、`scripts/config.mjs`：本地 EPUB 自动发现、元数据解析、稳定资源与幂等同步。
+- `scripts/collect-weread.mjs`：收到 `upgrade_info` 后单次快速失败并交给 partial 管线。
+- `data/reading.json`、`data/activity.json`、`data/usage.json`、`data/frontier*.json`、`data/graph.json`、`data/kb-manifest.json`：本次正式同步产物。
+- `public/assets/books/epub/{ai-tiktok-shop-1e5e375b,book-dfdeaaee}.epub` 与对应 `epub-covers/*.png`：两本自动发现书的发布资源。
+- `README.md`、`WORKLOG.md`：更新书架和网络重试运行说明及本次记录。
+
 ## 2026-07-22 · 装置 SVG 重绘、知识库恢复与 Token 显示校准
 
 ### 做了什么
