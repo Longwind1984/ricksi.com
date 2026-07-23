@@ -1,33 +1,33 @@
 {
- "generated_at": "2026-07-22T13:33:47.242Z",
- "today": 4063666738,
- "today_out": 9657311,
- "today_cache_share": 97,
- "week": "8.3B",
- "cumulative": "17.6B",
+ "generated_at": "2026-07-23T16:15:46.378Z",
+ "today": 25611588,
+ "today_out": 127427,
+ "today_cache_share": 95,
+ "week": "8.1B",
+ "cumulative": "20.0B",
  "cumulative_code": "12.7B",
- "cumulative_codex": "4.3B",
+ "cumulative_codex": "6.6B",
  "cumulative_zcode": "145.7M",
- "cumulative_hermes": "200.4M",
+ "cumulative_hermes": "205.3M",
  "cumulative_kimi_code": "178.2M",
  "cumulative_openclaw": "1.6M",
  "cumulative_web": "117.6M",
  "models": [
   [
    "Opus",
-   56
+   49
   ],
   [
    "Codex",
-   25
+   34
   ],
   [
    "Fable",
-   14
+   12
   ],
   [
    "GLM",
-   3
+   2
   ],
   [
    "Kimi",
@@ -43,14 +43,6 @@
   ]
  ],
  "days7": [
-  {
-   "d": "周四",
-   "v": 1752.73
-  },
-  {
-   "d": "周五",
-   "v": 814.78
-  },
   {
    "d": "周六",
    "v": 354.8
@@ -68,8 +60,16 @@
    "v": 619
   },
   {
+   "d": "周三",
+   "v": 4251.5
+  },
+  {
+   "d": "周四",
+   "v": 2155.32
+  },
+  {
    "d": "今天",
-   "v": 4063.67
+   "v": 25.61
   }
  ],
  "series": {
@@ -515,14 +515,14 @@
    }
   },
   "2026-06-19": {
-   "total": 165857078,
+   "total": 165473568,
    "models": {
     "opus-4-8": {
-     "in": 805121,
-     "out": 722579,
-     "cw": 6867202,
+     "in": 774965,
+     "out": 709915,
+     "cw": 6846754,
      "cr": 157141934,
-     "total": 165536836
+     "total": 165473568
     },
     "<synthetic>": {
      "in": 0,
@@ -530,25 +530,18 @@
      "cw": 0,
      "cr": 0,
      "total": 0
-    },
-    "haiku-4-5-20251001": {
-     "in": 6700,
-     "out": 14,
-     "cw": 66106,
-     "cr": 247422,
-     "total": 320242
     }
    }
   },
   "2026-06-20": {
-   "total": 66878081,
+   "total": 58036497,
    "models": {
     "opus-4-8": {
-     "in": 878562,
-     "out": 411797,
-     "cw": 5399812,
-     "cr": 57796855,
-     "total": 64487026
+     "in": 359527,
+     "out": 373666,
+     "cw": 3925350,
+     "cr": 50986899,
+     "total": 55645442
     },
     "sonnet-4-6": {
      "in": 8906,
@@ -574,14 +567,14 @@
    }
   },
   "2026-06-22": {
-   "total": 406115829,
+   "total": 406101930,
    "models": {
     "opus-4-8": {
-     "in": 7503878,
-     "out": 1030200,
-     "cw": 40443894,
+     "in": 7501571,
+     "out": 1029821,
+     "cw": 40432681,
      "cr": 323847684,
-     "total": 372825656
+     "total": 372811757
     },
     "sonnet-4-6": {
      "in": 138144,
@@ -1411,8 +1404,20 @@
     }
    }
   },
+  "2026-07-23": {
+   "total": 0,
+   "models": {
+    "<synthetic>": {
+     "in": 0,
+     "out": 0,
+     "cw": 0,
+     "cr": 0,
+     "total": 0
+    }
+   }
+  },
   "2026-05-13": {
-   "total": 13701498,
+   "total": 14459110,
    "estimated": true
   },
   "2026-05-14": {
@@ -1420,7 +1425,7 @@
    "estimated": true
   },
   "2026-05-15": {
-   "total": 5972448,
+   "total": 6302689,
    "estimated": true
   },
   "2026-05-16": {
@@ -1428,49 +1433,49 @@
    "estimated": true
   },
   "2026-05-17": {
-   "total": 4918487,
+   "total": 5190450,
    "estimated": true
   },
   "2026-05-18": {
-   "total": 14755460,
+   "total": 15571350,
    "estimated": true
   },
   "2026-05-19": {
-   "total": 3513205,
+   "total": 3707464,
    "estimated": true
   },
   "2026-05-20": {
-   "total": 27754317,
+   "total": 29288967,
    "estimated": true
   },
   "2026-05-21": {
-   "total": 37239969,
+   "total": 39299120,
    "estimated": true
   },
   "2026-05-22": {
-   "total": 22835830,
+   "total": 24098517,
    "estimated": true
   },
   "2026-05-23": {
-   "total": 2107923,
+   "total": 2224479,
    "estimated": true
   },
   "2026-05-26": {
-   "total": 1053961,
+   "total": 1112239,
    "estimated": true
   }
  },
  "sources": {
   "claude_code": {
    "label": "Claude Code",
-   "tokens": 12707882407,
+   "tokens": 12706044701,
    "compact": "12.7B"
   },
   "codex": {
    "label": "Codex",
-   "tokens": 4262923449,
-   "compact": "4.3B",
-   "days": 4,
+   "tokens": 6626813472,
+   "compact": "6.6B",
+   "days": 6,
    "series": {
     "2026-06-04": {
      "total": 905631,
@@ -1505,16 +1510,42 @@
      }
     },
     "2026-07-22": {
-     "total": 4063596312,
-     "in": 4053944696,
-     "out": 9651616,
-     "cr": 3926898432,
-     "rz": 3517429,
+     "total": 4251424772,
+     "in": 4241384758,
+     "out": 10040014,
+     "cr": 4110106112,
+     "rz": 3643635,
      "models": {
-      "gpt-5.6-sol": 3860030599,
-      "codex-auto-review": 111618129,
+      "gpt-5.6-sol": 4035621674,
+      "codex-auto-review": 123855514,
       "gpt-5.6-terra": 781724,
       "codex-unknown": 91165860
+     }
+    },
+    "2026-07-23": {
+     "total": 2150449975,
+     "in": 2145415137,
+     "out": 5034838,
+     "cr": 2078561280,
+     "rz": 1754268,
+     "models": {
+      "gpt-5.6-sol": 2113638834,
+      "codex-auto-review": 27101623,
+      "gpt-5.6-terra": 8276694,
+      "gpt-5.6-luna": 1432824
+     }
+    },
+    "2026-07-24": {
+     "total": 25611588,
+     "in": 25484161,
+     "out": 127427,
+     "cr": 24388864,
+     "rz": 39349,
+     "models": {
+      "gpt-5.6-luna": 14903688,
+      "gpt-5.6-terra": 6362279,
+      "gpt-5.6-sol": 4106216,
+      "codex-auto-review": 239405
      }
     }
    }
@@ -1619,9 +1650,9 @@
   },
   "hermes": {
    "label": "Hermes",
-   "tokens": 200443579,
-   "compact": "200.4M",
-   "days": 12,
+   "tokens": 205315351,
+   "compact": "205.3M",
+   "days": 13,
    "series": {
     "2026-07-10": {
      "total": 24839889,
@@ -1749,6 +1780,16 @@
      "models": {
       "glm-5-2-260617": 70426
      }
+    },
+    "2026-07-23": {
+     "total": 4871772,
+     "in": 186912,
+     "out": 51964,
+     "cr": 4632896,
+     "rz": 0,
+     "models": {
+      "glm-5-2-260617": 4871772
+     }
     }
    }
   },
@@ -1843,9 +1884,9 @@
   "estimated_share": "3%",
   "harness_split": {
    "claude_code": "12.7B",
-   "codex": "4.3B",
+   "codex": "6.6B",
    "zcode": "145.7M",
-   "hermes": "200.4M",
+   "hermes": "205.3M",
    "kimi_code": "178.2M",
    "openclaw": "1.6M",
    "web": "117.6M",
