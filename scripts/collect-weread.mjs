@@ -32,8 +32,10 @@ async function gw(api_name, params = {}) {
   if (!res.ok) throw new Error(`${api_name} → HTTP ${res.status}`);
   const j = await res.json();
   if (j.upgrade_info) {
-    console.warn(`[weread] ⚠ 官方 Skill 要求升级：${j.upgrade_info.message ?? JSON.stringify(j.upgrade_info)}`);
-    console.warn('         请运行：npx skills add Tencent/WeChatReading 更新后重跑');
+    const detail = j.upgrade_info.message ?? JSON.stringify(j.upgrade_info);
+    const error = new Error(`官方 Skill 要求升级：${detail}（请运行 npx skills add Tencent/WeChatReading 后重跑）`);
+    error.code = 'WEREAD_SKILL_UPGRADE';
+    throw error;
   }
   if (j.errcode && j.errcode !== 0) throw new Error(`${api_name} → 业务错误 ${j.errcode}: ${j.errmsg ?? ''}`);
   return j;
