@@ -67,9 +67,11 @@ npm run sync            # 一键：采集全部 → commit → push（--no-push 
 **微信读书 AI 共创书白名单**：secret=1 私密书一律排除，仅 `scripts/config.mjs → wereadAiTopics`
 按书名显式放行，在主页阅读区以独立「方法论展示」分区呈现、不混入真实阅读统计。
 
-**自制 ePub 在线阅读器**：自主上传的 ePub 书不走微信 API，登记在 `data/local-books.json`（id 用 `CB_local_<slug>`），
-导言/副题/封面覆盖在 `data/book-extras.json`（按 id/title），二者均为 authored 源、sync 永不覆写，由
-`scripts/merge-local-books.mjs`（sync 第 4.5 步，幂等、无 key 也跑）在采集后确定性合入 `reading.json`。
+**自制 ePub 在线阅读器**：自主上传的 ePub 书不走微信 API。把文件放进 `~/Documents/30书架` 后，
+`scripts/merge-local-books.mjs`（sync 第 4.5 步，幂等、无 key 也跑）会自动读取 ePub 元数据、生成稳定 id 与资源路径、
+提取封面并合入 `reading.json`；同名微信读书条目会直接复用，不重复收录。未配置的新书进入「新近写作」，
+`data/local-books.json` 只在需要自定义话题分组、文案或稳定资源路径时作为覆盖层，导言/副题/封面则继续由
+`data/book-extras.json` 按 id/title 覆盖。
 有 epub 源文件的书，落地页出「开始阅读」→ `/reading/<id>/read/`：基于 epub.js 的钴蓝玻璃阅读器，
 支持翻页/目录/字号/进度、**选中文字划线（localStorage 持久化）、悬浮菜单、生成玻璃明信片金句卡分享（含 CFI 深链回链）**。
 epub 文件放 `public/assets/books/epub/<slug>.epub`，封面放 `public/assets/books/epub-covers/`；
@@ -133,7 +135,8 @@ git config --local credential.helper '' && git config --local --add credential.h
 { printf 'protocol=https\nhost=github.com\nusername=x-access-token\npassword='; gh auth token; printf '\n'; } | git credential approve   # 写入 ~/.git-credentials(600)
 ```
 
-plist 已注入 `HTTPS_PROXY=127.0.0.1:7897`，不可达时本次自动转直连。`sync.mjs` 只允许生产 `main` worktree 推送，
+plist 已注入 `HTTPS_PROXY=127.0.0.1:7897`，不可达时本次自动转直连；GitHub 的短暂 SSL/DNS/代理故障还会在
+`pull` / `push` 阶段有界重试，并在代理模式与直连之间切换。`sync.mjs` 只允许生产 `main` worktree 推送，
 启动先 `pull --ff-only`、用原子锁拒绝重叠运行，并在知识库导出后执行隐私不变量校验；自动任务不 rebase、不改写历史。
 活动、Token、知识库和发布失败会整次退出；GitHub 补抓、微信读书、本地 ePub、前沿失败会沿用上次数据并记录为 `⚠ partial`。
 **每次运行结果**追加一行到 `~/Library/Logs/workbench-sync.log`（`✓pushed`/`⊙no-changes`/`✗failed`+耗时），详细 stdout/stderr 同目录；

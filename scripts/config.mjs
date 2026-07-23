@@ -129,9 +129,9 @@ export const CONFIG = {
     openclawSessions: path.join(HOME, '.kimi_openclaw', 'agents', 'main', 'sessions'),
   },
 
-  /* 自制 ePub 书架源（30书架）：merge-local-books.mjs 每次同步从这里拉最新 epub + 缺失时提取封面。
+  /* 自制 ePub 书架源（30书架）：merge-local-books.mjs 自动发现全部 epub、同步更新并提取封面。
      本地有此目录才同步；CI / 无目录静默跳过（已提交的产物照用）。
-     新增一本：epub 放进此目录 → 在 data/local-books.json 登记一条（含 sourceFile=此处文件名、epub=目标路径）。 */
+     data/local-books.json 只用于给书指定稳定分组、文案或资源路径，不再是新增书的必填登记表。 */
   bookshelfDir: path.join(HOME, 'Documents', '30书架'),
 
   /* GitHub（Actions 内通过 GITHUB_TOKEN/PAT 抓取；本地有 token 也可跑） */

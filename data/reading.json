@@ -369,6 +369,40 @@
      "intro": "市场规模张口就来，往往是因为没分清在数哪个盘子。这本小书先立口径——把 Work Agent 市场拆成「两个盘子、三等数字」，用 TAM/SAM/SOM 两路夹逼给出可被质疑的量级，而非一个拍脑袋的大数。再往下是一套能落到定价的切法：用两条轴做 Segmentation，用采用率、付费意愿、使用频率给用户画像做定量切片，看钱和频率到底落在哪些活上；最后用打分给各家做 Targeting 与 Positioning，看清谁在抢谁、各自站在哪。给要对外引用市场数字、对内定义打法的产品人：它逼你把「市场很大」翻译成「哪个 segment、值多少、凭什么」。"
     }
    ]
+  },
+  {
+   "id": "local-new",
+   "topic": "新近写作",
+   "blurb": "近期完成并整理成 ePub 的长篇研究与专题。",
+   "graphFocus": null,
+   "books": [
+    {
+     "id": "CB_local_book-dfdeaaee",
+     "title": "谁替你决定",
+     "author": "Rick’s GPT-5 Deep",
+     "sourceFile": "谁替你决定.epub",
+     "cover": "/assets/books/epub-covers/book-dfdeaaee.png",
+     "epub": "/assets/books/epub/book-dfdeaaee.epub",
+     "progress": 0,
+     "finished": false,
+     "notes": 0,
+     "lastRead": 0,
+     "highlights": []
+    },
+    {
+     "id": "CB_local_ai-tiktok-shop-1e5e375b",
+     "title": "AI 如何重构 TikTok Shop",
+     "author": "Rick’s GPT-5 High",
+     "sourceFile": "AI 如何重构 TikTok Shop.epub",
+     "cover": "/assets/books/epub-covers/ai-tiktok-shop-1e5e375b.png",
+     "epub": "/assets/books/epub/ai-tiktok-shop-1e5e375b.epub",
+     "progress": 0,
+     "finished": false,
+     "notes": 0,
+     "lastRead": 0,
+     "highlights": []
+    }
+   ]
   }
  ],
  "shelf": [

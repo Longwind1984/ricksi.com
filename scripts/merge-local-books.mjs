@@ -1,14 +1,21 @@
 // 把「自主上传的本地 ePub 书」+ 导言/副题/epub 合入 reading.json。
 // 在 collect-weread 之后跑（见 sync.mjs）；独立、幂等、无微信 key 也能跑。
-// 数据源（authored，sync 永不覆写）：data/local-books.json、data/book-extras.json。
+// 数据源：30书架自动发现全部 epub；local-books.json / book-extras.json 作为 authored 覆盖层。
 // 设计要点：不改 generated_at，故单独重跑本步对 reading.json 零 diff（完全幂等）。
-// 步骤 0：从 30书架（CONFIG.bookshelfDir）同步 epub 产物——本地有源才跑，CI/无目录静默跳过。
+// 步骤 0：从 30书架（CONFIG.bookshelfDir）发现并同步 epub——本地有源才跑，CI/无目录静默跳过。
+import crypto from 'node:crypto';
 import path from 'node:path';
 import fs from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import sharp from 'sharp';
 import { CONFIG } from './config.mjs';
 import { readJson, writeJson } from './lib/util.mjs';
+import {
+  AUTO_TOPIC,
+  makeAutoBook,
+  normalizeBookTitle,
+  readEpubMetadata,
+} from './lib/local-epub.mjs';
 
 const OUT = path.join(CONFIG.dataDir, 'reading.json');
 const PUB = path.resolve('public');
@@ -22,49 +29,112 @@ if (!Array.isArray(reading.aiTopics)) reading.aiTopics = [];
 const local = readJson(path.join(CONFIG.dataDir, 'local-books.json'), { topics: [] });
 const extras = readJson(path.join(CONFIG.dataDir, 'book-extras.json'), { byId: {}, byTitle: {} });
 
-// ── 0) 书架同步：从 30书架拉 epub（源更新即覆盖）+ 缺失时从 epub 内提取封面压到 500×800 ──
-// epub 永远以 30书架为准（always-update）；封面只在缺失时生成（既有封面是人工精修的缩图，不擅动）。
-await syncBookshelf(local);
+// ── 0) 书架同步：自动发现全部 epub，复用同名书；未知书进入「新近写作」 ──
+// epub 永远以 30书架为准；封面只在缺失时生成（既有封面是人工精修的缩图，不擅动）。
+const autoTopic = await syncBookshelf(local);
 
 async function syncBookshelf(local) {
   const src = CONFIG.bookshelfDir;
   if (!src || !fs.existsSync(src)) {
     console.log('· 跳过书架同步（本地无 30书架 目录，沿用已提交产物）');
-    return;
+    return null;
   }
-  let copied = 0, covered = 0;
-  for (const lt of local.topics || []) {
-    for (const lb of lt.books || []) {
-      if (!lb.sourceFile || !lb.epub) continue;
-      const srcEpub = path.join(src, lb.sourceFile);
-      if (!fs.existsSync(srcEpub)) {
-        console.warn(`  ⚠ 书架源缺失，跳过：${lb.sourceFile}`);
-        continue;
-      }
-      const slug = path.basename(lb.epub, '.epub');
-      const destEpub = path.join(PUB, 'assets/books/epub', slug + '.epub');
-      const destCover = path.join(PUB, 'assets/books/epub-covers', slug + '.png');
-      // epub：源 mtime 更新或目标缺失 → 覆盖
-      const srcM = fs.statSync(srcEpub).mtimeMs;
-      if (!fs.existsSync(destEpub) || fs.statSync(destEpub).mtimeMs < srcM) {
-        fs.mkdirSync(path.dirname(destEpub), { recursive: true });
-        fs.copyFileSync(srcEpub, destEpub);
-        copied++;
-        console.log(`  ✓ epub  ${slug}`);
-      }
-      // 封面：仅缺失时从 epub 内 cover-image 提取并压到 500×800
-      if (!fs.existsSync(destCover)) {
-        try {
-          await extractCover(srcEpub, destCover);
-          covered++;
-          console.log(`  ✓ 封面  ${slug}`);
-        } catch (e) {
-          console.warn(`  ⚠ 封面提取失败 ${slug}：${e.message}`);
-        }
+  let copied = 0, covered = 0, discovered = 0, matched = 0;
+  const configured = (local.topics || []).flatMap((topic) => topic.books || []);
+  const registeredBySource = new Map(
+    configured.filter((book) => book.sourceFile).map((book) => [book.sourceFile, book]),
+  );
+  const allBooks = [
+    ...reading.aiTopics.flatMap((topic) => topic.books || []),
+    ...configured,
+  ];
+  const bySource = new Map(allBooks.filter((book) => book.sourceFile).map((book) => [book.sourceFile, book]));
+  const byTitle = new Map(allBooks.filter((book) => book.title).map((book) => [normalizeBookTitle(book.title), book]));
+  const extrasByTitle = new Map(
+    Object.entries(extras.byTitle || {}).map(([title, value]) => [normalizeBookTitle(title), value]),
+  );
+  const autoBooks = [];
+  const sourceFiles = fs.readdirSync(src, { withFileTypes: true })
+    .filter((entry) => entry.isFile() && /\.epub$/i.test(entry.name))
+    .map((entry) => entry.name)
+    .sort((a, b) => a.localeCompare(b, 'zh-CN'));
+  const sourceSet = new Set(sourceFiles);
+  for (const sourceFile of registeredBySource.keys()) {
+    if (!sourceSet.has(sourceFile)) console.warn(`  ⚠ 书架源缺失，沿用已提交产物：${sourceFile}`);
+  }
+
+  for (const sourceFile of sourceFiles) {
+    const srcEpub = path.join(src, sourceFile);
+    let metadata;
+    try {
+      metadata = readEpubMetadata(srcEpub);
+    } catch (error) {
+      console.warn(`  ⚠ 元数据读取失败 ${sourceFile}：${error.message}`);
+      metadata = {};
+    }
+    const fallbackTitle = path.basename(sourceFile, path.extname(sourceFile)).replace(/\s+\(\d+\)$/, '');
+    const title = metadata.title || fallbackTitle;
+    let book = registeredBySource.get(sourceFile) || bySource.get(sourceFile) || byTitle.get(normalizeBookTitle(title));
+
+    if (!book) {
+      book = makeAutoBook({ sourceFile, title, author: metadata.author });
+      autoBooks.push(book);
+      allBooks.push(book);
+      bySource.set(sourceFile, book);
+      byTitle.set(normalizeBookTitle(title), book);
+      discovered++;
+      console.log(`  + 自动收录  《${title}》`);
+    } else if (!registeredBySource.has(sourceFile)) {
+      matched++;
+    }
+
+    const extra = {
+      ...(extrasByTitle.get(normalizeBookTitle(book.title)) || {}),
+      ...((extras.byId || {})[book.id] || {}),
+    };
+    if (!book.epub) book.epub = extra.epub || makeAutoBook({ sourceFile, title: book.title, author: book.author }).epub;
+    if (!book.cover) book.cover = extra.cover || book.epub.replace('/epub/', '/epub-covers/').replace(/\.epub$/i, '.png');
+    // 自动创建与显式配置的本地书保留源文件名；同名微信书只借用源，不把本机路径细节写进公开数据。
+    if (book.id.startsWith('CB_local_') && !book.sourceFile) book.sourceFile = sourceFile;
+    if (!book.id.startsWith('CB_local_') && !registeredBySource.has(sourceFile)) delete book.sourceFile;
+
+    const destEpub = publicAssetPath(book.epub, 'epub');
+    const destCover = publicAssetPath(book.cover, 'epub-covers');
+    if (!destEpub) {
+      console.warn(`  ⚠ 非法 epub 资源路径，跳过：${book.title}`);
+      continue;
+    }
+    if (!fs.existsSync(destEpub) || sha256File(srcEpub) !== sha256File(destEpub)) {
+      fs.mkdirSync(path.dirname(destEpub), { recursive: true });
+      fs.copyFileSync(srcEpub, destEpub);
+      copied++;
+      console.log(`  ✓ epub  ${path.basename(destEpub, '.epub')}`);
+    }
+    if (destCover && !fs.existsSync(destCover)) {
+      try {
+        await extractCover(srcEpub, destCover);
+        covered++;
+        console.log(`  ✓ 封面  ${path.basename(destCover, '.png')}`);
+      } catch (e) {
+        console.warn(`  ⚠ 封面提取失败 ${path.basename(destCover, '.png')}：${e.message}`);
       }
     }
   }
-  console.log(`✓ 书架同步：epub ${copied} 本，封面 ${covered} 张（源 ${src}）`);
+  console.log(
+    `✓ 书架同步：扫描 ${sourceFiles.length} 本，自动收录 ${discovered} 本，同名复用 ${matched} 本，` +
+    `epub 更新 ${copied} 本，封面新增 ${covered} 张（源 ${src}）`,
+  );
+  return autoBooks.length ? { ...AUTO_TOPIC, books: autoBooks } : null;
+}
+
+function publicAssetPath(asset, kind) {
+  const prefix = `/assets/books/${kind}/`;
+  if (typeof asset !== 'string' || !asset.startsWith(prefix) || asset.includes('..')) return null;
+  return path.join(PUB, asset.slice(1));
+}
+
+function sha256File(file) {
+  return crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex');
 }
 
 // 从 epub（zip）内解析 cover-image 路径并提取，sharp 压到 500×800 png。
@@ -97,7 +167,7 @@ async function extractCover(epubPath, destCover) {
 
 // 1) 把本地话题组/书 splice 进 aiTopics（按 id 去重）
 let added = 0;
-for (const lt of local.topics || []) {
+for (const lt of [...(local.topics || []), ...(autoTopic ? [autoTopic] : [])]) {
   let dest = reading.aiTopics.find((t) => t.id === lt.id);
   if (!dest) {
     dest = { id: lt.id, topic: lt.topic, blurb: lt.blurb, graphFocus: lt.graphFocus ?? null, books: [] };

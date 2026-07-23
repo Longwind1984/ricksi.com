@@ -16,7 +16,12 @@ import { homedir } from 'node:os';
 import { join } from 'node:path';
 import { writeVaultJournal } from './lib/sync-journal.mjs';
 import { isProxyReachable } from './lib/proxy.mjs';
-import { acquireSyncLock, assertProductionBranch, runRecoverable } from './lib/sync-runtime.mjs';
+import {
+  acquireSyncLock,
+  assertProductionBranch,
+  runNetworkWithRetry,
+  runRecoverable,
+} from './lib/sync-runtime.mjs';
 
 const noPush = process.argv.includes('--no-push');
 const run = (cmd, args, opts) => execFileSync(cmd, args, { stdio: 'inherit', ...opts });
@@ -71,7 +76,10 @@ async function main() {
 
   if (!noPush && hasRemote) {
     console.log('── 0/7 更新生产 main（fast-forward only）');
-    git(['pull', '--ff-only']);
+    await runNetworkWithRetry('git pull', ({ env }) => run('git', ['pull', '--ff-only'], { env }), {
+      env: process.env,
+      delayMs: 5000,
+    });
   }
 
   console.log('── 1/7 活动热力图（git + Obsidian + Claude/Codex 日志）');
@@ -138,7 +146,10 @@ async function main() {
     return;
   }
 
-  git(['push']);
+  await runNetworkWithRetry('git push', ({ env }) => run('git', ['push'], { env }), {
+    env: process.env,
+    delayMs: 5000,
+  });
   const head = gitOut(['rev-parse', '--short', 'HEAD']).trim();
   console.log('✓ 已推送，EdgeOne / Vercel 将自动重新部署');
   markOk();
