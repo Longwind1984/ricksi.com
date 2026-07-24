@@ -1,15 +1,15 @@
 {
- "generated_at": "2026-07-23T16:15:46.378Z",
- "today": 25611588,
- "today_out": 127427,
- "today_cache_share": 95,
- "week": "8.1B",
+ "generated_at": "2026-07-24T13:30:26.580Z",
+ "today": 70344789,
+ "today_out": 344321,
+ "today_cache_share": 96,
+ "week": "8.2B",
  "cumulative": "20.0B",
  "cumulative_code": "12.7B",
- "cumulative_codex": "6.6B",
+ "cumulative_codex": "6.7B",
  "cumulative_zcode": "145.7M",
- "cumulative_hermes": "205.3M",
- "cumulative_kimi_code": "178.2M",
+ "cumulative_hermes": "218.7M",
+ "cumulative_kimi_code": "179.0M",
  "cumulative_openclaw": "1.6M",
  "cumulative_web": "117.6M",
  "models": [
@@ -27,7 +27,7 @@
   ],
   [
    "GLM",
-   2
+   3
   ],
   [
    "Kimi",
@@ -65,11 +65,11 @@
   },
   {
    "d": "周四",
-   "v": 2155.32
+   "v": 2168.69
   },
   {
    "d": "今天",
-   "v": 25.61
+   "v": 70.34
   }
  ],
  "series": {
@@ -1416,6 +1416,18 @@
     }
    }
   },
+  "2026-07-24": {
+   "total": 0,
+   "models": {
+    "<synthetic>": {
+     "in": 0,
+     "out": 0,
+     "cw": 0,
+     "cr": 0,
+     "total": 0
+    }
+   }
+  },
   "2026-05-13": {
    "total": 14459110,
    "estimated": true
@@ -1473,8 +1485,8 @@
   },
   "codex": {
    "label": "Codex",
-   "tokens": 6626813472,
-   "compact": "6.6B",
+   "tokens": 6670732437,
+   "compact": "6.7B",
    "days": 6,
    "series": {
     "2026-06-04": {
@@ -1536,16 +1548,16 @@
      }
     },
     "2026-07-24": {
-     "total": 25611588,
-     "in": 25484161,
-     "out": 127427,
-     "cr": 24388864,
-     "rz": 39349,
+     "total": 69530553,
+     "in": 69195992,
+     "out": 334561,
+     "cr": 66550528,
+     "rz": 159391,
      "models": {
-      "gpt-5.6-luna": 14903688,
-      "gpt-5.6-terra": 6362279,
+      "gpt-5.6-luna": 57551901,
+      "gpt-5.6-terra": 6693904,
       "gpt-5.6-sol": 4106216,
-      "codex-auto-review": 239405
+      "codex-auto-review": 1178532
      }
     }
    }
@@ -1650,9 +1662,9 @@
   },
   "hermes": {
    "label": "Hermes",
-   "tokens": 205315351,
-   "compact": "205.3M",
-   "days": 13,
+   "tokens": 218746257,
+   "compact": "218.7M",
+   "days": 14,
    "series": {
     "2026-07-10": {
      "total": 24839889,
@@ -1782,22 +1794,32 @@
      }
     },
     "2026-07-23": {
-     "total": 4871772,
-     "in": 186912,
-     "out": 51964,
-     "cr": 4632896,
+     "total": 18238031,
+     "in": 508641,
+     "out": 73518,
+     "cr": 17655872,
      "rz": 0,
      "models": {
-      "glm-5-2-260617": 4871772
+      "glm-5-2-260617": 18238031
+     }
+    },
+    "2026-07-24": {
+     "total": 64647,
+     "in": 15230,
+     "out": 2953,
+     "cr": 46464,
+     "rz": 0,
+     "models": {
+      "glm-5-2-260617": 64647
      }
     }
    }
   },
   "kimi_code": {
    "label": "Kimi Code",
-   "tokens": 178247436,
-   "compact": "178.2M",
-   "days": 4,
+   "tokens": 178953419,
+   "compact": "179.0M",
+   "days": 5,
    "series": {
     "2026-07-17": {
      "total": 48387692,
@@ -1839,14 +1861,24 @@
      "models": {
       "kimi-code/k3": 2150907
      }
+    },
+    "2026-07-24": {
+     "total": 705983,
+     "in": 102335,
+     "out": 6656,
+     "cr": 596992,
+     "rz": 0,
+     "models": {
+      "kimi-code/k3": 705983
+     }
     }
    }
   },
   "openclaw": {
    "label": "OpenClaw",
-   "tokens": 1588673,
+   "tokens": 1632279,
    "compact": "1.6M",
-   "days": 2,
+   "days": 3,
    "series": {
     "2026-07-17": {
      "total": 705869,
@@ -1864,6 +1896,16 @@
      "cr": 816151,
      "models": {
       "k2p6": 882804
+     }
+    },
+    "2026-07-24": {
+     "total": 43606,
+     "in": 18047,
+     "out": 151,
+     "cr": 25408,
+     "rz": 0,
+     "models": {
+      "k2p6": 43606
      }
     }
    }
@@ -1884,10 +1926,10 @@
   "estimated_share": "3%",
   "harness_split": {
    "claude_code": "12.7B",
-   "codex": "6.6B",
+   "codex": "6.7B",
    "zcode": "145.7M",
-   "hermes": "205.3M",
-   "kimi_code": "178.2M",
+   "hermes": "218.7M",
+   "kimi_code": "179.0M",
    "openclaw": "1.6M",
    "web": "117.6M",
    "note": "Token 用量按 harness 分源汇总；Codex 按 rollout 文件内 token_count 的累计值做增量求和，cached_input_tokens 是 input_tokens 的子集、不重复相加。两处去重：① Hermes 排除经 claude-proxy(localhost) 的会话（那些 claude -p 已计入 Claude Code）；② Kimi Code 只读 usage.record（同一次调用另有 step.end 记录，两者数值相同，都读会翻倍）。Kimi 订阅被 Kimi Code / OpenClaw / Hermes(调 api.kimi.com) 三个 harness 消耗，按 harness 分列；其订阅总消耗可从模型条的 Kimi 家族看。全口径含缓存读写。"
