@@ -28,6 +28,7 @@ if (!Array.isArray(reading.aiTopics)) reading.aiTopics = [];
 
 const local = readJson(path.join(CONFIG.dataDir, 'local-books.json'), { topics: [] });
 const extras = readJson(path.join(CONFIG.dataDir, 'book-extras.json'), { byId: {}, byTitle: {} });
+const sourceOrder = new Map();
 
 // ── 0) 书架同步：自动发现全部 epub，复用同名书；未知书进入「新近写作」 ──
 // epub 永远以 30书架为准；封面只在缺失时生成（既有封面是人工精修的缩图，不擅动）。
@@ -57,7 +58,12 @@ async function syncBookshelf(local) {
   const sourceFiles = fs.readdirSync(src, { withFileTypes: true })
     .filter((entry) => entry.isFile() && /\.epub$/i.test(entry.name))
     .map((entry) => entry.name)
-    .sort((a, b) => a.localeCompare(b, 'zh-CN'));
+    .sort((a, b) => {
+      const byUploadedAt = fs.statSync(path.join(src, b)).mtimeMs - fs.statSync(path.join(src, a)).mtimeMs;
+      return byUploadedAt || a.localeCompare(b, 'zh-CN');
+    });
+  sourceOrder.clear();
+  sourceFiles.forEach((sourceFile, index) => sourceOrder.set(sourceFile, index));
   const sourceSet = new Set(sourceFiles);
   for (const sourceFile of registeredBySource.keys()) {
     if (!sourceSet.has(sourceFile)) console.warn(`  ⚠ 书架源缺失，沿用已提交产物：${sourceFile}`);
@@ -167,7 +173,7 @@ async function extractCover(epubPath, destCover) {
 
 // 1) 把本地话题组/书 splice 进 aiTopics（按 id 去重）
 let added = 0;
-for (const lt of [...(local.topics || []), ...(autoTopic ? [autoTopic] : [])]) {
+for (const lt of [...(autoTopic ? [autoTopic] : []), ...(local.topics || [])]) {
   let dest = reading.aiTopics.find((t) => t.id === lt.id);
   if (!dest) {
     dest = { id: lt.id, topic: lt.topic, blurb: lt.blurb, graphFocus: lt.graphFocus ?? null, books: [] };
@@ -195,6 +201,17 @@ for (const lt of [...(local.topics || []), ...(autoTopic ? [autoTopic] : [])]) {
       added++;
     }
   }
+}
+
+// 自动发现的本地书是「新近写作」，固定放在自制 ePub 列表最前；书内按源文件上传时间倒序。
+const localNew = reading.aiTopics.find((topic) => topic.id === AUTO_TOPIC.id);
+if (localNew) {
+  localNew.books.sort(
+    (a, b) =>
+      (sourceOrder.get(a.sourceFile) ?? Number.MAX_SAFE_INTEGER) -
+        (sourceOrder.get(b.sourceFile) ?? Number.MAX_SAFE_INTEGER),
+  );
+  reading.aiTopics = [localNew, ...reading.aiTopics.filter((topic) => topic !== localNew)];
 }
 
 // 2) 给所有 AI 书盖 subtitle / intro / epub（byId 优先于 byTitle；不覆盖本地书已带字段）

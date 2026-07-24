@@ -1813,3 +1813,28 @@ EdgeOne 部署失败、Vercel 成功。诊断：EdgeOne 纯静态构建把全部
 ### 文件级变更清单
 
 - 修改：`src/data/instruments.ts`、`WORKLOG.md`。
+
+## 2026-07-24 · 自建 ePub 最新两本置顶
+
+### 做了什么
+
+将最近上传的《AI 如何重构 TikTok Shop》和《谁替你决定》置于自建 ePub 列表最前，顺序按源文件上传时间倒序；其他书目、封面、阅读数据与站点结构未改。
+
+### 关键决策与被否决的备选
+
+- 在本地 ePub 合入源头固定“新近写作”分组置顶并按上传时间排序，避免只改一次生成 JSON 后被下一次同步覆盖。
+- 不改现有书籍内容、分组文案、页面组件或上传资源。
+
+### 当前状态：现在能跑什么、怎么跑
+
+- `node --test test/*.test.mjs`：23/23 通过。
+- `npm run verify:privacy`：全部不变量通过。
+- `npm run build`：689 个页面构建通过；实际 `/reading/` 产物首三本为目标两本后接《记忆的四种耦合》。
+
+### 未尽事项与已知问题
+
+- 推送 `main` 后等待 EdgeOne 与 Vercel 自动重建，再复核正式站点 `/reading/`。
+
+### 文件级变更清单
+
+- 修改：`scripts/merge-local-books.mjs`、`data/reading.json`、`WORKLOG.md`。
