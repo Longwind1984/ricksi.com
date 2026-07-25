@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-07-24T13:32:14.649Z",
+ "generated_at": "2026-07-25T13:32:50.884Z",
  "rollingDays": 90,
  "domains": {
   "lab": "前沿实验室",
@@ -470,20 +470,16 @@
   }
  ],
  "stats": {
-  "totalEntries": 419,
+  "totalEntries": 418,
   "totalAllTime": 605,
   "lastRun": {
-   "at": "2026-07-24T13:32:14.650Z",
-   "fetched": 17,
-   "processed": 3,
-   "added": 3,
-   "llmFailed": 0,
+   "at": "2026-07-25T13:32:50.884Z",
+   "fetched": 16,
+   "processed": 8,
+   "added": 0,
+   "llmFailed": 8,
    "rateLimited": false,
-   "skippedSources": [
-    "x:francois-chollet@fchollet",
-    "x:anthropic@AnthropicAI",
-    "arxiv:arxiv-agents"
-   ]
+   "skippedSources": []
   }
  },
  "entries": [
@@ -12422,32 +12418,6 @@
    "url": "https://www.cambridge.org/core/journals/language/article/enhancing-linguistic-research-through-critical-use-of-race-and-ethnicity-information/ABDDDF0FE89D20A5707C252E5C442167",
    "excerpt": "",
    "apparent": 3,
-   "absolute": 4,
-   "importance": 4,
-   "gravity": false,
-   "periodic": false,
-   "singularity": false,
-   "rationale": "",
-   "insufficientContext": false,
-   "addedAt": "2026-06-16",
-   "backfill": true
-  },
-  {
-   "id": "c7e0bb639896e471",
-   "date": "2026-04-25",
-   "person": "percy-liang",
-   "topicSource": null,
-   "sourceName": "ICLR 2026 Virtual",
-   "sourceType": "web",
-   "contentType": "action",
-   "titleZh": "ICLR 2026 Marin 开放发展邀请报告",
-   "titleOriginal": "ICLR 2026 Marin 开放发展邀请报告",
-   "verdict": "Percy Liang 在全球顶级深度学习会议阐述 Marin 平台——前沿模型完全开放发展的激进新范式，通过 GitHub 透明实验与社区参与重塑模型研发流程，代表基础模型开发的方向性创新。",
-   "summaryZh": "Percy Liang 在全球顶级深度学习会议阐述 Marin 平台——前沿模型完全开放发展的激进新范式，通过 GitHub 透明实验与社区参与重塑模型研发流程，代表基础模型开发的方向性创新。",
-   "tags": [],
-   "url": "https://iclr.cc/virtual/2026/invited-talk/10020867",
-   "excerpt": "",
-   "apparent": 4,
    "absolute": 4,
    "importance": 4,
    "gravity": false,

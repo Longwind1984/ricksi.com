@@ -1,14 +1,14 @@
 {
- "generated_at": "2026-07-24T13:30:26.580Z",
- "today": 70344789,
- "today_out": 344321,
- "today_cache_share": 96,
- "week": "8.2B",
- "cumulative": "20.0B",
+ "generated_at": "2026-07-25T13:30:27.691Z",
+ "today": 12872222,
+ "today_out": 43315,
+ "today_cache_share": 97,
+ "week": "7.9B",
+ "cumulative": "20.1B",
  "cumulative_code": "12.7B",
  "cumulative_codex": "6.7B",
  "cumulative_zcode": "145.7M",
- "cumulative_hermes": "218.7M",
+ "cumulative_hermes": "227.6M",
  "cumulative_kimi_code": "179.0M",
  "cumulative_openclaw": "1.6M",
  "cumulative_web": "117.6M",
@@ -44,10 +44,6 @@
  ],
  "days7": [
   {
-   "d": "周六",
-   "v": 354.8
-  },
-  {
    "d": "周日",
    "v": 349.62
   },
@@ -65,11 +61,15 @@
   },
   {
    "d": "周四",
-   "v": 2168.69
+   "v": 2177.5
+  },
+  {
+   "d": "周五",
+   "v": 70.34
   },
   {
    "d": "今天",
-   "v": 70.34
+   "v": 12.87
   }
  ],
  "series": {
@@ -1485,9 +1485,9 @@
   },
   "codex": {
    "label": "Codex",
-   "tokens": 6670732437,
+   "tokens": 6683539014,
    "compact": "6.7B",
-   "days": 6,
+   "days": 7,
    "series": {
     "2026-06-04": {
      "total": 905631,
@@ -1558,6 +1558,16 @@
       "gpt-5.6-terra": 6693904,
       "gpt-5.6-sol": 4106216,
       "codex-auto-review": 1178532
+     }
+    },
+    "2026-07-25": {
+     "total": 12806577,
+     "in": 12765625,
+     "out": 40952,
+     "cr": 12505088,
+     "rz": 20809,
+     "models": {
+      "gpt-5.6-luna": 12806577
      }
     }
    }
@@ -1662,9 +1672,9 @@
   },
   "hermes": {
    "label": "Hermes",
-   "tokens": 218746257,
-   "compact": "218.7M",
-   "days": 14,
+   "tokens": 227626669,
+   "compact": "227.6M",
+   "days": 15,
    "series": {
     "2026-07-10": {
      "total": 24839889,
@@ -1794,13 +1804,13 @@
      }
     },
     "2026-07-23": {
-     "total": 18238031,
-     "in": 508641,
-     "out": 73518,
-     "cr": 17655872,
+     "total": 27052798,
+     "in": 656535,
+     "out": 88551,
+     "cr": 26307712,
      "rz": 0,
      "models": {
-      "glm-5-2-260617": 18238031
+      "glm-5-2-260617": 27052798
      }
     },
     "2026-07-24": {
@@ -1811,6 +1821,16 @@
      "rz": 0,
      "models": {
       "glm-5-2-260617": 64647
+     }
+    },
+    "2026-07-25": {
+     "total": 65645,
+     "in": 17970,
+     "out": 2363,
+     "cr": 45312,
+     "rz": 0,
+     "models": {
+      "glm-5-2-260617": 65645
      }
     }
    }
@@ -1928,7 +1948,7 @@
    "claude_code": "12.7B",
    "codex": "6.7B",
    "zcode": "145.7M",
-   "hermes": "218.7M",
+   "hermes": "227.6M",
    "kimi_code": "179.0M",
    "openclaw": "1.6M",
    "web": "117.6M",

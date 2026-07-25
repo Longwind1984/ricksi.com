@@ -1528,5 +1528,45 @@
   "firstSeen": "2026-07-24",
   "attempts": 0,
   "status": "published"
+ },
+ "2075c06488d84859": {
+  "firstSeen": "2026-07-25",
+  "attempts": 1,
+  "status": "llm-failed"
+ },
+ "91618c85563a547b": {
+  "firstSeen": "2026-07-25",
+  "attempts": 1,
+  "status": "llm-failed"
+ },
+ "a825690576f3c0fd": {
+  "firstSeen": "2026-07-25",
+  "attempts": 1,
+  "status": "llm-failed"
+ },
+ "2918dc894f56ae69": {
+  "firstSeen": "2026-07-25",
+  "attempts": 1,
+  "status": "llm-failed"
+ },
+ "69c9598d3b3be3ba": {
+  "firstSeen": "2026-07-25",
+  "attempts": 1,
+  "status": "llm-failed"
+ },
+ "cfdeb2edee050a5f": {
+  "firstSeen": "2026-07-25",
+  "attempts": 1,
+  "status": "llm-failed"
+ },
+ "95efba6de6ee9a82": {
+  "firstSeen": "2026-07-25",
+  "attempts": 1,
+  "status": "llm-failed"
+ },
+ "da6a04bf59534c32": {
+  "firstSeen": "2026-07-25",
+  "attempts": 1,
+  "status": "llm-failed"
  }
 }
