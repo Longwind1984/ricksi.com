@@ -1618,5 +1618,45 @@
   "firstSeen": "2026-07-27",
   "attempts": 0,
   "status": "published"
+ },
+ "d38c097729e6af9e": {
+  "firstSeen": "2026-07-28",
+  "attempts": 0,
+  "status": "published"
+ },
+ "8c6f1d1bbb37c283": {
+  "firstSeen": "2026-07-28",
+  "attempts": 0,
+  "status": "published"
+ },
+ "db1f5ea7924a0b63": {
+  "firstSeen": "2026-07-28",
+  "attempts": 0,
+  "status": "published"
+ },
+ "d67ae5a2c28ff850": {
+  "firstSeen": "2026-07-28",
+  "attempts": 0,
+  "status": "published"
+ },
+ "a4be68c00cf018fa": {
+  "firstSeen": "2026-07-28",
+  "attempts": 0,
+  "status": "published"
+ },
+ "1b431a5fdc1b3e5b": {
+  "firstSeen": "2026-07-28",
+  "attempts": 0,
+  "status": "excluded"
+ },
+ "4ca87c2d66a055bd": {
+  "firstSeen": "2026-07-28",
+  "attempts": 0,
+  "status": "published"
+ },
+ "96c2a2ec11b8d346": {
+  "firstSeen": "2026-07-28",
+  "attempts": 0,
+  "status": "published"
  }
 }
