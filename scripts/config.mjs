@@ -127,6 +127,10 @@ export const CONFIG = {
        OpenClaw 跑 Kimi 模型（k2p6）。Hermes 调 api.kimi.com 的 k3 是远程直连，仍归 Hermes、不在此重复。 */
     kimiCodeSessions: path.join(HOME, '.kimi-code', 'sessions'),
     openclawSessions: path.join(HOME, '.kimi_openclaw', 'agents', 'main', 'sessions'),
+    /* Trae 只能从明文 renderer 日志确认 token_usage 事件是否出现，事件 payload 不含可验证 token 数值。
+       “Trae Work CN”是站点标签；本机实际安装/数据目录名为 TRAE SOLO CN。两者只进覆盖监测，不进累计。 */
+    traeLogs: path.join(HOME, 'Library', 'Application Support', 'Trae', 'logs'),
+    traeWorkCnLogs: path.join(HOME, 'Library', 'Application Support', 'TRAE SOLO CN', 'logs'),
   },
 
   /* 自制 ePub 书架源（30书架）：merge-local-books.mjs 自动发现全部 epub、同步更新并提取封面。

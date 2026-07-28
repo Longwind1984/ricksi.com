@@ -53,7 +53,7 @@ npm run sync            # 一键：采集全部 → commit → push（--no-push 
 | 脚本 | 数据源 | 产物 |
 |---|---|---|
 | `collect-activity` | 本地 git 全历史 + Obsidian 笔记时间线 + Claude Code / Codex 会话日志 | `data/activity.json`（多维热力图） |
-| `collect-usage` | Claude Code 历史 + Codex rollout 实测 + 其他 harness + 截至迁移日冻结的网页粗估（口径 v5） | `data/usage.json` |
+| `collect-usage` | Claude Code 历史 + Codex rollout 实测 + 其他 harness + Trae 覆盖状态 + 截至迁移日冻结的网页粗估（口径 v6） | `data/usage.json` |
 | `sync-vault` | Obsidian `04AI/` 真实结构与双链（04T 专题库下钻 F1~F6 切面；内置发布消毒管线） | `data/graph.json` + `content/kb/` + 隐私清单 |
 | `fetch-github` | GitHub GraphQL（Actions 每日 cron，需 token） | 合并进 activity 的 gh 维度 |
 | `collect-weread` | 微信读书官方 Agent API（书架/笔记/统计/划线 + AI 共创书白名单） | `data/reading.json` + 封面 |

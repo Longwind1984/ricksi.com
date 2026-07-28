@@ -3,6 +3,8 @@
 //   Hermes    →  ~/.hermes/state.db          ·  sessions 表（sqlite；started_at = 秒 REAL）
 //   Kimi Code →  ~/.kimi-code/sessions/**/agents/*/wire.jsonl  （JSONL；time = 毫秒）
 //   OpenClaw  →  ~/.kimi_openclaw/agents/main/sessions/*.jsonl （JSONL；timestamp = ISO）
+//   Trae      →  ~/Library/Application Support/{Trae,TRAE SOLO CN}/logs/**/renderer.log
+//                 仅监测明文 token_usage 事件覆盖；事件不带 token payload，不计入累计
 // 产出与 claude-logs.scanClaudeLogs 同构：days[YYYY-MM-DD] = { total, in,out,cw,cr,rz, models:{name:{total,...}} }
 // 设计取舍：
 //   · sqlite 类通过系统 sqlite3 CLI 读（零依赖；macOS 自带 /usr/bin/sqlite3）；缺库/无 CLI 一律静默返回空
@@ -13,6 +15,7 @@
 //     数值完全相同（2026-07-17 实测两边 TOTAL 均为 8,454,393）。只读 usage.record，两个都读会翻倍。
 //   · 全口径 total：ZCode 用 provider 权威的 computed_total_tokens；其余 = in+out+cache_write+cache_read+reasoning。
 import fs from 'node:fs';
+import path from 'node:path';
 import readline from 'node:readline';
 import { execFileSync } from 'node:child_process';
 import { walk, dayKey } from './util.mjs';
@@ -105,6 +108,78 @@ async function* jsonlLines(file) {
   }
 }
 
+/* ---------- 不可计量覆盖源（Trae / Trae Work CN） ----------
+   只认带 ISO 时间戳与事件键的结构化行，避免把 ai-agent stdout 中的聊天正文（可能恰好提到
+   token_usage）误当事件。事件只证明客户端观察到 token_usage；日志不含 payload，绝不能换算 token。 */
+const TRAE_TOKEN_EVENT_PATTERNS = [
+  {
+    kind: 'renderer',
+    re: /^(\d{4}-\d{2}-\d{2}T\S+)\s+\[[^\]]+\]\s+\[ai-chat\]\[chatStreamService\]\s+_onMessage\b.*\bsessionId=([^,\s]+).*\bevent=token_usage\b/,
+  },
+  {
+    kind: 'solo',
+    re: /^(\d{4}-\d{2}-\d{2}T\S+)\s+.*received local event:\s+id=Some\("([^"]+)"\),\s+event=Some\(String\("token_usage"\)\)/,
+  },
+];
+
+export async function scanTraeCoverage(logsDir) {
+  const result = {
+    status: 'source_missing',
+    events: 0,
+    first_seen: null,
+    last_seen: null,
+    files: 0,
+  };
+  if (!logsDir || !fs.existsSync(logsDir)) return result;
+
+  result.status = 'source_present_no_logs';
+  const files = [...walk(logsDir)].filter((f) => {
+    const name = path.basename(f);
+    return name === 'renderer.log' || /^ai-agent_.*_stdout\.log$/.test(name);
+  });
+  result.files = files.length;
+  if (files.length === 0) return result;
+
+  result.status = 'source_present_no_events';
+  let firstMs = Infinity;
+  let lastMs = -Infinity;
+  const seen = new Set();
+  for (const file of files) {
+    const runDir = path.relative(logsDir, file).split(path.sep)[0];
+    let stream;
+    try {
+      stream = fs.createReadStream(file, 'utf8');
+    } catch {
+      continue;
+    }
+    const rl = readline.createInterface({ input: stream, crlfDelay: Infinity });
+    for await (const line of rl) {
+      const parsed = TRAE_TOKEN_EVENT_PATTERNS
+        .map((pattern) => ({ pattern, match: line.match(pattern.re) }))
+        .find(({ match }) => match);
+      if (!parsed) continue;
+      const { pattern, match } = parsed;
+      const ms = Date.parse(match[1]);
+      if (!Number.isFinite(ms)) continue;
+      const eventKey = pattern.kind === 'solo'
+        ? `${runDir}|${match[2]}`
+        : `${match[1]}|${match[2]}`;
+      if (seen.has(eventKey)) continue;
+      seen.add(eventKey);
+      result.events++;
+      firstMs = Math.min(firstMs, ms);
+      lastMs = Math.max(lastMs, ms);
+    }
+  }
+
+  if (result.events > 0) {
+    result.status = 'events_observed';
+    result.first_seen = new Date(firstMs).toISOString();
+    result.last_seen = new Date(lastMs).toISOString();
+  }
+  return result;
+}
+
 /* Kimi Code CLI：只读 type='usage.record'（它带 model；step.end 是同一次调用的另一种记法，读两个会翻倍）。
    去重：usage.record 无 id，用 time|model|四项用量 作键——同毫秒同模型同用量重复出现即同一条。 */
 export async function scanKimiCodeUsage(sessionsDir) {
@@ -156,13 +231,15 @@ export async function scanOpenclawUsage(sessionsDir) {
   return days;
 }
 
-/* 汇总入口：返回 { zcode, hermes, kimi_code, openclaw }，各为 {days}；缺源项为 {} */
+/* 汇总入口：计量源返回 days；Trae 两源返回不可计量覆盖状态。 */
 export async function scanAgentUsage(cfg = {}) {
   return {
     zcode: scanZcodeUsage(cfg.zcodeDb),
     hermes: scanHermesUsage(cfg.hermesDb, cfg.hermesExcludeUrlLike),
     kimi_code: await scanKimiCodeUsage(cfg.kimiCodeSessions),
     openclaw: await scanOpenclawUsage(cfg.openclawSessions),
+    trae: await scanTraeCoverage(cfg.traeLogs),
+    trae_work_cn: await scanTraeCoverage(cfg.traeWorkCnLogs),
   };
 }
 

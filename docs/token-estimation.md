@@ -47,7 +47,7 @@
 
 **不确定区间**：单对话均量是最大的不确定源（5K~50K 都说得通），整段 C 的合理区间约 40M ~ 250M。它对累计值的影响 <10%，结论：**网页端是叙事意义大于数量意义的一段**——它解释「我从什么时候开始活在 Claude 里」，不显著改变总量。
 
-## D 段 · 其他 harness 分源实测（Codex / ZCode / Hermes / Kimi Code / OpenClaw）
+## D 段 · 其他 harness 分源实测与覆盖监测
 
 Claude Code 之外，各 Agent harness 都按自己的本地用量记录直读（缺源静默跳过，CI 用已提交的历史分源数据）：
 
@@ -58,8 +58,13 @@ Claude Code 之外，各 Agent harness 都按自己的本地用量记录直读�
 | **Hermes** | `~/.hermes/state.db` | sqlite `sessions` | 秒 | in+out+cache_write+cache_read+reasoning | 跨网关（feishu/weixin/desktop/cron），GLM / Claude / DeepSeek / **Kimi(k3)** 混合 |
 | **Kimi Code** | `~/.kimi-code/sessions/**/agents/*/wire.jsonl` | JSONL `usage.record` | 毫秒 | inputOther+output+inputCacheRead+inputCacheCreation | Kimi 订阅（`kimi-code/k3`、`kimi-code/kimi-for-coding`） |
 | **OpenClaw** | `~/.kimi_openclaw/agents/main/sessions/*.jsonl` | JSONL `message.usage` | ISO | input+output+cacheRead+cacheWrite | 跑 Kimi 模型（`k2p6`） |
+| **Trae** | `~/Library/Application Support/Trae/logs/**/renderer.log` | 明文 `token_usage` 事件 | ISO | **不可计量，不进累计** | 事件不含 token 数值；只记录覆盖范围与事件数 |
+| **Trae Work CN** | `~/Library/Application Support/TRAE SOLO CN/logs/**/ai-agent_*_stdout.log` | 明文 `token_usage` 事件 | ISO | **不可计量，不进累计** | 站点沿用用户称谓；本机产品/目录名为 TRAE SOLO CN |
 
-**Codex 计量语义（关键）**：`token_count.total_token_usage` 是**单个 rollout 文件内累计快照**，不能逐条直接相加；采集器取相邻快照增量，计数器回退时视为新累计段。`cached_input_tokens` 是 `input_tokens` 的子集，`reasoning_output_tokens` 是输出诊断子集，二者只用于缓存/推理注脚，**不再加进 `total_tokens`**。父任务与子任务即使共享 session id，也按各自 rollout 文件作为计量边界。
+**Trae 计量边界（关键）**：两个客户端都能在明文日志中确认 `token_usage` 事件发生，但事件没有 input / output / cache / total 数值。TRAE SOLO CN 的聊天主库是加密页格式，不能按 SQLite 读取。采集器因此只输出 `measurable:false`、事件覆盖范围和“不可计量”，不把事件数换算成 token，也不显示成 0。
+
+**方舟 Coding Plan 的账户边界**：`arkcli usage plan` 只返回会话、周、月额度占比，不返回绝对 token；`usage stats` 排除 Coding Plan 套餐抵扣行；当前账号的拆分账单能力未开通。三者都无法把同一 Plan 在 Trae、Hermes、Codex 之间做绝对 token 归因。客户端有可验证 usage 时仍按客户端日志计量；没有数值的 Trae 只做覆盖监测。
+**Codex 计量语义（关键）**：`token_count.total_token_usage` 是累计快照，不能逐条直接相加；采集器取相邻快照增量，计数器回退时视为新累计段。`cached_input_tokens` 是 `input_tokens` 的子集，`reasoning_output_tokens` 是输出诊断子集，二者只用于缓存/推理注脚，**不再加进 `total_tokens`**。普通 rollout 从零计算；fork / subagent rollout 会在首个自身 `turn_context` 前回放父任务历史，这段累计值只用于建立继承基线，不计入子 rollout。首个自身 `turn_context` 后的增量才归该子 rollout，避免父历史重复计数。
 
 **另外两处去重（关键，都踩过）**：
 1. **Hermes ↔ Claude Code**：Hermes 的 `custom:claude-sub` 走 `claude-proxy`（localhost:8085），本质是本地跑 `claude -p`——那些会话**已写进 Claude JSONL、计入 A 段**。故 Hermes 侧按 `billing_base_url LIKE '%localhost%'` 排除（`config.mjs → agentUsage.hermesExcludeUrlLike`）。
@@ -89,7 +94,7 @@ v1 和 v2 的累计值碰巧接近（都是 ~2.0B），属于两个方向的错�
 
 - 「累计」展示合成值，旁注 Claude Code、Codex、其他 harness 与网页冻结粗估分列。
 - 估算/粗估永远带标注；数据缺失回退样例值时渲染「样例数据」徽章。
-- 口径升级时旧值不删除：`method.v1_cumulative` 永久保留，页面标当前口径 v5。
+- 口径升级时旧值不删除：`method.v1_cumulative` 永久保留，页面标当前口径 v6。
 
 ## 面试官追问的标准答案（自用备忘）
 

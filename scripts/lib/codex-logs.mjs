@@ -68,6 +68,8 @@ export async function scanCodexFiles(files) {
 
     let activeModel = 'codex-unknown';
     let previousUsage = Object.fromEntries(USAGE_FIELDS.map((field) => [field, 0]));
+    let sawTurnContext = false;
+    const preTurnDeltas = [];
     const rl = readline.createInterface({ input: stream, crlfDelay: Infinity });
     for await (const line of rl) {
       if (!line || line[0] !== '{') continue;
@@ -79,8 +81,13 @@ export async function scanCodexFiles(files) {
       }
       parsedLines++;
 
-      if (record.type === 'turn_context' && record.payload?.model) {
-        activeModel = record.payload.model;
+      if (record.type === 'turn_context') {
+        if (record.payload?.model) activeModel = record.payload.model;
+        // Forked/subagent rollouts replay their parent's history before their own
+        // first turn_context. Those token snapshots establish the inherited
+        // counter baseline; only later deltas belong to this rollout.
+        sawTurnContext = true;
+        preTurnDeltas.length = 0;
         continue;
       }
 
@@ -94,7 +101,13 @@ export async function scanCodexFiles(files) {
           USAGE_FIELDS.map((field) => [field, Number(currentUsage[field]) || 0])
         );
         const day = validDay(record.timestamp);
-        if (day) addTokenDelta(daySlot(byDay, day), activeModel, delta);
+        if (day) {
+          if (sawTurnContext) {
+            addTokenDelta(daySlot(byDay, day), activeModel, delta);
+          } else {
+            preTurnDeltas.push({ day, model: activeModel, delta });
+          }
+        }
         continue;
       }
 
@@ -104,6 +117,15 @@ export async function scanCodexFiles(files) {
         const slot = daySlot(byDay, day);
         slot.msgs++;
         slot.sessions.add(file);
+      }
+    }
+
+    // Some legacy rollout files contain token_count records but no
+    // turn_context. With no replay boundary to prove inheritance, preserve the
+    // previous behavior and count those records as codex-unknown.
+    if (!sawTurnContext) {
+      for (const { day, model, delta } of preTurnDeltas) {
+        addTokenDelta(daySlot(byDay, day), model, delta);
       }
     }
   }

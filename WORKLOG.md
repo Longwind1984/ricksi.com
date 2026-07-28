@@ -1838,3 +1838,38 @@ EdgeOne 部署失败、Vercel 成功。诊断：EdgeOne 纯静态构建把全部
 ### 文件级变更清单
 
 - 修改：`scripts/merge-local-books.mjs`、`data/reading.json`、`WORKLOG.md`。
+
+## 2026-07-28 · Token 口径 v6：修复 Codex fork 重复计数并纳入 Trae 覆盖
+
+### 做了什么
+
+工作台 Token 数据已升级到 v6 并全量重算。7 月 26 日从错误的 12,176.812340M 修正为 2,387.245480M：其中 Claude Code 14.438338M、Codex 2,371.380101M、Hermes 1.427041M。Codex fork / subagent rollout 在自身首个 `turn_context` 前回放的父任务累计历史不再作为子任务用量重复相加。
+
+Trae 与 Trae Work CN 已进入采集契约和工作台口径详情。本机对应的数据目录分别是 Trae 与 TRAE SOLO CN；当前明文日志能确认 263 / 197 条结构化 `token_usage` 事件及覆盖时间，但事件没有 input、output、cache 或 total 数值。因此两个来源显示“已纳入监测 · 暂无可验证 token”，明确标记不可计量并排除于累计，不用事件数估算，也不伪装成 0。
+
+### 关键决策与被否决的备选
+
+- Codex 以首个自身 `turn_context` 为 fork 继承边界：边界前的 token 快照只建立累计基线，边界后增量才归当前 rollout；无 `turn_context` 的旧日志保留原行为。
+- 被否决：把每个 rollout 文件都从零计数。7 月 26 日因此把父历史重复了 9,789.566860M，是 12,176.8M 异常的主因。
+- 被否决：把 Trae 的 `token_usage` 事件次数换算为 token，或填 0。事件只证明调用发生，不证明用量大小。
+- 方舟 Coding Plan 的套餐接口只返回周期占比，不返回绝对 token；当前账号也未开通拆分账单能力，不能用账户侧数据把同一 Plan 的用量准确拆给 Trae、Hermes、Codex。
+
+### 当前状态：现在能跑什么、怎么跑
+
+- `npm run collect:usage`：生成 v6 数据，累计从 34.9B 修正为 24.2B，Codex 累计从 21.5B 修正为 10.9B。
+- `node --test test/*.test.mjs`：沙箱内 26/27；唯一失败是沙箱禁止绑定 `127.0.0.1` 的 `listen EPERM`，沙箱外单独重跑该测试 1/1 通过。
+- `npm run verify:privacy`：全部不变量通过。
+- `npm run build`：689 页构建通过，54.27 秒；社交图 `generated=1 reused=1673`。
+- 构建产物已确认包含“口径 v6”“Trae Work CN”“已纳入监测”和修正后的 24.2B；`git diff --check` 通过。
+
+### 未尽事项与已知问题
+
+- Trae 两客户端的精确历史 token 仍需官方导出、可验证的运行时接口或可读数据库协议；在此之前只做覆盖监测。
+- Codex 使用方舟 profile 的失败请求会写 session，但本机唯一一次历史尝试在生成前失败且没有 `token_count`。成功请求是否产生可采集 usage，仍需一次经用户明确授权的最小套餐调用实测。
+- Trae 覆盖扫描当前读取约 77 MB 的目标日志，真实双源扫描约 3.3 秒；日志继续线性增长时需改为增量游标。
+
+### 文件级变更清单
+
+- 修改：`scripts/lib/codex-logs.mjs`、`scripts/lib/agent-usage.mjs`、`scripts/collect-usage.mjs`、`scripts/config.mjs`、`src/components/WorkbenchBoard.astro`、`data/usage.json`、`docs/token-estimation.md`、`README.md`、`WORKLOG.md`。
+- 新增：`test/agent-usage.test.mjs`。
+- 扩展测试：`test/codex-logs.test.mjs`。

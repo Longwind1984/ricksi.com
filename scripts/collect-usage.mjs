@@ -1,12 +1,14 @@
-// Token 用量采集 · 口径 v5（2026-07-21）
+// Token 用量采集 · 口径 v6（2026-07-28）
 // 方法全文见 docs/token-estimation.md。主数 cumulative = 全 harness 合计：
 //   A 实测：Claude Code 本地 JSONL（2026-05-27 起保留），按消息去重，逐日固化入库永不回退
 //   B 估算：Claude Code 起用期 2026-05-01 ~ 实测窗口前一天，按当日活跃度相对实测中位日折算（标 estimated）
 //   C 粗估：claude.ai 网页端（无任何日志依据），截至迁移日冻结，独立成流、不进日序列
 //   D 分源：Codex(~/.codex/sessions) + ZCode(~/.zcode model_usage) + Hermes(~/.hermes state.db) + Kimi Code(~/.kimi-code wire.jsonl)
 //           + OpenClaw(~/.kimi_openclaw sessions) 本地用量，按 harness 汇总（scripts/lib/agent-usage.mjs）
+//   E 覆盖：Trae + Trae Work CN 的明文 token_usage 事件；无数值 payload，显式标记不可计量且不进累计
 //           去重①：Hermes 排除经 claude-proxy(localhost) 的会话——那些 claude -p 已计入 A 段，不排除会重复。
 //           去重②：Kimi Code 只读 usage.record——同一次调用另有 step.end 记录、数值相同，都读会翻倍。
+// v5→v6：修复 Codex fork 父历史重复计数；Trae 两客户端纳入覆盖监测但不伪造 token。
 // v4→v5：并入 Codex rollout 实测；claude.ai 粗估冻结于 2026-07-21。
 // v3→v4：并入 Kimi 订阅（Kimi Code + OpenClaw 两个 harness；Hermes 的 k3 原已计入、本次仅把模型家族正名为 Kimi）。
 // v2→v3：v2 仅统计 Claude Code；v3 加 ZCode/Hermes 分源，主数改全 harness 合计。
@@ -89,7 +91,7 @@ if (activity?.days && firstRealDay && realDays.length >= 5) {
 /* ---------- C 段：网页端粗估（聚合值，不进日序列；迁移后冻结） ---------- */
 const web = estimateWebUsage(EST.web.phases);
 
-/* ---------- 分源：Agent harness 用量（Codex / ZCode / Hermes / Kimi Code / OpenClaw；缺源自动跳过、CI 用已提交历史） ---------- */
+/* ---------- 分源：可计量 Agent harness + Trae 不可计量覆盖监测 ---------- */
 const agent = await scanAgentUsage(CONFIG.agentUsage);
 /* 分源日序列：真实日永不回退——fresh 覆盖 + 继承历史存档（本机 DB 被清也不丢，CI 直接用已提交数据）。
    持久化的 models 简化为 {模型名: total}（够画模型条 + 分源趋势）。 */
@@ -107,6 +109,18 @@ const cumulativeZcode = sumSeries(zcodeSeries);
 const cumulativeHermes = sumSeries(hermesSeries);
 const cumulativeKimi = sumSeries(kimiSeries);
 const cumulativeOpenclaw = sumSeries(openclawSeries);
+const unmeasurableSource = (label, coverage = {}) => ({
+  label,
+  tokens: null,
+  compact: '不可计量',
+  measurable: false,
+  status: coverage.status || 'source_missing',
+  events: Number(coverage.events) || 0,
+  first_seen: coverage.first_seen || null,
+  last_seen: coverage.last_seen || null,
+  excluded_from_total: true,
+  note: '已纳入监测 · 暂无可验证 token',
+});
 
 /* ---------- 展示聚合（全 harness 合计） ---------- */
 const todayKey = dayKey(new Date());
@@ -177,10 +191,12 @@ const out = {
     hermes: { label: 'Hermes', tokens: cumulativeHermes, compact: fmtCompact(cumulativeHermes), days: Object.keys(hermesSeries).length, series: hermesSeries },
     kimi_code: { label: 'Kimi Code', tokens: cumulativeKimi, compact: fmtCompact(cumulativeKimi), days: Object.keys(kimiSeries).length, series: kimiSeries },
     openclaw: { label: 'OpenClaw', tokens: cumulativeOpenclaw, compact: fmtCompact(cumulativeOpenclaw), days: Object.keys(openclawSeries).length, series: openclawSeries },
+    trae: unmeasurableSource('Trae', agent.trae),
+    trae_work_cn: unmeasurableSource('Trae Work CN', agent.trae_work_cn),
     web: { label: 'claude.ai 网页', tokens: web.total, compact: fmtCompact(web.total), estimated: true },
   },
   method: {
-    version: 5,
+    version: 6,
     migration_date: '2026-07-21',
     real_window: `${firstRealDay || '—'} 起（Claude Code 本地日志，按消息去重，含输入/输出/缓存读写全口径）`,
     real_days: realDays.length,
@@ -193,9 +209,12 @@ const out = {
       hermes: fmtCompact(cumulativeHermes),
       kimi_code: fmtCompact(cumulativeKimi),
       openclaw: fmtCompact(cumulativeOpenclaw),
+      trae: '不可计量（排除于累计）',
+      trae_work_cn: '不可计量（排除于累计）',
       web: fmtCompact(web.total),
       note:
         'Token 用量按 harness 分源汇总；Codex 按 rollout 文件内 token_count 的累计值做增量求和，cached_input_tokens 是 input_tokens 的子集、不重复相加。' +
+        'Trae 与 Trae Work CN（本机目录名 TRAE SOLO CN）已纳入 token_usage 明文事件覆盖监测；事件不带可验证 token payload，因此不估算、不显示 0，并明确排除于累计。' +
         '两处去重：① Hermes 排除经 claude-proxy(localhost) 的会话（那些 claude -p 已计入 Claude Code）；' +
         '② Kimi Code 只读 usage.record（同一次调用另有 step.end 记录，两者数值相同，都读会翻倍）。' +
         'Kimi 订阅被 Kimi Code / OpenClaw / Hermes(调 api.kimi.com) 三个 harness 消耗，按 harness 分列；其订阅总消耗可从模型条的 Kimi 家族看。全口径含缓存读写。',
@@ -208,7 +227,8 @@ const out = {
     },
     v1_cumulative: v1Cumulative,
     note:
-      'v5 口径（2026-07-21）：并入 Codex rollout 实测日志，并在迁移日冻结不再使用的 claude.ai 网页端粗估。' +
+      'v6 口径（2026-07-28）：修复 Codex fork / subagent rollout 回放父历史造成的重复计数；Trae 与 Trae Work CN 纳入覆盖监测，但因明文事件无 token 数值而明确排除于累计。' +
+      'v5（2026-07-21）：并入 Codex rollout 实测日志，并在迁移日冻结不再使用的 claude.ai 网页端粗估。' +
       'v4（2026-07-17）：在 v3 基础上并入 Kimi 订阅——新增 Kimi Code CLI 与 OpenClaw 两个 harness 源，模型家族识别 Kimi（Hermes 里原归「其他」的 k3 一并正名）。' +
       'v3（2026-07-11）：Token 用量按 harness 分源汇总（Claude Code + ZCode + Hermes + 网页），主数改为全 harness 合计；v2 仅统计 Claude Code。' +
       'v1 曾把 2023-2025 的 git/笔记活动按低强度 AI 用量回填（已纠正，v1 数字留档于 v1_cumulative）',
@@ -225,5 +245,6 @@ console.log(
     ` + Kimi Code ${fmtCompact(cumulativeKimi)}（${Object.keys(kimiSeries).length}天）` +
     ` + OpenClaw ${fmtCompact(cumulativeOpenclaw)}（${Object.keys(openclawSeries).length}天）` +
     ` + 网页粗估 ${fmtCompact(web.total)}` +
+    `\n[usage] 覆盖监测=Trae ${agent.trae.events} events · Trae Work CN ${agent.trae_work_cn.events} events（均不可计量、不进累计）` +
     `\n[usage] 模型=${JSON.stringify(out.models)} → ${OUT}`
 );

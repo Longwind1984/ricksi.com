@@ -89,6 +89,43 @@ test('counts shared session ids as separate rollout files', async () => {
   assert.equal(result.files, 2);
 });
 
+test('uses inherited parent history before a child turn as its counter baseline', async () => {
+  const root = fixtureRoot();
+  writeRollout(root, 'child-with-parent-history.jsonl', [
+    meta('child-id'),
+    event('user_message'),
+    meta('parent-id'),
+    token('2026-07-21T01:00:00.000Z', usage(100, { input: 80, cached: 50, output: 20, reasoning: 5 })),
+    token('2026-07-21T01:00:00.000Z', usage(150, { input: 120, cached: 70, output: 30, reasoning: 8 })),
+    turn('gpt-5.6-sol', '2026-07-21T01:00:01.000Z'),
+    token('2026-07-21T01:00:02.000Z', usage(180, { input: 144, cached: 85, output: 36, reasoning: 10 })),
+    token('2026-07-21T01:00:03.000Z', usage(210, { input: 168, cached: 100, output: 42, reasoning: 12 })),
+  ]);
+
+  const result = await scanCodexLogs(root);
+  const day = result.days['2026-07-21'];
+  assert.equal(day.tokens, 60);
+  assert.equal(day.in, 48);
+  assert.equal(day.cr, 30);
+  assert.equal(day.out, 12);
+  assert.equal(day.rz, 4);
+  assert.equal(day.models['gpt-5.6-sol'].total, 60);
+  assert.equal(day.models['codex-unknown'], undefined);
+});
+
+test('preserves legacy token counts when a rollout has no turn context', async () => {
+  const root = fixtureRoot();
+  writeRollout(root, 'legacy-no-turn.jsonl', [
+    meta('legacy-id'),
+    token('2026-07-21T01:00:00.000Z', usage(25)),
+    token('2026-07-21T01:01:00.000Z', usage(40)),
+  ]);
+
+  const result = await scanCodexLogs(root);
+  assert.equal(result.days['2026-07-21'].tokens, 40);
+  assert.equal(result.days['2026-07-21'].models['codex-unknown'].total, 40);
+});
+
 test('counts visible collaboration messages and ignores tool events', async () => {
   const root = fixtureRoot();
   writeRollout(root, 'activity.jsonl', [
