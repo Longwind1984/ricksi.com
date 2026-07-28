@@ -1,6 +1,7 @@
 ---
 import Glass from '../../layouts/Glass.astro';
 import { getCollection, render } from 'astro:content';
+import { newestPostFirst } from '../../lib/post-order.mjs';
 
 export async function getStaticPaths() {
   const posts = await getCollection('posts', ({ data }: any) => !data.draft);
@@ -9,9 +10,7 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
-const all = (await getCollection('posts', ({ data }: any) => !data.draft)).sort(
-  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
-);
+const all = (await getCollection('posts', ({ data }: any) => !data.draft)).sort(newestPostFirst);
 const i = all.findIndex((p) => p.id === post.id);
 const prev = all[i + 1] ?? null;
 const next = all[i - 1] ?? null;

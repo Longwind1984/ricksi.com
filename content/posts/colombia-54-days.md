@@ -1,6 +1,7 @@
 ---
 title: 哥伦比亚 54 天，没待够，没读懂，没写完
 date: 2026-04-07
+uploadedAt: 2026-07-28T16:40:00+08:00
 tag: 随笔
 description: 趁离开前拾几个碎片
 sourceUrl: https://mp.weixin.qq.com/s/M1EofzlSru0JgBFM1SGCTw

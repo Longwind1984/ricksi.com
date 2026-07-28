@@ -231,15 +231,18 @@ EdgeOne 采用 **Astro 纯静态输出**（无 adapter，产物为 `dist/`）；
 ### 公众号文章迁移
 
 公众号旧文迁入 `content/posts/`，继续使用站内博客的排版、导航、分享卡与移动端阅读体验；正文图片转存到
-`public/assets/blog/<slug>/`，不依赖微信图片防盗链。迁移文章在原有 front-matter 上增加两项：
+`public/assets/blog/<slug>/`，不依赖微信图片防盗链。迁移文章在原有 front-matter 上增加三项：
 
 ```yaml
 sourceUrl: https://mp.weixin.qq.com/s/...
 sourceName: 微信公众号 · <公众号名>
+uploadedAt: 2026-07-28T16:40:00+08:00
 ```
 
 文章页会在日期与标签下方显示克制的来源胶囊，链接回公众号原文。站内 URL 仍是本站 canonical，公众号链接作为
-原始发布来源与回访入口；不要把微信正文样式或远程图片样式复制进 Markdown。
+原始发布来源与回访入口；不要把微信正文样式或远程图片样式复制进 Markdown。`date` 保留文章原始发布日期，
+`uploadedAt` 记录本站上传时间；主页写作区、`/blog`、文章翻页与 RSS 优先按 `uploadedAt` 倒序，未设置的既有文章
+继续按 `date` 排序。
 
 当前已迁入：
 

@@ -1947,3 +1947,40 @@ Trae 与 Trae Work CN 已进入采集契约和工作台口径详情。本机对�
 - 新增：`content/posts/colombia-54-days.md`、`content/posts/honduras-17-days.md`。
 - 新增：`public/assets/blog/colombia-54-days/` 11 张图片、`public/assets/blog/honduras-17-days/` 10 张图片。
 - 修改：`src/content.config.ts`、`src/pages/blog/[...slug].astro`、`src/styles/glass.css`、`README.md`、`WORKLOG.md`。
+
+## 2026-07-28 · 两篇公众号行记置顶并正式发布
+
+### 做了什么
+
+两篇新迁入文章已加入主页“思考与写作”和 `/blog` 完整列表，并按本站上传时间倒序置于前两位：洪都拉斯第一、
+哥伦比亚第二；原来的最新文章《这个知识库是怎么来的》顺延到第三。文章详情页继续显示公众号原始发布日期，
+来源反链、正文和 21 张图片不变。
+
+### 关键决策与被否决的备选
+
+- 新增可选 `uploadedAt`，只负责本站列表、文章翻页和 RSS 顺序；`date` 继续表达文章原始发布日期。
+- 既有文章没有 `uploadedAt` 时自动回退 `date`，不用为全站旧内容补字段，也不改变它们之间的既有顺序。
+- RSS 对迁移文章使用本站上传时间作为 `pubDate`，让订阅端能把新上架的旧文识别为新内容；文章结构化数据仍使用原始发布日期。
+- 被否决：直接把两篇文章的 `date` 改成 7 月 28 日。虽然能置顶，但会篡改详情页、OG 图和 Article JSON-LD 的
+  原始发布日期。
+- 被否决：在主页和博客模板中分别硬编码两篇文章置顶。短期可见，但后续迁移文章无法复用且列表、翻页、RSS 会互相失序。
+
+### 当前状态：现在能跑什么、怎么跑
+
+- 主页“写作”前三项：洪都拉斯、哥伦比亚、知识库文章；`/blog` 前三项顺序相同。
+- `node --test test/*.test.mjs`：29/30 在沙箱内通过；唯一需要本机端口的缓存测试在沙箱外单独重跑 1/1 通过。
+- `npm run verify:privacy`：全部隐私不变量通过。
+- `VERCEL=1 npm run build`：全站构建通过；两篇文章、主页、博客列表和 RSS 均生成成功。
+- 浏览器实测桌面 1280px 与移动端 390×844：主页写作区、博客列表和置顶文章详情均无横向溢出，控制台无错误或警告。
+
+### 未尽事项与已知问题
+
+- 构建仍显示仓库既有的动态图路由、Vite 公共资产占位和大 chunk 提示；本轮没有新增相关警告。
+- 后续迁入更多公众号旧文时，只需填写真实 `uploadedAt`，排序逻辑会自动复用。
+
+### 文件级变更清单
+
+- 新增：`src/lib/post-order.mjs`、`test/post-order.test.mjs`。
+- 修改：`content/posts/colombia-54-days.md`、`content/posts/honduras-17-days.md`、`src/content.config.ts`、
+  `src/pages/index.astro`、`src/pages/blog/index.astro`、`src/pages/blog/[...slug].astro`、
+  `src/pages/rss.xml.ts`、`README.md`、`WORKLOG.md`。

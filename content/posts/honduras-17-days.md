@@ -1,6 +1,7 @@
 ---
 title: 洪都拉斯 17 天，香蕉共和国行记
 date: 2026-02-17
+uploadedAt: 2026-07-28T16:50:00+08:00
 tag: 随笔
 description: 从拒绝入境、玛雅遗址到香蕉共和国，记录在洪都拉斯的 17 天。
 sourceUrl: https://mp.weixin.qq.com/s/N3Cf8WkIEDcpQPuoZUhg2w

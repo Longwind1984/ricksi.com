@@ -8,6 +8,7 @@ import InstrumentsPanel from '../components/InstrumentsPanel.astro';
 import { loadSiteData, stamp } from '../lib/site-data.mjs';
 import { scopedGraph } from '../lib/graph-scope.mjs';
 import { gradOf } from '../lib/reading-ui.mjs';
+import { newestPostFirst } from '../lib/post-order.mjs';
 import { sampleHeatmap, SAMPLE_USAGE, SAMPLE_CODING, SAMPLE_KB_STATS, SAMPLE_POSTS, SAMPLE_DAYS14, SAMPLE_READING } from '../lib/sample.js';
 import WorkbenchGlance from '../components/WorkbenchGlance.astro';
 import WorkbenchBoard from '../components/WorkbenchBoard.astro';
@@ -78,9 +79,7 @@ const kbStats = aiGraph?.stats
   : SAMPLE_KB_STATS;
 
 /* ---- Blog（内容集合，空则回退样例标题） ---- */
-const allPosts = (await getCollection('posts', ({ data }) => !data.draft)).sort(
-  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
-);
+const allPosts = (await getCollection('posts', ({ data }) => !data.draft)).sort(newestPostFirst);
 const posts = allPosts.length
   ? allPosts.slice(0, 3).map((p) => ({
       date: `${p.data.date.getFullYear()}.${String(p.data.date.getMonth() + 1).padStart(2, '0')}`,
