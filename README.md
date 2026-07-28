@@ -228,6 +228,27 @@ EdgeOne 采用 **Astro 纯静态输出**（无 adapter，产物为 `dist/`）；
 - Liquid Glass 对齐:降级三档（减透明/无 backdrop-filter/高对比）、滚动收缩导航、44px 触达
 - 招聘官视角的批判性审查存档于 `docs/interviewer-critique.md`（v3 迭代的需求来源之一）
 
+### 公众号文章迁移
+
+公众号旧文迁入 `content/posts/`，继续使用站内博客的排版、导航、分享卡与移动端阅读体验；正文图片转存到
+`public/assets/blog/<slug>/`，不依赖微信图片防盗链。迁移文章在原有 front-matter 上增加三项：
+
+```yaml
+sourceUrl: https://mp.weixin.qq.com/s/...
+sourceName: 微信公众号 · <公众号名>
+uploadedAt: 2026-07-28T16:40:00+08:00
+```
+
+文章页会在日期与标签下方显示克制的来源胶囊，链接回公众号原文。站内 URL 仍是本站 canonical，公众号链接作为
+原始发布来源与回访入口；不要把微信正文样式或远程图片样式复制进 Markdown。`date` 保留文章原始发布日期，
+`uploadedAt` 记录本站上传时间；主页写作区、`/blog`、文章翻页与 RSS 优先按 `uploadedAt` 倒序，未设置的既有文章
+继续按 `date` 排序。
+
+当前已迁入：
+
+- `/blog/colombia-54-days/`：哥伦比亚 54 天，没待够，没读懂，没写完
+- `/blog/honduras-17-days/`：洪都拉斯 17 天，香蕉共和国行记
+
 ## Backlog（记录在案，未排期）
 
 - 图谱时间轴回放（按笔记创建时间的生长动画）

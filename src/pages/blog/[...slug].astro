@@ -1,6 +1,7 @@
 ---
 import Glass from '../../layouts/Glass.astro';
 import { getCollection, render } from 'astro:content';
+import { newestPostFirst } from '../../lib/post-order.mjs';
 
 export async function getStaticPaths() {
   const posts = await getCollection('posts', ({ data }: any) => !data.draft);
@@ -9,9 +10,7 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
-const all = (await getCollection('posts', ({ data }: any) => !data.draft)).sort(
-  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
-);
+const all = (await getCollection('posts', ({ data }: any) => !data.draft)).sort(newestPostFirst);
 const i = all.findIndex((p) => p.id === post.id);
 const prev = all[i + 1] ?? null;
 const next = all[i - 1] ?? null;
@@ -48,6 +47,15 @@ const fmt = (d: Date) => d.toISOString().slice(0, 10);
           <span>{fmt(post.data.date)}</span>
           <span class="tag mono">{post.data.tag}</span>
         </div>
+        {post.data.sourceUrl && (
+          <aside class="art-origin" aria-label="文章出处">
+            <span class="mono art-origin-label">原始发布</span>
+            <a href={post.data.sourceUrl} target="_blank" rel="noopener">
+              <span>{post.data.sourceName ?? '微信公众号原文'}</span>
+              <span aria-hidden="true">↗</span>
+            </a>
+          </aside>
+        )}
         <div class="prose">
           <Content />
         </div>

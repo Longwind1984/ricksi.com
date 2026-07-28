@@ -7,9 +7,12 @@ const posts = defineCollection({
   schema: z.object({
     title: z.string(),
     date: z.coerce.date(),
+    uploadedAt: z.coerce.date().optional(),
     tag: z.string().default('随笔'),
     description: z.string().optional(),
     draft: z.boolean().default(false),
+    sourceUrl: z.string().url().optional(),
+    sourceName: z.string().min(1).optional(),
   }),
 });
 

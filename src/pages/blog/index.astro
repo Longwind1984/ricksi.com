@@ -1,10 +1,9 @@
 ---
 import Glass from '../../layouts/Glass.astro';
 import { getCollection } from 'astro:content';
+import { newestPostFirst } from '../../lib/post-order.mjs';
 
-const posts = (await getCollection('posts', ({ data }) => !data.draft)).sort(
-  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
-);
+const posts = (await getCollection('posts', ({ data }) => !data.draft)).sort(newestPostFirst);
 const fmt = (d: Date) => `${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')}`;
 
 /* 按年分组 */
