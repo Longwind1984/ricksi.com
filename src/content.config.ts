@@ -10,6 +10,8 @@ const posts = defineCollection({
     tag: z.string().default('随笔'),
     description: z.string().optional(),
     draft: z.boolean().default(false),
+    sourceUrl: z.string().url().optional(),
+    sourceName: z.string().min(1).optional(),
   }),
 });
 

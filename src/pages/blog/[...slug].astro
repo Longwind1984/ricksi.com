@@ -48,6 +48,15 @@ const fmt = (d: Date) => d.toISOString().slice(0, 10);
           <span>{fmt(post.data.date)}</span>
           <span class="tag mono">{post.data.tag}</span>
         </div>
+        {post.data.sourceUrl && (
+          <aside class="art-origin" aria-label="文章出处">
+            <span class="mono art-origin-label">原始发布</span>
+            <a href={post.data.sourceUrl} target="_blank" rel="noopener">
+              <span>{post.data.sourceName ?? '微信公众号原文'}</span>
+              <span aria-hidden="true">↗</span>
+            </a>
+          </aside>
+        )}
         <div class="prose">
           <Content />
         </div>
