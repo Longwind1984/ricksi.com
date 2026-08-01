@@ -1,12 +1,12 @@
 {
- "generated_at": "2026-07-31T13:30:45.344Z",
- "today": 2588954653,
- "today_out": 5565685,
+ "generated_at": "2026-08-01T13:31:15.479Z",
+ "today": 6420432221,
+ "today_out": 13633225,
  "today_cache_share": 96,
- "week": "9.7B",
- "cumulative": "28.2B",
+ "week": "16.1B",
+ "cumulative": "34.6B",
  "cumulative_code": "12.6B",
- "cumulative_codex": "14.9B",
+ "cumulative_codex": "21.3B",
  "cumulative_zcode": "145.7M",
  "cumulative_hermes": "241.8M",
  "cumulative_kimi_code": "185.6M",
@@ -15,15 +15,15 @@
  "models": [
   [
    "Codex",
-   54
+   62
   ],
   [
    "Opus",
-   34
+   28
   ],
   [
    "Fable",
-   9
+   7
   ],
   [
    "GLM",
@@ -32,17 +32,9 @@
   [
    "Kimi",
    1
-  ],
-  [
-   "Sonnet",
-   1
   ]
  ],
  "days7": [
-  {
-   "d": "周六",
-   "v": 12.87
-  },
   {
    "d": "周日",
    "v": 2387.25
@@ -64,8 +56,12 @@
    "v": 461.17
   },
   {
-   "d": "今天",
+   "d": "周五",
    "v": 2588.95
+  },
+  {
+   "d": "今天",
+   "v": 6420.43
   }
  ],
  "series": {
@@ -1486,9 +1482,9 @@
   },
   "codex": {
    "label": "Codex",
-   "tokens": 14875143707,
-   "compact": "14.9B",
-   "days": 13,
+   "tokens": 21295512513,
+   "compact": "21.3B",
+   "days": 14,
    "series": {
     "2026-06-04": {
      "total": 905631,
@@ -1637,6 +1633,17 @@
       "gpt-5.6-sol": 2575942310,
       "codex-auto-review": 12083728
      }
+    },
+    "2026-08-01": {
+     "total": 6420368806,
+     "in": 6406739013,
+     "out": 13629793,
+     "cr": 6156612864,
+     "rz": 4662763,
+     "models": {
+      "gpt-5.6-sol": 6407640537,
+      "codex-auto-review": 12728269
+     }
     }
    }
   },
@@ -1740,9 +1747,9 @@
   },
   "hermes": {
    "label": "Hermes",
-   "tokens": 241778529,
+   "tokens": 241841944,
    "compact": "241.8M",
-   "days": 21,
+   "days": 22,
    "series": {
     "2026-07-10": {
      "total": 24839889,
@@ -1960,6 +1967,16 @@
      "models": {
       "glm-5-2-260617": 62612
      }
+    },
+    "2026-08-01": {
+     "total": 63415,
+     "in": 12879,
+     "out": 3432,
+     "cr": 47104,
+     "rz": 0,
+     "models": {
+      "glm-5-2-260617": 63415
+     }
     }
    }
   },
@@ -2148,7 +2165,7 @@
   "estimated_share": "3%",
   "harness_split": {
    "claude_code": "12.6B",
-   "codex": "14.9B",
+   "codex": "21.3B",
    "zcode": "145.7M",
    "hermes": "241.8M",
    "kimi_code": "185.6M",
