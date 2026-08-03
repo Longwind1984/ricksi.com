@@ -1,44 +1,36 @@
 {
- "generated_at": "2026-08-02T13:31:08.613Z",
- "today": 171127387,
- "today_out": 833336,
+ "generated_at": "2026-08-03T13:31:39.463Z",
+ "today": 5088939451,
+ "today_out": 10623802,
  "today_cache_share": 96,
- "week": "13.9B",
- "cumulative": "34.8B",
+ "week": "18.3B",
+ "cumulative": "39.9B",
  "cumulative_code": "12.6B",
- "cumulative_codex": "21.5B",
+ "cumulative_codex": "26.6B",
  "cumulative_zcode": "145.7M",
- "cumulative_hermes": "241.9M",
- "cumulative_kimi_code": "185.6M",
+ "cumulative_hermes": "242.0M",
+ "cumulative_kimi_code": "187.0M",
  "cumulative_openclaw": "1.6M",
  "cumulative_web": "117.6M",
  "models": [
   [
    "Codex",
-   63
+   68
   ],
   [
    "Opus",
-   27
+   24
   ],
   [
    "Fable",
-   7
+   6
   ],
   [
    "GLM",
-   2
-  ],
-  [
-   "Kimi",
    1
   ]
  ],
  "days7": [
-  {
-   "d": "周一",
-   "v": 731.76
-  },
   {
    "d": "周二",
    "v": 1405.37
@@ -60,8 +52,12 @@
    "v": 6454.06
   },
   {
+   "d": "周日",
+   "v": 231.86
+  },
+  {
    "d": "今天",
-   "v": 171.13
+   "v": 5088.94
   }
  ],
  "series": {
@@ -1482,9 +1478,9 @@
   },
   "codex": {
    "label": "Codex",
-   "tokens": 21500202352,
-   "compact": "21.5B",
-   "days": 15,
+   "tokens": 26648323066,
+   "compact": "26.6B",
+   "days": 16,
    "series": {
     "2026-06-04": {
      "total": 905631,
@@ -1646,14 +1642,26 @@
      }
     },
     "2026-08-02": {
-     "total": 171061189,
-     "in": 170230882,
-     "out": 830307,
-     "cr": 164427520,
-     "rz": 297193,
+     "total": 231790590,
+     "in": 230726236,
+     "out": 1064354,
+     "cr": 221939456,
+     "rz": 391286,
      "models": {
-      "gpt-5.6-sol": 170807258,
-      "codex-auto-review": 253931
+      "gpt-5.6-sol": 231159754,
+      "codex-auto-review": 630836
+     }
+    },
+    "2026-08-03": {
+     "total": 5087391313,
+     "in": 5076780170,
+     "out": 10611143,
+     "cr": 4869848832,
+     "rz": 3532829,
+     "models": {
+      "gpt-5.6-sol": 5078796417,
+      "codex-auto-review": 5603840,
+      "gpt-5.6-terra": 2991056
      }
     }
    }
@@ -1758,9 +1766,9 @@
   },
   "hermes": {
    "label": "Hermes",
-   "tokens": 241908142,
-   "compact": "241.9M",
-   "days": 23,
+   "tokens": 241974398,
+   "compact": "242.0M",
+   "days": 24,
    "series": {
     "2026-07-10": {
      "total": 24839889,
@@ -1998,14 +2006,24 @@
      "models": {
       "glm-5-2-260617": 66198
      }
+    },
+    "2026-08-03": {
+     "total": 66256,
+     "in": 14052,
+     "out": 3756,
+     "cr": 48448,
+     "rz": 0,
+     "models": {
+      "glm-5-2-260617": 66256
+     }
     }
    }
   },
   "kimi_code": {
    "label": "Kimi Code",
-   "tokens": 185565729,
-   "compact": "185.6M",
-   "days": 10,
+   "tokens": 187047611,
+   "compact": "187.0M",
+   "days": 11,
    "series": {
     "2026-07-17": {
      "total": 48387692,
@@ -2107,6 +2125,16 @@
      "models": {
       "kimi-code/k3": 866003
      }
+    },
+    "2026-08-03": {
+     "total": 1481882,
+     "in": 166355,
+     "out": 8903,
+     "cr": 1306624,
+     "rz": 0,
+     "models": {
+      "kimi-code/k3": 1481882
+     }
     }
    }
   },
@@ -2186,10 +2214,10 @@
   "estimated_share": "3%",
   "harness_split": {
    "claude_code": "12.6B",
-   "codex": "21.5B",
+   "codex": "26.6B",
    "zcode": "145.7M",
-   "hermes": "241.9M",
-   "kimi_code": "185.6M",
+   "hermes": "242.0M",
+   "kimi_code": "187.0M",
    "openclaw": "1.6M",
    "trae": "不可计量（排除于累计）",
    "trae_work_cn": "不可计量（排除于累计）",
