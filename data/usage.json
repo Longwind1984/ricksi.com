@@ -1,25 +1,25 @@
 {
- "generated_at": "2026-08-05T13:31:21.721Z",
- "today": 347000813,
- "today_out": 1224323,
- "today_cache_share": 96,
- "week": "15.2B",
- "cumulative": "39.6B",
+ "generated_at": "2026-08-06T13:31:56.201Z",
+ "today": 1457440771,
+ "today_out": 4130367,
+ "today_cache_share": 97,
+ "week": "16.3B",
+ "cumulative": "41.2B",
  "cumulative_code": "11.9B",
- "cumulative_codex": "27.0B",
+ "cumulative_codex": "28.6B",
  "cumulative_zcode": "145.7M",
- "cumulative_hermes": "242.1M",
- "cumulative_kimi_code": "188.9M",
+ "cumulative_hermes": "242.8M",
+ "cumulative_kimi_code": "210.5M",
  "cumulative_openclaw": "1.6M",
  "cumulative_web": "117.6M",
  "models": [
   [
    "Codex",
-   69
+   70
   ],
   [
    "Opus",
-   23
+   22
   ],
   [
    "Fable",
@@ -28,13 +28,13 @@
   [
    "GLM",
    1
+  ],
+  [
+   "Kimi",
+   1
   ]
  ],
  "days7": [
-  {
-   "d": "周四",
-   "v": 461.17
-  },
   {
    "d": "周五",
    "v": 2588.95
@@ -56,8 +56,12 @@
    "v": 17.49
   },
   {
+   "d": "周三",
+   "v": 500.51
+  },
+  {
    "d": "今天",
-   "v": 347
+   "v": 1457.44
   }
  ],
  "series": {
@@ -1450,9 +1454,9 @@
   },
   "codex": {
    "label": "Codex",
-   "tokens": 27010795633,
-   "compact": "27.0B",
-   "days": 18,
+   "tokens": 28599474382,
+   "compact": "28.6B",
+   "days": 19,
    "series": {
     "2026-06-04": {
      "total": 905631,
@@ -1648,15 +1652,27 @@
      }
     },
     "2026-08-05": {
-     "total": 345984624,
-     "in": 344769756,
-     "out": 1214868,
-     "cr": 333218304,
-     "rz": 451815,
+     "total": 499489160,
+     "in": 497751962,
+     "out": 1737198,
+     "cr": 481964800,
+     "rz": 646983,
      "models": {
-      "gpt-5.6-sol": 344287151,
-      "codex-auto-review": 808632,
+      "gpt-5.6-sol": 494781173,
+      "codex-auto-review": 3819146,
       "gpt-5.6-terra": 888841
+     }
+    },
+    "2026-08-06": {
+     "total": 1435174213,
+     "in": 1431239271,
+     "out": 3934942,
+     "cr": 1392571648,
+     "rz": 1452368,
+     "models": {
+      "gpt-5.6-sol": 1415647779,
+      "codex-auto-review": 18844855,
+      "gpt-5.6-terra": 681579
      }
     }
    }
@@ -1761,9 +1777,9 @@
   },
   "hermes": {
    "label": "Hermes",
-   "tokens": 242117705,
-   "compact": "242.1M",
-   "days": 26,
+   "tokens": 242847450,
+   "compact": "242.8M",
+   "days": 27,
    "series": {
     "2026-07-10": {
      "total": 24839889,
@@ -2031,14 +2047,25 @@
      "models": {
       "glm-5-2-260617": 81132
      }
+    },
+    "2026-08-06": {
+     "total": 729745,
+     "in": 137927,
+     "out": 29543,
+     "cr": 559808,
+     "rz": 2467,
+     "models": {
+      "doubao-seed-2-1-pro-260628": 638701,
+      "glm-5-2-260617": 91044
+     }
     }
    }
   },
   "kimi_code": {
    "label": "Kimi Code",
-   "tokens": 188918905,
-   "compact": "188.9M",
-   "days": 13,
+   "tokens": 210455718,
+   "compact": "210.5M",
+   "days": 14,
    "series": {
     "2026-07-17": {
      "total": 48387692,
@@ -2170,6 +2197,17 @@
      "models": {
       "kimi-code/k3": 935057
      }
+    },
+    "2026-08-06": {
+     "total": 21536813,
+     "in": 553315,
+     "out": 165882,
+     "cr": 20817616,
+     "rz": 0,
+     "models": {
+      "kimi-code/k3": 3553632,
+      "kimi-code/k3-256k": 17983181
+     }
     }
    }
   },
@@ -2249,10 +2287,10 @@
   "estimated_share": "2%",
   "harness_split": {
    "claude_code": "11.9B",
-   "codex": "27.0B",
+   "codex": "28.6B",
    "zcode": "145.7M",
-   "hermes": "242.1M",
-   "kimi_code": "188.9M",
+   "hermes": "242.8M",
+   "kimi_code": "210.5M",
    "openclaw": "1.6M",
    "trae": "不可计量（排除于累计）",
    "trae_work_cn": "不可计量（排除于累计）",
