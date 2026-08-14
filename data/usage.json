@@ -1,15 +1,15 @@
 {
- "generated_at": "2026-08-13T13:31:23.922Z",
- "today": 996958,
- "today_out": 6833,
- "today_cache_share": 83,
- "week": "247.1M",
- "cumulative": "38.1B",
+ "generated_at": "2026-08-14T13:31:33.211Z",
+ "today": 956477,
+ "today_out": 7978,
+ "today_cache_share": 87,
+ "week": "188.6M",
+ "cumulative": "38.2B",
  "cumulative_code": "8.6B",
  "cumulative_codex": "28.8B",
  "cumulative_zcode": "145.7M",
- "cumulative_hermes": "243.2M",
- "cumulative_kimi_code": "298.6M",
+ "cumulative_hermes": "243.3M",
+ "cumulative_kimi_code": "299.5M",
  "cumulative_openclaw": "1.6M",
  "cumulative_web": "117.6M",
  "models": [
@@ -36,10 +36,6 @@
  ],
  "days7": [
   {
-   "d": "周五",
-   "v": 59.49
-  },
-  {
    "d": "周六",
    "v": 28.57
   },
@@ -60,8 +56,12 @@
    "v": 38.1
   },
   {
-   "d": "今天",
+   "d": "周四",
    "v": 1
+  },
+  {
+   "d": "今天",
+   "v": 0.96
   }
  ],
  "series": {
@@ -1351,7 +1351,7 @@
    "label": "Codex",
    "tokens": 28758110941,
    "compact": "28.8B",
-   "days": 26,
+   "days": 27,
    "series": {
     "2026-06-04": {
      "total": 905631,
@@ -1640,6 +1640,14 @@
      "cr": 0,
      "rz": 0,
      "models": {}
+    },
+    "2026-08-14": {
+     "total": 0,
+     "in": 0,
+     "out": 0,
+     "cr": 0,
+     "rz": 0,
+     "models": {}
     }
    }
   },
@@ -1743,9 +1751,9 @@
   },
   "hermes": {
    "label": "Hermes",
-   "tokens": 243231122,
-   "compact": "243.2M",
-   "days": 34,
+   "tokens": 243288853,
+   "compact": "243.3M",
+   "days": 35,
    "series": {
     "2026-07-10": {
      "total": 24839889,
@@ -2094,14 +2102,24 @@
      "models": {
       "glm-5-2-260617": 61896
      }
+    },
+    "2026-08-14": {
+     "total": 57731,
+     "in": 15087,
+     "out": 2964,
+     "cr": 39680,
+     "rz": 0,
+     "models": {
+      "glm-5-2-260617": 57731
+     }
     }
    }
   },
   "kimi_code": {
    "label": "Kimi Code",
-   "tokens": 298567249,
-   "compact": "298.6M",
-   "days": 20,
+   "tokens": 299465995,
+   "compact": "299.5M",
+   "days": 21,
    "series": {
     "2026-07-17": {
      "total": 48387692,
@@ -2306,6 +2324,16 @@
      "models": {
       "kimi-code/k3": 935062
      }
+    },
+    "2026-08-14": {
+     "total": 898746,
+     "in": 99364,
+     "out": 5014,
+     "cr": 794368,
+     "rz": 0,
+     "models": {
+      "kimi-code/k3": 898746
+     }
     }
    }
   },
@@ -2387,8 +2415,8 @@
    "claude_code": "8.6B",
    "codex": "28.8B",
    "zcode": "145.7M",
-   "hermes": "243.2M",
-   "kimi_code": "298.6M",
+   "hermes": "243.3M",
+   "kimi_code": "299.5M",
    "openclaw": "1.6M",
    "trae": "不可计量（排除于累计）",
    "trae_work_cn": "不可计量（排除于累计）",
