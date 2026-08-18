@@ -56,6 +56,19 @@
    "graphFocus": null,
    "books": [
     {
+     "id": "CB_local_book-f6ce009d",
+     "title": "模型之外",
+     "author": "Rick’s GPT-5 Deep",
+     "sourceFile": "模型之外.epub",
+     "cover": "/assets/books/epub-covers/book-f6ce009d.png",
+     "epub": "/assets/books/epub/book-f6ce009d.epub",
+     "progress": 0,
+     "finished": false,
+     "notes": 0,
+     "lastRead": 0,
+     "highlights": []
+    },
+    {
      "id": "CB_local_ai-tiktok-shop-1e5e375b",
      "title": "AI 如何重构 TikTok Shop",
      "author": "Rick’s GPT-5 High",
