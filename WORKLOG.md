@@ -1984,3 +1984,40 @@ Trae 与 Trae Work CN 已进入采集契约和工作台口径详情。本机对�
 - 修改：`content/posts/colombia-54-days.md`、`content/posts/honduras-17-days.md`、`src/content.config.ts`、
   `src/pages/index.astro`、`src/pages/blog/index.astro`、`src/pages/blog/[...slug].astro`、
   `src/pages/rss.xml.ts`、`README.md`、`WORKLOG.md`。
+
+## 2026-08-19 · 手动补传《从内容审核到行为控制》EPUB
+
+### 做了什么
+
+通过生产专用 `main` 工作树的既有本地 EPUB 生成器，把书架目录中的《从内容审核到行为控制》自动解析为书目记录，
+提取 500×800 封面，并把原 EPUB 纳入站内在线阅读器。书籍已进入阅读页“可在线阅读 · 我写的书”首位，详情、在线阅读、
+EPUB 和封面均已在 `ricksi.com` 正式上线。
+
+昨天的自动任务没有漏报上传错误：日志显示任务于 2026-08-18 21:30 启动、21:40:50 完成并推送；目标文件到
+22:02:24 才进入 `~/Documents/30书架`，晚于当日扫描窗口约 21 分钟，因此当晚不可能被该轮任务发现。
+
+### 关键决策与被否决的备选
+
+- 使用 `scripts/merge-local-books.mjs` 作为持久化入口，让标题、作者、稳定 id、资源路径和封面都按现有契约生成。
+- 被否决：手改 `data/reading.json` 或手工起资源名。下一次自动同步会覆盖 JSON，且容易让列表与阅读器资源失配。
+- 没有运行完整每日采集，避免把活动、Token、知识库、微信读书或前沿数据的无关变化混入一次单书补传。
+- 没有触碰 `feat/liquid-night-bg` 主开发工作树的大量未提交工作；所有操作都在干净的生产同步工作树完成。
+
+### 当前状态：现在能跑什么、怎么跑
+
+- 书籍详情：`https://ricksi.com/reading/CB_local_book-f8dac7bb/`；在线阅读：
+  `https://ricksi.com/reading/CB_local_book-f8dac7bb/read/`。
+- EPUB 以 `application/epub+zip` 返回，大小 2,248,020 字节；线上文件与本地源文件 SHA-256 均为
+  `92209a977cee578d8482131e8602fdbf27455a7c96ba64c5e28bb28a7b8ad50a`。
+- `node --test test/*.test.mjs`：主机环境 30/30；`npm run verify:privacy`：全部不变量通过；`npm run build`：通过。
+- 重复运行 `node scripts/merge-local-books.mjs` 零 diff；EPUB 压缩包完整性检查通过；构建产物包含书架、详情与阅读器路由。
+
+### 未尽事项与已知问题
+
+- 无本次发布遗留问题。EdgeOne 比 Vercel 晚约数分钟切换，但最终自定义域的三个页面与两项静态资源均返回 HTTP 200。
+- 本次只新增约 2.30 MB 静态资源（EPUB 2.25 MB、封面 52.8 KB），未增加依赖、脚本或运行时开销。
+
+### 文件级变更清单
+
+- 修改：`data/reading.json`、`WORKLOG.md`。
+- 新增：`public/assets/books/epub/book-f8dac7bb.epub`、`public/assets/books/epub-covers/book-f8dac7bb.png`。
