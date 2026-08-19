@@ -2021,3 +2021,40 @@ EPUB 和封面均已在 `ricksi.com` 正式上线。
 
 - 修改：`data/reading.json`、`WORKLOG.md`。
 - 新增：`public/assets/books/epub/book-f8dac7bb.epub`、`public/assets/books/epub-covers/book-f8dac7bb.png`。
+
+## 2026-08-19 · 发布理想同学内容对齐交互长文
+
+### 做了什么
+
+把面试方案《理想同学内容对齐方案》作为独立交互长文接入“思考与写作”，正式发布到
+`https://ricksi.com/blog/li-auto-safety-alignment/`。页面保留完整 Guardrail 架构、深度节点检查器、回答对照、
+Evidence 配置和危机演练；同时进入首页、博客列表、搜索数据、RSS、站点地图、OG 图和竖版分享卡。
+
+### 关键决策与被否决的备选
+
+- 使用专用 Astro 页面承载 standalone HTML，并用轻量 Markdown 元数据记录参与全站索引；通用博客详情路由排除
+  `standalone` 文章，避免重复生成同一路径。
+- 被否决：iframe。它会制造双重滚动、焦点与移动端高度问题，也让文章难以共享站点级元数据。
+- 被否决：把 HTML 直接放入 `public/`。这会让页面绕开 Astro 路由、站点地图和内容集合，并形成 head 元数据双真值。
+- 分享卡优先读取文章声明的 `wordCount` 和 `readMinutes`，否则才按 Markdown 正文计算；避免元数据短文让 24,000 字长文显示为几十字／1 分钟。
+- 全部开发在隔离 worktree 与 `content/li-auto-safety-alignment` 分支完成，未触碰主开发工作区的未提交修改。
+
+### 当前状态：现在能跑什么、怎么跑
+
+- 正式文章、首页、博客、RSS、站点地图、OG PNG 和分享 JPG 均已从 `ricksi.com` 回读为 HTTP 200。
+- 正式浏览器回读确认署名、Slogan、8 分钟重点阅读和页尾文案正确，页面无横向溢出，控制台无 warning／error。
+- `node --test test/*.test.mjs`：31/31；`npm run verify:privacy`：全部通过；`npm run build`：从零构建 696 个页面成功。
+- 发布提交：`75ce6a16eafe500e9ffbe4fa14094848f37ad9f9`；目标 URL 在站点地图中精确出现一次。
+
+### 未尽事项与已知问题
+
+- 构建继续显示仓库既有的公共资产占位和大 chunk 提示；本次没有新增依赖或相关警告。
+- 独立文章约 338 KB，另加载约 41 KB 同源样式／脚本；两张书封内联，文章运行时不依赖第三方脚本、样式或字体。
+- 当前没有额外添加 Article JSON-LD、`twitter:image` 或 `og:image:alt`；现有 canonical、Open Graph、RSS、站点地图和分享卡已满足本次发布范围。
+
+### 文件级变更清单
+
+- 新增：`src/pages/blog/li-auto-safety-alignment/index.astro`、`content/posts/li-auto-safety-alignment.md`、
+  `test/li-auto-safety-alignment.test.mjs`。
+- 修改：`src/content.config.ts`、`src/pages/blog/[...slug].astro`、`src/pages/share/blog/[...slug].jpg.ts`、
+  `README.md`、`WORKLOG.md`。
