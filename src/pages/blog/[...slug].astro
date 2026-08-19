@@ -4,7 +4,7 @@ import { getCollection, render } from 'astro:content';
 import { newestPostFirst } from '../../lib/post-order.mjs';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('posts', ({ data }: any) => !data.draft);
+  const posts = await getCollection('posts', ({ data }: any) => !data.draft && !data.standalone);
   return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
 }
 

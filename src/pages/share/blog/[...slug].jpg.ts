@@ -24,8 +24,9 @@ export const GET: APIRoute = async ({ params, props }) => {
   const text = post.body.replace(/```[\s\S]*?```/g, '').replace(/[#>*_`\[\]()]/g, '');
   const cjk = (text.match(/[一-鿿]/g) || []).length;
   const latin = (text.match(/[A-Za-z]+/g) || []).length;
-  const words = cjk + latin;
-  const mins = Math.max(1, Math.round(words / 350));
+  const measuredWords = cjk + latin;
+  const words = post.data.wordCount ?? measuredWords;
+  const mins = post.data.readMinutes ?? Math.max(1, Math.round(words / 350));
 
   const input = {
     variant: 'article',

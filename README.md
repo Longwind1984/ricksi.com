@@ -249,6 +249,14 @@ uploadedAt: 2026-07-28T16:40:00+08:00
 - `/blog/colombia-54-days/`：哥伦比亚 54 天，没待够，没读懂，没写完
 - `/blog/honduras-17-days/`：洪都拉斯 17 天，香蕉共和国行记
 
+### 独立交互长文
+
+需要保留完整自定义视觉与交互的长文，仍在 `content/posts/<slug>.md` 提供首页、写作列表、搜索、RSS 与分享卡元数据，
+同时设置 `standalone: true`，并由 `src/pages/blog/<slug>/index.astro` 承载正文。动态文章路由会排除该条目，避免同一 URL
+生成两次。元数据正文不等于完整文章时，可用可选的 `wordCount` 与 `readMinutes` 校正分享卡，不要复制一份长正文只为统计。
+
+当前独立长文：`/blog/li-auto-safety-alignment/`。
+
 ## Backlog（记录在案，未排期）
 
 - 图谱时间轴回放（按笔记创建时间的生长动画）
