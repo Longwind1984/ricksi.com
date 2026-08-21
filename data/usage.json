@@ -1,14 +1,14 @@
 {
- "generated_at": "2026-08-20T13:31:17.573Z",
- "today": 112360017,
- "today_out": 420295,
- "today_cache_share": 96,
+ "generated_at": "2026-08-21T13:31:20.853Z",
+ "today": 28637704,
+ "today_out": 179490,
+ "today_cache_share": 95,
  "week": "5.6B",
  "cumulative": "40.9B",
  "cumulative_code": "5.7B",
  "cumulative_codex": "34.4B",
  "cumulative_zcode": "145.7M",
- "cumulative_hermes": "243.8M",
+ "cumulative_hermes": "244.1M",
  "cumulative_kimi_code": "299.5M",
  "cumulative_openclaw": "1.6M",
  "cumulative_web": "117.6M",
@@ -36,10 +36,6 @@
  ],
  "days7": [
   {
-   "d": "周五",
-   "v": 0.96
-  },
-  {
    "d": "周六",
    "v": 24.46
   },
@@ -60,8 +56,12 @@
    "v": 3088.56
   },
   {
-   "d": "今天",
+   "d": "周四",
    "v": 112.36
+  },
+  {
+   "d": "今天",
+   "v": 28.64
   }
  ],
  "series": {
@@ -1265,9 +1265,9 @@
   },
   "codex": {
    "label": "Codex",
-   "tokens": 34375771967,
+   "tokens": 34404065002,
    "compact": "34.4B",
-   "days": 33,
+   "days": 34,
    "series": {
     "2026-06-04": {
      "total": 905631,
@@ -1624,6 +1624,16 @@
       "gpt-5.6-sol": 110355493,
       "codex-auto-review": 1805687
      }
+    },
+    "2026-08-21": {
+     "total": 28293035,
+     "in": 28124496,
+     "out": 168539,
+     "cr": 26866688,
+     "rz": 73346,
+     "models": {
+      "gpt-5.6-sol": 28293035
+     }
     }
    }
   },
@@ -1727,9 +1737,9 @@
   },
   "hermes": {
    "label": "Hermes",
-   "tokens": 243788653,
-   "compact": "243.8M",
-   "days": 41,
+   "tokens": 244133322,
+   "compact": "244.1M",
+   "days": 42,
    "series": {
     "2026-07-10": {
      "total": 24839889,
@@ -2148,6 +2158,16 @@
      "models": {
       "deepseek-v4-pro": 198837
      }
+    },
+    "2026-08-21": {
+     "total": 344669,
+     "in": 25634,
+     "out": 10951,
+     "cr": 300288,
+     "rz": 7796,
+     "models": {
+      "deepseek-v4-pro": 344669
+     }
     }
    }
   },
@@ -2451,7 +2471,7 @@
    "claude_code": "5.7B",
    "codex": "34.4B",
    "zcode": "145.7M",
-   "hermes": "243.8M",
+   "hermes": "244.1M",
    "kimi_code": "299.5M",
    "openclaw": "1.6M",
    "trae": "不可计量（排除于累计）",

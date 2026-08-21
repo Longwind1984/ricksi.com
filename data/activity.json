@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-08-20T22:47:54.786Z",
+ "generated_at": "2026-08-21T13:30:43.424Z",
  "days": {
   "2026-05-31": {
    "git": 16,
@@ -3108,7 +3108,7 @@
    "gh": 5
   },
   "2026-08-20": {
-   "git": 3,
+   "git": 5,
    "notes": 0,
    "ai": 248,
    "ai_split": {
@@ -3116,6 +3116,16 @@
     "codex": 248
    },
    "gh": 1
+  },
+  "2026-08-21": {
+   "git": 2,
+   "notes": 0,
+   "ai": 57,
+   "ai_split": {
+    "claude": 0,
+    "codex": 57
+   },
+   "gh": 0
   }
  },
  "weeks": [
@@ -4903,10 +4913,10 @@
    },
    {
     "d": "2026-08-20",
-    "n": 252,
+    "n": 254,
     "l": 3,
     "b": {
-     "git": 3,
+     "git": 5,
      "notes": 0,
      "ai": 248,
      "ai_split": {
@@ -4918,9 +4928,18 @@
    },
    {
     "d": "2026-08-21",
-    "n": 0,
-    "l": 0,
-    "future": true
+    "n": 59,
+    "l": 2,
+    "b": {
+     "git": 2,
+     "notes": 0,
+     "ai": 57,
+     "ai_split": {
+      "claude": 0,
+      "codex": 57
+     },
+     "gh": 0
+    }
    },
    {
     "d": "2026-08-22",
@@ -4931,14 +4950,14 @@
   ]
  ],
  "coding": {
-  "commits": 1458,
-  "streak": 87,
+  "commits": 1462,
+  "streak": 88,
   "repos": 16
  },
  "sources": {
   "git": {
    "repos": 16,
-   "commits": 1458,
+   "commits": 1462,
    "repoList": [
     "30FeedPersonal",
     "40PopperInvestor",
@@ -4963,15 +4982,15 @@
    "icloudPlaceholders": 0
   },
   "ai": {
-   "files": 1516,
-   "daysCovered": 39,
+   "files": 1529,
+   "daysCovered": 40,
    "claude": {
     "files": 392,
     "daysCovered": 11
    },
    "codex": {
-    "files": 1124,
-    "daysCovered": 33
+    "files": 1137,
+    "daysCovered": 34
    }
   },
   "gh": {
