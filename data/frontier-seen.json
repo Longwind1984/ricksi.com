@@ -2873,5 +2873,25 @@
   "firstSeen": "2026-08-21",
   "attempts": 0,
   "status": "published"
+ },
+ "10e3fbb000b426e3": {
+  "firstSeen": "2026-08-22",
+  "attempts": 1,
+  "status": "llm-failed"
+ },
+ "663269e9c4eca463": {
+  "firstSeen": "2026-08-22",
+  "attempts": 1,
+  "status": "llm-failed"
+ },
+ "2b90eef6053740b6": {
+  "firstSeen": "2026-08-22",
+  "attempts": 1,
+  "status": "llm-failed"
+ },
+ "5d2883141182dc26": {
+  "firstSeen": "2026-08-22",
+  "attempts": 1,
+  "status": "llm-failed"
  }
 }

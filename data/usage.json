@@ -1,14 +1,14 @@
 {
- "generated_at": "2026-08-21T13:31:20.853Z",
- "today": 28637704,
- "today_out": 179490,
- "today_cache_share": 95,
+ "generated_at": "2026-08-22T13:31:21.957Z",
+ "today": 13774791,
+ "today_out": 77002,
+ "today_cache_share": 96,
  "week": "5.6B",
  "cumulative": "40.9B",
  "cumulative_code": "5.7B",
  "cumulative_codex": "34.4B",
  "cumulative_zcode": "145.7M",
- "cumulative_hermes": "244.1M",
+ "cumulative_hermes": "244.4M",
  "cumulative_kimi_code": "299.5M",
  "cumulative_openclaw": "1.6M",
  "cumulative_web": "117.6M",
@@ -36,10 +36,6 @@
  ],
  "days7": [
   {
-   "d": "周六",
-   "v": 24.46
-  },
-  {
    "d": "周日",
    "v": 0
   },
@@ -60,8 +56,12 @@
    "v": 112.36
   },
   {
-   "d": "今天",
+   "d": "周五",
    "v": 28.64
+  },
+  {
+   "d": "今天",
+   "v": 13.77
   }
  ],
  "series": {
@@ -1265,9 +1265,9 @@
   },
   "codex": {
    "label": "Codex",
-   "tokens": 34404065002,
+   "tokens": 34417587415,
    "compact": "34.4B",
-   "days": 34,
+   "days": 35,
    "series": {
     "2026-06-04": {
      "total": 905631,
@@ -1634,6 +1634,16 @@
      "models": {
       "gpt-5.6-sol": 28293035
      }
+    },
+    "2026-08-22": {
+     "total": 13522413,
+     "in": 13454741,
+     "out": 67672,
+     "cr": 12969728,
+     "rz": 31573,
+     "models": {
+      "gpt-5.6-sol": 13522413
+     }
     }
    }
   },
@@ -1737,9 +1747,9 @@
   },
   "hermes": {
    "label": "Hermes",
-   "tokens": 244133322,
-   "compact": "244.1M",
-   "days": 42,
+   "tokens": 244385700,
+   "compact": "244.4M",
+   "days": 43,
    "series": {
     "2026-07-10": {
      "total": 24839889,
@@ -2168,6 +2178,16 @@
      "models": {
       "deepseek-v4-pro": 344669
      }
+    },
+    "2026-08-22": {
+     "total": 252378,
+     "in": 23117,
+     "out": 9330,
+     "cr": 212736,
+     "rz": 7195,
+     "models": {
+      "deepseek-v4-pro": 252378
+     }
     }
    }
   },
@@ -2471,7 +2491,7 @@
    "claude_code": "5.7B",
    "codex": "34.4B",
    "zcode": "145.7M",
-   "hermes": "244.1M",
+   "hermes": "244.4M",
    "kimi_code": "299.5M",
    "openclaw": "1.6M",
    "trae": "不可计量（排除于累计）",
