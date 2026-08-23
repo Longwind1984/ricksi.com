@@ -2876,12 +2876,12 @@
  },
  "10e3fbb000b426e3": {
   "firstSeen": "2026-08-22",
-  "attempts": 1,
+  "attempts": 2,
   "status": "llm-failed"
  },
  "663269e9c4eca463": {
   "firstSeen": "2026-08-22",
-  "attempts": 1,
+  "attempts": 2,
   "status": "llm-failed"
  },
  "2b90eef6053740b6": {
@@ -2891,6 +2891,21 @@
  },
  "5d2883141182dc26": {
   "firstSeen": "2026-08-22",
+  "attempts": 1,
+  "status": "llm-failed"
+ },
+ "686686b80dcf4d54": {
+  "firstSeen": "2026-08-23",
+  "attempts": 1,
+  "status": "llm-failed"
+ },
+ "43aa0c036180460e": {
+  "firstSeen": "2026-08-23",
+  "attempts": 1,
+  "status": "llm-failed"
+ },
+ "6cda44a27fa95dfd": {
+  "firstSeen": "2026-08-23",
   "attempts": 1,
   "status": "llm-failed"
  }

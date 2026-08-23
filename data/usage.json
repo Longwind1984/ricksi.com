@@ -1,14 +1,14 @@
 {
- "generated_at": "2026-08-22T13:31:21.957Z",
- "today": 13774791,
- "today_out": 77002,
- "today_cache_share": 96,
+ "generated_at": "2026-08-23T13:31:52.119Z",
+ "today": 65529,
+ "today_out": 4486,
+ "today_cache_share": 70,
  "week": "5.6B",
  "cumulative": "40.9B",
  "cumulative_code": "5.7B",
  "cumulative_codex": "34.4B",
  "cumulative_zcode": "145.7M",
- "cumulative_hermes": "244.4M",
+ "cumulative_hermes": "244.5M",
  "cumulative_kimi_code": "299.5M",
  "cumulative_openclaw": "1.6M",
  "cumulative_web": "117.6M",
@@ -36,10 +36,6 @@
  ],
  "days7": [
   {
-   "d": "周日",
-   "v": 0
-  },
-  {
    "d": "周一",
    "v": 0
   },
@@ -60,8 +56,12 @@
    "v": 28.64
   },
   {
-   "d": "今天",
+   "d": "周六",
    "v": 13.77
+  },
+  {
+   "d": "今天",
+   "v": 0.07
   }
  ],
  "series": {
@@ -1267,7 +1267,7 @@
    "label": "Codex",
    "tokens": 34417587415,
    "compact": "34.4B",
-   "days": 35,
+   "days": 36,
    "series": {
     "2026-06-04": {
      "total": 905631,
@@ -1644,6 +1644,14 @@
      "models": {
       "gpt-5.6-sol": 13522413
      }
+    },
+    "2026-08-23": {
+     "total": 0,
+     "in": 0,
+     "out": 0,
+     "cr": 0,
+     "rz": 0,
+     "models": {}
     }
    }
   },
@@ -1747,9 +1755,9 @@
   },
   "hermes": {
    "label": "Hermes",
-   "tokens": 244385700,
-   "compact": "244.4M",
-   "days": 43,
+   "tokens": 244451229,
+   "compact": "244.5M",
+   "days": 44,
    "series": {
     "2026-07-10": {
      "total": 24839889,
@@ -2025,7 +2033,8 @@
      "cr": 559808,
      "rz": 2467,
      "models": {
-      "doubao-seed-2-1-pro-260628": 638701,
+      "deepseek-v4-pro": 24115,
+      "doubao-seed-2-1-pro-260628": 614586,
       "glm-5-2-260617": 91044
      }
     },
@@ -2187,6 +2196,16 @@
      "rz": 7195,
      "models": {
       "deepseek-v4-pro": 252378
+     }
+    },
+    "2026-08-23": {
+     "total": 65529,
+     "in": 11714,
+     "out": 4486,
+     "cr": 45696,
+     "rz": 3633,
+     "models": {
+      "deepseek-v4-pro": 65529
      }
     }
    }
@@ -2491,7 +2510,7 @@
    "claude_code": "5.7B",
    "codex": "34.4B",
    "zcode": "145.7M",
-   "hermes": "244.4M",
+   "hermes": "244.5M",
    "kimi_code": "299.5M",
    "openclaw": "1.6M",
    "trae": "不可计量（排除于累计）",
