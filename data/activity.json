@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-08-24T22:46:47.750Z",
+ "generated_at": "2026-08-25T13:30:50.465Z",
  "days": {
   "2026-05-31": {
    "git": 16,
@@ -2840,9 +2840,9 @@
   "2026-07-24": {
    "git": 22,
    "notes": 0,
-   "ai": 159,
+   "ai": 147,
    "ai_split": {
-    "claude": 12,
+    "claude": 0,
     "codex": 147
    },
    "gh": 6
@@ -3138,7 +3138,7 @@
    "gh": 1
   },
   "2026-08-23": {
-   "git": 0,
+   "git": 2,
    "notes": 0,
    "ai": 5,
    "ai_split": {
@@ -3146,6 +3146,26 @@
     "codex": 5
    },
    "gh": 1
+  },
+  "2026-08-24": {
+   "git": 1,
+   "notes": 0,
+   "ai": 20,
+   "ai_split": {
+    "claude": 0,
+    "codex": 20
+   },
+   "gh": 0
+  },
+  "2026-08-25": {
+   "git": 0,
+   "notes": 1,
+   "ai": 46,
+   "ai_split": {
+    "claude": 0,
+    "codex": 46
+   },
+   "gh": 0
   }
  },
  "weeks": [
@@ -3817,7 +3837,7 @@
    {
     "d": "2026-06-11",
     "n": 106,
-    "l": 2,
+    "l": 3,
     "b": {
      "git": 22,
      "notes": 84,
@@ -4473,14 +4493,14 @@
    },
    {
     "d": "2026-07-24",
-    "n": 187,
+    "n": 175,
     "l": 3,
     "b": {
      "git": 22,
      "notes": 0,
-     "ai": 159,
+     "ai": 147,
      "ai_split": {
-      "claude": 12,
+      "claude": 0,
       "codex": 147
      },
      "gh": 6
@@ -4933,10 +4953,10 @@
   [
    {
     "d": "2026-08-23",
-    "n": 6,
+    "n": 8,
     "l": 1,
     "b": {
-     "git": 0,
+     "git": 2,
      "notes": 0,
      "ai": 5,
      "ai_split": {
@@ -4948,14 +4968,33 @@
    },
    {
     "d": "2026-08-24",
-    "n": 0,
-    "l": 0
+    "n": 21,
+    "l": 2,
+    "b": {
+     "git": 1,
+     "notes": 0,
+     "ai": 20,
+     "ai_split": {
+      "claude": 0,
+      "codex": 20
+     },
+     "gh": 0
+    }
    },
    {
     "d": "2026-08-25",
-    "n": 0,
-    "l": 0,
-    "future": true
+    "n": 47,
+    "l": 2,
+    "b": {
+     "git": 0,
+     "notes": 1,
+     "ai": 46,
+     "ai_split": {
+      "claude": 0,
+      "codex": 46
+     },
+     "gh": 0
+    }
    },
    {
     "d": "2026-08-26",
@@ -4984,14 +5023,14 @@
   ]
  ],
  "coding": {
-  "commits": 1469,
-  "streak": 90,
+  "commits": 1472,
+  "streak": 92,
   "repos": 16
  },
  "sources": {
   "git": {
    "repos": 16,
-   "commits": 1469,
+   "commits": 1472,
    "repoList": [
     "30FeedPersonal",
     "40PopperInvestor",
@@ -5012,25 +5051,25 @@
    ]
   },
   "notes": {
-   "total": 2599,
+   "total": 2600,
    "icloudPlaceholders": 0
   },
   "ai": {
-   "files": 1293,
-   "daysCovered": 37,
+   "files": 1299,
+   "daysCovered": 39,
    "claude": {
-    "files": 143,
-    "daysCovered": 3
+    "files": 137,
+    "daysCovered": 2
    },
    "codex": {
-    "files": 1150,
-    "daysCovered": 36
+    "files": 1162,
+    "daysCovered": 38
    }
   },
   "gh": {
    "user": "Longwind1984",
    "daysWithContributions": 86,
-   "fetched_at": "2026-08-24T22:46:47.750Z"
+   "fetched_at": "2026-08-25T13:30:50.465Z"
   }
  }
 }
