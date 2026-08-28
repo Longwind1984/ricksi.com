@@ -1,12 +1,12 @@
 {
- "generated_at": "2026-08-27T13:31:24.634Z",
- "today": 0,
- "today_out": 0,
- "today_cache_share": 0,
- "week": "72.1M",
+ "generated_at": "2026-08-28T13:31:47.030Z",
+ "today": 5220391,
+ "today_out": 20645,
+ "today_cache_share": 91,
+ "week": "48.6M",
  "cumulative": "40.9B",
  "cumulative_code": "5.7B",
- "cumulative_codex": "34.4B",
+ "cumulative_codex": "34.5B",
  "cumulative_zcode": "145.7M",
  "cumulative_hermes": "244.6M",
  "cumulative_kimi_code": "299.5M",
@@ -36,10 +36,6 @@
  ],
  "days7": [
   {
-   "d": "周五",
-   "v": 28.64
-  },
-  {
    "d": "周六",
    "v": 13.77
   },
@@ -60,8 +56,12 @@
    "v": 23.73
   },
   {
-   "d": "今天",
+   "d": "周四",
    "v": 0
+  },
+  {
+   "d": "今天",
+   "v": 5.22
   }
  ],
  "series": {
@@ -1265,9 +1265,9 @@
   },
   "codex": {
    "label": "Codex",
-   "tokens": 34447022266,
-   "compact": "34.4B",
-   "days": 39,
+   "tokens": 34452215360,
+   "compact": "34.5B",
+   "days": 40,
    "series": {
     "2026-06-04": {
      "total": 905631,
@@ -1683,6 +1683,18 @@
       "gpt-5.6-sol": 23492128,
       "codex-auto-review": 168724
      }
+    },
+    "2026-08-28": {
+     "total": 5193094,
+     "in": 5172705,
+     "out": 20389,
+     "cr": 4747520,
+     "rz": 9932,
+     "models": {
+      "gpt-5.6-luna": 1865132,
+      "gpt-5.6-sol": 3224735,
+      "codex-auto-review": 103227
+     }
     }
    }
   },
@@ -1786,9 +1798,9 @@
   },
   "hermes": {
    "label": "Hermes",
-   "tokens": 244589339,
+   "tokens": 244616636,
    "compact": "244.6M",
-   "days": 48,
+   "days": 49,
    "series": {
     "2026-07-10": {
      "total": 24839889,
@@ -2278,6 +2290,16 @@
      "models": {
       "glm-5-2-260617": 0
      }
+    },
+    "2026-08-28": {
+     "total": 27297,
+     "in": 10631,
+     "out": 256,
+     "cr": 16384,
+     "rz": 26,
+     "models": {
+      "deepseek-v4-pro": 27297
+     }
     }
    }
   },
@@ -2579,7 +2601,7 @@
   "estimated_share": "4%",
   "harness_split": {
    "claude_code": "5.7B",
-   "codex": "34.4B",
+   "codex": "34.5B",
    "zcode": "145.7M",
    "hermes": "244.6M",
    "kimi_code": "299.5M",
