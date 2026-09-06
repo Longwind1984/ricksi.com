@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-09-05T13:37:29.128Z",
+ "generated_at": "2026-09-06T13:33:45.577Z",
  "rollingDays": 90,
  "domains": {
   "lab": "前沿实验室",
@@ -473,11 +473,11 @@
   "totalEntries": 539,
   "totalAllTime": 865,
   "lastRun": {
-   "at": "2026-09-05T13:37:29.128Z",
-   "fetched": 19,
-   "processed": 16,
+   "at": "2026-09-06T13:33:45.577Z",
+   "fetched": 7,
+   "processed": 5,
    "added": 0,
-   "llmFailed": 16,
+   "llmFailed": 5,
    "rateLimited": false,
    "skippedSources": [
     "x:karpathy@karpathy",

@@ -1,14 +1,14 @@
 {
- "generated_at": "2026-09-05T13:31:36.183Z",
- "today": 9511,
- "today_out": 135,
- "today_cache_share": 52,
- "week": "4.2M",
+ "generated_at": "2026-09-06T13:31:21.490Z",
+ "today": 265855,
+ "today_out": 8620,
+ "today_cache_share": 86,
+ "week": "4.5M",
  "cumulative": "41.0B",
  "cumulative_code": "5.7B",
  "cumulative_codex": "34.5B",
  "cumulative_zcode": "145.7M",
- "cumulative_hermes": "244.9M",
+ "cumulative_hermes": "245.1M",
  "cumulative_kimi_code": "299.5M",
  "cumulative_openclaw": "1.6M",
  "cumulative_web": "117.6M",
@@ -36,10 +36,6 @@
  ],
  "days7": [
   {
-   "d": "周日",
-   "v": 0
-  },
-  {
    "d": "周一",
    "v": 0.35
   },
@@ -60,8 +56,12 @@
    "v": 0
   },
   {
-   "d": "今天",
+   "d": "周六",
    "v": 0.01
+  },
+  {
+   "d": "今天",
+   "v": 0.27
   }
  ],
  "series": {
@@ -1860,9 +1860,9 @@
   },
   "hermes": {
    "label": "Hermes",
-   "tokens": 244882972,
-   "compact": "244.9M",
-   "days": 57,
+   "tokens": 245148827,
+   "compact": "245.1M",
+   "days": 58,
    "series": {
     "2026-07-10": {
      "total": 24839889,
@@ -2442,6 +2442,16 @@
      "models": {
       "deepseek-v4-pro": 9511
      }
+    },
+    "2026-09-06": {
+     "total": 265855,
+     "in": 22945,
+     "out": 8620,
+     "cr": 227328,
+     "rz": 6962,
+     "models": {
+      "deepseek-v4-pro": 265855
+     }
     }
    }
   },
@@ -2745,7 +2755,7 @@
    "claude_code": "5.7B",
    "codex": "34.5B",
    "zcode": "145.7M",
-   "hermes": "244.9M",
+   "hermes": "245.1M",
    "kimi_code": "299.5M",
    "openclaw": "1.6M",
    "trae": "不可计量（排除于累计）",
