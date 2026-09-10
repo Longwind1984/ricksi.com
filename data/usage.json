@@ -1,14 +1,14 @@
 {
- "generated_at": "2026-09-07T13:31:24.802Z",
- "today": 34559,
- "today_out": 281,
- "today_cache_share": 70,
- "week": "4.1M",
+ "generated_at": "2026-09-10T13:31:32.093Z",
+ "today": 2124877,
+ "today_out": 23311,
+ "today_cache_share": 88,
+ "week": "6.5M",
  "cumulative": "41.0B",
  "cumulative_code": "5.7B",
  "cumulative_codex": "34.5B",
  "cumulative_zcode": "145.7M",
- "cumulative_hermes": "245.2M",
+ "cumulative_hermes": "245.5M",
  "cumulative_kimi_code": "299.5M",
  "cumulative_openclaw": "1.6M",
  "cumulative_web": "117.6M",
@@ -36,18 +36,6 @@
  ],
  "days7": [
   {
-   "d": "周二",
-   "v": 0.12
-  },
-  {
-   "d": "周三",
-   "v": 3.61
-  },
-  {
-   "d": "周四",
-   "v": 0.11
-  },
-  {
    "d": "周五",
    "v": 0
   },
@@ -60,8 +48,20 @@
    "v": 0.27
   },
   {
-   "d": "今天",
+   "d": "周一",
    "v": 0.03
+  },
+  {
+   "d": "周二",
+   "v": 4.11
+  },
+  {
+   "d": "周三",
+   "v": 0
+  },
+  {
+   "d": "今天",
+   "v": 2.12
   }
  ],
  "series": {
@@ -1277,9 +1277,9 @@
   },
   "codex": {
    "label": "Codex",
-   "tokens": 34476784798,
+   "tokens": 34482658445,
    "compact": "34.5B",
-   "days": 45,
+   "days": 47,
    "series": {
     "2026-06-04": {
      "total": 905631,
@@ -1757,6 +1757,26 @@
      "models": {
       "gpt-5.6-sol": 96716
      }
+    },
+    "2026-09-08": {
+     "total": 3964117,
+     "in": 3941916,
+     "out": 22201,
+     "cr": 3648896,
+     "rz": 11666,
+     "models": {
+      "gpt-5.6-sol": 3964117
+     }
+    },
+    "2026-09-10": {
+     "total": 1909530,
+     "in": 1897636,
+     "out": 11894,
+     "cr": 1687680,
+     "rz": 6747,
+     "models": {
+      "gpt-5.6-sol": 1909530
+     }
     }
    }
   },
@@ -1860,9 +1880,9 @@
   },
   "hermes": {
    "label": "Hermes",
-   "tokens": 245183386,
-   "compact": "245.2M",
-   "days": 59,
+   "tokens": 245547149,
+   "compact": "245.5M",
+   "days": 62,
    "series": {
     "2026-07-10": {
      "total": 24839889,
@@ -2462,6 +2482,36 @@
      "models": {
       "deepseek-v4-pro": 34559
      }
+    },
+    "2026-09-08": {
+     "total": 148416,
+     "in": 13671,
+     "out": 5939,
+     "cr": 124416,
+     "rz": 4390,
+     "models": {
+      "deepseek-v4-pro": 148416
+     }
+    },
+    "2026-09-09": {
+     "total": 0,
+     "in": 0,
+     "out": 0,
+     "cr": 0,
+     "rz": 0,
+     "models": {
+      "glm-5-2-260617": 0
+     }
+    },
+    "2026-09-10": {
+     "total": 215347,
+     "in": 16513,
+     "out": 11417,
+     "cr": 177664,
+     "rz": 9753,
+     "models": {
+      "deepseek-v4-pro": 215347
+     }
     }
    }
   },
@@ -2765,7 +2815,7 @@
    "claude_code": "5.7B",
    "codex": "34.5B",
    "zcode": "145.7M",
-   "hermes": "245.2M",
+   "hermes": "245.5M",
    "kimi_code": "299.5M",
    "openclaw": "1.6M",
    "trae": "不可计量（排除于累计）",
