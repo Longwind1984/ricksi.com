@@ -16,7 +16,10 @@
     "frontier:portraits": "node scripts/generate-frontier-portraits.mjs",
     "sync:vault": "node scripts/sync-vault.mjs --migrate",
     "sync:vault:migrate-dry-run": "node scripts/sync-vault.mjs --migrate-dry-run",
-    "verify:privacy": "node scripts/verify-privacy-invariants.mjs"
+    "verify:privacy": "node scripts/verify-privacy-invariants.mjs",
+    "collect:travels": "node scripts/collect-travels.mjs",
+    "collect:geo": "node scripts/collect-geo.mjs",
+    "audit:stories": "node scripts/audit-story-geo.mjs"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.18",
@@ -25,14 +28,17 @@
     "astro": "^5.0.0",
     "d3-force": "^3.0.0",
     "d3-force-3d": "^3.0.6",
+    "earcut": "^3.2.3",
     "epubjs": "^0.3.93",
     "gray-matter": "^4.0.3",
     "three": "^0.184.0"
   },
   "devDependencies": {
+    "@astrojs/check": "^0.9.9",
     "@resvg/resvg-js": "^2.6.2",
     "qrcode": "^1.5.4",
     "satori": "^0.26.0",
-    "sharp": "^0.34.5"
+    "sharp": "^0.34.5",
+    "typescript": "^5.9.3"
   }
 }

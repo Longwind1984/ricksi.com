@@ -20,5 +20,5 @@ export const GET: APIRoute = async ({ params, props }) => {
     sub: post.data.date.toISOString().slice(0, 10),
     kind: post.data.tag || '文章',
   });
-  return new Response(png, { headers: imgHeaders('image/png') });
+  return new Response(png as any, { headers: imgHeaders('image/png') });
 };

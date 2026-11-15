@@ -21,5 +21,5 @@ export const GET: APIRoute = async () => {
     qrUrl: 'https://ricksi.com/',
     hook: '扫码进入工作台 · 数据每日更新',
   });
-  return new Response(jpg, { headers: { 'Content-Type': 'image/jpeg' } });
+  return new Response(jpg as any, { headers: { 'Content-Type': 'image/jpeg' } });
 };

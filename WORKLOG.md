@@ -1,5 +1,125 @@
 # WORKLOG（append-only，倒金字塔：结论在前、清单沉底）
 
+## 2026-08-12 · 夜航 v8：卡让导航栏 + 转速随距离衰减 + 城市细环改灯光晕团
+
+**体验影响**（对应用户三条反馈，逐条）：① **卡片/顶部导航栏碰撞修复**——漂浮卡钳制从视口 14px 边距改为「顶部安全区」：每 500ms 实测 `#site-head` 底边换算进舞台坐标（+12px 间隔），卡位上界永不低于导航栏下缘；六张故事卡 + POI 卡 + 移动端逐点实测 cardTop ≥ navBottom+2 全过（此前 114px 卡顶会钻到 72px 导航底下）。② **贴面拖拽过敏修复**——OrbitControls rotateSpeed 从全局 0.55 改为随相机距离连续衰减：`0.16 + 0.39 × clamp((d/R − 1.22)/1.7)`，总览（d≈2.9+）保持原手感 0.55，贴面（d=1.22）降到 0.16——近距同样像素拖拽不再扫过大片地表。③ **非游记 POI 的城市细环退役，改「城市灯光晕团」**——细环是 UI 几何件、与真实地理画面气质不符；夜航的真实语感是城市灯光：k≥2 城市每城一颗暖色径向渐隐光斑（平方衰减外缘软进地形、加色叠加、尺寸 ∝ √k——范围与亮度即信息），近距渐隐（uNear 统一馈给）让位给离散足迹点，远观聚合成光团；2D 回退档同形态（canvas 径向渐变）。细环 LineSegments 网格与 2D stroke 描圈一并删除。
+
+**关键决策**：晕团与足迹点同走 Points+ShaderMaterial 管线和 0.55 次幂近距压缩，不新增渲染概念；alpha 双档（k≥6 更亮）沿 2D 旧环的分档语义。卡位安全区取实测 `#site-head` 底边而非写死像素——导航栏高度随断点/字号变化，实测永不失配。转速衰减 pivot 对齐 minDistance 1.22（v7 新下限），上限 0.55 与 v5 标定手感一致。
+
+**验证**：Playwright swiftshader——debugCam 探针 rotSpd：d=2.35→0.419 / d=3.07→0.55 / d=1.22→0.16 连续单调；卡让导航 6 story+1 POI+移动端全过；总览截图细环消失、光晕聚合形态目检（圣萨尔瓦多/墨西哥城暖团、标签俱在）；贴面截图光晕渐隐、足迹点离散无炸团；2D 回退档（reduced-motion 触发）截图光晕/矢量/标签正常；零 pageerror；生产构建 710 页 339s 通过；preview :4399 终检——深链故事卡、放映里程累加 3,454 km、OG 200、移动端卡片不压 rail 全绿（OG 页 favicon.ico 404 为存量行为）。
+
+**当前状态**：工作区未提交（用户未要求 commit）。preview :4399 在跑（astro preview 直读 dist，已为 v8 构建产物）；dev :4400 已停。
+
+**未尽事项**：转速衰减曲线与光晕明度（swiftshader 偏暗一个量级）以真机为准待用户过目；拖拽中卡片仍可被用户手动推到导航栏下（用户主动行为，松手归位即让开，属接受项）。
+
+**文件级变更清单**：M `src/scripts/travel-float-card.js`（topSafe 顶部安全区 + homeFor 上界）、`src/scripts/travel-globe3d.js`（rotateSpeed 距离衰减 + 城市细环→emberMat 光晕 Points + tick 馈 uTime/uNear + debugCam rotSpd 探针）、`src/scripts/travel-globe2d.js`（stroke 细环→径向渐变光斑）、`README.md`、`WORKLOG.md`（本条目）。
+
+## 2026-08-12 · 夜航 v7：去弹簧 + 卡内读全文 + 跨篇导航 + GIBS 双贴片清晰度
+
+**体验影响**（对应用户四条反馈，逐条）：① **去弹簧**——漂浮卡运动从弹簧（SPRING/DAMP + 速度投掷）改为临界平滑（EASE=0.16 逐帧趋近，单调无过冲）：拖拽不再投掷、松手原地匀速归位、显影 scale 同改 lerp；正文阅读区（.tv-card-body）不再触发卡片拖拽。② **卡内读片段全文**——21 条 stories 全部补 `b` 字段（通读两篇游记手工提取全文分段，figure 剥离，`//`/`///` 旁白确认会渲染故收录）；卡片导读下方新增可滚动正文区（max-height min(30vh,320px)，user-select:text，滚到底自动摘掉「有下文」渐隐 mask），一句话导读/片段全文/「读游记全文」三层俱在，不跳转读完；短篇体裁天然适合分片式阅读。③ **跨篇导航**——卡底导航行：本篇内 ‹ k/n › 翻段（循环）+「下一篇 · <篇名> →」跳相邻篇首片段（按文章时间序 honduras↔colombia 循环）；键盘 ←/→=本篇内翻段（注意：不再是 v6 的跨篇 21 条循环）、PgUp/PgDn=跨篇、↑/↓=正文滚动 96px；按钮与键盘走同一 openStory 管线（URL ?story= 同步、锚点飞行一致），巡映中导航行隐藏。④ **缩放清晰度系统性解法**——底图全局 4K（~11px/°）是物理天花板，v5 已判定 8K 公共镜像全封顶；本轮改走**区域高清贴片**：GIBS BlueMarble_NextGeneration（NASA 公有领域，WMTS EPSG:4326 与底图原生对齐）离线烘焙美洲两张——L1 全美洲（-126..-28°×-58..46°）z5 → 3840×4075 ≈39px/°（3.4× 全局密度，移动端 2K 档 19px/°），L2 中美洲核心（-95..-65°×0..25°）z7 → 4096×3413 ≈137px/°（12×）；运行时做成同球面扇区网格（SphereGeometry 扇区参数 phi=(ln+180)°/theta=(90−la)°，与底图同一手性约定，与矢量层/标记逐分对齐）浮于底图之上（R×1.0006/1.0012 防 z-fight），MeshPhong 透明材质——相机 <R×2.6 才请求 L1 网络图、<R×1.9 才请求 L2（首载零增重；无资产/404 静默降级底图），距离窗 smoothstep 渐显、拉过 R×3.0/2.2 滞回 dispose 纹理防显存堆积；法线复用全局 4K 图（offset/repeat 裁子域，normalScale 0.9）。minDistance R×1.38→1.22 让 L2 可抵近全显。
+
+**关键决策与被否决备选**：方案事前经 plan mode 拉齐（GIBS 选型理由：公有领域可再分发 / EPSG:4326 原生免重投影 / WMTS 区域抓取只取美洲 323 片而非全球数万片；eoimages 21.6k 单文件与 turban 8k 镜像均 404 实测排除）。500m TileMatrixSet 每级宽度**非 2 幂**（[2,3,5,10,20,40,80,160,320]，z5=9°/片、z7=2.25°/片，TopLeftCorner (-180,90)）——矩阵尺寸实测后硬编码进 collect-geo，不可按 2^z 想当然。贴片不预加载、URL 常量放引擎内（isMobile 分档），首次跨越阈值才 TextureLoader——比 travels.js 预加载 Image 更彻底的「零首载增重」。去弹簧选临界平滑 lerp 而非物理弹簧库：三行代码、无过冲数学保证（单调趋近），QA 以 tether 端点（不含 bob 噪声的裸 pos）单调收敛作证。**QA 抓出并修复**：has-more 判定在 rAF 时卡片仍 hidden（深链首开先于引擎，clientHeight=0 永假）——判定提成 judgeBodyMore()，boot 补挂路径补判；正文滚到底 mask 不消——加 scroll 监听按 scrollTop+clientHeight<scrollHeight-8 重判。
+
+**验证**：Playwright swiftshader——① tether 端点 18 帧采样单调收敛 49→0、反转 0 次；② 长片段（Utila 弃课 16 段 1047px）hasMore=true、↑/↓ 滚动 0→192、滚到底 mask 消；③ 本篇内 3×→ 翻段（pos 2/10→4/10、URL ?story=12→14）、「下一篇」洪都拉斯→哥伦比亚首片段、PgDn 环绕回洪都拉斯、巡映中 nav hidden；④ 相机探针：总览 d=2.35 时 L1 已按距离窗 opacity 0.68、推近 d=1.22 双贴片 ready 1.00、拉远 d=7.0 双贴片 off（纹理 dispose）；贴面截图加勒比群岛/巴哈马浅滩纹理锐利无缝、科潘故事卡整卡目检（照片/导读/正文/导航行）；零 pageerror；`audit:stories` 通过（5734 字，2 条荒野警告为预期）；生产构建 710 页 330s 通过；preview :4399 终检——深链故事卡（Wayuu 姐弟照片加载）、放映里程累加 3,470 km、OG 200 image/png、移动端卡片不压 rail（OG 页 favicon.ico 404 为存量行为，站点只发 favicon.svg）。
+
+**当前状态**：工作区未提交（用户未要求 commit）。preview :4399 在跑（astro preview 直读 dist，已为 v7 构建产物）；dev :4400 已停。
+
+**未尽事项**：swiftshader 比真机暗一个量级——无弹簧手感、L2 贴面纹理真实观感、正文滚动手感、贴片渐显节奏均以真机为准待用户过目；极限缩放（d≈1.22）对准洋面时画面近全黑属预期（BM_NG 洋面无地形，矢量层亦不覆盖深海）；2D 回退引擎无缩放交互不吃贴片（静默回退档维持现状）；秘鲁/巴塔哥尼亚若未来加游记可照 L2 配方再烘第三贴片（collect-geo 末尾段复制改 bbox 即可）。
+
+**文件级变更清单**：M `src/scripts/travel-float-card.js`（去弹簧：SPRING/DAMP/vel/投掷全删 → EASE=0.16 临界平滑；正文区不触发拖拽）、`data/travel-stories.json`（21 条全部加 b 片段全文）、`src/pages/travels.astro`（#tv-card-body 正文区 + .tv-card-nav 导航行）、`src/styles/glass.css`（卡宽 410px + .tv-card-body/has-more/.tv-card-nav 系列 + 移动端整卡滚动）、`src/scripts/travels.js`（openStory 填正文 + judgeBodyMore + postOrder/fragsOf/postAfter/stepStory/stepPost + 按钮键盘接线 + 巡映中隐藏导航行 + 滚到底摘 mask）、`src/scripts/travel-globe3d.js`（GIBS 双贴片扇区网格 + tickPatches 情载/渐显/滞回卸载 + minDistance 1.22 + debugCam 贴片探针）、`scripts/collect-geo.mjs`（GIBS 抓取/拼接/夜化/锐化烘焙段 + 500m 非 2 幂矩阵）、`scripts/audit-story-geo.mjs`（b 字段校验）、`README.md`、`WORKLOG.md`（本条目）；A `public/assets/travels/earth-night-am-4k.jpg`、`earth-night-am-2k.jpg`、`earth-night-core-4k.jpg`。
+
+## 2026-08-08 · 夜航 v6：漂浮拍立得 + 国家名远观层 + 巡映——七条反馈一次落地
+
+**体验影响**（对应用户七条反馈，逐条）：① **删 2D/3D 切换钮**——默认 3D，无 WebGL/reduced-motion 才静默回退 2D（`resolveMode` 简化），切换钮原位换成「巡映游记」。② **照片卡从右下角固定面板改为「漂浮拍立得」**（新模块 `travel-float-card.js`，JS 逐帧驱动）——打开时自锚点飞出显影（tv-develop）、±5px 微浮、随地球视角 ±3.5° 视差倾斜、SVG tether 牵引线始终系在金色锚环上；可拖拽投掷，松手弹簧回位（SPRING=0.085/DAMP=0.8）；锚点转到背面时卡片退隐至 opacity 0.28 不挡球、不误导。③ **工作流与模块化保留**——故事源仍是 authored `data/travel-stories.json`，新增 `npm run audit:stories`（`scripts/audit-story-geo.mjs`：字段完整性/图片存在与尺寸/每条坐标到最近城市的距离告警），之后新增游记照 SOP 追加 JSON 跑 audit 即可。④ **进场默认随机显影一张游记卡**——localStorage `tv-last-story` 避连续重复，450ms 后飞出；`?story=` 深链优先不随机。⑤ **国界线与国家名**——国界不透明度 0.16→0.20；新增 17 国手工锚点（`data/travel-countries.json`）远观层：相机 <R×2.0 全隐、opacity 上限 0.45，与城市标签及彼此像素级避让（避让半径随缩放 26~90px），保持克制的信息层定位。⑥ **21 条游记坐标全部重校**——通读两篇游记原文 + 网络核实：哥委边境改 Paraguachón（原偏 48km）、Sierra Nevada 改 Cerro Kennedy、奇卡莫查改 La Mojarra 攀岩区、特古西加尔巴改大教堂广场（原偏 4km）等，其余精化到 ≤0.03°。⑦ **去 360 自转**——autoRotate 删除，改 ambient 待机模式：无交互 12s 且无锚卡时四章航线依章静默绘出（每章 15s）+ 相机在 OVERVIEW 附近微漂（±3°纬/±6°经，永不转背面），任何交互即停并恢复章节原状。**扩展项**：E1 「巡映游记」按文章时间序逐站放映（6.8s/站，HUD 显示 k/21，ESC/停止中断）；E2 同篇故事点间细弧时间线（LineSegments 按 post 分组，opacity 0.22）；E3 键盘 ←/→ 翻页故事卡。
+
+**关键决策与被否决备选**：漂浮卡方案事前经 plan mode 拉齐（方向 A「漂浮拍立得」当选，方向 B「银幕模式」被否决不做）；卡片自带夜玻璃底色而非依赖 backdrop-filter（swiftshader 下后者隐形）；故事弧用 LineSegments 而非 Line——Line 会跨篇连线成乱网；哥伦比亚国家锚点东移 (1.0,-69.5) 避让麦德林；萨尔瓦多国家名与首都标签同城必被压盖，属已知接受项。**E4 真实晨昏线裁减未做**（计划中标注可裁减，本轮未排上，列为后续选项）。
+
+**验证**：Playwright swiftshader——默认随机开卡/拖拽跟随/背面退隐 opacity=0.28/ESC 关闭/移动端卡片/巡映中断/键盘翻页/国家名中距可见（中美洲小国可读）/ambient 触发与打断，零 pageerror；`audit:stories` 通过（2 条荒野警告为预期）；生产构建 710 页 443.87s 通过；preview :4399 终检全绿——深链故事卡（Wayuu 姐弟照片加载）、放映里程累加 3,454 km、OG 200 image/png、移动端卡片不压 rail、首页 06 区块回归（OG 页 favicon.ico 404 为存量行为，站点只发 favicon.svg）。QA 脚本三处时序修正（非产品缺陷）：漂浮卡持续微浮使 Playwright 稳定判定永假（改 force 点击）；拖拽起点被默认卡覆盖吃掉 pointerdown（改空白洋面起拖，锚定位移以 tether 端点作证——卡 transform 含微浮噪声不可作证）；close 动画在 ~15fps 下需 >1s（判定前等 2.6s）。
+
+**当前状态**：工作区未提交（用户未要求 commit）。preview :4399 在跑（astro preview 直读 dist，已为 v6 构建产物）；dev :4400 已停。
+
+**未尽事项**：swiftshader 比真机暗一个量级——漂浮卡物理手感（弹簧/投掷/倾斜）、国家名 0.45 上限的突出度、ambient 节奏、显影动画均以真机为准待用户过目；E4 真实晨昏线未做（计划中标注可裁减，列为后续选项）；2D 回退路径漂浮卡用静态锚点，未截图验证真实 2D 模式；巡映中 img 换 src 不重触发显影动画（已知接受）；`window.__tv` 调试句柄保留（QA 探针，注释已标明）。
+
+**文件级变更清单**：M `src/pages/travels.astro`（删 #tv-mode 加 #tv-tour + countries 经 #tv-data 下发）、`src/scripts/travels.js`（resolveMode 静默回退 + 默认随机开卡 + 键盘翻页 + 巡映编排 + float-card 接线 + 深链优先）、`src/scripts/travel-globe3d.js`（setAnchor/flyToPresent/projectPoint/debugCam/setAmbientAllowed + anchorRing + 国家名远观层 + 故事弧 + ambient 待机 + 去 autoRotate）、`src/scripts/travel-globe2d.js`（静态锚点守卫）、`src/styles/glass.css`（.tv-card 改 JS 逐帧驱动 + 自带夜玻璃底色 + tv-develop 显影 + .tv-tether/.tv-label-country/.tv-tour 新样式）、`src/lib/site-data.mjs`（travelCountries）、`data/travel-stories.json`（21 条坐标校准）、`package.json`（audit:stories）、`README.md`、`WORKLOG.md`（本条目）；A `src/scripts/travel-float-card.js`、`scripts/audit-story-geo.mjs`、`data/travel-countries.json`。
+
+## 2026-08-07 · 夜航 v5：近景治理——光点不炸白、法线全分辨率、矢量渐强
+
+**体验影响**：真机极限缩放暴露四类问题，逐一治理。① **足迹点/故事菱形/城市环贴面炸白团**：尺寸从线性透视改走 0.55 次幂压缩曲线（clamp 0.6~2.4）+ 亮度随 √persp 回落 + 基础尺寸收敛（足迹 4.6→3.8、菱形 10.5→8.5、城市环半径 -30% 且不透明度 0.32→0.22）——贴面是干净的小颗粒+细环，总览观感变化 <5%。② **缩放清晰度**：法线贴图升全源分辨率 4096×2048（桌面档；此前高程源被降采样一半白白丢掉，移动端仍 2K）、底图烘焙加轻锐化抵消 JPEG 涂抹（q82→q85）、minDistance R×1.5→1.38 让细节可抵近。③ **矢量层近距渐强**：贴图像素密度到顶后，河流/海岸/国界/湖面不透明度随相机距离上浮（+0.10~0.14），地理细节由矢量接管。④ **相机手感**：rotateSpeed 0.55（贴面细调）、zoomSpeed 0.9、dampingFactor 0.08。⑤ **悬停名片**：近景光点变小后「先读后点」——悬停 POI/菱形出玻璃小名片（90ms 节流，拖拽/放映/触屏不参与），此前悬停只有光标反馈。
+
+**关键决策与被否决备选**：**8K 真彩底图被否决**——可再分发公共镜像（turban/webgl-earth、three-globe unpkg、NASA eoimages 静态直链）实测全部封顶 4096×2048，NASA 21600×10800 单文件过大不入管线；近景清晰度改由「4K 法线 + 锐化 + 矢量渐强」补足。zoomToCursor 被否决（会挪动 controls.target，与放映/飞行动画的球心 pivot 冲突）。透视压缩选 0.55 次幂而非对数：总览档（factor≈1.1）变化 <5% 不伤已验收观感，贴面档（≈2.3）缩 32%/暗 26%。ESC 关闭卡片经查证 v2 已存在，未重复造。
+
+**验证**：swiftshader 截图——总览回归（光点更干净、环细一圈）、章节 flyTo 中档与极限缩放（墨西哥高原山脊/海岸线/河流/国界可读、POI 小颗粒离散、无白团）、悬停名片网格扫描命中（「太阳金字塔」名片渲染正确），零 pageerror；生产构建 710 页通过，preview 终检（深链故事卡/放映里程/OG/移动端卡片/近景缩放）全过（OG 页 /favicon.ico 404 为存量行为，站点只发 favicon.svg）。
+
+**当前状态**：工作区未提交（用户未要求 commit）。
+
+**未尽事项**：相机手感三项（rotate/zoom/damping）截图无法验证，待真机；4K 底图平坦区近景仍偏软（源分辨率天花板，诚实呈现）；2D 引擎无缩放交互，未参与本轮治理。
+
+**文件级变更清单**：M `src/scripts/travel-globe3d.js`（persp 压缩双 shader + aSize 3.8 + 城市环 0.0042/0.22 + vecMats 材质句柄与近距渐强 + controls 手感/minDistance 1.38 + 悬停名片 tv-tip）、`scripts/collect-geo.mjs`（法线 4K/2K 双档 + 底图轻锐化 q85）、`src/scripts/travel-data.js`（loadNormal 分档）、`src/scripts/travels.js`（桌面档 4K 法线）、`src/styles/glass.css`（.tv-tip）；A `public/assets/travels/earth-normal-4k.jpg`；M `public/assets/travels/earth-night-{4k,1k}.jpg`（锐化重烘）、`README.md`、`WORKLOG.md`（本条目）。
+
+## 2026-08-07 · 夜航 v4：真彩色重夜化 + 10m 全图层——沙漠暖、雨林绿、湖有面、山有脊
+
+**体验影响**：/travels 底图从「单色蓝调夜色」换为**真彩色重夜化**——保留 NASA 真彩色色相（沙漠暖褐、雨林绿、冰原白）再整体沉入钴蓝深夜；山脉不再靠 bump 灰度浮雕，而由**高程派生法线贴图**呈现随月光方向流转的褶皱明暗。矢量层从单一河流升级为 10m 四图层：河流（50m rank≤5 552 条 → 10m rank≤7 1145 条）、海岸线（644 条，大陆轮廓锐化）、国界（1585 条，极淡信息层）、**湖泊面**（320 面，烘焙期 earcut 预三角化，的的喀喀湖级别可读）。3D 与 2D 同口径；首页 mini 换 1K 轻量贴图（35KB）。方案（真彩夜化 + 高程法线 + 10m 四图层全选）事前经 plan mode 与用户拉齐批准。
+
+**烘焙管线（`npm run collect:geo`，collect-geo.mjs 全重写）**：真彩夜化逐像素公式——亮度 L 归一后 `gain = 0.3 + 0.42L` 保色压暗、阴影蓝移 `0.42t²`、降饱和 ×0.88、海洋亮度保底 9、latDim 高纬压顶；法线由 elev_bump 高程 Sobel（S=2.2）生成。纹理三档：4K 488KB（全屏 3D）/ 1K 35KB（首页 mini）/ 法线 2K 81KB。矢量统一 0.01° 量化（整数 ×100 存储，loader /100 还原）+ 碎线过滤。/travels 懒加载总量 ≈2.9MB（超 v3 体积预算，plan 已批准；仅全屏页首访加载，mini 只取 35KB）。原始下载缓存 scripts/.cache/geo/（不入库）。
+
+**关键决策与被否决备选**：选「真彩重夜化」而非继续单色蓝调（用户：「我喜欢真实地理、真实的山川河谷」——单色丢失 biome 信息）；normalMap 取代 bumpMap（bump 是灰度高度场浮雕、方向性弱；法线图方向正确，月光斜照时向阳/背阳坡明暗分明）；湖泊烘焙期 earcut 三角化存索引（`earcut` 入 dependencies）——运行时免三角化，3D 直接拼三角形、2D 全顶点可见才 fill（防跨临边涂抹），湖岸描线并入海岸层。2D 性能：四图层全量约 21 万顶点逐帧正交投影，加「亚像素跳段」（连续点屏距 ≤0.75px 不 lineTo，10m 数据在球面尺度大量冗余）保帧率。**密集城区白饼复发**：v3 的拥挤度衰减（-0.5 次幂）在真彩亮底上又叠成白饼，QA 截图抓出，双引擎同改 -0.85 次幂（圣萨尔瓦多 23 点总分亮度 ≈1.5× 单点——暖光团而非白饼）。被否决：2D 采样源升 2048×1024（1024 已够读且省 6MB 内存，余量留档）；继续 50m 河流（10m 才装得下乌卡亚利/马代拉级完整水系）。
+
+**验证**：Playwright swiftshader——3D 总览 / 安第斯近景（山脊明暗 + 湖泊面 + 河网）/ 放映帧 / 2D 总览 / 移动端 390 / 首页 mini，零 pageerror；对齐复检沿用 v3 口径（旧金山贴西海岸、萨尔瓦多在东海凸岸、亚马逊矢量在盆地纹理内）通过；衰减修正后复截三图确认。移动端首截 30s 超时为 swiftshader 软渲染过慢（延长 90s 后通过，非功能缺陷）。
+
+**当前状态**：工作区未提交（用户未要求 commit）。
+
+**未尽事项**：swiftshader 比真机暗一个量级——整体明暗（尤其密集金团核心区与背光面地形）以真机截图为准，待用户过目；放映低机位亮沙漠为 v3 遗留；国界在总览尺度极淡近乎不可见（有意的信息层定位）；2D 采样 1024×512 未升（见上）。
+
+**文件级变更清单**：M `scripts/collect-geo.mjs`（全重写）、`src/scripts/travel-data.js`（loadRelief 分档 + loadNormal/loadCoast/loadBorders/loadLakes，loadVec 统一 /100 解码）、`src/scripts/travel-globe3d.js`（bumpMap→normalMap 0.9 + 4K 纹理 + linesGeo + 海岸/国界/湖泊面三层 + 拥挤衰减 -0.85）、`src/scripts/travel-globe2d.js`（toVecs 泛化 + 湖填/海岸描线/国界虚线 + 亚像素跳段 + 衰减同改）、`src/scripts/travels.js`（六资源 Promise.all 编排）、`src/scripts/home-travel.js`（mini 1K）；A `public/assets/travels/earth-night-4k.jpg`、`earth-night-1k.jpg`、`earth-normal-2k.jpg`、`coast.json`、`borders.json`、`lakes.json`；M `public/assets/travels/rivers.json`（50m→10m）；D `public/assets/travels/earth-night.jpg`；M `package.json`（earcut）、`README.md`、`WORKLOG.md`（本条目）。
+
+## 2026-08-07 · 夜航 v3：真实地理底图——告别星点阵，迎回山川河谷
+
+**体验影响**：/travels 双引擎与首页 mini 地球的「星点大陆」全部替换为**真实地理**：NASA Blue Marble（地形+海底，5400×2700）夜色重调为钴蓝贴图——安第斯山脊是一条银蓝亮线、巴西高地与落基山脉褶皱可读、亚马逊/奥里诺科/巴拉那等 552 条世界级大河（Natural Earth scalerank≤5）以钢蓝辉光描线。3D 端贴图球上 Phong + bumpMap「月光」照明（定向光固定太平洋上空，向阳坡 ~1.3×/暗面 ~0.5× 贴图亮度，山体随视角有真实明暗起伏）；2D 端把同一张贴图**实时正交重投影**（半分辨率 ImageData 缓冲 + 临边昏暗 limb darkening），mini 同路径。底图信息含量从「示意图」升为「地理」。
+
+**烘焙管线（`npm run collect:geo`，scripts/collect-geo.mjs）**：① NASA topo.bathy JPG（eoimages.gsfc.nasa.gov 直链 2.3MB，公共领域）→ sharp 缩放 2048×1024 → 灰度对比拉伸 → 亮度→夜色分段渐变（深海近黑→山地板岩蓝），陆地区间（L>118）额外 ×1.42 增益让褶皱立起；高纬调光（南极 0.3×/格陵兰 0.55×）+ 渐变顶部压顶（沙漠/冰原不过曝抢戏）→ mozjpeg 84 ≈ 122KB。② NE 50m rivers geojson（nvkelso/natural-earth-vector raw，552 条 rank≤5）→ 0.045° 抽稀 + 0.01° 量化 ≈ 197KB。原始下载缓存 scripts/.cache/geo/（不入库）。land-dots.json 与其烘焙段（collect-travels ⑤ world-atlas pip）一并退役删除。
+
+**关键决策与被否决备选**：选「真实栅格地形 + 矢量河流」而非纯矢量多边形（d3-geo 填充）——山川起伏只有阴影晕染栅格能给，且同一张图供 3D 纹理与 2D 重投影，双引擎观感天然一致。**手性勘误（重要）**：首版曾误信「three 贴图球与 dirOf 差绕极轴 180°」而加 `rotation.y = π`——实则把 `phi=(ln+180)°` 展开：`x=−cos(ln+180)·cos la=+cos ln·cos la`、`z=sin(ln+180)·cos la=−sin ln·cos la`，与 dirOf **逐分一致，无需任何旋转**；误加的 π 使纹理偏移 180°、美洲标记垫在亚洲地形上（河流/标记走 dirOf 一直对，大陆轮廓巧合让截图检查误判「对齐」，用户目视抓出）。照明强度按朗伯 BRDF 的 1/π 反推（首次给 1.35/2.6 整体变暗翻车后修正为 4.0/3.2；真机截图又标定为 3.5/4.2——swiftshader 无头截图比真实 GPU 暗一个量级，亮度迭代以真机为准）。被否决：MeshBasicMaterial 无光照（地形只是一张平的画，无视角起伏）；继续保留点阵（用户明确不喜欢）。
+
+**验证**：Playwright swiftshader 截图迭代四轮（亮度曲线/高纬压暗/陆光增益/照明强度），终态：3D 总览安第斯亮脊与亚马逊水系清晰、2D 总览/放映（脉冲越洋、右上撒哈拉入画不刺眼）、移动端 390px、首页 mini 均零 JS 报错；`npm run build` 710 页通过，preview 终检见下。**对齐专项复检**（rotation 修正后）：3D 与 2D 大陆轮廓逐区一致——安第斯亮脊贴西缘、亚马逊矢量在盆地纹理内、萨尔瓦多在东海凸岸、旧金山在西海岸。
+
+**当前状态**：工作区未提交（用户未要求 commit）。dev :4400 与 preview :4399 均在跑。
+
+**未尽事项**：撒哈拉等亮沙漠在低机位放映时仍偏亮（真实地理的诚实呈现，已压顶一档，可再调）；2D 重投影每帧 ~17 万像素最近邻采样（半分辨率 + 视图指纹缓存），低端机放映跟飞时帧率未实测；bumpScale=1.1 在总览尺度效果含蓄，近景可再议；河流无河口渐变消隐（矢量描线硬边界，被纹理海色自然吞没，暂可接受）。
+
+**文件级变更清单**：A `scripts/collect-geo.mjs`、`public/assets/travels/earth-night.jpg`、`public/assets/travels/rivers.json`；M `src/scripts/travel-data.js`（loadRelief/loadRivers 取代 loadLandDots）；M `src/scripts/travel-globe3d.js`（点阵 Points→Phong+bump 贴图球 rotation.y=π + 月光/环境光 + 大河 LineSegments）；M `src/scripts/travel-globe2d.js`（点阵循环→贴图采样源 + 正交重投影圆盘缓冲 + 大河描线，mini 同构）；M `src/scripts/travels.js`、`src/scripts/home-travel.js`（加载编排）；M `scripts/collect-travels.mjs`（删除陆地点烘焙段）；D `public/assets/travels/land-dots.json`；M `package.json`（collect:geo）、`README.md`（管线表 + 站点能力）、`WORKLOG.md`（本条目）。
+
+## 2026-08-06 · 夜航 v2：镜像修复 + 游记故事层 + 深链/OG + 电影化跟飞 + 选择性 bloom
+
+**体验影响**：① 地球左右镜像修复——此前 3D 视图里约在萨尔瓦多以东、旧金山在东岸，现与真实地理一致（2D 此前碰巧正确，原理见下）。② 新增「游记故事层」：两篇游记（哥伦比亚 54 天 11 张 / 洪都拉斯 17 天 10 张）的照片按地理位置落成金色菱形标记，点开是照片 + 摘录 + 「读游记全文」链接（`/blog/<slug>/`）；菱形与圆形足迹点在视觉与拾取优先级上都做了区分（密集区菱形可点）。③ 深链 `?ch=1..4` / `?poi=i` / `?story=i`，点 chip/开卡自动 replaceState 回写 URL；`/travels` 有了专属 OG 卡 `/og/travels.png`（satori 钴蓝模板 + 实时统计）。④ 放映相机从「正上方俯视追点」改为**尾随掠海电影机位**（机位坠在航迹后方 R×0.9~1.2、视线投向旅行前方、长航段略升、防穿球最低轨道钳制）；2D 放映从「跳到航段中点」改为贴脉冲活点连续跟飞。⑤ bloom 从全场阈值 0.18 改为**高阈值选择性**（0.82）：只有 HDR 脉冲（×2.4 色）与航迹头（×2.2）溢出辉光，足迹群不再整体泛光，画面对比度显著提升。
+
+**镜像根因（值得记录的几何教训）**：`travel-data.js` 的 `dirOf` 用 `[cos la·cos ln, sin la, +cos la·sin ln]` 把地球**左手系**嵌入 three.js 右手系（E×N=-U，行列式 -1）——数据本身就是镜像地球。2D 引擎的 `viewBasis` 投影恰好含一个反向手性（r=f×up + 屏幕 y 翻转），两个镜像抵消所以「看起来对」；3D 用 three.js 物理相机，镜像原样暴露。修复：dirOf 第三分量取负（右手系），land-dots.json 全部 z 字节原位翻转（255-v，与重烘等价），烘焙器改存 (x,y,−z) 并注释约定，viewBasis 改为 r=up×f / u=f×r。数值探针（node 复现相机投影里约/萨尔瓦多/旧金山）+ 截图双通道验证。另发现烘焙自带 206/8973 个北极区杂点（110m 粗糙多边形 + 高纬度 even-odd 边界情况），视觉无碍，记录在案未处理。
+
+**关键决策与被否决备选**：故事坐标手工标注（~0.1°）而不做反向地理编码——21 个点手工精确可控，且摘录/短标题本就是 authored；数据放 `data/travel-stories.json`（sync 的 `git add data` 自动覆盖，采集器不覆写）。游记文章与照片从 main 分支 `git show` 提取到工作树（不动 index、不切分支），路径与 main 完全一致，未来合并零冲突。被否决：故事挂在 POI 卡下（故事是地点级而非店铺级，独立菱形更诚实）；选择性 bloom 用官方双层方案（要给每个 ShaderMaterial 写暗化替身，复杂度远超收益——阈值 + HDR 主角即可）；2D 跟飞跳到航段中点（旧行为，改活点后自然解决）。
+
+**验证**：Playwright 全链路——3D/2D 故事卡打开（照片 naturalWidth>0、POI 字段隐藏）、?ch/?poi/?story 深链与 URL 回写、OG 200 image/png、电影机位三帧（无穿球）、2D 活点跟飞、选择性 bloom 双图对比、移动端故事卡限高。修复过程缺陷两则：2D 拾取 POI 恒压故事（改距离权重 0.75）、`bd` 漏 `let` 报 ReferenceError（QA 当场抓出）。
+
+**当前状态**：工作区未提交（用户未要求 commit）。生产构建 708 页通过，preview 终检完成。
+
+**未尽事项**：故事坐标为近似值；新游记 SOP——在 `data/travel-stories.json` 追加条目（img 放 `public/assets/blog/<slug>/`）；首页迷你地球刻意不显示菱形（保持 teaser 安静，可后补）；放映模式仍无音效（有意）。
+
+**文件级变更清单**：M `src/scripts/travel-data.js`（dirOf 右手系 + viewBasis 修正）；M `scripts/collect-travels.mjs`（烘焙存 -z + 约定注释）；M `public/assets/travels/land-dots.json`（z 字节翻转）；M `src/scripts/travel-globe3d.js`（OVERVIEW 重取景 -6/-68/2.9、故事菱形 Points、拾取双对象、尾随掠海机位 + 防穿球、HDR 脉冲/航迹头、bloom 0.82）；M `src/scripts/travel-globe2d.js`（故事菱形绘制、hitTarget 双类拾取、活点跟飞 + 手性修正、标签碰撞此前已含）；M `src/scripts/travels.js`（stories 编排、双模式卡、深链 + syncUrl）；M `src/pages/travels.astro`（stories 序列化、卡片扩展、ogImage）；M `src/lib/site-data.mjs`（travelStories）；M `src/styles/glass.css`（is-story 双模式 + 移动端照片限高）；A `data/travel-stories.json`、`src/pages/og/travels.png.ts`、`content/posts/colombia-54-days.md`、`content/posts/honduras-17-days.md`、`public/assets/blog/**`（21 张照片，提取自 main）；M `README.md`、`WORKLOG.md`（本条目）。
+
+## 2026-08-06 · 新装置「夜航 · 美洲足迹」：/travels 全屏页 + 首页 06 teaser
+
+**体验影响**：新增全屏页 `/travels` 与首页第 06 区块。夜幕点阵大陆地球上，280 个真实足迹点以太阳金 bloom 闪烁，四章航线（2024 拉美长征 42 点 / 2025 纵横美洲 57 / 2026 进行时 11 / 城市漫步 174，存在交集）沿大圆弧展开；「放映全航程」相机逐段跟飞、里程表从 0 累加至 112,495 km、右侧航段日志滚动、章节过场卡转场；点任意足迹出 POI 卡（名称/城市/评分/章节/Google Maps 搜索链）；城市标签按规模 LOD + 屏幕碰撞让位。WebGL 不可用或 reduced-motion 自动回退 2D 引擎（与全屏共用渲染核心），右下角可手动切 2D/3D。首页 06 为 2D 迷你地球 + 统计 + 全屏入口；导航新增「旅行」。
+
+**数据口径（隐私红线）**：源为 Google Maps 收藏导出（仓外私有文件，284 条，头部标注「备注不得直接发布」）。采集器 `scripts/collect-travels.mjs` 只发布 name/coords/category/rating/章节归属——note、mapsUrl、recordId 一律剥离；复用 `scripts/lib/privacy-tier.mjs` 的 `isPolitical` 红线闸；私有源绝不复制进仓。收藏顺序≠旅行顺序（实测乒乓 32 万 km），航迹按最近邻+2-opt 重建，UI 与数据内均标注「推测航迹」。城市归并用手写词典 `scripts/lib/travel-gazetteer.mjs`（107 城），未命中点按原坐标保留。
+
+**关键决策与被否决备选**：完全绕开既有原型（用户明确不满意）另起「夜航」概念——陆地点阵烘焙（8,973 点 35KB base64）替代纹理贴图，零外部资源请求。被否决：沿用原型的球面贴图地球（依赖外部纹理、风格不属钴蓝之夜）；按收藏顺序连线（乒乓乱飞）；发布原始备注（红线）。three.js 仅 `travel-globe3d.js` 异步 chunk 加载，与 `/graph` 同策略。
+
+**验证**：Playwright（无头 Chromium + swiftshader）截图 QA——总览/章节切换/放映（里程累加、日志、过场卡）/POI 卡/2D/移动端 390px 全过，零 JS 报错；修复并回归：stops 只带 `{t,i,km}` 导致 setChapter NaN 黑屏（用 stopPos 修）、`[hidden]` 显式 display:none、大气辉光 ×0.6、标签碰撞、脉冲光球收缩、里程表空闲显总数、tv-bar 让开站头、移动端卡片抬高不遮 rail + 播放按钮 nowrap、2D 标签碰撞、**密集城区加色混合过曝成白饼**（0.25° 邻域拥挤度衰减单点亮度/尺寸，3D shader 与 2D 同策略，密集区呈暖金光团）。`npm run build` 708 页通过。
+
+**当前状态**：全部改动在工作区未提交（用户未要求 commit）；sync.mjs 已接第 4.6/6 步（collect-travels 入管线 + `public/assets/travels` 入 git add/status 路径）；`npm run collect:travels` 可独立重跑。
+
+**未尽事项**：移动端真机触控未验证（只测视口模拟）；新城市归并 SOP——下次导出 POI 后跑 `npm run collect:travels`，未命中条目会在 stdout 列出，补进 `travel-gazetteer.mjs` 即可；放映模式音量为零（无音效，有意为之）；2D 模式放映时相机不跟飞（引擎能力差异，可后补）。
+
+**文件级变更清单**：A `scripts/lib/travel-gazetteer.mjs`、`scripts/collect-travels.mjs`、`data/travels.json`、`public/assets/travels/land-dots.json`、`public/assets/travels/travels-mini.json`、`src/scripts/travel-data.js`、`src/scripts/travel-globe2d.js`、`src/scripts/travel-globe3d.js`、`src/scripts/travels.js`、`src/scripts/home-travel.js`、`src/pages/travels.astro`；M `src/pages/index.astro`（06 区块 + 目录条 + 脚本）、`src/layouts/Glass.astro`（navItems 加旅行）、`src/styles/glass.css`（tv-/tvh- 全组样式 + 移动端适配）、`src/lib/site-data.mjs`（travels 数据）、`scripts/sync.mjs`（第 4.6/6 步）、`package.json`（collect:travels）、`README.md`（管线表 + 站点能力）、`WORKLOG.md`（本条目）。
+
 ## 2026-07-18 · 液态之夜：心电节奏放慢三倍（1.05s → 3.15s）
 
 **体验影响**：R 峰闪光从每秒一次降为约每 3 秒一次，「抽搐感」消失；心电波形（P→QRS→T）与全部幅度参数不变，只改时间轴。

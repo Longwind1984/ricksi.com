@@ -52,6 +52,9 @@
   --hover-wash-strong: rgba(190, 210, 255, 0.14);
   --chip-fill: rgba(190, 210, 255, 0.09);
   --chip-border: rgba(190, 210, 255, 0.22);
+  /* Liquid Glass 增强层 · 边缘透镜光弧色（左上主光源 → 冷侧） */
+  --lens-rim-hi: rgba(224, 236, 255, 0.72);
+  --lens-rim-lo: rgba(150, 180, 255, 0.16);
 
   /* Shadows — 统一钴蓝底色 */
   --shadow-section: 0 20px 60px rgba(2, 8, 28, 0.40);

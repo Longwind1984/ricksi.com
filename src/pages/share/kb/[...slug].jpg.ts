@@ -49,5 +49,5 @@ export const GET: APIRoute = async ({ params, props }) => {
     qrUrl: `${SITE}/kb/${note.id}/`,
     hook: me?.deg ? `扫码读全文 · 图谱里有 ${me.deg} 个相邻节点` : '扫码读全文',
   });
-  return new Response(jpg, { headers: imgHeaders('image/jpeg') });
+  return new Response(jpg as any, { headers: imgHeaders('image/jpeg') });
 };

@@ -2,9 +2,20 @@
 // 首页：<nav data-scrollspy="projects,workbench,knowledge,blog"> 滚动跟随
 // 子页：<nav data-active="kb"> 固定高亮当前栏目，胶囊仍有悬停跟随
 
-// 折射透镜只在 Chromium 系启用（backdrop-filter: url() 仅 Chromium 实际渲染；
-// @supports 在 Safari/Firefox 误报，故用 UA 判定 + CSS 渐进增强，杜绝静默裸态）
-if (/Chrome\//.test(navigator.userAgent)) {
+// 折射透镜只在 Blink（Chromium 系）启用：backdrop-filter: url(#svg) 真折射目前仅 Blink 落地
+// （WebKit Bug 245510 未解、Firefox 未排期）。CSS.supports/@supports 会在 Safari/Firefox 误报 true，
+// 故用「是不是 Blink 引擎」作代理，杜绝非 Blink 上开了折射却静默裸态：
+//   首选 navigator.userAgentData —— 仅 Blink 暴露（Safari/Firefox 及 iOS 上所有 WebKit 套壳均无），最干净、
+//   且能挡住 iOS in-app webview 伪装 Chrome/ 的情况；老 Blink 无此 API 时回退 UA（Chrome/ 且排除 iOS WebKit）。
+function supportsLensRefraction() {
+  const d = navigator.userAgentData;
+  if (d && Array.isArray(d.brands)) {
+    return d.brands.some((b) => /Chromium|Google Chrome|Microsoft Edge/i.test(b.brand));
+  }
+  const ua = navigator.userAgent;
+  return /Chrome\//.test(ua) && !/(CriOS|FxiOS|EdgiOS|OPiOS|iPhone|iPad|iPod)/.test(ua);
+}
+if (supportsLensRefraction()) {
   document.documentElement.classList.add('lg-refract');
 }
 // 注：曾用预模糊底图替代 .sec 的 backdrop-filter 省合成成本（sec-prerendered），

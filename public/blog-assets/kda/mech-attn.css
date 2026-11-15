@@ -1,0 +1,320 @@
+/* ==========================================================================
+   Kimi K3 · KDA 机制动画演示样式（注意力机制组）—— 钴蓝之夜 Liquid Glass v2
+   配套 mech-attn.js；全部类名 kda- 前缀（本组统一 kda-ma-*）。
+   玻璃卡 .kda-demo-frame / 按钮 .kda-btn / 滑杆 .kda-slider / 弱字 .kda-note
+   等均复用 demos.css，本文件只定义本组新增的内部样式。
+   取色一律引用既有 CSS 变量（var(--kda-x, var(--x, 兜底))）。
+   ========================================================================== */
+
+/* ---------- 头部：标题 + 计数器 + 小柱图 ---------- */
+
+.kda-ma-head {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  margin-bottom: 6px;
+}
+
+.kda-ma-title {
+  font-size: 12.5px;
+  color: var(--kda-sub, var(--text-sub, #9DACCC));
+}
+
+.kda-ma-count {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--kda-font-mono, var(--font-mono, ui-monospace, monospace));
+  font-size: 11.5px;
+  color: var(--kda-sub, var(--text-sub, #9DACCC));
+  white-space: nowrap;
+}
+
+.kda-ma-count b {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--kda-ink-2, var(--ink-2, #FFFFFF));
+}
+
+.kda-ma-mini {
+  display: block;
+  width: 72px;
+  height: 30px;
+}
+
+.kda-ma-bar {
+  fill: var(--kda-accent-text, var(--accent-text, oklch(0.74 0.15 263)));
+  opacity: 0.85;
+}
+
+/* ---------- token 舞台（SVG） ---------- */
+
+.kda-ma-stage {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.kda-ma-tok-g {
+  transform-box: fill-box;
+  animation: kda-ma-drop 0.45s var(--kda-ease, var(--ease-liquid, cubic-bezier(0.3, 1.4, 0.4, 1))) both;
+}
+
+.kda-ma-pill {
+  fill: rgba(190, 210, 255, 0.06);
+  stroke: var(--kda-line, var(--line, rgba(190, 210, 255, 0.10)));
+  stroke-width: 1;
+}
+
+.kda-ma-tok {
+  fill: var(--kda-ink-2, var(--ink-2, #FFFFFF));
+  font-size: 14.5px;
+  font-family: var(--kda-font-display, var(--font-display, "MiSans", "PingFang SC", sans-serif));
+}
+
+.kda-ma-link {
+  fill: none;
+  stroke: var(--kda-accent-text, var(--accent-text, oklch(0.74 0.15 263)));
+  stroke-width: 1;
+  stroke-linecap: round;
+  opacity: 0.3;
+  animation: kda-ma-fade 0.4s ease both;
+}
+
+/* 自注意力回环：太阳金仅作小标注 */
+.kda-ma-self {
+  stroke: var(--kda-gold, var(--gold, oklch(0.85 0.13 86)));
+  stroke-dasharray: 2 3;
+  opacity: 0.55;
+  animation-name: kda-ma-fade-soft;
+}
+
+@keyframes kda-ma-drop {
+  from { opacity: 0; transform: translateY(-14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes kda-ma-fade {
+  from { opacity: 0; }
+  to { opacity: 0.3; }
+}
+
+@keyframes kda-ma-fade-soft {
+  from { opacity: 0; }
+  to { opacity: 0.55; }
+}
+
+/* ---------- 布局 ---------- */
+
+.kda-ma-flex {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+}
+
+.kda-ma-grow {
+  flex: 1;
+  min-width: 0;
+}
+
+.kda-ma-side {
+  flex: none;
+}
+
+.kda-ma-ctllabel {
+  font-family: var(--kda-font-mono, var(--font-mono, ui-monospace, monospace));
+  font-size: 10.5px;
+  color: var(--kda-faint, var(--text-faint, #5D6E90));
+  margin-left: 6px;
+}
+
+@media (max-width: 560px) {
+  .kda-ma-flex {
+    flex-direction: column;
+  }
+  .kda-ma-side {
+    width: 100%;
+  }
+}
+
+/* ---------- 状态矩阵 ---------- */
+
+.kda-ma-matrix {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 5px;
+  width: 150px;
+  max-width: 100%;
+  padding: 8px;
+  border: 1px solid var(--kda-line, var(--line, rgba(190, 210, 255, 0.10)));
+  border-radius: 10px;
+  transition: border-color 0.35s ease, box-shadow 0.35s ease;
+}
+
+/* 读取脉冲：仅增亮描边 */
+.kda-ma-matrix.is-read {
+  border-color: var(--kda-accent-text, var(--accent-text, oklch(0.74 0.15 263)));
+  box-shadow: 0 0 0 1px var(--kda-accent-text, var(--accent-text, oklch(0.74 0.15 263)));
+}
+
+.kda-ma-matrixlabel {
+  font-family: var(--kda-font-mono, var(--font-mono, ui-monospace, monospace));
+  font-size: 10.5px;
+  color: var(--kda-faint, var(--text-faint, #5D6E90));
+  margin-bottom: 6px;
+}
+
+.kda-ma-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1;
+  border: 1px solid var(--kda-line, var(--line, rgba(190, 210, 255, 0.10)));
+  border-radius: 6px;
+  font-family: var(--kda-font-mono, var(--font-mono, ui-monospace, monospace));
+  font-size: 10.5px;
+  color: var(--kda-sub, var(--text-sub, #9DACCC));
+  transition: opacity 0.3s ease, border-color 0.3s ease,
+    background-color 0.3s ease, color 0.3s ease;
+}
+
+/* 写入闪烁 */
+.kda-ma-cell.is-flash {
+  background: var(--kda-accent-text, var(--accent-text, oklch(0.74 0.15 263)));
+  border-color: var(--kda-accent-text, var(--accent-text, oklch(0.74 0.15 263)));
+  color: var(--kda-ink-2, var(--ink-2, #FFFFFF));
+}
+
+/* 试查询：行高亮 */
+.kda-ma-cell.is-hl {
+  border-color: var(--kda-accent-text, var(--accent-text, oklch(0.74 0.15 263)));
+  color: var(--kda-accent-text, var(--accent-text, oklch(0.74 0.15 263)));
+}
+
+/* 按 β 写回：目标格子微亮 */
+.kda-ma-cell.is-hot {
+  border-color: var(--kda-accent-text, var(--accent-text, oklch(0.74 0.15 263)));
+  color: var(--kda-ink-2, var(--ink-2, #FFFFFF));
+}
+
+/* 其余格子变暗：一个 bit 都不动 */
+.kda-ma-cell.is-dim {
+  opacity: 0.32;
+}
+
+/* ---------- 对比小结 ---------- */
+
+.kda-ma-summary {
+  margin-top: 12px;
+  padding-left: 10px;
+  border-left: 2px solid var(--kda-accent-text, var(--accent-text, oklch(0.74 0.15 263)));
+  font-family: var(--kda-font-mono, var(--font-mono, ui-monospace, monospace));
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--kda-ink-1, var(--ink-1, #F2F5FA));
+  animation: kda-ma-fadeup 0.5s ease both;
+}
+
+@keyframes kda-ma-fadeup {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------- Delta 规则：阶段标签 / 解说 / 算式面板 ---------- */
+
+.kda-ma-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.kda-ma-chip {
+  font-family: var(--kda-font-mono, var(--font-mono, ui-monospace, monospace));
+  font-size: 11px;
+  color: var(--kda-faint, var(--text-faint, #5D6E90));
+  border: 1px solid var(--kda-line, var(--line, rgba(190, 210, 255, 0.10)));
+  border-radius: 999px;
+  padding: 2px 10px;
+  transition: color 0.25s ease, border-color 0.25s ease;
+}
+
+.kda-ma-chip.is-active {
+  color: var(--kda-accent-text, var(--accent-text, oklch(0.74 0.15 263)));
+  border-color: var(--kda-accent-text, var(--accent-text, oklch(0.74 0.15 263)));
+}
+
+.kda-ma-desc {
+  margin: 0 0 12px;
+  min-height: 2.6em;
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--kda-sub, var(--text-sub, #9DACCC));
+}
+
+.kda-ma-eq {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 10px;
+  padding: 10px 12px;
+  border: 1px solid var(--kda-line, var(--line, rgba(190, 210, 255, 0.10)));
+  border-radius: 10px;
+  font-family: var(--kda-font-mono, var(--font-mono, ui-monospace, monospace));
+  font-size: 12.5px;
+  color: var(--kda-ink-1, var(--ink-1, #F2F5FA));
+}
+
+.kda-ma-eq-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.kda-ma-eq-line {
+  transition: opacity 0.3s ease;
+}
+
+.kda-ma-eq .is-faint {
+  opacity: 0.22;
+}
+
+/* 误差徽章：太阳金仅作小标注 */
+.kda-ma-badge {
+  font-size: 11px;
+  line-height: 1.7;
+  padding: 0 8px;
+  border: 1px solid var(--kda-gold, var(--gold, oklch(0.85 0.13 86)));
+  border-radius: 999px;
+  color: var(--kda-gold, var(--gold, oklch(0.85 0.13 86)));
+  white-space: nowrap;
+}
+
+.kda-ma-badge.is-pop {
+  animation: kda-ma-pop 0.4s var(--kda-ease, var(--ease-liquid, cubic-bezier(0.3, 1.4, 0.4, 1))) both;
+}
+
+@keyframes kda-ma-pop {
+  from { opacity: 0; transform: scale(0.6); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* ---------- 动效降级：自动播放降级为手动步进（按钮由 JS 控制），动画全部关闭 ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .kda-ma-tok-g,
+  .kda-ma-link,
+  .kda-ma-self,
+  .kda-ma-badge.is-pop,
+  .kda-ma-summary {
+    animation: none !important;
+  }
+  .kda-ma-matrix,
+  .kda-ma-cell,
+  .kda-ma-chip,
+  .kda-ma-eq-line {
+    transition: none !important;
+  }
+}

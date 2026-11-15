@@ -1,0 +1,181 @@
+---
+import Glass from '../../../layouts/Glass.astro';
+import { getCollection } from 'astro:content';
+
+const notes = await getCollection('kb');
+
+// 提取认知科学专题的所有文章
+const cogNotes = notes.filter((n: any) => n.data.facet === '认知科学' || n.id.includes('认知科学'));
+
+// 按类别分组
+const historyNotes = cogNotes.filter(n => n.id.split('/').pop()?.startsWith('g'));
+const theoryNotes = cogNotes.filter(n => {
+  const name = n.id.split('/').pop() || '';
+  return name.startsWith('a') || name.startsWith('s');
+});
+const frontierNotes = cogNotes.filter(n => {
+  const name = n.id.split('/').pop() || '';
+  return name.startsWith('e') || name.startsWith('r');
+});
+const overviewNotes = cogNotes.filter(n => {
+  const name = n.id.split('/').pop() || '';
+  return name.startsWith('_') || name.startsWith('readme');
+});
+
+const groups = [
+  { title: '导论与总览', desc: '认知科学体系的导航枢纽', notes: overviewNotes },
+  { title: '历史与代际演化', desc: 'HCI 与认知范式的变迁谱系', notes: historyNotes },
+  { title: '理论底座', desc: '概念辨析与系统架构剖面', notes: theoryNotes },
+  { title: '前沿应用与案例', desc: '产品病理剖解与实操复现指南', notes: frontierNotes },
+];
+---
+
+<Glass 
+  title="认知科学系统化百科"
+  description="涵盖认知科学历史、理论底座与前沿应用的百科全书"
+  active="projects"
+>
+  <section class="hero glass-panel">
+    <div class="hero-content">
+      <a href="/#projects" class="back-link">← 回到全部项目</a>
+      <div class="hero-header">
+        <span class="tag">百科全书</span>
+        <span class="tag">认知科学</span>
+        <span class="tag">系统性知识</span>
+      </div>
+      <h1>认知科学系统化百科</h1>
+      <p class="subtitle">打通历史、理论与 AI 前沿应用，构建跨学科的认知大纲</p>
+      
+      <div class="thesis-box">
+        <p>
+          本百科重构了原有的树状笔记网络，按传统百科全书的结构将其整理为<strong>四大象限</strong>。它回答了核心命题：在概率系统的 AI 时代，用户的大脑如何应对、为何传统 GUI 经验会崩塌，以及如何基于真正的认知底座去重塑产品设计。
+        </p>
+      </div>
+    </div>
+  </section>
+
+  {groups.map(group => group.notes.length > 0 && (
+    <section class="content-panel glass-panel mt-6">
+      <div class="group-header">
+        <h2>{group.title}</h2>
+        <p class="group-desc">{group.desc}</p>
+      </div>
+      <div class="grid-cards">
+        {group.notes.map((note: any) => (
+          <a class="card glass-card hover-card" href={`/projects/cognitive-science/${note.id.split('/').pop()}/`}>
+            <h3>{note.data.title.replace(/^[A-Z0-9_]+ /, '')}</h3>
+            {note.data.updated && <p class="meta">最后更新: {note.data.updated.toISOString().slice(0, 10)}</p>}
+          </a>
+        ))}
+      </div>
+    </section>
+  ))}
+
+  <section class="content-panel glass-panel mt-6 mb-12">
+    <h2>关于本百科</h2>
+    <div class="text-content">
+      <p>
+        此系统由底层知识库动态生成，内容实时追踪 <code>facet: 认知科学</code> 的最新切片。如果你想查看原始的网状双链结构，也可以前往 <a href="/kb/">原始知识库</a> 浏览。
+      </p>
+    </div>
+  </section>
+</Glass>
+
+<style>
+  .back-link {
+    display: inline-block;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .back-link:hover {
+    color: var(--text);
+  }
+  .hero-header {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+  }
+  .tag {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    background: var(--bg-tertiary);
+    color: var(--text-secondary);
+    border: 1px solid var(--border);
+  }
+  h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--text);
+    letter-spacing: -0.02em;
+  }
+  .subtitle {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+  }
+  .thesis-box {
+    background: rgba(var(--accent-rgb), 0.05);
+    border-left: 3px solid var(--accent);
+    padding: 1.25rem 1.5rem;
+    border-radius: 0 0.5rem 0.5rem 0;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--text);
+  }
+  .content-panel {
+    padding: 2.5rem;
+  }
+  .group-header {
+    margin-bottom: 1.5rem;
+  }
+  h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.25rem;
+  }
+  .group-desc {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+  }
+  .text-content p {
+    line-height: 1.7;
+    color: var(--text-secondary);
+  }
+  .grid-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.25rem;
+  }
+  .card {
+    display: block;
+    padding: 1.25rem;
+    text-decoration: none;
+    transition: transform 0.2s, background 0.2s, box-shadow 0.2s;
+  }
+  .hover-card:hover {
+    transform: translateY(-2px);
+    background: rgba(var(--accent-rgb), 0.03);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  }
+  .card h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--text);
+    line-height: 1.4;
+  }
+  .meta {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin: 0;
+  }
+  .mt-6 { margin-top: 2rem; }
+  .mb-12 { margin-bottom: 4rem; }
+</style>

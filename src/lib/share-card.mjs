@@ -208,22 +208,22 @@ async function renderOverlayPng({ variant, kicker, kickerColor, title, excerpt, 
 }
 
 export async function renderShareCard({
-  variant = 'node',          // node | article | site | frontier
+  variant = 'node',
   brand = 'RICK SI',
-  module: mod,               // mono 模块徽标，如 KNOWLEDGE · NODE
-  kicker,                    // kicker 文案（默认金色）
-  kickerColor,               // kicker 颜色覆盖（前沿卡用星类色）
-  title,
-  excerpt,                   // node/site：摘录
-  quote,                     // article：文楷引文（人的声音）
-  badges = [],               // [{label, color}] 人机光谱来源徽章
-  chips = [],                // [{label, color?}] 主题域 chip
-  stats = [],                // site：[{label, value, gold?}] 三格数据
-  url,                       // 展示用短址
-  qrUrl,                     // 二维码编码的完整 URL
-  hook,                      // 钩子文案
+  module: mod = '',
+  kicker = '',
+  kickerColor = '',
+  title = '',
+  excerpt = '',
+  quote = '',
+  badges = [],
+  chips = [],
+  stats = [],
+  url = '',
+  qrUrl = '',
+  hook = '',
   credit = '云海之上 · 无人机自摄',
-}) {
+} = {}) {
   const qrData = await QRCode.toDataURL(qrUrl || `https://ricksi.com/`, {
     width: 200, margin: 0, color: { dark: '#0A1230', light: '#FFFFFF' },
   });

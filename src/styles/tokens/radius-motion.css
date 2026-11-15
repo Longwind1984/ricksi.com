@@ -37,4 +37,9 @@
   --blur-section: 20px;
   --blur-panel: 28px;
   --blur-tip: 12px;
+
+  /* Liquid Glass 增强层 · 边缘透镜 + 镜面高光（中等基调，可整体调强弱；0 = 关） */
+  --lens-strength: 1; /* @kind other · 边缘透镜光弧强度倍率，0=关 */
+  --specular-rest: 0.42; /* @kind other · 静止镜面高光不透明度 */
+  --specular-hover: 0.55; /* @kind other · 指针追光峰值不透明度 */
 }

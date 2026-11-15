@@ -23,7 +23,7 @@ export const GET: APIRoute = async () => {
     { t: 'page', title: '前沿追踪', sub: frontier ? `${frontier.stats?.totalEntries ?? 0} 条动态` : '动态流', href: '/frontier/' },
     { t: 'page', title: '阅读', sub: 'WeRead 书架', href: '/#reading' },
     // 项目
-    ...PROJECTS.map((p) => ({ t: 'proj', title: p.title, sub: p.tags.join(' · '), href: '/#projects' })),
+    ...PROJECTS.map((p) => ({ t: 'proj', title: p.title, sub: p.tags.join(' · '), href: p.href ?? '/#projects' })),
     // 文章
     ...posts.map((p: any) => ({ t: 'post', title: p.data.title, sub: p.data.tag, href: `/blog/${p.id}/` })),
     // 知识库笔记

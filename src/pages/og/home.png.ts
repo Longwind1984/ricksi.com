@@ -8,5 +8,5 @@ export const GET: APIRoute = async () => {
     sub: '司豪杰 Rick Si · 我与 AI 的共享自留地',
     kind: 'RICKSI.COM',
   });
-  return new Response(png, { headers: { 'Content-Type': 'image/png' } });
+  return new Response(png as any, { headers: { 'Content-Type': 'image/png' } });
 };

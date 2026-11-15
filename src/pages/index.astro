@@ -15,7 +15,7 @@ import TrendChart from '../components/TrendChart.astro';
 import WorkbenchGlance from '../components/WorkbenchGlance.astro';
 import WorkbenchBoard from '../components/WorkbenchBoard.astro';
 
-const { activity, usage, graph, reading: readingData, frontier: frontierData } = loadSiteData();
+const { activity, usage, graph, reading: readingData, frontier: frontierData, travels } = loadSiteData();
 // 首页知识库图谱 = AI 子图（full）；个人库 stub 仅在 /graph「全部」视图。stats 重算为自洽 AI 口径。
 const aiGraph = graph ? scopedGraph(graph, 'ai') : null;
 
@@ -186,6 +186,10 @@ function downsampleGraph(g: any, cap = 160) {
 // 个人库 stub 节点不进首页（全库视图在 /graph 的「全部个人知识库」开关里）
 const homeGraph = downsampleGraph(aiGraph);
 
+/* ---- 06 旅行足迹（Google Maps 收藏导出，备注不发布；数据缺失则整区隐藏） ---- */
+const tv = travels ?? null;
+const tvKmWan = tv ? (tv.stats.kmTotal / 10000).toFixed(1) : null;
+
 /* ---- 注入客户端的数据（ticker 锚点 / 热力图明细 / 图谱数据） ---- */
 const clientData = JSON.stringify({
   weeks: activity?.weeks ?? null,
@@ -193,7 +197,7 @@ const clientData = JSON.stringify({
 }).replace(/</g, '\\u003c');
 
 /* 热力图维度（真实数据才有切换） */
-const hmDims = [
+const hmDims: [string, string][] = [
   ['all', '全部'],
   ['git', '代码提交'],
   ['notes', '笔记'],
@@ -241,6 +245,7 @@ const numbered = (list: typeof PROJECTS, offset = 0) =>
             <a href="#frontier" class="index-strip-item"><span class="mono">03</span> 前沿</a>
             <a href="#reading" class="index-strip-item"><span class="mono">04</span> 阅读</a>
             <a href="#blog" class="index-strip-item"><span class="mono">05</span> 写作</a>
+            {tv && <a href="#travels" class="index-strip-item"><span class="mono">06</span> 足迹</a>}
           </nav>
         </div>
         <!-- 右侧：工作台精简收起卡（点击展开为全宽数据看板） -->
@@ -259,7 +264,7 @@ const numbered = (list: typeof PROJECTS, offset = 0) =>
 
     <div class="container">
       <!-- 01 项目 -->
-      <div class="reveal">
+      <div class="reveal reveal-children">
         <section class="sec" id="projects">
           <div class="sec-head">
             <span class="mono sec-no">01</span>
@@ -575,6 +580,49 @@ const numbered = (list: typeof PROJECTS, offset = 0) =>
           )}
         </section>
       </div>
+
+      <!-- 06 旅行足迹（数据缺失时整区不渲染） -->
+      {tv && (
+        <div class="reveal">
+          <section class="sec" id="travels">
+            <div class="sec-head">
+              <span class="mono sec-no">06</span>
+              <div class="sec-title-row">
+                <h2 class="sec-title"><a href="/travels/" class="sec-title-link">旅行足迹</a></h2>
+                <span class="mono sec-en">TRAVELS · FOOTPRINT</span>
+              </div>
+              <span class="sec-desc">不是去过哪里，而是目光在哪里停留</span>
+            </div>
+            <div class="tvh-grid">
+              <div>
+                <div class="tvh-stats">
+                  <div><span class="tvh-stat-v">{tv.stats.poiCount}</span><span class="tvh-stat-k">足迹点</span></div>
+                  <div><span class="tvh-stat-v">{tv.stats.cityCount}</span><span class="tvh-stat-k">座城市</span></div>
+                  <div><span class="tvh-stat-v">{tv.stats.countryCount}</span><span class="tvh-stat-k">个国家</span></div>
+                  <div><span class="tvh-stat-v">{tvKmWan}<small>万 km</small></span><span class="tvh-stat-k">推测航迹</span></div>
+                </div>
+                <p class="tvh-lede">
+                  两轮拉美纵穿、美国城市穿行、无数次城市漫步——Google Maps 里每一处停留都是<em>一粒光</em>。
+                  四段航程、{tv.stats.cityCount} 座城市的灯火连成一条猜测中的路。进入全屏，把这段夜航再放一遍。
+                </p>
+                <div class="tvh-chips">
+                  {tv.chapters.map((c) => (
+                    <span class="hm-dim tv-chip-static">{c.zh} · {c.count}</span>
+                  ))}
+                </div>
+                <div class="tvh-note mono">Google Maps 收藏导出 · 备注不发布 · 城市按就近归并 · 航迹为就近重连推测</div>
+              </div>
+              <div class="tvh-globe-box">
+                <div class="tvh-globe-wrap">
+                  <div class="tvh-halo"></div>
+                  <canvas class="tvh-globe" id="tvh-globe" aria-label="足迹地球：拖拽旋转，点击进入全屏" role="img"></canvas>
+                  <a class="tvh-enter mono" href="/travels/" aria-label="进入全屏夜航模式">全屏夜航 →</a>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      )}
     </div>
   </main>
 
@@ -601,6 +649,7 @@ const numbered = (list: typeof PROJECTS, offset = 0) =>
   <script type="application/json" id="site-data" set:html={clientData} />
   <script>
     import '../scripts/home.js';
+    import '../scripts/home-travel.js';
   </script>
 </Glass>
 

@@ -88,6 +88,13 @@ async function main() {
     console.warn('   本地书合入失败，沿用上次 reading.json');
   }
 
+  console.log('── 4.6/6 旅行足迹（Google Maps 收藏；私有源缺席自动跳过）');
+  try {
+    run('node', ['scripts/collect-travels.mjs']);
+  } catch {
+    console.warn('   旅行足迹采集失败，沿用上次数据');
+  }
+
   console.log('── 5/6 前沿追踪（抓取 + claude 梳理，单源失败不阻塞）');
   try {
     run('node', ['scripts/collect-frontier.mjs']);
@@ -101,7 +108,7 @@ async function main() {
     return;
   }
 
-  const status = gitOut('status --porcelain data content/kb public/assets/books');
+  const status = gitOut('status --porcelain data content/kb public/assets/books public/assets/travels');
   if (!status.trim()) {
     console.log('✓ 数据无变化，无需提交');
     markOk();
@@ -110,7 +117,7 @@ async function main() {
     return;
   }
   const fileCount = status.trim().split('\n').length;
-  git('add data content/kb public/assets/books');
+  git('add data content/kb public/assets/books public/assets/travels');
   git(`commit -m "chore(data): daily sync ${new Date().toISOString().slice(0, 10)}"`);
 
   if (!gitOut('remote').trim()) {

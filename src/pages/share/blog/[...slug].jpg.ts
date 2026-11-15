@@ -42,5 +42,5 @@ export const GET: APIRoute = async ({ params, props }) => {
     qrUrl: `${SITE}/blog/${post.id}/`,
     hook: '扫码读全文 · 数据与决策可核查',
   });
-  return new Response(jpg, { headers: imgHeaders('image/jpeg') });
+  return new Response(jpg as any, { headers: imgHeaders('image/jpeg') });
 };

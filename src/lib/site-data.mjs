@@ -20,6 +20,9 @@ export function loadSiteData() {
     graph: readJson('graph.json'),
     reading: readJson('reading.json'),
     frontier: readJson('frontier.json'),
+    travels: readJson('travels.json'),
+    travelStories: readJson('travel-stories.json'),
+    travelCountries: readJson('travel-countries.json'),
   };
 }
 

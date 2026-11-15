@@ -21,5 +21,5 @@ export const GET: APIRoute = async ({ params, props }) => {
     sub: '知识库',
     kind: note.data.cluster || '笔记',
   });
-  return new Response(png, { headers: imgHeaders('image/png') });
+  return new Response(png as any, { headers: imgHeaders('image/png') });
 };

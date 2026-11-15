@@ -17,3 +17,11 @@ data/title-review.json
 
 .claude/
 .worktrees/
+
+# Local agent state & raw geo download cache (see scripts/collect-geo.mjs)
+.goal/
+.workbuddy/
+scripts/.cache/
+.env
+.env.*
+!.env.example

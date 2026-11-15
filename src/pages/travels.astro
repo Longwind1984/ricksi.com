@@ -1,0 +1,131 @@
+---
+import Glass from '../layouts/Glass.astro';
+import { loadSiteData, stamp } from '../lib/site-data.mjs';
+
+const { travels, travelStories, travelCountries } = loadSiteData();
+const clientData = travels
+  ? JSON.stringify({
+      travels,
+      stories: travelStories?.stories ?? [],
+      storyPosts: travelStories?.posts ?? {},
+      countries: travelCountries?.countries ?? [],
+    }).replace(/</g, '\\u003c')
+  : null;
+const updated = travels ? stamp(travels.generated_at) : null;
+const s = travels?.stats;
+const fmtKm = (n) => Math.round(n).toLocaleString('en-US');
+---
+
+<Glass
+  title="夜航 · 美洲足迹 — 司豪杰 Rick Si"
+  description={`旅行足迹装置：${s?.poiCount ?? 0} 个足迹点、${s?.cityCount ?? 0} 座城市、${s?.countryCount ?? 0} 个国家——夜幕美洲上的金色停留。`}
+  active="travels"
+  ogImage="/og/travels.png"
+  noFooter
+>
+  <main class="tv-full">
+    {travels ? (
+      <>
+        <div class="tv-stage" id="tv-stage"></div>
+
+        <!-- 顶部条：返回 / 标题 / 视图与放映 -->
+        <div class="tv-bar">
+          <a class="gx-back mono" href="/#travels" aria-label="返回首页足迹区">← 返回</a>
+          <div class="tv-title">
+            <h1 class="tv-h1">夜航 · 美洲足迹</h1>
+            <span class="mono tv-h1-en">NIGHT FLIGHT · THE AMERICAS</span>
+          </div>
+          <div class="tv-actions">
+            <button class="gx-zbtn tv-tour" id="tv-tour" aria-label="巡映游记：按时间序逐站放映游记照片">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.4 7.6L22 12l-7.6 2.4L12 22l-2.4-7.6L2 12l7.6-2.4z"/></svg>
+              巡映游记
+            </button>
+            <button class="btn-accent tv-play" id="tv-play">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 4l14 8-14 8z"/></svg>
+              放映全航程
+            </button>
+            <button class="btn-accent tv-stop" id="tv-stop" hidden>
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="5" y="5" width="14" height="14" rx="2"/></svg>
+              停止
+            </button>
+          </div>
+        </div>
+
+        <!-- 左下：章节 chips + 进度 + 口径行 -->
+        <div class="tv-rail">
+          <div class="tv-chips">
+            <button class="hm-dim tv-chip active" data-ch="">全部</button>
+            {travels.chapters.map((c, i) => (
+              <button class="hm-dim tv-chip" data-ch={i}>
+                {c.zh}
+                <span class="mono tv-chip-meta">{c.count} 点 · {fmtKm(c.km)} km</span>
+              </button>
+            ))}
+          </div>
+          <div class="tv-prog">
+            {travels.chapters.map((c) => (
+              <span class="tv-prog-seg" style={`flex-grow:${c.km}`}><span></span></span>
+            ))}
+          </div>
+          <div class="mono tv-hud-line" id="tv-hud-line"></div>
+          <div class="mono tv-stamp">
+            Google Maps 收藏 · 备注已剥离 · 城市按就近归并 · 航迹为就近重连推测 · 更新于 {updated}
+          </div>
+        </div>
+
+        <!-- 右下：里程表 + 航段日志 -->
+        <div class="tv-flight">
+          <div class="tv-odo-box glass" id="tv-odo-box">
+            <span class="mono tv-odo-k">推测航迹 · KM</span>
+            <span class="tv-odo" id="tv-odo">0</span>
+          </div>
+          <div class="tv-log" id="tv-log" aria-live="polite"></div>
+        </div>
+
+        <!-- 章节过场卡 -->
+        <div class="tv-toast" id="tv-toast" aria-hidden="true"></div>
+
+        <!-- POI / 游记故事卡片（双模式：is-story 时显示照片/导读/片段全文/跨篇导航，隐藏 POI 字段） -->
+        <aside class="tv-card glass" id="tv-card" hidden>
+          <button class="gx-close tv-card-close" id="tv-card-close" aria-label="关闭" type="button">✕</button>
+          <img class="tv-card-photo" id="tv-card-photo" alt="" loading="lazy" decoding="async" />
+          <div class="mono tv-card-kicker" id="tv-card-kicker"></div>
+          <div class="tv-card-title" id="tv-card-title"></div>
+          <p class="tv-card-excerpt" id="tv-card-excerpt"></p>
+          <div class="tv-card-body" id="tv-card-body"></div>
+          <div class="tv-card-meta" id="tv-card-meta"></div>
+          <div class="tv-card-chs" id="tv-card-chs"></div>
+          <a class="mono tv-card-map" id="tv-card-map" href="#" target="_blank" rel="noreferrer">在 Google Maps 查看 ↗</a>
+          <a class="mono tv-card-post" id="tv-card-post" href="#">读游记全文 ↗</a>
+          <nav class="tv-card-nav" id="tv-card-nav" aria-label="游记导航">
+            <div class="tv-card-frags">
+              <button class="tv-frag-btn" id="tv-frag-prev" type="button" aria-label="上一段">‹</button>
+              <span class="mono tv-frag-pos" id="tv-frag-pos">– / –</span>
+              <button class="tv-frag-btn" id="tv-frag-next" type="button" aria-label="下一段">›</button>
+            </div>
+            <button class="mono tv-post-next" id="tv-post-next" type="button">下一篇 · <span id="tv-post-next-name"></span> →</button>
+          </nav>
+        </aside>
+
+        <!-- 引擎加载 -->
+        <div class="tv-loading" id="tv-loading" hidden>
+          <svg class="gx-constell" viewBox="0 0 132 92" aria-hidden="true">
+            <circle class="gxs" cx="16" cy="20" r="1"></circle><circle class="gxs s2" cx="48" cy="12" r="1.2"></circle><circle class="gxs s3" cx="92" cy="22" r="1"></circle><circle class="gxs" cx="118" cy="16" r="1.3"></circle><circle class="gxs s2" cx="28" cy="58" r="1"></circle><circle class="gxs s3" cx="108" cy="68" r="1.2"></circle><circle class="gxs" cx="14" cy="80" r="1"></circle>
+            <line class="gxl" x1="46" y1="44" x2="78" y2="36"></line><line class="gxl l2" x1="78" y1="36" x2="100" y2="60"></line><line class="gxl l3" x1="46" y1="44" x2="40" y2="74"></line><line class="gxl l4" x1="100" y1="60" x2="74" y2="76"></line>
+            <circle class="gxs big" cx="46" cy="44" r="2.4"></circle><circle class="gxs gold" cx="78" cy="36" r="2.6"></circle><circle class="gxs big" cx="100" cy="60" r="2.2"></circle><circle class="gxs big" cx="40" cy="74" r="2"></circle><circle class="gxs big" cx="74" cy="76" r="2.2"></circle>
+          </svg>
+          <span class="mono">正在点亮星球…</span>
+        </div>
+      </>
+    ) : (
+      <div class="container sub-main">
+        <section class="sec"><p class="kg-note">本地运行 `npm run collect:travels` 后这里会出现足迹地球。</p></section>
+      </div>
+    )}
+  </main>
+
+  {clientData && <script type="application/json" id="tv-data" set:html={clientData} />}
+  <script>
+    import '../scripts/travels.js';
+  </script>
+</Glass>

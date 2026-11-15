@@ -42,6 +42,9 @@ npm run sync            # 一键：采集全部 → commit → push（--no-push 
 | `fetch-github` | GitHub GraphQL（Actions 每日 cron，需 token） | 合并进 activity 的 gh 维度 |
 | `collect-weread` | 微信读书官方 Agent API（书架/笔记/统计/划线 + AI 共创书白名单） | `data/reading.json` + 封面 |
 | `collect-frontier` | AI 学者/信息源公开动态（博客 RSS / arXiv / YouTube / X 镜像池）→ `claude -p` 无头梳理成中文摘要+判断+标签+**星图多维评级** | `data/frontier.json`（滚动 90 天）+ 月度归档 + 去重账本 |
+| `collect-travels` | Google Maps 收藏 POI 导出（仓外私有源，备注/mapsUrl 一律剥离；就近归并到 `scripts/lib/travel-gazetteer.mjs` 城市词典；航迹按最近邻+2-opt 重建并标注「推测」） | `data/travels.json` + `public/assets/travels/travels-mini.json` |
+| `collect:geo` | 真实地理底图烘焙：NASA 真彩色底图重夜化（保色相：沙漠暖/雨林绿/冰原白；保色压暗 + 阴影蓝移 + 高纬压顶 + 轻锐化）→ 4K/1K 双档贴图 + 高程 Sobel 派生 4K/2K 双档法线图；**GIBS BlueMarble_NextGeneration 美洲区域双贴片**（EPSG:4326 原生，500m TileMatrixSet 非 2 幂矩阵实测；L1 全美洲 z5 → 4K/2K 双档、L2 中美洲核心 z7 → 4K，同夜化公式重调）；Natural Earth 10m 四矢量图层（河流 1145 / 海岸线 644 / 国界 1585 / 湖泊 320 面 earcut 预三角化），0.01° 整数量化 | `public/assets/travels/earth-night-{4k,1k}.jpg` + `earth-normal-{4k,2k}.jpg` + `earth-night-am-{4k,2k}.jpg` + `earth-night-core-4k.jpg` + `rivers/coast/borders/lakes.json` |
+| `audit:stories` | 游记故事层体检（`scripts/audit-story-geo.mjs`）：字段完整性、图片存在与尺寸、每条坐标到最近城市的距离告警——新增游记/照片后跑一遍 | 仅 stdout 报告，不写文件 |
 
 **发布消毒管线**（sync-vault 内置，只改发布版不动库原文件）：剥离「衍生对话存档」等工作残桩小节、
 清除「待补充」占位行、屏蔽词替换并报告、私人日记类 wikilink 抹成〔私人记录〕、敏感标题默认不发布
@@ -165,6 +168,27 @@ GitHub 仓库（`Longwind1984/ricksi.com`），生产分支均为 `main`**——
 
 - `/graph` **3D 知识图谱**（NASA Eyes 风格：深空星点/辉光/距离雾/相机飞行；three.js 仅在该页按需加载）：
   搜索、主题域过滤、标签 LOD、`?focus=` 深链；右下角可切 2D，WebGL 不可用或 reduced-motion 自动回退 2D
+- `/travels` **夜航 · 美洲足迹**（Google Maps 真实收藏 POI）：真实地理底图（NASA 真彩色重夜化 4K 贴图
+  + 高程派生 4K 法线月光地形 + **GIBS BlueMarble_NextGeneration 美洲双贴片**——L1 全美洲 ≈39px/°（移动 19px/°）、
+  L2 中美洲核心 ≈137px/°，相机逼近才加载、距离窗渐显、拉远滞回卸载，首载零增重 + Natural Earth 10m 河流/海岸线/国界/湖泊面四图层（近距渐强）；2D 为同贴图实时正交重投影
+  + 同组矢量描线，首页 mini 用 1K 轻量贴图）+ 金色足迹 bloom（光点/菱形随缩放做尺寸-亮度压缩，贴面不炸白；
+  多收藏城市渲染为**暖色灯光晕团**（径向渐隐光斑，尺寸 ∝ √收藏数，近距渐隐让位给离散足迹点））+
+  四章航线（2024 拉美长征 / 2025 纵横美洲 / 2026 进行时 / 城市漫步）+ 「放映全航程」相机跟飞
+  （里程表累加、航段日志、章节过场卡）+ POI 点击卡 + 城市标签 LOD + 国界线与国家名远观层
+  （`data/travel-countries.json` 17 国手工锚点，随缩放渐显、与城市/彼此像素级避让，克制不抢戏）；
+  默认 3D 无手动切换钮，无 WebGL/reduced-motion 静默回退 2D；首页 06 区块有 2D 迷你地球 teaser。
+  备注等私字段在采集期剥离，航迹为重建推测并在 UI 明示。
+  **游记故事层**：游记照片按地理位置落为金色菱形（`data/travel-stories.json` authored 源，坐标经
+  `npm run audit:stories` 校准），点开是**漂浮拍立得卡**（`travel-float-card.js`：临界平滑归位无弹簧 +
+  可拖拽松手匀速归位 + 微浮与视差倾斜 + SVG 牵引线系在锚点 + 转到背面退隐），带照片 + 一句话导读 +
+  **当前片段全文**（卡内滚动读完，底部渐隐提示有下文；短篇体裁天然适合分片式阅读）+ 全文链接
+  （示例：哥伦比亚 54 天 / 洪都拉斯 17 天两篇，21 张）；进场默认随机显影一张（localStorage 避重复）、
+  **本篇内 ‹ k/n › 翻段**（←/→ 同管线）、**「下一篇」跨篇导航**（PgUp/PgDn 同管线，跳相邻篇首片段）、
+  「巡映游记」按文章时间序逐站放映、同篇故事点间有细弧时间线。**深链** `?ch=1..4` /
+  `?poi=i` / `?story=i`（交互自动回写 URL，replaceState 不刷历史），专属 OG 卡 `/og/travels.png`。
+  放映为尾随掠海电影机位 + HDR 脉冲的选择性 bloom；无 360 自转——待机 12s 进 ambient 模式
+  （四章航线依章静默绘出 + 相机微漂永不转背面，一动即停）。球面几何为右手系约定（早期左手系镜像已修复；
+  three SphereGeometry 展开即本站 dirOf 同式，贴图球无需任何旋转）
 - 知识库分层：索引页「精选 · 总览与代表作」+ 完整归档；每篇笔记标注来源档位（共创 / AI 整理），
   方法公开于博文《这个库是怎么来的》
 - 阅读页 reader chrome：kb/blog 详情页收起完整导航（R monogram + 分享/搜索），滚读自动隐藏；

@@ -63,5 +63,5 @@ export const GET: APIRoute = async ({ params, props }) => {
     qrUrl: `${SITE}/frontier/#e-${e.id}`,
     hook: `${dd} · 每日梳理 + 工作台判断`,
   });
-  return new Response(jpg, { headers: imgHeaders('image/jpeg') });
+  return new Response(jpg as any, { headers: imgHeaders('image/jpeg') });
 };
