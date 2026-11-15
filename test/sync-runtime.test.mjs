@@ -4,7 +4,13 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import {
+  assertAllowedSyncPaths,
   assertProductionBranch,
+  isAllowedSyncPath,
+  isNonFastForwardPushError,
+  mergeActivitySnapshots,
+  parsePorcelainPaths,
+  reconcileWithOriginMain,
   runNetworkWithRetry,
   runRecoverable,
   acquireSyncLock,
@@ -13,6 +19,121 @@ import {
 test('rejects publication from a feature branch but allows no-push diagnostics', () => {
   assert.throws(() => assertProductionBranch('feat/demo', { noPush: false }), /main/);
   assert.doesNotThrow(() => assertProductionBranch('feat/demo', { noPush: true }));
+});
+
+test('path guard allows workbench data paths and blocks UI/code paths', () => {
+  assert.equal(isAllowedSyncPath('data/activity.json'), true);
+  assert.equal(isAllowedSyncPath('content/kb/note.md'), true);
+  assert.equal(isAllowedSyncPath('public/assets/books/cover.svg'), true);
+  assert.equal(isAllowedSyncPath('src/components/LiquidNightBg.astro'), false);
+  assert.equal(isAllowedSyncPath('public/favicon.svg'), false);
+
+  assert.doesNotThrow(() =>
+    assertAllowedSyncPaths(['data/activity.json', 'content/kb/a.md', 'public/assets/books/x.png'], 'test')
+  );
+  assert.throws(
+    () => assertAllowedSyncPaths(['data/activity.json', 'src/pages/index.astro'], 'test'),
+    /安全护栏拦截/
+  );
+
+  const parsed = parsePorcelainPaths(' M data/activity.json\nR  old/a.ts -> src/new.ts\n?? src/ui.astro\n');
+  assert.deepEqual(parsed, ['data/activity.json', 'old/a.ts', 'src/new.ts', 'src/ui.astro']);
+});
+
+test('mergeActivitySnapshots combines local dimensions and remote gh contributions losslessly', () => {
+  const local = {
+    generated_at: '2026-09-18T13:33:00.000Z',
+    days: {
+      '2026-09-18': { git: 3, notes: 2, ai: 5, ai_split: { claude: 4, codex: 1 }, gh: 0 },
+    },
+    coding: { commits: 1525, streak: 10, repos: 16 },
+    sources: {
+      git: { commits: 1525 },
+      notes: { total: 2600 },
+      ai: { daysCovered: 120 },
+      gh: { daysWithContributions: 90, fetched_at: '2026-09-18T06:17:00.000Z' },
+    },
+  };
+  const remote = {
+    generated_at: '2026-11-15T01:58:00.000Z',
+    days: {
+      '2026-09-18': { git: 0, notes: 0, ai: 0, gh: 4 },
+      '2026-11-14': { git: 0, notes: 0, ai: 0, gh: 7 },
+    },
+    coding: { commits: 1514, streak: 1, repos: 16 },
+    sources: {
+      git: { commits: 1514 },
+      notes: { total: 2590 },
+      ai: { daysCovered: 118 },
+      gh: { daysWithContributions: 98, fetched_at: '2026-11-15T01:58:00.000Z' },
+    },
+  };
+  const merged = mergeActivitySnapshots(local, remote, {
+    heatmapWeeks: 1,
+    buildWeeks: () => [['mock-week']],
+    currentStreak: () => 42,
+  });
+  assert.equal(merged.generated_at, '2026-11-15T01:58:00.000Z');
+  assert.deepEqual(merged.days['2026-09-18'], {
+    git: 3,
+    notes: 2,
+    ai: 5,
+    ai_split: { claude: 4, codex: 1 },
+    gh: 4,
+  });
+  assert.deepEqual(merged.days['2026-11-14'], { git: 0, notes: 0, ai: 0, gh: 7 });
+  assert.equal(merged.coding.commits, 1525);
+  assert.equal(merged.coding.streak, 42);
+  assert.equal(merged.sources.gh.daysWithContributions, 98);
+});
+
+test('reconcileWithOriginMain auto-merges data/activity.json rebase conflict and blocks UI divergence', async () => {
+  const calls = [];
+  let resolved = false;
+  const outcome = await reconcileWithOriginMain({
+    fetchRemote: async () => { calls.push('fetch'); },
+    isAncestor: () => false,
+    execGitOut: (args) => {
+      const cmd = args.join(' ');
+      if (cmd === 'rev-parse HEAD') return 'local123\n';
+      if (cmd === 'rev-parse origin/main') return 'remote456\n';
+      if (cmd === 'merge-base HEAD origin/main') return 'base000\n';
+      if (cmd === 'diff --name-only base000..HEAD') return 'data/activity.json\ndata/usage.json\n';
+      if (cmd === 'diff --name-only --diff-filter=U') return 'data/activity.json\n';
+      throw new Error(`unexpected gitOut: ${cmd}`);
+    },
+    execGit: (args) => {
+      const cmd = args.join(' ');
+      calls.push(cmd);
+      if (cmd === 'rebase origin/main') throw new Error('CONFLICT in data/activity.json');
+    },
+    resolveActivityConflict: () => { resolved = true; },
+  });
+  assert.equal(outcome, 'rebased-merged-activity');
+  assert.equal(resolved, true);
+  assert.deepEqual(calls, ['fetch', 'rebase origin/main', 'add data/activity.json', 'rebase --continue']);
+
+  await assert.rejects(
+    reconcileWithOriginMain({
+      fetchRemote: async () => {},
+      isAncestor: () => false,
+      execGitOut: (args) => {
+        const cmd = args.join(' ');
+        if (cmd === 'rev-parse HEAD') return 'local123\n';
+        if (cmd === 'rev-parse origin/main') return 'remote456\n';
+        if (cmd === 'merge-base HEAD origin/main') return 'base000\n';
+        if (cmd === 'diff --name-only base000..HEAD') return 'src/components/Hero.astro\n';
+        return '';
+      },
+      execGit: () => {},
+    }),
+    /安全护栏拦截/
+  );
+});
+
+test('isNonFastForwardPushError detects remote race rejections', () => {
+  assert.equal(isNonFastForwardPushError({ stderr: ' ! [rejected] main -> main (fetch first)' }), true);
+  assert.equal(isNonFastForwardPushError({ stderr: 'fatal: Authentication failed' }), false);
 });
 
 test('recoverable failures are collected without throwing', async () => {

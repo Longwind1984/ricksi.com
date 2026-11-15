@@ -6,7 +6,9 @@
 //   launchd 注入 HTTPS_PROXY=127.0.0.1:7897，凭证从 ~/.git-credentials 读、不碰 keychain。
 //
 // data/activity.json 有两个写者：GH Action（每天 06:17 写 gh 维度）和本地 sync（21:30 写全维度）。
-// 生产同步只允许从独立 main worktree 发布；启动先 pull --ff-only，绝不在自动任务里改写历史。
+// 生产同步只允许从独立 main worktree 发布，且严格白名单限制只允许读写/提交
+// data/、content/kb/、public/assets/books/（严禁夹带任何非生产 UI/代码改动）；
+// 若前一晚 push 因网络故障未达远端、次日与 GH Action 产生 data-only 分叉，自动 rebase 并无损合并 activity.json，永不 force push。
 //
 // 每次运行向 ~/Library/Logs/workbench-sync.log 追加一行结果（成功/无变化/失败）。
 // 任一致命步骤失败 → macOS 通知（osascript），不再静默吞错。
@@ -14,19 +16,35 @@ import { execFileSync } from 'node:child_process';
 import { appendFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { homedir } from 'node:os';
 import { join } from 'node:path';
+import { CONFIG } from './config.mjs';
+import { writeJson, buildWeeks, currentStreak } from './lib/util.mjs';
 import { writeVaultJournal } from './lib/sync-journal.mjs';
 import { isProxyReachable } from './lib/proxy.mjs';
 import {
   acquireSyncLock,
+  assertAllowedSyncPaths,
   assertProductionBranch,
+  isNonFastForwardPushError,
+  mergeActivitySnapshots,
+  parsePorcelainPaths,
+  reconcileWithOriginMain,
   runNetworkWithRetry,
   runRecoverable,
 } from './lib/sync-runtime.mjs';
 
 const noPush = process.argv.includes('--no-push');
+const gitEnv = () => ({ ...process.env, GIT_EDITOR: 'true', GIT_TERMINAL_PROMPT: '0' });
 const run = (cmd, args, opts) => execFileSync(cmd, args, { stdio: 'inherit', ...opts });
-const git = (args) => run('git', args);
-const gitOut = (args) => execFileSync('git', args, { encoding: 'utf8' });
+const git = (args) => run('git', args, { env: gitEnv() });
+const gitOut = (args) => execFileSync('git', args, { encoding: 'utf8', env: gitEnv() });
+const isAncestor = (anc, desc) => {
+  try {
+    execFileSync('git', ['merge-base', '--is-ancestor', anc, desc], { stdio: 'ignore', env: gitEnv() });
+    return true;
+  } catch {
+    return false;
+  }
+};
 
 const LOG_DIR = join(homedir(), 'Library', 'Logs');
 const RUN_LOG = join(LOG_DIR, 'workbench-sync.log');
@@ -60,10 +78,39 @@ function markOk() {
   try { writeFileSync('/tmp/workbench-sync-last-ok', new Date().toISOString() + '\n'); } catch { /* 心跳失败不致命 */ }
 }
 
+function resolveRebaseActivityConflict() {
+  const ours = JSON.parse(gitOut(['show', ':2:data/activity.json']));
+  const theirs = JSON.parse(gitOut(['show', ':3:data/activity.json']));
+  const merged = mergeActivitySnapshots(theirs, ours, {
+    heatmapWeeks: CONFIG.heatmapWeeks,
+    buildWeeks,
+    currentStreak,
+  });
+  writeJson(join(CONFIG.dataDir, 'activity.json'), merged);
+}
+
+async function syncOriginMain() {
+  return reconcileWithOriginMain({
+    fetchRemote: () =>
+      runNetworkWithRetry(
+        'git fetch',
+        ({ env }) => run('git', ['fetch', 'origin', 'main'], { env: { ...env, GIT_EDITOR: 'true' } }),
+        { env: process.env, delayMs: 5000 }
+      ),
+    execGit: git,
+    execGitOut: gitOut,
+    isAncestor,
+    resolveActivityConflict: resolveRebaseActivityConflict,
+  });
+}
+
 async function main() {
   releaseLock = acquireSyncLock(LOCK_FILE);
   const branch = gitOut(['branch', '--show-current']).trim();
   assertProductionBranch(branch, { noPush });
+  if (!noPush) {
+    assertAllowedSyncPaths(parsePorcelainPaths(gitOut(['status', '--porcelain'])), '启动前工作树检查');
+  }
   const hasRemote = !!gitOut(['remote']).trim();
 
   // 代理自适应：launchd 注入了 HTTPS_PROXY（国内 Clash 用），但代理可能没开——人在新加坡等无 GFW 环境根本不需要它。
@@ -75,11 +122,9 @@ async function main() {
   }
 
   if (!noPush && hasRemote) {
-    console.log('── 0/7 更新生产 main（fast-forward only）');
-    await runNetworkWithRetry('git pull', ({ env }) => run('git', ['pull', '--ff-only'], { env }), {
-      env: process.env,
-      delayMs: 5000,
-    });
+    console.log('── 0/7 同步生产 origin/main（ff 优先，data 分叉自动 rebase）');
+    const syncState = await syncOriginMain();
+    console.log(`   ↳ origin/main 状态：${syncState}`);
   }
 
   console.log('── 1/7 活动热力图（git + Obsidian + Claude/Codex 日志）');
@@ -135,7 +180,9 @@ async function main() {
     return;
   }
   const fileCount = status.trim().split('\n').length;
-  git(['add', 'data', 'content/kb', 'public/assets/books']);
+  git(['add', '--', 'data', 'content/kb', 'public/assets/books']);
+  const stagedFiles = gitOut(['diff', '--cached', '--name-only']).split('\n').filter(Boolean);
+  assertAllowedSyncPaths(stagedFiles, '提交前暂存区检查');
   git(['commit', '-m', `chore(data): daily sync ${new Date().toISOString().slice(0, 10)}`]);
 
   if (!hasRemote) {
@@ -146,10 +193,21 @@ async function main() {
     return;
   }
 
-  await runNetworkWithRetry('git push', ({ env }) => run('git', ['push'], { env }), {
-    env: process.env,
-    delayMs: 5000,
-  });
+  try {
+    await runNetworkWithRetry('git push', ({ env }) => run('git', ['push', 'origin', 'main'], { env }), {
+      env: process.env,
+      delayMs: 5000,
+    });
+  } catch (pushErr) {
+    if (!isNonFastForwardPushError(pushErr)) throw pushErr;
+    console.warn('⚠ push 期间远端有新提交（如 GH Action），正在 rebase 后重推（绝不 force push）…');
+    await syncOriginMain();
+    await runNetworkWithRetry('git push', ({ env }) => run('git', ['push', 'origin', 'main'], { env }), {
+      env: process.env,
+      delayMs: 5000,
+    });
+  }
+
   const head = gitOut(['rev-parse', '--short', 'HEAD']).trim();
   console.log('✓ 已推送，EdgeOne / Vercel 将自动重新部署');
   markOk();
