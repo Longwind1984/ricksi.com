@@ -3583,5 +3583,60 @@
   "firstSeen": "2026-09-18",
   "attempts": 1,
   "status": "llm-failed"
+ },
+ "8479f47633fa8f96": {
+  "firstSeen": "2026-11-15",
+  "attempts": 0,
+  "status": "excluded"
+ },
+ "f9a3c449e5989b1d": {
+  "firstSeen": "2026-11-15",
+  "attempts": 0,
+  "status": "published"
+ },
+ "5acb9d3d7e18f6cd": {
+  "firstSeen": "2026-11-15",
+  "attempts": 0,
+  "status": "excluded"
+ },
+ "fde4e161df129b17": {
+  "firstSeen": "2026-11-15",
+  "attempts": 0,
+  "status": "published"
+ },
+ "673d8bd62405d369": {
+  "firstSeen": "2026-11-15",
+  "attempts": 0,
+  "status": "published"
+ },
+ "5bf4951adbe9698d": {
+  "firstSeen": "2026-11-15",
+  "attempts": 0,
+  "status": "published"
+ },
+ "d1318183fe172893": {
+  "firstSeen": "2026-11-15",
+  "attempts": 0,
+  "status": "published"
+ },
+ "9f0b516152c12ca0": {
+  "firstSeen": "2026-11-15",
+  "attempts": 0,
+  "status": "published"
+ },
+ "5b0f73df89a6e310": {
+  "firstSeen": "2026-11-15",
+  "attempts": 0,
+  "status": "published"
+ },
+ "a8d5fa7d24b3647f": {
+  "firstSeen": "2026-11-15",
+  "attempts": 0,
+  "status": "published"
+ },
+ "a96f8f0d446898ed": {
+  "firstSeen": "2026-11-15",
+  "attempts": 0,
+  "status": "published"
  }
 }
