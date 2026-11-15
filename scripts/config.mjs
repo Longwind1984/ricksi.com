@@ -1,8 +1,15 @@
 // 数据采集配置 —— 所有本地路径集中在这里
+import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 
 const HOME = os.homedir();
+const CODEX_CANDIDATES = [
+  path.join(HOME, '.local/bin/codex'),
+  '/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS/codex',
+  '/Applications/ChatGPT.app/Contents/Resources/codex',
+];
+const RESOLVED_CODEX_BIN = CODEX_CANDIDATES.find((p) => fs.existsSync(p)) || CODEX_CANDIDATES[0];
 
 export const CONFIG = {
   /* 本地 git 仓库扫描根（递归 2 层找 .git 目录；worktree 的 .git 是文件，自动排除避免重复计数） */
@@ -171,7 +178,7 @@ export const CONFIG = {
 
     /* Codex CLI 无头调用（用现有登录，不走 API key；--ephemeral 不污染 usage/activity） */
     codex: {
-      bin: '/Applications/ChatGPT.app/Contents/Resources/codex',
+      bin: RESOLVED_CODEX_BIN,
       model: 'gpt-5.6-terra',
       timeoutMs: 120000,
       retries: 1,
