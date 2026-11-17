@@ -1,12 +1,12 @@
 {
- "generated_at": "2026-11-16T13:30:10.218Z",
- "today": 383258962,
- "today_out": 654463,
+ "generated_at": "2026-11-17T13:30:15.123Z",
+ "today": 242333490,
+ "today_out": 530951,
  "today_cache_share": 99,
- "week": "779.8M",
- "cumulative": "41.8B",
+ "week": "1.1B",
+ "cumulative": "42.1B",
  "cumulative_code": "5.7B",
- "cumulative_codex": "35.3B",
+ "cumulative_codex": "35.6B",
  "cumulative_zcode": "145.7M",
  "cumulative_hermes": "250.2M",
  "cumulative_kimi_code": "299.5M",
@@ -36,10 +36,6 @@
  ],
  "days7": [
   {
-   "d": "周二",
-   "v": 0
-  },
-  {
    "d": "周三",
    "v": 0.01
   },
@@ -60,8 +56,12 @@
    "v": 396.25
   },
   {
+   "d": "周一",
+   "v": 445.18
+  },
+  {
    "d": "今天",
-   "v": 383.26
+   "v": 242.33
   }
  ],
  "series": {
@@ -1277,9 +1277,9 @@
   },
   "codex": {
    "label": "Codex",
-   "tokens": 35275142363,
-   "compact": "35.3B",
-   "days": 51,
+   "tokens": 35579392788,
+   "compact": "35.6B",
+   "days": 52,
    "series": {
     "2026-06-04": {
      "total": 37356,
@@ -1810,14 +1810,25 @@
      }
     },
     "2026-11-16": {
-     "total": 383147028,
-     "in": 382498685,
-     "out": 648343,
-     "cr": 379070592,
-     "rz": 189031,
+     "total": 445063963,
+     "in": 444289553,
+     "out": 774410,
+     "cr": 440274944,
+     "rz": 242835,
      "models": {
-      "gpt-6-astra": 367097504,
-      "gpt-6.1-sol": 16049524
+      "gpt-6-astra": 402126665,
+      "gpt-6.1-sol": 42937298
+     }
+    },
+    "2026-11-17": {
+     "total": 242333490,
+     "in": 241802539,
+     "out": 530951,
+     "cr": 239028352,
+     "rz": 227910,
+     "models": {
+      "gpt-6-astra": 146222540,
+      "gpt-6.1-sol": 96110950
      }
     }
    }
@@ -1924,7 +1935,7 @@
    "label": "Hermes",
    "tokens": 250235574,
    "compact": "250.2M",
-   "days": 118,
+   "days": 119,
    "series": {
     "2026-07-10": {
      "total": 24839889,
@@ -3114,6 +3125,16 @@
      "models": {
       "deepseek-v4-pro": 111934
      }
+    },
+    "2026-11-17": {
+     "total": 0,
+     "in": 0,
+     "out": 0,
+     "cr": 0,
+     "rz": 0,
+     "models": {
+      "glm-5-2-260617": 0
+     }
     }
    }
   },
@@ -3415,7 +3436,7 @@
   "estimated_share": "5%",
   "harness_split": {
    "claude_code": "5.7B",
-   "codex": "35.3B",
+   "codex": "35.6B",
    "zcode": "145.7M",
    "hermes": "250.2M",
    "kimi_code": "299.5M",
