@@ -3908,5 +3908,30 @@
   "firstSeen": "2026-11-20",
   "attempts": 0,
   "status": "published"
+ },
+ "d15c45643214b444": {
+  "firstSeen": "2026-11-21",
+  "attempts": 0,
+  "status": "excluded"
+ },
+ "81ce5b24dd897b42": {
+  "firstSeen": "2026-11-21",
+  "attempts": 0,
+  "status": "excluded"
+ },
+ "b8e1839046bc97c6": {
+  "firstSeen": "2026-11-21",
+  "attempts": 0,
+  "status": "published"
+ },
+ "3ea993db7e3c60d1": {
+  "firstSeen": "2026-11-21",
+  "attempts": 0,
+  "status": "published"
+ },
+ "f4784c30400364a2": {
+  "firstSeen": "2026-11-21",
+  "attempts": 0,
+  "status": "published"
  }
 }
