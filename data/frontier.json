@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-21T13:32:50.785Z",
+ "generated_at": "2026-11-22T13:31:44.143Z",
  "rollingDays": 90,
  "domains": {
   "lab": "前沿实验室",
@@ -470,13 +470,13 @@
   }
  ],
  "stats": {
-  "totalEntries": 140,
-  "totalAllTime": 957,
+  "totalEntries": 139,
+  "totalAllTime": 959,
   "lastRun": {
-   "at": "2026-11-21T13:32:50.786Z",
-   "fetched": 16,
-   "processed": 4,
-   "added": 3,
+   "at": "2026-11-22T13:31:44.143Z",
+   "fetched": 9,
+   "processed": 2,
+   "added": 2,
    "llmFailed": 0,
    "rateLimited": false,
    "skippedSources": [
@@ -493,6 +493,35 @@
   }
  },
  "entries": [
+  {
+   "id": "21bd1d482ae20679",
+   "date": "2026-11-22",
+   "person": "simon-willison",
+   "topicSource": null,
+   "sourceName": "simonwillison.net",
+   "sourceType": "rss",
+   "contentType": "cited",
+   "titleZh": "Simon Willison关注AI辅助开发的Muru",
+   "titleOriginal": "Muru",
+   "verdict": "展示资深基础设施开发者以AI辅助持续构建生产级Python服务器的实践。",
+   "summaryZh": "Simon Willison介绍了 Graham Dumpleton 的新项目 Muru：一款由 Rust 实现、采用 AI 辅助开发的服务器，目标是在开发和生产环境中为 ASGI 与 WSGI Python 应用提供运行工具。Dumpleton 曾于20年前创建 mod_wsgi，并在最近三周连续公开记录 Muru 的设计与实现过程，覆盖 worker、HTTPS、WSGI/ASGI 协同、发布、金丝雀、Kubernetes、扩缩容、追踪和懒加载等主题。Willison特别推荐其关于“AI as a lifestyle choice”的文章：AI 可承担表层工作，但判断何处尚未达到要求，以及持续打磨到值得信任，仍依赖开发者的经验与责任。",
+   "tags": [
+    "AI辅助编程",
+    "开发工具",
+    "人机协作"
+   ],
+   "url": "https://simonwillison.net/2026/Nov/21/muru",
+   "excerpt": "Muru\nGraham Dumpleton started mod_wsgi 20 years ago, and has been thinking about the ideal way to serve Python web applications in production ever since.\nMuru is his new, AI-assisted Rust server that aims to provide the best possible tools for running ASGI and WSGI Python apps both in development and production.\nAs he did with wrapture , he's been publishing an extraordinarily detailed account of the project as he works on it - as part of his development process.\nHere's everything he's published",
+   "apparent": 2,
+   "absolute": 2,
+   "importance": 2,
+   "gravity": false,
+   "periodic": false,
+   "singularity": false,
+   "rationale": "这是对早期AI辅助基础设施项目及其开发过程的报道，体现实践价值，但材料尚未证明其带来可验证的能力突破或行业级影响。",
+   "insufficientContext": false,
+   "addedAt": "2026-11-22"
+  },
   {
    "id": "b8e1839046bc97c6",
    "date": "2026-11-21",
@@ -522,6 +551,34 @@
    "rationale": "公开可读的转引只记录了未经验证的个人主张，科研协作信号有关注价值但尚无可确认的实质结果。",
    "insufficientContext": true,
    "addedAt": "2026-11-21"
+  },
+  {
+   "id": "480c7f59bbc97a69",
+   "date": "2026-11-20",
+   "person": "simon-willison",
+   "topicSource": null,
+   "sourceName": "simonwillison.net",
+   "sourceType": "rss",
+   "contentType": "authored",
+   "titleZh": "修复 llm-gemini 的 Gemini 4 推理档位",
+   "titleOriginal": "llm-gemini 0.38.1",
+   "verdict": "补齐 Hydrogen 与 Neon 的 xhigh 配置，避免插件遗漏可用推理档位。",
+   "summaryZh": "Simon Willison 发布 llm-gemini 0.38.1，修复了其此前为 Gemini 4 模型添加配置时遗漏的推理档位：Gemini 4 Carbon 仅支持 low、medium、high，而 Gemini 4 Hydrogen 和 Gemini 4 Neon 还支持 xhigh。文中称 Hydrogen 在 xhigh 下与 high 相比，会显著增加输出 token 与成本；他更新的 Gemini 4 对比表显示，Hydrogen 在 xhigh 下生成的“骑自行车的鹈鹕”结果可与 Gemini 4 Neon 竞争。",
+   "tags": [
+    "LLM",
+    "开发工具"
+   ],
+   "url": "https://simonwillison.net/2026/Nov/20/llm-gemini",
+   "excerpt": "Release: llm-gemini 0.38.1\nGemini 4 Carbon only supports low , medium and high reasoning levels - but Gemini 4 Hydrogen and Gemini 4 Neon both have an extra xhigh level.\nI missed that when I added those models to the llm-gemini plugin, which is now fixed in this dot release.\nThe xhigh setting for Hydrogen makes a significant difference. I updated my Gemini 4 comparison grid - note how Hydrogen at high used 5,311 output tokens and cost 3.99 cents, but the same model at xhigh used 31,477 output to",
+   "apparent": 2,
+   "absolute": 2,
+   "importance": 2,
+   "gravity": false,
+   "periodic": false,
+   "singularity": false,
+   "rationale": "这是一次公开插件配置修复，能改善模型档位调用的完整性，但未展示新的模型能力或方法。",
+   "insufficientContext": false,
+   "addedAt": "2026-11-22"
   },
   {
    "id": "3ea993db7e3c60d1",
@@ -4550,96 +4607,6 @@
    "singularity": false,
    "rationale": "公开引述的一则工作流观点，提示成本会影响模型路由与上下文优化，但未提供可验证的新方法或结果。",
    "insufficientContext": false,
-   "addedAt": "2026-08-25"
-  },
-  {
-   "id": "2a2e8c7657ff67df",
-   "date": "2026-08-23",
-   "person": null,
-   "topicSource": "arxiv-agents",
-   "sourceName": "arXiv",
-   "sourceType": "arxiv",
-   "contentType": "authored",
-   "titleZh": "BASM：为 Agent 技能记忆设定适用边界",
-   "titleOriginal": "When Not to Imitate: Boundary-Aware Skill Memory for Reliable Tool-Use LLM Agents",
-   "verdict": "它将技能记忆从成功模板改为条件化指导，直指 Agent 错误工具调用的可靠性问题。",
-   "summaryZh": "该 arXiv 预印本讨论 LLM Agent 从成功轨迹提炼技能记忆时的“Skill Imitation Trap”：面对与既往成功相似、但需要不同工具的任务，检索更多技能可能提升模型对错误工具调用的信心；文中称程序技能相较无记忆基线将错误工具差距提高 47%。论文提出 Boundary-Aware Skill Memory（BASM），为每项技能加入适用条件、风险信号、规避规则和恢复说明，使其成为按状态使用的指导。作者报告，在三个 Agent 基准、四种模型规模上，BASM 相比成功轨迹蒸馏的记忆基线，AppWorld 任务成功率最高提升 23.8%，BFCL 准确率最高提升 5.0%，AgentDojo 攻击成功率降低 4.6%；相对无记忆基线，AppWorld 平均步骤最高减少 6.6%。",
-   "tags": [
-    "LLM Agent",
-    "记忆机制",
-    "工具调用",
-    "基准测试",
-    "安全风险"
-   ],
-   "url": "https://arxiv.org/abs/2608.22339v1",
-   "excerpt": "Extracting skills from past successes is critical for the efficient evolution of Large Language Model (LLM) agents. Prevailing agent self-evolution paradigms typically rely on a core assumption: equipping LLMs with skill memories derived from successful trajectories will monotonically improve their problem-solving capabilities. However, probe analyses reveal that extracting skills solely from successful trajectories traps the model in a \\textbf{Skill Imitation Trap}. For tasks that resemble past",
-   "apparent": 2,
-   "absolute": 3,
-   "importance": 3,
-   "gravity": false,
-   "periodic": false,
-   "singularity": false,
-   "rationale": "论文提出可检验的记忆边界机制并报告跨基准增益，但仍是单篇公开预印本，材料未显示其已形成范式级影响。",
-   "insufficientContext": false,
-   "addedAt": "2026-08-25"
-  },
-  {
-   "id": "ad0f99ae3be8c1d4",
-   "date": "2026-08-23",
-   "person": null,
-   "topicSource": "arxiv-agents",
-   "sourceName": "arXiv",
-   "sourceType": "arxiv",
-   "contentType": "authored",
-   "titleZh": "双层 Agent 记忆：快写入路由与慢整合",
-   "titleOriginal": "Dual-Layer Agentic Memory with Fast Write Routing and Slow Consolidation",
-   "verdict": "把 Agent 记忆优化前移至写入与参数整合，给出可量化的效率增量。",
-   "summaryZh": "论文提出 Dual-Layer Agentic Memory，以“选择性外部化—选择性内部化”管理 LLM Agent 在动态环境中的知识生命周期。系统在写入阶段将输入分为不写入、写入新记忆和更新已有记忆，并用由小到大的模型级联进行成本感知的认知路由，以过滤冗余记忆；随后通过监督微调，将高价值外部记忆周期性整合进模型参数。实验称，1.7B/8B 级联最多可剪除 68% 的冗余外部记忆，升级处理的输入少于 50%，同时保留穷尽留存基线下游 QA Exact Match 的 98% 以上。代码和数据集将在论文被接收后发布。",
-   "tags": [
-    "LLM Agent",
-    "记忆机制",
-    "LLM"
-   ],
-   "url": "https://arxiv.org/abs/2608.22215v1",
-   "excerpt": "Large language model (LLM) agents operate in dynamic environments where knowledge continuously evolves. Existing memory systems typically treat external memory as a monotonically growing repository, inevitably leading to retrieval degradation and increasing computational costs over time. We argue that the core challenge is not retrieval alone, but managing the knowledge lifecycle: deciding what to externalize, update, or ultimately internalize. Inspired by Complementary Learning Systems (CLS) th",
-   "apparent": 1,
-   "absolute": 3,
-   "importance": 3,
-   "gravity": false,
-   "periodic": false,
-   "singularity": false,
-   "rationale": "公开首版论文给出了具体机制与量化结果，但材料未显示广泛传播或范式级影响。",
-   "insufficientContext": false,
-   "addedAt": "2026-08-25"
-  },
-  {
-   "id": "686686b80dcf4d54",
-   "date": "2026-08-23",
-   "person": "simon-willison",
-   "topicSource": null,
-   "sourceName": "simonwillison.net",
-   "sourceType": "rss",
-   "contentType": "cited",
-   "titleZh": "Linus Torvalds谈AI辅助调试",
-   "titleOriginal": "Quoting Linus Torvalds",
-   "verdict": "一则工程实践信号：AI能承担排障杂务，但仍依赖人类持续驱动。",
-   "summaryZh": "Simon Willison转引Linus Torvalds对一次调试经历的描述：AI承担了大量重复性排障工作，包括按要求加入调试代码并分析结果；但它曾多次判断问题无法解决，并建议停止排查、撰写报告。Torvalds继续推进后，AI仍配合完成分析，且由AI撰写了相关提交信息。材料未说明所用模型、具体技术流程或结果质量。",
-   "tags": [
-    "AI辅助编程",
-    "LLM",
-    "开发工具",
-    "人机协作"
-   ],
-   "url": "https://simonwillison.net/2026/Aug/22/linus-torvalds",
-   "excerpt": "And this was a debug session from hell, enormously helped by an AI doing much of the grunt-work.\nI'd like to call it my tireless helper, but the AI several times stated flat out that this was impossible and unsolvable and that we should just write a report about it.\nI suspect those things have been trained by people who may not be quite as stubborn as I am.\nBut while the AI was ready to give up several times, it did keep adding debug code and analyzing it faithfully when I pushed. So credit wher",
-   "apparent": 2,
-   "absolute": 2,
-   "importance": 2,
-   "gravity": false,
-   "periodic": false,
-   "singularity": false,
-   "rationale": "公开引述提供了真实开发现场的定性信号，但缺少模型、方法与可复现结果，分量有限。",
-   "insufficientContext": true,
    "addedAt": "2026-08-25"
   }
  ]
